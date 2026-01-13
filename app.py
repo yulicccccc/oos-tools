@@ -605,17 +605,31 @@ if st.button("🚀 GENERATE FINAL REPORT"):
             for page in reader.pages:
                 writer.add_page(page)
             
-            # Simple Key-Value Map
-            pdf_data = {k: v for k, v in st.session_state.items() if k in field_keys}
-            
-            # Add generated texts
-            pdf_data["narrative_summary"] = st.session_state.narrative_summary
+            # --- THE MAGIC MAP (From your successful script!) ---
+            pdf_data = {
+                'Text Field57': st.session_state.oos_id,         # OOS Number
+                'Date Field0':  st.session_state.test_date,      # Test Date
+                'Text Field2':  st.session_state.sample_id,      # Sample ID
+                'Text Field6':  st.session_state.lot_number,     # Lot Number
+                'Text Field3':  st.session_state.analyst_name,   # Analyst Name
+                'Text Field5':  st.session_state.dosage_form,    # Dosage Form
+                'Text Field4':  st.session_state.sample_name,    # Sample Name
+                
+                # Narratives
+                'Text Field49': st.session_state.narrative_summary,  # Page 3 Summary
+                'Text Field50': st.session_state.em_details if st.session_state.em_growth_observed == "Yes" else st.session_state.narrative_summary, # Page 4 Summary
+                
+                # People
+                'Text Field26': st.session_state.prepper_name,   
+                'Text Field27': st.session_state.reader_name,    
+                
+                # Equipment (We can try to map these or leave blank if unsure)
+                'Text Field30': st.session_state.scan_id,        
+                'Text Field32': st.session_state.bsc_id
+            }
+
             if st.session_state.em_growth_observed == "Yes":
-                 pdf_data["narrative_summary"] += f"\n\n{st.session_state.em_details}"
-            
-            pdf_data["equipment_summary"] = st.session_state.equipment_summary
-            pdf_data["sample_history_paragraph"] = st.session_state.sample_history_paragraph
-            pdf_data["cross_contamination_summary"] = st.session_state.cross_contamination_summary
+                 pdf_data['Text Field49'] += f"\n\n{st.session_state.em_details}"
 
             # Fill fields
             writer.update_page_form_field_values(writer.pages[0], pdf_data)
