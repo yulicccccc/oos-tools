@@ -599,13 +599,10 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     pdf_template = f"{st.session_state.active_platform} OOS template.pdf"
     if os.path.exists(pdf_template):
         try:
-            reader = PdfReader(pdf_template)
-            writer = PdfWriter()
-            # Copy pages
-            for page in reader.pages:
-                writer.add_page(page)
+            # --- THE FIX: USE clone_from TO KEEP TEXT BOXES ---
+            writer = PdfWriter(clone_from=pdf_template)
             
-            # --- THE MAGIC MAP (From your successful script!) ---
+            # --- THE MAGIC MAP ---
             pdf_data = {
                 'Text Field57': st.session_state.oos_id,         # OOS Number
                 'Date Field0':  st.session_state.test_date,      # Test Date
@@ -632,7 +629,8 @@ if st.button("🚀 GENERATE FINAL REPORT"):
                  pdf_data['Text Field49'] += f"\n\n{st.session_state.em_details}"
 
             # Fill fields
-            writer.update_page_form_field_values(writer.pages[0], pdf_data)
+            for page in writer.pages:
+                writer.update_page_form_field_values(page, pdf_data)
             
             # Save
             safe_oos = clean_filename(st.session_state.oos_id)
