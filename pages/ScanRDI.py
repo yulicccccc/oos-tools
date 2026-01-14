@@ -57,6 +57,7 @@ def load_saved_state():
             for key, value in saved_data.items():
                 if key in st.session_state: st.session_state[key] = value
         except: pass
+
 def save_current_state():
     try:
         data = {k: v for k, v in st.session_state.items() if k in field_keys}
@@ -64,18 +65,31 @@ def save_current_state():
     except: pass
 
 # --- HELPERS ---
-def clean_filename(text): return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
-def num_to_words(n): return {1:"one",2:"two",3:"three",4:"four",5:"five"}.get(n, str(n))
-def ordinal(n):
-    try: n = int(n)
-    except: return str(n)
-    if 11 <= (n % 100) <= 13: return f"{n}th"
-    return f"{n}{{1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
+def clean_filename(text): 
+    return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
 
-# --- GENERATORS (Text Blocks) ---
+def num_to_words(n): 
+    return {1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine",10:"ten"}.get(n, str(n))
+
+def ordinal(n):
+    # Completely simplified to prevent SyntaxError
+    try:
+        n = int(n)
+        if 11 <= (n % 100) <= 13:
+            suffix = 'th'
+        else:
+            remainder = n % 10
+            if remainder == 1: suffix = 'st'
+            elif remainder == 2: suffix = 'nd'
+            elif remainder == 3: suffix = 'rd'
+            else: suffix = 'th'
+        return f"{n}{suffix}"
+    except:
+        return str(n)
+
+# --- GENERATORS (Strict Old Template Logic) ---
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
-    # This matches the {{ equipment_summary }} variable in the Old Template
     return f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for testing."
 
 def generate_history_text():
@@ -114,6 +128,7 @@ def generate_narrative_and_details():
 # --- INIT STATE ---
 def init_state(key, default=""): 
     if key not in st.session_state: st.session_state[key] = default
+    
 for k in field_keys:
     if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
@@ -251,11 +266,8 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     except: tr_id = "N/A"
 
     # --- PART A: DATA FOR WORD (TEMPLATE 0) ---
-    # The Old Template 0 uses {{ variable }} inside its own text.
-    # We supply the RAW values and the small calculated blocks it expects.
     final_data_docx = {k: v for k, v in st.session_state.items()}
     
-    # Add calculated fields required by Old Template logic
     final_data_docx.update({
         "equipment_summary": generate_equipment_text(),
         "sample_history_paragraph": generate_history_text(),
@@ -263,7 +275,6 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         "test_record": tr_id,
         "organism_morphology": st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org',''),
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
-        # Default empty values for EM table to avoid {{ variable }} showing in Word
         "obs_pers_dur": st.session_state.get("obs_pers") or "No Growth",
         "etx_pers_dur": st.session_state.get("etx_pers") or "N/A",
         "id_pers_dur": st.session_state.get("id_pers") or "N/A",
@@ -284,12 +295,8 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     })
 
     # --- PART B: DATA FOR PDF (SMART LOGIC) ---
-    # The PDF has empty text boxes, so we MUST construct the full text blocks here.
-    
-    # 1. Analyst Signature (PDF needs to show the 'Written by')
     analyst_sig_text_pdf = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
 
-    # 2. Personnel Block
     smart_personnel_block = (
         f"Prepper: {st.session_state.prepper_name} ({st.session_state.prepper_initial}), "
         f"Processor: {st.session_state.analyst_name} ({st.session_state.analyst_initial}), "
@@ -297,7 +304,6 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         f"Reader: {st.session_state.reader_name} ({st.session_state.reader_initial})"
     )
 
-    # 3. Phase I Summary (Massive String Construction)
     p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document."
     p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
     p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
@@ -317,10 +323,10 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     pdf_map = {
         'Text Field57': st.session_state.oos_id, 'Date Field0': st.session_state.test_date,
         'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number,
-        'Text Field3': smart_personnel_block, # Use the constructed block
+        'Text Field3': smart_personnel_block,
         'Text Field5': st.session_state.dosage_form,
         'Text Field4': st.session_state.sample_name, 
-        'Text Field49': smart_phase1_text, # Use the constructed story
+        'Text Field49': smart_phase1_text, 
         'Text Field50': st.session_state.em_details if st.session_state.em_growth_observed == "Yes" else "", 
         'Text Field26': st.session_state.prepper_name,
         'Text Field27': st.session_state.reader_name, 'Text Field30': st.session_state.scan_id,
@@ -333,17 +339,16 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     }
 
     # 4. Generate DOCX (Using Template 0)
-    # Ensure this file exists in your directory!
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
             doc = DocxTemplate(docx_template)
-            doc.render(final_data_docx) # Use the raw data dictionary
+            doc.render(final_data_docx)
             buf = io.BytesIO(); doc.save(buf); buf.seek(0)
             st.download_button("📂 Download DOCX (Old Template)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"DOCX Error: {e}")
     else:
-        st.warning(f"⚠️ Template file '{docx_template}' not found. Please upload it.")
+        st.warning(f"⚠️ Template file '{docx_template}' not found. Please ensure it is in the same folder.")
 
     # 5. Generate PDF (Using Smart Logic)
     if os.path.exists("ScanRDI OOS template.pdf"):
