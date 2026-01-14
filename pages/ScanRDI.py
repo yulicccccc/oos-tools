@@ -83,7 +83,6 @@ def ordinal(n):
 
 # --- GENERATORS ---
 def get_room_logic(bsc_id):
-    # Fallback if utils missing
     try:
         from utils import get_room_logic as utils_get_room
         return utils_get_room(bsc_id)
@@ -265,13 +264,15 @@ if st.button("🚀 GENERATE FINAL REPORT"):
 
     # --- WORD (TEMPLATE 0) ---
     final_data_docx = {k: v for k, v in st.session_state.items()}
+    # Update special fields for Word
     final_data_docx.update({
         "equipment_summary": generate_equipment_text(),
         "sample_history_paragraph": generate_history_text(),
         "cross_contamination_summary": generate_cross_contam_text(),
         "test_record": tr_id,
         "organism_morphology": st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org',''),
-        "control_data": st.session_state.control_exp, # Map exp to data logic for word
+        "control_positive": st.session_state.control_pos, # Correct Key for Word
+        "control_data": st.session_state.control_exp,     # Correct Key for Word
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "obs_pers_dur": st.session_state.get("obs_pers") or "No Growth",
         "etx_pers_dur": st.session_state.get("etx_pers") or "N/A",
@@ -293,21 +294,26 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     })
 
     # --- PDF (SMART VARIABLES) ---
-    # 1. Standard Fields
+    
+    # 1. Initiator Signature
     analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
+    
+    # 2. Personnel Block
     smart_personnel_block = (
         f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
         f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
         f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
         f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})"
     )
+
+    # 3. Smart Comments
     smart_incident_opening = f"On {st.session_state.test_date}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
     smart_comment_interview = f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} were interviewed comprehensively."
     smart_comment_samples = f"Yes, {st.session_state.sample_id}"
     smart_comment_records = f"Yes, See {tr_id} for more information."
     smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
-    
-    # 2. Part 1 (Text Field 49)
+
+    # 4. Phase I Summary (Part 1 - Text Field 49)
     p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document."
     p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
     p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
@@ -317,7 +323,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     
     smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
 
-    # 3. Part 2 (Text Field 50) - Continued
+    # 5. Phase I Summary (Part 2 - Text Field 50)
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = st.session_state.narrative_summary
@@ -328,7 +334,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
 
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
 
-    # PDF MAPPING
+    # PDF MAPPING (Final Logic)
     pdf_map = {
         'Text Field57': st.session_state.oos_id, 
         'Date Field0': st.session_state.test_date, 'Date Field1': st.session_state.test_date, 'Date Field2': st.session_state.test_date, 'Date Field3': st.session_state.test_date,
@@ -348,11 +354,15 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         'Text Field30': f"E00{st.session_state.scan_id}",
         'Text Field32': f"E00{t_room} (CR{t_suite})",
         'Text Field34': f"E00{st.session_state.scan_id}",
-        'Text Field24': st.session_state.control_pos,
+        
+        # CORRECTED CONTROL FIELDS
+        'Text Field24': st.session_state.control_pos, # Positive Control Name
         'Text Field25': st.session_state.control_lot, # Control Lot
         'Text Field26': st.session_state.control_exp, # Control Exp
-        'Text Field49': smart_phase1_part1, # Part 1 of Summary
-        'Text Field50': smart_phase1_part2  # Part 2 of Summary
+        
+        # SUMMARY SPLIT
+        'Text Field49': smart_phase1_part1, 
+        'Text Field50': smart_phase1_part2
     }
 
     # 4. Generate DOCX (Using Template 0)
