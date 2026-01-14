@@ -1,50 +1,57 @@
 import streamlit as st
 
-# Hide the default sidebar navigation so our custom one is the only one visible
-st.set_page_config(page_title="Microbiology Platform", layout="wide")
+st.set_page_config(page_title="Microbiology Investigation Tool", layout="wide")
 
-# --- CUSTOM CSS FOR EAGLETRAX LOOK ---
+# --- CUSTOM CSS FOR EAGLE TRAX SIDEBAR ---
 st.markdown("""
     <style>
-    [data-testid="stSidebarNav"] {display: none;} /* Hides default nav */
-    .big-nav {
-        font-size: 1.5rem !important;
-        font-weight: 700 !important;
-        color: #ffffff !important;
-        margin-top: 20px !important;
-        margin-bottom: 5px !important;
+    /* 1. Make the entire sidebar Dark Blue */
+    [data-testid="stSidebar"] {
+        background-color: #003366 !important;
     }
-    .sub-nav {
-        font-size: 0.9rem !important;
-        color: #66CC33 !important; /* Green from Eagle Trax */
-        padding-left: 15px !important;
-        text-decoration: none !important;
+    
+    /* 2. Hide the default navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+
+    /* 3. Style for the BIG 'Micro' header */
+    .micro-header {
+        color: white !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        margin-bottom: 10px !important;
+        padding-left: 10px;
+    }
+
+    /* 4. Style for the sub-options */
+    div[data-testid="stPageLink"] p {
+        color: white !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+    }
+    
+    /* 5. Add some spacing to the sidebar top */
+    .st-emotion-cache-16umgzp {
+        padding-top: 2rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
-    # Top Branding Header
-    st.markdown(
-        """
-        <div style="background-color: #003366; padding: 15px; border-radius: 5px; margin-bottom: 25px;">
-            <h2 style="color: white; margin: 0;">EAGLETRAX</h2>
-            <p style="color: #66CC33; margin: 0; font-weight: bold;">MICROBIOLOGY</p>
-        </div>
-        """, unsafe_allow_html=True
-    )
+    # Top Logo/Branding
+    st.markdown("<h2 style='color: #66CC33; padding-left:10px;'>EAGLE</h2>", unsafe_allow_html=True)
+    st.markdown("---")
 
-    # BIG HEADER
-    st.markdown('<p class="big-nav">Home</p>', unsafe_allow_html=True)
-    st.page_link("Home.py", label="Dashboard Summary")
+    # BIG CATEGORY: Micro
+    st.markdown('<div class="micro-header">Micro</div>', unsafe_allow_html=True)
     
-    # BIG HEADER
-    st.markdown('<p class="big-nav">Investigations</p>', unsafe_allow_html=True)
-    # Smaller font sub-items
+    # SUB-OPTIONS: Smaller font links
+    st.page_link("Home.py", label="Dashboard")
     st.page_link("pages/ScanRDI.py", label="ScanRDI")
     st.page_link("pages/USP_71.py", label="USP <71>")
     st.page_link("pages/Celsis.py", label="Celsis")
-    
-    # BIG HEADER
-    st.markdown('<p class="big-nav">Environmental</p>', unsafe_allow_html=True)
     st.page_link("pages/Environmental_Monitoring.py", label="EM Portal")
+
+# --- MAIN CONTENT ---
+st.title("Microbiology Sterility Investigation Platform")
