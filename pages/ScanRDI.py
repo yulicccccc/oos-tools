@@ -31,7 +31,6 @@ field_keys = [
     "analyst_initial", "analyst_name",
     "changeover_initial", "changeover_name",
     "reader_initial", "reader_name",
-    "writer_name", # 新增：报告撰写人
     "bsc_id", "chgbsc_id", "scan_id", 
     "shift_number", "active_platform",
     "org_choice", "manual_org", "test_record", "control_pos", "control_lot", 
@@ -73,26 +72,26 @@ def ordinal(n):
     if 11 <= (n % 100) <= 13: return f"{n}th"
     return f"{n}{{1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
 
-# --- GENERATORS (Strictly matching Old Template 0) ---
+# --- GENERATORS (Strict Old Template Logic) ---
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
-    # 对应 Template 0 中的设备描述
     return f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for testing."
 
 def generate_history_text():
     if st.session_state.incidence_count == 0: phrase = "no prior failures"
     else:
         pids = [st.session_state.get(f"prior_oos_{i}","") for i in range(st.session_state.incidence_count) if st.session_state.get(f"prior_oos_{i}")]
-        phrase = f"{st.session_state.incidence_count} incident(s) ({', '.join(pids)})"
-    # 对应 Template 0: "Analyzing a 6-month sample history..."
+        if not pids: refs = "..."
+        elif len(pids)==1: refs = pids[0]
+        else: refs = ", ".join(pids[:-1]) + f", and {pids[-1]}"
+        phrase = f"{st.session_state.incidence_count} incident(s) ({refs})"
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
-        # 对应 Template 0: "All other samples... tested negative."
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
-    # 对应 Template 0 若有其他阳性
-    return f"{st.session_state.total_pos_count_num - 1} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
+    num = st.session_state.total_pos_count_num - 1
+    return f"{num} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
 
 def generate_narrative_and_details():
     failures = []
@@ -104,7 +103,6 @@ def generate_narrative_and_details():
         if obs.strip(): failures.append({"cat": cat, "obs": obs, "etx": etx, "id": mid})
     
     if not failures:
-        # 严格对应 Template 0: "Upon analyzing..."
         narr = "Upon analyzing the environmental monitoring results, no microbial growth was observed in personal sampling (left touch and right touch), surface sampling, and settling plates. Additionally, weekly active air sampling and weekly surface sampling showed no microbial growth."
         det = ""
     else:
@@ -160,9 +158,6 @@ with c3:
     st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel")
-# === 重点：Writer 必须单独输入 ===
-st.text_input("Report Writer Name (for 'Written by')", key="writer_name", placeholder="e.g. Qiyue Chen")
-
 p1, p2 = st.columns(2)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
@@ -242,23 +237,22 @@ st.divider()
 if st.button("🚀 GENERATE FINAL REPORT"):
     # 1. Validation
     missing = []
-    # 必须检查 Writer Name
-    reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id", "Writer Name":"writer_name"}
+    reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id"}
     for l,k in reqs.items():
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. DEFINE SMART VARIABLES (严格还原 Template 0)
+    # 2. DEFINE SMART VARIABLES (Hardcoded 'Qiyue Chen')
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
     
     try: d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y").strftime("%m%d%y"); tr_id = f"{d_obj}-{st.session_state.scan_id}-{st.session_state.shift_number}"
     except: tr_id = "N/A"
 
-    # [严格还原] Header
-    analyst_sig_text = f"{st.session_state.analyst_name} (Written by: {st.session_state.writer_name})"
+    # [FIXED] Analyst + (Written by: Qiyue Chen)
+    analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
 
-    # [严格还原] Personnel Block (Template 0 格式)
+    # [FIXED] Personnel Block
     smart_personnel_block = (
         f"Prepper: {st.session_state.prepper_name} ({st.session_state.prepper_initial}), "
         f"Processor: {st.session_state.analyst_name} ({st.session_state.analyst_initial}), "
@@ -266,51 +260,29 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         f"Reader: {st.session_state.reader_name} ({st.session_state.reader_initial})"
     )
 
-    # [严格还原] Incident Opening (Template 0 格式)
-    smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
-
-    # [严格还原] Interview Comment (Template 0 格式)
-    smart_comment_interview = f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} were interviewed comprehensively."
-
-    # [严格还原] Phase I Summary - 逐字逐句拼接
-    # 这是最长的一段，必须完全匹配旧模板的逻辑
-    
+    # [FIXED] Phase I Summary - 1:1 Match to Template 0
     p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document."
-    
     p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
-    
     p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
-    
     p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
-    
-    p5 = generate_equipment_text() # e.g. "The ISO 5 BSC E00... was used for testing."
-    
+    p5 = generate_equipment_text()
     p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
-    
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
-    
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
-    
     p9 = st.session_state.narrative_summary
-    
     p10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
-    
     p11 = generate_history_text()
-    
     p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {generate_cross_contam_text()}"
-    
     p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
 
-    # 使用 \n\n 强制分段
     smart_phase1_text = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13])
 
-    # 3. Data Dictionary
     smart_data = {
         "analyst_signature": analyst_sig_text,
         "report_header": st.session_state.sample_id,
         "smart_personnel_block": smart_personnel_block,
-        "smart_incident_opening": smart_incident_opening,
-        "smart_comment_interview": smart_comment_interview,
+        "smart_incident_opening": f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing.",
+        "smart_comment_interview": f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} were interviewed comprehensively.",
         "smart_comment_samples": f"Yes, {st.session_state.sample_id}",
         "smart_comment_records": f"Yes, See {tr_id} for more information.",
         "smart_comment_storage": f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}",
