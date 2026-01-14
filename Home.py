@@ -1,13 +1,30 @@
 import streamlit as st
 from utils import apply_eagle_style
 
-# 1. 必须是第一行
+# 1. Page Configuration
 st.set_page_config(page_title="Microbiology Platform", layout="wide")
 
-# 2. 调用 utils 里的统一函数 (这就是“变身”的关键)
-# 这行代码会强制把侧边栏变成深蓝色，把 Micro 变成超大号，把子选项变成绿色高亮
+# 2. Apply the Standard Eagle Sidebar (Blue Background, Huge Micro, Green Hover)
 apply_eagle_style()
 
-# 3. 页面内容 (作为 Landing Page，保持简单)
+# 3. Professional Main Content
 st.title("Microbiology Investigation Platform")
-st.info("⬅️ Please verify the sidebar style is correct, then select a test from the **MICRO** menu.")
+st.markdown("---")
+
+st.markdown("""
+### Welcome to the Quality Control Portal
+
+This platform is designed to streamline OOS investigations and data trending for the Microbiology department.
+All investigation modules are synchronized with the **Eagle Trax** standards.
+
+**Available Modules:**
+* **ScanRDI**: Rapid Sterility Testing Investigation
+* **USP <71>**: Traditional Sterility Testing
+* **Celsis**: Rapid Microbial Detection
+* **EM**: Environmental Monitoring Data Entry
+
+*Please select a module from the sidebar to begin.*
+""")
+
+# Optional: Add a clean info box at the bottom
+st.info("System Status: Online | Version: 1.0.2")
