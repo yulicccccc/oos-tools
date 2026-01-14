@@ -18,14 +18,12 @@ st.markdown("""
     .stButton>button { width: 100%; border-radius: 5px; height: 3em; background-color: #f0f2f6; }
     .main { background-color: #ffffff; }
     .stTextArea textarea { background-color: #ffffff; color: #31333F; border: 1px solid #d6d6d6; }
-    /* Make error messages pop */
     div[data-testid="stNotification"] { border: 2px solid #ff4b4b; background-color: #ffe8e8; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- FILE PERSISTENCE (MEMORY) ---
+# --- FILE PERSISTENCE ---
 STATE_FILE = "investigation_state.json"
-
 field_keys = [
     "oos_id", "client_name", "sample_id", "test_date", "sample_name", "lot_number", 
     "dosage_form", "monthly_cleaning_date", 
@@ -49,13 +47,7 @@ field_keys = [
     "em_growth_count" 
 ]
 for i in range(20):
-    field_keys.append(f"other_id_{i}")
-    field_keys.append(f"other_order_{i}")
-    field_keys.append(f"prior_oos_{i}")
-    field_keys.append(f"em_cat_{i}")
-    field_keys.append(f"em_obs_{i}")
-    field_keys.append(f"em_etx_{i}")
-    field_keys.append(f"em_id_{i}")
+    field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 
 def load_saved_state():
     if os.path.exists(STATE_FILE):
@@ -63,248 +55,162 @@ def load_saved_state():
             with open(STATE_FILE, "r") as f:
                 saved_data = json.load(f)
             for key, value in saved_data.items():
-                if key in st.session_state:
-                    st.session_state[key] = value
-        except Exception as e:
-            st.error(f"Could not load saved state: {e}")
-
+                if key in st.session_state: st.session_state[key] = value
+        except: pass
 def save_current_state():
-    data_to_save = {k: v for k, v in st.session_state.items() if k in field_keys}
     try:
-        with open(STATE_FILE, "w") as f:
-            json.dump(data_to_save, f)
-    except Exception as e:
-        st.error(f"Could not save state: {e}")
+        data = {k: v for k, v in st.session_state.items() if k in field_keys}
+        with open(STATE_FILE, "w") as f: json.dump(data, f)
+    except: pass
 
-# --- HELPER FUNCTIONS ---
-def clean_filename(text):
-    if not text: return ""
-    clean = re.sub(r'[\\/*?:"<>|]', '_', str(text))
-    return clean.strip()
-
-def num_to_words(n):
-    mapping = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
-    return mapping.get(n, str(n))
-
+# --- HELPERS ---
+def clean_filename(text): return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
 def ordinal(n):
     try: n = int(n)
     except: return str(n)
-    if 11 <= (n % 100) <= 13: suffix = 'th'
-    else: suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
-    return f"{n}{suffix}"
+    if 11 <= (n % 100) <= 13: return f"{n}th"
+    return f"{n}{{1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
+def num_to_words(n): return {1:"one",2:"two",3:"three",4:"four",5:"five"}.get(n, str(n))
 
-# --- GENERATE LIVE TEXTS ---
+# --- GENERATORS ---
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
-    
-    if st.session_state.bsc_id == st.session_state.chgbsc_id:
-        part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-        part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{st.session_state.bsc_id} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{st.session_state.bsc_id} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
-        return f"{part1}\n\n{part2}"
-    else:
-        part1 = f"The cleanroom used for testing (E00{t_room}) consists of three interconnected sections..."
-        part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id} and ISO 5 BSC E00{st.session_state.chgbsc_id} were thoroughly cleaned..."
-        return f"{part1}\n\n{part2}"
+    return f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for testing."
 
 def generate_history_text():
-    if st.session_state.incidence_count == 0: 
-        hist_phrase = "no prior failures"
+    if st.session_state.incidence_count == 0: phrase = "no prior failures"
     else:
-        prior_ids = []
-        for i in range(st.session_state.incidence_count):
-            pid = st.session_state.get(f"prior_oos_{i}", "").strip()
-            if pid: prior_ids.append(pid)
-        if not prior_ids: refs_str = "..."
-        elif len(prior_ids) == 1: refs_str = prior_ids[0]
-        else: refs_str = ", ".join(prior_ids[:-1]) + f", and {prior_ids[-1]}"
-        hist_phrase = f"{st.session_state.incidence_count} incident(s) ({refs_str})"
-    return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {hist_phrase} using the Scan RDI method during this period."
+        pids = [st.session_state.get(f"prior_oos_{i}","") for i in range(st.session_state.incidence_count) if st.session_state.get(f"prior_oos_{i}")]
+        phrase = f"{st.session_state.incidence_count} incident(s) ({', '.join(pids)})"
+    return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
-    if st.session_state.other_positives == "No":
+    if st.session_state.other_positives == "No": 
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
-    else:
-        num_others = st.session_state.total_pos_count_num - 1
-        return f"{num_others} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
+    return f"{st.session_state.total_pos_count_num - 1} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
 
 def generate_narrative_and_details():
     failures = []
     count = st.session_state.get("em_growth_count", 1)
-    cat_map = { "Personnel Obs": "personnel sampling", "Surface Obs": "surface sampling", "Settling Obs": "settling plates", "Weekly Air Obs": "weekly active air sampling", "Weekly Surf Obs": "weekly surface sampling" }
-    
+    cat_map = {"Personnel Obs": "personnel sampling", "Surface Obs": "surface sampling", "Settling Obs": "settling plates", "Weekly Air Obs": "weekly active air sampling", "Weekly Surf Obs": "weekly surface sampling"}
     for i in range(count):
-        cat_friendly = st.session_state.get(f"em_cat_{i}", "Personnel Obs")
-        obs_val = st.session_state.get(f"em_obs_{i}", "")
-        etx_val = st.session_state.get(f"em_etx_{i}", "")
-        id_val = st.session_state.get(f"em_id_{i}", "")
-        category = cat_map.get(cat_friendly, "personnel sampling")
-        if "weekly" in category: time_ctx = "weekly"
-        else: time_ctx = "daily"
-        if obs_val.strip():
-            failures.append({"cat": category, "obs": obs_val, "etx": etx_val, "id": id_val, "time": time_ctx})
-
+        cat = cat_map.get(st.session_state.get(f"em_cat_{i}"), "personnel sampling")
+        obs = st.session_state.get(f"em_obs_{i}",""); etx = st.session_state.get(f"em_etx_{i}",""); mid = st.session_state.get(f"em_id_{i}","")
+        if obs.strip(): failures.append({"cat": cat, "obs": obs, "etx": etx, "id": mid})
+    
     if not failures:
         narr = "Upon analyzing the environmental monitoring results, no microbial growth was observed in personal sampling (left touch and right touch), surface sampling, and settling plates. Additionally, weekly active air sampling and weekly surface sampling showed no microbial growth."
         det = ""
     else:
         narr = "Upon analyzing the environmental monitoring results, microbial growth was observed."
         det = "Microbial growth was observed. " + " ".join([f"{f['obs']} was detected during {f['cat']} (ID: {f['id']})." for f in failures])
-
     return narr, det, failures
 
 # --- INIT STATE ---
-def init_state(key, default_value=""):
-    if key not in st.session_state: st.session_state[key] = default_value
-
+def init_state(key, default=""): 
+    if key not in st.session_state: st.session_state[key] = default
 for k in field_keys:
-    if k == "incidence_count": init_state(k, 0)
-    elif k == "shift_number": init_state(k, "1")
+    if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
-    elif k == "active_platform": init_state(k, "ScanRDI")
-    elif k == "other_positives": init_state(k, "No")
-    elif k == "total_pos_count_num": init_state(k, 2)
-    elif k == "current_pos_order": init_state(k, 1) 
-    elif k == "diff_changeover_bsc": init_state(k, "No")
-    elif k == "has_prior_failures": init_state(k, "No")
-    elif k == "em_growth_observed": init_state(k, "No")
-    elif k == "diff_changeover_analyst": init_state(k, "No")
-    elif k == "diff_reader_analyst": init_state(k, "No") 
-    elif k == "em_growth_count": init_state(k, 1) 
-    elif k.startswith("other_order_"): init_state(k, 1)
-    else: init_state(k, "")
+    else: init_state(k, "No" if "diff" in k or "has" in k or "growth" in k or "other" in k else "")
 
 if "data_loaded" not in st.session_state:
-    load_saved_state()
-    st.session_state.data_loaded = True
+    load_saved_state(); st.session_state.data_loaded = True
 
-# --- EMAIL PARSER ---
+# --- PARSER ---
 def parse_email_text(text):
-    oos_match = re.search(r"OOS-(\d+)", text)
-    if oos_match: st.session_state.oos_id = oos_match.group(1)
-    client_match = re.search(r"([A-Za-z\s]+\(E\d+\))", text)
-    if client_match: st.session_state.client_name = client_match.group(1).strip()
-    etx_id_match = re.search(r"(ETX-\d{6}-\d{4})", text)
-    if etx_id_match: st.session_state.sample_id = etx_id_match.group(1).strip()
-    sample_match = re.search(r"Sample\s*Name:\s*(.*)", text, re.IGNORECASE)
-    if sample_match: st.session_state.sample_name = sample_match.group(1).strip()
-    lot_match = re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.IGNORECASE)
-    if lot_match: st.session_state.lot_number = lot_match.group(1).strip()
-    
-    date_match = re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.IGNORECASE)
-    if date_match:
-        try: d_obj = datetime.strptime(date_match.group(1).strip(), "%d %b %Y"); st.session_state.test_date = d_obj.strftime("%d%b%y")
+    if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
+    if m := re.search(r"([A-Za-z\s]+\(E\d+\))", text): st.session_state.client_name = m.group(1).strip()
+    if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
+    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
+    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
+    if m := re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.I):
+        try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
-    analyst_match = re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text)
-    if analyst_match: 
-        st.session_state.analyst_initial = analyst_match.group(1).strip()
+    if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
+        st.session_state.analyst_initial = m.group(1).strip()
         st.session_state.analyst_name = get_full_name(st.session_state.analyst_initial)
     save_current_state()
 
 st.title("🦠 ScanRDI Investigation")
 
-# --- SMART PARSER ---
+# --- UI ---
 st.header("📧 Smart Email Import")
-email_input = st.text_area("Paste the OOS Notification email here to auto-fill fields:", height=150)
-if st.button("🪄 Parse Email & Auto-Fill"):
-    if email_input: parse_email_text(email_input); st.success("Fields updated!"); st.rerun()
+email_input = st.text_area("Paste OOS Notification email:", height=150)
+if st.button("🪄 Parse Email"): parse_email_text(email_input); st.success("Updated!"); st.rerun()
 
-# --- FORM INPUTS ---
 st.header("1. General Test Details")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.text_input("OOS Number (Numbers only)", key="oos_id", help="Required")
+c1, c2, c3 = st.columns(3)
+with c1: 
+    st.text_input("OOS Number", key="oos_id", help="Required")
     st.text_input("Client Name", key="client_name", help="Required")
-    st.text_input("Sample ID (ETX Format)", key="sample_id", help="Required")
-with col2:
-    st.text_input("Test Date (e.g., 07Jan26)", key="test_date", help="Required")
-    st.text_input("Sample / Active Name", key="sample_name", help="Required")
+    st.text_input("Sample ID (ETX)", key="sample_id", help="Required")
+with c2: 
+    st.text_input("Test Date (07Jan26)", key="test_date", help="Required")
+    st.text_input("Sample Name", key="sample_name", help="Required")
     st.text_input("Lot Number", key="lot_number", help="Required")
-with col3:
-    dosage_options = ["Injectable", "Aqueous Solution", "Liquid", "Solution"]
-    st.selectbox("Dosage Form", dosage_options, key="dosage_form", index=0 if st.session_state.dosage_form not in dosage_options else dosage_options.index(st.session_state.dosage_form))
+with c3: 
+    st.selectbox("Dosage Form", ["Injectable","Aqueous Solution","Liquid","Solution"], key="dosage_form")
     st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel")
 p1, p2 = st.columns(2)
-with p1:
+with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
-    if st.session_state.prepper_initial and not st.session_state.prepper_name:
-        st.session_state.prepper_name = get_full_name(st.session_state.prepper_initial)
-    st.text_input("Prepper Full Name", key="prepper_name", help="Required")
-with p2:
+    if not st.session_state.prepper_name and st.session_state.prepper_initial: st.session_state.prepper_name = get_full_name(st.session_state.prepper_initial)
+    st.text_input("Prepper Name", key="prepper_name", help="Required")
+with p2: 
     st.text_input("Processor Initials", key="analyst_initial")
-    if st.session_state.analyst_initial and not st.session_state.analyst_name:
-        st.session_state.analyst_name = get_full_name(st.session_state.analyst_initial)
-    st.text_input("Processor Full Name", key="analyst_name", help="Required")
+    if not st.session_state.analyst_name and st.session_state.analyst_initial: st.session_state.analyst_name = get_full_name(st.session_state.analyst_initial)
+    st.text_input("Processor Name", key="analyst_name", help="Required")
 
-st.session_state.diff_reader_analyst = st.radio("Was the Reading performed by a different analyst?", ["No", "Yes"], index=0 if st.session_state.diff_reader_analyst == "No" else 1, horizontal=True)
+st.radio("Different Reader?", ["No","Yes"], key="diff_reader_analyst", horizontal=True)
 if st.session_state.diff_reader_analyst == "Yes":
     c1, c2 = st.columns(2)
     with c1: st.text_input("Reader Initials", key="reader_initial")
-    with c2: 
-        if st.session_state.reader_initial and not st.session_state.reader_name:
-            st.session_state.reader_name = get_full_name(st.session_state.reader_initial)
-        st.text_input("Reader Full Name", key="reader_name")
-else:
-    st.session_state.reader_initial = st.session_state.analyst_initial
-    st.session_state.reader_name = st.session_state.analyst_name
+    with c2: st.text_input("Reader Name", key="reader_name")
+else: st.session_state.reader_name = st.session_state.analyst_name; st.session_state.reader_initial = st.session_state.analyst_initial
 
-st.session_state.diff_changeover_analyst = st.radio("Was the Changeover performed by a different analyst?", ["No", "Yes"], index=0 if st.session_state.diff_changeover_analyst == "No" else 1, horizontal=True)
+st.radio("Different Changeover Analyst?", ["No","Yes"], key="diff_changeover_analyst", horizontal=True)
 if st.session_state.diff_changeover_analyst == "Yes":
     c1, c2 = st.columns(2)
     with c1: st.text_input("Changeover Initials", key="changeover_initial")
-    with c2: 
-        if st.session_state.changeover_initial and not st.session_state.changeover_name:
-            st.session_state.changeover_name = get_full_name(st.session_state.changeover_initial)
-        st.text_input("Changeover Full Name", key="changeover_name")
-else:
-    st.session_state.changeover_initial = st.session_state.analyst_initial
-    st.session_state.changeover_name = st.session_state.analyst_name
+    with c2: st.text_input("Changeover Name", key="changeover_name")
+else: st.session_state.changeover_name = st.session_state.analyst_name; st.session_state.changeover_initial = st.session_state.analyst_initial
 
 st.divider()
 e1, e2 = st.columns(2)
-bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
-with e1:
-    st.selectbox("Select Processing BSC ID", bsc_list, key="bsc_id", index=0 if st.session_state.bsc_id not in bsc_list else bsc_list.index(st.session_state.bsc_id))
-with e2:
-    st.radio("Was the Changeover performed in a different BSC?", ["No", "Yes"], key="diff_changeover_bsc", horizontal=True)
-    if st.session_state.diff_changeover_bsc == "Yes":
-        st.selectbox("Select Changeover BSC ID", bsc_list, key="chgbsc_id", index=0 if st.session_state.chgbsc_id not in bsc_list else bsc_list.index(st.session_state.chgbsc_id))
-    else:
-        st.session_state.chgbsc_id = st.session_state.bsc_id
+bsc_list = ["1310","1309","1311","1312","1314","1313","1316","1798","Other"]
+with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
+with e2: 
+    st.radio("Different Changeover BSC?", ["No","Yes"], key="diff_changeover_bsc", horizontal=True)
+    if st.session_state.diff_changeover_bsc == "Yes": st.selectbox("Changeover BSC ID", bsc_list, key="chgbsc_id")
+    else: st.session_state.chgbsc_id = st.session_state.bsc_id
 
-st.header("3. Findings & EM Data")
+st.header("3. Findings")
 f1, f2 = st.columns(2)
 with f1:
-    scan_ids = ["1230", "2017", "1040", "1877", "2225", "2132"]
-    st.selectbox("ScanRDI ID", scan_ids, key="scan_id", index=0 if st.session_state.scan_id not in scan_ids else scan_ids.index(st.session_state.scan_id))
+    st.selectbox("ScanRDI ID", ["1230","2017","1040","1877","2225","2132"], key="scan_id")
     st.text_input("Shift Number", key="shift_number", help="Required")
-    shape_opts = ["rod", "cocci", "Other"]
-    st.selectbox("Org Shape", shape_opts, key="org_choice", index=0 if st.session_state.org_choice not in shape_opts else shape_opts.index(st.session_state.org_choice))
-    if st.session_state.org_choice == "Other": st.text_input("Enter Manual Org Shape", key="manual_org")
-    try: d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y").strftime("%m%d%y"); st.session_state.test_record = f"{d_obj}-{st.session_state.scan_id}-{st.session_state.shift_number}"
-    except: pass
-    st.text_input("Record Ref", st.session_state.test_record, disabled=True)
+    st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
+    if st.session_state.org_choice == "Other": st.text_input("Manual Shape", key="manual_org")
 with f2:
-    ctrl_opts = ["A. brasiliensis", "B. subtilis", "C. albicans", "C. sporogenes", "P. aeruginosa", "S. aureus"]
-    st.selectbox("Positive Control", ctrl_opts, key="control_pos", index=0 if st.session_state.control_pos not in ctrl_opts else ctrl_opts.index(st.session_state.control_pos))
+    st.selectbox("Positive Control", ["A. brasiliensis","B. subtilis","C. albicans","C. sporogenes","P. aeruginosa","S. aureus"], key="control_pos")
     st.text_input("Control Lot", key="control_lot", help="Required")
-    st.text_input("Control Exp Date", key="control_exp", help="Required")
+    st.text_input("Control Exp", key="control_exp", help="Required")
 
 st.header("4. EM Observations")
-st.radio("Was microbial growth observed in Environmental Monitoring?", ["No", "Yes"], key="em_growth_observed", horizontal=True)
-
+st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
 if st.session_state.em_growth_observed == "Yes":
-    count = st.number_input("Number of EM Failures", min_value=1, step=1, key="em_growth_count")
-    cat_options = ["Personnel Obs", "Surface Obs", "Settling Obs", "Weekly Air Obs", "Weekly Surf Obs"]
+    count = st.number_input("Failures Count", 1, 20, key="em_growth_count")
     for i in range(count):
         st.subheader(f"Growth #{i+1}")
-        c1, c2, c3, c4 = st.columns(4)
-        with c1: st.selectbox(f"Category", cat_options, key=f"em_cat_{i}")
-        with c2: st.text_input(f"Observation", key=f"em_obs_{i}")
-        with c3: st.text_input(f"ETX #", key=f"em_etx_{i}")
-        with c4: st.text_input(f"Microbial ID", key=f"em_id_{i}")
+        c1,c2,c3,c4 = st.columns(4)
+        with c1: st.selectbox(f"Cat {i+1}", ["Personnel Obs","Surface Obs","Settling Obs","Weekly Air Obs","Weekly Surf Obs"], key=f"em_cat_{i}")
+        with c2: st.text_input(f"Obs {i+1}", key=f"em_obs_{i}")
+        with c3: st.text_input(f"ETX {i+1}", key=f"em_etx_{i}")
+        with c4: st.text_input(f"ID {i+1}", key=f"em_id_{i}")
 
 st.divider()
 st.caption("Weekly Bracketing")
@@ -312,186 +218,135 @@ m1, m2 = st.columns(2)
 with m1: st.text_input("Weekly Monitor Initials", key="weekly_init", help="Required")
 with m2: st.text_input("Date of Weekly Monitoring", key="date_weekly", help="Required")
 
-if st.session_state.em_growth_observed == "Yes":
-    if st.button("🔄 Generate Narrative & Details"):
-        n, d, failures = generate_narrative_and_details()
-        st.session_state.narrative_summary = n
-        st.session_state.em_details = d
-        st.rerun()
-    st.text_area("Narrative Content", key="narrative_summary", height=120)
-    st.text_area("Details Content", key="em_details", height=200)
-else:
-    st.session_state.narrative_summary = "Upon analyzing the environmental monitoring results, no microbial growth was observed in personal sampling (left touch and right touch), surface sampling, and settling plates. Additionally, weekly active air sampling and weekly surface sampling showed no microbial growth."
-    st.session_state.em_details = ""
+if st.button("🔄 Update Summaries"):
+    n, d, fails = generate_narrative_and_details()
+    st.session_state.narrative_summary = n
+    st.session_state.em_details = d
+    st.rerun()
 
-st.header("5. Automated Summaries & Analysis")
-st.subheader("Sample History")
-st.radio("Were there any prior failures in the last 6 months?", ["No", "Yes"], key="has_prior_failures", horizontal=True)
-if st.session_state.has_prior_failures == "Yes":
-    count = st.number_input("Number of Prior Failures", min_value=1, step=1, key="incidence_count")
-    for i in range(count):
-        if f"prior_oos_{i}" not in st.session_state: st.session_state[f"prior_oos_{i}"] = ""
-        st.text_input(f"Prior Failure #{i+1} OOS ID", key=f"prior_oos_{i}")
-    if st.button("🔄 Generate History Text"):
-        st.session_state.sample_history_paragraph = generate_history_text()
-        st.rerun()
-    st.text_area("History Text", key="sample_history_paragraph", height=120)
-else:
-    st.session_state.sample_history_paragraph = f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had no prior failures using the Scan RDI method during this period."
-
-st.divider()
-st.subheader("Cross-Contamination Analysis")
-st.radio("Did other samples test positive on the same day?", ["No", "Yes"], key="other_positives", horizontal=True)
-if st.session_state.other_positives == "Yes":
-    st.number_input("Total # of Positive Samples that day", min_value=2, step=1, key="total_pos_count_num")
-    st.number_input(f"Order of THIS Sample", min_value=1, step=1, key="current_pos_order")
-    num_others = st.session_state.total_pos_count_num - 1
-    for i in range(num_others):
-        sub_c1, sub_c2 = st.columns(2)
-        with sub_c1: st.text_input(f"Other Sample #{i+1} ID", key=f"other_id_{i}")
-        with sub_c2: st.number_input(f"Order", min_value=1, step=1, key=f"other_order_{i}")
-    if st.button("🔄 Generate Cross-Contam Text"):
-        st.session_state.cross_contamination_summary = generate_cross_contam_text()
-        st.rerun()
-    st.text_area("Cross-Contam Text", key="cross_contamination_summary", height=250)
-else:
-    st.session_state.cross_contamination_summary = "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
+st.text_area("Narrative", key="narrative_summary", height=100)
+if st.session_state.em_growth_observed == "Yes": st.text_area("Details", key="em_details", height=150)
 
 save_current_state()
 
-# --- FINAL GENERATION ---
 st.divider()
 
-# --- DEBUG EXPANDER (Check your keys here!) ---
-with st.expander("🔍 Debug Data (Click here if template isn't filling)"):
-    st.info("These are the keys being sent to your template. If 'smart_personnel_block' is missing here, it's a code issue. If it IS here, it's a Word template issue.")
-    debug_data = {k: v for k, v in st.session_state.items()}
-    # Simulate the smart generation to show user
-    debug_data["smart_personnel_block"] = st.session_state.analyst_name
-    debug_data["analyst_signature"] = st.session_state.analyst_name
-    st.json(debug_data)
+# --- DEBUG EXPANDER ---
+with st.expander("🔍 Debug Variables"):
+    st.write(st.session_state)
 
 if st.button("🚀 GENERATE FINAL REPORT"):
-    # ----------------------------------------------------
-    # 1. ROBUST VALIDATION (Stops execution if failed)
-    # ----------------------------------------------------
-    req_map = {
-        "OOS Number": "oos_id", "Client Name": "client_name", "Sample ID": "sample_id",
-        "Test Date": "test_date", "Sample Name": "sample_name", "Lot Number": "lot_number",
-        "Monthly Cleaning": "monthly_cleaning_date", "Prepper Name": "prepper_name",
-        "Analyst Name": "analyst_name", "BSC ID": "bsc_id", "ScanRDI ID": "scan_id",
-        "Shift Number": "shift_number", "Control Lot": "control_lot", "Control Exp": "control_exp",
-        "Weekly Initials": "weekly_init", "Weekly Date": "date_weekly"
-    }
+    # 1. Validation
     missing = []
-    for lbl, k in req_map.items():
-        if not str(st.session_state.get(k, "")).strip() or st.session_state.get(k) == "N/A":
-            missing.append(lbl)
+    reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id", "Shift":"shift_number", "Control Lot":"control_lot"}
+    for l,k in reqs.items():
+        if not st.session_state.get(k,"").strip(): missing.append(l)
+    if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    if missing:
-        st.error(f"🛑 STOP! You are missing required fields: {', '.join(missing)}")
-        st.stop() # This halts the script here.
-    
-    st.success("✅ Validation Passed! Generating documents...")
-
-    # ----------------------------------------------------
-    # 2. GENERATE SMART VARIABLES (For Word & PDF)
-    # ----------------------------------------------------
-    
-    # Calculate derived values
+    # 2. DEFINE SMART VARIABLES (MATCHING OLD TEMPLATE TEXT)
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
     
-    st.session_state.equipment_summary = generate_equipment_text()
-    
-    # Create the "Smart" text blocks expected by the Word Template
-    smart_personnel_block = f"{st.session_state.analyst_name}"
-    smart_incident_opening = f"An OOS result was obtained for {st.session_state.sample_name} (Lot: {st.session_state.lot_number}) on {st.session_state.test_date}."
-    smart_comment_interview = f"Yes, {st.session_state.analyst_name} was interviewed regarding the testing event. No anomalies were noted."
-    smart_comment_samples = "Yes, the sample identification and lot number were verified against the test request."
-    smart_comment_records = "Yes, all raw data and calculations have been verified."
-    smart_comment_storage = "Yes, the sample was stored at ambient temperature prior to testing."
-    smart_phase1_summary = st.session_state.narrative_summary
-    smart_phase1_continued = st.session_state.em_details if st.session_state.em_growth_observed == "Yes" else ""
-    
-    # Combine everything into one dictionary for the Template Render
-    final_data = {k: v for k, v in st.session_state.items()}
-    final_data.update({
-        "analyst_signature": st.session_state.analyst_name,
+    # Reconstruct Test Record ID
+    try: d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y").strftime("%m%d%y"); tr_id = f"{d_obj}-{st.session_state.scan_id}-{st.session_state.shift_number}"
+    except: tr_id = "N/A"
+
+    # Construct the Personnel Block String (Old format)
+    smart_personnel_block = (
+        f"Prepper: {st.session_state.prepper_name} ({st.session_state.prepper_initial}), "
+        f"Processor: {st.session_state.analyst_name} ({st.session_state.analyst_initial}), "
+        f"Changeover Processor: {st.session_state.changeover_name} ({st.session_state.changeover_initial}), "
+        f"Reader: {st.session_state.reader_name} ({st.session_state.reader_initial})"
+    )
+
+    # Construct the massive Phase I Summary Paragraph
+    # This combines all the text pieces from the Old Template into one block for the New Template
+    smart_phase1_text = (
+        f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document.\n\n"
+        f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
+        f"All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates.\n\n"
+        f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method.\n\n"
+        f"{generate_equipment_text()}\n\n"
+        f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results.\n\n"
+        f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms.\n\n"
+        f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility).\n\n"
+        f"{st.session_state.narrative_summary}\n\n"
+        f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed.\n\n"
+        f"{generate_history_text()}\n\n"
+        f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {generate_cross_contam_text()}\n\n"
+        "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    )
+
+    smart_data = {
+        "analyst_signature": f"{st.session_state.analyst_name} (Written by: {st.session_state.analyst_name})",
         "report_header": st.session_state.sample_id,
         "smart_personnel_block": smart_personnel_block,
-        "smart_incident_opening": smart_incident_opening,
-        "smart_comment_interview": smart_comment_interview,
-        "smart_comment_samples": smart_comment_samples,
-        "smart_comment_records": smart_comment_records,
-        "smart_comment_storage": smart_comment_storage,
-        "smart_phase1_summary": smart_phase1_summary,
-        "smart_phase1_continued": smart_phase1_continued,
-        # Room logic fields
-        "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc
+        "smart_incident_opening": f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing.",
+        "smart_comment_interview": f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} were interviewed comprehensively.",
+        "smart_comment_samples": f"Yes, {st.session_state.sample_id}",
+        "smart_comment_records": f"Yes, See {tr_id} for more information.",
+        "smart_comment_storage": f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}",
+        "smart_phase1_summary": smart_phase1_text,
+        "smart_phase1_continued": st.session_state.em_details if st.session_state.em_growth_observed == "Yes" else ""
+    }
+
+    # 3. Data Dictionary for Word
+    final_data = {k: v for k, v in st.session_state.items()}
+    final_data.update(smart_data) # Add the smart variables
+    
+    # Add explicit room logic vars needed for Word table
+    final_data.update({
+        "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+        "obs_pers_dur": st.session_state.get("obs_pers") or "No Growth",
+        "etx_pers_dur": st.session_state.get("etx_pers") or "N/A",
+        "id_pers_dur": st.session_state.get("id_pers") or "N/A",
+        "obs_surf_dur": st.session_state.get("obs_surf") or "No Growth",
+        "etx_surf_dur": st.session_state.get("etx_surf") or "N/A",
+        "id_surf_dur": st.session_state.get("id_surf") or "N/A",
+        "obs_sett_dur": st.session_state.get("obs_sett") or "No Growth",
+        "etx_sett_dur": st.session_state.get("etx_sett") or "N/A",
+        "id_sett_dur": st.session_state.get("id_sett") or "N/A",
+        "date_of_weekly": st.session_state.get("date_weekly", ""),
+        "weekly_initial": st.session_state.get("weekly_init", ""),
+        "obs_air_wk_of": st.session_state.get("obs_air") or "No Growth",
+        "etx_air_wk_of": st.session_state.get("etx_air_weekly") or "N/A",
+        "id_air_wk_of": st.session_state.get("id_air_weekly") or "N/A",
+        "obs_room_wk_of": st.session_state.get("obs_room") or "No Growth",
+        "etx_room_wk_of": st.session_state.get("etx_room_weekly") or "N/A",
+        "id_room_wk_of": st.session_state.get("id_room_wk_of") or "N/A"
     })
 
-    # ----------------------------------------------------
-    # 3. GENERATE PDF
-    # ----------------------------------------------------
-    pdf_template = "ScanRDI OOS template.pdf"
-    if os.path.exists(pdf_template):
+    # 4. Generate DOCX
+    if os.path.exists("ScanRDI OOS template.docx"):
         try:
-            writer = PdfWriter(clone_from=pdf_template)
-            
-            # Map Python keys to PDF Field Names
-            # We map the "Smart" variables here too so PDF matches DOCX
-            pdf_data = {
-                'Text Field57': st.session_state.oos_id,
-                'Date Field0':  st.session_state.test_date,
-                'Text Field2':  st.session_state.sample_id,
-                'Text Field6':  st.session_state.lot_number,
-                'Text Field3':  smart_personnel_block,     # Use smart var
-                'Text Field5':  st.session_state.dosage_form,
-                'Text Field4':  st.session_state.sample_name,
-                
-                # Big Text Blocks
-                'Text Field49': smart_phase1_summary,
-                'Text Field50': smart_phase1_continued,
-                
-                # Personnel
-                'Text Field26': st.session_state.prepper_name,   
-                'Text Field27': st.session_state.reader_name,    
-                
-                # Equipment 
-                'Text Field30': st.session_state.scan_id,        
-                'Text Field32': st.session_state.bsc_id,
-                
-                # Investigation Questions (Mapping text to PDF fields)
-                'Text Field10': smart_comment_interview, 
-                'Text Field11': smart_comment_samples,
+            doc = DocxTemplate("ScanRDI OOS template.docx")
+            doc.render(final_data)
+            buf = io.BytesIO(); doc.save(buf); buf.seek(0)
+            st.download_button("📂 Download DOCX", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        except Exception as e: st.error(f"DOCX Error: {e}")
+
+    # 5. Generate PDF (Mapping smart vars to Text Fields)
+    if os.path.exists("ScanRDI OOS template.pdf"):
+        try:
+            writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
+            pdf_map = {
+                'Text Field57': st.session_state.oos_id, 'Date Field0': st.session_state.test_date,
+                'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number,
+                'Text Field3': smart_personnel_block, # Mapped to Personnel Block
+                'Text Field5': st.session_state.dosage_form,
+                'Text Field4': st.session_state.sample_name, 
+                'Text Field49': smart_phase1_text, # Mapped to Big Summary
+                'Text Field50': final_data['smart_phase1_continued'], 
+                'Text Field26': st.session_state.prepper_name,
+                'Text Field27': st.session_state.reader_name, 'Text Field30': st.session_state.scan_id,
+                'Text Field32': st.session_state.bsc_id, 
+                'Text Field10': final_data['smart_comment_interview'],
+                'Text Field11': final_data['smart_comment_samples'], 
                 'Text Field12': "Yes, as per SOP 2.600.023",
-                'Text Field13': "Yes, as per SOP 2.600.023",
-                'Text Field14': smart_comment_records
+                'Text Field13': "Yes, as per SOP 2.600.023", 
+                'Text Field14': final_data['smart_comment_records']
             }
-
-            for page in writer.pages:
-                writer.update_page_form_field_values(page, pdf_data)
-            
-            out_pdf = f"OOS-{clean_filename(st.session_state.oos_id)} {clean_filename(st.session_state.client_name)} - ScanRDI.pdf"
-            with open(out_pdf, "wb") as f: writer.write(f)
-            with open(out_pdf, "rb") as f:
-                st.download_button(label="📂 Download PDF Report", data=f, file_name=out_pdf, mime="application/pdf")
-        except Exception as e:
-            st.warning(f"PDF Gen Error: {e}")
-
-    # ----------------------------------------------------
-    # 4. GENERATE DOCX
-    # ----------------------------------------------------
-    docx_template = "ScanRDI OOS template.docx"
-    if os.path.exists(docx_template):
-        try:
-            doc = DocxTemplate(docx_template)
-            doc.render(final_data) # Uses the dictionary with smart variables
-            out_docx = f"OOS-{clean_filename(st.session_state.oos_id)} {clean_filename(st.session_state.client_name)} - ScanRDI.docx"
-            buf = io.BytesIO()
-            doc.save(buf)
-            buf.seek(0)
-            st.download_button(label="📂 Download DOCX Report", data=buf, file_name=out_docx, mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        except Exception as e:
-            st.error(f"DOCX Gen Error: {e}")
+            for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
+            buf = io.BytesIO(); writer.write(buf); buf.seek(0)
+            st.download_button("📂 Download PDF", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
+        except Exception as e: st.error(f"PDF Error: {e}")
