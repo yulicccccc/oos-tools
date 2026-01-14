@@ -31,6 +31,7 @@ field_keys = [
     "analyst_initial", "analyst_name",
     "changeover_initial", "changeover_name",
     "reader_initial", "reader_name",
+    "writer_name", # <--- 必须保存 Writer 名字
     "bsc_id", "chgbsc_id", "scan_id", 
     "shift_number", "active_platform",
     "org_choice", "manual_org", "test_record", "control_pos", "control_lot", 
@@ -65,40 +66,34 @@ def save_current_state():
 
 # --- HELPERS ---
 def clean_filename(text): return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
-
-def num_to_words(n): 
-    return {1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine",10:"ten"}.get(n, str(n))
-
+def num_to_words(n): return {1:"one",2:"two",3:"three",4:"four",5:"five"}.get(n, str(n))
 def ordinal(n):
-    # Fixed Syntax Error Here
-    try: 
-        n = int(n)
-    except: 
-        return str(n)
-    if 11 <= (n % 100) <= 13: 
-        suffix = "th"
-    else:
-        # Use a safe lookup instead of f-string injection
-        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
-    return f"{n}{suffix}"
+    try: n = int(n)
+    except: return str(n)
+    if 11 <= (n % 100) <= 13: return f"{n}th"
+    return f"{n}{{1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
 
-# --- GENERATORS ---
+# --- GENERATORS (Sub-functions) ---
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
-    c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
+    # 严格对应旧模板: "The ISO 5 BSC E00xxxx, located in the xxxx, (Suite xxxx), was used for testing."
     return f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for testing."
 
 def generate_history_text():
     if st.session_state.incidence_count == 0: phrase = "no prior failures"
     else:
         pids = [st.session_state.get(f"prior_oos_{i}","") for i in range(st.session_state.incidence_count) if st.session_state.get(f"prior_oos_{i}")]
-        phrase = f"{st.session_state.incidence_count} incident(s) ({', '.join(pids)})"
+        if not pids: refs = "..."
+        elif len(pids)==1: refs = pids[0]
+        else: refs = ", ".join(pids[:-1]) + f", and {pids[-1]}"
+        phrase = f"{st.session_state.incidence_count} incident(s) ({refs})"
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
-    return f"{st.session_state.total_pos_count_num - 1} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
+    num = st.session_state.total_pos_count_num - 1
+    return f"{num} other samples tested positive. The analyst verified that gloves were thoroughly disinfected between samples."
 
 def generate_narrative_and_details():
     failures = []
@@ -110,6 +105,7 @@ def generate_narrative_and_details():
         if obs.strip(): failures.append({"cat": cat, "obs": obs, "etx": etx, "id": mid})
     
     if not failures:
+        # 完全保留旧模板措辞，包括括号内容
         narr = "Upon analyzing the environmental monitoring results, no microbial growth was observed in personal sampling (left touch and right touch), surface sampling, and settling plates. Additionally, weekly active air sampling and weekly surface sampling showed no microbial growth."
         det = ""
     else:
@@ -165,6 +161,9 @@ with c3:
     st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel")
+# === 这里是必须填写的 Written by 名字，不再默认等于 Analyst ===
+st.text_input("Report Writer (Written by)", key="writer_name", help="Who is writing this report? (e.g. Qiyue Chen)")
+
 p1, p2 = st.columns(2)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
@@ -241,27 +240,25 @@ save_current_state()
 
 st.divider()
 
-# --- DEBUG EXPANDER ---
-with st.expander("🔍 Debug Variables"):
-    st.write(st.session_state)
-
 if st.button("🚀 GENERATE FINAL REPORT"):
-    # 1. Validation
+    # 1. Validation (Strict)
     missing = []
-    reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id", "Shift":"shift_number", "Control Lot":"control_lot"}
+    reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id", "Writer Name":"writer_name"}
     for l,k in reqs.items():
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. DEFINE SMART VARIABLES (MATCHING OLD TEMPLATE TEXT)
-    t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
-    c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
+    # 2. DEFINE SMART VARIABLES (1:1 HARDCODED FORMATTING)
+    # 这一部分代码完全按照旧模板的换行符 (\n) 和标点符号来拼接
     
-    # Reconstruct Test Record ID
-    try: d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y").strftime("%m%d%y"); tr_id = f"{d_obj}-{st.session_state.scan_id}-{st.session_state.shift_number}"
-    except: tr_id = "N/A"
+    t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
+    
+    # [签名栏] 完全对应: Initiator: Analyst (Written by: Writer)
+    # \n 用于确保它们不在同一行挤着，或者根据您的模板位置，如果它们是单行，空格也可以。
+    # 这里使用 f-string 强制包含 "(Written by: ...)"
+    analyst_sig_text = f"{st.session_state.analyst_name} (Written by: {st.session_state.writer_name})"
 
-    # Construct the Personnel Block String (Old format)
+    # [人员名单] 完全对应: Prepper: Name (Init), Processor: Name (Init)...
     smart_personnel_block = (
         f"Prepper: {st.session_state.prepper_name} ({st.session_state.prepper_initial}), "
         f"Processor: {st.session_state.analyst_name} ({st.session_state.analyst_initial}), "
@@ -269,25 +266,43 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         f"Reader: {st.session_state.reader_name} ({st.session_state.reader_initial})"
     )
 
-    # Construct the massive Phase I Summary Paragraph
-    smart_phase1_text = (
-        f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document.\n\n"
-        f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
-        f"All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates.\n\n"
-        f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method.\n\n"
-        f"{generate_equipment_text()}\n\n"
-        f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results.\n\n"
-        f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms.\n\n"
-        f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility).\n\n"
-        f"{st.session_state.narrative_summary}\n\n"
-        f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed.\n\n"
-        f"{generate_history_text()}\n\n"
-        f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {generate_cross_contam_text()}\n\n"
-        "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
-    )
+    # [Phase I Summary] 核心大段落 - 必须包含 \n\n 来分段
+    # 请注意：这里的每一段都是硬编码的字符串，只替换变量，确保和旧模板一字不差。
+    
+    para1 = f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document."
+    
+    para2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+    
+    para3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
+    
+    para4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
+    
+    para5 = generate_equipment_text() # e.g. "The ISO 5 BSC E00..."
+    
+    para6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
+    
+    para7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
+    
+    para8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
+    
+    para9 = st.session_state.narrative_summary # 用户生成的 "Upon analyzing..."
+    
+    para10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
+    
+    para11 = generate_history_text() # "Analyzing a 6-month sample history..."
+    
+    para12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {generate_cross_contam_text()}"
+    
+    para13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+
+    # 将所有段落用双换行符拼接
+    smart_phase1_text = "\n\n".join([para1, para2, para3, para4, para5, para6, para7, para8, para9, para10, para11, para12, para13])
+
+    try: d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y").strftime("%m%d%y"); tr_id = f"{d_obj}-{st.session_state.scan_id}-{st.session_state.shift_number}"
+    except: tr_id = "N/A"
 
     smart_data = {
-        "analyst_signature": f"{st.session_state.analyst_name} (Written by: {st.session_state.analyst_name})",
+        "analyst_signature": analyst_sig_text,
         "report_header": st.session_state.sample_id,
         "smart_personnel_block": smart_personnel_block,
         "smart_incident_opening": f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing.",
@@ -301,9 +316,9 @@ if st.button("🚀 GENERATE FINAL REPORT"):
 
     # 3. Data Dictionary for Word
     final_data = {k: v for k, v in st.session_state.items()}
-    final_data.update(smart_data) # Add the smart variables
+    final_data.update(smart_data)
     
-    # Add explicit room logic vars needed for Word table
+    # EM Table Defaults
     final_data.update({
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "obs_pers_dur": st.session_state.get("obs_pers") or "No Growth",
@@ -334,17 +349,17 @@ if st.button("🚀 GENERATE FINAL REPORT"):
             st.download_button("📂 Download DOCX", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"DOCX Error: {e}")
 
-    # 5. Generate PDF (Mapping smart vars to Text Fields)
+    # 5. Generate PDF
     if os.path.exists("ScanRDI OOS template.pdf"):
         try:
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
             pdf_map = {
                 'Text Field57': st.session_state.oos_id, 'Date Field0': st.session_state.test_date,
                 'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number,
-                'Text Field3': smart_personnel_block, # Mapped to Personnel Block
+                'Text Field3': smart_personnel_block, # Personnel Block
                 'Text Field5': st.session_state.dosage_form,
                 'Text Field4': st.session_state.sample_name, 
-                'Text Field49': smart_phase1_text, # Mapped to Big Summary
+                'Text Field49': smart_phase1_text, # Phase I Summary
                 'Text Field50': final_data['smart_phase1_continued'], 
                 'Text Field26': st.session_state.prepper_name,
                 'Text Field27': st.session_state.reader_name, 'Text Field30': st.session_state.scan_id,
