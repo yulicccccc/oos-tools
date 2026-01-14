@@ -1,57 +1,57 @@
 import streamlit as st
 
-st.set_page_config(page_title="Microbiology Investigation Tool", layout="wide")
+st.set_page_config(page_title="Microbiology Platform", layout="wide")
 
-# --- CUSTOM CSS FOR EAGLE TRAX SIDEBAR ---
+# --- PROFESSIONAL CSS: BLUE SIDEBAR & WHITE TEXT ---
 st.markdown("""
     <style>
-    /* 1. Make the entire sidebar Dark Blue */
+    /* Force Sidebar Background to Blue */
     [data-testid="stSidebar"] {
         background-color: #003366 !important;
     }
     
-    /* 2. Hide the default navigation */
+    /* Hide default Streamlit navigation */
     [data-testid="stSidebarNav"] {
         display: none;
     }
 
-    /* 3. Style for the BIG 'Micro' header */
-    .micro-header {
+    /* BIG FONT for Category Header */
+    .category-header {
         color: white !important;
-        font-size: 24px !important;
+        font-size: 26px !important;
         font-weight: bold !important;
-        margin-bottom: 10px !important;
-        padding-left: 10px;
+        padding: 10px 0px 5px 15px;
     }
 
-    /* 4. Style for the sub-options */
+    /* SMALLER FONT for Sub-items */
     div[data-testid="stPageLink"] p {
         color: white !important;
         font-size: 16px !important;
-        font-weight: 400 !important;
+        padding-left: 10px;
     }
     
-    /* 5. Add some spacing to the sidebar top */
-    .st-emotion-cache-16umgzp {
-        padding-top: 2rem;
+    /* Highlight the Micro link to look like a main header */
+    .micro-link p {
+        font-size: 26px !important;
+        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
-    # Top Logo/Branding
-    st.markdown("<h2 style='color: #66CC33; padding-left:10px;'>EAGLE</h2>", unsafe_allow_html=True)
+    # Eagle Trax Branding
+    st.markdown("<h2 style='color: #66CC33; padding-left:15px;'>EAGLE</h2>", unsafe_allow_html=True)
     st.markdown("---")
 
-    # BIG CATEGORY: Micro
-    st.markdown('<div class="micro-header">Micro</div>', unsafe_allow_html=True)
+    # PRIMARY CATEGORY: Micro (Links back to Home)
+    st.page_link("Home.py", label="Micro")
     
-    # SUB-OPTIONS: Smaller font links
-    st.page_link("Home.py", label="Dashboard")
+    # SUB-ITEMS: OOS Types & Environmental Monitoring
     st.page_link("pages/ScanRDI.py", label="ScanRDI")
     st.page_link("pages/USP_71.py", label="USP <71>")
     st.page_link("pages/Celsis.py", label="Celsis")
-    st.page_link("pages/Environmental_Monitoring.py", label="EM Portal")
+    st.page_link("pages/Environmental_Monitoring.py", label="Environmental Monitoring")
 
-# --- MAIN CONTENT ---
-st.title("Microbiology Sterility Investigation Platform")
+# --- PAGE CONTENT ---
+st.title("Microbiology Dashboard")
+st.write("Please select a specific investigation type from the menu.")
