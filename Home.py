@@ -3,20 +3,20 @@ import streamlit as st
 # MUST BE THE FIRST LINE
 st.set_page_config(page_title="Microbiology Platform", layout="wide")
 
-# --- ULTIMATE PROFESSIONAL CSS ---
+# --- ULTIMATE EAGLE TRAX CSS ---
 st.markdown("""
     <style>
-    /* 1. Solid Dark Blue Sidebar */
+    /* 1. Solid Dark Blue Sidebar Background */
     [data-testid="stSidebar"] {
         background-color: #003366 !important;
     }
     
-    /* 2. Remove default navigation */
+    /* 2. Hide the default Streamlit sidebar menu */
     [data-testid="stSidebarNav"] {
         display: none;
     }
 
-    /* 3. Style for the Extra Large 'Micro' Expander (Mind-Map Style) */
+    /* 3. Style for the BOLD & EXTRA LARGE 'Micro' Expander */
     .st-emotion-cache-p5mtransition {
         background-color: transparent !important;
         border: none !important;
@@ -24,40 +24,40 @@ st.markdown("""
     
     summary {
         color: white !important;
-        font-size: 40px !important; /* Extra Large */
-        font-weight: 800 !important;
+        font-size: 45px !important; /* Extra Large Font */
+        font-weight: 900 !important; /* Extra Bold */
         padding-left: 5px !important;
         list-style: none !important;
     }
     
-    /* Change 'Micro' to Green when hovered */
     summary:hover {
-        color: #66CC33 !important;
-        cursor: pointer;
+        color: #66CC33 !important; /* Turns Green on Hover */
     }
 
-    /* 4. Sub-items styling (White by default) */
+    /* 4. Sub-items styling (Bold & Professional) */
     div[data-testid="stPageLink"] p {
         color: white !important;
-        font-size: 18px !important;
-        font-weight: 400 !important;
+        font-size: 20px !important;
+        font-weight: 700 !important; /* All Bold as requested */
         margin-left: 20px !important;
         transition: 0.3s;
     }
     
-    /* 5. GREEN SELECTION/HOVER EFFECT */
-    /* Changes the text to green when you hover over a link */
-    div[data-testid="stPageLink"]:hover p {
-        color: #66CC33 !important;
-    }
-    
-    /* Changes the background to a subtle green tint or just keeps the text green */
-    div[data-testid="stPageLink"] button:hover {
-        background-color: rgba(102, 204, 51, 0.1) !important;
-        border: 1px solid #66CC33 !important;
+    /* 5. THE GREEN SELECTION FIX */
+    /* This targets the button container when hovered or active */
+    div[data-testid="stPageLink"] > a:hover, 
+    div[data-testid="stPageLink"] > a:focus {
+        background-color: rgba(102, 204, 51, 0.2) !important;
+        border-radius: 5px;
     }
 
-    /* Ensure the expander arrow is white */
+    /* Turns the text green when hovered */
+    div[data-testid="stPageLink"] > a:hover p,
+    div[data-testid="stPageLink"] > a:focus p {
+        color: #66CC33 !important;
+    }
+
+    /* Ensure the expander arrow icon is white */
     .st-emotion-cache-p5mtransition svg {
         fill: white !important;
     }
@@ -65,18 +65,18 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 with st.sidebar:
-    # Branding header
-    st.markdown("<h2 style='color: #66CC33; padding-left:10px; margin-bottom:0;'>EAGLE</h2>", unsafe_allow_html=True)
+    # Official Branding
+    st.markdown("<h1 style='color: #66CC33; padding-left:10px; font-weight:900;'>EAGLE</h1>", unsafe_allow_html=True)
     st.markdown("---")
 
-    # FOLDED MIND-MAP: Micro (Default is folded)
+    # THE FOLDED MIND-MAP: Micro (starts folded)
     with st.expander("Micro", expanded=False):
-        # All links turn GREEN when hovered
+        # All items are now Bold and turn Green on hover/selection
         st.page_link("pages/ScanRDI.py", label="ScanRDI")
         st.page_link("pages/USP_71.py", label="USP <71>")
         st.page_link("pages/Celsis.py", label="Celsis")
         st.page_link("pages/EM.py", label="EM")
 
-# --- MAIN CONTENT ---
-st.title("Microbiology Investigation Platform")
-st.write("Please click the extra-large **Micro** header in the sidebar to select an investigation type.")
+# --- PAGE CONTENT ---
+st.title("Microbiology Dashboard")
+st.write("Click the extra-large **Micro** header to reveal investigation options.")
