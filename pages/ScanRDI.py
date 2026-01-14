@@ -65,12 +65,22 @@ def save_current_state():
 
 # --- HELPERS ---
 def clean_filename(text): return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
+
+def num_to_words(n): 
+    return {1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine",10:"ten"}.get(n, str(n))
+
 def ordinal(n):
-    try: n = int(n)
-    except: return str(n)
-    if 11 <= (n % 100) <= 13: return f"{n}th"
-    return f"{n}{{1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
-def num_to_words(n): return {1:"one",2:"two",3:"three",4:"four",5:"five"}.get(n, str(n))
+    # Fixed Syntax Error Here
+    try: 
+        n = int(n)
+    except: 
+        return str(n)
+    if 11 <= (n % 100) <= 13: 
+        suffix = "th"
+    else:
+        # Use a safe lookup instead of f-string injection
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+    return f"{n}{suffix}"
 
 # --- GENERATORS ---
 def generate_equipment_text():
@@ -260,7 +270,6 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     )
 
     # Construct the massive Phase I Summary Paragraph
-    # This combines all the text pieces from the Old Template into one block for the New Template
     smart_phase1_text = (
         f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document.\n\n"
         f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
