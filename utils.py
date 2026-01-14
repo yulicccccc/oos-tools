@@ -1,63 +1,84 @@
+import streamlit as st
 import re
 from datetime import datetime
 
-import streamlit as st
-
-def apply_eagle_sidebar():
+# --- 1. 统一的界面样式函数 ---
+def apply_eagle_style():
+    """
+    在每个页面调用此函数，即可获得完全一致的 Eagle Trax 侧边栏。
+    """
+    # 强制 CSS 样式
     st.markdown("""
         <style>
-        /* 1. Solid Dark Blue Sidebar */
+        /* 1. 侧边栏背景：深蓝 */
         [data-testid="stSidebar"] {
             background-color: #003366 !important;
         }
         
-        /* 2. Hide default nav */
+        /* 2. 隐藏 Streamlit 自带导航 */
         [data-testid="stSidebarNav"] {
             display: none;
         }
 
-        /* 3. MASSIVE & BOLD 'Micro' Header */
+        /* 3. Micro 标题：超大 (48px)、超粗 (900)、大写 */
         .st-emotion-cache-p5mtransition p {
-            font-size: 48px !important; 
-            font-weight: 900 !important; 
+            font-size: 48px !important;
+            font-weight: 900 !important;
             color: white !important;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0px !important;
         }
 
-        /* 4. Sub-items: ALL BOLD */
+        /* 4. 子选项：粗体 (22px)、白色 */
         div[data-testid="stPageLink"] p {
             color: white !important;
             font-size: 22px !important;
-            font-weight: 800 !important;
-            margin-left: 20px !important;
+            font-weight: 700 !important;
+            margin-left: 15px !important;
+            transition: all 0.2s ease;
         }
 
-        /* 5. GREEN SELECTION/HOVER FIX */
+        /* 5. 选中/悬停时的绿色高亮 (EAGLE GREEN #66CC33) */
         div[data-testid="stPageLink"] a:hover p,
-        div[data-testid="stPageLink"] a:focus p {
+        div[data-testid="stPageLink"] a:focus p,
+        div[data-testid="stPageLink"] a:active p {
             color: #66CC33 !important;
         }
-
-        div[data-testid="stPageLink"] a:hover {
+        
+        /* 选中时的背景微光 */
+        div[data-testid="stPageLink"] a:hover,
+        div[data-testid="stPageLink"] a:focus {
             background-color: rgba(102, 204, 51, 0.15) !important;
-            border-radius: 10px;
+            border-radius: 8px;
+            text-decoration: none !important;
         }
 
+        /* 修正折叠箭头的颜色和大小 */
         summary svg {
             fill: white !important;
-            transform: scale(1.8);
+            transform: scale(1.5) !important;
+        }
+        .st-emotion-cache-p5mtransition {
+            background-color: transparent !important;
+            border: none !important;
         }
         </style>
     """, unsafe_allow_html=True)
 
+    # 统一的侧边栏结构
     with st.sidebar:
-        st.markdown("<h1 style='color: #66CC33; padding-left:10px; font-weight:900;'>EAGLE</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='color: #66CC33; padding-left:10px; font-weight:900; margin-bottom:0;'>EAGLE</h1>", unsafe_allow_html=True)
         st.markdown("---")
+        
+        # 默认展开 Micro
         with st.expander("Micro", expanded=True):
             st.page_link("pages/ScanRDI.py", label="ScanRDI")
             st.page_link("pages/USP_71.py", label="USP <71>")
             st.page_link("pages/Celsis.py", label="Celsis")
             st.page_link("pages/EM.py", label="EM")
+
+# --- 2. 业务逻辑工具函数 ---
 
 def get_full_name(initials):
     if not initials: return ""
@@ -84,9 +105,6 @@ def get_room_logic(bsc_id):
     room_id = {"117": "1739", "116": "1738", "115": "1737", "114": "1736"}.get(suite, "Unknown")
     return room_id, suite, suffix, location
 
-def num_to_words(n):
-    return {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}.get(n, str(n))
-
 def parse_email_text(text):
     data = {}
     oos = re.search(r"OOS-(\d+)", text)
@@ -95,14 +113,4 @@ def parse_email_text(text):
     if client: data['client_name'] = client.group(1).strip()
     etx = re.search(r"(ETX-\d{6}-\d{4})", text)
     if etx: data['sample_id'] = etx.group(1).strip()
-    name = re.search(r"Sample\s*Name:\s*(.*)", text, re.IGNORECASE)
-    if name: data['sample_name'] = name.group(1).strip()
-    lot = re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.IGNORECASE)
-    if lot: data['lot_number'] = lot.group(1).strip()
-    date = re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.IGNORECASE)
-    if date:
-        try:
-            d_obj = datetime.strptime(date.group(1).strip(), "%d %b %Y")
-            data['test_date'] = d_obj.strftime("%d%b%y")
-        except: pass
     return data
