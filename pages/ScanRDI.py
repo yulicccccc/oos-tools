@@ -1,26 +1,26 @@
 import streamlit as st
-from utils import get_full_name, get_room_logic
+from utils import apply_eagle_style, get_full_name, get_room_logic
 
-st.set_page_config(page_title="ScanRDI Investigation", layout="wide")
+# 1. 必须是第一行
+st.set_page_config(page_title="ScanRDI", layout="wide")
 
-# Sidebar Header consistency
-st.sidebar.markdown("<h2 style='color: #66CC33;'>ScanRDI</h2>", unsafe_allow_html=True)
+# 2. 立即应用 Eagle 统一侧边栏
+apply_eagle_style()
 
-st.title("ScanRDI Sterility Investigation Report")
-st.markdown("---")
+# 3. 页面内容
+st.title("🦠 ScanRDI Investigation")
 
-# Section 1: General Details
-with st.expander("GENERAL TEST DETAILS", expanded=True):
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.text_input("OOS ID", key="oos_id")
-    with col2:
-        st.text_input("Test Date", key="test_date")
-    with col3:
+tab1, tab2 = st.tabs(["📋 General Details", "🔍 EM Observations"])
+
+with tab1:
+    c1, c2 = st.columns(2)
+    with c1:
+        st.text_input("OOS Number", key="oos_id")
         st.text_input("Sample ID", key="sample_id")
+    with c2:
+        st.selectbox("BSC ID", ["1310", "1309", "1311", "1312"], key="bsc_id")
+        st.text_input("Analyst Initials", key="analyst_int", on_change=lambda: st.write(f"Name: {get_full_name(st.session_state.analyst_int)}"))
 
-# Section 2: Environmental Monitoring Results
-with st.container():
-    st.subheader("ENVIRONMENTAL MONITORING DATA")
-    st.radio("Was microbial growth observed in EM?", ["No", "Yes"], key="em_growth_observed", horizontal=True)
-    # Dynamic rows logic remains here...
+with tab2:
+    st.write("Environmental Monitoring data goes here...")
+    st.button("Generate ScanRDI Report")
