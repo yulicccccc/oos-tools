@@ -18,6 +18,7 @@ st.markdown("""
     .stButton>button { width: 100%; border-radius: 5px; height: 3em; background-color: #f0f2f6; }
     .main { background-color: #ffffff; }
     .stTextArea textarea { background-color: #ffffff; color: #31333F; border: 1px solid #d6d6d6; }
+    /* Make error messages pop */
     div[data-testid="stNotification"] { border: 2px solid #ff4b4b; background-color: #ffe8e8; }
     </style>
     """, unsafe_allow_html=True)
@@ -25,7 +26,6 @@ st.markdown("""
 # --- FILE PERSISTENCE (MEMORY) ---
 STATE_FILE = "investigation_state.json"
 
-# ALL keys that need to be saved/loaded
 field_keys = [
     "oos_id", "client_name", "sample_id", "test_date", "sample_name", "lot_number", 
     "dosage_form", "monthly_cleaning_date", 
@@ -48,7 +48,6 @@ field_keys = [
     "diff_reader_analyst",
     "em_growth_count" 
 ]
-# Add dynamic keys for lists
 for i in range(20):
     field_keys.append(f"other_id_{i}")
     field_keys.append(f"other_order_{i}")
@@ -116,13 +115,10 @@ def generate_history_text():
         for i in range(st.session_state.incidence_count):
             pid = st.session_state.get(f"prior_oos_{i}", "").strip()
             if pid: prior_ids.append(pid)
-        
         if not prior_ids: refs_str = "..."
         elif len(prior_ids) == 1: refs_str = prior_ids[0]
         else: refs_str = ", ".join(prior_ids[:-1]) + f", and {prior_ids[-1]}"
-        
         hist_phrase = f"{st.session_state.incidence_count} incident(s) ({refs_str})"
-            
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {hist_phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
@@ -135,7 +131,6 @@ def generate_cross_contam_text():
 def generate_narrative_and_details():
     failures = []
     count = st.session_state.get("em_growth_count", 1)
-    
     cat_map = { "Personnel Obs": "personnel sampling", "Surface Obs": "surface sampling", "Settling Obs": "settling plates", "Weekly Air Obs": "weekly active air sampling", "Weekly Surf Obs": "weekly surface sampling" }
     
     for i in range(count):
@@ -366,6 +361,16 @@ save_current_state()
 
 # --- FINAL GENERATION ---
 st.divider()
+
+# --- DEBUG EXPANDER (Check your keys here!) ---
+with st.expander("🔍 Debug Data (Click here if template isn't filling)"):
+    st.info("These are the keys being sent to your template. If 'smart_personnel_block' is missing here, it's a code issue. If it IS here, it's a Word template issue.")
+    debug_data = {k: v for k, v in st.session_state.items()}
+    # Simulate the smart generation to show user
+    debug_data["smart_personnel_block"] = st.session_state.analyst_name
+    debug_data["analyst_signature"] = st.session_state.analyst_name
+    st.json(debug_data)
+
 if st.button("🚀 GENERATE FINAL REPORT"):
     # ----------------------------------------------------
     # 1. ROBUST VALIDATION (Stops execution if failed)
@@ -386,6 +391,8 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     if missing:
         st.error(f"🛑 STOP! You are missing required fields: {', '.join(missing)}")
         st.stop() # This halts the script here.
+    
+    st.success("✅ Validation Passed! Generating documents...")
 
     # ----------------------------------------------------
     # 2. GENERATE SMART VARIABLES (For Word & PDF)
