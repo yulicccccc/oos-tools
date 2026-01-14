@@ -1,28 +1,36 @@
 import streamlit as st
-import json, os
 from utils import parse_email_text
 
-st.set_page_config(page_title="LabOps Master Tool", layout="wide")
+# Professional Page Config
+st.set_page_config(
+    page_title="Microbiology Investigation Tool",
+    page_icon="🧪", # Icon shows in browser tab only
+    layout="wide"
+)
 
-st.title("🧪 LabOps Sterility Investigation Tool")
+# Professional Sidebar Styling
+st.sidebar.markdown(
+    """
+    <div style="background-color: #003366; padding: 10px; border-radius: 5px;">
+        <h2 style="color: white; text-align: center; margin-bottom: 0;">QUALITY CONTROL</h2>
+        <p style="color: #66CC33; text-align: center; font-weight: bold; margin-top: 0;">MICROBIOLOGY</p>
+    </div>
+    <br>
+    """, unsafe_allow_html=True
+)
+
+st.title("Microbiology Sterility Investigation Platform")
 st.markdown("---")
 
-st.header("📧 1. Smart Email Import")
-st.info("Paste your OOS Notification email here to pre-fill the ScanRDI, Celsis, or USP 71 pages.")
+# Global Import Section
+with st.container():
+    st.subheader("Data Import")
+    st.info("Paste the OOS Notification email below to synchronize data across all platforms.")
+    email_input = st.text_area("Notification Email Content", height=200)
 
-email_input = st.text_area("Email Content", height=200)
-
-if st.button("🪄 Parse & Distribute Data"):
-    if email_input:
-        data = parse_email_text(email_input)
-        for k, v in data.items():
-            st.session_state[k] = v
-        st.success("✅ Data parsed! You can now navigate to the platform pages in the sidebar.")
-    else:
-        st.warning("Please paste an email first.")
-
-st.markdown("---")
-st.subheader("Instructions")
-st.write("1. Paste email and click 'Parse'.")
-st.write("2. Select your platform (e.g., ScanRDI) from the sidebar.")
-st.write("3. Review auto-filled info and generate your reports.")
+    if st.button("Import and Synchronize Data"):
+        if email_input:
+            data = parse_email_text(email_input)
+            for k, v in data.items():
+                st.session_state[k] = v
+            st.success("Data successfully synchronized. Please select a platform from the sidebar to continue.")
