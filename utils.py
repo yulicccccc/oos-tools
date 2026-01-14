@@ -1,6 +1,64 @@
 import re
 from datetime import datetime
 
+import streamlit as st
+
+def apply_eagle_sidebar():
+    st.markdown("""
+        <style>
+        /* 1. Solid Dark Blue Sidebar */
+        [data-testid="stSidebar"] {
+            background-color: #003366 !important;
+        }
+        
+        /* 2. Hide default nav */
+        [data-testid="stSidebarNav"] {
+            display: none;
+        }
+
+        /* 3. MASSIVE & BOLD 'Micro' Header */
+        .st-emotion-cache-p5mtransition p {
+            font-size: 48px !important; 
+            font-weight: 900 !important; 
+            color: white !important;
+            text-transform: uppercase;
+        }
+
+        /* 4. Sub-items: ALL BOLD */
+        div[data-testid="stPageLink"] p {
+            color: white !important;
+            font-size: 22px !important;
+            font-weight: 800 !important;
+            margin-left: 20px !important;
+        }
+
+        /* 5. GREEN SELECTION/HOVER FIX */
+        div[data-testid="stPageLink"] a:hover p,
+        div[data-testid="stPageLink"] a:focus p {
+            color: #66CC33 !important;
+        }
+
+        div[data-testid="stPageLink"] a:hover {
+            background-color: rgba(102, 204, 51, 0.15) !important;
+            border-radius: 10px;
+        }
+
+        summary svg {
+            fill: white !important;
+            transform: scale(1.8);
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    with st.sidebar:
+        st.markdown("<h1 style='color: #66CC33; padding-left:10px; font-weight:900;'>EAGLE</h1>", unsafe_allow_html=True)
+        st.markdown("---")
+        with st.expander("Micro", expanded=True):
+            st.page_link("pages/ScanRDI.py", label="ScanRDI")
+            st.page_link("pages/USP_71.py", label="USP <71>")
+            st.page_link("pages/Celsis.py", label="Celsis")
+            st.page_link("pages/EM.py", label="EM")
+
 def get_full_name(initials):
     if not initials: return ""
     lookup = {
