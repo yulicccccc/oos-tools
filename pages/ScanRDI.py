@@ -1,4 +1,6 @@
 import streamlit as st
+import sys
+import subprocess
 from docxtpl import DocxTemplate
 from pypdf import PdfReader, PdfWriter, PdfMerger
 import os
@@ -7,6 +9,27 @@ import json
 import io
 from datetime import datetime, timedelta
 from utils import apply_eagle_style, get_full_name, get_room_logic
+
+# --- FORCE INSTALLATION ---
+# This forces Streamlit Cloud to install the missing libraries if the requirements.txt failed
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import pypdf
+except ImportError:
+    install("pypdf")
+    import pypdf
+
+try:
+    import reportlab
+except ImportError:
+    install("reportlab")
+    import reportlab
+# ---------------------------
+
+from docxtpl import DocxTemplate
+from pypdf import PdfReader, PdfWriter, PdfMerger
 
 # --- REPORTLAB IMPORTS (For Table Generation) ---
 from reportlab.lib import colors
