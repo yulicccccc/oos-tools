@@ -50,7 +50,7 @@ def ensure_dependencies():
             st.rerun()
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
-            st.stop()
+            pass
 
 # --- FILE PERSISTENCE ---
 STATE_FILE = "investigation_state.json"
@@ -317,7 +317,7 @@ if "data_loaded" not in st.session_state:
 # --- PARSER ---
 def parse_email_text(text):
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
-    if m := re.search(r"^(?:.*\n)?(.*\(E\d{5}\).*)$", text, re.MULTILINE): st.session_state.client_name = m.group(1).strip()
+    if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): st.session_state.client_name = m.group(1).strip()
     if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
     if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
@@ -399,7 +399,6 @@ with f1:
     st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
     if st.session_state.org_choice == "Other": st.text_input("Manual Shape", key="manual_org")
     
-    # [NEW] Event & Confirm Numbers
     c_a, c_b = st.columns(2)
     with c_a: st.text_input("Events Number", key="event_number", help="e.g. <1 event")
     with c_b: st.text_input("Confirmed #", key="confirm_number", help="e.g. 1")
@@ -475,12 +474,16 @@ if st.button("🚀 GENERATE REPORT"):
     ensure_dependencies()
 
     # 3. Safe Import
-    from docxtpl import DocxTemplate
-    from pypdf import PdfReader, PdfWriter, PdfMerger
-    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
-    from reportlab.lib import colors
-    from reportlab.lib.pagesizes import letter, landscape
-    from reportlab.lib.styles import getSampleStyleSheet
+    try:
+        from docxtpl import DocxTemplate
+        from pypdf import PdfReader, PdfWriter, PdfMerger
+        from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+        from reportlab.lib import colors
+        from reportlab.lib.pagesizes import letter, landscape
+        from reportlab.lib.styles import getSampleStyleSheet
+    except ImportError as e:
+        st.error(f"Failed to load required PDF libraries: {e}")
+        st.stop()
 
     # 4. Generators
     fresh_narr, fresh_det = generate_narrative_and_details()
@@ -498,12 +501,11 @@ if st.button("🚀 GENERATE REPORT"):
     except: 
         tr_id = "N/A"; pdf_date_str = st.session_state.test_date
 
-    # [FIXED] Grammar logic for Microorganisms
     suffix = "microorganism" if str(st.session_state.confirm_number).strip() == "1" else "microorganisms"
     
-    # [FIXED] Uppercase Morphology
+    # [FIXED] Title Case for Morphology (First Letter Uppercase)
     raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
-    org_upper = raw_org.upper().strip()
+    org_title = raw_org.strip().title()
 
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
@@ -511,7 +513,7 @@ if st.button("🚀 GENERATE REPORT"):
         "sample_history_paragraph": fresh_history,
         "cross_contamination_summary": fresh_cross,
         "test_record": tr_id,
-        "organism_morphology": org_upper, # Uppercase for Tables
+        "organism_morphology": org_title, # Uses Title Case (e.g. "Cocci")
         "control_positive": st.session_state.control_pos,
         "control_data": st.session_state.control_exp,
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
@@ -525,11 +527,9 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
-    # 5. Phase 1 Update with new Grammar
-    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_upper}-shaped viable {suffix}, see table 1."
+    # 5. Phase 1 Update
+    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
     
-    # Update smart variables for PDF/Word
-    # (Re-generate phase1_part2 to include updated p7)
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = fresh_narr
     if fresh_det: p9 += "\n\n" + fresh_det
@@ -539,7 +539,7 @@ if st.button("🚀 GENERATE REPORT"):
     p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
     
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
-    final_data_docx['Text Field50'] = smart_phase1_part2 # Update Word context
+    final_data_docx['Text Field50'] = smart_phase1_part2 
 
     # 6. DOCX GENERATION
     docx_template = "ScanRDI OOS template 0.docx" 
@@ -626,7 +626,6 @@ if st.button("🚀 GENERATE REPORT"):
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
         
-        # Update P1-P13 with new P7
         p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
         p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
