@@ -172,10 +172,7 @@ def generate_cross_contam_text():
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
 def sync_dynamic_to_fixed():
-    # 1. Reset all fixed fields to "Clean" state (Defaults for No Growth)
-    default_obs = "No Growth"
-    default_etx = "N/A"
-    default_id = "N/A"
+    default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     
     fixed_map = {
         "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"),
@@ -185,13 +182,13 @@ def sync_dynamic_to_fixed():
         "Weekly Surf Obs": ("obs_room", "etx_room_weekly", "id_room_wk_of")
     }
     
-    # Initialize all to defaults
+    # Initialize defaults
     for cat, (k_obs, k_etx, k_id) in fixed_map.items():
         st.session_state[k_obs] = default_obs
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
-    # 2. Overwrite with Dynamic Data if Growth Exists
+    # Overwrite if Growth
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -199,7 +196,6 @@ def sync_dynamic_to_fixed():
             obs = st.session_state.get(f"em_obs_{i}", "")
             etx = st.session_state.get(f"em_etx_{i}", "")
             mid = st.session_state.get(f"em_id_{i}", "")
-            
             if cat in fixed_map:
                 k_obs, k_etx, k_id = fixed_map[cat]
                 st.session_state[k_obs] = obs
@@ -207,11 +203,8 @@ def sync_dynamic_to_fixed():
                 st.session_state[k_id] = mid
 
 def generate_narrative_and_details():
-    # Run sync first so fixed fields are populated correctly from the dynamic UI
     sync_dynamic_to_fixed()
-    
     failures = []
-    # Identify Failures using Fixed Fields (which are now synced)
     def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
     
     if is_fail(st.session_state.obs_pers):
@@ -225,7 +218,7 @@ def generate_narrative_and_details():
     if is_fail(st.session_state.obs_room):
         failures.append({"cat": "weekly surface sampling", "obs": st.session_state.obs_room, "etx": st.session_state.etx_room_weekly, "id": st.session_state.id_room_wk_of, "time": "weekly"})
 
-    # Pass Narrative Split
+    # Narrative Logic
     pass_daily_clean = []
     if not is_fail(st.session_state.obs_pers): pass_daily_clean.append("personal sampling (left touch and right touch)")
     if not is_fail(st.session_state.obs_surf): pass_daily_clean.append("surface sampling")
@@ -246,14 +239,11 @@ def generate_narrative_and_details():
         if len(pass_wk_clean) == 1: w_str = pass_wk_clean[0]
         elif len(pass_wk_clean) == 2: w_str = f"{pass_wk_clean[0]} and {pass_wk_clean[1]}"
         else: w_str = ", ".join(pass_wk_clean)
-        
         if narr_parts: narr_parts.append(f"Additionally, {w_str} showed no microbial growth")
         else: narr_parts.append(f"no microbial growth was observed in {w_str}")
 
-    if not narr_parts: narr = "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
-    else: narr = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "."
+    narr = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "." if narr_parts else "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
 
-    # Fail Narrative
     det = ""
     if failures:
         daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
@@ -265,22 +255,18 @@ def generate_narrative_and_details():
             elif len(daily_fails) == 2: d_str = f"{daily_fails[0]} and {daily_fails[1]}"
             else: d_str = ", ".join(daily_fails[:-1]) + f", and {daily_fails[-1]}"
             intro_parts.append(f"{d_str} on the date")
-            
         if weekly_fails:
             if len(weekly_fails) == 1: w_str = weekly_fails[0]
             elif len(weekly_fails) == 2: w_str = f"{weekly_fails[0]} and {weekly_fails[1]}"
             else: w_str = ", ".join(weekly_fails[:-1]) + f", and {weekly_fails[-1]}"
             intro_parts.append(f"{w_str} from week of testing")
             
-        if len(intro_parts) == 2: fail_intro = f"However, microbial growth was observed during both {intro_parts[0]} and {intro_parts[1]}."
-        else: fail_intro = f"However, microbial growth was observed during {intro_parts[0]}."
+        fail_intro = f"However, microbial growth was observed during { ' and '.join(intro_parts) }." if len(intro_parts) > 0 else ""
         
         detail_sentences = []
         for i, f in enumerate(failures):
             id_text = f['id']
-            if "gram" in id_text.lower(): method_text = "differential staining"
-            else: method_text = "microbial identification"
-                
+            method_text = "differential staining" if "gram" in id_text.lower() else "microbial identification"
             base_sentence = f"{f['obs']} was detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the organism was identified as {id_text}"
             
             if i == 0: full_sent = f"Specifically, {base_sentence}."
@@ -307,7 +293,11 @@ if "data_loaded" not in st.session_state:
 # --- PARSER ---
 def parse_email_text(text):
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
-    if m := re.search(r"^.*\(E\d{5}\).*$", text, re.MULTILINE): st.session_state.client_name = m.group(0).strip()
+    
+    # [FIXED] Updated Greedy Regex for Client Name (Captures entire line with E-code, including & * etc)
+    if m := re.search(r"^(?:.*\n)?(.*\(E\d{5}\).*)$", text, re.MULTILINE): 
+        st.session_state.client_name = m.group(1).strip()
+    
     if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
     if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
@@ -407,15 +397,9 @@ if st.session_state.em_growth_observed == "Yes":
         c1, c2, c3, c4 = st.columns(4)
         with c1: 
             st.selectbox(f"Category", ["Personnel Obs", "Surface Obs", "Settling Obs", "Weekly Air Obs", "Weekly Surf Obs"], key=f"em_cat_{i}")
-        with c2: 
-            st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
-        with c3: 
-            st.text_input(f"ETX ID", key=f"em_etx_{i}")
-        with c4: 
-            st.text_input(f"Microbial ID", key=f"em_id_{i}")
-else:
-    # If no growth, logic handled in generator sync
-    pass
+        with c2: st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
+        with c3: st.text_input(f"ETX ID", key=f"em_etx_{i}")
+        with c4: st.text_input(f"Microbial ID", key=f"em_id_{i}")
 
 st.divider()
 st.caption("Weekly Bracketing Meta")
@@ -456,7 +440,7 @@ save_current_state()
 
 st.divider()
 
-if st.button("🚀 GENERATE FINAL REPORT"):
+if st.button("🚀 GENERATE REPORT"):
     # 1. Validation
     missing = []
     reqs = {"OOS #":"oos_id", "Client":"client_name", "Sample ID":"sample_id", "Date":"test_date", "Sample Name":"sample_name", "Lot":"lot_number", "Analyst":"analyst_name", "BSC":"bsc_id", "Scan ID":"scan_id"}
@@ -464,25 +448,21 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Update Generators (Includes SYNCING dynamic -> fixed)
+    # 2. Prepare Data
     fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
     fresh_history = generate_history_text()
     fresh_cross = generate_cross_contam_text()
     
-    # 3. Data Prep & Date Conversion (PDF Specific)
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
-    
     try: 
         d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
         tr_id = f"{d_obj.strftime('%m%d%y')}-{st.session_state.scan_id}-{st.session_state.shift_number}"
         pdf_date_str = d_obj.strftime("%d-%b-%Y") 
     except: 
-        tr_id = "N/A"
-        pdf_date_str = st.session_state.test_date
+        tr_id = "N/A"; pdf_date_str = st.session_state.test_date
 
-    # --- WORD ---
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
         "equipment_summary": fresh_equip,
@@ -495,7 +475,6 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "date_of_weekly": st.session_state.get("date_weekly", ""),
         "weekly_initial": st.session_state.get("weekly_init", ""),
-        # Map specific Fixed Fields (now synced) to Word Template
         "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
         "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
         "obs_sett_dur": st.session_state.obs_sett, "etx_sett_dur": st.session_state.etx_sett, "id_sett_dur": st.session_state.id_sett,
@@ -504,7 +483,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         "notes": "None" 
     })
 
-    # --- DOCX GENERATION (Always Safe) ---
+    # 3. GENERATE MAIN DOCX
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
@@ -512,52 +491,24 @@ if st.button("🚀 GENERATE FINAL REPORT"):
             doc = DocxTemplate(docx_template)
             doc.render(final_data_docx)
             buf = io.BytesIO(); doc.save(buf); buf.seek(0)
-            st.download_button("📂 Download DOCX", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            st.download_button("📂 Download Main OOS Report (DOCX)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
-    # --- PDF GENERATION (Protected Block) ---
+    # 4. GENERATE TABLES DOCX (New Feature)
+    tables_template = "tables for scan.docx"
+    if os.path.exists(tables_template):
+        try:
+            from docxtpl import DocxTemplate
+            doc_tbl = DocxTemplate(tables_template)
+            doc_tbl.render(final_data_docx)
+            buf_tbl = io.BytesIO(); doc_tbl.save(buf_tbl); buf_tbl.seek(0)
+            st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables-OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        except Exception as e: st.error(f"Tables DOCX Error: {e}")
+    
+    # 5. GENERATE PDF FORM (Safe Mode)
     try:
-        from pypdf import PdfReader, PdfWriter, PdfMerger
-        from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
-        from reportlab.lib import colors
-        from reportlab.lib.pagesizes import letter, landscape
-        from reportlab.lib.styles import getSampleStyleSheet
-
-        # --- Internal Table PDF Gen ---
-        def create_appendix_pdf(data):
-            buffer = io.BytesIO()
-            doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
-            styles = getSampleStyleSheet()
-            elements = []
-            elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
-            elements.append(Spacer(1, 20))
-            elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
-            t1_data = [["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
-                       [data['analyst_name'], data['reader_name'], data['sample_id'], "<1 event", "1", f"{data['organism_morphology']}-shaped Morphology"]]
-            t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
-            t1.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')]))
-            elements.append(t1)
-            elements.append(Spacer(1, 20))
-            elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
-            headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
-            rows = []
-            rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
-            rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
-            rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
-            rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
-            rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
-            rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
-            rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
-            rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
-            t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
-            t2.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('FONTSIZE', (0, 0), (-1, -1), 9), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'), ('SPAN', (0, 1), (-1, 1)), ('SPAN', (0, 3), (-1, 3)), ('SPAN', (0, 6), (-1, 6))]))
-            elements.append(t2)
-            doc.build(elements)
-            buffer.seek(0)
-            return buffer
-
-        # --- PDF FILLING ---
+        from pypdf import PdfReader, PdfWriter
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
                                  f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
@@ -619,17 +570,10 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         if os.path.exists("ScanRDI OOS template.pdf"):
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
-            form_buf = io.BytesIO(); writer.write(form_buf); form_buf.seek(0)
-            tables_buf = create_appendix_pdf(final_data_docx)
-            merger = PdfMerger()
-            merger.append(form_buf)
-            merger.append(tables_buf)
-            final_buf = io.BytesIO()
-            merger.write(final_buf)
-            final_buf.seek(0)
-            st.download_button("📂 Download PDF (Merged with Tables)", final_buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
+            buf = io.BytesIO(); writer.write(buf); buf.seek(0)
+            st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
     
     except ImportError:
-        st.warning("⚠️ PDF generation requires 'pypdf' and 'reportlab'. Please update requirements.txt. You can still download the DOCX.")
+        st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt. You can still download the DOCX files.")
     except Exception as e:
         st.error(f"PDF Error: {e}")
