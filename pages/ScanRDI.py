@@ -1,12 +1,18 @@
 import streamlit as st
 from docxtpl import DocxTemplate
-from pypdf import PdfReader, PdfWriter
+from pypdf import PdfReader, PdfWriter, PdfMerger
 import os
 import re
 import json
 import io
 from datetime import datetime, timedelta
 from utils import apply_eagle_style, get_full_name, get_room_logic
+
+# --- REPORTLAB IMPORTS (For Table Generation) ---
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="ScanRDI Investigation", layout="wide")
@@ -43,13 +49,17 @@ field_keys = [
     "total_pos_count_num", "current_pos_order",
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
-    "diff_reader_analyst", "em_growth_count" 
+    "diff_reader_analyst", 
+    # Fixed EM Keys
+    "obs_pers", "etx_pers", "id_pers", 
+    "obs_surf", "etx_surf", "id_surf", 
+    "obs_sett", "etx_sett", "id_sett", 
+    "obs_air", "etx_air_weekly", "id_air_weekly", 
+    "obs_room", "etx_room_weekly", "id_room_wk_of"
 ]
+# Dynamic keys
 for i in range(20):
-    field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
-
-# Fixed EM keys for mapping fallback
-field_keys.extend(["obs_pers", "etx_pers", "id_pers", "obs_surf", "etx_surf", "id_surf", "obs_sett", "etx_sett", "id_sett", "obs_air", "etx_air_weekly", "id_air_weekly", "obs_room", "etx_room_weekly", "id_room_wk_of"])
+    field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}"])
 
 def load_saved_state():
     if os.path.exists(STATE_FILE):
@@ -98,19 +108,30 @@ def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
     
+    # CASE A: Same BSC
     if st.session_state.bsc_id == st.session_state.chgbsc_id:
         part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
         part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{st.session_state.bsc_id} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{st.session_state.bsc_id} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
         return f"{part1}\n\n{part2}"
-    elif t_suite == c_suite:
-        part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-        part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, (Suite {c_suite}{c_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams. Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) by {st.session_state.analyst_name} and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.changeover_name} on {st.session_state.test_date}."
-        return f"{part1}\n\n{part2}"
+    
+    # CASE B/C: Different BSCs
     else:
-        part1 = f"The cleanroom used for testing (E00{t_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which opens into the middle ISO 7 buffer room ({t_suite}A), and then into the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-        part2 = f"The cleanroom used for changeover (E00{c_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({c_suite}B), which opens into the middle ISO 7 buffer room ({c_suite}A), and then into the outermost ISO 8 anteroom ({c_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {c_suite}B through {c_suite}A and into {c_suite}."
-        part3 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, (Suite {c_suite}{c_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams. Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) by {st.session_state.analyst_name} and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.changeover_name} on {st.session_state.test_date}."
-        return f"{part1}\n\n{part2}\n\n{part3}"
+        if t_suite == c_suite:
+             part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
+        else:
+             p1a = f"The cleanroom used for testing (E00{t_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which opens into the middle ISO 7 buffer room ({t_suite}A), and then into the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
+             p1b = f"The cleanroom used for changeover (E00{c_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({c_suite}B), which opens into the middle ISO 7 buffer room ({c_suite}A), and then into the outermost ISO 8 anteroom ({c_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {c_suite}B through {c_suite}A and into {c_suite}."
+             part1 = f"{p1a}\n\n{p1b}"
+
+        intro = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, (Suite {c_suite}{c_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams."
+        
+        # [FIXED] Grammar for Same vs Different Analyst (Sentence Merge)
+        if st.session_state.analyst_name == st.session_state.changeover_name:
+            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
+        else:
+            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) by {st.session_state.analyst_name} and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.changeover_name} on {st.session_state.test_date}."
+
+        return f"{part1}\n\n{intro} {usage_sent}"
 
 def generate_history_text():
     if st.session_state.incidence_count == 0 or st.session_state.has_prior_failures == "No":
@@ -158,57 +179,157 @@ def generate_cross_contam_text():
 
 def generate_narrative_and_details():
     failures = []
-    failed_categories = set()
+    def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
     
-    count = st.session_state.get("em_growth_count", 1)
-    cat_map = {
-        "Personnel Obs": "personal sampling (left touch and right touch)",
-        "Surface Obs": "surface sampling",
-        "Settling Obs": "settling plates",
-        "Weekly Air Obs": "weekly active air sampling",
-        "Weekly Surf Obs": "weekly surface sampling"
-    }
+    if is_fail(st.session_state.obs_pers):
+        failures.append({"cat": "personnel sampling", "obs": st.session_state.obs_pers, "etx": st.session_state.etx_pers, "id": st.session_state.id_pers, "time": "daily"})
+    if is_fail(st.session_state.obs_surf):
+        failures.append({"cat": "surface sampling", "obs": st.session_state.obs_surf, "etx": st.session_state.etx_surf, "id": st.session_state.id_surf, "time": "daily"})
+    if is_fail(st.session_state.obs_sett):
+        failures.append({"cat": "settling plates", "obs": st.session_state.obs_sett, "etx": st.session_state.etx_sett, "id": st.session_state.id_sett, "time": "daily"})
+    if is_fail(st.session_state.obs_air):
+        failures.append({"cat": "weekly active air sampling", "obs": st.session_state.obs_air, "etx": st.session_state.etx_air_weekly, "id": st.session_state.id_air_weekly, "time": "weekly"})
+    if is_fail(st.session_state.obs_room):
+        failures.append({"cat": "weekly surface sampling", "obs": st.session_state.obs_room, "etx": st.session_state.etx_room_weekly, "id": st.session_state.id_room_wk_of, "time": "weekly"})
+
+    # [FIXED] Pass Narrative Split (Daily vs Weekly)
+    pass_daily_clean = []
+    if not is_fail(st.session_state.obs_pers): pass_daily_clean.append("personal sampling (left touch and right touch)")
+    if not is_fail(st.session_state.obs_surf): pass_daily_clean.append("surface sampling")
+    if not is_fail(st.session_state.obs_sett): pass_daily_clean.append("settling plates")
     
-    for i in range(count):
-        raw_cat = st.session_state.get(f"em_cat_{i}")
-        cat_text = cat_map.get(raw_cat, "personnel sampling")
-        obs = st.session_state.get(f"em_obs_{i}","")
-        etx = st.session_state.get(f"em_etx_{i}","")
-        mid = st.session_state.get(f"em_id_{i}","")
+    pass_wk_clean = []
+    if not is_fail(st.session_state.obs_air): pass_wk_clean.append("weekly active air sampling")
+    if not is_fail(st.session_state.obs_room): pass_wk_clean.append("weekly surface sampling")
+
+    narr_parts = []
+    if pass_daily_clean:
+        if len(pass_daily_clean) == 1: d_str = pass_daily_clean[0]
+        elif len(pass_daily_clean) == 2: d_str = f"{pass_daily_clean[0]} and {pass_daily_clean[1]}"
+        else: d_str = f"{pass_daily_clean[0]}, {pass_daily_clean[1]}, and {pass_daily_clean[2]}"
+        narr_parts.append(f"no microbial growth was observed in {d_str}")
         
-        clean_obs = obs.strip().lower()
-        if clean_obs and clean_obs != "no growth" and clean_obs != "none" and clean_obs != "n/a":
-            failures.append({"cat": cat_text, "obs": obs, "etx": etx, "id": mid})
-            failed_categories.add(cat_text)
+    if pass_wk_clean:
+        if len(pass_wk_clean) == 1: w_str = pass_wk_clean[0]
+        elif len(pass_wk_clean) == 2: w_str = f"{pass_wk_clean[0]} and {pass_wk_clean[1]}"
+        else: w_str = ", ".join(pass_wk_clean)
+        
+        if narr_parts: narr_parts.append(f"Additionally, {w_str} showed no microbial growth")
+        else: narr_parts.append(f"no microbial growth was observed in {w_str}")
 
-    all_categories = [
-        "personal sampling (left touch and right touch)",
-        "surface sampling",
-        "settling plates",
-        "weekly active air sampling",
-        "weekly surface sampling"
+    if not narr_parts: narr = "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
+    else: narr = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "."
+
+    # Build "Fail" Narrative
+    det = ""
+    if failures:
+        daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
+        weekly_fails = [f["cat"] for f in failures if f['time'] == 'weekly']
+        
+        intro_parts = []
+        if daily_fails:
+            if len(daily_fails) == 1: d_str = daily_fails[0]
+            elif len(daily_fails) == 2: d_str = f"{daily_fails[0]} and {daily_fails[1]}"
+            else: d_str = ", ".join(daily_fails[:-1]) + f", and {daily_fails[-1]}"
+            intro_parts.append(f"{d_str} on the date")
+            
+        if weekly_fails:
+            if len(weekly_fails) == 1: w_str = weekly_fails[0]
+            elif len(weekly_fails) == 2: w_str = f"{weekly_fails[0]} and {weekly_fails[1]}"
+            else: w_str = ", ".join(weekly_fails[:-1]) + f", and {weekly_fails[-1]}"
+            intro_parts.append(f"{w_str} from week of testing")
+            
+        if len(intro_parts) == 2: fail_intro = f"However, microbial growth was observed during both {intro_parts[0]} and {intro_parts[1]}."
+        else: fail_intro = f"However, microbial growth was observed during {intro_parts[0]}."
+        
+        detail_sentences = []
+        for i, f in enumerate(failures):
+            # [FIXED] Gram Detection and ETX formatting
+            id_text = f['id']
+            if "gram" in id_text.lower(): method_text = "differential staining"
+            else: method_text = "microbial identification"
+                
+            base_sentence = f"{f['obs']} was detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the organism was identified as {id_text}"
+            
+            if i == 0: full_sent = f"Specifically, {base_sentence}."
+            elif i == 1: full_sent = f"Additionally, {base_sentence}."
+            elif i == 2: full_sent = f"Furthermore, {base_sentence}."
+            else: full_sent = f"Also, {base_sentence}."
+            detail_sentences.append(full_sent)
+            
+        det = f"{fail_intro} {' '.join(detail_sentences)}"
+
+    return narr, det
+
+# --- TABLE PDF GENERATOR ---
+def create_appendix_pdf(data):
+    """Generates a PDF buffer with Table 1 and Table 2 attached."""
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # Title
+    elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
+    elements.append(Spacer(1, 20))
+
+    # --- TABLE 1 ---
+    elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
+    t1_data = [
+        ["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
+        [data['analyst_name'], data['reader_name'], data['sample_id'], "<1 event", "1", f"{data['organism_morphology']}-shaped Morphology"]
     ]
-    passed_categories = [c for c in all_categories if c not in failed_categories]
+    t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
+    t1.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
+    ]))
+    elements.append(t1)
+    elements.append(Spacer(1, 20))
+
+    # --- TABLE 2 ---
+    elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
     
-    if len(passed_categories) == 0:
-        narr = "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
-    elif len(passed_categories) == 5:
-        narr = "Upon analyzing the environmental monitoring results, no microbial growth was observed in personal sampling (left touch and right touch), surface sampling, and settling plates. Additionally, weekly active air sampling and weekly surface sampling showed no microbial growth."
-    else:
-        if len(passed_categories) == 1: passed_str = passed_categories[0]
-        elif len(passed_categories) == 2: passed_str = f"{passed_categories[0]} and {passed_categories[1]}"
-        else: passed_str = ", ".join(passed_categories[:-1]) + f", and {passed_categories[-1]}"
-        narr = f"Upon analyzing the environmental monitoring results, no microbial growth was observed in {passed_str}."
+    # Headers
+    headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
+    
+    # Rows
+    rows = []
+    # Personnel
+    rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
+    rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
+    
+    # BSC
+    rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
+    rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
+    rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
+    
+    # Weekly
+    rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
+    rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
+    rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
 
-    if not failures:
-        det = ""
-    else:
-        det_lines = []
-        for f in failures:
-            det_lines.append(f"{f['obs']} was detected during {f['cat']} (ID: {f['id']}).")
-        det = "Microbial growth was observed. " + " ".join(det_lines)
+    t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
+    t2.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), # Header
+        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), # Section Header
+        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), # Section Header
+        ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), # Section Header
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('SPAN', (0, 1), (-1, 1)), # Span section headers
+        ('SPAN', (0, 3), (-1, 3)),
+        ('SPAN', (0, 6), (-1, 6)),
+    ]))
+    elements.append(t2)
 
-    return narr, det, failures
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
 
 # --- INIT STATE ---
 def init_state(key, default=""): 
@@ -224,11 +345,7 @@ if "data_loaded" not in st.session_state:
 # --- PARSER ---
 def parse_email_text(text):
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
-    
-    # [FIXED] Updated Client Name Regex (Whole Line containing E code)
-    if m := re.search(r"^.*\(E\d{5}\).*$", text, re.MULTILINE): 
-        st.session_state.client_name = m.group(0).strip()
-    
+    if m := re.search(r"^.*\(E\d{5}\).*$", text, re.MULTILINE): st.session_state.client_name = m.group(0).strip()
     if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
     if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
@@ -319,20 +436,42 @@ with f2:
 
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
-if st.session_state.em_growth_observed == "Yes":
-    count = st.number_input("Failures Count", 1, 20, key="em_growth_count")
-    for i in range(count):
-        st.subheader(f"Growth #{i+1}")
-        c1,c2,c3,c4 = st.columns(4)
-        with c1: st.selectbox(f"Cat {i+1}", ["Personnel Obs","Surface Obs","Settling Obs","Weekly Air Obs","Weekly Surf Obs"], key=f"em_cat_{i}")
-        with c2: st.text_input(f"Obs {i+1}", key=f"em_obs_{i}")
-        with c3: st.text_input(f"ETX {i+1}", key=f"em_etx_{i}")
-        with c4: st.text_input(f"ID {i+1}", key=f"em_id_{i}")
+
+if st.session_state.em_growth_observed == "No":
+    st.session_state.obs_pers = "No Growth"
+    st.session_state.obs_surf = "No Growth"
+    st.session_state.obs_sett = "No Growth"
+    st.session_state.obs_air = "No Growth"
+    st.session_state.obs_room = "No Growth"
 else:
-    st.session_state.em_details = ""
+    c1, c2, c3 = st.columns(3)
+    with c1: 
+        st.text_input("Personnel Obs", key="obs_pers", placeholder="e.g. 1 CFU or No Growth")
+        st.text_input("Pers ETX", key="etx_pers")
+        st.text_input("Pers ID", key="id_pers")
+    with c2: 
+        st.text_input("Surface Obs", key="obs_surf", placeholder="e.g. 1 CFU or No Growth")
+        st.text_input("Surf ETX", key="etx_surf")
+        st.text_input("Surf ID", key="id_surf")
+    with c3: 
+        st.text_input("Settling Obs", key="obs_sett", placeholder="e.g. 1 CFU or No Growth")
+        st.text_input("Sett ETX", key="etx_sett")
+        st.text_input("Sett ID", key="id_sett")
+        
+    st.divider()
+    st.caption("Weekly Bracketing")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.text_input("Weekly Air Obs", key="obs_air", placeholder="e.g. 1 CFU or No Growth")
+        st.text_input("Air ETX", key="etx_air_weekly")
+        st.text_input("Air ID", key="id_air_weekly")
+    with c2:
+        st.text_input("Weekly Surf Obs", key="obs_room", placeholder="e.g. 1 CFU or No Growth")
+        st.text_input("Surf ETX", key="etx_room_weekly")
+        st.text_input("Surf ID", key="id_room_wk_of")
 
 st.divider()
-st.caption("Weekly Bracketing")
+st.caption("Weekly Bracketing Meta")
 m1, m2 = st.columns(2)
 with m1: st.text_input("Weekly Monitor Initials", key="weekly_init", help="Required")
 with m2: st.text_input("Date of Weekly Monitoring", key="date_weekly", help="Required")
@@ -358,7 +497,7 @@ if st.session_state.other_positives == "Yes":
         with c2: st.number_input(f"Other Sample #{i+1} Order", 1, 20, key=f"other_order_{i}")
 
 if st.button("🔄 Update Summaries Preview"):
-    fresh_narr, fresh_det, _ = generate_narrative_and_details()
+    fresh_narr, fresh_det = generate_narrative_and_details()
     st.session_state.narrative_summary = fresh_narr
     st.session_state.em_details = fresh_det
     st.rerun()
@@ -379,7 +518,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
     # 2. Update Generators
-    fresh_narr, fresh_det, _ = generate_narrative_and_details()
+    fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
     fresh_history = generate_history_text()
     fresh_cross = generate_cross_contam_text()
@@ -391,10 +530,20 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     try: 
         d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
         tr_id = f"{d_obj.strftime('%m%d%y')}-{st.session_state.scan_id}-{st.session_state.shift_number}"
-        pdf_date_str = d_obj.strftime("%d-%b-%Y") # [FIXED] PDF Specific Date Format
+        # [FIXED] PDF Date only applied to Date Fields (e.g. 13-Jan-2026)
+        pdf_date_str = d_obj.strftime("%d-%b-%Y") 
     except: 
         tr_id = "N/A"
         pdf_date_str = st.session_state.test_date
+
+    # [FIXED] Sanitize Table Data (No Growth = N/A)
+    em_map = [("obs_pers", "etx_pers", "id_pers"), ("obs_surf", "etx_surf", "id_surf"), ("obs_sett", "etx_sett", "id_sett"), ("obs_air", "etx_air_weekly", "id_air_weekly"), ("obs_room", "etx_room_weekly", "id_room_wk_of")]
+    for obs_k, etx_k, id_k in em_map:
+        val = st.session_state[obs_k].strip()
+        if not val or val.lower() == "no growth":
+            st.session_state[obs_k] = "No Growth"
+            st.session_state[etx_k] = "N/A"
+            st.session_state[id_k] = "N/A"
 
     # --- WORD ---
     final_data_docx = {k: v for k, v in st.session_state.items()}
@@ -409,8 +558,12 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "date_of_weekly": st.session_state.get("date_weekly", ""),
         "weekly_initial": st.session_state.get("weekly_init", ""),
-        "obs_pers_dur": "No Growth", "obs_surf_dur": "No Growth", "obs_sett_dur": "No Growth",
-        "obs_air_wk_of": "No Growth", "obs_room_wk_of": "No Growth"
+        "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
+        "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
+        "obs_sett_dur": st.session_state.obs_sett, "etx_sett_dur": st.session_state.etx_sett, "id_sett_dur": st.session_state.id_sett,
+        "obs_air_wk_of": st.session_state.obs_air, "etx_air_wk_of": st.session_state.etx_air_weekly, "id_air_wk_of": st.session_state.id_air_weekly,
+        "obs_room_wk_of": st.session_state.obs_room, "etx_room_wk_of": st.session_state.etx_room_weekly, "id_room_wk_of": st.session_state.id_room_wk_of,
+        "notes": "None" 
     })
 
     # --- PDF ---
@@ -423,9 +576,8 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})"
     )
 
-    smart_incident_opening = f"On {pdf_date_str}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
+    smart_incident_opening = f"On {st.session_state.test_date}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
     
-    # [FIXED] Smart Interview Logic (Grammar fix)
     unique_analysts = []
     if st.session_state.prepper_name: unique_analysts.append(st.session_state.prepper_name)
     if st.session_state.analyst_name and st.session_state.analyst_name not in unique_analysts: unique_analysts.append(st.session_state.analyst_name)
@@ -444,14 +596,14 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
     p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
     p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
-    p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {pdf_date_str}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
+    p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
     p5 = fresh_equip
     p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
     
     smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
 
     # Phase I Summary (Part 2)
-    p7 = f"On {pdf_date_str}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
+    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     
     p9 = fresh_narr
@@ -499,11 +651,25 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
-    # 5. Generate PDF
+    # 5. Generate PDF (MERGED)
     if os.path.exists("ScanRDI OOS template.pdf"):
         try:
+            # 1. Fill Form
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
-            buf = io.BytesIO(); writer.write(buf); buf.seek(0)
-            st.download_button("📂 Download PDF", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
+            form_buf = io.BytesIO(); writer.write(form_buf); form_buf.seek(0)
+            
+            # 2. Generate Tables
+            tables_buf = create_appendix_pdf(final_data_docx)
+            
+            # 3. Merge
+            merger = PdfMerger()
+            merger.append(form_buf)
+            merger.append(tables_buf)
+            
+            final_buf = io.BytesIO()
+            merger.write(final_buf)
+            final_buf.seek(0)
+            
+            st.download_button("📂 Download PDF (Merged with Tables)", final_buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
         except Exception as e: st.error(f"PDF Error: {e}")
