@@ -5,9 +5,10 @@ import json
 import io
 import sys
 import subprocess
+import time
 from datetime import datetime, timedelta
 
-# --- UTILS IMPORT (Safe Fallback) ---
+# --- SAFE UTILS IMPORT ---
 try:
     from utils import apply_eagle_style, get_full_name, get_room_logic
 except ImportError:
@@ -29,9 +30,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER ---
+# --- HELPER: LAZY INSTALLER (Crash Proof) ---
 def ensure_dependencies():
-    """Installs missing libraries on the fly to prevent crashes."""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -73,8 +73,8 @@ field_keys = [
     "total_pos_count_num", "current_pos_order",
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
-    "diff_reader_analyst", 
-    # Fixed EM Keys
+    "diff_reader_analyst", "em_growth_count",
+    # Fixed keys for Word Template
     "obs_pers", "etx_pers", "id_pers", 
     "obs_surf", "etx_surf", "id_surf", 
     "obs_sett", "etx_sett", "id_sett", 
@@ -83,7 +83,7 @@ field_keys = [
 ]
 # Dynamic keys
 for i in range(20):
-    field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}"])
+    field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 
 def load_saved_state():
     if os.path.exists(STATE_FILE):
@@ -125,20 +125,16 @@ def get_room_logic(bsc_id):
     try:
         from utils import get_room_logic as utils_get_room
         return utils_get_room(bsc_id)
-    except:
-        return "Unknown Room", "000", "", "Unknown Loc"
+    except: return "Unknown Room", "000", "", "Unknown Loc"
 
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
     
-    # CASE A: Same BSC
     if st.session_state.bsc_id == st.session_state.chgbsc_id:
         part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
         part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{st.session_state.bsc_id} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{st.session_state.bsc_id} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
         return f"{part1}\n\n{part2}"
-    
-    # CASE B/C: Different BSCs
     else:
         if t_suite == c_suite:
              part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
@@ -164,7 +160,6 @@ def generate_history_text():
         if not pids: refs_str = "..."
         elif len(pids) == 1: refs_str = pids[0]
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
-        
         if len(pids) == 1: phrase = f"1 incident ({refs_str})"
         else: phrase = f"{len(pids)} incidents ({refs_str})"
         
@@ -200,8 +195,48 @@ def generate_cross_contam_text():
 
     return f"{ids_str} were the {count_word} samples tested positive for microbial growth. The analyst confirmed that these samples were not processed concurrently, sequentially, or within the same manifold run. Specifically, {details_str}. The analyst also verified that gloves were thoroughly disinfected between samples. Furthermore, all other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 
+# --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
+def sync_dynamic_to_fixed():
+    # 1. Reset all fixed fields to "Clean" state
+    default_obs = "No Growth"
+    default_etx = "N/A"
+    default_id = "N/A"
+    
+    fixed_map = {
+        "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"),
+        "Surface Obs": ("obs_surf", "etx_surf", "id_surf"),
+        "Settling Obs": ("obs_sett", "etx_sett", "id_sett"),
+        "Weekly Air Obs": ("obs_air", "etx_air_weekly", "id_air_weekly"),
+        "Weekly Surf Obs": ("obs_room", "etx_room_weekly", "id_room_wk_of")
+    }
+    
+    # Initialize all to defaults
+    for cat, (k_obs, k_etx, k_id) in fixed_map.items():
+        st.session_state[k_obs] = default_obs
+        st.session_state[k_etx] = default_etx
+        st.session_state[k_id] = default_id
+
+    # 2. Overwrite with Dynamic Data
+    if st.session_state.get("em_growth_observed") == "Yes":
+        count = st.session_state.get("em_growth_count", 1)
+        for i in range(count):
+            cat = st.session_state.get(f"em_cat_{i}")
+            obs = st.session_state.get(f"em_obs_{i}", "")
+            etx = st.session_state.get(f"em_etx_{i}", "")
+            mid = st.session_state.get(f"em_id_{i}", "")
+            
+            if cat in fixed_map:
+                k_obs, k_etx, k_id = fixed_map[cat]
+                st.session_state[k_obs] = obs
+                st.session_state[k_etx] = etx
+                st.session_state[k_id] = mid
+
 def generate_narrative_and_details():
+    # Run sync first so fixed fields are populated correctly
+    sync_dynamic_to_fixed()
+    
     failures = []
+    # Identify Failures using Fixed Fields (which are now synced)
     def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
     
     if is_fail(st.session_state.obs_pers):
@@ -386,41 +421,26 @@ with f2:
     st.text_input("Control Lot", key="control_lot", help="Required")
     st.text_input("Control Exp", key="control_exp", help="Required")
 
+# --- [RESTORED] DYNAMIC EM OBSERVATIONS UI ---
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
 
-if st.session_state.em_growth_observed == "No":
-    st.session_state.obs_pers = "No Growth"
-    st.session_state.obs_surf = "No Growth"
-    st.session_state.obs_sett = "No Growth"
-    st.session_state.obs_air = "No Growth"
-    st.session_state.obs_room = "No Growth"
+if st.session_state.em_growth_observed == "Yes":
+    count = st.number_input("Count of Growth Events", 1, 10, key="em_growth_count")
+    for i in range(count):
+        st.subheader(f"Growth Event #{i+1}")
+        c1, c2, c3, c4 = st.columns(4)
+        with c1: 
+            st.selectbox(f"Category", ["Personnel Obs", "Surface Obs", "Settling Obs", "Weekly Air Obs", "Weekly Surf Obs"], key=f"em_cat_{i}")
+        with c2: 
+            st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
+        with c3: 
+            st.text_input(f"ETX ID", key=f"em_etx_{i}")
+        with c4: 
+            st.text_input(f"Microbial ID", key=f"em_id_{i}")
 else:
-    c1, c2, c3 = st.columns(3)
-    with c1: 
-        st.text_input("Personnel Obs", key="obs_pers", placeholder="e.g. 1 CFU or No Growth")
-        st.text_input("Pers ETX", key="etx_pers")
-        st.text_input("Pers ID", key="id_pers")
-    with c2: 
-        st.text_input("Surface Obs", key="obs_surf", placeholder="e.g. 1 CFU or No Growth")
-        st.text_input("Surf ETX", key="etx_surf")
-        st.text_input("Surf ID", key="id_surf")
-    with c3: 
-        st.text_input("Settling Obs", key="obs_sett", placeholder="e.g. 1 CFU or No Growth")
-        st.text_input("Sett ETX", key="etx_sett")
-        st.text_input("Sett ID", key="id_sett")
-        
-    st.divider()
-    st.caption("Weekly Bracketing")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.text_input("Weekly Air Obs", key="obs_air", placeholder="e.g. 1 CFU or No Growth")
-        st.text_input("Air ETX", key="etx_air_weekly")
-        st.text_input("Air ID", key="id_air_weekly")
-    with c2:
-        st.text_input("Weekly Surf Obs", key="obs_room", placeholder="e.g. 1 CFU or No Growth")
-        st.text_input("Surf ETX", key="etx_room_weekly")
-        st.text_input("Surf ID", key="id_room_wk_of")
+    # If no growth, these keys won't be used, but the Sync function will handle clearing the fixed fields.
+    pass
 
 st.divider()
 st.caption("Weekly Bracketing Meta")
@@ -481,7 +501,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     from reportlab.lib.pagesizes import letter, landscape
     from reportlab.lib.styles import getSampleStyleSheet
 
-    # 4. Update Generators
+    # 4. Update Generators (Includes SYNCING dynamic -> fixed)
     fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
     fresh_history = generate_history_text()
@@ -499,15 +519,6 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         tr_id = "N/A"
         pdf_date_str = st.session_state.test_date
 
-    # Sanitize Table Data (No Growth = N/A)
-    em_map = [("obs_pers", "etx_pers", "id_pers"), ("obs_surf", "etx_surf", "id_surf"), ("obs_sett", "etx_sett", "id_sett"), ("obs_air", "etx_air_weekly", "id_air_weekly"), ("obs_room", "etx_room_weekly", "id_room_wk_of")]
-    for obs_k, etx_k, id_k in em_map:
-        val = st.session_state[obs_k].strip()
-        if not val or val.lower() == "no growth":
-            st.session_state[obs_k] = "No Growth"
-            st.session_state[etx_k] = "N/A"
-            st.session_state[id_k] = "N/A"
-
     # --- WORD ---
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
@@ -521,6 +532,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "date_of_weekly": st.session_state.get("date_weekly", ""),
         "weekly_initial": st.session_state.get("weekly_init", ""),
+        # Map specific Fixed Fields (now synced) to Word Template
         "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
         "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
         "obs_sett_dur": st.session_state.obs_sett, "etx_sett_dur": st.session_state.etx_sett, "id_sett_dur": st.session_state.id_sett,
