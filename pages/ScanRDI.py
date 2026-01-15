@@ -3,6 +3,9 @@ import os
 import re
 import json
 import io
+import sys
+import subprocess
+import time
 from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
@@ -27,6 +30,28 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+# --- HELPER: LAZY INSTALLER (Crash Proof) ---
+def ensure_dependencies():
+    required = ["docxtpl", "pypdf", "reportlab"]
+    missing = []
+    for lib in required:
+        try:
+            __import__(lib)
+        except ImportError:
+            missing.append(lib)
+    
+    if missing:
+        placeholder = st.empty()
+        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload automatically)")
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
+            placeholder.success("Libraries installed! Reloading...")
+            time.sleep(1)
+            st.rerun()
+        except Exception as e:
+            placeholder.error(f"Installation failed: {e}")
+            st.stop()
+
 # --- FILE PERSISTENCE ---
 STATE_FILE = "investigation_state.json"
 field_keys = [
@@ -49,6 +74,8 @@ field_keys = [
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
     "diff_reader_analyst", "em_growth_count",
+    # New Fields
+    "event_number", "confirm_number",
     # Fixed keys for Word Template logic
     "obs_pers", "etx_pers", "id_pers", 
     "obs_surf", "etx_surf", "id_surf", 
@@ -182,13 +209,11 @@ def sync_dynamic_to_fixed():
         "Weekly Surf Obs": ("obs_room", "etx_room_weekly", "id_room_wk_of")
     }
     
-    # Initialize defaults
     for cat, (k_obs, k_etx, k_id) in fixed_map.items():
         st.session_state[k_obs] = default_obs
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
-    # Overwrite if Growth
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -218,7 +243,6 @@ def generate_narrative_and_details():
     if is_fail(st.session_state.obs_room):
         failures.append({"cat": "weekly surface sampling", "obs": st.session_state.obs_room, "etx": st.session_state.etx_room_weekly, "id": st.session_state.id_room_wk_of, "time": "weekly"})
 
-    # Narrative Logic
     pass_daily_clean = []
     if not is_fail(st.session_state.obs_pers): pass_daily_clean.append("personal sampling (left touch and right touch)")
     if not is_fail(st.session_state.obs_surf): pass_daily_clean.append("surface sampling")
@@ -268,7 +292,6 @@ def generate_narrative_and_details():
             id_text = f['id']
             method_text = "differential staining" if "gram" in id_text.lower() else "microbial identification"
             base_sentence = f"{f['obs']} was detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the organism was identified as {id_text}"
-            
             if i == 0: full_sent = f"Specifically, {base_sentence}."
             elif i == 1: full_sent = f"Additionally, {base_sentence}."
             elif i == 2: full_sent = f"Furthermore, {base_sentence}."
@@ -285,6 +308,7 @@ def init_state(key, default=""):
 for k in field_keys:
     if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
+    elif k in ["event_number", "confirm_number"]: init_state(k, "1")
     else: init_state(k, "No" if "diff" in k or "has" in k or "growth" in k or "other" in k else "")
 
 if "data_loaded" not in st.session_state:
@@ -293,30 +317,23 @@ if "data_loaded" not in st.session_state:
 # --- PARSER ---
 def parse_email_text(text):
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
-    
-    # [FIXED] Updated Greedy Regex for Client Name (Captures entire line with E-code, including & * etc)
-    if m := re.search(r"^(?:.*\n)?(.*\(E\d{5}\).*)$", text, re.MULTILINE): 
-        st.session_state.client_name = m.group(1).strip()
-    
+    if m := re.search(r"^(?:.*\n)?(.*\(E\d{5}\).*)$", text, re.MULTILINE): st.session_state.client_name = m.group(1).strip()
     if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
     if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
     if m := re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.I):
         try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
-    
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
         if initial == "DS": st.session_state.analyst_name = "Devanshi Shah"
         else: st.session_state.analyst_name = get_full_name(initial)
-
     if m := re.search(r"(\w+)-shaped", text, re.I):
         found_shape = m.group(1).lower()
         if "cocci" in found_shape: st.session_state.org_choice = "cocci"
         elif "rod" in found_shape: st.session_state.org_choice = "rod"
         else: st.session_state.org_choice = "Other"; st.session_state.manual_org = found_shape
-            
     save_current_state()
 
 st.title("🦠 ScanRDI Investigation")
@@ -381,12 +398,17 @@ with f1:
     st.selectbox("Shift Number", ["1", "2", "3"], key="shift_number")
     st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
     if st.session_state.org_choice == "Other": st.text_input("Manual Shape", key="manual_org")
+    
+    # [NEW] Event & Confirm Numbers
+    c_a, c_b = st.columns(2)
+    with c_a: st.text_input("Events Number", key="event_number", help="e.g. <1 event")
+    with c_b: st.text_input("Confirmed #", key="confirm_number", help="e.g. 1")
+
 with f2:
     st.selectbox("Positive Control", ["A. brasiliensis","B. subtilis","C. albicans","C. sporogenes","P. aeruginosa","S. aureus"], key="control_pos")
     st.text_input("Control Lot", key="control_lot", help="Required")
     st.text_input("Control Exp", key="control_exp", help="Required")
 
-# --- DYNAMIC EM OBSERVATIONS UI ---
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
 
@@ -448,7 +470,19 @@ if st.button("🚀 GENERATE REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Prepare Data
+    # 2. Dependency Check (LAZY LOAD & RESTART)
+    import time
+    ensure_dependencies()
+
+    # 3. Safe Import
+    from docxtpl import DocxTemplate
+    from pypdf import PdfReader, PdfWriter, PdfMerger
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter, landscape
+    from reportlab.lib.styles import getSampleStyleSheet
+
+    # 4. Generators
     fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
     fresh_history = generate_history_text()
@@ -456,6 +490,7 @@ if st.button("🚀 GENERATE REPORT"):
     
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
+    
     try: 
         d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
         tr_id = f"{d_obj.strftime('%m%d%y')}-{st.session_state.scan_id}-{st.session_state.shift_number}"
@@ -463,13 +498,20 @@ if st.button("🚀 GENERATE REPORT"):
     except: 
         tr_id = "N/A"; pdf_date_str = st.session_state.test_date
 
+    # [FIXED] Grammar logic for Microorganisms
+    suffix = "microorganism" if str(st.session_state.confirm_number).strip() == "1" else "microorganisms"
+    
+    # [FIXED] Uppercase Morphology
+    raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
+    org_upper = raw_org.upper().strip()
+
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
         "equipment_summary": fresh_equip,
         "sample_history_paragraph": fresh_history,
         "cross_contamination_summary": fresh_cross,
         "test_record": tr_id,
-        "organism_morphology": st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org',''),
+        "organism_morphology": org_upper, # Uppercase for Tables
         "control_positive": st.session_state.control_pos,
         "control_data": st.session_state.control_exp,
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
@@ -483,7 +525,23 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
-    # 3. GENERATE MAIN DOCX
+    # 5. Phase 1 Update with new Grammar
+    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_upper}-shaped viable {suffix}, see table 1."
+    
+    # Update smart variables for PDF/Word
+    # (Re-generate phase1_part2 to include updated p7)
+    p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
+    p9 = fresh_narr
+    if fresh_det: p9 += "\n\n" + fresh_det
+    p10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
+    p11 = fresh_history
+    p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
+    p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    
+    smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
+    final_data_docx['Text Field50'] = smart_phase1_part2 # Update Word context
+
+    # 6. DOCX GENERATION
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
@@ -495,7 +553,7 @@ if st.button("🚀 GENERATE REPORT"):
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
-    # 4. GENERATE TABLES DOCX (New Feature)
+    # 7. TABLES GENERATION (DOCX)
     tables_template = "tables for scan.docx"
     if os.path.exists(tables_template):
         try:
@@ -505,8 +563,49 @@ if st.button("🚀 GENERATE REPORT"):
             buf_tbl = io.BytesIO(); doc_tbl.save(buf_tbl); buf_tbl.seek(0)
             st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables-OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
-    
-    # 5. GENERATE PDF FORM (Safe Mode)
+
+    # 8. TABLES GENERATION (PDF - Safe Mode)
+    def create_table_pdf_safe(data):
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+        styles = getSampleStyleSheet()
+        elements = []
+        elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
+        elements.append(Spacer(1, 20))
+        # Table 1
+        elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
+        t1_data = [["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
+                   [data['analyst_name'], data['reader_name'], data['sample_id'], data['event_number'], data['confirm_number'], f"{data['organism_morphology']}-shaped Morphology"]]
+        t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
+        t1.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')]))
+        elements.append(t1)
+        elements.append(Spacer(1, 20))
+        # Table 2
+        elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
+        headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
+        rows = []
+        rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
+        rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
+        rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
+        rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
+        rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
+        rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
+        rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
+        rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
+        t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
+        t2.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('FONTSIZE', (0, 0), (-1, -1), 9), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'), ('SPAN', (0, 1), (-1, 1)), ('SPAN', (0, 3), (-1, 3)), ('SPAN', (0, 6), (-1, 6))]))
+        elements.append(t2)
+        doc.build(elements)
+        buffer.seek(0)
+        return buffer
+
+    try:
+        pdf_buf = create_table_pdf_safe(final_data_docx)
+        st.download_button("📂 Download Tables (PDF)", pdf_buf, f"Tables-OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
+    except Exception as e:
+        st.warning(f"Tables PDF generation failed (using DOCX fallback is recommended): {e}")
+
+    # 9. PDF FORM FILLING
     try:
         from pypdf import PdfReader, PdfWriter
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
@@ -526,6 +625,8 @@ if st.button("🚀 GENERATE REPORT"):
         smart_comment_samples = f"Yes, {st.session_state.sample_id}"
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
+        
+        # Update P1-P13 with new P7
         p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
         p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
@@ -533,16 +634,7 @@ if st.button("🚀 GENERATE REPORT"):
         p5 = fresh_equip
         p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
         smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
-        p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.get('org_choice','')} {st.session_state.get('manual_org','')}-shaped viable microorganisms."
-        p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
-        p9 = fresh_narr
-        if fresh_det: p9 += "\n\n" + fresh_det
-        p10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
-        p11 = fresh_history
-        p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
-        p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
-        smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
-
+        
         pdf_map = {
             'Text Field57': st.session_state.oos_id, 
             'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
@@ -564,7 +656,7 @@ if st.button("🚀 GENERATE REPORT"):
             'Text Field25': st.session_state.control_lot,
             'Text Field26': st.session_state.control_exp,
             'Text Field49': smart_phase1_part1, 
-            'Text Field50': smart_phase1_part2
+            'Text Field50': smart_phase1_part2 # Updated with new P7
         }
 
         if os.path.exists("ScanRDI OOS template.pdf"):
@@ -574,6 +666,6 @@ if st.button("🚀 GENERATE REPORT"):
             st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
     
     except ImportError:
-        st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt. You can still download the DOCX files.")
+        st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt.")
     except Exception as e:
-        st.error(f"PDF Error: {e}")
+        st.error(f"PDF Form Error: {e}")
