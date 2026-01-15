@@ -1,35 +1,52 @@
 import streamlit as st
+import os
 import sys
 import subprocess
+import time
+
+# --- 🛠️ FORCE INSTALLATION BLOCK (Must be at the very top) ---
+# This forces Streamlit Cloud to install libraries if they are missing
+# independent of requirements.txt caching issues.
+def install(package):
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    except Exception as e:
+        st.error(f"Failed to force-install {package}: {e}")
+
+# 1. Check and Install pypdf
+try:
+    import pypdf
+except ImportError:
+    st.warning("⚙️ Installing pypdf... please wait (this happens once)")
+    install("pypdf")
+    import pypdf
+
+# 2. Check and Install reportlab
+try:
+    import reportlab
+except ImportError:
+    st.warning("⚙️ Installing reportlab... please wait (this happens once)")
+    install("reportlab")
+    import reportlab
+
+# --- END OF FORCE INSTALLATION ---
+
+# Now safe to import
 from docxtpl import DocxTemplate
 from pypdf import PdfReader, PdfWriter, PdfMerger
-import os
 import re
 import json
 import io
 from datetime import datetime, timedelta
-from utils import apply_eagle_style, get_full_name, get_room_logic
 
-# --- FORCE INSTALLATION ---
-# This forces Streamlit Cloud to install the missing libraries if the requirements.txt failed
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
+# Try importing utils, handle if missing
 try:
-    import pypdf
+    from utils import apply_eagle_style, get_full_name, get_room_logic
 except ImportError:
-    install("pypdf")
-    import pypdf
-
-try:
-    import reportlab
-except ImportError:
-    install("reportlab")
-    import reportlab
-# ---------------------------
-
-from docxtpl import DocxTemplate
-from pypdf import PdfReader, PdfWriter, PdfMerger
+    # Fallback if utils.py is missing or has issues
+    def apply_eagle_style(): pass
+    def get_full_name(i): return i
+    def get_room_logic(i): return "Unknown", "000", "", "Unknown"
 
 # --- REPORTLAB IMPORTS (For Table Generation) ---
 from reportlab.lib import colors
@@ -148,7 +165,6 @@ def generate_equipment_text():
 
         intro = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, (Suite {c_suite}{c_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams."
         
-        # [FIXED] Grammar for Same vs Different Analyst (Sentence Merge)
         if st.session_state.analyst_name == st.session_state.changeover_name:
             usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
         else:
@@ -215,7 +231,7 @@ def generate_narrative_and_details():
     if is_fail(st.session_state.obs_room):
         failures.append({"cat": "weekly surface sampling", "obs": st.session_state.obs_room, "etx": st.session_state.etx_room_weekly, "id": st.session_state.id_room_wk_of, "time": "weekly"})
 
-    # [FIXED] Pass Narrative Split (Daily vs Weekly)
+    # Pass Narrative Split
     pass_daily_clean = []
     if not is_fail(st.session_state.obs_pers): pass_daily_clean.append("personal sampling (left touch and right touch)")
     if not is_fail(st.session_state.obs_surf): pass_daily_clean.append("surface sampling")
@@ -243,7 +259,7 @@ def generate_narrative_and_details():
     if not narr_parts: narr = "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
     else: narr = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "."
 
-    # Build "Fail" Narrative
+    # Fail Narrative
     det = ""
     if failures:
         daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
@@ -267,7 +283,6 @@ def generate_narrative_and_details():
         
         detail_sentences = []
         for i, f in enumerate(failures):
-            # [FIXED] Gram Detection and ETX formatting
             id_text = f['id']
             if "gram" in id_text.lower(): method_text = "differential staining"
             else: method_text = "microbial identification"
@@ -286,17 +301,15 @@ def generate_narrative_and_details():
 
 # --- TABLE PDF GENERATOR ---
 def create_appendix_pdf(data):
-    """Generates a PDF buffer with Table 1 and Table 2 attached."""
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
     styles = getSampleStyleSheet()
     elements = []
 
-    # Title
     elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
     elements.append(Spacer(1, 20))
 
-    # --- TABLE 1 ---
+    # TABLE 1
     elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
     t1_data = [
         ["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
@@ -312,39 +325,35 @@ def create_appendix_pdf(data):
     elements.append(t1)
     elements.append(Spacer(1, 20))
 
-    # --- TABLE 2 ---
+    # TABLE 2
     elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
     
-    # Headers
     headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
-    
-    # Rows
     rows = []
-    # Personnel
+    
+    # Rows logic
     rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
     rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
     
-    # BSC
     rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
     rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
     rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
     
-    # Weekly
     rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
     rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
     rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
 
     t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
     t2.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), # Header
-        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), # Section Header
-        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), # Section Header
-        ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), # Section Header
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke),
+        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke),
+        ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
         ('FONTSIZE', (0, 0), (-1, -1), 9),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('SPAN', (0, 1), (-1, 1)), # Span section headers
+        ('SPAN', (0, 1), (-1, 1)),
         ('SPAN', (0, 3), (-1, 3)),
         ('SPAN', (0, 6), (-1, 6)),
     ]))
@@ -553,13 +562,13 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     try: 
         d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
         tr_id = f"{d_obj.strftime('%m%d%y')}-{st.session_state.scan_id}-{st.session_state.shift_number}"
-        # [FIXED] PDF Date only applied to Date Fields (e.g. 13-Jan-2026)
+        # PDF Date only applied to Date Fields
         pdf_date_str = d_obj.strftime("%d-%b-%Y") 
     except: 
         tr_id = "N/A"
         pdf_date_str = st.session_state.test_date
 
-    # [FIXED] Sanitize Table Data (No Growth = N/A)
+    # Sanitize Table Data (No Growth = N/A)
     em_map = [("obs_pers", "etx_pers", "id_pers"), ("obs_surf", "etx_surf", "id_surf"), ("obs_sett", "etx_sett", "id_sett"), ("obs_air", "etx_air_weekly", "id_air_weekly"), ("obs_room", "etx_room_weekly", "id_room_wk_of")]
     for obs_k, etx_k, id_k in em_map:
         val = st.session_state[obs_k].strip()
