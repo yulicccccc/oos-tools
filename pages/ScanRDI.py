@@ -30,8 +30,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER (Crash Proof) ---
+# --- HELPER: LAZY INSTALLER & AUTO-REBOOT ---
 def ensure_dependencies():
+    """Installs missing libraries and RERUNS the app to load them."""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -42,12 +43,12 @@ def ensure_dependencies():
     
     if missing:
         placeholder = st.empty()
-        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (This happens once)")
+        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload automatically)")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
-            placeholder.success("Libraries installed! Proceeding...")
+            placeholder.success("Libraries installed! Reloading...")
             time.sleep(1)
-            placeholder.empty()
+            st.rerun() # <--- CRITICAL FIX: Restart app to load new libs
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
             st.stop()
@@ -74,7 +75,7 @@ field_keys = [
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
     "diff_reader_analyst", "em_growth_count",
-    # Fixed keys for Word Template
+    # Fixed keys for Word Template logic
     "obs_pers", "etx_pers", "id_pers", 
     "obs_surf", "etx_surf", "id_surf", 
     "obs_sett", "etx_sett", "id_sett", 
@@ -197,7 +198,7 @@ def generate_cross_contam_text():
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
 def sync_dynamic_to_fixed():
-    # 1. Reset all fixed fields to "Clean" state
+    # 1. Reset all fixed fields to "Clean" state (Defaults for No Growth)
     default_obs = "No Growth"
     default_etx = "N/A"
     default_id = "N/A"
@@ -216,7 +217,7 @@ def sync_dynamic_to_fixed():
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
-    # 2. Overwrite with Dynamic Data
+    # 2. Overwrite with Dynamic Data if Growth Exists
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -232,7 +233,7 @@ def sync_dynamic_to_fixed():
                 st.session_state[k_id] = mid
 
 def generate_narrative_and_details():
-    # Run sync first so fixed fields are populated correctly
+    # Run sync first so fixed fields are populated correctly from the dynamic UI
     sync_dynamic_to_fixed()
     
     failures = []
@@ -421,7 +422,7 @@ with f2:
     st.text_input("Control Lot", key="control_lot", help="Required")
     st.text_input("Control Exp", key="control_exp", help="Required")
 
-# --- [RESTORED] DYNAMIC EM OBSERVATIONS UI ---
+# --- DYNAMIC EM OBSERVATIONS UI ---
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
 
@@ -439,7 +440,7 @@ if st.session_state.em_growth_observed == "Yes":
         with c4: 
             st.text_input(f"Microbial ID", key=f"em_id_{i}")
 else:
-    # If no growth, these keys won't be used, but the Sync function will handle clearing the fixed fields.
+    # If no growth, logic handled in generator sync
     pass
 
 st.divider()
@@ -489,7 +490,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Dependency Check (LAZY LOAD)
+    # 2. Dependency Check (LAZY LOAD & RESTART)
     import time
     ensure_dependencies()
 
@@ -507,7 +508,7 @@ if st.button("🚀 GENERATE FINAL REPORT"):
     fresh_history = generate_history_text()
     fresh_cross = generate_cross_contam_text()
     
-    # 5. Data Prep & Date Conversion (PDF Specific)
+    # 5. Data Prep
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
     
