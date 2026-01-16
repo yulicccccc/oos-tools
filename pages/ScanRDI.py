@@ -30,9 +30,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER ---
+# --- HELPER: LAZY INSTALLER (Crash Proof) ---
 def ensure_dependencies():
-    """Checks for required libraries and installs them if missing."""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -43,7 +42,7 @@ def ensure_dependencies():
     
     if missing:
         placeholder = st.empty()
-        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload)")
+        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload automatically)")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
             placeholder.success("Libraries installed! Reloading...")
@@ -51,10 +50,10 @@ def ensure_dependencies():
             st.rerun()
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
+            pass
 
 # --- HELPER: TABLE PDF GENERATOR ---
 def create_table_pdf(data):
-    """Generates the Tables PDF using ReportLab. Imports strictly inside function."""
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import letter, landscape
@@ -65,24 +64,16 @@ def create_table_pdf(data):
     styles = getSampleStyleSheet()
     elements = []
 
-    # Title
     elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
     elements.append(Spacer(1, 20))
 
-    # --- TABLE 1 ---
+    # TABLE 1
     elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
-    
-    t1_header = ["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"]
-    t1_row = [
-        data['analyst_name'], 
-        data['reader_name'], 
-        data['sample_id'], 
-        data['event_number'], 
-        data['confirm_number'], 
-        f"{data['organism_morphology']}-shaped Morphology"
+    t1_data = [
+        ["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
+        [data['analyst_name'], data['reader_name'], data['sample_id'], data['event_number'], data['confirm_number'], f"{data['organism_morphology']}-shaped Morphology"]
     ]
-    
-    t1 = Table([t1_header, t1_row], colWidths=[120, 120, 120, 60, 100, 150])
+    t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
     t1.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
@@ -92,48 +83,37 @@ def create_table_pdf(data):
     elements.append(t1)
     elements.append(Spacer(1, 20))
 
-    # --- TABLE 2 ---
+    # TABLE 2
     elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
-    
     headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
     rows = []
-    
     # Section 1
     rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
     rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
-    
     # Section 2
     rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
     rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
     rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
-    
     # Section 3
     rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
     rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
     rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
 
     t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
-    
-    # Styles for Table 2
-    style_cmds = [
+    t2.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
         ('FONTSIZE', (0, 0), (-1, -1), 9),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        # Gray headers for sections
         ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke),
         ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke),
         ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke),
-        # Spanning
         ('SPAN', (0, 1), (-1, 1)),
         ('SPAN', (0, 3), (-1, 3)),
         ('SPAN', (0, 6), (-1, 6))
-    ]
-    
-    t2.setStyle(TableStyle(style_cmds))
+    ]))
     elements.append(t2)
-
     doc.build(elements)
     buffer.seek(0)
     return buffer
@@ -237,6 +217,7 @@ def generate_equipment_text():
 
         return f"{part1}\n\n{intro} {usage_sent}"
 
+# [FIXED] Punctuation: Changed Chinese quotes to English quotes here
 def generate_history_text():
     if st.session_state.incidence_count == 0 or st.session_state.has_prior_failures == "No":
         phrase = "no prior failures"
@@ -247,7 +228,9 @@ def generate_history_text():
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         if len(pids) == 1: phrase = f"1 incident ({refs_str})"
         else: phrase = f"{len(pids)} incidents ({refs_str})"
-    return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
+        
+    # Corrected quotes below: "..." instead of “...”
+    return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte \"{st.session_state.sample_name}\" has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
@@ -302,9 +285,12 @@ def sync_dynamic_to_fixed():
                 st.session_state[k_id] = mid
 
 def generate_narrative_and_details():
+    # Force Sync before generating text
     sync_dynamic_to_fixed()
+    
     failures = []
     def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
+    
     if is_fail(st.session_state.obs_pers):
         failures.append({"cat": "personnel sampling", "obs": st.session_state.obs_pers, "etx": st.session_state.etx_pers, "id": st.session_state.id_pers, "time": "daily"})
     if is_fail(st.session_state.obs_surf):
@@ -381,6 +367,8 @@ for k in field_keys:
 
 if "data_loaded" not in st.session_state:
     load_saved_state(); st.session_state.data_loaded = True
+if "report_generated" not in st.session_state:
+    st.session_state.report_generated = False
 
 # --- PARSER ---
 def parse_email_text(text):
@@ -545,11 +533,14 @@ if st.button("🚀 GENERATE REPORT"):
     try:
         from docxtpl import DocxTemplate
         from pypdf import PdfReader, PdfWriter
-        # reportlab import moved to inside function to avoid top-level issues
+        # reportlab import moved inside function
     except ImportError as e:
         st.error(f"Failed to load required libraries: {e}")
         st.stop()
 
+    st.session_state.report_generated = True
+
+if st.session_state.report_generated:
     # 4. Generators
     fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
@@ -570,7 +561,6 @@ if st.button("🚀 GENERATE REPORT"):
     raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
     org_title = raw_org.strip().title()
 
-    # Construct base filename
     base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
     safe_filename = clean_filename(base_name)
 
@@ -594,7 +584,6 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
-    # 5. Phase 1 Update
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
     
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
@@ -617,6 +606,7 @@ if st.button("🚀 GENERATE REPORT"):
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
+            from docxtpl import DocxTemplate
             doc = DocxTemplate(docx_template)
             doc.render(final_data_docx)
             docx_buf = io.BytesIO()
@@ -629,6 +619,7 @@ if st.button("🚀 GENERATE REPORT"):
     tables_template = "tables for scan.docx"
     if os.path.exists(tables_template):
         try:
+            from docxtpl import DocxTemplate
             doc_tbl = DocxTemplate(tables_template)
             doc_tbl.render(final_data_docx)
             tables_docx_buf = io.BytesIO()
@@ -636,7 +627,7 @@ if st.button("🚀 GENERATE REPORT"):
             tables_docx_buf.seek(0)
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
 
-    # 3. Tables PDF (Calls helper function)
+    # 3. Tables PDF
     try:
         tables_pdf_buf = create_table_pdf(final_data_docx)
     except Exception as e:
