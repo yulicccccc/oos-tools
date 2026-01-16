@@ -30,7 +30,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER (Crash Proof) ---
+# --- HELPER: LAZY INSTALLER ---
 def ensure_dependencies():
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
@@ -217,7 +217,6 @@ def generate_equipment_text():
 
         return f"{part1}\n\n{intro} {usage_sent}"
 
-# [FIXED] Punctuation: Changed Chinese quotes to English quotes here
 def generate_history_text():
     if st.session_state.incidence_count == 0 or st.session_state.has_prior_failures == "No":
         phrase = "no prior failures"
@@ -228,8 +227,8 @@ def generate_history_text():
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         if len(pids) == 1: phrase = f"1 incident ({refs_str})"
         else: phrase = f"{len(pids)} incidents ({refs_str})"
-        
-    # Corrected quotes below: "..." instead of “...”
+    
+    # Use English quotes
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte \"{st.session_state.sample_name}\" has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
@@ -258,6 +257,7 @@ def generate_cross_contam_text():
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
 def sync_dynamic_to_fixed():
+    # 1. Reset defaults
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     fixed_map = {
         "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"),
@@ -271,6 +271,7 @@ def sync_dynamic_to_fixed():
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
+    # 2. Update with user inputs
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -343,16 +344,37 @@ def generate_narrative_and_details():
             else: w_str = ", ".join(weekly_fails[:-1]) + f", and {weekly_fails[-1]}"
             intro_parts.append(f"{w_str} from week of testing")
         fail_intro = f"However, microbial growth was observed during { ' and '.join(intro_parts) }." if len(intro_parts) > 0 else ""
+        
         detail_sentences = []
         for i, f in enumerate(failures):
             id_text = f['id']
+            obs_val = f['obs']
+            
+            # --- SMART PLURALIZATION CHECK ---
+            is_plural = False
+            # Look for number > 1 in the observation string (e.g. "4 CFUs")
+            m = re.search(r'\d+', obs_val)
+            if m and int(m.group()) > 1:
+                is_plural = True
+            
+            # Logic: 
+            # Plural (4 CFUs): "were detected", "was submitted", "organisms were identified"
+            # Singular (1 CFU): "was detected", "was submitted", "organism was identified"
+            
+            verb_detect = "were" if is_plural else "was"
+            # verb_submit is always "was" based on request ("submitted for one submission")
+            noun_id = "organisms were" if is_plural else "organism was"
+
             method_text = "differential staining" if "gram" in id_text.lower() else "microbial identification"
-            base_sentence = f"{f['obs']} was detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the organism was identified as {id_text}"
+            
+            base_sentence = f"{obs_val} {verb_detect} detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the {noun_id} identified as {id_text}"
+            
             if i == 0: full_sent = f"Specifically, {base_sentence}."
             elif i == 1: full_sent = f"Additionally, {base_sentence}."
             elif i == 2: full_sent = f"Furthermore, {base_sentence}."
             else: full_sent = f"Also, {base_sentence}."
             detail_sentences.append(full_sent)
+            
         det = f"{fail_intro} {' '.join(detail_sentences)}"
     return narr, det
 
@@ -584,6 +606,7 @@ if st.session_state.report_generated:
         "notes": "None" 
     })
 
+    # 5. Phase 1 Update
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
     
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
@@ -635,6 +658,9 @@ if st.session_state.report_generated:
 
     # 4. Main PDF Form
     try:
+        # Move import here to allow safe failure
+        from pypdf import PdfWriter, PdfReader
+        
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
                                  f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
