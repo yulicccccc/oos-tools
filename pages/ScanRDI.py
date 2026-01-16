@@ -5,7 +5,7 @@ import json
 import io
 import sys
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
 try:
@@ -28,6 +28,26 @@ st.markdown("""
     div[data-testid="stNotification"] { border: 2px solid #ff4b4b; background-color: #ffe8e8; }
     </style>
     """, unsafe_allow_html=True)
+
+# --- HELPER: LAZY INSTALLER ---
+def ensure_dependencies():
+    """Ensures basic libraries are present."""
+    required = ["docxtpl", "pypdf"]
+    missing = []
+    for lib in required:
+        try:
+            __import__(lib)
+        except ImportError:
+            missing.append(lib)
+    
+    if missing:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
+            import time
+            time.sleep(1)
+            st.rerun()
+        except Exception:
+            pass
 
 # --- FILE PERSISTENCE ---
 STATE_FILE = "investigation_state.json"
@@ -139,14 +159,17 @@ def generate_history_text():
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         if len(pids) == 1: phrase = f"1 incident ({refs_str})"
         else: phrase = f"{len(pids)} incidents ({refs_str})"
+        
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
+    
     num = st.session_state.total_pos_count_num - 1
     other_list_ids = []
     detail_sentences = []
+    
     for i in range(num):
         oid = st.session_state.get(f"other_id_{i}", "")
         oord_num = st.session_state.get(f"other_order_{i}", 1)
@@ -154,15 +177,19 @@ def generate_cross_contam_text():
         if oid:
             other_list_ids.append(oid)
             detail_sentences.append(f"{oid} was the {oord_text} sample processed")
+            
     all_ids = other_list_ids + [st.session_state.sample_id]
     if not all_ids: ids_str = ""
     elif len(all_ids) == 1: ids_str = all_ids[0]
     else: ids_str = ", ".join(all_ids[:-1]) + " and " + all_ids[-1]
+    
     count_word = num_to_words(st.session_state.total_pos_count_num)
     cur_ord_text = ordinal(st.session_state.current_pos_order)
     current_detail = f"while {st.session_state.sample_id} was the {cur_ord_text}"
+    
     if len(detail_sentences) == 1: details_str = f"{detail_sentences[0]}, {current_detail}"
     else: details_str = ", ".join(detail_sentences) + f", {current_detail}"
+
     return f"{ids_str} were the {count_word} samples tested positive for microbial growth. The analyst confirmed that these samples were not processed concurrently, sequentially, or within the same manifold run. Specifically, {details_str}. The analyst also verified that gloves were thoroughly disinfected between samples. Furthermore, all other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
@@ -179,6 +206,7 @@ def sync_dynamic_to_fixed():
         st.session_state[k_obs] = default_obs
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
+
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -196,6 +224,7 @@ def generate_narrative_and_details():
     sync_dynamic_to_fixed()
     failures = []
     def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
+    
     if is_fail(st.session_state.obs_pers):
         failures.append({"cat": "personnel sampling", "obs": st.session_state.obs_pers, "etx": st.session_state.etx_pers, "id": st.session_state.id_pers, "time": "daily"})
     if is_fail(st.session_state.obs_surf):
@@ -236,6 +265,7 @@ def generate_narrative_and_details():
     if failures:
         daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
         weekly_fails = [f["cat"] for f in failures if f['time'] == 'weekly']
+        
         intro_parts = []
         if daily_fails:
             if len(daily_fails) == 1: d_str = daily_fails[0]
@@ -247,7 +277,9 @@ def generate_narrative_and_details():
             elif len(weekly_fails) == 2: w_str = f"{weekly_fails[0]} and {weekly_fails[1]}"
             else: w_str = ", ".join(weekly_fails[:-1]) + f", and {weekly_fails[-1]}"
             intro_parts.append(f"{w_str} from week of testing")
+            
         fail_intro = f"However, microbial growth was observed during { ' and '.join(intro_parts) }." if len(intro_parts) > 0 else ""
+        
         detail_sentences = []
         for i, f in enumerate(failures):
             id_text = f['id']
@@ -258,7 +290,9 @@ def generate_narrative_and_details():
             elif i == 2: full_sent = f"Furthermore, {base_sentence}."
             else: full_sent = f"Also, {base_sentence}."
             detail_sentences.append(full_sent)
+            
         det = f"{fail_intro} {' '.join(detail_sentences)}"
+
     return narr, det
 
 # --- INIT STATE ---
@@ -428,7 +462,19 @@ if st.button("🚀 GENERATE REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Prepare Data
+    # 2. Dependency Check (LAZY LOAD & RESTART)
+    import time
+    ensure_dependencies()
+
+    # 3. Safe Import
+    try:
+        from docxtpl import DocxTemplate
+        from pypdf import PdfReader, PdfWriter
+    except ImportError as e:
+        st.error(f"Failed to load required libraries: {e}")
+        st.stop()
+
+    # 4. Generators
     fresh_narr, fresh_det = generate_narrative_and_details()
     fresh_equip = generate_equipment_text()
     fresh_history = generate_history_text()
@@ -468,8 +514,9 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
-    # Update Phase 1
+    # 5. Phase 1 Update
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
+    
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = fresh_narr
     if fresh_det: p9 += "\n\n" + fresh_det
@@ -477,10 +524,11 @@ if st.button("🚀 GENERATE REPORT"):
     p11 = fresh_history
     p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
     p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
-    final_data_docx['Text Field50'] = smart_phase1_part2
+    final_data_docx['Text Field50'] = smart_phase1_part2 
 
-    # 3. GENERATE MAIN DOCX
+    # 6. DOCX GENERATION
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
@@ -492,7 +540,7 @@ if st.button("🚀 GENERATE REPORT"):
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
-    # 4. GENERATE TABLES DOCX
+    # 7. TABLES GENERATION (DOCX)
     tables_template = "tables for scan.docx"
     if os.path.exists(tables_template):
         try:
@@ -503,7 +551,7 @@ if st.button("🚀 GENERATE REPORT"):
             st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables-OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
 
-    # 5. PDF Form (Safe - Optional)
+    # 8. PDF FORM FILLING
     try:
         from pypdf import PdfReader, PdfWriter
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
@@ -523,6 +571,8 @@ if st.button("🚀 GENERATE REPORT"):
         smart_comment_samples = f"Yes, {st.session_state.sample_id}"
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
+        
+        # Update P1-P13 with new P7
         p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
         p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
@@ -552,7 +602,7 @@ if st.button("🚀 GENERATE REPORT"):
             'Text Field25': st.session_state.control_lot,
             'Text Field26': st.session_state.control_exp,
             'Text Field49': smart_phase1_part1, 
-            'Text Field50': smart_phase1_part2
+            'Text Field50': smart_phase1_part2 # Updated with new P7
         }
 
         if os.path.exists("ScanRDI OOS template.pdf"):
@@ -562,6 +612,6 @@ if st.button("🚀 GENERATE REPORT"):
             st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
     
     except ImportError:
-        pass # Silently skip PDF if missing
+        st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt.")
     except Exception as e:
         st.error(f"PDF Form Error: {e}")
