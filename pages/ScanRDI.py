@@ -33,6 +33,7 @@ st.markdown("""
 
 # --- HELPER: LAZY INSTALLER ---
 def ensure_dependencies():
+    """Checks for required libraries and installs them if missing."""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -52,8 +53,48 @@ def ensure_dependencies():
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
 
+# --- HELPER: VALIDATION (Moved to Top) ---
+def validate_inputs():
+    """Checks for empty fields and formatting errors."""
+    errors = []
+    warnings = []
+    
+    reqs = {
+        "OOS Number": "oos_id", 
+        "Client Name": "client_name", 
+        "Sample ID": "sample_id", 
+        "Test Date": "test_date",
+        "Sample Name": "sample_name", 
+        "Lot Number": "lot_number",
+        "Prepper Name": "prepper_name",
+        "Processor Name": "analyst_name",
+        "Reader Name": "reader_name",
+        "Changeover Name": "changeover_name",
+        "BSC ID": "bsc_id",
+        "ScanRDI ID": "scan_id",
+        "Control Lot": "control_lot",
+        "Control Exp": "control_exp",
+        "Events Number": "event_number",
+        "Confirmed #": "confirm_number"
+    }
+    
+    for label, key in reqs.items():
+        val = st.session_state.get(key, "").strip()
+        if not val:
+            warnings.append(label)
+            
+    date_val = st.session_state.get("test_date", "").strip()
+    if date_val:
+        try:
+            datetime.strptime(date_val, "%d%b%y")
+        except ValueError:
+            errors.append(f"❌ Date Format Error: '{date_val}' is invalid. Please use format like '07Jan26' (DDMMMYY).")
+            
+    return errors, warnings
+
 # --- HELPER: TABLE PDF GENERATOR ---
 def create_table_pdf(data):
+    """Generates the Tables PDF using ReportLab."""
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import letter, landscape
@@ -378,11 +419,9 @@ def generate_narrative_and_details():
         det = f"{fail_intro} {' '.join(detail_sentences)}"
     return narr, det
 
-# --- INIT STATE LOOP (Restored) ---
+# --- INIT STATE ---
 def init_state(key, default=""): 
     if key not in st.session_state: st.session_state[key] = default
-
-# Loop through all keys to prevent AttributeError
 for k in field_keys:
     if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
@@ -556,48 +595,186 @@ if st.button("🚀 GENERATE REPORT"):
         for e in errors: st.error(e)
     elif warnings:
         st.session_state.submission_warnings = warnings
-        st.rerun() # Trigger a rerun to show the confirmation UI
+        st.rerun() 
     else:
-        # 3. Clean Run - Generate
-        generate_documents()
+        # 3. Clean Run
         st.session_state.report_generated = True
-        st.session_state.submission_warnings = [] # Clear any old warnings
+        st.session_state.submission_warnings = [] 
 
-# --- CONFIRMATION UI (Only shows if warnings exist) ---
+# --- CONFIRMATION UI ---
 if st.session_state.submission_warnings:
     st.warning(f"⚠️ The following fields are empty: {', '.join(st.session_state.submission_warnings)}")
-    st.write("**Do you want to proceed with empty fields?**")
+    st.write("**Do you want to proceed?**")
     
     col_yes, col_no = st.columns([1, 5])
     
     if col_yes.button("✅ Yes, Proceed Anyway"):
-        generate_documents()
         st.session_state.report_generated = True
-        st.session_state.submission_warnings = [] # Clear warnings after decision
+        st.session_state.submission_warnings = []
         st.rerun()
         
     if col_no.button("❌ No, Let me Fix"):
-        st.session_state.submission_warnings = [] # Clear warnings so user can edit
+        st.session_state.submission_warnings = []
         st.rerun()
 
-# --- DOWNLOAD SECTION (Persistent) ---
+# --- GENERATION & DOWNLOAD ---
 if st.session_state.report_generated:
+    
+    # 1. GENERATE CONTENT
+    fresh_narr, fresh_det = generate_narrative_and_details()
+    fresh_equip = generate_equipment_text()
+    fresh_history = generate_history_text()
+    fresh_cross = generate_cross_contam_text()
+    
+    t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
+    c_room, c_suite, c_suffix, c_loc = get_room_logic(st.session_state.chgbsc_id)
+    
+    try: 
+        d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
+        tr_id = f"{d_obj.strftime('%m%d%y')}-{st.session_state.scan_id}-{st.session_state.shift_number}"
+        pdf_date_str = d_obj.strftime("%d-%b-%Y") 
+    except: 
+        tr_id = "N/A"; pdf_date_str = st.session_state.test_date
+
+    suffix = "microorganism" if str(st.session_state.confirm_number).strip() == "1" else "microorganisms"
+    raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
+    org_title = raw_org.strip().title()
+
+    base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
+    safe_filename = clean_filename(base_name)
+
+    final_data_docx = {k: v for k, v in st.session_state.items()}
+    final_data_docx.update({
+        "equipment_summary": fresh_equip,
+        "sample_history_paragraph": fresh_history,
+        "cross_contamination_summary": fresh_cross,
+        "test_record": tr_id,
+        "organism_morphology": org_title, 
+        "control_positive": st.session_state.control_pos,
+        "control_data": st.session_state.control_exp,
+        "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+        "date_of_weekly": st.session_state.get("date_weekly", ""),
+        "weekly_initial": st.session_state.get("weekly_init", ""),
+        "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
+        "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
+        "obs_sett_dur": st.session_state.obs_sett, "etx_sett_dur": st.session_state.etx_sett, "id_sett_dur": st.session_state.id_sett,
+        "obs_air_wk_of": st.session_state.obs_air, "etx_air_wk_of": st.session_state.etx_air_weekly, "id_air_wk_of": st.session_state.id_air_weekly,
+        "obs_room_wk_of": st.session_state.obs_room, "etx_room_wk_of": st.session_state.etx_room_weekly, "id_room_wk_of": st.session_state.id_room_wk_of,
+        "notes": "None" 
+    })
+
+    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
+    
+    p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
+    p9 = fresh_narr
+    if fresh_det: p9 += "\n\n" + fresh_det
+    p10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
+    p11 = fresh_history
+    p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
+    p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
+    final_data_docx['Text Field50'] = smart_phase1_part2 
+
+    # 2. GENERATE FILES
+    docx_buf = None
+    tables_docx_buf = None
+    tables_pdf_buf = None
+    pdf_form_buf = None
+
+    # Main DOCX
+    if os.path.exists("ScanRDI OOS template 0.docx"):
+        try:
+            from docxtpl import DocxTemplate
+            doc = DocxTemplate("ScanRDI OOS template 0.docx")
+            doc.render(final_data_docx)
+            docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
+        except Exception as e: st.error(f"DOCX Error: {e}")
+
+    # Tables DOCX
+    if os.path.exists("tables for scan.docx"):
+        try:
+            from docxtpl import DocxTemplate
+            doc_tbl = DocxTemplate("tables for scan.docx")
+            doc_tbl.render(final_data_docx)
+            tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
+        except Exception as e: st.error(f"Tables DOCX Error: {e}")
+
+    # Tables PDF
+    try:
+        tables_pdf_buf = create_table_pdf(final_data_docx)
+    except Exception as e:
+        st.warning(f"Tables PDF generation failed: {e}")
+
+    # Main PDF Form
+    try:
+        from pypdf import PdfWriter, PdfReader
+        analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
+        smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
+                                 f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
+                                 f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
+                                 f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})")
+        smart_incident_opening = f"On {st.session_state.test_date}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
+        unique_analysts = []
+        if st.session_state.prepper_name: unique_analysts.append(st.session_state.prepper_name)
+        if st.session_state.analyst_name and st.session_state.analyst_name not in unique_analysts: unique_analysts.append(st.session_state.analyst_name)
+        if st.session_state.reader_name and st.session_state.reader_name not in unique_analysts: unique_analysts.append(st.session_state.reader_name)
+        if len(unique_analysts) == 2: names_str = f"{unique_analysts[0]} and {unique_analysts[1]}"
+        elif len(unique_analysts) == 3: names_str = f"{unique_analysts[0]}, {unique_analysts[1]} and {unique_analysts[2]}"
+        else: names_str = unique_analysts[0]
+        smart_comment_interview = f"Yes, analysts {names_str} were interviewed comprehensively."
+        smart_comment_samples = f"Yes, {st.session_state.sample_id}"
+        smart_comment_records = f"Yes, See {tr_id} for more information."
+        smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
+        
+        pdf_map = {
+            'Text Field57': st.session_state.oos_id, 
+            'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
+            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 
+            'Text Field6': st.session_state.lot_number,
+            'Text Field4': st.session_state.sample_name, 
+            'Text Field5': st.session_state.dosage_form,
+            'Text Field0': analyst_sig_text,
+            'Text Field3': smart_personnel_block,
+            'Text Field7': smart_incident_opening,
+            'Text Field13': smart_comment_interview,
+            'Text Field14': smart_comment_samples,
+            'Text Field17': smart_comment_records,
+            'Text Field21': smart_comment_storage,
+            'Text Field30': f"E00{st.session_state.scan_id}",
+            'Text Field32': f"E00{t_room} (CR{t_suite})",
+            'Text Field34': f"E00{st.session_state.scan_id}",
+            'Text Field24': st.session_state.control_pos,
+            'Text Field25': st.session_state.control_lot,
+            'Text Field26': st.session_state.control_exp,
+            'Text Field49': smart_phase1_part1, 
+            'Text Field50': smart_phase1_part2
+        }
+
+        if os.path.exists("ScanRDI OOS template.pdf"):
+            writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
+            for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
+            pdf_form_buf = io.BytesIO(); writer.write(pdf_form_buf); pdf_form_buf.seek(0)
+    
+    except ImportError:
+        pass
+    except Exception as e:
+        st.error(f"PDF Form Error: {e}")
+
+    # --- 3. DISPLAY DOWNLOAD BUTTONS ---
     st.success("✅ Reports Generated Successfully!")
     st.markdown("### 📂 Download Reports")
     c1, c2 = st.columns(2)
     
-    safe_name = st.session_state.get("safe_filename", "OOS_Report")
-    
     with c1:
         st.subheader("Word Documents")
-        if st.session_state.get("docx_buf"):
-            st.download_button("📄 OOS Report (doc)", st.session_state.docx_buf, f"{safe_name}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        if st.session_state.get("tables_docx_buf"):
-            st.download_button("📄 Tables (doc)", st.session_state.tables_docx_buf, f"Tables {safe_name}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        if docx_buf:
+            st.download_button("📄 OOS Report (doc)", docx_buf, f"{safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        if tables_docx_buf:
+            st.download_button("📄 Tables (doc)", tables_docx_buf, f"Tables {safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
             
     with c2:
         st.subheader("PDF Documents")
-        if st.session_state.get("pdf_form_buf"):
-            st.download_button("🔴 OOS Report (pdf)", st.session_state.pdf_form_buf, f"{safe_name}.pdf", "application/pdf")
-        if st.session_state.get("tables_pdf_buf"):
-            st.download_button("🔴 Tables (pdf)", st.session_state.tables_pdf_buf, f"Tables {safe_name}.pdf", "application/pdf")
+        if pdf_form_buf:
+            st.download_button("🔴 OOS Report (pdf)", pdf_form_buf, f"{safe_filename}.pdf", "application/pdf")
+        if tables_pdf_buf:
+            st.download_button("🔴 Tables (pdf)", tables_pdf_buf, f"Tables {safe_filename}.pdf", "application/pdf")
