@@ -468,7 +468,7 @@ if st.button("🚀 GENERATE REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Dependency Check
+    # 2. Dependency Check (LAZY LOAD & RESTART)
     import time
     ensure_dependencies()
 
@@ -504,7 +504,7 @@ if st.button("🚀 GENERATE REPORT"):
     raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
     org_title = raw_org.strip().title()
 
-    # Construct the base filename (Cleaned)
+    # Construct base filename
     base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
     safe_filename = clean_filename(base_name)
 
@@ -514,7 +514,7 @@ if st.button("🚀 GENERATE REPORT"):
         "sample_history_paragraph": fresh_history,
         "cross_contamination_summary": fresh_cross,
         "test_record": tr_id,
-        "organism_morphology": org_title, # Title Case for Tables
+        "organism_morphology": org_title, 
         "control_positive": st.session_state.control_pos,
         "control_data": st.session_state.control_exp,
         "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
@@ -528,9 +528,7 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
-    # 5. Phase 1 Update
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
-    
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = fresh_narr
     if fresh_det: p9 += "\n\n" + fresh_det
@@ -538,34 +536,39 @@ if st.button("🚀 GENERATE REPORT"):
     p11 = fresh_history
     p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
     p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
-    
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
     final_data_docx['Text Field50'] = smart_phase1_part2 
 
-    # 6. DOCX GENERATION
+    # --- BUFFER PREPARATION ---
+    docx_buf = None
+    tables_docx_buf = None
+    tables_pdf_buf = None
+    pdf_form_buf = None
+
+    # 1. Main DOCX
     docx_template = "ScanRDI OOS template 0.docx" 
     if os.path.exists(docx_template):
         try:
-            from docxtpl import DocxTemplate
             doc = DocxTemplate(docx_template)
             doc.render(final_data_docx)
-            buf = io.BytesIO(); doc.save(buf); buf.seek(0)
-            st.download_button("📂 Download Main OOS Report (DOCX)", buf, f"{safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            docx_buf = io.BytesIO()
+            doc.save(docx_buf)
+            docx_buf.seek(0)
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
-    # 7. TABLES GENERATION (DOCX)
+    # 2. Tables DOCX
     tables_template = "tables for scan.docx"
     if os.path.exists(tables_template):
         try:
-            from docxtpl import DocxTemplate
             doc_tbl = DocxTemplate(tables_template)
             doc_tbl.render(final_data_docx)
-            buf_tbl = io.BytesIO(); doc_tbl.save(buf_tbl); buf_tbl.seek(0)
-            st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables {safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            tables_docx_buf = io.BytesIO()
+            doc_tbl.save(tables_docx_buf)
+            tables_docx_buf.seek(0)
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
 
-    # 8. TABLES GENERATION (PDF - Safe Mode)
+    # 3. Tables PDF
     def create_table_pdf_safe(data):
         buffer = io.BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
@@ -598,17 +601,12 @@ if st.button("🚀 GENERATE REPORT"):
         elements.append(t2)
         doc.build(elements)
         buffer.seek(0)
-        return buffer
-
-    try:
-        pdf_buf = create_table_pdf_safe(final_data_docx)
-        st.download_button("📂 Download Tables (PDF)", pdf_buf, f"Tables {safe_filename}.pdf", "application/pdf")
+        tables_pdf_buf = buffer
     except Exception as e:
-        st.warning(f"Tables PDF generation failed (using DOCX fallback is recommended): {e}")
+        st.warning(f"Tables PDF generation failed: {e}")
 
-    # 9. PDF FORM FILLING
+    # 4. Main PDF Form
     try:
-        from pypdf import PdfReader, PdfWriter
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
                                  f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
@@ -627,7 +625,6 @@ if st.button("🚀 GENERATE REPORT"):
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
         
-        # Update P1-P13 with new P7
         p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
         p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
@@ -663,10 +660,29 @@ if st.button("🚀 GENERATE REPORT"):
         if os.path.exists("ScanRDI OOS template.pdf"):
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
-            buf = io.BytesIO(); writer.write(buf); buf.seek(0)
-            st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"{safe_filename}.pdf", "application/pdf")
+            pdf_form_buf = io.BytesIO()
+            writer.write(pdf_form_buf)
+            pdf_form_buf.seek(0)
     
     except ImportError:
-        st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt.")
+        pass
     except Exception as e:
         st.error(f"PDF Form Error: {e}")
+
+    # --- FINAL LAYOUT ---
+    st.markdown("### 📂 Download Reports")
+    c1, c2 = st.columns(2)
+    
+    with c1:
+        st.subheader("Word Documents")
+        if docx_buf:
+            st.download_button("📄 OOS Report (doc)", docx_buf, f"{safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        if tables_docx_buf:
+            st.download_button("📄 Tables (doc)", tables_docx_buf, f"Tables {safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            
+    with c2:
+        st.subheader("PDF Documents")
+        if pdf_form_buf:
+            st.download_button("🔴 OOS Report (pdf)", pdf_form_buf, f"{safe_filename}.pdf", "application/pdf")
+        if tables_pdf_buf:
+            st.download_button("🔴 Tables (pdf)", tables_pdf_buf, f"Tables {safe_filename}.pdf", "application/pdf")
