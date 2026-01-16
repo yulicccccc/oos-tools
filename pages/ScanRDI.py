@@ -30,8 +30,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER (Crash Proof) ---
+# --- HELPER: LAZY INSTALLER ---
 def ensure_dependencies():
+    """Checks for required libraries and installs them if missing."""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -42,7 +43,7 @@ def ensure_dependencies():
     
     if missing:
         placeholder = st.empty()
-        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload automatically)")
+        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload)")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
             placeholder.success("Libraries installed! Reloading...")
@@ -50,7 +51,92 @@ def ensure_dependencies():
             st.rerun()
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
-            pass
+
+# --- HELPER: TABLE PDF GENERATOR ---
+def create_table_pdf(data):
+    """Generates the Tables PDF using ReportLab. Imports strictly inside function."""
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter, landscape
+    from reportlab.lib.styles import getSampleStyleSheet
+
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # Title
+    elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
+    elements.append(Spacer(1, 20))
+
+    # --- TABLE 1 ---
+    elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
+    
+    t1_header = ["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"]
+    t1_row = [
+        data['analyst_name'], 
+        data['reader_name'], 
+        data['sample_id'], 
+        data['event_number'], 
+        data['confirm_number'], 
+        f"{data['organism_morphology']}-shaped Morphology"
+    ]
+    
+    t1 = Table([t1_header, t1_row], colWidths=[120, 120, 120, 60, 100, 150])
+    t1.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
+    ]))
+    elements.append(t1)
+    elements.append(Spacer(1, 20))
+
+    # --- TABLE 2 ---
+    elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
+    
+    headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
+    rows = []
+    
+    # Section 1
+    rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
+    rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
+    
+    # Section 2
+    rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
+    rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
+    rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
+    
+    # Section 3
+    rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
+    rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
+    rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
+
+    t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
+    
+    # Styles for Table 2
+    style_cmds = [
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        # Gray headers for sections
+        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke),
+        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke),
+        ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke),
+        # Spanning
+        ('SPAN', (0, 1), (-1, 1)),
+        ('SPAN', (0, 3), (-1, 3)),
+        ('SPAN', (0, 6), (-1, 6))
+    ]
+    
+    t2.setStyle(TableStyle(style_cmds))
+    elements.append(t2)
+
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
 
 # --- FILE PERSISTENCE ---
 STATE_FILE = "investigation_state.json"
@@ -74,16 +160,13 @@ field_keys = [
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
     "diff_reader_analyst", "em_growth_count",
-    # New Fields
     "event_number", "confirm_number",
-    # Fixed keys for Word Template logic
     "obs_pers", "etx_pers", "id_pers", 
     "obs_surf", "etx_surf", "id_surf", 
     "obs_sett", "etx_sett", "id_sett", 
     "obs_air", "etx_air_weekly", "id_air_weekly", 
     "obs_room", "etx_room_weekly", "id_room_wk_of"
 ]
-# Dynamic keys
 for i in range(20):
     field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 
@@ -164,17 +247,14 @@ def generate_history_text():
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         if len(pids) == 1: phrase = f"1 incident ({refs_str})"
         else: phrase = f"{len(pids)} incidents ({refs_str})"
-        
     return f"Analyzing a 6-month sample history for {st.session_state.client_name}, this specific analyte “{st.session_state.sample_name}” has had {phrase} using the Scan RDI method during this period."
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
-    
     num = st.session_state.total_pos_count_num - 1
     other_list_ids = []
     detail_sentences = []
-    
     for i in range(num):
         oid = st.session_state.get(f"other_id_{i}", "")
         oord_num = st.session_state.get(f"other_order_{i}", 1)
@@ -182,19 +262,15 @@ def generate_cross_contam_text():
         if oid:
             other_list_ids.append(oid)
             detail_sentences.append(f"{oid} was the {oord_text} sample processed")
-            
     all_ids = other_list_ids + [st.session_state.sample_id]
     if not all_ids: ids_str = ""
     elif len(all_ids) == 1: ids_str = all_ids[0]
     else: ids_str = ", ".join(all_ids[:-1]) + " and " + all_ids[-1]
-    
     count_word = num_to_words(st.session_state.total_pos_count_num)
     cur_ord_text = ordinal(st.session_state.current_pos_order)
     current_detail = f"while {st.session_state.sample_id} was the {cur_ord_text}"
-    
     if len(detail_sentences) == 1: details_str = f"{detail_sentences[0]}, {current_detail}"
     else: details_str = ", ".join(detail_sentences) + f", {current_detail}"
-
     return f"{ids_str} were the {count_word} samples tested positive for microbial growth. The analyst confirmed that these samples were not processed concurrently, sequentially, or within the same manifold run. Specifically, {details_str}. The analyst also verified that gloves were thoroughly disinfected between samples. Furthermore, all other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
@@ -229,7 +305,6 @@ def generate_narrative_and_details():
     sync_dynamic_to_fixed()
     failures = []
     def is_fail(val): return val.strip() and val.strip().lower() != "no growth"
-    
     if is_fail(st.session_state.obs_pers):
         failures.append({"cat": "personnel sampling", "obs": st.session_state.obs_pers, "etx": st.session_state.etx_pers, "id": st.session_state.id_pers, "time": "daily"})
     if is_fail(st.session_state.obs_surf):
@@ -270,7 +345,6 @@ def generate_narrative_and_details():
     if failures:
         daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
         weekly_fails = [f["cat"] for f in failures if f['time'] == 'weekly']
-        
         intro_parts = []
         if daily_fails:
             if len(daily_fails) == 1: d_str = daily_fails[0]
@@ -282,9 +356,7 @@ def generate_narrative_and_details():
             elif len(weekly_fails) == 2: w_str = f"{weekly_fails[0]} and {weekly_fails[1]}"
             else: w_str = ", ".join(weekly_fails[:-1]) + f", and {weekly_fails[-1]}"
             intro_parts.append(f"{w_str} from week of testing")
-            
         fail_intro = f"However, microbial growth was observed during { ' and '.join(intro_parts) }." if len(intro_parts) > 0 else ""
-        
         detail_sentences = []
         for i, f in enumerate(failures):
             id_text = f['id']
@@ -295,9 +367,7 @@ def generate_narrative_and_details():
             elif i == 2: full_sent = f"Furthermore, {base_sentence}."
             else: full_sent = f"Also, {base_sentence}."
             detail_sentences.append(full_sent)
-            
         det = f"{fail_intro} {' '.join(detail_sentences)}"
-
     return narr, det
 
 # --- INIT STATE ---
@@ -397,7 +467,6 @@ with f1:
     st.selectbox("Shift Number", ["1", "2", "3"], key="shift_number")
     st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
     if st.session_state.org_choice == "Other": st.text_input("Manual Shape", key="manual_org")
-    
     c_a, c_b = st.columns(2)
     with c_a: st.text_input("Events Number", key="event_number", help="e.g. <1 event")
     with c_b: st.text_input("Confirmed #", key="confirm_number", help="e.g. 1")
@@ -476,10 +545,7 @@ if st.button("🚀 GENERATE REPORT"):
     try:
         from docxtpl import DocxTemplate
         from pypdf import PdfReader, PdfWriter
-        from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
-        from reportlab.lib import colors
-        from reportlab.lib.pagesizes import letter, landscape
-        from reportlab.lib.styles import getSampleStyleSheet
+        # reportlab import moved to inside function to avoid top-level issues
     except ImportError as e:
         st.error(f"Failed to load required libraries: {e}")
         st.stop()
@@ -528,7 +594,9 @@ if st.button("🚀 GENERATE REPORT"):
         "notes": "None" 
     })
 
+    # 5. Phase 1 Update
     p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
+    
     p8 = f"Table 1 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = fresh_narr
     if fresh_det: p9 += "\n\n" + fresh_det
@@ -568,40 +636,9 @@ if st.button("🚀 GENERATE REPORT"):
             tables_docx_buf.seek(0)
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
 
-    # 3. Tables PDF
-    def create_table_pdf_safe(data):
-        buffer = io.BytesIO()
-        doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
-        styles = getSampleStyleSheet()
-        elements = []
-        elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
-        elements.append(Spacer(1, 20))
-        # Table 1
-        elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
-        t1_data = [["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
-                   [data['analyst_name'], data['reader_name'], data['sample_id'], data['event_number'], data['confirm_number'], f"{data['organism_morphology']}-shaped Morphology"]]
-        t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
-        t1.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')]))
-        elements.append(t1)
-        elements.append(Spacer(1, 20))
-        # Table 2
-        elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
-        headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
-        rows = []
-        rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
-        rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
-        rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
-        rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
-        rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
-        rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
-        rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
-        rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
-        t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
-        t2.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('FONTSIZE', (0, 0), (-1, -1), 9), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'), ('SPAN', (0, 1), (-1, 1)), ('SPAN', (0, 3), (-1, 3)), ('SPAN', (0, 6), (-1, 6))]))
-        elements.append(t2)
-        doc.build(elements)
-        buffer.seek(0)
-        tables_pdf_buf = buffer
+    # 3. Tables PDF (Calls helper function)
+    try:
+        tables_pdf_buf = create_table_pdf(final_data_docx)
     except Exception as e:
         st.warning(f"Tables PDF generation failed: {e}")
 
