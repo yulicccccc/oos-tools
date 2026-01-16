@@ -53,7 +53,7 @@ def ensure_dependencies():
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
 
-# --- HELPER: VALIDATION (Moved to Top) ---
+# --- HELPER: VALIDATION ---
 def validate_inputs():
     """Checks for empty fields and formatting errors."""
     errors = []
@@ -311,6 +311,7 @@ def generate_cross_contam_text():
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
 def sync_dynamic_to_fixed():
+    # 1. Reset defaults
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     fixed_map = {
         "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"),
@@ -324,6 +325,7 @@ def sync_dynamic_to_fixed():
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
+    # 2. Update with user inputs
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -338,6 +340,7 @@ def sync_dynamic_to_fixed():
                 st.session_state[k_id] = mid
 
 def generate_narrative_and_details():
+    # Force Sync before generating text
     sync_dynamic_to_fixed()
     
     failures = []
@@ -419,9 +422,11 @@ def generate_narrative_and_details():
         det = f"{fail_intro} {' '.join(detail_sentences)}"
     return narr, det
 
-# --- INIT STATE ---
+# --- INIT STATE LOOP (Restored) ---
 def init_state(key, default=""): 
     if key not in st.session_state: st.session_state[key] = default
+
+# Loop through all keys to prevent AttributeError
 for k in field_keys:
     if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
@@ -714,17 +719,30 @@ if st.session_state.report_generated:
                                  f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
                                  f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})")
         smart_incident_opening = f"On {st.session_state.test_date}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
+        
+        # --- FIXED EMPTY LIST ERROR ---
         unique_analysts = []
         if st.session_state.prepper_name: unique_analysts.append(st.session_state.prepper_name)
         if st.session_state.analyst_name and st.session_state.analyst_name not in unique_analysts: unique_analysts.append(st.session_state.analyst_name)
         if st.session_state.reader_name and st.session_state.reader_name not in unique_analysts: unique_analysts.append(st.session_state.reader_name)
-        if len(unique_analysts) == 2: names_str = f"{unique_analysts[0]} and {unique_analysts[1]}"
-        elif len(unique_analysts) == 3: names_str = f"{unique_analysts[0]}, {unique_analysts[1]} and {unique_analysts[2]}"
-        else: names_str = unique_analysts[0]
+        
+        if not unique_analysts: names_str = "N/A"
+        elif len(unique_analysts) == 1: names_str = unique_analysts[0]
+        elif len(unique_analysts) == 2: names_str = f"{unique_analysts[0]} and {unique_analysts[1]}"
+        else: names_str = ", ".join(unique_analysts[:-1]) + " and " + unique_analysts[-1]
+
         smart_comment_interview = f"Yes, analysts {names_str} were interviewed comprehensively."
         smart_comment_samples = f"Yes, {st.session_state.sample_id}"
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
+        
+        p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
+        p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+        p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
+        p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
+        p5 = fresh_equip
+        p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
+        smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
         
         pdf_map = {
             'Text Field57': st.session_state.oos_id, 
