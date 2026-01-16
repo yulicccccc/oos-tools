@@ -5,6 +5,7 @@ import json
 import io
 import sys
 import subprocess
+import time
 from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
@@ -29,10 +30,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- HELPER: LAZY INSTALLER ---
+# --- HELPER: LAZY INSTALLER (Crash Proof) ---
 def ensure_dependencies():
-    """Ensures basic libraries are present."""
-    required = ["docxtpl", "pypdf"]
+    required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
         try:
@@ -41,12 +41,15 @@ def ensure_dependencies():
             missing.append(lib)
     
     if missing:
+        placeholder = st.empty()
+        placeholder.warning(f"⚙️ Installing missing libraries: {', '.join(missing)}... (App will reload automatically)")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
-            import time
+            placeholder.success("Libraries installed! Reloading...")
             time.sleep(1)
             st.rerun()
-        except Exception:
+        except Exception as e:
+            placeholder.error(f"Installation failed: {e}")
             pass
 
 # --- FILE PERSISTENCE ---
@@ -71,14 +74,16 @@ field_keys = [
     "diff_changeover_bsc", "has_prior_failures",
     "em_growth_observed", "diff_changeover_analyst",
     "diff_reader_analyst", "em_growth_count",
+    # New Fields
     "event_number", "confirm_number",
-    # Fixed keys for Word Template
+    # Fixed keys for Word Template logic
     "obs_pers", "etx_pers", "id_pers", 
     "obs_surf", "etx_surf", "id_surf", 
     "obs_sett", "etx_sett", "id_sett", 
     "obs_air", "etx_air_weekly", "id_air_weekly", 
     "obs_room", "etx_room_weekly", "id_room_wk_of"
 ]
+# Dynamic keys
 for i in range(20):
     field_keys.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 
@@ -392,6 +397,7 @@ with f1:
     st.selectbox("Shift Number", ["1", "2", "3"], key="shift_number")
     st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
     if st.session_state.org_choice == "Other": st.text_input("Manual Shape", key="manual_org")
+    
     c_a, c_b = st.columns(2)
     with c_a: st.text_input("Events Number", key="event_number", help="e.g. <1 event")
     with c_b: st.text_input("Confirmed #", key="confirm_number", help="e.g. 1")
@@ -462,7 +468,7 @@ if st.button("🚀 GENERATE REPORT"):
         if not st.session_state.get(k,"").strip(): missing.append(l)
     if missing: st.error(f"Missing: {', '.join(missing)}"); st.stop()
 
-    # 2. Dependency Check (LAZY LOAD & RESTART)
+    # 2. Dependency Check
     import time
     ensure_dependencies()
 
@@ -470,6 +476,10 @@ if st.button("🚀 GENERATE REPORT"):
     try:
         from docxtpl import DocxTemplate
         from pypdf import PdfReader, PdfWriter
+        from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+        from reportlab.lib import colors
+        from reportlab.lib.pagesizes import letter, landscape
+        from reportlab.lib.styles import getSampleStyleSheet
     except ImportError as e:
         st.error(f"Failed to load required libraries: {e}")
         st.stop()
@@ -493,6 +503,10 @@ if st.button("🚀 GENERATE REPORT"):
     suffix = "microorganism" if str(st.session_state.confirm_number).strip() == "1" else "microorganisms"
     raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
     org_title = raw_org.strip().title()
+
+    # Construct the base filename (Cleaned)
+    base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
+    safe_filename = clean_filename(base_name)
 
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
@@ -536,7 +550,7 @@ if st.button("🚀 GENERATE REPORT"):
             doc = DocxTemplate(docx_template)
             doc.render(final_data_docx)
             buf = io.BytesIO(); doc.save(buf); buf.seek(0)
-            st.download_button("📂 Download Main OOS Report (DOCX)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            st.download_button("📂 Download Main OOS Report (DOCX)", buf, f"{safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"DOCX Error: {e}")
     else: st.warning(f"⚠️ Template file '{docx_template}' not found.")
 
@@ -548,10 +562,51 @@ if st.button("🚀 GENERATE REPORT"):
             doc_tbl = DocxTemplate(tables_template)
             doc_tbl.render(final_data_docx)
             buf_tbl = io.BytesIO(); doc_tbl.save(buf_tbl); buf_tbl.seek(0)
-            st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables-OOS-{clean_filename(st.session_state.oos_id)}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            st.download_button("📂 Download Tables (DOCX)", buf_tbl, f"Tables {safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
 
-    # 8. PDF FORM FILLING
+    # 8. TABLES GENERATION (PDF - Safe Mode)
+    def create_table_pdf_safe(data):
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+        styles = getSampleStyleSheet()
+        elements = []
+        elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
+        elements.append(Spacer(1, 20))
+        # Table 1
+        elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
+        t1_data = [["Processing Analyst", "Reading Analyst", "Sample ID", "Events", "Confirmed Microbial Events", "Morphology Description"],
+                   [data['analyst_name'], data['reader_name'], data['sample_id'], data['event_number'], data['confirm_number'], f"{data['organism_morphology']}-shaped Morphology"]]
+        t1 = Table(t1_data, colWidths=[120, 120, 120, 60, 100, 150])
+        t1.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')]))
+        elements.append(t1)
+        elements.append(Spacer(1, 20))
+        # Table 2
+        elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
+        headers = ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]
+        rows = []
+        rows.append(["Personnel EM Bracketing", "", "", "", "", "", "", ""])
+        rows.append(["Personal (Left/Right)", "Daily", data['test_date'], data['analyst_initial'], data['obs_pers_dur'], data['etx_pers_dur'], data['id_pers_dur'], "None"])
+        rows.append([f"BSC EM Bracketing ({data['bsc_id']})", "", "", "", "", "", "", ""])
+        rows.append(["Surface Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_surf_dur'], data['etx_surf_dur'], data['id_surf_dur'], "None"])
+        rows.append(["Settling Sampling (ISO 5)", "Daily", data['test_date'], data['analyst_initial'], data['obs_sett_dur'], data['etx_sett_dur'], data['id_sett_dur'], "None"])
+        rows.append([f"Weekly Bracketing (CR {data['cr_id']})", "", "", "", "", "", "", ""])
+        rows.append(["Active Air Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_air_wk_of'], data['etx_air_wk_of'], data['id_air_wk_of'], "None"])
+        rows.append(["Surface Sampling", "Weekly", data['date_of_weekly'], data['weekly_initial'], data['obs_room_wk_of'], data['etx_room_wk_of'], data['id_room_wk_of'], "None"])
+        t2 = Table([headers] + rows, colWidths=[150, 60, 80, 50, 80, 100, 120, 60])
+        t2.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('GRID', (0, 0), (-1, -1), 1, colors.black), ('FONTSIZE', (0, 0), (-1, -1), 9), ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'), ('SPAN', (0, 1), (-1, 1)), ('SPAN', (0, 3), (-1, 3)), ('SPAN', (0, 6), (-1, 6))]))
+        elements.append(t2)
+        doc.build(elements)
+        buffer.seek(0)
+        return buffer
+
+    try:
+        pdf_buf = create_table_pdf_safe(final_data_docx)
+        st.download_button("📂 Download Tables (PDF)", pdf_buf, f"Tables {safe_filename}.pdf", "application/pdf")
+    except Exception as e:
+        st.warning(f"Tables PDF generation failed (using DOCX fallback is recommended): {e}")
+
+    # 9. PDF FORM FILLING
     try:
         from pypdf import PdfReader, PdfWriter
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
@@ -609,7 +664,7 @@ if st.button("🚀 GENERATE REPORT"):
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
             buf = io.BytesIO(); writer.write(buf); buf.seek(0)
-            st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"OOS-{clean_filename(st.session_state.oos_id)}.pdf", "application/pdf")
+            st.download_button("📂 Download PDF Form (Safe Mode)", buf, f"{safe_filename}.pdf", "application/pdf")
     
     except ImportError:
         st.warning("⚠️ PDF generation requires 'pypdf'. Please update requirements.txt.")
