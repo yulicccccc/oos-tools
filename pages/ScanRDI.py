@@ -53,48 +53,9 @@ def ensure_dependencies():
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
 
-# --- HELPER: VALIDATION ---
-def validate_inputs():
-    """Checks for empty fields and formatting errors."""
-    errors = []
-    warnings = []
-    
-    reqs = {
-        "OOS Number": "oos_id", 
-        "Client Name": "client_name", 
-        "Sample ID": "sample_id", 
-        "Test Date": "test_date",
-        "Sample Name": "sample_name", 
-        "Lot Number": "lot_number",
-        "Prepper Name": "prepper_name",
-        "Processor Name": "analyst_name",
-        "Reader Name": "reader_name",
-        "Changeover Name": "changeover_name",
-        "BSC ID": "bsc_id",
-        "ScanRDI ID": "scan_id",
-        "Control Lot": "control_lot",
-        "Control Exp": "control_exp",
-        "Events Number": "event_number",
-        "Confirmed #": "confirm_number"
-    }
-    
-    for label, key in reqs.items():
-        val = st.session_state.get(key, "").strip()
-        if not val:
-            warnings.append(label)
-            
-    date_val = st.session_state.get("test_date", "").strip()
-    if date_val:
-        try:
-            datetime.strptime(date_val, "%d%b%y")
-        except ValueError:
-            errors.append(f"❌ Date Format Error: '{date_val}' is invalid. Please use format like '07Jan26' (DDMMMYY).")
-            
-    return errors, warnings
-
-# --- HELPER: TABLE PDF GENERATOR ---
+# --- HELPER: TABLE PDF GENERATOR (UPDATED TEMPLATE) ---
 def create_table_pdf(data):
-    """Generates the Tables PDF using ReportLab."""
+    """Generates the Tables PDF matching the new Word template structure."""
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import letter, landscape
@@ -115,14 +76,20 @@ def create_table_pdf(data):
     elements.append(Paragraph(f"Appendix: Supplemental Tables for {data['sample_id']}", styles['Heading1']))
     elements.append(Spacer(1, 15))
 
-    # TABLE 1
+    # --- TABLE 1 ---
     elements.append(Paragraph(f"Table 1: Information for {data['sample_id']} under investigation", styles['Heading2']))
     elements.append(Spacer(1, 5))
+    
     t1_headers = [p("Processing Analyst", True), p("Reading Analyst", True), p("Sample ID", True), p("Events", True), p("Confirmed Microbial Events", True), p("Morphology Description", True)]
     t1_row = [
-        p(data['analyst_name']), p(data['reader_name']), p(data['sample_id']), 
-        p(data['event_number']), p(data['confirm_number']), p(f"{data['organism_morphology']}-shaped Morphology")
+        p(data['analyst_name']), 
+        p(data['reader_name']), 
+        p(data['sample_id']), 
+        p(data['event_number']), 
+        p(data['confirm_number']), 
+        p(f"{data['organism_morphology']}-shaped Morphology")
     ]
+    
     t1 = Table([t1_headers, t1_row], colWidths=[110, 110, 130, 60, 120, 180])
     t1.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
@@ -134,7 +101,7 @@ def create_table_pdf(data):
     elements.append(t1)
     elements.append(Spacer(1, 20))
 
-    # TABLE 2
+    # --- TABLE 2 ---
     elements.append(Paragraph(f"Table 2: Environmental Monitoring from Testing Performed on {data['test_date']}", styles['Heading2']))
     elements.append(Spacer(1, 5))
     
@@ -142,33 +109,86 @@ def create_table_pdf(data):
     t2_headers = [p(h, True) for h in h_labels]
     
     rows = []
-    rows.append([p("Personnel EM Bracketing", True), "", "", "", "", "", "", ""])
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), p(data['id_pers_dur']), p("None")])
     
-    rows.append([p(f"BSC EM Bracketing ({data['bsc_id']})", True), "", "", "", "", "", "", ""])
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), p(data['id_surf_dur']), p("None")])
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), p(data['id_sett_dur']), p("None")])
+    # 1. Personnel Section
+    rows.append([p(f"Personnel EM Bracketing ({data['analyst_name']})", True), "", "", "", "", "", "", ""])
+    rows.append([
+        p("Personal (Left Touch and Right Touch)"), p("Daily"), p(data['test_date']), 
+        p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), 
+        p(data['id_pers_dur']), p("None")
+    ])
     
-    rows.append([p(f"Weekly Bracketing (CR {data['cr_id']})", True), "", "", "", "", "", "", ""])
-    rows.append([p("Active Air Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), p(data['id_air_wk_of']), p("None")])
-    rows.append([p("Surface Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), p(data['id_room_wk_of']), p("None")])
+    # 2. BSC Section (Processing & Changeover)
+    rows.append([p(f"Biological Safety Cabinet EM Bracketing (BSC) {data['bsc_id']} and {data['chgbsc_id']}", True), "", "", "", "", "", "", ""])
+    
+    # BSC 1 (Processing) - 4 locations
+    rows.append([
+        p(f"Surface Sampling of ISO 5 (BSC {data['bsc_id']}) (4 locations)"), p("Daily"), p(data['test_date']), 
+        p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), 
+        p(data['id_surf_dur']), p("None")
+    ])
+    # BSC 2 (Changeover) - 4 locations
+    rows.append([
+        p(f"Surface Sampling of ISO 5 (BSC {data['chgbsc_id']}) (4 locations)"), p("Daily"), p(data['test_date']), 
+        p(data['changeover_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), 
+        p(data['id_surf_dur']), p("None")
+    ])
+    
+    # BSC 1 (Processing) - 2 locations
+    rows.append([
+        p(f"Settling Sampling of ISO 5 (BSC {data['bsc_id']}) (2 locations)"), p("Daily"), p(data['test_date']), 
+        p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), 
+        p(data['id_sett_dur']), p("None")
+    ])
+    # BSC 2 (Changeover) - 2 locations
+    rows.append([
+        p(f"Settling Sampling of ISO 5 (BSC {data['chgbsc_id']}) (2 locations)"), p("Daily"), p(data['test_date']), 
+        p(data['changeover_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), 
+        p(data['id_sett_dur']), p("None")
+    ])
+    
+    # 3. Weekly Air Section
+    rows.append([p(f"Weekly Active Air Sampling Bracketing – Cleanroom {data['cr_suit']} – CR{data['cr_id']}", True), "", "", "", "", "", "", ""])
+    rows.append([
+        p("Active Air Sampling of Cleanrooms"), p("Weekly"), p(data['date_of_weekly']), 
+        p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), 
+        p(data['id_air_wk_of']), p("None")
+    ])
+    
+    # 4. Weekly Surface Section
+    rows.append([p(f"Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom {data['cr_suit']} – CR{data['cr_id']}", True), "", "", "", "", "", "", ""])
+    rows.append([
+        p("Surface Sampling of Cleanrooms"), p("Weekly"), p(data['date_of_weekly']), 
+        p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), 
+        p(data['id_room_wk_of']), p("None")
+    ])
 
-    t2 = Table([t2_headers] + rows, colWidths=[140, 50, 60, 45, 120, 100, 140, 55])
+    # Table Layout
+    t2 = Table([t2_headers] + rows, colWidths=[160, 50, 60, 45, 110, 100, 130, 50])
+    
+    # Styles
     t2.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('TOPPADDING', (0, 0), (-1, -1), 4),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
-        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), # Main Header
+        
+        # Section Headers (Gray Spanning Rows)
+        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), # Personnel
         ('SPAN', (0, 1), (-1, 1)),
-        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke),
+        
+        ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), # BSC
         ('SPAN', (0, 3), (-1, 3)),
-        ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke),
-        ('SPAN', (0, 6), (-1, 6)),
+        
+        ('BACKGROUND', (0, 8), (-1, 8), colors.whitesmoke), # Weekly Air
+        ('SPAN', (0, 8), (-1, 8)),
+        
+        ('BACKGROUND', (0, 10), (-1, 10), colors.whitesmoke), # Weekly Surface
+        ('SPAN', (0, 10), (-1, 10)),
     ]))
+    
     elements.append(t2)
-
     doc.build(elements)
     buffer.seek(0)
     return buffer
@@ -311,7 +331,6 @@ def generate_cross_contam_text():
 
 # --- LOGIC: SYNC DYNAMIC UI -> FIXED FIELDS ---
 def sync_dynamic_to_fixed():
-    # 1. Reset defaults
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     fixed_map = {
         "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"),
@@ -325,7 +344,6 @@ def sync_dynamic_to_fixed():
         st.session_state[k_etx] = default_etx
         st.session_state[k_id] = default_id
 
-    # 2. Update with user inputs
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
@@ -340,7 +358,6 @@ def sync_dynamic_to_fixed():
                 st.session_state[k_id] = mid
 
 def generate_narrative_and_details():
-    # Force Sync before generating text
     sync_dynamic_to_fixed()
     
     failures = []
@@ -422,11 +439,10 @@ def generate_narrative_and_details():
         det = f"{fail_intro} {' '.join(detail_sentences)}"
     return narr, det
 
-# --- INIT STATE LOOP (Restored) ---
+# --- INIT STATE LOOP ---
 def init_state(key, default=""): 
     if key not in st.session_state: st.session_state[key] = default
 
-# Loop through all keys to prevent AttributeError
 for k in field_keys:
     if k in ["incidence_count","total_pos_count_num","current_pos_order","em_growth_count"]: init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
