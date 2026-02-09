@@ -57,12 +57,18 @@ def get_full_name(initial):
     """Auto-converts initials to full names based on lab personnel."""
     if not initial: return ""
     mapping = {
-        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison",
-        "GL": "Guanchen Li", "DS": "Devanshi Shah",
-        "KC": "Kira C", "QC": "Qiyue Chen",
+        "KA": "Kathleen Aruta", 
+        "DH": "Domiasha Harrison",
+        "GL": "Guanchen Li", 
+        "DS": "Devanshi Shah",
+        "KC": "Kira C", 
+        "QC": "Qiyue Chen",
         "JD": "John Doe"
+        # 💡 如果 HS 有全名，请告诉我，我加在这里，比如: "HS": "Harry Styles"
     }
-    return mapping.get(initial.strip().upper(), initial)
+    # 关键修改：如果找不到缩写，返回 "" (空字符串)，而不是返回 initial
+    # 这样 Name 框就会变空，方便你手动输入，而不是错误的填入缩写
+    return mapping.get(initial.strip().upper(), "") 
 
 # --- HELPER: VALIDATION ---
 def validate_inputs():
@@ -476,11 +482,11 @@ def parse_email_text(text):
         try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
     
-    # FIXED: Capture initial, THEN generate full name immediately
+    # FIXED: Capture initial, THEN generate full name (or leave empty if unknown)
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
-        # Force full name generation here
+        # Force full name lookup; if not found, it returns "" (empty), NOT initial
         st.session_state.analyst_name = get_full_name(initial)
 
     if m := re.search(r"(\w+)-shaped", text, re.I):
@@ -515,11 +521,15 @@ st.header("2. Personnel")
 p1, p2 = st.columns(2)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
-    if not st.session_state.prepper_name and st.session_state.prepper_initial: st.session_state.prepper_name = get_full_name(st.session_state.prepper_initial)
+    # Auto-fill logic on P1 Prepper
+    if not st.session_state.prepper_name and st.session_state.prepper_initial: 
+        st.session_state.prepper_name = get_full_name(st.session_state.prepper_initial)
     st.text_input("Prepper Name", key="prepper_name", help="Required")
 with p2: 
     st.text_input("Processor Initials", key="analyst_initial")
-    if not st.session_state.analyst_name and st.session_state.analyst_initial: st.session_state.analyst_name = get_full_name(st.session_state.analyst_initial)
+    # Auto-fill logic on P1 Processor
+    if not st.session_state.analyst_name and st.session_state.analyst_initial: 
+        st.session_state.analyst_name = get_full_name(st.session_state.analyst_initial)
     st.text_input("Processor Name", key="analyst_name", help="Required")
 
 st.radio("Different Reader?", ["No","Yes"], key="diff_reader_analyst", horizontal=True)
@@ -866,6 +876,8 @@ def generate_p2_docs():
             return f"{part1}\n\n{intro} {usage_sent}"
 
     # 2. AUTO-RESOLVE NAMES (Trust user input primarily, fallback to initial map)
+    # We use 'or' so if text input is empty, it tries the initial map.
+    # But because get_full_name returns "" if not found, it won't fill garbage.
     p_name = st.session_state.retest_prepper_name or get_full_name(st.session_state.retest_prepper_initial)
     a_name = st.session_state.retest_analyst_name or get_full_name(st.session_state.retest_analyst_initial)
     r_name = st.session_state.retest_reader_name or get_full_name(st.session_state.retest_reader_initial)
@@ -951,18 +963,22 @@ def generate_p2_docs():
     p2_docx_buf = None
     p2_pdf_buf = None
 
+    if os.path.exists("ScanRDI OOS P2 template 0.docx"):
+        try:
+            doc0 = DocxTemplate("ScanRDI OOS P2 template 0.docx")
+            doc0.render(data)
+            p2_docx_buf = io.BytesIO(); doc0.save(p2_docx_buf); p2_docx_buf.seek(0)
+        except Exception as e: st.error(f"P2 Main DOCX Error: {e}")
+
     if os.path.exists("ScanRDI OOS P2 template.pdf"):
         try:
-            # --- 新增: 日期格式化逻辑 (同 P1) ---
+            # --- DATE FIX (FROM YOUR REQUEST) ---
             try:
-                # 尝试把输入的 DDMMMYY (09Feb26) 转成 DD-MMM-YYYY (09-Feb-2026)
                 rd_obj = datetime.strptime(st.session_state.retest_date, "%d%b%y")
                 p2_pdf_date = rd_obj.strftime("%d-%b-%Y")
             except:
-                # 如果格式不对，就保留用户原样输入
                 p2_pdf_date = st.session_state.retest_date
-            # ----------------------------------
-
+                
             pdf_map = {
                 "Text Field0": data["sample_name"],
                 "Text Field1": smart_pers,
@@ -970,7 +986,7 @@ def generate_p2_docs():
                 "Text Field3": smart_retest_res,
                 "Text Field4": smart_orig_res,
                 "Text Field30": data["oos_id"],
-                "Date Field0": p2_pdf_date, # <--- 这里使用了格式化后的日期
+                "Date Field0": p2_pdf_date, # Fixed date format
                 "Text Field8": data["smart_retest_scan_id"],
                 "Text Field9": smart_bsc_list,
                 "Text Field10": smart_suite_list,
