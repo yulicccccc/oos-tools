@@ -211,7 +211,7 @@ def generate_documents():
     from docxtpl import DocxTemplate
     
     # DETERMINE PHASE & FILENAMES
-    is_p2 = (st.session_state.include_phase2 == "Yes")
+    is_p2 = st.session_state.include_phase2  # Boolean check, NOT == "Yes"
     
     if is_p2:
         file_prefix = "ScanRDI OOS P2"  # Uses P2 files
@@ -366,7 +366,14 @@ def generate_documents():
 # --- 5. INITIALIZE STATE ---
 if "data_loaded" not in st.session_state:
     load_saved_state(); st.session_state.data_loaded = True
-for k in field_keys: init_state(k, 1 if "count" in k else "N/A" if "etx" in k else "")
+
+# --- FIX: Initialize include_phase2 explicitly to False (Boolean) for Checkbox ---
+for k in field_keys: 
+    if "count" in k: init_state(k, 1)
+    elif k == "include_phase2": init_state(k, False) # <--- CRITICAL FIX
+    elif "etx" in k: init_state(k, "N/A")
+    else: init_state(k, "")
+
 if "report_generated" not in st.session_state: st.session_state.report_generated = False
 
 # --- 6. UI ---
@@ -445,11 +452,11 @@ if st.session_state.report_generated:
     with c1:
         if st.session_state.get("docx_buf"):
             # Dynamic Label based on Phase
-            label = "P2 Main Report" if st.session_state.include_phase2 == "Yes" else "P1 Main Report"
+            label = "P2 Main Report" if st.session_state.include_phase2 else "P1 Main Report"
             st.download_button(f"📄 {label} (Word)", st.session_state.docx_buf, f"Report_Main.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     with c2:
         if st.session_state.get("p2_buf"):
-            label = "P2 Helper Doc" if st.session_state.include_phase2 == "Yes" else "P1 Helper Doc"
+            label = "P2 Helper Doc" if st.session_state.include_phase2 else "P1 Helper Doc"
             st.download_button(f"📂 {label} (Word)", st.session_state.p2_buf, f"Helper_Fields.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     with c3:
         if st.session_state.get("pdf_buf"):
