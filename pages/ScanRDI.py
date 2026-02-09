@@ -951,15 +951,18 @@ def generate_p2_docs():
     p2_docx_buf = None
     p2_pdf_buf = None
 
-    if os.path.exists("ScanRDI OOS P2 template 0.docx"):
-        try:
-            doc0 = DocxTemplate("ScanRDI OOS P2 template 0.docx")
-            doc0.render(data)
-            p2_docx_buf = io.BytesIO(); doc0.save(p2_docx_buf); p2_docx_buf.seek(0)
-        except Exception as e: st.error(f"P2 Main DOCX Error: {e}")
-
     if os.path.exists("ScanRDI OOS P2 template.pdf"):
         try:
+            # --- 新增: 日期格式化逻辑 (同 P1) ---
+            try:
+                # 尝试把输入的 DDMMMYY (09Feb26) 转成 DD-MMM-YYYY (09-Feb-2026)
+                rd_obj = datetime.strptime(st.session_state.retest_date, "%d%b%y")
+                p2_pdf_date = rd_obj.strftime("%d-%b-%Y")
+            except:
+                # 如果格式不对，就保留用户原样输入
+                p2_pdf_date = st.session_state.retest_date
+            # ----------------------------------
+
             pdf_map = {
                 "Text Field0": data["sample_name"],
                 "Text Field1": smart_pers,
@@ -967,7 +970,7 @@ def generate_p2_docs():
                 "Text Field3": smart_retest_res,
                 "Text Field4": smart_orig_res,
                 "Text Field30": data["oos_id"],
-                "Date Field0": data["retest_date"],
+                "Date Field0": p2_pdf_date, # <--- 这里使用了格式化后的日期
                 "Text Field8": data["smart_retest_scan_id"],
                 "Text Field9": smart_bsc_list,
                 "Text Field10": smart_suite_list,
