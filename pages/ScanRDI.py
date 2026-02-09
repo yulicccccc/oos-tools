@@ -10,10 +10,9 @@ from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
 try:
-    from utils import apply_eagle_style, get_full_name, get_room_logic
+    from utils import apply_eagle_style, get_room_logic
 except ImportError:
     def apply_eagle_style(): pass
-    def get_full_name(i): return i
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
 
 # --- PAGE CONFIG ---
@@ -52,6 +51,18 @@ def ensure_dependencies():
             st.rerun()
         except Exception as e:
             placeholder.error(f"Installation failed: {e}")
+
+# --- HELPER: INITIAL TO FULL NAME MAPPING ---
+def get_full_name(initial):
+    """Auto-converts initials to full names based on lab personnel."""
+    if not initial: return ""
+    mapping = {
+        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison",
+        "GL": "Guanchen Li", "DS": "Devanshi Shah",
+        "KC": "Kira C", "QC": "Qiyue Chen",
+        "JD": "John Doe"
+    }
+    return mapping.get(initial.strip().upper(), initial)
 
 # --- HELPER: VALIDATION ---
 def validate_inputs():
@@ -202,7 +213,7 @@ field_keys = [
     "obs_air", "etx_air_weekly", "id_air_weekly", 
     "obs_room", "etx_room_weekly", "id_room_wk_of",
     
-    # --- PHASE 2 KEYS ADDED HERE (To avoid crash) ---
+    # --- PHASE 2 KEYS ---
     "include_phase2",
     "retest_date", "retest_sample_id", "retest_result", "retest_scan_id",
     "retest_prepper_name", "retest_prepper_initial",
@@ -256,16 +267,6 @@ def get_room_logic(bsc_id):
         from utils import get_room_logic as utils_get_room
         return utils_get_room(bsc_id)
     except: return "Unknown Room", "000", "", "Unknown Loc"
-
-def get_full_name(initial):
-    """Smart mapping for initials."""
-    if not initial: return ""
-    mapping = {
-        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison",
-        "GL": "Guanchen Li", "DS": "Devanshi Shah",
-        "KC": "Kira C"
-    }
-    return mapping.get(initial.strip().upper(), initial)
 
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
@@ -463,7 +464,7 @@ if "submission_warnings" not in st.session_state:
 if "p2_generated" not in st.session_state:
     st.session_state.p2_generated = False
 
-# --- PARSER ---
+# --- PARSER (FIXED EMAIL LOGIC) ---
 def parse_email_text(text):
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
@@ -474,10 +475,14 @@ def parse_email_text(text):
     if m := re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.I):
         try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
+    
+    # FIXED: Capture initial, THEN generate full name immediately
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
+        # Force full name generation here
         st.session_state.analyst_name = get_full_name(initial)
+
     if m := re.search(r"(\w+)-shaped", text, re.I):
         found_shape = m.group(1).lower()
         if "cocci" in found_shape: st.session_state.org_choice = "cocci"
@@ -860,7 +865,7 @@ def generate_p2_docs():
 
             return f"{part1}\n\n{intro} {usage_sent}"
 
-    # 2. AUTO-RESOLVE NAMES
+    # 2. AUTO-RESOLVE NAMES (Trust user input primarily, fallback to initial map)
     p_name = st.session_state.retest_prepper_name or get_full_name(st.session_state.retest_prepper_initial)
     a_name = st.session_state.retest_analyst_name or get_full_name(st.session_state.retest_analyst_initial)
     r_name = st.session_state.retest_reader_name or get_full_name(st.session_state.retest_reader_initial)
@@ -885,7 +890,7 @@ def generate_p2_docs():
         f"Reader: \n{r_name} ({st.session_state.retest_reader_initial})"
     )
     
-    smart_ids = f"Original Test: {st.session_state.sample_id}\n\nRetest: {st.session_state.retest_sample_id}"
+    smart_ids = f"Original Test:\n{st.session_state.sample_id}\n\nRetest:\n{st.session_state.retest_sample_id}"
     smart_orig_res = f"{st.session_state.sample_id} - Fail"
     smart_retest_res = f"{st.session_state.retest_sample_id} - {st.session_state.retest_result}"
     smart_bsc_list = f"{st.session_state.retest_bsc_id} and {st.session_state.retest_chgbsc_id}"
@@ -944,7 +949,6 @@ def generate_p2_docs():
 
     # GENERATE FILES
     p2_docx_buf = None
-    p2_helper_buf = None
     p2_pdf_buf = None
 
     if os.path.exists("ScanRDI OOS P2 template 0.docx"):
@@ -953,13 +957,6 @@ def generate_p2_docs():
             doc0.render(data)
             p2_docx_buf = io.BytesIO(); doc0.save(p2_docx_buf); p2_docx_buf.seek(0)
         except Exception as e: st.error(f"P2 Main DOCX Error: {e}")
-
-    if os.path.exists("ScanRDI OOS P2 template.docx"):
-        try:
-            docP2 = DocxTemplate("ScanRDI OOS P2 template.docx")
-            docP2.render(data)
-            p2_helper_buf = io.BytesIO(); docP2.save(p2_helper_buf); p2_helper_buf.seek(0)
-        except Exception as e: st.error(f"P2 Helper DOCX Error: {e}")
 
     if os.path.exists("ScanRDI OOS P2 template.pdf"):
         try:
@@ -982,28 +979,54 @@ def generate_p2_docs():
             p2_pdf_buf = io.BytesIO(); writer.write(p2_pdf_buf); p2_pdf_buf.seek(0)
         except Exception as e: st.error(f"P2 PDF Error: {e}")
 
-    return p2_docx_buf, p2_helper_buf, p2_pdf_buf
+    return p2_docx_buf, p2_pdf_buf
 
 # --- P2 UI LOGIC ---
 if st.session_state.include_phase2:
-    st.info("💡 Tip: Enter Initials (e.g. DS) and the system will auto-fill the full name if known.")
+    st.info("💡 Tip: Enter Initials (e.g. DS) and press Enter. The system will auto-fill the full name if known.")
     
     r1, r2, r3 = st.columns(3)
     with r1: st.text_input("Retest Date (DDMMMYY)", key="retest_date"); st.text_input("Retest Sample ID", key="retest_sample_id")
     with r2: st.text_input("Retest Result", value="Pass", key="retest_result"); st.text_input("Retest Scan ID (e.g. 2017)", key="retest_scan_id")
     
     st.markdown("##### Retest Personnel")
+    
+    # Auto-fill Logic via Rerun on Initial Change
     p2_1, p2_2 = st.columns(2)
-    with p2_1: st.text_input("Retest Prepper", key="retest_prepper_name", placeholder="Optional if Initial is entered"); st.text_input("Initials", key="retest_prepper_initial")
-    with p2_2: st.text_input("Retest Processor", key="retest_analyst_name", placeholder="Optional if Initial is entered"); st.text_input("Initials", key="retest_analyst_initial")
+    with p2_1: 
+        st.text_input("Retest Prepper", key="retest_prepper_name")
+        if st.text_input("Initials", key="retest_prepper_initial"):
+            if not st.session_state.retest_prepper_name:
+                st.session_state.retest_prepper_name = get_full_name(st.session_state.retest_prepper_initial)
+                st.rerun()
+
+    with p2_2: 
+        st.text_input("Retest Processor", key="retest_analyst_name")
+        if st.text_input("Initials", key="retest_analyst_initial"):
+            if not st.session_state.retest_analyst_name:
+                st.session_state.retest_analyst_name = get_full_name(st.session_state.retest_analyst_initial)
+                st.rerun()
     
     st.radio("Different Retest Reader?", ["No","Yes"], key="diff_retest_reader", horizontal=True)
-    if st.session_state.diff_retest_reader == "Yes": st.text_input("Retest Reader", key="retest_reader_name", placeholder="Optional if Initial is entered"); st.text_input("Reader Initials", key="retest_reader_initial")
-    else: st.session_state.retest_reader_name = st.session_state.retest_analyst_name; st.session_state.retest_reader_initial = st.session_state.retest_analyst_initial
+    if st.session_state.diff_retest_reader == "Yes": 
+        c1, c2 = st.columns(2)
+        with c1: st.text_input("Retest Reader", key="retest_reader_name")
+        with c2: 
+            if st.text_input("Reader Initials", key="retest_reader_initial"):
+                if not st.session_state.retest_reader_name:
+                    st.session_state.retest_reader_name = get_full_name(st.session_state.retest_reader_initial)
+                    st.rerun()
+    else: 
+        st.session_state.retest_reader_name = st.session_state.retest_analyst_name; 
+        st.session_state.retest_reader_initial = st.session_state.retest_analyst_initial
     
     st.radio("Different Retest Changeover?", ["No","Yes"], key="diff_retest_changeover", horizontal=True)
-    if st.session_state.diff_retest_changeover == "Yes": st.text_input("Retest Changeover Name", key="retest_changeover_name"); st.text_input("Chg Initials", key="retest_changeover_initial")
-    else: st.session_state.retest_changeover_name = st.session_state.retest_analyst_name; st.session_state.retest_changeover_initial = st.session_state.retest_analyst_initial
+    if st.session_state.diff_retest_changeover == "Yes": 
+        st.text_input("Retest Changeover Name", key="retest_changeover_name")
+        st.text_input("Chg Initials", key="retest_changeover_initial")
+    else: 
+        st.session_state.retest_changeover_name = st.session_state.retest_analyst_name; 
+        st.session_state.retest_changeover_initial = st.session_state.retest_analyst_initial
 
     st.markdown("##### Retest Equipment")
     e2_1, e2_2 = st.columns(2)
@@ -1017,12 +1040,10 @@ if st.session_state.include_phase2:
         st.session_state.p2_generated = True
 
     if st.session_state.p2_generated:
-        p2_doc, p2_help, p2_pdf = generate_p2_docs()
+        p2_doc, p2_pdf = generate_p2_docs()
         st.success("Phase 2 Reports Ready!")
-        c1, c2, c3 = st.columns(3)
+        c1, c2 = st.columns(2)
         with c1:
-            if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, "P2_Report.docx")
+            if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, "P2_Report.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         with c2:
-            if p2_help: st.download_button("📂 P2 Helper Doc", p2_help, "P2_Helper.docx")
-        with c3:
-            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, "P2_Form.pdf")
+            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, "P2_Form.pdf", "application/pdf")
