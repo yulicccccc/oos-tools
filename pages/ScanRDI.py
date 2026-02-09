@@ -108,7 +108,13 @@ def get_room_logic(bsc_id):
     try: from utils import get_room_logic as u_grl; return u_grl(bsc_id)
     except: return "Unknown", "000", "", "Unknown Loc"
 
-def ordinal(n): return f"{n}th" if 11<=int(n)%100<=13 else f"{n}{['th','st','nd','rd'][int(n)%10 if int(n)%10<=3 else 0]}"
+# FIX: Safe Ordinal Function (No more crashes)
+def ordinal(n): 
+    try:
+        val = int(n)
+        return f"{val}th" if 11<=val%100<=13 else f"{val}{['th','st','nd','rd'][val%10 if val%10<=3 else 0]}"
+    except (ValueError, TypeError):
+        return str(n) # Return original text if not a number
 
 # --- CORE LOGIC: EQUIPMENT GENERATOR ---
 def generate_equipment_text(bsc_main, bsc_chg, analyst_main, analyst_chg, date_val, is_retest=False):
@@ -211,7 +217,7 @@ def generate_documents():
     from docxtpl import DocxTemplate
     
     # DETERMINE PHASE & FILENAMES
-    is_p2 = st.session_state.include_phase2  # Boolean check, NOT == "Yes"
+    is_p2 = st.session_state.include_phase2  # Boolean check
     
     if is_p2:
         file_prefix = "ScanRDI OOS P2"  # Uses P2 files
@@ -367,10 +373,10 @@ def generate_documents():
 if "data_loaded" not in st.session_state:
     load_saved_state(); st.session_state.data_loaded = True
 
-# --- FIX: Initialize include_phase2 explicitly to False (Boolean) for Checkbox ---
+# FIX: Initialize vars correctly to prevent int("") crash
 for k in field_keys: 
-    if "count" in k: init_state(k, 1)
-    elif k == "include_phase2": init_state(k, False) # <--- CRITICAL FIX
+    if "count" in k or "order" in k: init_state(k, 1) # <--- ADDED 'order' check
+    elif k == "include_phase2": init_state(k, False)
     elif "etx" in k: init_state(k, "N/A")
     else: init_state(k, "")
 
@@ -408,6 +414,16 @@ st.header("3. Findings & EM")
 f1, f2 = st.columns(2)
 with f1: st.text_input("Confirmed #", key="confirm_number"); st.selectbox("Org Shape", ["rod","cocci","Other"], key="org_choice")
 with f2: st.text_input("Control Lot", key="control_lot"); st.radio("EM Growth?", ["No","Yes"], key="em_growth_observed", horizontal=True)
+
+# FIX: Added Missing UI inputs for Cross Contam Logic
+st.write("---")
+c_cc1, c_cc2 = st.columns(2)
+with c_cc1: 
+    st.radio("Other Positives?", ["No", "Yes"], key="other_positives", horizontal=True)
+with c_cc2:
+    if st.session_state.other_positives == "Yes":
+        st.number_input("Total Positives", min_value=1, key="total_pos_count_num")
+        st.number_input("This Sample Order", min_value=1, key="current_pos_order")
 
 st.divider()
 # --- PHASE 2 SECTION ---
@@ -451,7 +467,6 @@ if st.session_state.report_generated:
     c1, c2, c3 = st.columns(3)
     with c1:
         if st.session_state.get("docx_buf"):
-            # Dynamic Label based on Phase
             label = "P2 Main Report" if st.session_state.include_phase2 else "P1 Main Report"
             st.download_button(f"📄 {label} (Word)", st.session_state.docx_buf, f"Report_Main.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     with c2:
