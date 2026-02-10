@@ -554,6 +554,26 @@ if st.session_state.report_generated:
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
     final_data_docx['Text Field50'] = smart_phase1_part2; st.session_state.phase1_full_text = smart_phase1_part2
 
+    # --- P1 TEXT BLOCK CONSTRUCTION (FOR P2 USE) ---
+    # This matches the user's exact P2 MAIN requirement
+    p1_text = (
+        f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document.\n\n"
+        f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
+        f"All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates.\n\n"
+        f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method.\n\n"
+        f"{fresh_equip}\n\n"
+        f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results.\n\n"
+        f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1.\n\n"
+        f"Table 2 (see attached table) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility).\n\n"
+        f"{fresh_narr}\n\n"
+        f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed.\n\n"
+        f"{fresh_history}\n\n"
+        f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}\n\n"
+        f"Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    )
+    if fresh_det: p1_text = p1_text.replace(fresh_narr, fresh_narr + "\n\n" + fresh_det)
+    st.session_state.phase1_full_text = p1_text # Save for P2
+
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
     if os.path.exists("ScanRDI OOS template 0.docx"):
         try:
@@ -664,6 +684,8 @@ def generate_p2_docs():
     smart_retest_res = f"{st.session_state.retest_sample_id} - {st.session_state.retest_result}"
     smart_bsc_list = f"{st.session_state.retest_bsc_id} and {st.session_state.retest_chgbsc_id}"
     smart_suite_list = f"Suite {r_suite}{r_suffix}, Suite {rc_suite}{rc_suffix}"
+    
+    # --- HERE IS THE FIX: USE THE FULLY GENERATED P1 TEXT ---
     smart_p1_block = f"INITIAL TEST UNDER {st.session_state.sample_id}\n\n{st.session_state.get('phase1_full_text', 'See Phase 1 Report')}"
     
     smart_p2_narrative = (f"RETEST UNDER SUBMISSION {st.session_state.retest_sample_id}\n\n"
@@ -681,7 +703,9 @@ def generate_p2_docs():
         f"The final disposition of the lot remains at the discretion of the client.")
 
     data = {k: v for k, v in st.session_state.items()}
+    # Update data specifically for P2 Word Template mapping
     data.update({
+        "whole_P1": st.session_state.get('phase1_full_text', 'See Phase 1 Report'), # Explicit mapping for Word
         "retest_prepper_name": p_name, "retest_analyst_name": a_name, "retest_reader_name": r_name,
         "retest_equipment_summary": retest_equip_sum, "retest_bsc_location": r_loc, "retest_cr_suit": r_suite, "retest_suit": r_suffix,
         "retest_chgcr_suit": rc_suite, "retest_chgsuit": rc_suffix, "retest_chgbsc_id": st.session_state.retest_chgbsc_id,
