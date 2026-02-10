@@ -63,21 +63,15 @@ def get_full_name(initial):
 
 # --- HELPER: AUTO-FILL LOGIC ---
 def auto_fill_name(initial_key, name_key):
-    """Checks if initial changed and updates name if empty or auto-fillable."""
+    """Checks if initial changed and updates name if empty."""
     initial = st.session_state.get(initial_key, "")
     current_name = st.session_state.get(name_key, "")
-    
     if initial:
         calculated_name = get_full_name(initial)
-        # Only update if calculated name is valid AND (name box is empty OR matches previous default)
-        if calculated_name and calculated_name != current_name:
-            # If name box is empty, fill it. 
-            if not current_name:
-                st.session_state[name_key] = calculated_name
-                st.rerun()
-            # If name box has a value but it looks like a "default" (e.g. from analyst), maybe overwrite?
-            # For safety, we mainly rely on "if empty".
-            
+        if calculated_name and not current_name:
+            st.session_state[name_key] = calculated_name
+            st.rerun()
+
 # --- HELPER: VALIDATION ---
 def validate_inputs():
     errors, warnings = [], []
@@ -185,7 +179,10 @@ def save_current_state():
     except: pass
 
 # --- HELPERS ---
-def clean_filename(text): return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
+def clean_filename(text): 
+    # Sanitizes filenames for OS, replacing "/" with "_" but keeping text
+    return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
+
 def ordinal(n):
     try:
         n = int(n); return f"{n}th" if 11<=n%100<=13 else f"{n}{['th','st','nd','rd'][n%10 if n%10<=3 else 0]}"
@@ -382,12 +379,10 @@ st.header("2. Personnel")
 p1, p2 = st.columns(2)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
-    # P1 Auto-fill
     auto_fill_name("prepper_initial", "prepper_name")
     st.text_input("Prepper Name", key="prepper_name", help="Required")
 with p2: 
     st.text_input("Processor Initials", key="analyst_initial")
-    # P1 Auto-fill
     auto_fill_name("analyst_initial", "analyst_name")
     st.text_input("Processor Name", key="analyst_name", help="Required")
 
@@ -717,7 +712,7 @@ if st.session_state.include_phase2:
     st.markdown("💡 **Tip:** Enter Initials (e.g. DS) and press Enter. The system will auto-fill the full name if known.")
     r1, r2, r3 = st.columns(3)
     with r1: st.text_input("Retest Date (DDMMMYY)", key="retest_date"); st.text_input("Retest Sample ID", key="retest_sample_id")
-    with r2: st.text_input("Retest Result", value="Pass", key="retest_result"); st.text_input("Retest Scan ID (e.g. 2017)", key="retest_scan_id")
+    with r2: st.text_input("Retest Result", value="Pass", key="retest_result"); st.selectbox("Retest Scan ID", ["1230","2017","1040","1877","2225","2132"], key="retest_scan_id")
     
     st.markdown("##### Retest Personnel")
     p2_1, p2_2 = st.columns(2)
@@ -760,7 +755,11 @@ if st.session_state.include_phase2:
         p2_doc, p2_pdf = generate_p2_docs()
         st.success("Phase 2 Reports Ready!")
         c1, c2 = st.columns(2)
+        
+        # P2 Filename Logic (Append "- P2")
+        base_name_p2 = f"{clean_filename(base_name)} - P2"
+        
         with c1:
-            if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, "P2_Report.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, f"{base_name_p2}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         with c2:
-            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, "P2_Form.pdf", "application/pdf")
+            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, f"{base_name_p2}.pdf", "application/pdf")
