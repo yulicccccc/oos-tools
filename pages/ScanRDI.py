@@ -1002,7 +1002,7 @@ def generate_p2_docs():
 
 # --- P2 UI LOGIC ---
 if st.session_state.include_phase2:
-    st.info("💡 Tip: Enter Initials (e.g. DS) and press Enter. The system will auto-fill the full name if known.")
+    st.info
     
     r1, r2, r3 = st.columns(3)
     with r1: st.text_input("Retest Date (DDMMMYY)", key="retest_date"); st.text_input("Retest Sample ID", key="retest_sample_id")
