@@ -763,4 +763,4 @@ if st.session_state.include_phase2:
         with c1:
             if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, "P2_Report.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         with c2:
-            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, "P2_Form.pdf", "application/pdf")F
+            if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, "P2_Form.pdf", "application/pdf")
