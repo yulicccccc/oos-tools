@@ -594,7 +594,10 @@ if st.session_state.report_generated:
                                  f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
                                  f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
                                  f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})")
-        smart_incident_opening = f"On {st.session_state.test_date}, sample\n{st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI\ntesting."
+        
+        # --- FIXED INCIDENT OPENING (REMOVED \n) ---
+        smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
+        
         unique_analysts = []
         if st.session_state.prepper_name: unique_analysts.append(st.session_state.prepper_name)
         if st.session_state.analyst_name and st.session_state.analyst_name not in unique_analysts: unique_analysts.append(st.session_state.analyst_name)
@@ -684,8 +687,6 @@ def generate_p2_docs():
     smart_retest_res = f"{st.session_state.retest_sample_id} - {st.session_state.retest_result}"
     smart_bsc_list = f"{st.session_state.retest_bsc_id} and {st.session_state.retest_chgbsc_id}"
     smart_suite_list = f"Suite {r_suite}{r_suffix}, Suite {rc_suite}{rc_suffix}"
-    
-    # --- HERE IS THE FIX: USE THE FULLY GENERATED P1 TEXT ---
     smart_p1_block = f"INITIAL TEST UNDER {st.session_state.sample_id}\n\n{st.session_state.get('phase1_full_text', 'See Phase 1 Report')}"
     
     smart_p2_narrative = (f"RETEST UNDER SUBMISSION {st.session_state.retest_sample_id}\n\n"
@@ -703,9 +704,8 @@ def generate_p2_docs():
         f"The final disposition of the lot remains at the discretion of the client.")
 
     data = {k: v for k, v in st.session_state.items()}
-    # Update data specifically for P2 Word Template mapping
     data.update({
-        "whole_P1": st.session_state.get('phase1_full_text', 'See Phase 1 Report'), # Explicit mapping for Word
+        "whole_P1": st.session_state.get('phase1_full_text', 'See Phase 1 Report'),
         "retest_prepper_name": p_name, "retest_analyst_name": a_name, "retest_reader_name": r_name,
         "retest_equipment_summary": retest_equip_sum, "retest_bsc_location": r_loc, "retest_cr_suit": r_suite, "retest_suit": r_suffix,
         "retest_chgcr_suit": rc_suite, "retest_chgsuit": rc_suffix, "retest_chgbsc_id": st.session_state.retest_chgbsc_id,
