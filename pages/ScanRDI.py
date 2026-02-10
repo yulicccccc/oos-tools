@@ -49,7 +49,7 @@ def ensure_dependencies():
 
 # --- HELPER: INITIAL TO FULL NAME MAPPING ---
 def get_full_name(initial):
-    """Auto-converts initials to full names."""
+    """Auto-converts initials to full names based on lab personnel."""
     if not initial: return ""
     mapping = {
         "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
@@ -379,10 +379,12 @@ st.header("2. Personnel")
 p1, p2 = st.columns(2)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
+    # P1 Auto-fill
     auto_fill_name("prepper_initial", "prepper_name")
     st.text_input("Prepper Name", key="prepper_name", help="Required")
 with p2: 
     st.text_input("Processor Initials", key="analyst_initial")
+    # P1 Auto-fill
     auto_fill_name("analyst_initial", "analyst_name")
     st.text_input("Processor Name", key="analyst_name", help="Required")
 
@@ -754,7 +756,7 @@ if st.session_state.include_phase2:
     if st.session_state.p2_generated:
         p2_doc, p2_pdf = generate_p2_docs()
         st.success("Phase 2 Reports Ready!")
-        c1, c2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
         
         # P2 Filename Logic (Append "- P2")
         base_name_p2 = f"{clean_filename(base_name)} - P2"
@@ -763,3 +765,9 @@ if st.session_state.include_phase2:
             if p2_doc: st.download_button("📄 P2 Main Report", p2_doc, f"{base_name_p2}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         with c2:
             if p2_pdf: st.download_button("✅ P2 Final PDF", p2_pdf, f"{base_name_p2}.pdf", "application/pdf")
+        
+        # SAVE BUTTON FOR P2 STAGE (SAVES ALL)
+        with c3:
+            current_data = {k: st.session_state[k] for k in field_keys if k in st.session_state}
+            json_str = json.dumps(current_data, indent=2)
+            st.download_button("💾 Save Full Session Data (.txt)", json_str, f"SAVE_{safe_filename}.txt", "text/plain")
