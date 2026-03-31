@@ -1,38 +1,39 @@
 import streamlit as st
 
-# 必须放在第一行：设置浏览器标签页的名字、图标和宽屏模式
+# 1. 大门招牌 (Page Configuration)
+# 使用了你更专业的标题 "Microbiology Platform"
 st.set_page_config(
-    page_title="Eagle OOS Tools",
+    page_title="Microbiology Platform", 
     page_icon="🦅",
     layout="wide"
 )
 
-# 导入我们昨天刚写好的公共 UI 样式
-from utils import apply_eagle_style
+# 2. 呼叫后勤部刷漆 (Apply the Standard Eagle Sidebar)
+try:
+    from utils import apply_eagle_style
+    apply_eagle_style()
+except ImportError:
+    pass
 
-# ---------------------------------------------------------
-# 1. 渲染侧边栏导航 (调用 utils.py 里的功能)
-# ---------------------------------------------------------
-apply_eagle_style()
-
-# ---------------------------------------------------------
-# 2. 迎宾主页面 (Lobby / Landing Page)
-# ---------------------------------------------------------
-st.title("🦅 Welcome to Eagle Analytical OOS Tools")
+# 3. 迎宾主屏幕 (Professional Main Content)
+st.title("🦅 Microbiology Investigation Platform")
 st.markdown("---")
 
 st.markdown("""
-### 👋 Hello there! 
-Welcome to the automated investigation report generator. 
+### Welcome to the Quality Control Portal
 
-👈 **Please select a module from the sidebar on the left to begin your work.**
+This platform is designed to streamline OOS investigations and data trending for the Microbiology department.
+All investigation modules are synchronized with the **Eagle Trax** standards.
 
-#### Available Modules:
-* **ScanRDI**: For Rapid Sterility Testing OOS investigations.
-* **USP <71>**: For traditional sterility testing investigations.
-* **Celsis**: For rapid microbial detection investigations.
-* **EM**: For Environmental Monitoring excursions.
+**Available Modules:**
+* **ScanRDI**: Rapid Sterility Testing Investigation
+* **USP <71>**: Traditional Sterility Testing
+* **Celsis**: Rapid Microbial Detection
+* **EM**: Environmental Monitoring Data Entry
 
----
-*If you need to update the analyst name list or room logic, please modify the `utils.py` file.*
+*Please select a module from the sidebar on the left to begin your work.*
 """)
+
+# 4. 底部状态栏 (Clean info box at the bottom)
+st.markdown("<br><br>", unsafe_allow_html=True) # 增加一点留白，让页面更呼吸
+st.info("🟢 System Status: Online | Version: 1.0.2 | Maintained by LabOps")
