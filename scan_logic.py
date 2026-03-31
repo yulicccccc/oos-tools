@@ -13,14 +13,12 @@ from datetime import datetime, timedelta
 try:
     from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words
 except ImportError:
-    # 如果找不到 utils，提供一个最基础的备用方案防崩溃
     def u_grl(i): return "Unknown", "000", "", "Unknown"
     def get_full_name(i): return i
     def ordinal(n): return str(n)
     def num_to_words(n): return str(n)
 
 # --- 2. CONFIG & KEYS (系统变量字典) ---
-# 所有的字段名都在这里集中管理，相当于后厨的“食材清单”
 FIELD_KEYS = [
     "oos_id", "client_name", "sample_id", "test_date", "sample_name", "lot_number", 
     "dosage_form", "monthly_cleaning_date", 
@@ -40,21 +38,17 @@ FIELD_KEYS = [
     "obs_pers", "etx_pers", "id_pers", "obs_surf", "etx_surf", "id_surf", 
     "obs_sett", "etx_sett", "id_sett", "obs_air", "etx_air_weekly", "id_air_weekly", 
     "obs_room", "etx_room_weekly", "id_room_wk_of",
-    # Phase 2 专属变量
     "include_phase2", "retest_date", "retest_sample_id", "retest_result", "retest_scan_id",
     "retest_prepper_name", "retest_prepper_initial", "retest_analyst_name", "retest_analyst_initial",
     "retest_reader_name", "retest_reader_initial", "retest_changeover_name", "retest_changeover_initial",
     "retest_bsc_id", "retest_chgbsc_id", "diff_retest_reader", "diff_retest_changeover", "diff_retest_bsc"
 ]
 
-# 为 EM 观察点增加 20 个动态 key
 for i in range(20):
     FIELD_KEYS.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 
-
 # --- 3. HELPER FUNCTIONS (杂项助手) ---
 def ensure_dependencies():
-    """检查是否缺少依赖库，如果缺少则自动后台安装"""
     required = ["docxtpl", "pypdf", "reportlab"]
     missing = []
     for lib in required:
@@ -71,18 +65,15 @@ def ensure_dependencies():
         except Exception as e: placeholder.error(f"Install failed: {e}")
 
 def auto_fill_name(initial_key, name_key):
-    """自动将缩写转换为全名并塞回大堂 (st.session_state)"""
     initial = st.session_state.get(initial_key, "")
     current_name = st.session_state.get(name_key, "")
     if initial:
-        # 呼叫 utils.py 的翻译器
         calculated_name = get_full_name(initial)
         if calculated_name and not current_name:
             st.session_state[name_key] = calculated_name
             st.rerun()
 
 def validate_inputs():
-    """表格验证器：检查客人有没有漏填关键信息"""
     errors, warnings = [], []
     reqs = {
         "OOS Number": "oos_id", "Client Name": "client_name", "Sample ID": "sample_id", 
@@ -102,14 +93,10 @@ def validate_inputs():
     return errors, warnings
 
 def clean_filename(text): 
-    """文件名清洁工：把不能做文件名的特殊符号去掉"""
     return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
 
-
 # --- 4. TEXT GENERATION LOGIC (重型报告生成引擎) ---
-
 def generate_equipment_text():
-    """拼凑极度复杂的 Equipment 段落"""
     t_room, t_suite, t_suffix, t_loc = u_grl(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = u_grl(st.session_state.chgbsc_id)
     if st.session_state.bsc_id == st.session_state.chgbsc_id:
@@ -218,7 +205,6 @@ def generate_narrative_and_details():
     return narr, det
 
 def create_table_pdf(data):
-    """画补充表格 PDF"""
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import letter, landscape
@@ -259,8 +245,6 @@ def create_table_pdf(data):
     return buffer
 
 def parse_email_text(text):
-    """解析邮件或 JSON，智能提取关键信息"""
-    # 1. 尝试 JSON 还原
     try:
         data = json.loads(text)
         if isinstance(data, dict):
@@ -269,20 +253,29 @@ def parse_email_text(text):
             st.success("✅ Magic Import Successful! Reloading..."); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
     
-    # 2. 正常邮件正则抓取
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
-    if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): st.session_state.client_name = m.group(1).strip()
+    
+    # 核心修复 2：剔骨刀，用 re.sub 强行剥离 "Client:" 前缀
+    if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
+        raw_client = m.group(1).strip()
+        st.session_state.client_name = re.sub(r"^Client:\s*", "", raw_client, flags=re.IGNORECASE)
+        
     if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
     if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
+    
+    # 核心修复 1：无视空格，强制格式化解析日期
     if m := re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.I):
-        try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
+        try: 
+            raw_date = m.group(1).replace(" ", "")
+            st.session_state.test_date = datetime.strptime(raw_date, "%d%b%Y").strftime("%d%b%y")
         except: pass
+        
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
-        found_name = get_full_name(initial)
-        st.session_state.analyst_name = found_name
+        st.session_state.analyst_name = get_full_name(initial)
+        
     if m := re.search(r"(\w+)-shaped", text, re.I):
         found_shape = m.group(1).lower()
         if "cocci" in found_shape: st.session_state.org_choice = "cocci"
