@@ -610,15 +610,39 @@ if st.session_state.report_generated:
         p5 = fresh_equip
         p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per SOP 2.700.004 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
         smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
-        pdf_map = {
-            'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
-            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 'Text Field6': st.session_state.lot_number, 'Text Field4': st.session_state.sample_name, 
-            'Text Field5': st.session_state.dosage_form, 'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening,
-            'Text Field13': smart_comment_interview, 'Text Field14': smart_comment_samples, 'Text Field17': smart_comment_records, 'Text Field21': smart_comment_storage,
-            'Text Field30': f"E00{st.session_state.scan_id}", 'Text Field32': f"E00{t_room} (CR{t_suite})", 'Text Field34': f"E00{st.session_state.scan_id}",
-            'Text Field24': st.session_state.control_pos, 'Text Field25': st.session_state.control_lot, 'Text Field26': st.session_state.control_exp,
-            'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
-        }
+        # --- 修改后的 pdf_map 字典 ---
+pdf_map = {
+    'Text Field57': st.session_state.oos_id, 
+    'Date Field0': pdf_date_str, 
+    'Date Field1': pdf_date_str, 
+    'Date Field2': pdf_date_str, 
+    'Date Field3': pdf_date_str,
+    'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 
+    'Text Field6': st.session_state.lot_number, 
+    
+    # 1. 给 Sample Name 后面加 4 个换行 (\n)
+    'Text Field4': st.session_state.sample_name + "\n\n\n\n",  
+    
+    'Text Field5': st.session_state.dosage_form, 
+    'Text Field0': analyst_sig_text, 
+    'Text Field3': smart_personnel_block, 
+    
+    # 2. 给 Description of Incident 后面加 2 个换行 (\n)
+    'Text Field7': smart_incident_opening + "\n\n", 
+    
+    'Text Field13': smart_comment_interview, 
+    'Text Field14': smart_comment_samples, 
+    'Text Field17': smart_comment_records, 
+    'Text Field21': smart_comment_storage,
+    'Text Field30': f"E00{st.session_state.scan_id}", 
+    'Text Field32': f"E00{t_room} (CR{t_suite})", 
+    'Text Field34': f"E00{st.session_state.scan_id}",
+    'Text Field24': st.session_state.control_pos, 
+    'Text Field25': st.session_state.control_lot, 
+    'Text Field26': st.session_state.control_exp,
+    'Text Field49': smart_phase1_part1, 
+    'Text Field50': smart_phase1_part2
+    }
         if os.path.exists("ScanRDI OOS template.pdf"):
             writer = PdfWriter(clone_from="ScanRDI OOS template.pdf"); 
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
