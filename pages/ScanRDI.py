@@ -633,7 +633,7 @@ if st.session_state.report_generated:
             'Text Field32': f"E00{t_room} (CR{t_suite})", 
             'Text Field34': f"E00{st.session_state.scan_id}",
             'Text Field24': st.session_state.control_pos, 
-            'Text Field25': st.session_state.control_lot, 
+            'Text Field25': st.session_state.control_lot + "\n\n\n", 
             'Text Field26': st.session_state.control_exp,
             'Text Field49': smart_phase1_part1, 
             'Text Field50': smart_phase1_part2
