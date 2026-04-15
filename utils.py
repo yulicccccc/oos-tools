@@ -1,13 +1,13 @@
+# filename: utils.py
 import streamlit as st
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # --- 1. 统一的界面样式函数 ---
 def apply_eagle_style():
     """
     在每个页面调用此函数，即可获得完全一致的 Eagle Trax 侧边栏。
     """
-    # 强制 CSS 样式
     st.markdown("""
         <style>
         /* 1. 侧边栏背景：深蓝 */
@@ -66,12 +66,10 @@ def apply_eagle_style():
         </style>
     """, unsafe_allow_html=True)
 
-    # 统一的侧边栏结构
     with st.sidebar:
         st.markdown("<h1 style='color: #66CC33; padding-left:10px; font-weight:900; margin-bottom:0;'>EAGLE</h1>", unsafe_allow_html=True)
         st.markdown("---")
         
-        # 默认展开 Micro
         with st.expander("Micro", expanded=True):
             st.page_link("pages/ScanRDI.py", label="ScanRDI")
             st.page_link("pages/USP_71.py", label="USP <71>")
@@ -81,7 +79,7 @@ def apply_eagle_style():
 # --- 2. 业务逻辑工具函数 ---
 
 def get_full_name(initial):
-    """(终极版) 缩写转全名翻译器"""
+    """(终极版) 缩写转全名翻译器 - 已包含 Celsis 人员"""
     if not initial: 
         return ""
     mapping = {
@@ -90,24 +88,32 @@ def get_full_name(initial):
         "CSG": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "GS": "Gabbie Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
         "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
-        "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", "AC": "Andrew Carrillo",
-        "KC": "Kira C"
+        "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
+        "AC": "Andrew Carrillo", "KC": "Kira C",
+        "AA": "America Alanis",  # Celsis 主力
+        "SMO": "SMO"             # EM 表格特定缩写
     }
     return mapping.get(initial.strip().upper(), "")
 
 def get_room_logic(bsc_id):
-    """单双号规则推断洁净室编号"""
+    """单双号规则推断洁净室编号 + 1798 强制拦截"""
+    bsc_str = str(bsc_id).strip()
+    
+    # 强制拦截 Celsis 专属设备 (1798 是偶数，但它在 A 房)
+    if bsc_str == "1798":
+        return "1736", "114", "A", "middle ISO 7 buffer room"
+        
     try:
-        num = int(bsc_id)
+        num = int(bsc_str)
         suffix = "B" if num % 2 == 0 else "A"
         location = "innermost ISO 7 room" if suffix == "B" else "middle ISO 7 buffer room"
     except: 
         suffix, location = "B", "innermost ISO 7 room"
     
-    if bsc_id in ["1310", "1309"]: suite = "117"
-    elif bsc_id in ["1311", "1312"]: suite = "116"
-    elif bsc_id in ["1314", "1313"]: suite = "115"
-    elif bsc_id in ["1316", "1798"]: suite = "114"
+    if bsc_str in ["1310", "1309"]: suite = "117"
+    elif bsc_str in ["1311", "1312"]: suite = "116"
+    elif bsc_str in ["1314", "1313"]: suite = "115"
+    elif bsc_str in ["1316"]: suite = "114"
     else: suite = "Unknown"
     
     room_id = {"117": "1739", "116": "1738", "115": "1737", "114": "1736"}.get(suite, "Unknown")
@@ -135,8 +141,13 @@ def parse_email_text(text):
     data = {}
     oos = re.search(r"OOS-(\d+)", text)
     if oos: data['oos_id'] = oos.group(1).strip()
+    
+    # 修复了贪婪匹配 Client 的 Bug
     client = re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE)
-    if client: data['client_name'] = client.group(1).strip()
+    if client: 
+        raw_client = client.group(1).strip()
+        data['client_name'] = re.sub(r"^Client:\s*", "", raw_client, flags=re.IGNORECASE)
+        
     etx = re.search(r"(ETX-\d{6}-\d{4})", text)
     if etx: data['sample_id'] = etx.group(1).strip()
     name = re.search(r"Sample\s*Name:\s*(.*)", text, re.IGNORECASE)
@@ -146,7 +157,37 @@ def parse_email_text(text):
     date = re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.IGNORECASE)
     if date:
         try:
-            d_obj = datetime.strptime(date.group(1).strip(), "%d %b %Y")
+            d_obj = datetime.strptime(date.group(1).strip().replace(" ", ""), "%d%b%Y")
             data['test_date'] = d_obj.strftime("%d%b%y")
         except: pass
     return data
+
+# --- 3. 时间与日期高级计算工具 (Celsis 专属工作日引擎) ---
+
+def get_business_day_back(start_date, days_to_back):
+    """从起始日向前回溯指定的工作日数量，跳过周末"""
+    current_date = start_date
+    count = 0
+    while count < days_to_back:
+        current_date -= timedelta(days=1)
+        if current_date.weekday() < 5:  # 0-4 是周一到周五
+            count += 1
+    return current_date
+
+def get_celsis_dates(test_date_str):
+    """
+    根据发现阳性的 test_date，自动倒推接种日 (T-7 工作日) 和收样日 (T-8 工作日)。
+    """
+    try:
+        fmt = "%d%b%y" if len(test_date_str) <= 7 else "%d%b%Y"
+        t_anchor = datetime.strptime(test_date_str, fmt)
+        
+        process_dt = get_business_day_back(t_anchor, 7)
+        received_dt = get_business_day_back(t_anchor, 8)
+        
+        return {
+            "process_date": process_dt.strftime("%d%b%y"),
+            "received_data": received_dt.strftime("%d%b%y")
+        }
+    except Exception:
+        return {"process_date": "[Error]", "received_data": "[Error]"}
