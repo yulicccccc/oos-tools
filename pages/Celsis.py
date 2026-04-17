@@ -54,10 +54,6 @@ STATE_FILE = "celsis_investigation_state.json"
 field_keys = cl.FIELD_KEYS if hasattr(cl, 'FIELD_KEYS') else []
 if "process_date" not in field_keys: field_keys.append("process_date")
 
-field_keys.append("pos_bottle_count")
-for i in range(10):
-    field_keys.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}"])
-
 def load_saved_state():
     if os.path.exists(STATE_FILE):
         try:
@@ -139,7 +135,6 @@ def parse_email_text(text):
         for i, mid in enumerate(microbial_matches):
             st.session_state[f"pos_id_{i}"] = mid.strip()
             st.session_state[f"pos_org_{i}"] = "Pending"
-            # 默认给 TSB and FTM
             st.session_state[f"pos_media_{i}"] = "TSB and FTM"
 
     save_current_state()
@@ -197,7 +192,6 @@ bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Oth
 with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
 with e2: st.selectbox("Celsis Instrument ID", ["2222", "2011"], key="celsis_id")
 
-# --- 核心 UI 修改：加入 TSB and FTM 选项 ---
 st.header("3. Celsis Findings")
 st.markdown("##### Media & Organism Identifications")
 f1, f2, f3 = st.columns(3)
@@ -212,7 +206,6 @@ st.caption("Please specify the details for EACH positive bottle below:")
 for i in range(st.session_state.pos_bottle_count):
     col_a, col_b, col_c = st.columns([1, 2, 2])
     with col_a: 
-        # 新增 TSB and FTM 选项
         st.selectbox(f"Bottle #{i+1} Media", ["TSB", "FTM", "TSB and FTM"], key=f"pos_media_{i}")
     with col_b: 
         st.text_input(f"Bottle #{i+1} Microbial ID (ETX)", key=f"pos_id_{i}")
@@ -227,7 +220,9 @@ if st.session_state.em_growth_observed == "Yes":
     for i in range(count):
         st.subheader(f"Growth Event #{i+1}")
         col1, col2, col3, col4 = st.columns(4)
-        with col1: st.selectbox(f"Category", ["Personal Sampling", "Surface Sampling", "Settling Plates"], key=f"em_cat_{i}")
+        with col1: 
+            # 完美的 5 个类别字典对齐
+            st.selectbox(f"Category", ["Personnel Obs", "Surface Obs", "Settling Obs", "Weekly Air Obs", "Weekly Surf Obs"], key=f"em_cat_{i}")
         with col2: st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
         with col3: st.text_input(f"ETX ID", key=f"em_etx_{i}")
         with col4: st.text_input(f"Microbial ID", key=f"em_id_{i}")
@@ -289,8 +284,6 @@ if st.session_state.report_generated:
             if len(unique_lst) == 2: return f"{unique_lst[0]} and {unique_lst[1]}"
             return ", ".join(unique_lst[:-1]) + " and " + unique_lst[-1]
 
-        # --- 核心算法：智能降维介质 (Smart Media Aggregator) ---
-        # 无论选了几个瓶子，无论怎么组合，保证生成的介质名字永远语法完美
         raw_media = [str(x).strip() for x in pos_media_list if str(x).strip() and str(x).strip() != "N/A"]
         if "TSB and FTM" in raw_media or ("TSB" in raw_media and "FTM" in raw_media):
             st.session_state.positive_media = "TSB and FTM"
@@ -341,7 +334,6 @@ if st.session_state.report_generated:
                                  f"Aliquoting Analyst:\n{st.session_state.aliquoting_name} ({st.session_state.aliquoting_initial})")
         smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after Celsis sterility testing."
         
-        # --- PDF Date Converter ---
         try:
             d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
             pdf_date_str = d_obj.strftime("%d-%b-%Y")
