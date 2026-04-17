@@ -7,18 +7,18 @@ import io
 import sys
 import subprocess
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_celsis_dates, get_full_name
+    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back
     import celsis_logic as cl
 except ImportError as e:
     st.error(f"Import Error: {e}")
     def apply_eagle_style(): pass
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
-    def get_celsis_dates(d): return {"process_date": "N/A", "received_data": "N/A"}
     def get_full_name(i): return i
+    def get_business_day_back(d, n): return d
 
 # --- 2. PAGE CONFIG & STYLING ---
 st.set_page_config(page_title="Celsis Investigation", layout="wide")
@@ -34,7 +34,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. HELPER: LAZY INSTALLER ---
 def ensure_dependencies():
     required = ["docxtpl", "pypdf"]
     missing = []
@@ -50,9 +49,10 @@ def ensure_dependencies():
             time.sleep(1); st.rerun()
         except Exception as e: placeholder.error(f"Install failed: {e}")
 
-# --- 4. FILE PERSISTENCE & KEYS ---
+# --- 3. FILE PERSISTENCE & KEYS ---
 STATE_FILE = "celsis_investigation_state.json"
 field_keys = cl.FIELD_KEYS if hasattr(cl, 'FIELD_KEYS') else []
+if "process_date" not in field_keys: field_keys.append("process_date")
 
 def load_saved_state():
     if os.path.exists(STATE_FILE):
@@ -71,7 +71,7 @@ def save_current_state():
 def clean_filename(text): 
     return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
 
-# --- 5. INIT STATE LOOP ---
+# --- 4. INIT STATE LOOP ---
 def init_state(key, default=""): 
     if key not in st.session_state: st.session_state[key] = default
 
@@ -85,7 +85,7 @@ if "data_loaded" not in st.session_state: load_saved_state(); st.session_state.d
 if "report_generated" not in st.session_state: st.session_state.report_generated = False
 if "submission_warnings" not in st.session_state: st.session_state.submission_warnings = []
 
-# --- 6. SMART EMAIL PARSER ---
+# --- 5. SMART EMAIL PARSER (极致升维版) ---
 def parse_email_text(text):
     try:
         data = json.loads(text)
@@ -95,20 +95,46 @@ def parse_email_text(text):
             st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
 
+    # 1. 抓取 OOS 号与客户名
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
         st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
-    if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
-    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
-    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
-    if m := re.search(r"testing\s*on\s*(\d{2}\s*\w{3}\s*\d{4})", text, re.I):
-        try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
-        except: pass
     
+    # 2. 抓取分析师
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
         st.session_state.analyst_name = get_full_name(initial)
+
+    # 3. 核心升级 A: 智能多样本连体抓取 (排除后方的菌种鉴定 ETX)
+    sample_blocks = re.findall(
+        r"(ETX-\d{6}-\d{4})\s*[\r\n]+Sample\s*Name:\s*([^\r\n]+)\s*[\r\n]+(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", 
+        text, re.IGNORECASE
+    )
+    if sample_blocks:
+        sample_ids = [b[0].strip() for b in sample_blocks]
+        sample_names = [b[1].strip() for b in sample_blocks]
+        lot_numbers = [b[2].strip() for b in sample_blocks]
+        def join_list(lst):
+            if not lst: return ""
+            if len(lst) == 1: return lst[0]
+            if len(lst) == 2: return f"{lst[0]} and {lst[1]}"
+            return ", ".join(lst[:-1]) + " and " + lst[-1]
+
+        st.session_state.sample_id = join_list(sample_ids)
+        st.session_state.sample_name = join_list(sample_names)
+        st.session_state.lot_number = join_list(lot_numbers)
+
+    # 4. 核心升级 B: 专属日期锚点提取
+    # 提取 aliquoting 日期 (Test Date)
+    if m := re.search(r"aliquoting\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+        try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        except: pass
+    
+    # 提取 processing set up 日期 (Process Date)
+    if m := re.search(r"processing set up\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+        try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        except: pass
 
     save_current_state()
 
@@ -120,22 +146,31 @@ email_input = st.text_area("Paste Celsis Email Content OR Save File here:", heig
 if st.button("🪄 Parse / Restore"): parse_email_text(email_input); st.success("Updated!"); st.rerun()
 
 st.header("1. General Test Details")
-c1, c2, c3 = st.columns(3)
+c1, c2, c3, c4 = st.columns(4)
 with c1: 
     st.text_input("OOS Number", key="oos_id", help="Required")
-    st.text_input("Client Name", key="client_name", help="Required")
-    st.text_input("Sample ID (ETX)", key="sample_id", help="Required")
-with c2: 
-    st.text_input("Test Date (Detection DDMMMYY)", key="test_date", help="Required")
     st.text_input("Sample Name", key="sample_name", help="Required")
+with c2: 
+    st.text_input("Client Name", key="client_name", help="Required")
     st.text_input("Lot Number", key="lot_number", help="Required")
 with c3: 
+    st.text_input("Sample ID (ETX)", key="sample_id", help="Required")
     st.selectbox("Dosage Form", ["Injectable","Aqueous Solution","Liquid","Solution"], key="dosage_form")
-    st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
+with c4: 
+    st.text_input("Test Date (Aliquoting)", key="test_date", help="DDMMMYY")
+    st.text_input("Process Date (Set up)", key="process_date", help="DDMMMYY")
 
-if st.session_state.get("test_date"):
-    dates = get_celsis_dates(st.session_state.test_date)
-    st.info(f"📅 **Auto-Calculated Engine:** Process Date (T-7): `{dates['process_date']}` | Received Date (T-8): `{dates['received_data']}`")
+# 自动推导 Received Date (Process Date 的前一个工作日)
+received_date_str = "[Missing Process Date]"
+if st.session_state.get("process_date"):
+    try:
+        p_dt = datetime.strptime(st.session_state.process_date, "%d%b%y")
+        r_dt = get_business_day_back(p_dt, 1)
+        received_date_str = r_dt.strftime("%d%b%y")
+        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day): `{received_date_str}`")
+    except: pass
+
+st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel & Equipment")
 p1, p2, p3 = st.columns(3)
@@ -229,17 +264,15 @@ if st.session_state.report_generated:
         fresh_history = cl.generate_celsis_history_text()
         fresh_cross = cl.generate_celsis_cross_contam_text()
         
-        dates = get_celsis_dates(st.session_state.test_date)
         t_room, t_suite, t_suffix, t_loc = get_room_logic(st.session_state.bsc_id)
         safe_filename = clean_filename(f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - Celsis")
 
-        # Smart Phase 1 Block Assembly
         p1 = f"All analysts involved in the prepping, processing, aliquoting, and reading of the sample – {st.session_state.prepper_name}, {st.session_state.analyst_name}, and {st.session_state.aliquoting_name} were interviewed comprehensively. Their answers are recorded throughout this document."
         p2 = f"Upon arrival, the sample was stored in accordance with the Client’s instructions. Analyst {st.session_state.prepper_name} verified the sample’s integrity throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, all reagents and supplies had valid expiration dates. The functionality of all equipment was confirmed by reviewing data generated by our comprehensive in-house continuous monitoring system."
         p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}). All activities were conducted in accordance with SOP #2.600.059 for the Celsis sterility testing."
         p5 = fresh_equip
-        p6 = f"On {dates['received_data']}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom (Suite {t_suite}), where the vials were again treated with acidified bleach and provided a 10‑minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom Suite {t_suite}{t_suffix}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
+        p6 = f"On {received_date_str}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom (Suite {t_suite}), where the vials were again treated with acidified bleach and provided a 10‑minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom Suite {t_suite}{t_suffix}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
         p7 = f"Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically opened and tested in accordance with SOP 2.600.059 (Celsis Sterility Testing). Following testing, the media bottles were subsequently transferred into designated incubators, E001356 and E001357, to initiate incubation."
         p8 = f"Upon completion of incubation on {st.session_state.test_date}, both TSB & FTM bottles were disinfected and transferred to the middle ISO 7 buffer room (Suite 114A) for aliquoting step per SOP 2.600.059 (Celsis Sterility Testing). In Suite 114A, the media bottles were disinfected one more time before transferring them to the ISO 5 BSC E001798 located in Suite 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst {st.session_state.aliquoting_name}. After aliquoting, Celsis Sterility Reading was performed in accordance with SOP 2.600.059 by analyst {st.session_state.aliquoting_name}."
         p9 = f"Following the reading, sample {st.session_state.sample_id} was found to yield a positive reading in one of the {st.session_state.positive_media} media bottles. The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from the {st.session_state.positive_media} sample bottle, exceeded the average RLU of the {st.session_state.positive_media} negative control, confirming a positive result. The %CV from the duplicate reading tubes for the positive {st.session_state.positive_media} bottles were well within the specification (< 30%). Additionally, all Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
@@ -264,54 +297,54 @@ if st.session_state.report_generated:
         smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after Celsis sterility testing."
         
         word_data = {
-            "test_date": st.session_state.test_date, "process_date": dates["process_date"],
-            "report_header": f"{st.session_state.sample_id}\n\n{st.session_state.client_name}",
-            "sample_name": st.session_state.sample_name, "lot_number": st.session_state.lot_number,
-            "dosage_form": st.session_state.dosage_form, "analyst_signature": analyst_sig_text,
+            "test_date": st.session_state.test_date, "process_date": st.session_state.process_date, "received_data": received_date_str,
+            "oos_id": st.session_state.oos_id, "client_name": st.session_state.client_name, "sample_id": st.session_state.sample_id,
+            "sample_name": st.session_state.sample_name, "lot_number": st.session_state.lot_number, "dosage_form": st.session_state.dosage_form,
+            "prepper_name": st.session_state.prepper_name, "prepper_initial": st.session_state.prepper_initial,
+            "analyst_name": st.session_state.analyst_name, "analyst_initial": st.session_state.analyst_initial,
+            "aliquoting_name": st.session_state.aliquoting_name, "aliquoting_initial": st.session_state.aliquoting_initial,
+            "bsc_id": st.session_state.bsc_id, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+            "positive_media": st.session_state.positive_media, "positive_id": st.session_state.positive_id, "positive_org": st.session_state.positive_org,
+            "monthly_cleaning_date": st.session_state.monthly_cleaning_date,
+            "equipment_summary": fresh_equip, "narrative_summary": fresh_narr, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,
+            "report_header": f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", "analyst_signature": analyst_sig_text,
             "smart_personnel_block": smart_personnel_block, "smart_incident_opening": smart_incident_opening,
             "smart_comment_interview": f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name}, and {st.session_state.aliquoting_name} were interviewed comprehensively.",
             "smart_comment_samples": f"Yes, sample ID: {st.session_state.sample_id}",
             "smart_comment_records": f"Yes, Information is available in EagleTrax under {st.session_state.sample_id}",
             "smart_comment_storage": f"Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under {st.session_state.sample_id}",
-            "control_positive": "Celsis ATP Positive Control", "control_lot": st.session_state.control_lot,
-            "control_data": st.session_state.control_data, "smart_scan_id": f"E00{st.session_state.celsis_id}",
-            "smart_cr_id": f"For Processing: E00{t_room} (CR{t_suite})\nFor Aliquoting: E001736 (CR114)\nFor Reading: E00{t_room} (CR{t_suite})",
+            "control_positive": "Celsis ATP Positive Control", "control_lot": st.session_state.control_lot, "control_data": st.session_state.control_data,
+            "smart_scan_id": f"E00{st.session_state.celsis_id}", "smart_cr_id": f"For Processing: E00{t_room} (CR{t_suite})\nFor Aliquoting: E001736 (CR114)\nFor Reading: E00{t_room} (CR{t_suite})",
             "smart_phase1_summary": smart_phase1_full, "smart_phase1_continued": ""
         }
 
         pdf_map = {
-            'Text Field57': st.session_state.oos_id, 
-            'Date Field0': st.session_state.test_date, 
-            'Date Field1': st.session_state.test_date, 
-            'Date Field2': st.session_state.test_date, 
-            'Date Field3': st.session_state.test_date,
-            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 
-            'Text Field6': st.session_state.lot_number, 
-            'Text Field4': st.session_state.sample_name + "\n\n\n\n", 
-            'Text Field5': st.session_state.dosage_form, 
-            'Text Field0': analyst_sig_text, 
-            'Text Field3': smart_personnel_block, 
-            'Text Field7': smart_incident_opening + "\n\n",
-            'Text Field13': word_data["smart_comment_interview"], 
-            'Text Field14': word_data["smart_comment_samples"], 
-            'Text Field17': word_data["smart_comment_records"], 
-            'Text Field21': word_data["smart_comment_storage"],
-            'Text Field30': f"E00{st.session_state.celsis_id}",  
-            'Text Field32': word_data["smart_cr_id"], 
-            'Text Field34': f"E00{st.session_state.celsis_id}",  
-            'Text Field25': st.session_state.control_lot, 
-            'Text Field26': st.session_state.control_data,
-            'Text Field49': smart_phase1_part1, 
-            'Text Field50': smart_phase1_part2
+            'Text Field57': st.session_state.oos_id, 'Date Field0': st.session_state.test_date, 'Date Field1': st.session_state.test_date, 
+            'Date Field2': st.session_state.test_date, 'Date Field3': st.session_state.test_date,
+            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 'Text Field6': st.session_state.lot_number, 
+            'Text Field4': st.session_state.sample_name + "\n\n\n\n", 'Text Field5': st.session_state.dosage_form, 
+            'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
+            'Text Field13': word_data["smart_comment_interview"], 'Text Field14': word_data["smart_comment_samples"], 
+            'Text Field17': word_data["smart_comment_records"], 'Text Field21': word_data["smart_comment_storage"],
+            'Text Field30': f"E00{st.session_state.celsis_id}", 'Text Field32': word_data["smart_cr_id"], 
+            'Text Field34': f"E00{st.session_state.celsis_id}", 'Text Field25': st.session_state.control_lot, 
+            'Text Field26': st.session_state.control_data, 'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
         }
 
         docx_buf, pdf_form_buf = None, None
-        if os.path.exists("Celsis OOS P1 template.docx"):
+        
+        target_template = "Celsis OOS P1 template 0.docx"
+        if not os.path.exists(target_template):
+            target_template = "Celsis OOS P1 template.docx"
+
+        if os.path.exists(target_template):
             try:
                 from docxtpl import DocxTemplate
-                doc = DocxTemplate("Celsis OOS P1 template.docx")
+                doc = DocxTemplate(target_template)
                 doc.render(word_data); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
             except Exception as e: st.error(f"DOCX Error: {e}")
+        else:
+            st.warning("⚠️ Could not find either 'Celsis OOS P1 template 0.docx' or 'Celsis OOS P1 template.docx'.")
             
         if os.path.exists("Celsis OOS P1 template.pdf"):
             try:
@@ -321,7 +354,7 @@ if st.session_state.report_generated:
                 pdf_form_buf = io.BytesIO(); writer.write(pdf_form_buf); pdf_form_buf.seek(0)
             except Exception as e: st.error(f"PDF Form Error: {e}")
 
-        st.success("✅ Celsis Reports Generated Successfully!")
+        st.success(f"✅ Celsis Reports Generated! (Using {target_template})")
         st.markdown("### 📂 Download Reports")
         c_dl1, c_dl2, c_dl3 = st.columns(3)
         with c_dl1:
