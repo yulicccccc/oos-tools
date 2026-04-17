@@ -54,6 +54,11 @@ STATE_FILE = "celsis_investigation_state.json"
 field_keys = cl.FIELD_KEYS if hasattr(cl, 'FIELD_KEYS') else []
 if "process_date" not in field_keys: field_keys.append("process_date")
 
+# 核心扩展：为动态阳性瓶子增加预留 Key
+field_keys.append("pos_bottle_count")
+for i in range(10):
+    field_keys.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}"])
+
 def load_saved_state():
     if os.path.exists(STATE_FILE):
         try:
@@ -76,7 +81,7 @@ def init_state(key, default=""):
     if key not in st.session_state: st.session_state[key] = default
 
 for k in field_keys:
-    if k in ["incidence_count", "total_pos_count_num", "current_pos_order", "em_growth_count"] or k.startswith("other_order_"): 
+    if k in ["incidence_count", "total_pos_count_num", "current_pos_order", "em_growth_count", "pos_bottle_count"] or k.startswith("other_order_"): 
         init_state(k, 1)
     elif "etx" in k or "id" in k: init_state(k, "N/A")
     else: init_state(k, "No" if "has" in k or "growth" in k or k == "other_positives" else "")
@@ -85,7 +90,7 @@ if "data_loaded" not in st.session_state: load_saved_state(); st.session_state.d
 if "report_generated" not in st.session_state: st.session_state.report_generated = False
 if "submission_warnings" not in st.session_state: st.session_state.submission_warnings = []
 
-# --- 5. SMART EMAIL PARSER (极致升维版) ---
+# --- 5. SMART EMAIL PARSER ---
 def parse_email_text(text):
     try:
         data = json.loads(text)
@@ -95,18 +100,16 @@ def parse_email_text(text):
             st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
 
-    # 1. 抓取 OOS 号与客户名
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
         st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
     
-    # 2. 抓取分析师
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
         st.session_state.analyst_initial = initial
         st.session_state.analyst_name = get_full_name(initial)
 
-    # 3. 核心升级 A: 智能多样本连体抓取 (排除后方的菌种鉴定 ETX)
+    # 铁三角样本抓取
     sample_blocks = re.findall(
         r"(ETX-\d{6}-\d{4})\s*[\r\n]+Sample\s*Name:\s*([^\r\n]+)\s*[\r\n]+(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", 
         text, re.IGNORECASE
@@ -125,16 +128,23 @@ def parse_email_text(text):
         st.session_state.sample_name = join_list(sample_names)
         st.session_state.lot_number = join_list(lot_numbers)
 
-    # 4. 核心升级 B: 专属日期锚点提取
-    # 提取 aliquoting 日期 (Test Date)
+    # 日期提取
     if m := re.search(r"aliquoting\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
         try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
-    
-    # 提取 processing set up 日期 (Process Date)
     if m := re.search(r"processing set up\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
         try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
+
+    # 提取微生物鉴定 ETX (Microbial ID)
+    microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
+    if microbial_matches:
+        # 为了防呆，就算抓到了 2 个鉴定号，默认瓶子数也根据它设定，方便分析师在界面上修改
+        st.session_state.pos_bottle_count = len(microbial_matches)
+        for i, mid in enumerate(microbial_matches):
+            st.session_state[f"pos_id_{i}"] = mid.strip()
+            st.session_state[f"pos_org_{i}"] = "Pending"
+            st.session_state[f"pos_media_{i}"] = "FTM" # 默认填充一个，避免空值
 
     save_current_state()
 
@@ -160,7 +170,6 @@ with c4:
     st.text_input("Test Date (Aliquoting)", key="test_date", help="DDMMMYY")
     st.text_input("Process Date (Set up)", key="process_date", help="DDMMMYY")
 
-# 自动推导 Received Date (Process Date 的前一个工作日)
 received_date_str = "[Missing Process Date]"
 if st.session_state.get("process_date"):
     try:
@@ -188,18 +197,27 @@ with p3:
     st.text_input("Aliquoting Name", key="aliquoting_name", help="Acts as Reader too")
 
 e1, e2 = st.columns(2)
-with e1: st.text_input("Processing BSC ID (e.g. 1736)", key="bsc_id")
-with e2: st.selectbox("Celsis Instrument ID", ["1609", "Other"], key="celsis_id")
+bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
+with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
+with e2: st.selectbox("Celsis Instrument ID", ["2222", "2011"], key="celsis_id")
 
+# --- 核心动态界面：多瓶子识别 ---
 st.header("3. Celsis Findings")
-f1, f2 = st.columns(2)
+st.markdown("##### Media & Organism Identifications")
+f1, f2, f3 = st.columns(3)
 with f1:
-    st.selectbox("Positive Media", ["TSB", "FTM"], key="positive_media")
-    st.text_input("Positive ETX ID", key="positive_id")
-    st.text_input("Positive Organism (or 'Pending')", key="positive_org")
+    st.number_input("Total Positive Bottles", min_value=1, max_value=10, key="pos_bottle_count")
 with f2:
-    st.text_input("Control Lot", key="control_lot", help="ATP Positive Control Lot")
-    st.text_input("Control Exp", key="control_data", help="ATP Positive Control Exp")
+    st.text_input("ATP Control Lot", key="control_lot")
+with f3:
+    st.text_input("ATP Control Exp", key="control_data")
+
+st.caption("Please specify the details for EACH positive bottle below:")
+for i in range(st.session_state.pos_bottle_count):
+    col_a, col_b, col_c = st.columns([1, 2, 2])
+    with col_a: st.selectbox(f"Bottle #{i+1} Media", ["TSB", "FTM"], key=f"pos_media_{i}")
+    with col_b: st.text_input(f"Bottle #{i+1} Microbial ID (ETX)", key=f"pos_id_{i}")
+    with col_c: st.text_input(f"Bottle #{i+1} Organism", key=f"pos_org_{i}", help="Pending or actual bug name")
 
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
@@ -219,8 +237,7 @@ st.subheader("Sample History")
 st.radio("Prior failures in last 6 months?", ["No", "Yes"], key="has_prior_failures", horizontal=True)
 if st.session_state.has_prior_failures == "Yes":
     count = st.number_input("Number of Prior Failures", 1, 10, key="incidence_count")
-    for i in range(count):
-        st.text_input(f"Prior Failure #{i+1} OOS ID", key=f"prior_oos_{i}")
+    for i in range(count): st.text_input(f"Prior Failure #{i+1} OOS ID", key=f"prior_oos_{i}")
 
 st.subheader("Cross Contamination")
 st.radio("Other samples tested positive same day?", ["No", "Yes"], key="other_positives", horizontal=True)
@@ -259,6 +276,24 @@ if st.session_state.submission_warnings:
 
 if st.session_state.report_generated:
     with st.spinner("Compiling Celsis logic..."):
+        # 智能拼接多瓶子数据 (去重处理)
+        pos_media_list = [st.session_state.get(f"pos_media_{i}", "") for i in range(st.session_state.pos_bottle_count)]
+        pos_id_list = [st.session_state.get(f"pos_id_{i}", "") for i in range(st.session_state.pos_bottle_count)]
+        pos_org_list = [st.session_state.get(f"pos_org_{i}", "") for i in range(st.session_state.pos_bottle_count)]
+        
+        def join_unique(lst):
+            clean_lst = [str(x).strip() for x in lst if str(x).strip() and str(x).strip() != "N/A"]
+            if not clean_lst: return "N/A"
+            unique_lst = list(dict.fromkeys(clean_lst)) # 去重且保留原始顺序
+            if len(unique_lst) == 1: return unique_lst[0]
+            if len(unique_lst) == 2: return f"{unique_lst[0]} and {unique_lst[1]}"
+            return ", ".join(unique_lst[:-1]) + " and " + unique_lst[-1]
+
+        # 把合并后的结果注入到 session_state 供 logic 和 template 渲染
+        st.session_state.positive_media = join_unique(pos_media_list)
+        st.session_state.positive_id = join_unique(pos_id_list)
+        st.session_state.positive_org = join_unique(pos_org_list)
+
         fresh_equip = cl.generate_celsis_equipment_text()
         fresh_narr, fresh_det = cl.generate_celsis_narrative_and_details()
         fresh_history = cl.generate_celsis_history_text()
@@ -332,19 +367,15 @@ if st.session_state.report_generated:
         }
 
         docx_buf, pdf_form_buf = None, None
-        
         target_template = "Celsis OOS P1 template 0.docx"
-        if not os.path.exists(target_template):
-            target_template = "Celsis OOS P1 template.docx"
-
+        if not os.path.exists(target_template): target_template = "Celsis OOS P1 template.docx"
         if os.path.exists(target_template):
             try:
                 from docxtpl import DocxTemplate
                 doc = DocxTemplate(target_template)
                 doc.render(word_data); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
             except Exception as e: st.error(f"DOCX Error: {e}")
-        else:
-            st.warning("⚠️ Could not find either 'Celsis OOS P1 template 0.docx' or 'Celsis OOS P1 template.docx'.")
+        else: st.warning("⚠️ Could not find either 'Celsis OOS P1 template 0.docx' or 'Celsis OOS P1 template.docx'.")
             
         if os.path.exists("Celsis OOS P1 template.pdf"):
             try:
