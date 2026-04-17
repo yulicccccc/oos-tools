@@ -54,7 +54,6 @@ STATE_FILE = "celsis_investigation_state.json"
 field_keys = cl.FIELD_KEYS if hasattr(cl, 'FIELD_KEYS') else []
 if "process_date" not in field_keys: field_keys.append("process_date")
 
-# 核心扩展：为动态阳性瓶子增加预留 Key
 field_keys.append("pos_bottle_count")
 for i in range(10):
     field_keys.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}"])
@@ -109,7 +108,6 @@ def parse_email_text(text):
         st.session_state.analyst_initial = initial
         st.session_state.analyst_name = get_full_name(initial)
 
-    # 铁三角样本抓取
     sample_blocks = re.findall(
         r"(ETX-\d{6}-\d{4})\s*[\r\n]+Sample\s*Name:\s*([^\r\n]+)\s*[\r\n]+(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", 
         text, re.IGNORECASE
@@ -128,7 +126,6 @@ def parse_email_text(text):
         st.session_state.sample_name = join_list(sample_names)
         st.session_state.lot_number = join_list(lot_numbers)
 
-    # 日期提取
     if m := re.search(r"aliquoting\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
         try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
@@ -136,15 +133,14 @@ def parse_email_text(text):
         try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
-    # 提取微生物鉴定 ETX (Microbial ID)
     microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
     if microbial_matches:
-        # 为了防呆，就算抓到了 2 个鉴定号，默认瓶子数也根据它设定，方便分析师在界面上修改
         st.session_state.pos_bottle_count = len(microbial_matches)
         for i, mid in enumerate(microbial_matches):
             st.session_state[f"pos_id_{i}"] = mid.strip()
             st.session_state[f"pos_org_{i}"] = "Pending"
-            st.session_state[f"pos_media_{i}"] = "FTM" # 默认填充一个，避免空值
+            # 默认给 TSB and FTM
+            st.session_state[f"pos_media_{i}"] = "TSB and FTM"
 
     save_current_state()
 
@@ -201,7 +197,7 @@ bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Oth
 with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
 with e2: st.selectbox("Celsis Instrument ID", ["2222", "2011"], key="celsis_id")
 
-# --- 核心动态界面：多瓶子识别 ---
+# --- 核心 UI 修改：加入 TSB and FTM 选项 ---
 st.header("3. Celsis Findings")
 st.markdown("##### Media & Organism Identifications")
 f1, f2, f3 = st.columns(3)
@@ -215,9 +211,13 @@ with f3:
 st.caption("Please specify the details for EACH positive bottle below:")
 for i in range(st.session_state.pos_bottle_count):
     col_a, col_b, col_c = st.columns([1, 2, 2])
-    with col_a: st.selectbox(f"Bottle #{i+1} Media", ["TSB", "FTM"], key=f"pos_media_{i}")
-    with col_b: st.text_input(f"Bottle #{i+1} Microbial ID (ETX)", key=f"pos_id_{i}")
-    with col_c: st.text_input(f"Bottle #{i+1} Organism", key=f"pos_org_{i}", help="Pending or actual bug name")
+    with col_a: 
+        # 新增 TSB and FTM 选项
+        st.selectbox(f"Bottle #{i+1} Media", ["TSB", "FTM", "TSB and FTM"], key=f"pos_media_{i}")
+    with col_b: 
+        st.text_input(f"Bottle #{i+1} Microbial ID (ETX)", key=f"pos_id_{i}")
+    with col_c: 
+        st.text_input(f"Bottle #{i+1} Organism", key=f"pos_org_{i}", help="Pending or actual bug name")
 
 st.header("4. EM Observations")
 st.radio("Microbial Growth Observed?", ["No","Yes"], key="em_growth_observed", horizontal=True)
@@ -276,7 +276,7 @@ if st.session_state.submission_warnings:
 
 if st.session_state.report_generated:
     with st.spinner("Compiling Celsis logic..."):
-        # 智能拼接多瓶子数据 (去重处理)
+        
         pos_media_list = [st.session_state.get(f"pos_media_{i}", "") for i in range(st.session_state.pos_bottle_count)]
         pos_id_list = [st.session_state.get(f"pos_id_{i}", "") for i in range(st.session_state.pos_bottle_count)]
         pos_org_list = [st.session_state.get(f"pos_org_{i}", "") for i in range(st.session_state.pos_bottle_count)]
@@ -284,13 +284,23 @@ if st.session_state.report_generated:
         def join_unique(lst):
             clean_lst = [str(x).strip() for x in lst if str(x).strip() and str(x).strip() != "N/A"]
             if not clean_lst: return "N/A"
-            unique_lst = list(dict.fromkeys(clean_lst)) # 去重且保留原始顺序
+            unique_lst = list(dict.fromkeys(clean_lst))
             if len(unique_lst) == 1: return unique_lst[0]
             if len(unique_lst) == 2: return f"{unique_lst[0]} and {unique_lst[1]}"
             return ", ".join(unique_lst[:-1]) + " and " + unique_lst[-1]
 
-        # 把合并后的结果注入到 session_state 供 logic 和 template 渲染
-        st.session_state.positive_media = join_unique(pos_media_list)
+        # --- 核心算法：智能降维介质 (Smart Media Aggregator) ---
+        # 无论选了几个瓶子，无论怎么组合，保证生成的介质名字永远语法完美
+        raw_media = [str(x).strip() for x in pos_media_list if str(x).strip() and str(x).strip() != "N/A"]
+        if "TSB and FTM" in raw_media or ("TSB" in raw_media and "FTM" in raw_media):
+            st.session_state.positive_media = "TSB and FTM"
+        elif "TSB" in raw_media:
+            st.session_state.positive_media = "TSB"
+        elif "FTM" in raw_media:
+            st.session_state.positive_media = "FTM"
+        else:
+            st.session_state.positive_media = "N/A"
+
         st.session_state.positive_id = join_unique(pos_id_list)
         st.session_state.positive_org = join_unique(pos_org_list)
 
@@ -331,6 +341,13 @@ if st.session_state.report_generated:
                                  f"Aliquoting Analyst:\n{st.session_state.aliquoting_name} ({st.session_state.aliquoting_initial})")
         smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after Celsis sterility testing."
         
+        # --- PDF Date Converter ---
+        try:
+            d_obj = datetime.strptime(st.session_state.test_date, "%d%b%y")
+            pdf_date_str = d_obj.strftime("%d-%b-%Y")
+        except Exception:
+            pdf_date_str = st.session_state.test_date
+
         word_data = {
             "test_date": st.session_state.test_date, "process_date": st.session_state.process_date, "received_data": received_date_str,
             "oos_id": st.session_state.oos_id, "client_name": st.session_state.client_name, "sample_id": st.session_state.sample_id,
@@ -354,8 +371,8 @@ if st.session_state.report_generated:
         }
 
         pdf_map = {
-            'Text Field57': st.session_state.oos_id, 'Date Field0': st.session_state.test_date, 'Date Field1': st.session_state.test_date, 
-            'Date Field2': st.session_state.test_date, 'Date Field3': st.session_state.test_date,
+            'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 
+            'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
             'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 'Text Field6': st.session_state.lot_number, 
             'Text Field4': st.session_state.sample_name + "\n\n\n\n", 'Text Field5': st.session_state.dosage_form, 
             'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
