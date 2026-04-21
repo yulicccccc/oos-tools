@@ -16,16 +16,13 @@ FIELD_KEYS = [
     "other_positives", "total_pos_count_num", "current_pos_order",
     "pos_bottle_count"
 ]
-# 动态生成阳性瓶子数组 Key
 for i in range(10):
     FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}"])
-# 动态生成交叉污染/历史记录数组 Key
 for i in range(20):
     FIELD_KEYS.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}"])
 
-# --- 2. HELPER FUNCTIONS (表单安全锁与防呆机制) ---
+# --- 2. HELPER FUNCTIONS ---
 def auto_fill_name(initial_key, name_key):
-    """缩写自动查字典转全名"""
     initial = st.session_state.get(initial_key, "")
     current_name = st.session_state.get(name_key, "")
     if initial:
@@ -35,7 +32,6 @@ def auto_fill_name(initial_key, name_key):
             st.rerun()
 
 def validate_inputs():
-    """提交流程前的必填项与格式校验"""
     errors, warnings = [], []
     reqs = {
         "OOS Number": "oos_id", "Client Name": "client_name", "Sample ID": "sample_id", 
@@ -48,7 +44,6 @@ def validate_inputs():
         if not st.session_state.get(key, "").strip(): 
             warnings.append(label)
             
-    # 日期强制校验 (DDMMMYY)
     for date_key in ["test_date", "process_date"]:
         d_val = st.session_state.get(date_key, "").strip()
         if d_val:
@@ -64,11 +59,12 @@ def validate_inputs():
 def generate_celsis_equipment_text():
     """
     根据标准话术 (SOP 像素级复刻):
-    1. 动态拆解 Cleanroom 结构 (同房间合并，跨房间分段)。
-    2. 严格遵循清洗、认证、时间、人员的全要素闭环描述。
+    1. 动态拆解 Cleanroom 结构。
+    2. 包含清洗、认证、时间、人员。
+    3. 末尾加入绝杀的 "as per SOP 2.600.059."。
     """
     t_room, t_suite, t_suffix, t_loc = u_grl(st.session_state.bsc_id)
-    a_room, a_suite, a_suffix, a_loc = u_grl("1798") # Aliquoting 永远在 1736 (114A)
+    a_room, a_suite, a_suffix, a_loc = u_grl("1798")
     a_bsc = "1798"
     
     p_date = st.session_state.get("process_date", "[Process Date]")
@@ -77,7 +73,6 @@ def generate_celsis_equipment_text():
     analyst = st.session_state.get("analyst_name", "[Processor Name]")
     aliquoter = st.session_state.get("aliquoting_name", "[Aliquoting Name]")
 
-    # --- 1. Cleanroom 结构标准话术 ---
     if t_suite == a_suite:
         part1 = f"The cleanroom used for processing and aliquoting procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
     else:
@@ -85,28 +80,28 @@ def generate_celsis_equipment_text():
         p1b = f"The cleanroom used for aliquoting procedures (Suite {a_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({a_suite}B), which connects to the middle ISO 7 buffer room ({a_suite}A), and then to the outermost ISO 8 anteroom ({a_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {a_suite}B through {a_suite}A and into {a_suite}."
         part1 = f"{p1a}\n\n{p1b}"
 
-    # --- 2. 设备清洗与执行细节标准话术 ---
     bsc_id_str = str(st.session_state.bsc_id).strip()
     
     if bsc_id_str == a_bsc:
         part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both sample processing and aliquoting steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
         
+        # --- 在这里加入了绝杀的 as per SOP 2.600.059 ---
         if analyst == aliquoter:
-            usage_sent = f"Sample processing and aliquoting were conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} and {t_date}, respectively."
+            usage_sent = f"Sample processing and aliquoting were conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} and {t_date}, respectively, as per SOP 2.600.059."
         else:
-            usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {aliquoter} on {t_date}."
+            usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {aliquoter} on {t_date} as per SOP 2.600.059."
             
         return f"{part1}\n\n{part2} {usage_sent}"
         
     else:
         part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{a_bsc}, located in the {a_loc}, (Suite {a_suite}{a_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, the BSCs used throughout testing, E00{bsc_id_str} for sample processing and E00{a_bsc} for the aliquoting step, were certified and approved by both the Engineering and Quality Assurance teams."
         
-        usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{a_bsc} in the {a_loc}, (Suite {a_suite}{a_suffix}) by {aliquoter} on {t_date}."
+        # --- 在这里加入了绝杀的 as per SOP 2.600.059 ---
+        usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{a_bsc} in the {a_loc}, (Suite {a_suite}{a_suffix}) by {aliquoter} on {t_date} as per SOP 2.600.059."
         
         return f"{part1}\n\n{part2} {usage_sent}"
 
 def generate_celsis_narrative_and_details():
-    """5 类 EM 监控逻辑 + Daily/Weekly 时空切割与单复数自动适配"""
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     fixed_map = {
         "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"), 
@@ -116,25 +111,17 @@ def generate_celsis_narrative_and_details():
         "Weekly Surf Obs": ("obs_room", "etx_room_weekly", "id_room_wk_of")
     }
     
-    # 初始化
     for cat, (k_obs, k_etx, k_id) in fixed_map.items():
-        st.session_state[k_obs] = default_obs
-        st.session_state[k_etx] = default_etx
-        st.session_state[k_id] = default_id
+        st.session_state[k_obs] = default_obs; st.session_state[k_etx] = default_etx; st.session_state[k_id] = default_id
 
-    # 动态抓取 UI 数据
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
-            cat = st.session_state.get(f"em_cat_{i}")
-            obs = st.session_state.get(f"em_obs_{i}", "")
-            etx = st.session_state.get(f"em_etx_{i}", "")
-            mid = st.session_state.get(f"em_id_{i}", "")
+            cat = st.session_state.get(f"em_cat_{i}"); obs = st.session_state.get(f"em_obs_{i}", "")
+            etx = st.session_state.get(f"em_etx_{i}", ""); mid = st.session_state.get(f"em_id_{i}", "")
             if cat in fixed_map:
                 k_obs, k_etx, k_id = fixed_map[cat]
-                st.session_state[k_obs] = obs
-                st.session_state[k_etx] = etx
-                st.session_state[k_id] = mid
+                st.session_state[k_obs] = obs; st.session_state[k_etx] = etx; st.session_state[k_id] = mid
 
     def is_fail(val): return val and str(val).strip().lower() != "no growth"
     
@@ -152,7 +139,6 @@ def generate_celsis_narrative_and_details():
     if not is_fail(st.session_state.obs_air): pass_wk_clean.append("weekly active air sampling")
     if not is_fail(st.session_state.obs_room): pass_wk_clean.append("weekly surface sampling")
 
-    # 1. 生成大叙述 (Pass 的部分)
     narr_parts = []
     if pass_daily_clean:
         d_str = f"{pass_daily_clean[0]}" if len(pass_daily_clean)==1 else f"{pass_daily_clean[0]} and {pass_daily_clean[1]}" if len(pass_daily_clean)==2 else f"{pass_daily_clean[0]}, {pass_daily_clean[1]}, and {pass_daily_clean[2]}"
@@ -163,7 +149,6 @@ def generate_celsis_narrative_and_details():
     
     narrative = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "." if narr_parts else "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
 
-    # 2. 生成细节 (Fail 的部分)
     details = ""
     if failures:
         daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
@@ -184,7 +169,6 @@ def generate_celsis_narrative_and_details():
     return narrative, details
 
 def generate_celsis_history_text():
-    """6 个月趋势数据总结"""
     if st.session_state.get("incidence_count", 0) == 0 or st.session_state.get("has_prior_failures") == "No": 
         phrase = "no prior failures"
     else:
@@ -197,7 +181,6 @@ def generate_celsis_history_text():
     return f"Analyzing a 6-month sample history for {st.session_state.get('client_name', '[Client]')}, this specific analyte \"{st.session_state.get('sample_name', '[Sample]')}\" has had {phrase} using Celsis sterility testing during this period."
 
 def generate_celsis_cross_contam_text():
-    """交叉污染评估逻辑"""
     if st.session_state.get("other_positives") == "No": 
         return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
     
