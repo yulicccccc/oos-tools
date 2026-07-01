@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+~$*
+*investigation_state.json
+test_output_*
+venv/
+.vscode/

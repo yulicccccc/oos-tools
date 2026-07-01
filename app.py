@@ -36,6 +36,11 @@ This system is designed to seamlessly generate Phase I OOS investigation reports
     * **SOP Reference**: 2.600.059
     * **Key Metrics**: Relative Luminescence Units (RLU) and %CV.
 
+3.  **🔬 USP <71> Sterility Investigation**
+    * **Methodology**: USP <71> Sterility Test.
+    * **SOP Reference**: 2.600.008 / 2.600.018
+    * **Key Metrics**: 14-day continuous incubation and TSB/FTM dual media tracking.
+
 ---
 **Directions for Use**: 
 Please expand the sidebar on the left and click on the specific module you need to run today's investigation. Ensure your Word and PDF templates are correctly placed in the root directory.
