@@ -381,7 +381,7 @@ if st.session_state.report_generated:
             "prepper_name": st.session_state.prepper_name, "prepper_initial": st.session_state.prepper_initial,
             "analyst_name": st.session_state.analyst_name, "analyst_initial": st.session_state.analyst_initial,
             "aliquoting_name": st.session_state.aliquoting_name, "aliquoting_initial": st.session_state.aliquoting_initial,
-            "bsc_id": st.session_state.bsc_id, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+            "bsc_id": st.session_state.bsc_id, "smart_bsc_id": f"E00{st.session_state.bsc_id}", "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
             "positive_media": st.session_state.positive_media, "positive_id": st.session_state.positive_id, "positive_org": st.session_state.positive_org,
             "monthly_cleaning_date": st.session_state.monthly_cleaning_date,
             "equipment_summary": fresh_equip, "narrative_summary": fresh_narr, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,

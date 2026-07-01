@@ -534,6 +534,7 @@ if st.session_state.report_generated:
         "equipment_summary": fresh_equip, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,
         "test_record": tr_id, "organism_morphology": org_title, "control_positive": st.session_state.control_pos,
         "control_data": st.session_state.control_exp, "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+        "smart_bsc_id": f"E00{st.session_state.bsc_id}",
         "date_of_weekly": st.session_state.get("date_weekly", ""), "weekly_initial": st.session_state.get("weekly_init", ""),
         "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
         "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
