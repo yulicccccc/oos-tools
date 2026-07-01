@@ -122,7 +122,11 @@ def parse_email_text(text):
         try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
-    # We do NOT parse process_date (Reading Date) from the email so the user can fill it in manually.
+    # Reading Date (process_date) from "as of 18 Jun 2026"
+    if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+        date_str = m.group(1).strip()
+        try: st.session_state.process_date = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+        except: pass
 
     # Microorganisms positive ID and media
     if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
