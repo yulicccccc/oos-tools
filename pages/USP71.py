@@ -107,6 +107,21 @@ def username_to_initials(username):
     return username[0].upper() + (username[1].upper() if len(username) > 1 else "")
 
 
+# --- STATE FILE MERGING HELPERS ---
+def load_state_from_file():
+    if os.path.exists(STATE_FILE):
+        try:
+            with open(STATE_FILE, "r") as f:
+                return json.load(f)
+        except: pass
+    return {}
+
+def save_state_to_file(data):
+    try:
+        with open(STATE_FILE, "w") as f:
+            json.dump(data, f)
+    except: pass
+
 # --- 5. SMART EMAIL PARSER ---
 def parse_only_email_text(text):
     # 1. TRY JSON LOAD (RESTORE FUNCTION)
@@ -115,40 +130,45 @@ def parse_only_email_text(text):
         if isinstance(data, dict):
             for k, v in data.items():
                 if k in field_keys: st.session_state[k] = v
+            save_current_state()
             st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
 
+    # Load existing persisted state to prevent losing fields
+    persisted = load_state_from_file()
+    parsed = {}
+
     # 2. NORMAL PARSING
-    if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
+    if m := re.search(r"OOS-(\d+)", text): parsed["oos_id"] = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
-        st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
+        parsed["client_name"] = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
     
     if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
         initial = m.group(1).strip()
-        st.session_state.analyst_initial = initial
-        st.session_state.analyst_name = get_full_name(initial)
+        parsed["analyst_initial"] = initial
+        parsed["analyst_name"] = get_full_name(initial)
 
     # Sample details
-    if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
-    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
-    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
+    if m := re.search(r"(ETX-\d{6}-\d{4})", text): parsed["sample_id"] = m.group(1).strip()
+    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): parsed["sample_name"] = m.group(1).strip()
+    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): parsed["lot_number"] = m.group(1).strip()
 
     # Dates
     if m := re.search(r"day of testing\s*\(\s*([^)]+)\)", text, re.IGNORECASE):
         date_str = m.group(1).strip()
-        try: st.session_state.test_date = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+        try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
         except: pass
     elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
-        try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
+        try: parsed["test_date"] = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
     elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
-        try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        try: parsed["test_date"] = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
     # Reading Date (process_date) from "as of 18 Jun 2026"
     if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
         date_str = m.group(1).strip()
-        try: st.session_state.process_date = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+        try: parsed["process_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
         except: pass
 
     # Fallback: calculate process_date from test_date + incubation days (e.g. Day 02)
@@ -157,47 +177,54 @@ def parse_only_email_text(text):
         try: inc_days = int(m.group(1))
         except: pass
     
-    if st.session_state.get("test_date") and inc_days is not None and not st.session_state.get("process_date"):
+    test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
+    if test_date_val and inc_days is not None and not parsed.get("process_date") and not persisted.get("process_date"):
         try:
-            t_dt = datetime.strptime(st.session_state.test_date, "%d%b%y")
+            t_dt = datetime.strptime(test_date_val, "%d%b%y")
             p_dt = t_dt + timedelta(days=inc_days)
-            st.session_state.process_date = p_dt.strftime("%d%b%y")
+            parsed["process_date"] = p_dt.strftime("%d%b%y")
         except: pass
 
     # Microorganisms positive ID and media
     if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
-        st.session_state.pos_bottle_count = 1
-        st.session_state.pos_id_0 = m.group(1).strip()
-        st.session_state.pos_org_0 = "Pending"
+        parsed["pos_bottle_count"] = 1
+        parsed["pos_id_0"] = m.group(1).strip()
+        parsed["pos_org_0"] = "Pending"
         
         # Check media type
         if "tsb media" in text.lower() or "in tsb" in text.lower():
-            st.session_state.pos_media_0 = "TSB"
+            parsed["pos_media_0"] = "TSB"
         elif "ftm media" in text.lower() or "in ftm" in text.lower():
-            st.session_state.pos_media_0 = "FTM"
+            parsed["pos_media_0"] = "FTM"
         else:
-            st.session_state.pos_media_0 = "TSB and FTM"
+            parsed["pos_media_0"] = "TSB and FTM"
     else:
         # Fallback parsing
         microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
         if microbial_matches:
-            st.session_state.pos_bottle_count = len(microbial_matches)
+            parsed["pos_bottle_count"] = len(microbial_matches)
             for i, mid in enumerate(microbial_matches):
-                st.session_state[f"pos_id_{i}"] = mid.strip()
-                st.session_state[f"pos_org_{i}"] = "Pending"
-                st.session_state[f"pos_media_{i}"] = "TSB and FTM"
+                parsed[f"pos_id_{i}"] = mid.strip()
+                parsed[f"pos_org_{i}"] = "Pending"
+                parsed[f"pos_media_{i}"] = "TSB and FTM"
 
     # Organism morphology
     if m := re.search(r"results have shown\s+([^\s]+(?: \(\+\)| \(\-\))? [^\s]+)", text, re.I):
-        st.session_state.organism_morphology = m.group(1).strip()
+        parsed["organism_morphology"] = m.group(1).strip()
     elif m := re.search(r"(\w+)-shaped", text, re.I):
-        st.session_state.organism_morphology = m.group(1).strip()
+        parsed["organism_morphology"] = m.group(1).strip()
 
-    save_current_state()
+    # Merge: update persisted with parsed, save, and restore to session state
+    persisted.update(parsed)
+    save_state_to_file(persisted)
+    for k, v in persisted.items():
+        if k in field_keys: st.session_state[k] = v
 
 # --- 6. EVENT HISTORY PARSER ---
 def parse_only_event_history(text):
     lines = [line.strip() for line in text.splitlines() if line.strip()]
+    persisted = load_state_from_file()
+    parsed = {}
     
     # 1. Prepper & Processor
     prepper_user = None
@@ -217,10 +244,10 @@ def parse_only_event_history(text):
     
     if prepper_user:
         initial = username_to_initials(prepper_user)
-        st.session_state.prepper_initial = initial
-        st.session_state.prepper_name = get_full_name(initial)
-        st.session_state.analyst_initial = initial
-        st.session_state.analyst_name = get_full_name(initial)
+        parsed["prepper_initial"] = initial
+        parsed["prepper_name"] = get_full_name(initial)
+        parsed["analyst_initial"] = initial
+        parsed["analyst_name"] = get_full_name(initial)
 
     # 2. Reader (E.g. enioupin for positive read)
     reader_user = None
@@ -237,8 +264,8 @@ def parse_only_event_history(text):
     
     if reader_user:
         initial = username_to_initials(reader_user)
-        st.session_state.reading_initial = initial
-        st.session_state.reading_name = get_full_name(initial)
+        parsed["reading_initial"] = initial
+        parsed["reading_name"] = get_full_name(initial)
 
     # 3. Subculture
     subculture_user = None
@@ -253,11 +280,11 @@ def parse_only_event_history(text):
     
     if has_inconclusive and subculture_user:
         initial = username_to_initials(subculture_user)
-        st.session_state.subculture_initial = initial
-        st.session_state.subculture_name = get_full_name(initial)
+        parsed["subculture_initial"] = initial
+        parsed["subculture_name"] = get_full_name(initial)
     else:
-        st.session_state.subculture_initial = ""
-        st.session_state.subculture_name = ""
+        parsed["subculture_initial"] = ""
+        parsed["subculture_name"] = ""
 
     # 4. Dates
     test_date_str = None
@@ -276,12 +303,12 @@ def parse_only_event_history(text):
                     except: pass
                 break
     if test_date_str:
-        st.session_state.test_date = test_date_str
+        parsed["test_date"] = test_date_str
         if inc_days is not None:
             try:
                 t_dt = datetime.strptime(test_date_str, "%d%b%y")
                 p_dt = t_dt + timedelta(days=inc_days)
-                st.session_state.process_date = p_dt.strftime("%d%b%y")
+                parsed["process_date"] = p_dt.strftime("%d%b%y")
             except: pass
 
     # 5. Media & ID & Sample ID
@@ -290,7 +317,7 @@ def parse_only_event_history(text):
             parts = line.split("\t")[0]
             m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
             if m_id:
-                st.session_state.sample_id = m_id.group(1).strip()
+                parsed["sample_id"] = m_id.group(1).strip()
                 break
                 
     for line in lines:
@@ -298,10 +325,14 @@ def parse_only_event_history(text):
             parts = line.split("\t")[0]
             m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
             if m_media:
-                st.session_state.positive_media = m_media.group(1).strip()
+                parsed["positive_media"] = m_media.group(1).strip()
                 break
 
-    save_current_state()
+    # Merge: update persisted with parsed, save, and restore to session state
+    persisted.update(parsed)
+    save_state_to_file(persisted)
+    for k, v in persisted.items():
+        if k in field_keys: st.session_state[k] = v
 
 # ================= UI LAYOUT =================
 st.title("🧪 USP <71> OOS Investigation")
