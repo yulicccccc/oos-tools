@@ -84,6 +84,29 @@ if "report_generated" not in st.session_state: st.session_state.report_generated
 if "submission_warnings" not in st.session_state: st.session_state.submission_warnings = []
 
 
+# --- HELPER: USERNAME TO INITIALS ---
+def username_to_initials(username):
+    if not username:
+        return ""
+    username = username.strip()
+    known = {
+        "gsurber": "GS", "GSurber": "GS",
+        "enioupin": "EN", "ENioupin": "EN",
+        "acarrillo": "AC", "ACarrillo": "AC",
+        "rseymour": "RS", "RSeymour": "RS",
+        "jowens": "JO", "JOwens": "JO"
+    }
+    if username in known:
+        return known[username]
+    if username.lower() in known:
+        return known[username.lower()]
+        
+    uppers = "".join([c for c in username if c.isupper()])
+    if len(uppers) >= 2:
+        return uppers[:3]
+    return username[0].upper() + (username[1].upper() if len(username) > 1 else "")
+
+
 # --- 5. SMART EMAIL PARSER ---
 def parse_email_text(text):
     # 1. TRY JSON LOAD (RESTORE FUNCTION)
@@ -95,7 +118,111 @@ def parse_email_text(text):
             st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
 
-    # 2. NORMAL PARSING
+    # 2. EVENT HISTORY PARSING
+    if "event history" in text.lower() or "performed by" in text.lower():
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        
+        prepper_user = None
+        for line in lines:
+            if "sample prep" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    prepper_user = parts[2].strip()
+                    break
+        if not prepper_user:
+            for line in lines:
+                if "status changed" in line.lower() and "sample analysis" in line.lower():
+                    parts = line.split("\t")
+                    if len(parts) >= 3:
+                        prepper_user = parts[2].strip()
+                        break
+        
+        if prepper_user:
+            initial = username_to_initials(prepper_user)
+            st.session_state.prepper_initial = initial
+            st.session_state.prepper_name = get_full_name(initial)
+            st.session_state.analyst_initial = initial
+            st.session_state.analyst_name = get_full_name(initial)
+
+        reader_user = None
+        inc_days = None
+        for line in lines:
+            if "sterility read" in line.lower() and "positive" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    reader_user = parts[2].strip()
+                    day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
+                    if day_match:
+                        inc_days = int(day_match.group(1))
+                    break
+        
+        if reader_user:
+            initial = username_to_initials(reader_user)
+            st.session_state.reading_initial = initial
+            st.session_state.reading_name = get_full_name(initial)
+
+        subculture_user = None
+        has_inconclusive = False
+        for line in lines:
+            if "sterility read" in line.lower() and "inconclusive" in line.lower():
+                has_inconclusive = True
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    subculture_user = parts[2].strip()
+                    break
+        
+        if has_inconclusive and subculture_user:
+            initial = username_to_initials(subculture_user)
+            st.session_state.subculture_initial = initial
+            st.session_state.subculture_name = get_full_name(initial)
+        else:
+            st.session_state.subculture_initial = ""
+            st.session_state.subculture_name = ""
+
+        test_date_str = None
+        for line in lines:
+            if "incubation started" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 2:
+                    date_part = parts[1].split()[0]
+                    try:
+                        dt = datetime.strptime(date_part, "%m/%d/%Y")
+                        test_date_str = dt.strftime("%d%b%y")
+                    except:
+                        try:
+                            dt = datetime.strptime(date_part, "%Y-%m-%d")
+                            test_date_str = dt.strftime("%d%b%y")
+                        except: pass
+                    break
+        if test_date_str:
+            st.session_state.test_date = test_date_str
+            if inc_days is not None:
+                try:
+                    t_dt = datetime.strptime(test_date_str, "%d%b%y")
+                    p_dt = t_dt + timedelta(days=inc_days)
+                    st.session_state.process_date = p_dt.strftime("%d%b%y")
+                except: pass
+
+        for line in lines:
+            if "status changed" in line.lower() and "sample positive" in line.lower():
+                parts = line.split("\t")[0]
+                m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
+                if m_id:
+                    st.session_state.sample_id = m_id.group(1).strip()
+                    break
+                    
+        for line in lines:
+            if "incubation started" in line.lower():
+                parts = line.split("\t")[0]
+                m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
+                if m_media:
+                    st.session_state.positive_media = m_media.group(1).strip()
+                    break
+
+        save_current_state()
+        st.success("✅ Event History Parsed Successfully!"); time.sleep(1); st.rerun(); return
+
+    # 3. NORMAL PARSING
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
         st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
@@ -136,7 +263,6 @@ def parse_email_text(text):
     
     if st.session_state.get("test_date") and inc_days is not None and not st.session_state.get("process_date"):
         try:
-            from datetime import timedelta
             t_dt = datetime.strptime(st.session_state.test_date, "%d%b%y")
             p_dt = t_dt + timedelta(days=inc_days)
             st.session_state.process_date = p_dt.strftime("%d%b%y")
@@ -176,8 +302,8 @@ def parse_email_text(text):
 # ================= UI LAYOUT =================
 st.title("🧪 USP <71> OOS Investigation")
 
-st.header("📧 Smart Email Import / 💾 Restore")
-email_input = st.text_area("Paste USP <71> Email Content OR Save File here:", height=150)
+st.header("📧 Smart Email & Event History Import / 💾 Restore")
+email_input = st.text_area("Paste USP <71> Email Content, Event History, OR Save File here:", height=150)
 if st.button("🪄 Parse / Restore"): 
     parse_email_text(email_input)
     st.success("Updated!")
@@ -371,14 +497,23 @@ if st.session_state.report_generated:
         org_noun = "organisms were" if is_plural_bottle or "and" in str(st.session_state.positive_org).lower() else "organism was"
 
         # BULK INSERTION MACRO-ASSEMBLY
-        p1 = f"All analysts involved in the prepping, processing, reading, and subculturing of the {sample_noun} – {st.session_state.prepper_name}, {st.session_state.analyst_name}, {st.session_state.reading_name}, and {st.session_state.subculture_name} were interviewed comprehensively. Their answers are recorded throughout this document."
+        has_subculture = st.session_state.get("subculture_name", "").strip() and st.session_state.get("subculture_name", "").strip() != "N/A"
+        
+        if has_subculture:
+            p1 = f"All analysts involved in the prepping, processing, reading, and subculturing of the {sample_noun} – {st.session_state.prepper_name}, {st.session_state.analyst_name}, {st.session_state.reading_name}, and {st.session_state.subculture_name} were interviewed comprehensively. Their answers are recorded throughout this document."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
+            interview_comment = f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name}, {st.session_state.reading_name}, and {st.session_state.subculture_name} were interviewed comprehensively."
+        else:
+            p1 = f"All analysts involved in the prepping, processing, and reading of the {sample_noun} – {st.session_state.prepper_name}, {st.session_state.analyst_name}, and {st.session_state.reading_name} were interviewed comprehensively. Their answers are recorded throughout this document."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
+            interview_comment = f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name}, and {st.session_state.reading_name} were interviewed comprehensively."
+
         p2 = f"Upon arrival, the {sample_noun} {sample_verb} stored in accordance with the Client’s instructions. Analyst {st.session_state.prepper_name} verified the integrity of the {sample_noun} throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the {sample_noun}."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, all reagents and supplies had valid expiration dates. The functionality of all equipment was confirmed by reviewing data generated by our comprehensive in-house continuous monitoring system."
         p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the {sample_noun} using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.process_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the {sample_noun} into the cleanroom suites. A final disinfection step was completed immediately before the {sample_noun} were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}). All activities were conducted in accordance with SOP 2.600.008 for the USP <71> sterility testing."
         p5 = fresh_equip
         p6 = f"On {received_date_str}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom (Suite {t_suite}), where the vials were again treated with acidified bleach and provided a 10‑minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom Suite {t_suite}{t_suffix}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
         p7 = f"Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with SOP 2.600.008 (USP <71> Sterility Test). The {sample_noun} {sample_verb} inoculated into Fluid Thioglycollate Medium (FTM) and Tryptic Soy Broth (TSB). Following inoculation, the media bottles were transferred into designated incubators to initiate a {st.session_state.incubation_time}-day continuous incubation cycle. FTM bottles were incubated at 30-35°C, while TSB bottles were incubated at 20-25°C in incubators {st.session_state.usp71_id}. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
-        p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
         p9 = f"Following the 14-day incubation and visual readings, {sample_noun} {st.session_state.sample_id} {sample_verb} found to yield a positive reading in the {st.session_state.positive_media} media {bottle_noun}, confirming a positive result for microbial growth."
         p10 = f"Following the OOS result, the positive {st.session_state.positive_media} {bottle_noun} for {st.session_state.sample_id} {submit_verb} submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}, where the {org_noun} identified as {st.session_state.positive_org}."
         p11 = "The culture media utilized were within their expiry period. The negative culture media bottles for the direct inoculation method for the original culture were handled, processed, and incubated in a manner identical to that of actual samples. No microbial growth was observed in the corresponding negative control."
@@ -395,10 +530,15 @@ if st.session_state.report_generated:
         smart_phase1_part2 = "\n\n".join([p8, p9, p10, p11, p12, p13, p14, p15, p16, p17])
 
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
-        smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
-                                 f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
-                                 f"Reading Analyst:\n{st.session_state.reading_name} ({st.session_state.reading_initial})\n\n"
-                                 f"Subculture Analyst:\n{st.session_state.subculture_name} ({st.session_state.subculture_initial})")
+        
+        personnel_lines = [
+            f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})",
+            f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
+            f"Reading Analyst:\n{st.session_state.reading_name} ({st.session_state.reading_initial})"
+        ]
+        if has_subculture:
+            personnel_lines.append(f"Subculture Analyst:\n{st.session_state.subculture_name} ({st.session_state.subculture_initial})")
+        smart_personnel_block = "\n\n".join(personnel_lines)
                                  
         smart_incident_opening = f"On {st.session_state.test_date}, {sample_noun} {st.session_state.sample_id} {sample_verb} found positive for viable microorganisms after USP <71> sterility testing."
         
@@ -422,7 +562,7 @@ if st.session_state.report_generated:
             "equipment_summary": fresh_equip, "narrative_summary": fresh_narr, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,
             "report_header": f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", "analyst_signature": analyst_sig_text,
             "smart_personnel_block": smart_personnel_block, "smart_incident_opening": smart_incident_opening,
-            "smart_comment_interview": f"Yes, analysts {st.session_state.prepper_name}, {st.session_state.analyst_name}, {st.session_state.reading_name}, and {st.session_state.subculture_name} were interviewed comprehensively.",
+            "smart_comment_interview": interview_comment,
             "smart_comment_samples": f"Yes, {sample_noun} ID: {st.session_state.sample_id}",
             "smart_comment_records": f"Yes, Information is available in EagleTrax under {st.session_state.sample_id}",
             "smart_comment_storage": f"Yes, the {sample_noun} {sample_verb} stored as per client's instructions. Information is available in EagleTrax Sample Location History under {st.session_state.sample_id}",
