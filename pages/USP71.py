@@ -108,7 +108,7 @@ def username_to_initials(username):
 
 
 # --- 5. SMART EMAIL PARSER ---
-def parse_email_text(text):
+def parse_only_email_text(text):
     # 1. TRY JSON LOAD (RESTORE FUNCTION)
     try:
         data = json.loads(text)
@@ -118,111 +118,7 @@ def parse_email_text(text):
             st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
     except json.JSONDecodeError: pass
 
-    # 2. EVENT HISTORY PARSING
-    if "event history" in text.lower() or "performed by" in text.lower():
-        lines = [line.strip() for line in text.splitlines() if line.strip()]
-        
-        prepper_user = None
-        for line in lines:
-            if "sample prep" in line.lower():
-                parts = line.split("\t")
-                if len(parts) >= 3:
-                    prepper_user = parts[2].strip()
-                    break
-        if not prepper_user:
-            for line in lines:
-                if "status changed" in line.lower() and "sample analysis" in line.lower():
-                    parts = line.split("\t")
-                    if len(parts) >= 3:
-                        prepper_user = parts[2].strip()
-                        break
-        
-        if prepper_user:
-            initial = username_to_initials(prepper_user)
-            st.session_state.prepper_initial = initial
-            st.session_state.prepper_name = get_full_name(initial)
-            st.session_state.analyst_initial = initial
-            st.session_state.analyst_name = get_full_name(initial)
-
-        reader_user = None
-        inc_days = None
-        for line in lines:
-            if "sterility read" in line.lower() and "positive" in line.lower():
-                parts = line.split("\t")
-                if len(parts) >= 3:
-                    reader_user = parts[2].strip()
-                    day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
-                    if day_match:
-                        inc_days = int(day_match.group(1))
-                    break
-        
-        if reader_user:
-            initial = username_to_initials(reader_user)
-            st.session_state.reading_initial = initial
-            st.session_state.reading_name = get_full_name(initial)
-
-        subculture_user = None
-        has_inconclusive = False
-        for line in lines:
-            if "sterility read" in line.lower() and "inconclusive" in line.lower():
-                has_inconclusive = True
-                parts = line.split("\t")
-                if len(parts) >= 3:
-                    subculture_user = parts[2].strip()
-                    break
-        
-        if has_inconclusive and subculture_user:
-            initial = username_to_initials(subculture_user)
-            st.session_state.subculture_initial = initial
-            st.session_state.subculture_name = get_full_name(initial)
-        else:
-            st.session_state.subculture_initial = ""
-            st.session_state.subculture_name = ""
-
-        test_date_str = None
-        for line in lines:
-            if "incubation started" in line.lower():
-                parts = line.split("\t")
-                if len(parts) >= 2:
-                    date_part = parts[1].split()[0]
-                    try:
-                        dt = datetime.strptime(date_part, "%m/%d/%Y")
-                        test_date_str = dt.strftime("%d%b%y")
-                    except:
-                        try:
-                            dt = datetime.strptime(date_part, "%Y-%m-%d")
-                            test_date_str = dt.strftime("%d%b%y")
-                        except: pass
-                    break
-        if test_date_str:
-            st.session_state.test_date = test_date_str
-            if inc_days is not None:
-                try:
-                    t_dt = datetime.strptime(test_date_str, "%d%b%y")
-                    p_dt = t_dt + timedelta(days=inc_days)
-                    st.session_state.process_date = p_dt.strftime("%d%b%y")
-                except: pass
-
-        for line in lines:
-            if "status changed" in line.lower() and "sample positive" in line.lower():
-                parts = line.split("\t")[0]
-                m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
-                if m_id:
-                    st.session_state.sample_id = m_id.group(1).strip()
-                    break
-                    
-        for line in lines:
-            if "incubation started" in line.lower():
-                parts = line.split("\t")[0]
-                m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
-                if m_media:
-                    st.session_state.positive_media = m_media.group(1).strip()
-                    break
-
-        save_current_state()
-        st.success("✅ Event History Parsed Successfully!"); time.sleep(1); st.rerun(); return
-
-    # 3. NORMAL PARSING
+    # 2. NORMAL PARSING
     if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
     if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
         st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
@@ -299,16 +195,140 @@ def parse_email_text(text):
 
     save_current_state()
 
+# --- 6. EVENT HISTORY PARSER ---
+def parse_only_event_history(text):
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    
+    # 1. Prepper & Processor
+    prepper_user = None
+    for line in lines:
+        if "sample prep" in line.lower():
+            parts = line.split("\t")
+            if len(parts) >= 3:
+                prepper_user = parts[2].strip()
+                break
+    if not prepper_user:
+        for line in lines:
+            if "status changed" in line.lower() and "sample analysis" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    prepper_user = parts[2].strip()
+                    break
+    
+    if prepper_user:
+        initial = username_to_initials(prepper_user)
+        st.session_state.prepper_initial = initial
+        st.session_state.prepper_name = get_full_name(initial)
+        st.session_state.analyst_initial = initial
+        st.session_state.analyst_name = get_full_name(initial)
+
+    # 2. Reader (E.g. enioupin for positive read)
+    reader_user = None
+    inc_days = None
+    for line in lines:
+        if "sterility read" in line.lower() and "positive" in line.lower():
+            parts = line.split("\t")
+            if len(parts) >= 3:
+                reader_user = parts[2].strip()
+                day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
+                if day_match:
+                    inc_days = int(day_match.group(1))
+                break
+    
+    if reader_user:
+        initial = username_to_initials(reader_user)
+        st.session_state.reading_initial = initial
+        st.session_state.reading_name = get_full_name(initial)
+
+    # 3. Subculture
+    subculture_user = None
+    has_inconclusive = False
+    for line in lines:
+        if "sterility read" in line.lower() and "inconclusive" in line.lower():
+            has_inconclusive = True
+            parts = line.split("\t")
+            if len(parts) >= 3:
+                subculture_user = parts[2].strip()
+                break
+    
+    if has_inconclusive and subculture_user:
+        initial = username_to_initials(subculture_user)
+        st.session_state.subculture_initial = initial
+        st.session_state.subculture_name = get_full_name(initial)
+    else:
+        st.session_state.subculture_initial = ""
+        st.session_state.subculture_name = ""
+
+    # 4. Dates
+    test_date_str = None
+    for line in lines:
+        if "incubation started" in line.lower():
+            parts = line.split("\t")
+            if len(parts) >= 2:
+                date_part = parts[1].split()[0]
+                try:
+                    dt = datetime.strptime(date_part, "%m/%d/%Y")
+                    test_date_str = dt.strftime("%d%b%y")
+                except:
+                    try:
+                        dt = datetime.strptime(date_part, "%Y-%m-%d")
+                        test_date_str = dt.strftime("%d%b%y")
+                    except: pass
+                break
+    if test_date_str:
+        st.session_state.test_date = test_date_str
+        if inc_days is not None:
+            try:
+                t_dt = datetime.strptime(test_date_str, "%d%b%y")
+                p_dt = t_dt + timedelta(days=inc_days)
+                st.session_state.process_date = p_dt.strftime("%d%b%y")
+            except: pass
+
+    # 5. Media & ID & Sample ID
+    for line in lines:
+        if "status changed" in line.lower() and "sample positive" in line.lower():
+            parts = line.split("\t")[0]
+            m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
+            if m_id:
+                st.session_state.sample_id = m_id.group(1).strip()
+                break
+                
+    for line in lines:
+        if "incubation started" in line.lower():
+            parts = line.split("\t")[0]
+            m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
+            if m_media:
+                st.session_state.positive_media = m_media.group(1).strip()
+                break
+
+    save_current_state()
+
 # ================= UI LAYOUT =================
 st.title("🧪 USP <71> OOS Investigation")
 
-st.header("📧 Smart Email & Event History Import / 💾 Restore")
-email_input = st.text_area("Paste USP <71> Email Content, Event History, OR Save File here:", height=150)
-if st.button("🪄 Parse / Restore"): 
-    parse_email_text(email_input)
-    st.success("Updated!")
-    st.rerun()
+col_left, col_right = st.columns(2)
 
+with col_left:
+    st.header("📧 Email Import / 💾 Restore")
+    email_input = st.text_area("Paste USP <71> Email Content OR Save File here:", height=150, key="email_import_text")
+    if st.button("🪄 Parse Email / Restore", key="email_parse_btn"):
+        if email_input.strip():
+            parse_only_email_text(email_input)
+            st.success("✅ Email/Session Loaded!")
+            time.sleep(1)
+            st.rerun()
+
+with col_right:
+    st.header("📋 Event History Import")
+    history_input = st.text_area("Paste Event History table here:", height=150, key="history_import_text")
+    if st.button("🪄 Parse Event History", key="history_parse_btn"):
+        if history_input.strip():
+            parse_only_event_history(history_input)
+            st.success("✅ Event History Parsed!")
+            time.sleep(1)
+            st.rerun()
+
+st.divider()
 st.header("1. General Test Details")
 c1, c2, c3, c4 = st.columns(4)
 with c1: 
