@@ -752,7 +752,7 @@ if st.session_state.report_generated:
             'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
             'Text Field13': word_data["smart_comment_interview"], 'Text Field14': word_data["smart_comment_samples"], 
             'Text Field17': word_data["smart_comment_records"], 'Text Field21': word_data["smart_comment_storage"],
-            'Text Field30': st.session_state.usp71_id, 'Text Field32': word_data["smart_cr_id"], 
+            'Text Field30': f"E00{st.session_state.bsc_id}", 'Text Field32': word_data["smart_cr_id"], 
             'Text Field34': st.session_state.usp71_id, 'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
         }
 
