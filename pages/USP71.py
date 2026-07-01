@@ -172,7 +172,7 @@ def parse_only_email_text(text):
         try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
         except: pass
 
-    # Fallback: calculate test_date (Reading Date) from process_date + incubation days (e.g. Day 02)
+    # Fallback: calculate dates from each other using incubation time
     inc_days = None
     if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
         try: 
@@ -181,12 +181,21 @@ def parse_only_email_text(text):
         except: pass
     
     process_date_val = parsed.get("process_date") or persisted.get("process_date") or st.session_state.get("process_date")
-    if process_date_val and inc_days is not None and not parsed.get("test_date") and not persisted.get("test_date"):
-        try:
-            p_dt = datetime.strptime(process_date_val, "%d%b%y")
-            t_dt = p_dt + timedelta(days=inc_days)
-            parsed["test_date"] = t_dt.strftime("%d%b%y")
-        except: pass
+    test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
+    
+    if inc_days is not None:
+        if test_date_val and not process_date_val:
+            try:
+                t_dt = datetime.strptime(test_date_val, "%d%b%y")
+                p_dt = t_dt - timedelta(days=inc_days)
+                parsed["process_date"] = p_dt.strftime("%d%b%y")
+            except: pass
+        elif process_date_val and not test_date_val:
+            try:
+                p_dt = datetime.strptime(process_date_val, "%d%b%y")
+                t_dt = p_dt + timedelta(days=inc_days)
+                parsed["test_date"] = t_dt.strftime("%d%b%y")
+            except: pass
 
     # Microorganisms positive ID and media
     if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
@@ -233,7 +242,7 @@ def parse_only_event_history(text):
     persisted = load_state_from_file()
     parsed = {}
     
-    # 1. Prepper & Processor
+    # 1. Prepper
     prepper_user = None
     for line in lines:
         if "sample prep" in line.lower():
@@ -241,18 +250,27 @@ def parse_only_event_history(text):
             if len(parts) >= 3:
                 prepper_user = parts[2].strip()
                 break
-    if not prepper_user:
-        for line in lines:
-            if "status changed" in line.lower() and "sample analysis" in line.lower():
-                parts = line.split("\t")
-                if len(parts) >= 3:
-                    prepper_user = parts[2].strip()
-                    break
-    
     if prepper_user:
         initial = username_to_initials(prepper_user)
         parsed["prepper_initial"] = initial
         parsed["prepper_name"] = get_full_name(initial)
+    else:
+        parsed["prepper_initial"] = ""
+        parsed["prepper_name"] = ""
+
+    # Processor
+    processor_user = None
+    for line in lines:
+        if "status changed" in line.lower() and "sample analysis" in line.lower():
+            parts = line.split("\t")
+            if len(parts) >= 3:
+                processor_user = parts[2].strip()
+                break
+    if not processor_user and prepper_user:
+        processor_user = prepper_user
+
+    if processor_user:
+        initial = username_to_initials(processor_user)
         parsed["analyst_initial"] = initial
         parsed["analyst_name"] = get_full_name(initial)
 
@@ -302,29 +320,55 @@ def parse_only_event_history(text):
         parsed["subculture_name"] = ""
 
     # 4. Dates
-    inoc_date_str = None
+    read_date_str = None
     for line in lines:
-        if "incubation started" in line.lower():
+        if "sterility read" in line.lower() and "positive" in line.lower():
             parts = line.split("\t")
             if len(parts) >= 2:
                 date_part = parts[1].split()[0]
                 try:
                     dt = datetime.strptime(date_part, "%m/%d/%Y")
-                    inoc_date_str = dt.strftime("%d%b%y")
+                    read_date_str = dt.strftime("%d%b%y")
                 except:
                     try:
                         dt = datetime.strptime(date_part, "%Y-%m-%d")
-                        inoc_date_str = dt.strftime("%d%b%y")
+                        read_date_str = dt.strftime("%d%b%y")
                     except: pass
                 break
-    if inoc_date_str:
-        parsed["process_date"] = inoc_date_str
+    
+    if read_date_str:
+        parsed["test_date"] = read_date_str
         if inc_days is not None:
             try:
-                p_dt = datetime.strptime(inoc_date_str, "%d%b%y")
-                t_dt = p_dt + timedelta(days=inc_days)
-                parsed["test_date"] = t_dt.strftime("%d%b%y")
+                t_dt = datetime.strptime(read_date_str, "%d%b%y")
+                p_dt = t_dt - timedelta(days=inc_days)
+                parsed["process_date"] = p_dt.strftime("%d%b%y")
             except: pass
+    else:
+        # Fallback to incubation started if no sterility read
+        inoc_date_str = None
+        for line in lines:
+            if "incubation started" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 2:
+                    date_part = parts[1].split()[0]
+                    try:
+                        dt = datetime.strptime(date_part, "%m/%d/%Y")
+                        inoc_date_str = dt.strftime("%d%b%y")
+                    except:
+                        try:
+                            dt = datetime.strptime(date_part, "%Y-%m-%d")
+                            inoc_date_str = dt.strftime("%d%b%y")
+                        except: pass
+                    break
+        if inoc_date_str:
+            parsed["process_date"] = inoc_date_str
+            if inc_days is not None:
+                try:
+                    p_dt = datetime.strptime(inoc_date_str, "%d%b%y")
+                    t_dt = p_dt + timedelta(days=inc_days)
+                    parsed["test_date"] = t_dt.strftime("%d%b%y")
+                except: pass
 
     # 5. Media & ID & Sample ID
     for line in lines:
@@ -557,14 +601,17 @@ if st.session_state.report_generated:
         org_noun = "organisms were" if is_plural_bottle or "and" in str(st.session_state.positive_org).lower() else "organism was"
 
         # BULK INSERTION MACRO-ASSEMBLY
+        has_prepper = st.session_state.get("prepper_name", "").strip() and st.session_state.get("prepper_name", "").strip() != "N/A"
         has_subculture = st.session_state.get("subculture_name", "").strip() and st.session_state.get("subculture_name", "").strip() != "N/A"
         
         # Collect and deduplicate analyst names preserving order
-        analysts_raw = [
-            st.session_state.get("prepper_name", ""),
+        analysts_raw = []
+        if has_prepper:
+            analysts_raw.append(st.session_state.get("prepper_name", ""))
+        analysts_raw.extend([
             st.session_state.get("analyst_name", ""),
             st.session_state.get("reading_name", ""),
-        ]
+        ])
         if has_subculture:
             analysts_raw.append(st.session_state.get("subculture_name", ""))
             
@@ -584,18 +631,36 @@ if st.session_state.report_generated:
             names_only_phrase = ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
             analysts_with_prefix_phrase = f"analysts " + ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
 
+        # Dynamic role description based on prepper and subculture existence
+        roles = []
+        if has_prepper:
+            roles.append("prepping")
+        roles.append("processing")
+        roles.append("reading")
         if has_subculture:
-            p1 = f"All analysts involved in the prepping, processing, reading, and subculturing of the {sample_noun} – {names_only_phrase} were interviewed comprehensively. Their answers are recorded throughout this document."
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
-            interview_comment = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
+            roles.append("subculturing")
+        
+        if len(roles) == 1:
+            roles_phrase = roles[0]
+        elif len(roles) == 2:
+            roles_phrase = f"{roles[0]} and {roles[1]}"
         else:
-            p1 = f"All analysts involved in the prepping, processing, and reading of the {sample_noun} – {names_only_phrase} were interviewed comprehensively. Their answers are recorded throughout this document."
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
-            interview_comment = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
+            roles_phrase = ", ".join(roles[:-1]) + ", and " + roles[-1]
 
-        p2 = f"Upon arrival, the {sample_noun} {sample_verb} stored in accordance with the Client’s instructions. Analyst {st.session_state.prepper_name} verified the integrity of the {sample_noun} throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the {sample_noun}."
+        p1 = f"All analysts involved in the {roles_phrase} of the {sample_noun} – {names_only_phrase} were interviewed comprehensively. Their answers are recorded throughout this document."
+        
+        if has_subculture:
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
+        else:
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
+        
+        interview_comment = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
+
+        prep_analyst = st.session_state.prepper_name if has_prepper else st.session_state.analyst_name
+        p2 = f"Upon arrival, the {sample_noun} {sample_verb} stored in accordance with the Client’s instructions. Analyst {prep_analyst} verified the integrity of the {sample_noun} throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the {sample_noun}."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, all reagents and supplies had valid expiration dates. The functionality of all equipment was confirmed by reviewing data generated by our comprehensive in-house continuous monitoring system."
-        p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the {sample_noun} using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.process_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the {sample_noun} into the cleanroom suites. A final disinfection step was completed immediately before the {sample_noun} were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}). All activities were conducted in accordance with SOP 2.600.008 for the USP <71> sterility testing."
+        prepper_part = f"Analyst {st.session_state.analyst_name}" if not has_prepper else st.session_state.prepper_name
+        p4 = f"During the preparation phase, {prepper_part} disinfected the {sample_noun} using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.process_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the {sample_noun} into the cleanroom suites. A final disinfection step was completed immediately before the {sample_noun} were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}). All activities were conducted in accordance with SOP 2.600.008 for the USP <71> sterility testing."
         p5 = fresh_equip
         p6 = f"On {received_date_str}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom (Suite {t_suite}), where the vials were again treated with acidified bleach and provided a 10‑minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom Suite {t_suite}{t_suffix}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
         p7 = f"Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with SOP 2.600.008 (USP <71> Sterility Test). The {sample_noun} {sample_verb} inoculated into Fluid Thioglycollate Medium (FTM) and Tryptic Soy Broth (TSB). Following inoculation, the media bottles were transferred into designated incubators to initiate a {st.session_state.incubation_time}-day continuous incubation cycle. FTM bottles were incubated at 30-35°C, while TSB bottles were incubated at 20-25°C in incubators {st.session_state.usp71_id}. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
@@ -616,11 +681,13 @@ if st.session_state.report_generated:
 
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         
-        personnel_lines = [
-            f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})",
+        personnel_lines = []
+        if has_prepper:
+            personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
+        personnel_lines.extend([
             f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
             f"Reading Analyst:\n{st.session_state.reading_name} ({st.session_state.reading_initial})"
-        ]
+        ])
         if has_subculture:
             personnel_lines.append(f"Subculture Analyst:\n{st.session_state.subculture_name} ({st.session_state.subculture_initial})")
         smart_personnel_block = "\n\n".join(personnel_lines)
