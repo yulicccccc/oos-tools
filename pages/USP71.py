@@ -106,52 +106,51 @@ def parse_email_text(text):
         st.session_state.analyst_name = get_full_name(initial)
 
     # Sample details
-    sample_blocks = re.findall(
-        r"(ETX-\d{6}-\d{4})\s*[\r\n]+Sample\s*Name:\s*([^\r\n]+)\s*[\r\n]+(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", 
-        text, re.IGNORECASE
-    )
-    if sample_blocks:
-        sample_ids = [b[0].strip() for b in sample_blocks]
-        sample_names = [b[1].strip() for b in sample_blocks]
-        lot_numbers = [b[2].strip() for b in sample_blocks]
-        def join_list(lst):
-            if not lst: return ""
-            if len(lst) == 1: return lst[0]
-            if len(lst) == 2: return f"{lst[0]} and {lst[1]}"
-            return ", ".join(lst[:-1]) + " and " + lst[-1]
-
-        st.session_state.sample_id = join_list(sample_ids)
-        st.session_state.sample_name = join_list(sample_names)
-        st.session_state.lot_number = join_list(lot_numbers)
-    else:
-        # Fallback regexes
-        if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
-        if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
-        if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
+    if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
+    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
+    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
 
     # Dates
-    if m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+    if m := re.search(r"day of testing\s*\(\s*([^)]+)\)", text, re.IGNORECASE):
+        date_str = m.group(1).strip()
+        try: st.session_state.test_date = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+        except: pass
+    elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
         try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
         except: pass
     elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
         try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
-    if m := re.search(r"processing set up\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
-        try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
-        except: pass
+    # We do NOT parse process_date (Reading Date) from the email so the user can fill it in manually.
 
-    # Microorganisms
-    microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
-    if microbial_matches:
-        st.session_state.pos_bottle_count = len(microbial_matches)
-        for i, mid in enumerate(microbial_matches):
-            st.session_state[f"pos_id_{i}"] = mid.strip()
-            st.session_state[f"pos_org_{i}"] = "Pending"
-            st.session_state[f"pos_media_{i}"] = "TSB and FTM"
+    # Microorganisms positive ID and media
+    if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+        st.session_state.pos_bottle_count = 1
+        st.session_state.pos_id_0 = m.group(1).strip()
+        st.session_state.pos_org_0 = "Pending"
+        
+        # Check media type
+        if "tsb media" in text.lower() or "in tsb" in text.lower():
+            st.session_state.pos_media_0 = "TSB"
+        elif "ftm media" in text.lower() or "in ftm" in text.lower():
+            st.session_state.pos_media_0 = "FTM"
+        else:
+            st.session_state.pos_media_0 = "TSB and FTM"
+    else:
+        # Fallback parsing
+        microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
+        if microbial_matches:
+            st.session_state.pos_bottle_count = len(microbial_matches)
+            for i, mid in enumerate(microbial_matches):
+                st.session_state[f"pos_id_{i}"] = mid.strip()
+                st.session_state[f"pos_org_{i}"] = "Pending"
+                st.session_state[f"pos_media_{i}"] = "TSB and FTM"
 
     # Organism morphology
-    if m := re.search(r"(\w+)-shaped", text, re.I):
+    if m := re.search(r"results have shown\s+([^\s]+(?: \(\+\)| \(\-\))? [^\s]+)", text, re.I):
+        st.session_state.organism_morphology = m.group(1).strip()
+    elif m := re.search(r"(\w+)-shaped", text, re.I):
         st.session_state.organism_morphology = m.group(1).strip()
 
     save_current_state()
@@ -178,16 +177,16 @@ with c3:
     st.text_input("Sample ID (ETX)", key="sample_id", help="Required")
     st.selectbox("Dosage Form", ["Injectable","Aqueous Solution","Liquid","Solution"], key="dosage_form")
 with c4: 
-    st.text_input("Test Date", key="test_date", help="DDMMMYY")
-    st.text_input("Process Date", key="process_date", help="DDMMMYY")
+    st.text_input("Test Date (Inoculation Date)", key="test_date", help="DDMMMYY")
+    st.text_input("Reading Date", key="process_date", help="DDMMMYY")
 
-received_date_str = "[Missing Process Date]"
-if st.session_state.get("process_date"):
+received_date_str = "[Missing Test Date]"
+if st.session_state.get("test_date"):
     try:
-        p_dt = datetime.strptime(st.session_state.process_date, "%d%b%y")
-        r_dt = get_business_day_back(p_dt, 1)
+        t_dt = datetime.strptime(st.session_state.test_date, "%d%b%y")
+        r_dt = get_business_day_back(t_dt, 1)
         received_date_str = r_dt.strftime("%d%b%y")
-        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day): `{received_date_str}`")
+        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day of Test Date): `{received_date_str}`")
     except: pass
 
 st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
