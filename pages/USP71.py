@@ -174,7 +174,9 @@ def parse_only_email_text(text):
     # Fallback: calculate process_date from test_date + incubation days (e.g. Day 02)
     inc_days = None
     if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
-        try: inc_days = int(m.group(1))
+        try: 
+            inc_days = int(m.group(1))
+            parsed["incubation_time"] = str(inc_days)
         except: pass
     
     test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
@@ -264,6 +266,7 @@ def parse_only_event_history(text):
                 day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
                 if day_match:
                     inc_days = int(day_match.group(1))
+                    parsed["incubation_time"] = str(inc_days)
                 break
     
     if reader_user:
