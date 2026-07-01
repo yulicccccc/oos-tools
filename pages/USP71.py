@@ -154,24 +154,25 @@ def parse_only_email_text(text):
     if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): parsed["lot_number"] = m.group(1).strip()
 
     # Dates
+    # Inoculation Date (stored in process_date)
     if m := re.search(r"day of testing\s*\(\s*([^)]+)\)", text, re.IGNORECASE):
-        date_str = m.group(1).strip()
-        try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
-        except: pass
-    elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
-        try: parsed["test_date"] = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
-        except: pass
-    elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
-        try: parsed["test_date"] = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
-        except: pass
-
-    # Reading Date (process_date) from "as of 18 Jun 2026"
-    if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
         date_str = m.group(1).strip()
         try: parsed["process_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
         except: pass
+    elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+        try: parsed["process_date"] = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
+        except: pass
+    elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+        try: parsed["process_date"] = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        except: pass
 
-    # Fallback: calculate process_date from test_date + incubation days (e.g. Day 02)
+    # Reading Date / Incident Date (stored in test_date) from "as of 18 Jun 2026"
+    if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+        date_str = m.group(1).strip()
+        try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+        except: pass
+
+    # Fallback: calculate test_date (Reading Date) from process_date + incubation days (e.g. Day 02)
     inc_days = None
     if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
         try: 
@@ -179,12 +180,12 @@ def parse_only_email_text(text):
             parsed["incubation_time"] = str(inc_days)
         except: pass
     
-    test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
-    if test_date_val and inc_days is not None and not parsed.get("process_date") and not persisted.get("process_date"):
+    process_date_val = parsed.get("process_date") or persisted.get("process_date") or st.session_state.get("process_date")
+    if process_date_val and inc_days is not None and not parsed.get("test_date") and not persisted.get("test_date"):
         try:
-            t_dt = datetime.strptime(test_date_val, "%d%b%y")
-            p_dt = t_dt + timedelta(days=inc_days)
-            parsed["process_date"] = p_dt.strftime("%d%b%y")
+            p_dt = datetime.strptime(process_date_val, "%d%b%y")
+            t_dt = p_dt + timedelta(days=inc_days)
+            parsed["test_date"] = t_dt.strftime("%d%b%y")
         except: pass
 
     # Microorganisms positive ID and media
@@ -301,7 +302,7 @@ def parse_only_event_history(text):
         parsed["subculture_name"] = ""
 
     # 4. Dates
-    test_date_str = None
+    inoc_date_str = None
     for line in lines:
         if "incubation started" in line.lower():
             parts = line.split("\t")
@@ -309,20 +310,20 @@ def parse_only_event_history(text):
                 date_part = parts[1].split()[0]
                 try:
                     dt = datetime.strptime(date_part, "%m/%d/%Y")
-                    test_date_str = dt.strftime("%d%b%y")
+                    inoc_date_str = dt.strftime("%d%b%y")
                 except:
                     try:
                         dt = datetime.strptime(date_part, "%Y-%m-%d")
-                        test_date_str = dt.strftime("%d%b%y")
+                        inoc_date_str = dt.strftime("%d%b%y")
                     except: pass
                 break
-    if test_date_str:
-        parsed["test_date"] = test_date_str
+    if inoc_date_str:
+        parsed["process_date"] = inoc_date_str
         if inc_days is not None:
             try:
-                t_dt = datetime.strptime(test_date_str, "%d%b%y")
-                p_dt = t_dt + timedelta(days=inc_days)
-                parsed["process_date"] = p_dt.strftime("%d%b%y")
+                p_dt = datetime.strptime(inoc_date_str, "%d%b%y")
+                t_dt = p_dt + timedelta(days=inc_days)
+                parsed["test_date"] = t_dt.strftime("%d%b%y")
             except: pass
 
     # 5. Media & ID & Sample ID
@@ -386,16 +387,16 @@ with c3:
     st.text_input("Sample ID (ETX)", key="sample_id", help="Required")
     st.selectbox("Dosage Form", ["Injectable","Aqueous Solution","Liquid","Solution"], key="dosage_form")
 with c4: 
-    st.text_input("Test Date (Inoculation Date)", key="test_date", help="DDMMMYY")
-    st.text_input("Reading Date", key="process_date", help="DDMMMYY")
+    st.text_input("Inoculation Date", key="process_date", help="DDMMMYY")
+    st.text_input("Reading Date (Incident Date)", key="test_date", help="DDMMMYY")
 
-received_date_str = "[Missing Test Date]"
-if st.session_state.get("test_date"):
+received_date_str = "[Missing Inoculation Date]"
+if st.session_state.get("process_date"):
     try:
-        t_dt = datetime.strptime(st.session_state.test_date, "%d%b%y")
-        r_dt = get_business_day_back(t_dt, 1)
+        p_dt = datetime.strptime(st.session_state.process_date, "%d%b%y")
+        r_dt = get_business_day_back(p_dt, 1)
         received_date_str = r_dt.strftime("%d%b%y")
-        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day of Test Date): `{received_date_str}`")
+        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day of Inoculation Date): `{received_date_str}`")
     except: pass
 
 st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
@@ -419,14 +420,10 @@ with p4:
     ul.auto_fill_name("subculture_initial", "subculture_name")
     st.text_input("Subculture Name", key="subculture_name")
 
-e1, e2, e3, e4 = st.columns(4)
+e1, e2 = st.columns(2)
 bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
 with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
 with e2: st.text_input("USP 71 Incubator ID(s)", key="usp71_id", help="e.g. E001234")
-with e3:
-    st.text_input("Changeover Analyst Initials", key="changeover_initial")
-with e4:
-    st.selectbox("Changeover BSC ID", bsc_list, key="chgbsc_id")
 
 st.header("3. USP 71 Findings")
 st.markdown("##### Media & Organism Identifications")
