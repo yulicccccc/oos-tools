@@ -41,8 +41,7 @@ def validate_inputs():
         "OOS Number": "oos_id", "Client Name": "client_name", "Sample ID": "sample_id", 
         "Test Date": "test_date", "Process Date": "process_date", "Sample Name": "sample_name", 
         "Lot Number": "lot_number", "Prepper Name": "prepper_name", "Processor Name": "analyst_name",
-        "Reader Name": "reader_name", "BSC ID": "bsc_id", 
-        "USP71 ID": "usp71_id"
+        "Reader Name": "reading_name", "BSC ID": "bsc_id"
     }
     for label, key in reqs.items():
         if not st.session_state.get(key, "").strip(): 
