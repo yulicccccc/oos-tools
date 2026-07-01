@@ -149,7 +149,7 @@ def generate_usp71_history_text():
         elif len(pids) == 1: refs_str = pids[0]
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         phrase = f"1 incident ({refs_str})" if len(pids) == 1 else f"{len(pids)} incidents ({refs_str})"
-    return f"Analyzing a 6-month sample history for {st.session_state.get('client_name', '[Client]')}, this specific analyte \"{st.session_state.get('sample_name', '[Sample]')}\" has had {phrase} using USP <71> sterility testing during this period."
+    return f"Analyzing a 6-month sample history for {st.session_state.get('client_name', '[Client]')}, this specific analyte \"{st.session_state.get('sample_name', '[Sample]')}\" has had {phrase} using USP <71> / EP 2.6.1 sterility testing during this period."
 
 def generate_usp71_cross_contam_text():
     if st.session_state.get("other_positives") == "No": 
