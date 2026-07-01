@@ -84,8 +84,87 @@ if "report_generated" not in st.session_state: st.session_state.report_generated
 if "submission_warnings" not in st.session_state: st.session_state.submission_warnings = []
 
 
+# --- 5. SMART EMAIL PARSER ---
+def parse_email_text(text):
+    # 1. TRY JSON LOAD (RESTORE FUNCTION)
+    try:
+        data = json.loads(text)
+        if isinstance(data, dict):
+            for k, v in data.items():
+                if k in field_keys: st.session_state[k] = v
+            st.success("✅ Magic Restore Successful!"); time.sleep(1); st.rerun(); return
+    except json.JSONDecodeError: pass
+
+    # 2. NORMAL PARSING
+    if m := re.search(r"OOS-(\d+)", text): st.session_state.oos_id = m.group(1)
+    if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
+        st.session_state.client_name = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
+    
+    if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
+        initial = m.group(1).strip()
+        st.session_state.analyst_initial = initial
+        st.session_state.analyst_name = get_full_name(initial)
+
+    # Sample details
+    sample_blocks = re.findall(
+        r"(ETX-\d{6}-\d{4})\s*[\r\n]+Sample\s*Name:\s*([^\r\n]+)\s*[\r\n]+(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", 
+        text, re.IGNORECASE
+    )
+    if sample_blocks:
+        sample_ids = [b[0].strip() for b in sample_blocks]
+        sample_names = [b[1].strip() for b in sample_blocks]
+        lot_numbers = [b[2].strip() for b in sample_blocks]
+        def join_list(lst):
+            if not lst: return ""
+            if len(lst) == 1: return lst[0]
+            if len(lst) == 2: return f"{lst[0]} and {lst[1]}"
+            return ", ".join(lst[:-1]) + " and " + lst[-1]
+
+        st.session_state.sample_id = join_list(sample_ids)
+        st.session_state.sample_name = join_list(sample_names)
+        st.session_state.lot_number = join_list(lot_numbers)
+    else:
+        # Fallback regexes
+        if m := re.search(r"(ETX-\d{6}-\d{4})", text): st.session_state.sample_id = m.group(1).strip()
+        if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): st.session_state.sample_name = m.group(1).strip()
+        if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): st.session_state.lot_number = m.group(1).strip()
+
+    # Dates
+    if m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+        try: st.session_state.test_date = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
+        except: pass
+    elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+        try: st.session_state.test_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        except: pass
+
+    if m := re.search(r"processing set up\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+        try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+        except: pass
+
+    # Microorganisms
+    microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
+    if microbial_matches:
+        st.session_state.pos_bottle_count = len(microbial_matches)
+        for i, mid in enumerate(microbial_matches):
+            st.session_state[f"pos_id_{i}"] = mid.strip()
+            st.session_state[f"pos_org_{i}"] = "Pending"
+            st.session_state[f"pos_media_{i}"] = "TSB and FTM"
+
+    # Organism morphology
+    if m := re.search(r"(\w+)-shaped", text, re.I):
+        st.session_state.organism_morphology = m.group(1).strip()
+
+    save_current_state()
+
 # ================= UI LAYOUT =================
 st.title("🧪 USP <71> OOS Investigation")
+
+st.header("📧 Smart Email Import / 💾 Restore")
+email_input = st.text_area("Paste USP <71> Email Content OR Save File here:", height=150)
+if st.button("🪄 Parse / Restore"): 
+    parse_email_text(email_input)
+    st.success("Updated!")
+    st.rerun()
 
 st.header("1. General Test Details")
 c1, c2, c3, c4 = st.columns(4)
