@@ -214,6 +214,10 @@ def parse_only_email_text(text):
     elif m := re.search(r"(\w+)-shaped", text, re.I):
         parsed["organism_morphology"] = m.group(1).strip()
 
+    # Emails don't contain subculture details, explicitly clear them
+    parsed["subculture_initial"] = ""
+    parsed["subculture_name"] = ""
+
     # Merge: update persisted with parsed, save, and restore to session state
     persisted.update(parsed)
     save_state_to_file(persisted)
@@ -269,14 +273,21 @@ def parse_only_event_history(text):
 
     # 3. Subculture
     subculture_user = None
-    has_inconclusive = False
-    for line in lines:
-        if "sterility read" in line.lower() and "inconclusive" in line.lower():
-            has_inconclusive = True
-            parts = line.split("\t")
-            if len(parts) >= 3:
-                subculture_user = parts[2].strip()
-                break
+    has_inconclusive = "inconclusive" in text.lower()
+    if has_inconclusive:
+        for line in lines:
+            if "sterility read" in line.lower() and "inconclusive" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    subculture_user = parts[2].strip()
+                    break
+        if not subculture_user:
+            for line in lines:
+                if "inconclusive" in line.lower():
+                    parts = line.split("\t")
+                    if len(parts) >= 3:
+                        subculture_user = parts[2].strip()
+                        break
     
     if has_inconclusive and subculture_user:
         initial = username_to_initials(subculture_user)
