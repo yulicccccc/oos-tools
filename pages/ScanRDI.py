@@ -555,9 +555,49 @@ if st.session_state.report_generated:
     final_data_docx['Text Field50'] = smart_phase1_part2
 
     # --- P1 TEXT BLOCK CONSTRUCTION (FOR P2 USE) ---
+    # Collect and deduplicate analyst names preserving order
+    analysts_raw = [
+        st.session_state.get("prepper_name", ""),
+        st.session_state.get("analyst_name", ""),
+        st.session_state.get("reader_name", ""),
+    ]
+    analysts_clean = [str(x).strip() for x in analysts_raw if str(x).strip() and str(x).strip() != "N/A"]
+    analysts_unique = list(dict.fromkeys(analysts_clean))
+    
+    if not analysts_unique:
+        names_only_phrase = "N/A"
+        analysts_with_prefix_phrase = "the analysts"
+    elif len(analysts_unique) == 1:
+        names_only_phrase = analysts_unique[0]
+        analysts_with_prefix_phrase = f"analyst {analysts_unique[0]}"
+    elif len(analysts_unique) == 2:
+        names_only_phrase = f"{analysts_unique[0]} and {analysts_unique[1]}"
+        analysts_with_prefix_phrase = f"analysts {analysts_unique[0]} and {analysts_unique[1]}"
+    else:
+        names_only_phrase = ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
+        analysts_with_prefix_phrase = f"analysts " + ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
+
+    # Prepper & Processor deduplication for integrity sentence
+    prep_proc_raw = [
+        st.session_state.get("prepper_name", ""),
+        st.session_state.get("analyst_name", ""),
+    ]
+    prep_proc_clean = [str(x).strip() for x in prep_proc_raw if str(x).strip() and str(x).strip() != "N/A"]
+    prep_proc_unique = list(dict.fromkeys(prep_proc_clean))
+    
+    if not prep_proc_unique:
+        prep_proc_phrase = "the analysts"
+        prep_proc_noun = "Analysts"
+    elif len(prep_proc_unique) == 1:
+        prep_proc_phrase = prep_proc_unique[0]
+        prep_proc_noun = "Analyst"
+    else:
+        prep_proc_phrase = f"{prep_proc_unique[0]} and {prep_proc_unique[1]}"
+        prep_proc_noun = "Analysts"
+
     p1_text = (
-        f"All analysts involved in the prepping, processing, and reading of the samples – {st.session_state.prepper_name}, {st.session_state.analyst_name} and {st.session_state.reader_name} – were interviewed and their answers are recorded throughout this document.\n\n"
-        f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
+        f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document.\n\n"
+        f"The sample was stored upon arrival according to the Client’s instructions. {prep_proc_noun} {prep_proc_phrase} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
         f"All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates.\n\n"
         f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method.\n\n"
         f"{fresh_equip}\n\n"
@@ -572,7 +612,7 @@ if st.session_state.report_generated:
     )
     if fresh_det: p1_text = p1_text.replace(fresh_narr, fresh_narr + "\n\n" + fresh_det)
     st.session_state.phase1_full_text = p1_text # Save for P2
-
+ 
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
     if os.path.exists("ScanRDI OOS template 0.docx"):
         try:
@@ -594,17 +634,12 @@ if st.session_state.report_generated:
                                  f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
                                  f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})")
         smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
-        unique_analysts = []
-        if st.session_state.prepper_name: unique_analysts.append(st.session_state.prepper_name)
-        if st.session_state.analyst_name and st.session_state.analyst_name not in unique_analysts: unique_analysts.append(st.session_state.analyst_name)
-        if st.session_state.reader_name and st.session_state.reader_name not in unique_analysts: unique_analysts.append(st.session_state.reader_name)
-        names_str = "N/A" if not unique_analysts else unique_analysts[0] if len(unique_analysts)==1 else f"{unique_analysts[0]} and {unique_analysts[1]}" if len(unique_analysts)==2 else ", ".join(unique_analysts[:-1]) + " and " + unique_analysts[-1]
-        smart_comment_interview = f"Yes, analysts {names_str} were interviewed comprehensively."
+        smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
         smart_comment_samples = f"Yes, {st.session_state.sample_id}"
         smart_comment_records = f"Yes, See {tr_id} for more information."
         smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
-        p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_str} – were interviewed and their answers are recorded throughout this document."
-        p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {st.session_state.prepper_name} and {st.session_state.analyst_name} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+        p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document."
+        p2 = f"The sample was stored upon arrival according to the Client’s instructions. {prep_proc_noun} {prep_proc_phrase} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
         p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
         p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with SOP 2.600.023, Rapid Scan RDI® Test Using FIFU Method."
         p5 = fresh_equip
