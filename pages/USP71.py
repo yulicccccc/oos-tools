@@ -128,6 +128,20 @@ def parse_email_text(text):
         try: st.session_state.process_date = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
         except: pass
 
+    # Fallback: calculate process_date from test_date + incubation days (e.g. Day 02)
+    inc_days = None
+    if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
+        try: inc_days = int(m.group(1))
+        except: pass
+    
+    if st.session_state.get("test_date") and inc_days is not None and not st.session_state.get("process_date"):
+        try:
+            from datetime import timedelta
+            t_dt = datetime.strptime(st.session_state.test_date, "%d%b%y")
+            p_dt = t_dt + timedelta(days=inc_days)
+            st.session_state.process_date = p_dt.strftime("%d%b%y")
+        except: pass
+
     # Microorganisms positive ID and media
     if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
         st.session_state.pos_bottle_count = 1
