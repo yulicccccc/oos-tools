@@ -420,10 +420,8 @@ with p4:
     ul.auto_fill_name("subculture_initial", "subculture_name")
     st.text_input("Subculture Name", key="subculture_name")
 
-e1, e2 = st.columns(2)
 bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
-with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
-with e2: st.text_input("USP 71 Incubator ID(s)", key="usp71_id", help="e.g. E001234")
+st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
 
 st.header("3. USP 71 Findings")
 st.markdown("##### Media & Organism Identifications")
@@ -643,7 +641,8 @@ if st.session_state.report_generated:
             "analyst_name": st.session_state.analyst_name, "analyst_initial": st.session_state.analyst_initial,
             "reading_name": st.session_state.reading_name, "reading_initial": st.session_state.reading_initial,
             "subculture_name": st.session_state.subculture_name, "subculture_initial": st.session_state.subculture_initial,
-            "bsc_id": st.session_state.bsc_id, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
+            "bsc_id": st.session_state.bsc_id, "usp71_bsc": st.session_state.bsc_id,
+            "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
             "positive_media": st.session_state.positive_media, "positive_id": st.session_state.positive_id, "positive_org": st.session_state.positive_org,
             "monthly_cleaning_date": st.session_state.monthly_cleaning_date,
             "equipment_summary": fresh_equip, "narrative_summary": fresh_narr, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,
