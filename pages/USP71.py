@@ -650,9 +650,9 @@ if st.session_state.report_generated:
         p1 = f"All analysts involved in the {roles_phrase} of the {sample_noun} – {names_only_phrase} were interviewed comprehensively. Their answers are recorded throughout this document."
         
         if has_subculture:
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
         else:
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
         
         interview_comment = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
 
