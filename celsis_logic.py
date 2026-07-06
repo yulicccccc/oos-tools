@@ -14,10 +14,13 @@ FIELD_KEYS = [
     "control_lot", "control_data",
     "incidence_count", "has_prior_failures",
     "other_positives", "total_pos_count_num", "current_pos_order",
-    "pos_bottle_count"
+    "pos_bottle_count", "em_growth_observed", "em_growth_count",
+    "obs_pers", "etx_pers", "id_pers", "obs_surf", "etx_surf", "id_surf", 
+    "obs_sett", "etx_sett", "id_sett", "obs_air", "etx_air_weekly", "id_air_weekly", 
+    "obs_room", "etx_room_weekly", "id_room_wk_of"
 ]
 for i in range(10):
-    FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}"])
+    FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 for i in range(20):
     FIELD_KEYS.extend([f"other_id_{i}", f"other_order_{i}", f"prior_oos_{i}"])
 
