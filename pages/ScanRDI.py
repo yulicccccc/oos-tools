@@ -654,7 +654,7 @@ if st.session_state.report_generated:
             'Date Field1': pdf_date_str, 
             'Date Field2': pdf_date_str, 
             'Date Field3': pdf_date_str,
-            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 
+            'Text Field2': st.session_state.sample_id, 
             'Text Field6': st.session_state.lot_number, 
             'Text Field4': st.session_state.sample_name + "\n\n\n\n", 
             'Text Field5': st.session_state.dosage_form, 

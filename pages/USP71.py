@@ -747,7 +747,7 @@ if st.session_state.report_generated:
         pdf_map = {
             'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 
             'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
-            'Text Field2': f"{st.session_state.sample_id}\n\n{st.session_state.client_name}", 'Text Field6': st.session_state.lot_number, 
+            'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number, 
             'Text Field4': st.session_state.sample_name + "\n\n\n\n", 'Text Field5': st.session_state.dosage_form, 
             'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
             'Text Field13': word_data["smart_comment_interview"], 'Text Field14': word_data["smart_comment_samples"], 
