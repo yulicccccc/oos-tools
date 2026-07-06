@@ -6,7 +6,7 @@ import io
 import sys
 import subprocess
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
@@ -122,8 +122,8 @@ def save_state_to_file(data):
             json.dump(data, f)
     except: pass
 
-# --- 5. SMART EMAIL PARSER ---
-def parse_only_email_text(text):
+# --- 5. SMART COMBINED PARSER ---
+def parse_combined_text(text):
     # 1. TRY JSON LOAD (RESTORE FUNCTION)
     try:
         data = json.loads(text)
@@ -138,285 +138,257 @@ def parse_only_email_text(text):
     persisted = load_state_from_file()
     parsed = {}
 
-    # 2. NORMAL PARSING
-    if m := re.search(r"OOS-(\d+)", text): parsed["oos_id"] = m.group(1)
-    if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
-        parsed["client_name"] = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
-    
-    if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
-        initial = m.group(1).strip()
-        parsed["analyst_initial"] = initial
-        parsed["analyst_name"] = get_full_name(initial)
+    is_email = any(x in text.lower() for x in ["oos-", "day of testing", "day of incubation", "positive for", "results have shown"])
+    is_event = any(x in text.lower() for x in ["status changed", "sample prep", "sterility read", "incubation started", "sample positive"]) or "\t" in text
 
-    # Sample details
-    if m := re.search(r"(ETX-\d{6}-\d{4})", text): parsed["sample_id"] = m.group(1).strip()
-    if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): parsed["sample_name"] = m.group(1).strip()
-    if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): parsed["lot_number"] = m.group(1).strip()
-
-    # Dates
-    # Inoculation Date (stored in process_date)
-    if m := re.search(r"day of testing\s*\(\s*([^)]+)\)", text, re.IGNORECASE):
-        date_str = m.group(1).strip()
-        try: parsed["process_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
-        except: pass
-    elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
-        try: parsed["process_date"] = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
-        except: pass
-    elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
-        try: parsed["process_date"] = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
-        except: pass
-
-    # Reading Date / Incident Date (stored in test_date) from "as of 18 Jun 2026"
-    if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
-        date_str = m.group(1).strip()
-        try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
-        except: pass
-
-    # Fallback: calculate dates from each other using incubation time
-    inc_days = None
-    if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
-        try: 
-            inc_days = int(m.group(1))
-            parsed["incubation_time"] = str(inc_days)
-        except: pass
-    
-    process_date_val = parsed.get("process_date") or persisted.get("process_date") or st.session_state.get("process_date")
-    test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
-    
-    if inc_days is not None:
-        if test_date_val and not process_date_val:
-            try:
-                t_dt = datetime.strptime(test_date_val, "%d%b%y")
-                p_dt = t_dt - timedelta(days=inc_days)
-                parsed["process_date"] = p_dt.strftime("%d%b%y")
-            except: pass
-        elif process_date_val and not test_date_val:
-            try:
-                p_dt = datetime.strptime(process_date_val, "%d%b%y")
-                t_dt = p_dt + timedelta(days=inc_days)
-                parsed["test_date"] = t_dt.strftime("%d%b%y")
-            except: pass
-
-    # Microorganisms positive ID and media
-    if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
-        parsed["pos_bottle_count"] = 1
-        parsed["pos_id_0"] = m.group(1).strip()
-        parsed["pos_org_0"] = "Pending"
+    if is_email:
+        # Email parsing
+        if m := re.search(r"OOS-(\d+)", text): parsed["oos_id"] = m.group(1)
+        if m := re.search(r"^(?:.*\n)?(.*\bE\d{5}\b.*)$", text, re.MULTILINE): 
+            parsed["client_name"] = re.sub(r"^Client:\s*", "", m.group(1).strip(), flags=re.IGNORECASE)
         
-        # Check media type
-        if "tsb media" in text.lower() or "in tsb" in text.lower():
-            parsed["pos_media_0"] = "TSB"
-        elif "ftm media" in text.lower() or "in ftm" in text.lower():
-            parsed["pos_media_0"] = "FTM"
+        if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
+            initial = m.group(1).strip()
+            parsed["analyst_initial"] = initial
+            parsed["analyst_name"] = get_full_name(initial)
+
+        if m := re.search(r"(ETX-\d{6}-\d{4})", text): parsed["sample_id"] = m.group(1).strip()
+        if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): parsed["sample_name"] = m.group(1).strip()
+        if m := re.search(r"(?:Lot|Batch)\s*[:\.]?\s*([^\n\r]+)", text, re.I): parsed["lot_number"] = m.group(1).strip()
+
+        # Dates
+        if m := re.search(r"day of testing\s*\(\s*([^)]+)\)", text, re.IGNORECASE):
+            date_str = m.group(1).strip()
+            try: parsed["process_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+            except: pass
+        elif m := re.search(r"testing\s*on\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+            try: parsed["process_date"] = datetime.strptime(m.group(1).strip(), "%d %b %Y").strftime("%d%b%y")
+            except: pass
+        elif m := re.search(r"reading\s*\(\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})\s*\)", text, re.IGNORECASE):
+            try: parsed["process_date"] = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
+            except: pass
+
+        if m := re.search(r"as of\s*(\d{1,2}\s*[A-Za-z]{3}\s*\d{4})", text, re.IGNORECASE):
+            date_str = m.group(1).strip()
+            try: parsed["test_date"] = datetime.strptime(date_str, "%d %b %Y").strftime("%d%b%y")
+            except: pass
+
+        inc_days_email = None
+        if m := re.search(r"on Day\s*(\d+)\s*of incubation", text, re.IGNORECASE):
+            try: 
+                inc_days_email = int(m.group(1))
+                parsed["incubation_time"] = str(inc_days_email)
+            except: pass
+        
+        process_date_val = parsed.get("process_date") or persisted.get("process_date") or st.session_state.get("process_date")
+        test_date_val = parsed.get("test_date") or persisted.get("test_date") or st.session_state.get("test_date")
+        
+        if inc_days_email is not None:
+            if test_date_val and not process_date_val:
+                try:
+                    t_dt = datetime.strptime(test_date_val, "%d%b%y")
+                    p_dt = t_dt - timedelta(days=inc_days_email)
+                    parsed["process_date"] = p_dt.strftime("%d%b%y")
+                except: pass
+            elif process_date_val and not test_date_val:
+                try:
+                    p_dt = datetime.strptime(process_date_val, "%d%b%y")
+                    t_dt = p_dt + timedelta(days=inc_days_email)
+                    parsed["test_date"] = t_dt.strftime("%d%b%y")
+                except: pass
+
+        if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+            parsed["pos_bottle_count"] = 1
+            parsed["pos_id_0"] = m.group(1).strip()
+            parsed["pos_org_0"] = "Pending"
+            if "tsb media" in text.lower() or "in tsb" in text.lower():
+                parsed["pos_media_0"] = "TSB"
+            elif "ftm media" in text.lower() or "in ftm" in text.lower():
+                parsed["pos_media_0"] = "FTM"
+            else:
+                parsed["pos_media_0"] = "TSB and FTM"
         else:
-            parsed["pos_media_0"] = "TSB and FTM"
-    else:
-        # Fallback parsing
-        microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
-        if microbial_matches:
-            parsed["pos_bottle_count"] = len(microbial_matches)
-            for i, mid in enumerate(microbial_matches):
-                parsed[f"pos_id_{i}"] = mid.strip()
-                parsed[f"pos_org_{i}"] = "Pending"
-                parsed[f"pos_media_{i}"] = "TSB and FTM"
+            microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
+            if microbial_matches:
+                parsed["pos_bottle_count"] = len(microbial_matches)
+                for i, mid in enumerate(microbial_matches):
+                    parsed[f"pos_id_{i}"] = mid.strip()
+                    parsed[f"pos_org_{i}"] = "Pending"
+                    parsed[f"pos_media_{i}"] = "TSB and FTM"
 
-    # Organism morphology
-    if m := re.search(r"results have shown\s+([^\s]+(?: \(\+\)| \(\-\))? [^\s]+)", text, re.I):
-        parsed["organism_morphology"] = m.group(1).strip()
-    elif m := re.search(r"(\w+)-shaped", text, re.I):
-        parsed["organism_morphology"] = m.group(1).strip()
+        if m := re.search(r"results have shown\s+([^\s]+(?: \(\+\)| \(\-\))? [^\s]+)", text, re.I):
+            parsed["organism_morphology"] = m.group(1).strip()
+        elif m := re.search(r"(\w+)-shaped", text, re.I):
+            parsed["organism_morphology"] = m.group(1).strip()
 
-    # Emails don't contain subculture details, explicitly clear them
-    parsed["subculture_initial"] = ""
-    parsed["subculture_name"] = ""
+        # Only clear subculture if not parsing event history in the same run
+        if not is_event:
+            parsed["subculture_initial"] = ""
+            parsed["subculture_name"] = ""
 
-    # Merge: update persisted with parsed, save, and restore to session state
-    persisted.update(parsed)
-    save_state_to_file(persisted)
-    for k, v in persisted.items():
-        if k in field_keys: st.session_state[k] = v
-
-# --- 6. EVENT HISTORY PARSER ---
-def parse_only_event_history(text):
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-    persisted = load_state_from_file()
-    parsed = {}
-    
-    # 1. Prepper
-    prepper_user = None
-    for line in lines:
-        if "sample prep" in line.lower():
-            parts = line.split("\t")
-            if len(parts) >= 3:
-                prepper_user = parts[2].strip()
-                break
-    if prepper_user:
-        initial = username_to_initials(prepper_user)
-        parsed["prepper_initial"] = initial
-        parsed["prepper_name"] = get_full_name(initial)
-    else:
-        parsed["prepper_initial"] = ""
-        parsed["prepper_name"] = ""
-
-    # Processor
-    processor_user = None
-    for line in lines:
-        if "status changed" in line.lower() and "sample analysis" in line.lower():
-            parts = line.split("\t")
-            if len(parts) >= 3:
-                processor_user = parts[2].strip()
-                break
-    if not processor_user and prepper_user:
-        processor_user = prepper_user
-
-    if processor_user:
-        initial = username_to_initials(processor_user)
-        parsed["analyst_initial"] = initial
-        parsed["analyst_name"] = get_full_name(initial)
-
-    # 2. Reader (E.g. enioupin for positive read)
-    reader_user = None
-    inc_days = None
-    for line in lines:
-        if "sterility read" in line.lower() and "positive" in line.lower():
-            parts = line.split("\t")
-            if len(parts) >= 3:
-                reader_user = parts[2].strip()
-                day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
-                if day_match:
-                    inc_days = int(day_match.group(1))
-                    parsed["incubation_time"] = str(inc_days)
-                break
-    
-    if reader_user:
-        initial = username_to_initials(reader_user)
-        parsed["reading_initial"] = initial
-        parsed["reading_name"] = get_full_name(initial)
-
-    # 3. Subculture
-    subculture_user = None
-    has_inconclusive = "inconclusive" in text.lower()
-    if has_inconclusive:
+    if is_event:
+        # Event history parsing
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        
+        prepper_user = None
         for line in lines:
-            if "sterility read" in line.lower() and "inconclusive" in line.lower():
+            if "sample prep" in line.lower():
                 parts = line.split("\t")
                 if len(parts) >= 3:
-                    subculture_user = parts[2].strip()
+                    prepper_user = parts[2].strip()
                     break
-        if not subculture_user:
+        if prepper_user:
+            initial = username_to_initials(prepper_user)
+            parsed["prepper_initial"] = initial
+            parsed["prepper_name"] = get_full_name(initial)
+        else:
+            parsed["prepper_initial"] = ""
+            parsed["prepper_name"] = ""
+
+        processor_user = None
+        for line in lines:
+            if "status changed" in line.lower() and "sample analysis" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    processor_user = parts[2].strip()
+                    break
+        if not processor_user and prepper_user:
+            processor_user = prepper_user
+
+        if processor_user:
+            initial = username_to_initials(processor_user)
+            parsed["analyst_initial"] = initial
+            parsed["analyst_name"] = get_full_name(initial)
+
+        reader_user = None
+        inc_days_event = None
+        for line in lines:
+            if "sterility read" in line.lower() and "positive" in line.lower():
+                parts = line.split("\t")
+                if len(parts) >= 3:
+                    reader_user = parts[2].strip()
+                    day_match = re.search(r"Day:\s*(\d+)", parts[0], re.I)
+                    if day_match:
+                        inc_days_event = int(day_match.group(1))
+                        parsed["incubation_time"] = str(inc_days_event)
+                    break
+        
+        if reader_user:
+            initial = username_to_initials(reader_user)
+            parsed["reading_initial"] = initial
+            parsed["reading_name"] = get_full_name(initial)
+
+        subculture_user = None
+        has_inconclusive = "inconclusive" in text.lower()
+        if has_inconclusive:
             for line in lines:
-                if "inconclusive" in line.lower():
+                if "sterility read" in line.lower() and "inconclusive" in line.lower():
                     parts = line.split("\t")
                     if len(parts) >= 3:
                         subculture_user = parts[2].strip()
                         break
-    
-    if has_inconclusive and subculture_user:
-        initial = username_to_initials(subculture_user)
-        parsed["subculture_initial"] = initial
-        parsed["subculture_name"] = get_full_name(initial)
-    else:
-        parsed["subculture_initial"] = ""
-        parsed["subculture_name"] = ""
+            if not subculture_user:
+                for line in lines:
+                    if "inconclusive" in line.lower():
+                        parts = line.split("\t")
+                        if len(parts) >= 3:
+                            subculture_user = parts[2].strip()
+                            break
+        
+        if has_inconclusive and subculture_user:
+            initial = username_to_initials(subculture_user)
+            parsed["subculture_initial"] = initial
+            parsed["subculture_name"] = get_full_name(initial)
+        else:
+            parsed["subculture_initial"] = ""
+            parsed["subculture_name"] = ""
 
-    # 4. Dates
-    read_date_str = None
-    for line in lines:
-        if "sterility read" in line.lower() and "positive" in line.lower():
-            parts = line.split("\t")
-            if len(parts) >= 2:
-                date_part = parts[1].split()[0]
-                try:
-                    dt = datetime.strptime(date_part, "%m/%d/%Y")
-                    read_date_str = dt.strftime("%d%b%y")
-                except:
-                    try:
-                        dt = datetime.strptime(date_part, "%Y-%m-%d")
-                        read_date_str = dt.strftime("%d%b%y")
-                    except: pass
-                break
-    
-    if read_date_str:
-        parsed["test_date"] = read_date_str
-        if inc_days is not None:
-            try:
-                t_dt = datetime.strptime(read_date_str, "%d%b%y")
-                p_dt = t_dt - timedelta(days=inc_days)
-                parsed["process_date"] = p_dt.strftime("%d%b%y")
-            except: pass
-    else:
-        # Fallback to incubation started if no sterility read
-        inoc_date_str = None
+        read_date_str = None
         for line in lines:
-            if "incubation started" in line.lower():
+            if "sterility read" in line.lower() and "positive" in line.lower():
                 parts = line.split("\t")
                 if len(parts) >= 2:
                     date_part = parts[1].split()[0]
                     try:
                         dt = datetime.strptime(date_part, "%m/%d/%Y")
-                        inoc_date_str = dt.strftime("%d%b%y")
+                        read_date_str = dt.strftime("%d%b%y")
                     except:
                         try:
                             dt = datetime.strptime(date_part, "%Y-%m-%d")
-                            inoc_date_str = dt.strftime("%d%b%y")
+                            read_date_str = dt.strftime("%d%b%y")
                         except: pass
                     break
-        if inoc_date_str:
-            parsed["process_date"] = inoc_date_str
-            if inc_days is not None:
+        
+        if read_date_str:
+            parsed["test_date"] = read_date_str
+            if inc_days_event is not None:
                 try:
-                    p_dt = datetime.strptime(inoc_date_str, "%d%b%y")
-                    t_dt = p_dt + timedelta(days=inc_days)
-                    parsed["test_date"] = t_dt.strftime("%d%b%y")
+                    t_dt = datetime.strptime(read_date_str, "%d%b%y")
+                    p_dt = t_dt - timedelta(days=inc_days_event)
+                    parsed["process_date"] = p_dt.strftime("%d%b%y")
                 except: pass
+        else:
+            inoc_date_str = None
+            for line in lines:
+                if "incubation started" in line.lower():
+                    parts = line.split("\t")
+                    if len(parts) >= 2:
+                        date_part = parts[1].split()[0]
+                        try:
+                            dt = datetime.strptime(date_part, "%m/%d/%Y")
+                            inoc_date_str = dt.strftime("%d%b%y")
+                        except:
+                            try:
+                                dt = datetime.strptime(date_part, "%Y-%m-%d")
+                                inoc_date_str = dt.strftime("%d%b%y")
+                            except: pass
+                        break
+            if inoc_date_str:
+                parsed["process_date"] = inoc_date_str
+                if inc_days_event is not None:
+                    try:
+                        p_dt = datetime.strptime(inoc_date_str, "%d%b%y")
+                        t_dt = p_dt + timedelta(days=inc_days_event)
+                        parsed["test_date"] = t_dt.strftime("%d%b%y")
+                    except: pass
 
-    # 5. Media & ID & Sample ID
-    for line in lines:
-        if "status changed" in line.lower() and "sample positive" in line.lower():
-            parts = line.split("\t")[0]
-            m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
-            if m_id:
-                parsed["sample_id"] = m_id.group(1).strip()
-                break
-                
-    for line in lines:
-        if "incubation started" in line.lower():
-            parts = line.split("\t")[0]
-            m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
-            if m_media:
-                parsed["positive_media"] = m_media.group(1).strip()
-                break
+        for line in lines:
+            if "status changed" in line.lower() and "sample positive" in line.lower():
+                parts = line.split("\t")[0]
+                m_id = re.search(r"Sample Positive:\s*(ETX-\d{6}-\d{4})", parts, re.I)
+                if m_id:
+                    parsed["sample_id"] = m_id.group(1).strip()
+                    break
 
-    # Merge: update persisted with parsed, save, and restore to session state
-    persisted.update(parsed)
-    save_state_to_file(persisted)
-    for k, v in persisted.items():
-        if k in field_keys: st.session_state[k] = v
+        for line in lines:
+            if "incubation started" in line.lower():
+                parts = line.split("\t")[0]
+                m_media = re.search(r"Media:\s*(\w+)", parts, re.I)
+                if m_media:
+                    parsed["positive_media"] = m_media.group(1).strip()
+                    break
+
+    if is_email or is_event:
+        persisted.update(parsed)
+        save_state_to_file(persisted)
+        for k, v in persisted.items():
+            if k in field_keys: st.session_state[k] = v
 
 # ================= UI LAYOUT =================
 st.title("🧪 USP <71> OOS Investigation")
 
-col_left, col_right = st.columns(2)
-
-with col_left:
-    st.header("📧 Email Import / 💾 Restore")
-    email_input = st.text_area("Paste USP <71> Email Content OR Save File here:", height=150, key="email_import_text")
-    if st.button("🪄 Parse Email / Restore", key="email_parse_btn"):
-        if email_input.strip():
-            parse_only_email_text(email_input)
-            st.success("✅ Email/Session Loaded!")
-            time.sleep(1)
-            st.rerun()
-
-with col_right:
-    st.header("📋 Event History Import")
-    history_input = st.text_area("Paste Event History table here:", height=150, key="history_import_text")
-    if st.button("🪄 Parse Event History", key="history_parse_btn"):
-        if history_input.strip():
-            parse_only_event_history(history_input)
-            st.success("✅ Event History Parsed!")
-            time.sleep(1)
-            st.rerun()
+st.header("📥 Import & Restore Center")
+combined_input = st.text_area(
+    "Paste USP <71> Email Content, Event History, OR Save File Content here:", 
+    height=180, 
+    key="combined_import_text"
+)
+if st.button("🪄 Smart Parse / Restore", key="combined_parse_btn"):
+    if combined_input.strip():
+        parse_combined_text(combined_input)
+        st.success("✅ Content Parsed & Loaded!")
+        time.sleep(1)
+        st.rerun()
 
 st.divider()
 st.header("1. General Test Details")
