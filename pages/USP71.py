@@ -390,6 +390,88 @@ if st.button("🪄 Smart Parse / Restore", key="combined_parse_btn"):
         time.sleep(1)
         st.rerun()
 
+def create_table_pdf(data):
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter, landscape
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.enums import TA_CENTER
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter), rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=30)
+    styles = getSampleStyleSheet()
+    cell_style = ParagraphStyle('CellStyle', parent=styles['Normal'], fontSize=8, leading=10, alignment=TA_CENTER)
+    header_style = ParagraphStyle('HeaderStyle', parent=styles['Normal'], fontSize=8, leading=10, alignment=TA_CENTER, fontName='Helvetica-Bold')
+    def p(text, is_header=False): return Paragraph(str(text), header_style if is_header else cell_style)
+    elements = []
+    
+    elements.append(Paragraph(f"Appendix: Supplemental Tables for {data.get('sample_id', '')}", styles['Heading1']))
+    elements.append(Spacer(1, 15))
+    elements.append(Paragraph(f"Table 1: Information for {data.get('sample_id', '')} under investigation", styles['Heading2']))
+    elements.append(Spacer(1, 5))
+    
+    t1_headers = [p("Processing Analyst", True), p("Aliquoting Analyst", True), p("Sample ID", True), p("Related Microbial ID", True), p("Media with microbial growth", True), p("Microbial ID", True)]
+    t1_row = [p(data.get('analyst_name', '')), p(data.get('aliquoting_name', 'N/A')), p(data.get('sample_id', '')), p(data.get('positive_id', '')), p(data.get('positive_media', '')), p(data.get('positive_org', ''))]
+    t1 = Table([t1_headers, t1_row], colWidths=[130, 130, 110, 110, 130, 130])
+    t1.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5)
+    ]))
+    elements.append(t1)
+    elements.append(Spacer(1, 20))
+    
+    elements.append(Paragraph(f"Table 2: Environmental Monitoring from Processing Performed on {data.get('process_date', '')}", styles['Heading2']))
+    elements.append(Spacer(1, 5))
+    
+    t2_headers = [p(h, True) for h in ["Sampling Site", "Freq", "Date", "Analyst", "Day/Week(s)", "Observation*", "Plate ETX ID", "Microbial ID", "Notes"]]
+    
+    rows = []
+    # Personnel
+    rows.append([p("Personnel EM Bracketing", True)] + [""]*8)
+    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_pers_dur_pro', '')), p(data.get('be_etx_pers_dur_pro', '')), p(data.get('be_id_pers_dur_pro', '')), p("None")])
+    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_pers_dur_pro', '')), p(data.get('etx_pers_dur_pro', '')), p(data.get('id_pers_dur_pro', '')), p("None")])
+    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_pers_dur_pro', '')), p(data.get('af_etx_pers_dur_pro', '')), p(data.get('af_id_pers_dur_pro', '')), p("None")])
+    
+    # BSC
+    rows.append([p(f"Biological Safety Cabinet EM Bracketing ({data.get('bsc_id', '')})", True)] + [""]*8)
+    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_surf_dur_pro', '')), p(data.get('be_etx_surf_dur_pro', '')), p(data.get('be_id_surf_dur_pro', '')), p("None")])
+    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_surf_dur_pro', '')), p(data.get('etx_surf_dur_pro', '')), p(data.get('id_surf_dur_pro', '')), p("None")])
+    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_surf_dur_pro', '')), p(data.get('af_etx_surf_dur_pro', '')), p(data.get('af_id_surf_dur_pro', '')), p("None")])
+    
+    # Settling
+    rows.append([p("Settling Sampling of ISO 5", True)] + [""]*8)
+    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_sett_dur_pro', '')), p(data.get('be_etx_sett_dur_pro', '')), p(data.get('be_id_sett_dur_pro', '')), p("None")])
+    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_sett_dur_pro', '')), p(data.get('etx_sett_dur_pro', '')), p(data.get('id_sett_dur_pro', '')), p("None")])
+    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_sett_dur_pro', '')), p(data.get('af_etx_sett_dur_pro', '')), p(data.get('af_id_sett_dur_pro', '')), p("None")])
+    
+    # Weekly Air
+    rows.append([p("Weekly Active Air Sampling Bracketing", True)] + [""]*8)
+    rows.append([p("Active Air Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get('obs_air_wk_of', '')), p(data.get('etx_air_wk_of', '')), p(data.get('id_air_wk_of', '')), p("None")])
+    rows.append([p("Active Air Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get('obs_air_wk_of', '')), p(data.get('etx_air_wk_of', '')), p(data.get('id_air_wk_of', '')), p("None")])
+    
+    # Weekly Surface
+    rows.append([p("Surface Sampling of Anteroom and Cleanroom Bracketing", True)] + [""]*8)
+    rows.append([p("Surface Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get('obs_room_wk_of', '')), p(data.get('etx_room_wk_of', '')), p(data.get('id_room_wk_of', '')), p("None")])
+    rows.append([p("Surface Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get('obs_room_wk_of', '')), p(data.get('etx_room_wk_of', '')), p(data.get('id_room_wk_of', '')), p("None")])
+    
+    t2 = Table([t2_headers] + rows, colWidths=[150, 40, 60, 45, 130, 80, 80, 110, 45])
+    t2.setStyle(TableStyle([
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('SPAN', (0, 1), (-1, 1)),
+        ('BACKGROUND', (0, 5), (-1, 5), colors.whitesmoke), ('SPAN', (0, 5), (-1, 5)),
+        ('BACKGROUND', (0, 9), (-1, 9), colors.whitesmoke), ('SPAN', (0, 9), (-1, 9)),
+        ('BACKGROUND', (0, 13), (-1, 13), colors.whitesmoke), ('SPAN', (0, 13), (-1, 13)),
+        ('BACKGROUND', (0, 16), (-1, 16), colors.whitesmoke), ('SPAN', (0, 16), (-1, 16)),
+    ]))
+    elements.append(t2)
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
+
 st.divider()
 st.header("1. General Test Details")
 c1, c2, c3, c4 = st.columns(4)
@@ -729,6 +811,59 @@ if st.session_state.report_generated:
         }
 
         docx_buf, pdf_form_buf = None, None
+        tables_docx_buf, tables_pdf_buf = None, None
+
+        # --- CALCULATE TABLE SPECIFIC DATA ---
+        table_data = word_data.copy()
+        process_date_str = st.session_state.get("process_date", "")
+        before_test_val = ""
+        after_test_val = ""
+        if process_date_str:
+            try:
+                fmt = "%d%b%y" if len(process_date_str) <= 7 else "%d%b%Y"
+                p_dt = datetime.strptime(process_date_str, fmt)
+                before_dt = p_dt - timedelta(days=1)
+                after_dt = p_dt + timedelta(days=1)
+                before_test_val = before_dt.strftime("%d%b%y")
+                after_test_val = after_dt.strftime("%d%b%y")
+            except: pass
+            
+        table_data["before_test"] = before_test_val
+        table_data["after_test"] = after_test_val
+        table_data["test_date"] = process_date_str
+        
+        table_data["obs_pers_dur_pro"] = st.session_state.get("obs_pers_dur", "No Growth")
+        table_data["etx_pers_dur_pro"] = st.session_state.get("etx_pers_dur", "N/A")
+        table_data["id_pers_dur_pro"] = st.session_state.get("id_pers_dur", "N/A")
+        
+        table_data["obs_surf_dur_pro"] = st.session_state.get("obs_surf_dur", "No Growth")
+        table_data["etx_surf_dur_pro"] = st.session_state.get("etx_surf_dur", "N/A")
+        table_data["id_surf_dur_pro"] = st.session_state.get("id_surf_dur", "N/A")
+        
+        table_data["obs_sett_dur_pro"] = st.session_state.get("obs_sett_dur", "No Growth")
+        table_data["etx_sett_dur_pro"] = st.session_state.get("etx_sett_dur", "N/A")
+        table_data["id_sett_dur_pro"] = st.session_state.get("id_sett_dur", "N/A")
+        
+        for prefix in ["be_", "af_"]:
+            for suffix in ["pers_dur_pro", "surf_dur_pro", "sett_dur_pro"]:
+                table_data[f"{prefix}obs_{suffix}"] = "No Growth"
+                table_data[f"{prefix}etx_{suffix}"] = "N/A"
+                table_data[f"{prefix}id_{suffix}"] = "N/A"
+                
+        table_data["obs_air_wk_of"] = st.session_state.get("obs_air_wk_of", "No Growth")
+        table_data["etx_air_wk_of"] = st.session_state.get("etx_air_wk_of", "N/A")
+        table_data["id_air_wk_of"] = st.session_state.get("id_air_wk_of", "N/A")
+        
+        table_data["obs_room_wk_of"] = st.session_state.get("obs_room_wk_of", "No Growth")
+        table_data["etx_room_wk_of"] = st.session_state.get("etx_room_wk_of", "N/A")
+        table_data["id_room_wk_of"] = st.session_state.get("id_room_wk_of", "N/A")
+        
+        table_data["aliquoting_name"] = "N/A"
+        table_data["positive_id"] = st.session_state.get("positive_id", "N/A")
+        table_data["positive_media"] = st.session_state.get("positive_media", "N/A")
+        table_data["positive_org"] = st.session_state.get("positive_org", "N/A")
+
+        # --- 1. RENDER MAIN DOCX ---
         target_template = "USP71 OOS P1 template.docx"
         if not os.path.exists(target_template): target_template = "USP71 OOS P1 template 0.docx"
         if os.path.exists(target_template):
@@ -738,7 +873,19 @@ if st.session_state.report_generated:
                 doc.render(word_data); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
             except Exception as e: st.error(f"DOCX Error: {e}")
         else: st.warning(f"⚠️ Could not find {target_template}.")
+
+        # --- 2. RENDER TABLES DOCX ---
+        target_tables_template = "tables for 71.docx"
+        if not os.path.exists(target_tables_template): target_tables_template = "USP71 table.docx"
+        if os.path.exists(target_tables_template):
+            try:
+                from docxtpl import DocxTemplate
+                doc_tbl = DocxTemplate(target_tables_template)
+                doc_tbl.render(table_data); tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
+            except Exception as e: st.error(f"Tables DOCX Error: {e}")
+        else: st.warning(f"⚠️ Could not find {target_tables_template}.")
             
+        # --- 3. RENDER MAIN PDF ---
         if os.path.exists("USP71 OOS P1 template.pdf"):
             try:
                 from pypdf import PdfWriter
@@ -747,13 +894,21 @@ if st.session_state.report_generated:
                 pdf_form_buf = io.BytesIO(); writer.write(pdf_form_buf); pdf_form_buf.seek(0)
             except Exception as e: st.error(f"PDF Form Error: {e}")
 
-        st.success(f"✅ USP 71 Reports Generated! (Using {target_template})")
+        # --- 4. RENDER TABLES PDF ---
+        try:
+            tables_pdf_buf = create_table_pdf(table_data)
+        except Exception as e: st.error(f"Tables PDF Error: {e}")
+
+        st.success("✅ USP 71 Reports and Tables Generated!")
         st.markdown("### 📂 Download Reports")
-        c_dl1, c_dl2, c_dl3 = st.columns(3)
+        c_dl1, c_dl2 = st.columns(2)
         with c_dl1:
             if docx_buf: st.download_button("📄 USP 71 Report (doc)", docx_buf, f"{safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            if tables_docx_buf: st.download_button("📄 Tables (doc)", tables_docx_buf, f"Tables {safe_filename}.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         with c_dl2:
             if pdf_form_buf: st.download_button("🔴 USP 71 Report (pdf)", pdf_form_buf, f"{safe_filename}.pdf", "application/pdf")
-        with c_dl3:
-            current_data = {k: st.session_state[k] for k in field_keys if k in st.session_state}
-            st.download_button("💾 Save Session Data (.txt)", json.dumps(current_data, indent=2), f"SAVE_{safe_filename}.txt", "text/plain")
+            if tables_pdf_buf: st.download_button("🔴 Tables (pdf)", tables_pdf_buf, f"Tables {safe_filename}.pdf", "application/pdf")
+
+        st.markdown("---")
+        current_data = {k: st.session_state[k] for k in field_keys if k in st.session_state}
+        st.download_button("💾 Save Session Data (.txt)", json.dumps(current_data, indent=2), f"SAVE_{safe_filename}.txt", "text/plain")
