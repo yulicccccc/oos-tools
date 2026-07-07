@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back
+    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name
     import usp71_logic as ul
 except ImportError as e:
     st.error(f"Import Error: {e}")
@@ -18,6 +18,7 @@ except ImportError as e:
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
     def get_full_name(i): return i
     def get_business_day_back(d, n): return d
+    def clean_analyst_name(n): return n
 
 # --- 2. PAGE CONFIG & STYLING ---
 st.set_page_config(page_title="USP 71 Investigation", layout="wide")
@@ -62,6 +63,9 @@ def load_saved_state():
 
 def save_current_state():
     try:
+        for field in ["prepper_name", "analyst_name", "reading_name", "subculture_name"]:
+            if field in st.session_state:
+                st.session_state[field] = clean_analyst_name(st.session_state[field])
         data = {k: v for k, v in st.session_state.items() if k in field_keys}
         with open(STATE_FILE, "w") as f: json.dump(data, f)
     except: pass
@@ -150,7 +154,7 @@ def parse_combined_text(text):
         if m := re.search(r"\(\s*([A-Z]{2,3})\s*\d+[a-z]{2}\s*Sample\)", text): 
             initial = m.group(1).strip()
             parsed["analyst_initial"] = initial
-            parsed["analyst_name"] = get_full_name(initial)
+            parsed["analyst_name"] = clean_analyst_name(get_full_name(initial))
 
         if m := re.search(r"(ETX-\d{6}-\d{4})", text): parsed["sample_id"] = m.group(1).strip()
         if m := re.search(r"Sample\s*Name:\s*(.*)", text, re.I): parsed["sample_name"] = m.group(1).strip()
@@ -240,7 +244,7 @@ def parse_combined_text(text):
         if prepper_user:
             initial = username_to_initials(prepper_user)
             parsed["prepper_initial"] = initial
-            parsed["prepper_name"] = get_full_name(initial)
+            parsed["prepper_name"] = clean_analyst_name(get_full_name(initial))
         else:
             parsed["prepper_initial"] = ""
             parsed["prepper_name"] = ""
@@ -258,7 +262,7 @@ def parse_combined_text(text):
         if processor_user:
             initial = username_to_initials(processor_user)
             parsed["analyst_initial"] = initial
-            parsed["analyst_name"] = get_full_name(initial)
+            parsed["analyst_name"] = clean_analyst_name(get_full_name(initial))
 
         reader_user = None
         inc_days_event = None
@@ -276,7 +280,7 @@ def parse_combined_text(text):
         if reader_user:
             initial = username_to_initials(reader_user)
             parsed["reading_initial"] = initial
-            parsed["reading_name"] = get_full_name(initial)
+            parsed["reading_name"] = clean_analyst_name(get_full_name(initial))
 
         subculture_user = None
         has_inconclusive = "inconclusive" in text.lower()
@@ -298,7 +302,7 @@ def parse_combined_text(text):
         if has_inconclusive and subculture_user:
             initial = username_to_initials(subculture_user)
             parsed["subculture_initial"] = initial
-            parsed["subculture_name"] = get_full_name(initial)
+            parsed["subculture_name"] = clean_analyst_name(get_full_name(initial))
         else:
             parsed["subculture_initial"] = ""
             parsed["subculture_name"] = ""
@@ -719,9 +723,9 @@ if st.session_state.report_generated:
         p1 = f"All analysts involved in the {roles_phrase} of the {sample_noun} – {names_only_phrase} were interviewed comprehensively. Their answers are recorded throughout this document."
         
         if has_subculture:
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed. As a result, a subculture was initiated by analyst {st.session_state.subculture_name} to confirm the presence of viable microorganisms and to proceed with identification."
         else:
-            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
+            p8 = f"During the periodic visual inspections by analyst {st.session_state.reading_name}, macroscopic evidence of microbial growth was observed, confirming the presence of viable microorganisms and proceeding with identification."
         
         interview_comment = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
 
@@ -775,6 +779,12 @@ if st.session_state.report_generated:
         except Exception:
             pdf_date_str = st.session_state.test_date
 
+        try:
+            p_obj = datetime.strptime(st.session_state.process_date, "%d%b%y")
+            pdf_process_date_str = p_obj.strftime("%d-%b-%Y")
+        except Exception:
+            pdf_process_date_str = st.session_state.process_date
+
         word_data = {
             "test_date": st.session_state.test_date, "process_date": st.session_state.process_date, "received_data": received_date_str,
             "oos_id": st.session_state.oos_id, "client_name": st.session_state.client_name, "sample_id": st.session_state.sample_id,
@@ -794,7 +804,7 @@ if st.session_state.report_generated:
             "smart_comment_samples": f"Yes, {sample_noun} ID: {st.session_state.sample_id}",
             "smart_comment_records": f"Yes, Information is available in EagleTrax under {st.session_state.sample_id}",
             "smart_comment_storage": f"Yes, the {sample_noun} {sample_verb} stored as per client's instructions. Information is available in EagleTrax Sample Location History under {st.session_state.sample_id}",
-            "smart_scan_id": st.session_state.usp71_id, "smart_cr_id": f"E00{t_room} (CR{t_suite})",
+            "smart_scan_id": st.session_state.usp71_id, "smart_cr_id": f"CR{t_suite} (E00{t_room})",
             "smart_phase1_summary": smart_phase1_full, "smart_phase1_continued": "",
             "incubation_time": st.session_state.incubation_time, "usp71_id": st.session_state.usp71_id,
             "date_of_weekly": st.session_state.get("date_of_weekly", "N/A"), "weekly_initial": st.session_state.get("weekly_initial", "N/A"),
@@ -820,14 +830,14 @@ if st.session_state.report_generated:
                 word_data[k] = st.session_state[k]
 
         pdf_map = {
-            'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_date_str, 'Date Field1': pdf_date_str, 
+            'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_process_date_str, 'Date Field1': pdf_date_str, 
             'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
             'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number, 
             'Text Field4': st.session_state.sample_name + "\n\n\n\n", 'Text Field5': st.session_state.dosage_form, 
             'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
             'Text Field13': word_data["smart_comment_interview"], 'Text Field14': word_data["smart_comment_samples"], 
             'Text Field17': word_data["smart_comment_records"], 'Text Field21': word_data["smart_comment_storage"],
-            'Text Field30': f"E00{st.session_state.bsc_id}", 'Text Field32': word_data["smart_cr_id"], 
+            'Text Field30': f"ISO 5 BSC E00{st.session_state.bsc_id}", 'Text Field32': word_data["smart_cr_id"], 
             'Text Field34': st.session_state.usp71_id, 'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
         }
 

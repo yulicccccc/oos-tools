@@ -95,6 +95,15 @@ def get_full_name(initial):
     }
     return mapping.get(initial.strip().upper(), "")
 
+def clean_analyst_name(name):
+    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle"""
+    if not name:
+        return ""
+    n = str(name).strip()
+    if n.lower() in ["gabbie surber", "gabbie"]:
+        return "Gabrielle Surber"
+    return n
+
 def get_room_logic(bsc_id):
     """单双号规则推断洁净室编号 + 1798 强制拦截"""
     bsc_str = str(bsc_id).strip()
