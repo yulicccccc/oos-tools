@@ -68,7 +68,7 @@ def generate_usp71_equipment_text():
     bsc_id_str = str(st.session_state.bsc_id).strip()
     part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for sample processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
     
-    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} as per SOP 2.600.008 (USP <71> Sterility Test)."
+    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} as per SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
         
     return f"{part1}\n\n{part2} {usage_sent}"
 
@@ -149,7 +149,9 @@ def generate_usp71_history_text():
         elif len(pids) == 1: refs_str = pids[0]
         else: refs_str = ", ".join(pids[:-1]) + " and " + pids[-1]
         phrase = f"1 incident ({refs_str})" if len(pids) == 1 else f"{len(pids)} incidents ({refs_str})"
-    return f"Analyzing a 6-month sample history for {st.session_state.get('client_name', '[Client]')}, this specific analyte \"{st.session_state.get('sample_name', '[Sample]')}\" has had {phrase} using USP <71> / EP 2.6.1 sterility testing during this period."
+    s_name = st.session_state.get('sample_name', '[Sample]')
+    s_name_clean = re.sub(r'\[[^\]]+\]', '', s_name)
+    return f"Analyzing a 6-month sample history for {st.session_state.get('client_name', '[Client]')}, this specific analyte \"{s_name_clean}\" has had {phrase} using USP <71> / EP 2.6.1 Sterility Test during this period."
 
 def generate_usp71_cross_contam_text():
     if st.session_state.get("other_positives") == "No": 
