@@ -374,7 +374,22 @@ with c2:
     st.text_input("Sample Name", key="sample_name", help="Required")
     st.text_input("Lot Number", key="lot_number", help="Required")
 with c3: 
-    st.selectbox("Dosage Form", ["Injectable","Aqueous Solution","Liquid","Solution"], key="dosage_form")
+    current_dosage = st.session_state.get("dosage_form", "")
+    if not current_dosage:
+        current_dosage = "Injectable"
+    options = ["Injectable", "Liquid", "Solution", "Aqueous Solution", "Other"]
+    if "dosage_form_select" in st.session_state:
+        selected_dosage = st.selectbox("Dosage Form", options, key="dosage_form_select")
+    else:
+        idx = options.index(current_dosage) if current_dosage in options[:-1] else 4
+        selected_dosage = st.selectbox("Dosage Form", options, index=idx, key="dosage_form_select")
+    if selected_dosage == "Other":
+        prev_custom = st.session_state.get("dosage_form", "")
+        default_custom = prev_custom if prev_custom not in options[:-1] else ""
+        custom_val = st.text_input("Custom Dosage Form", value=default_custom, key="dosage_form_custom")
+        st.session_state.dosage_form = custom_val
+    else:
+        st.session_state.dosage_form = selected_dosage
     st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel")
