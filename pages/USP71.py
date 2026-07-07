@@ -751,7 +751,13 @@ if st.session_state.report_generated:
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         
         personnel_lines = []
-        if has_prepper:
+        p_name = st.session_state.prepper_name.strip().lower()
+        a_name = st.session_state.analyst_name.strip().lower()
+        p_init = st.session_state.prepper_initial.strip().lower()
+        a_init = st.session_state.analyst_initial.strip().lower()
+        is_same = (p_name == a_name) or (p_init and a_init and p_init == a_init)
+        
+        if has_prepper and not is_same:
             personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
         personnel_lines.extend([
             f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",

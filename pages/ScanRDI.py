@@ -645,10 +645,21 @@ if st.session_state.report_generated:
     try:
         from pypdf import PdfWriter, PdfReader
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
-        smart_personnel_block = (f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})\n\n"
-                                 f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})\n\n"
-                                 f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})\n\n"
-                                 f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})")
+        personnel_lines = []
+        p_name = st.session_state.prepper_name.strip().lower()
+        a_name = st.session_state.analyst_name.strip().lower()
+        p_init = st.session_state.prepper_initial.strip().lower()
+        a_init = st.session_state.analyst_initial.strip().lower()
+        is_same = (p_name == a_name) or (p_init and a_init and p_init == a_init)
+        
+        if not is_same:
+            personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
+        personnel_lines.extend([
+            f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
+            f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})",
+            f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})"
+        ])
+        smart_personnel_block = "\n\n".join(personnel_lines)
         smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
         smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
         smart_comment_samples = f"Yes, {st.session_state.sample_id}"
