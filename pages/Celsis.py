@@ -204,8 +204,30 @@ with p3:
 
 e1, e2 = st.columns(2)
 bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
-with e1: st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
-with e2: st.selectbox("Celsis Instrument ID", ["2222", "2011"], key="celsis_id")
+with e1:
+    current_bsc = st.session_state.get("bsc_id", "")
+    idx_bsc = bsc_list.index(current_bsc) if current_bsc in bsc_list[:-1] else len(bsc_list)-1
+    selected_bsc = st.selectbox("Processing BSC ID", bsc_list, index=idx_bsc, key="bsc_id_select")
+    if selected_bsc == "Other":
+        prev_custom_bsc = st.session_state.get("bsc_id", "")
+        default_custom_bsc = prev_custom_bsc if prev_custom_bsc not in bsc_list[:-1] else ""
+        custom_bsc = st.text_input("Custom BSC ID", value=default_custom_bsc, key="bsc_id_custom")
+        st.session_state.bsc_id = custom_bsc
+    else:
+        st.session_state.bsc_id = selected_bsc
+
+celsis_list = ["2222", "2011", "Other"]
+with e2:
+    current_celsis = st.session_state.get("celsis_id", "")
+    idx_celsis = celsis_list.index(current_celsis) if current_celsis in celsis_list[:-1] else len(celsis_list)-1
+    selected_celsis = st.selectbox("Celsis Instrument ID", celsis_list, index=idx_celsis, key="celsis_id_select")
+    if selected_celsis == "Other":
+        prev_custom_celsis = st.session_state.get("celsis_id", "")
+        default_custom_celsis = prev_custom_celsis if prev_custom_celsis not in celsis_list[:-1] else ""
+        custom_celsis = st.text_input("Custom Celsis ID", value=default_custom_celsis, key="celsis_id_custom")
+        st.session_state.celsis_id = custom_celsis
+    else:
+        st.session_state.celsis_id = selected_celsis
 
 st.header("3. Celsis Findings")
 st.markdown("##### Media & Organism Identifications")

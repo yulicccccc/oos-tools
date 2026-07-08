@@ -538,7 +538,16 @@ with p4:
     st.text_input("Subculture Name", key="subculture_name")
 
 bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
-st.selectbox("Processing BSC ID", bsc_list, key="bsc_id")
+current_bsc = st.session_state.get("bsc_id", "")
+idx_bsc = bsc_list.index(current_bsc) if current_bsc in bsc_list[:-1] else len(bsc_list)-1
+selected_bsc = st.selectbox("Processing BSC ID", bsc_list, index=idx_bsc, key="bsc_id_select")
+if selected_bsc == "Other":
+    prev_custom_bsc = st.session_state.get("bsc_id", "")
+    default_custom_bsc = prev_custom_bsc if prev_custom_bsc not in bsc_list[:-1] else ""
+    custom_bsc = st.text_input("Custom BSC ID", value=default_custom_bsc, key="bsc_id_custom")
+    st.session_state.bsc_id = custom_bsc
+else:
+    st.session_state.bsc_id = selected_bsc
 
 st.header("3. USP 71 Findings")
 st.markdown("##### Media & Organism Identifications")

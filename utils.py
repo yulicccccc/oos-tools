@@ -91,6 +91,7 @@ def get_full_name(initial):
         "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
         "AC": "Andrew Carrillo", "KC": "Kira C",
         "AA": "America Alanis",  # Celsis 主力
+        "ALA": "America Alanis", # Celsis 主力 (新/全局)
         "SMO": "SMO"             # EM 表格特定缩写
     }
     return mapping.get(initial.strip().upper(), "")
