@@ -131,9 +131,18 @@ def parse_email_text(text):
         try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
-    if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+    # Try multiple robust patterns to extract the microbial identification ETX ID
+    id_match = None
+    if m := re.search(r"identification\s+is\s+on[- ]?going\s+under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+        id_match = m.group(1).strip()
+    elif m := re.search(r"identification\s+under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+        id_match = m.group(1).strip()
+    elif m := re.search(r"on[- ]?going\s+under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+        id_match = m.group(1).strip()
+
+    if id_match:
         st.session_state.pos_bottle_count = 1
-        st.session_state.pos_id_0 = m.group(1).strip()
+        st.session_state.pos_id_0 = id_match
         st.session_state.pos_org_0 = "Pending"
         if "tsb media" in text.lower() or "in tsb" in text.lower():
             st.session_state.pos_media_0 = "TSB"
