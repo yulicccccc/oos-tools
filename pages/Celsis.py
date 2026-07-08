@@ -186,11 +186,11 @@ with c3:
     current_dosage = st.session_state.get("dosage_form", "")
     if not current_dosage:
         current_dosage = "Injectable"
-    options = ["Injectable", "Liquid", "Solution", "Aqueous Solution", "Other"]
+    options = ["Injectable", "Liquid", "Solution", "Aqueous Solution", "Lyophilized", "Other"]
     if "dosage_form_select" in st.session_state:
         selected_dosage = st.selectbox("Dosage Form", options, key="dosage_form_select")
     else:
-        idx = options.index(current_dosage) if current_dosage in options[:-1] else 4
+        idx = options.index(current_dosage) if current_dosage in options[:-1] else 5
         selected_dosage = st.selectbox("Dosage Form", options, index=idx, key="dosage_form_select")
     if selected_dosage == "Other":
         prev_custom = st.session_state.get("dosage_form", "")
