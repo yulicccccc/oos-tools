@@ -131,13 +131,24 @@ def parse_email_text(text):
         try: st.session_state.process_date = datetime.strptime(m.group(1).replace(" ", ""), "%d%b%Y").strftime("%d%b%y")
         except: pass
 
-    microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
-    if microbial_matches:
-        st.session_state.pos_bottle_count = len(microbial_matches)
-        for i, mid in enumerate(microbial_matches):
-            st.session_state[f"pos_id_{i}"] = mid.strip()
-            st.session_state[f"pos_org_{i}"] = "Pending"
-            st.session_state[f"pos_media_{i}"] = "TSB and FTM"
+    if m := re.search(r"identification is on-going under\s*(ETX-\d{6}-\d{4})", text, re.IGNORECASE):
+        st.session_state.pos_bottle_count = 1
+        st.session_state.pos_id_0 = m.group(1).strip()
+        st.session_state.pos_org_0 = "Pending"
+        if "tsb media" in text.lower() or "in tsb" in text.lower():
+            st.session_state.pos_media_0 = "TSB"
+        elif "ftm media" in text.lower() or "in ftm" in text.lower():
+            st.session_state.pos_media_0 = "FTM"
+        else:
+            st.session_state.pos_media_0 = "TSB and FTM"
+    else:
+        microbial_matches = re.findall(r"(ETX-\d{6}-\d{4})\s*\(for", text, re.IGNORECASE)
+        if microbial_matches:
+            st.session_state.pos_bottle_count = len(microbial_matches)
+            for i, mid in enumerate(microbial_matches):
+                st.session_state[f"pos_id_{i}"] = mid.strip()
+                st.session_state[f"pos_org_{i}"] = "Pending"
+                st.session_state[f"pos_media_{i}"] = "TSB and FTM"
 
     if st.session_state.get("process_date"):
         m_date = get_monthly_cleaning_date(st.session_state.process_date)
