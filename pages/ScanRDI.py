@@ -10,10 +10,11 @@ from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic
+    from utils import apply_eagle_style, get_room_logic, get_monthly_cleaning_date
 except ImportError:
     def apply_eagle_style(): pass
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
+    def get_monthly_cleaning_date(d): return ""
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="ScanRDI Investigation", layout="wide")
@@ -354,6 +355,12 @@ def parse_email_text(text):
         if "cocci" in found_shape: st.session_state.org_choice = "cocci"
         elif "rod" in found_shape: st.session_state.org_choice = "rod"
         else: st.session_state.org_choice = "Other"; st.session_state.manual_org = found_shape
+
+    if st.session_state.get("test_date"):
+        m_date = get_monthly_cleaning_date(st.session_state.test_date)
+        if m_date:
+            st.session_state.monthly_cleaning_date = m_date
+
     save_current_state()
 
 st.title("🦠 ScanRDI Investigation")
