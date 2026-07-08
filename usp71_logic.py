@@ -17,7 +17,7 @@ FIELD_KEYS = [
     "organism_morphology", "positive_id", "positive_media", "positive_org", "prepper_initial", 
     "prepper_name", "process_date", "reader_name", "reading_initial", "reading_name", 
     "received_data", "sample_history_paragraph", "sample_id", "sample_name", 
-    "subculture_initial", "subculture_name", "suit", "test_date", "usp71_id", "weekly_initial"
+    "subculture_initial", "subculture_name", "suit", "test_date", "usp71_id", "weekly_initial", "testing_method"
 ]
 for i in range(10):
     FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
