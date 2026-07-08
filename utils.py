@@ -105,6 +105,41 @@ def clean_analyst_name(name):
         return "Gabrielle Surber"
     return n
 
+def get_monthly_cleaning_date(process_date_str):
+    """根据接种日期计算最邻近且已发生（<= process_date）的当月或上月最后一个星期天"""
+    if not process_date_str:
+        return ""
+    try:
+        process_date_str = str(process_date_str).strip()
+        fmt = "%d%b%y" if len(process_date_str) <= 7 else "%d%b%Y"
+        p_date = datetime.strptime(process_date_str, fmt)
+    except Exception:
+        return ""
+
+    def last_sunday_of_month(year, month):
+        import calendar
+        last_day = calendar.monthrange(year, month)[1]
+        dt = datetime(year, month, last_day)
+        # Python weekday: 0=Monday, 6=Sunday
+        offset = (dt.weekday() - 6) % 7
+        return dt - timedelta(days=offset)
+
+    # 1. 检查当月最后一个星期天是否已发生
+    s_current = last_sunday_of_month(p_date.year, p_date.month)
+    if s_current <= p_date:
+        res_date = s_current
+    else:
+        # 2. 如果未发生，则取上个月最后一个星期天
+        if p_date.month == 1:
+            prev_year = p_date.year - 1
+            prev_month = 12
+        else:
+            prev_year = p_date.year
+            prev_month = p_date.month - 1
+        res_date = last_sunday_of_month(prev_year, prev_month)
+
+    return res_date.strftime("%d%b%y")
+
 def get_room_logic(bsc_id):
     """单双号规则推断洁净室编号 + 1798 强制拦截"""
     bsc_str = str(bsc_id).strip()

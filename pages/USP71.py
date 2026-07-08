@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name
+    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name, get_monthly_cleaning_date
     import usp71_logic as ul
 except ImportError as e:
     st.error(f"Import Error: {e}")
@@ -19,6 +19,7 @@ except ImportError as e:
     def get_full_name(i): return i
     def get_business_day_back(d, n): return d
     def clean_analyst_name(n): return n
+    def get_monthly_cleaning_date(d): return ""
 
 # --- 2. PAGE CONFIG & STYLING ---
 st.set_page_config(page_title="USP 71 Investigation", layout="wide")
@@ -373,6 +374,11 @@ def parse_combined_text(text):
                     break
 
     if is_email or is_event:
+        p_date = parsed.get("process_date") or persisted.get("process_date")
+        if p_date:
+            m_date = get_monthly_cleaning_date(p_date)
+            if m_date:
+                parsed["monthly_cleaning_date"] = m_date
         persisted.update(parsed)
         save_state_to_file(persisted)
         for k, v in persisted.items():

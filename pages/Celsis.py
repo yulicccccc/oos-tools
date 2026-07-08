@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back
+    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name, get_monthly_cleaning_date
     import celsis_logic as cl
 except ImportError as e:
     st.error(f"Import Error: {e}")
@@ -19,6 +19,8 @@ except ImportError as e:
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
     def get_full_name(i): return i
     def get_business_day_back(d, n): return d
+    def clean_analyst_name(n): return n
+    def get_monthly_cleaning_date(d): return ""
 
 # --- 2. PAGE CONFIG & STYLING ---
 st.set_page_config(page_title="Celsis Investigation", layout="wide")
@@ -136,6 +138,11 @@ def parse_email_text(text):
             st.session_state[f"pos_id_{i}"] = mid.strip()
             st.session_state[f"pos_org_{i}"] = "Pending"
             st.session_state[f"pos_media_{i}"] = "TSB and FTM"
+
+    if st.session_state.get("process_date"):
+        m_date = get_monthly_cleaning_date(st.session_state.process_date)
+        if m_date:
+            st.session_state.monthly_cleaning_date = m_date
 
     save_current_state()
 
