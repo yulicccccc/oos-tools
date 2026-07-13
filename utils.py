@@ -187,9 +187,9 @@ def get_cleanroom_narrative(suite, t_room=None, action_text="processing procedur
             header = f"The cleanroom used for {action_text} (L-Suite)"
             
         return (
-            f"{header} {verb} four interconnected rooms: the innermost ISO 7 cleanroom (145), "
-            f"which {opens_or_connects} the adjacent ISO 7 buffer cleanroom (144), followed by "
-            f"ISO 8 anteroom 143 and the outermost ISO 8 room 142. A positive air pressure system "
+            f"{header} {verb} four interconnected rooms: the innermost ISO 7 cleanroom E001979 (145), "
+            f"which {opens_or_connects} the adjacent ISO 7 buffer cleanroom E001978 (144), followed by "
+            f"ISO 8 anteroom E001977 (143) and the outermost ISO 8 room E001976 (142). A positive air pressure system "
             f"is maintained throughout the suite to ensure controlled, unidirectional airflow from 145 "
             f"through 144 and 143 into 142."
         )
