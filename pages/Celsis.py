@@ -262,9 +262,9 @@ f1, f2, f3 = st.columns(3)
 with f1:
     st.number_input("Total Positive Bottles", min_value=1, max_value=10, key="pos_bottle_count")
 with f2:
-    st.text_input("ATP Control Lot", key="control_lot")
+    st.text_input("ATP Control Lot", value="122501-1483", key="control_lot")
 with f3:
-    st.text_input("ATP Control Exp", key="control_data")
+    st.text_input("ATP Control Exp", value="Oct 2026", key="control_data")
 
 st.caption("Please specify the details for EACH positive bottle below:")
 for i in range(st.session_state.pos_bottle_count):
