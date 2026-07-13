@@ -653,17 +653,12 @@ if st.session_state.report_generated:
         
         # --- EM data: read directly from session_state (set by celsis_logic.py) ---
         for phase in ["pro_", "alq_"]:
-            # Daily EM (personnel, surface, settling) × (before, of, after)
-            for em_type in ["pers", "surf", "sett"]:
-                for day_prefix in ["be_", "", "af_"]:
+            # Daily EM and Weekly EM now both use 3 timings: be_, on_, af_
+            for em_type in ["pers", "surf", "sett", "air_wk", "room_wk"]:
+                for day_prefix in ["be_", "on_", "af_"]:
                     for field in ["obs", "etx", "id"]:
                         key = f"{phase}{day_prefix}{field}_{em_type}"
                         table_data[key] = st.session_state.get(key, "No Growth" if field == "obs" else "N/A")
-            # Weekly EM (air, room) × (wk, wk2)
-            for wk_type in ["air_wk", "air_wk2", "room_wk", "room_wk2"]:
-                for field in ["obs", "etx", "id"]:
-                    key = f"{phase}{field}_{wk_type}"
-                    table_data[key] = st.session_state.get(key, "No Growth" if field == "obs" else "N/A")
         
         table_data["positive_id"] = st.session_state.get("positive_id", "N/A")
         table_data["positive_media"] = st.session_state.get("positive_media", "N/A")

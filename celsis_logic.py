@@ -160,13 +160,13 @@ def generate_celsis_narrative_and_details():
 
     def get_phase_text(p): return "processing step" if p == "pro_" else "aliquoting step"
     def get_daily_time(d): return "on the date before testing" if d == "be_" else "on the date after testing" if d == "af_" else "on the date of testing"
-    def get_weekly_time(s): return "during the week before testing date" if s == "" else "during the week on or after testing date"
+    def get_weekly_time(d): return "during the week before testing date" if d == "be_" else "during the week after testing date" if d == "af_" else "during the week on testing date"
 
-    pers_variants = [(f"{p}{d}obs_pers", f"{p}{d}etx_pers", f"{p}{d}id_pers", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","","af_"]]
-    surf_variants = [(f"{p}{d}obs_surf", f"{p}{d}etx_surf", f"{p}{d}id_surf", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","","af_"]]
-    sett_variants = [(f"{p}{d}obs_sett", f"{p}{d}etx_sett", f"{p}{d}id_sett", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","","af_"]]
-    air_variants  = [(f"{p}obs_air_wk{s}", f"{p}etx_air_wk{s}", f"{p}id_air_wk{s}", get_phase_text(p), get_weekly_time(s)) for p in ["pro_","alq_"] for s in ["","2"]]
-    room_variants = [(f"{p}obs_room_wk{s}", f"{p}etx_room_wk{s}", f"{p}id_room_wk{s}", get_phase_text(p), get_weekly_time(s)) for p in ["pro_","alq_"] for s in ["","2"]]
+    pers_variants = [(f"{p}{d}obs_pers", f"{p}{d}etx_pers", f"{p}{d}id_pers", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
+    surf_variants = [(f"{p}{d}obs_surf", f"{p}{d}etx_surf", f"{p}{d}id_surf", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
+    sett_variants = [(f"{p}{d}obs_sett", f"{p}{d}etx_sett", f"{p}{d}id_sett", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
+    air_variants  = [(f"{p}{d}obs_air_wk", f"{p}{d}etx_air_wk", f"{p}{d}id_air_wk", get_phase_text(p), get_weekly_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
+    room_variants = [(f"{p}{d}obs_room_wk", f"{p}{d}etx_room_wk", f"{p}{d}id_room_wk", get_phase_text(p), get_weekly_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
 
     pers_obs_keys = [v[0] for v in pers_variants]
     surf_obs_keys = [v[0] for v in surf_variants]
