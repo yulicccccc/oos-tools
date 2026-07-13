@@ -283,8 +283,22 @@ if st.session_state.em_growth_observed == "Yes":
     count = st.number_input("Count of Growth Events", 1, 10, key="em_growth_count")
     for i in range(count):
         st.subheader(f"Growth Event #{i+1}")
-        col1, col2, col3, col4 = st.columns(4)
-        with col1: st.selectbox(f"Category", ["Personnel Obs", "Surface Obs", "Settling Obs", "Weekly Air Obs", "Weekly Surf Obs"], key=f"em_cat_{i}")
+        em_categories = [
+            "--- Processing ---",
+            "Pro: Personnel (Before Testing)", "Pro: Personnel (Date of Testing)", "Pro: Personnel (After Testing)",
+            "Pro: Surface (Before Testing)", "Pro: Surface (Date of Testing)", "Pro: Surface (After Testing)",
+            "Pro: Settling (Before Testing)", "Pro: Settling (Date of Testing)", "Pro: Settling (After Testing)",
+            "Pro: Weekly Air (Before Testing Date)", "Pro: Weekly Air (On/After Testing Date)",
+            "Pro: Weekly Surf (Before Testing Date)", "Pro: Weekly Surf (On/After Testing Date)",
+            "--- Aliquoting ---",
+            "Alq: Personnel (Before Testing)", "Alq: Personnel (Date of Testing)", "Alq: Personnel (After Testing)",
+            "Alq: Surface (Before Testing)", "Alq: Surface (Date of Testing)", "Alq: Surface (After Testing)",
+            "Alq: Settling (Before Testing)", "Alq: Settling (Date of Testing)", "Alq: Settling (After Testing)",
+            "Alq: Weekly Air (Before Testing Date)", "Alq: Weekly Air (On/After Testing Date)",
+            "Alq: Weekly Surf (Before Testing Date)", "Alq: Weekly Surf (On/After Testing Date)",
+        ]
+        col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
+        with col1: st.selectbox(f"Category", em_categories, key=f"em_cat_{i}")
         with col2: st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
         with col3: st.text_input(f"ETX ID", key=f"em_etx_{i}")
         with col4: st.text_input(f"Microbial ID", key=f"em_id_{i}")
@@ -614,46 +628,19 @@ if st.session_state.report_generated:
         table_data["alq_date_of_weekly"] = st.session_state.get("date_of_weekly", "")
         table_data["alq_bsc_id"] = "1798"
         
-        # --- Processing EM (daily: Date of Testing row gets real data, before/after default to No Growth) ---
-        table_data["pro_obs_pers"] = st.session_state.get("obs_pers", "No Growth")
-        table_data["pro_etx_pers"] = st.session_state.get("etx_pers", "N/A")
-        table_data["pro_id_pers"] = st.session_state.get("id_pers", "N/A")
-        table_data["pro_obs_surf"] = st.session_state.get("obs_surf", "No Growth")
-        table_data["pro_etx_surf"] = st.session_state.get("etx_surf", "N/A")
-        table_data["pro_id_surf"] = st.session_state.get("id_surf", "N/A")
-        table_data["pro_obs_sett"] = st.session_state.get("obs_sett", "No Growth")
-        table_data["pro_etx_sett"] = st.session_state.get("etx_sett", "N/A")
-        table_data["pro_id_sett"] = st.session_state.get("id_sett", "N/A")
-        for day_prefix in ["be_", "af_"]:
+        # --- EM data: read directly from session_state (set by celsis_logic.py) ---
+        for phase in ["pro_", "alq_"]:
+            # Daily EM (personnel, surface, settling) × (before, of, after)
             for em_type in ["pers", "surf", "sett"]:
-                table_data[f"pro_{day_prefix}obs_{em_type}"] = "No Growth"
-                table_data[f"pro_{day_prefix}etx_{em_type}"] = "N/A"
-                table_data[f"pro_{day_prefix}id_{em_type}"] = "N/A"
-        
-        # --- Processing EM (weekly) ---
-        table_data["pro_obs_air_wk"] = st.session_state.get("obs_air", "No Growth")
-        table_data["pro_etx_air_wk"] = st.session_state.get("etx_air_weekly", "N/A")
-        table_data["pro_id_air_wk"] = st.session_state.get("id_air_weekly", "N/A")
-        table_data["pro_obs_air_wk2"] = st.session_state.get("obs_air", "No Growth")
-        table_data["pro_etx_air_wk2"] = st.session_state.get("etx_air_weekly", "N/A")
-        table_data["pro_id_air_wk2"] = st.session_state.get("id_air_weekly", "N/A")
-        table_data["pro_obs_room_wk"] = st.session_state.get("obs_room", "No Growth")
-        table_data["pro_etx_room_wk"] = st.session_state.get("etx_room_weekly", "N/A")
-        table_data["pro_id_room_wk"] = st.session_state.get("id_room_wk_of", "N/A")
-        table_data["pro_obs_room_wk2"] = st.session_state.get("obs_room", "No Growth")
-        table_data["pro_etx_room_wk2"] = st.session_state.get("etx_room_weekly", "N/A")
-        table_data["pro_id_room_wk2"] = st.session_state.get("id_room_wk_of", "N/A")
-        
-        # --- Aliquoting EM (default all to No Growth / N/A) ---
-        for em_type in ["pers", "surf", "sett"]:
-            for day_prefix in ["", "be_", "af_"]:
-                table_data[f"alq_{day_prefix}obs_{em_type}"] = "No Growth"
-                table_data[f"alq_{day_prefix}etx_{em_type}"] = "N/A"
-                table_data[f"alq_{day_prefix}id_{em_type}"] = "N/A"
-        for wk_suffix in ["air_wk", "air_wk2", "room_wk", "room_wk2"]:
-            table_data[f"alq_obs_{wk_suffix}"] = "No Growth"
-            table_data[f"alq_etx_{wk_suffix}"] = "N/A"
-            table_data[f"alq_id_{wk_suffix}"] = "N/A"
+                for day_prefix in ["be_", "", "af_"]:
+                    for field in ["obs", "etx", "id"]:
+                        key = f"{phase}{day_prefix}{field}_{em_type}"
+                        table_data[key] = st.session_state.get(key, "No Growth" if field == "obs" else "N/A")
+            # Weekly EM (air, room) × (wk, wk2)
+            for wk_type in ["air_wk", "air_wk2", "room_wk", "room_wk2"]:
+                for field in ["obs", "etx", "id"]:
+                    key = f"{phase}{field}_{wk_type}"
+                    table_data[key] = st.session_state.get(key, "No Growth" if field == "obs" else "N/A")
         
         table_data["positive_id"] = st.session_state.get("positive_id", "N/A")
         table_data["positive_media"] = st.session_state.get("positive_media", "N/A")

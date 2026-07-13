@@ -15,10 +15,14 @@ FIELD_KEYS = [
     "incidence_count", "has_prior_failures",
     "other_positives", "total_pos_count_num", "current_pos_order",
     "pos_bottle_count", "em_growth_observed", "em_growth_count",
-    "obs_pers", "etx_pers", "id_pers", "obs_surf", "etx_surf", "id_surf", 
-    "obs_sett", "etx_sett", "id_sett", "obs_air", "etx_air_weekly", "id_air_weekly", 
-    "obs_room", "etx_room_weekly", "id_room_wk_of"
 ]
+# Add all prefixed EM keys for session save/restore
+for _phase in ["pro_", "alq_"]:
+    for _em in ["pers", "surf", "sett"]:
+        for _day in ["be_", "", "af_"]:
+            FIELD_KEYS.extend([f"{_phase}{_day}obs_{_em}", f"{_phase}{_day}etx_{_em}", f"{_phase}{_day}id_{_em}"])
+    for _wk in ["air_wk", "air_wk2", "room_wk", "room_wk2"]:
+        FIELD_KEYS.extend([f"{_phase}obs_{_wk}", f"{_phase}etx_{_wk}", f"{_phase}id_{_wk}"])
 for i in range(10):
     FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
 for i in range(20):
@@ -109,12 +113,42 @@ def generate_celsis_equipment_text():
 
 def generate_celsis_narrative_and_details():
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
+    
+    # Expanded mapping: category label → (obs_key, etx_key, id_key) in session_state
+    # Pro = Processing phase, Alq = Aliquoting phase
+    # Daily EM: be_ = before testing, (none) = date of testing, af_ = after testing
+    # Weekly EM: wk = before testing date, wk2 = on/after testing date
     fixed_map = {
-        "Personnel Obs": ("obs_pers", "etx_pers", "id_pers"), 
-        "Surface Obs": ("obs_surf", "etx_surf", "id_surf"), 
-        "Settling Obs": ("obs_sett", "etx_sett", "id_sett"), 
-        "Weekly Air Obs": ("obs_air", "etx_air_weekly", "id_air_weekly"), 
-        "Weekly Surf Obs": ("obs_room", "etx_room_weekly", "id_room_wk_of")
+        # --- Processing Daily ---
+        "Pro: Personnel (Before Testing)": ("pro_be_obs_pers", "pro_be_etx_pers", "pro_be_id_pers"),
+        "Pro: Personnel (Date of Testing)": ("pro_obs_pers", "pro_etx_pers", "pro_id_pers"),
+        "Pro: Personnel (After Testing)": ("pro_af_obs_pers", "pro_af_etx_pers", "pro_af_id_pers"),
+        "Pro: Surface (Before Testing)": ("pro_be_obs_surf", "pro_be_etx_surf", "pro_be_id_surf"),
+        "Pro: Surface (Date of Testing)": ("pro_obs_surf", "pro_etx_surf", "pro_id_surf"),
+        "Pro: Surface (After Testing)": ("pro_af_obs_surf", "pro_af_etx_surf", "pro_af_id_surf"),
+        "Pro: Settling (Before Testing)": ("pro_be_obs_sett", "pro_be_etx_sett", "pro_be_id_sett"),
+        "Pro: Settling (Date of Testing)": ("pro_obs_sett", "pro_etx_sett", "pro_id_sett"),
+        "Pro: Settling (After Testing)": ("pro_af_obs_sett", "pro_af_etx_sett", "pro_af_id_sett"),
+        # --- Processing Weekly ---
+        "Pro: Weekly Air (Before Testing Date)": ("pro_obs_air_wk", "pro_etx_air_wk", "pro_id_air_wk"),
+        "Pro: Weekly Air (On/After Testing Date)": ("pro_obs_air_wk2", "pro_etx_air_wk2", "pro_id_air_wk2"),
+        "Pro: Weekly Surf (Before Testing Date)": ("pro_obs_room_wk", "pro_etx_room_wk", "pro_id_room_wk"),
+        "Pro: Weekly Surf (On/After Testing Date)": ("pro_obs_room_wk2", "pro_etx_room_wk2", "pro_id_room_wk2"),
+        # --- Aliquoting Daily ---
+        "Alq: Personnel (Before Testing)": ("alq_be_obs_pers", "alq_be_etx_pers", "alq_be_id_pers"),
+        "Alq: Personnel (Date of Testing)": ("alq_obs_pers", "alq_etx_pers", "alq_id_pers"),
+        "Alq: Personnel (After Testing)": ("alq_af_obs_pers", "alq_af_etx_pers", "alq_af_id_pers"),
+        "Alq: Surface (Before Testing)": ("alq_be_obs_surf", "alq_be_etx_surf", "alq_be_id_surf"),
+        "Alq: Surface (Date of Testing)": ("alq_obs_surf", "alq_etx_surf", "alq_id_surf"),
+        "Alq: Surface (After Testing)": ("alq_af_obs_surf", "alq_af_etx_surf", "alq_af_id_surf"),
+        "Alq: Settling (Before Testing)": ("alq_be_obs_sett", "alq_be_etx_sett", "alq_be_id_sett"),
+        "Alq: Settling (Date of Testing)": ("alq_obs_sett", "alq_etx_sett", "alq_id_sett"),
+        "Alq: Settling (After Testing)": ("alq_af_obs_sett", "alq_af_etx_sett", "alq_af_id_sett"),
+        # --- Aliquoting Weekly ---
+        "Alq: Weekly Air (Before Testing Date)": ("alq_obs_air_wk", "alq_etx_air_wk", "alq_id_air_wk"),
+        "Alq: Weekly Air (On/After Testing Date)": ("alq_obs_air_wk2", "alq_etx_air_wk2", "alq_id_air_wk2"),
+        "Alq: Weekly Surf (Before Testing Date)": ("alq_obs_room_wk", "alq_etx_room_wk", "alq_id_room_wk"),
+        "Alq: Weekly Surf (On/After Testing Date)": ("alq_obs_room_wk2", "alq_etx_room_wk2", "alq_id_room_wk2"),
     }
     
     for cat, (k_obs, k_etx, k_id) in fixed_map.items():
@@ -131,19 +165,48 @@ def generate_celsis_narrative_and_details():
 
     def is_fail(val): return val and str(val).strip().lower() != "no growth"
     
+    # Aggregate: for narrative purposes, check if ANY timing variant across both phases has growth for each EM type
+    def any_fail(*keys):
+        """Return True if any of the given session_state keys has a non-'No Growth' value."""
+        return any(is_fail(st.session_state.get(k, "No Growth")) for k in keys)
+    
+    def first_fail(*keys):
+        """Return the first failing (obs, etx, id) tuple from the given key groups."""
+        for k_obs, k_etx, k_id in keys:
+            if is_fail(st.session_state.get(k_obs, "No Growth")):
+                return st.session_state.get(k_obs), st.session_state.get(k_etx, "N/A"), st.session_state.get(k_id, "N/A")
+        return None
+    
+    # All obs keys for each EM type across both phases
+    pers_obs_keys = [f"{p}{d}obs_pers" for p in ["pro_","alq_"] for d in ["be_","","af_"]]
+    surf_obs_keys = [f"{p}{d}obs_surf" for p in ["pro_","alq_"] for d in ["be_","","af_"]]
+    sett_obs_keys = [f"{p}{d}obs_sett" for p in ["pro_","alq_"] for d in ["be_","","af_"]]
+    air_obs_keys = [f"{p}obs_air_wk{s}" for p in ["pro_","alq_"] for s in ["","2"]]
+    room_obs_keys = [f"{p}obs_room_wk{s}" for p in ["pro_","alq_"] for s in ["","2"]]
+    
     failures = []
-    if is_fail(st.session_state.obs_pers): failures.append({"cat": "personnel sampling", "obs": st.session_state.obs_pers, "etx": st.session_state.etx_pers, "id": st.session_state.id_pers, "time": "daily"})
-    if is_fail(st.session_state.obs_surf): failures.append({"cat": "surface sampling", "obs": st.session_state.obs_surf, "etx": st.session_state.etx_surf, "id": st.session_state.id_surf, "time": "daily"})
-    if is_fail(st.session_state.obs_sett): failures.append({"cat": "settling plates", "obs": st.session_state.obs_sett, "etx": st.session_state.etx_sett, "id": st.session_state.id_sett, "time": "daily"})
-    if is_fail(st.session_state.obs_air): failures.append({"cat": "weekly active air sampling", "obs": st.session_state.obs_air, "etx": st.session_state.etx_air_weekly, "id": st.session_state.id_air_weekly, "time": "weekly"})
-    if is_fail(st.session_state.obs_room): failures.append({"cat": "weekly surface sampling", "obs": st.session_state.obs_room, "etx": st.session_state.etx_room_weekly, "id": st.session_state.id_room_wk_of, "time": "weekly"})
+    if any_fail(*pers_obs_keys):
+        f = first_fail(*[(f"{p}{d}obs_pers", f"{p}{d}etx_pers", f"{p}{d}id_pers") for p in ["pro_","alq_"] for d in ["be_","","af_"]])
+        if f: failures.append({"cat": "personnel sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily"})
+    if any_fail(*surf_obs_keys):
+        f = first_fail(*[(f"{p}{d}obs_surf", f"{p}{d}etx_surf", f"{p}{d}id_surf") for p in ["pro_","alq_"] for d in ["be_","","af_"]])
+        if f: failures.append({"cat": "surface sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily"})
+    if any_fail(*sett_obs_keys):
+        f = first_fail(*[(f"{p}{d}obs_sett", f"{p}{d}etx_sett", f"{p}{d}id_sett") for p in ["pro_","alq_"] for d in ["be_","","af_"]])
+        if f: failures.append({"cat": "settling plates", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily"})
+    if any_fail(*air_obs_keys):
+        f = first_fail(*[(f"{p}obs_air_wk{s}", f"{p}etx_air_wk{s}", f"{p}id_air_wk{s}") for p in ["pro_","alq_"] for s in ["","2"]])
+        if f: failures.append({"cat": "weekly active air sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "weekly"})
+    if any_fail(*room_obs_keys):
+        f = first_fail(*[(f"{p}obs_room_wk{s}", f"{p}etx_room_wk{s}", f"{p}id_room_wk{s}") for p in ["pro_","alq_"] for s in ["","2"]])
+        if f: failures.append({"cat": "weekly surface sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "weekly"})
 
     pass_daily_clean, pass_wk_clean = [], []
-    if not is_fail(st.session_state.obs_pers): pass_daily_clean.append("personnel sampling (left touch and right touch)")
-    if not is_fail(st.session_state.obs_surf): pass_daily_clean.append("surface sampling")
-    if not is_fail(st.session_state.obs_sett): pass_daily_clean.append("settling plates")
-    if not is_fail(st.session_state.obs_air): pass_wk_clean.append("weekly active air sampling")
-    if not is_fail(st.session_state.obs_room): pass_wk_clean.append("weekly surface sampling")
+    if not any_fail(*pers_obs_keys): pass_daily_clean.append("personnel sampling (left touch and right touch)")
+    if not any_fail(*surf_obs_keys): pass_daily_clean.append("surface sampling")
+    if not any_fail(*sett_obs_keys): pass_daily_clean.append("settling plates")
+    if not any_fail(*air_obs_keys): pass_wk_clean.append("weekly active air sampling")
+    if not any_fail(*room_obs_keys): pass_wk_clean.append("weekly surface sampling")
 
     narr_parts = []
     if pass_daily_clean:
