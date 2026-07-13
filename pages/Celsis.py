@@ -283,25 +283,24 @@ if st.session_state.em_growth_observed == "Yes":
     count = st.number_input("Count of Growth Events", 1, 10, key="em_growth_count")
     for i in range(count):
         st.subheader(f"Growth Event #{i+1}")
-        em_categories = [
-            "--- Processing ---",
-            "Pro: Personnel (Before Testing)", "Pro: Personnel (Date of Testing)", "Pro: Personnel (After Testing)",
-            "Pro: Surface (Before Testing)", "Pro: Surface (Date of Testing)", "Pro: Surface (After Testing)",
-            "Pro: Settling (Before Testing)", "Pro: Settling (Date of Testing)", "Pro: Settling (After Testing)",
-            "Pro: Weekly Air (Before Testing Date)", "Pro: Weekly Air (On/After Testing Date)",
-            "Pro: Weekly Surf (Before Testing Date)", "Pro: Weekly Surf (On/After Testing Date)",
-            "--- Aliquoting ---",
-            "Alq: Personnel (Before Testing)", "Alq: Personnel (Date of Testing)", "Alq: Personnel (After Testing)",
-            "Alq: Surface (Before Testing)", "Alq: Surface (Date of Testing)", "Alq: Surface (After Testing)",
-            "Alq: Settling (Before Testing)", "Alq: Settling (Date of Testing)", "Alq: Settling (After Testing)",
-            "Alq: Weekly Air (Before Testing Date)", "Alq: Weekly Air (On/After Testing Date)",
-            "Alq: Weekly Surf (Before Testing Date)", "Alq: Weekly Surf (On/After Testing Date)",
-        ]
-        col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
-        with col1: st.selectbox(f"Category", em_categories, key=f"em_cat_{i}")
-        with col2: st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
-        with col3: st.text_input(f"ETX ID", key=f"em_etx_{i}")
-        with col4: st.text_input(f"Microbial ID", key=f"em_id_{i}")
+        
+        c1, c2, c3 = st.columns(3)
+        with c1: st.selectbox("Phase", ["Processing", "Aliquoting"], key=f"em_phase_{i}")
+        with c2: 
+            em_type = st.selectbox("Type", ["Personnel", "Surface", "Settling", "Weekly Air", "Weekly Surface"], key=f"em_type_{i}")
+        
+        is_weekly = "Weekly" in em_type
+        if is_weekly:
+            timing_options = ["Weekly (Before Testing Date)", "Weekly (On Testing Date)", "Weekly (After Testing Date)"]
+        else:
+            timing_options = ["Date Before Testing", "Date of Testing", "Date After Testing"]
+            
+        with c3: st.selectbox("Timing", timing_options, key=f"em_timing_{i}")
+        
+        c_obs, c_etx, c_id = st.columns(3)
+        with c_obs: st.text_input(f"Obs (e.g. 1 CFU)", key=f"em_obs_{i}")
+        with c_etx: st.text_input(f"ETX ID", key=f"em_etx_{i}")
+        with c_id: st.text_input(f"Microbial ID", key=f"em_id_{i}")
 
 st.header("5. Investigation Details")
 st.subheader("Sample History")
@@ -360,26 +359,28 @@ def create_table_pdf(data):
         # Personnel
         r.append([p("Personnel EM Bracketing", True)] + [""]*8)
         r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_pers', '')), p(data.get(f'{prefix}be_etx_pers', '')), p(data.get(f'{prefix}be_id_pers', '')), p("None")])
-        r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_pers', '')), p(data.get(f'{prefix}etx_pers', '')), p(data.get(f'{prefix}id_pers', '')), p("None")])
+        r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}on_obs_pers', '')), p(data.get(f'{prefix}on_etx_pers', '')), p(data.get(f'{prefix}on_id_pers', '')), p("None")])
         r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_pers', '')), p(data.get(f'{prefix}af_etx_pers', '')), p(data.get(f'{prefix}af_id_pers', '')), p("None")])
         # BSC Surface
         r.append([p(f"Biological Safety Cabinet EM Bracketing ({data.get(bsc_key, '')})", True)] + [""]*8)
         r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_surf', '')), p(data.get(f'{prefix}be_etx_surf', '')), p(data.get(f'{prefix}be_id_surf', '')), p("None")])
-        r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_surf', '')), p(data.get(f'{prefix}etx_surf', '')), p(data.get(f'{prefix}id_surf', '')), p("None")])
+        r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}on_obs_surf', '')), p(data.get(f'{prefix}on_etx_surf', '')), p(data.get(f'{prefix}on_id_surf', '')), p("None")])
         r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_surf', '')), p(data.get(f'{prefix}af_etx_surf', '')), p(data.get(f'{prefix}af_id_surf', '')), p("None")])
         # Settling
         r.append([p("Settling Sampling of ISO 5", True)] + [""]*8)
         r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_sett', '')), p(data.get(f'{prefix}be_etx_sett', '')), p(data.get(f'{prefix}be_id_sett', '')), p("None")])
-        r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_sett', '')), p(data.get(f'{prefix}etx_sett', '')), p(data.get(f'{prefix}id_sett', '')), p("None")])
+        r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}on_obs_sett', '')), p(data.get(f'{prefix}on_etx_sett', '')), p(data.get(f'{prefix}on_id_sett', '')), p("None")])
         r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_sett', '')), p(data.get(f'{prefix}af_etx_sett', '')), p(data.get(f'{prefix}af_id_sett', '')), p("None")])
         # Weekly Air
         r.append([p("Weekly Active Air Sampling Bracketing", True)] + [""]*8)
-        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get(f'{prefix}obs_air_wk', '')), p(data.get(f'{prefix}etx_air_wk', '')), p(data.get(f'{prefix}id_air_wk', '')), p("None")])
-        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get(f'{prefix}obs_air_wk2', '')), p(data.get(f'{prefix}etx_air_wk2', '')), p(data.get(f'{prefix}id_air_wk2', '')), p("None")])
+        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (Before Testing Date)"), p(data.get(f'{prefix}be_obs_air_wk', '')), p(data.get(f'{prefix}be_etx_air_wk', '')), p(data.get(f'{prefix}be_id_air_wk', '')), p("None")])
+        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (On Testing Date)"), p(data.get(f'{prefix}on_obs_air_wk', '')), p(data.get(f'{prefix}on_etx_air_wk', '')), p(data.get(f'{prefix}on_id_air_wk', '')), p("None")])
+        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (After Testing Date)"), p(data.get(f'{prefix}af_obs_air_wk', '')), p(data.get(f'{prefix}af_etx_air_wk', '')), p(data.get(f'{prefix}af_id_air_wk', '')), p("None")])
         # Weekly Surface
         r.append([p("Surface Sampling of Anteroom and Cleanroom Bracketing", True)] + [""]*8)
-        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get(f'{prefix}obs_room_wk', '')), p(data.get(f'{prefix}etx_room_wk', '')), p(data.get(f'{prefix}id_room_wk', '')), p("None")])
-        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get(f'{prefix}obs_room_wk2', '')), p(data.get(f'{prefix}etx_room_wk2', '')), p(data.get(f'{prefix}id_room_wk2', '')), p("None")])
+        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (Before Testing Date)"), p(data.get(f'{prefix}be_obs_room_wk', '')), p(data.get(f'{prefix}be_etx_room_wk', '')), p(data.get(f'{prefix}be_id_room_wk', '')), p("None")])
+        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (On Testing Date)"), p(data.get(f'{prefix}on_obs_room_wk', '')), p(data.get(f'{prefix}on_etx_room_wk', '')), p(data.get(f'{prefix}on_id_room_wk', '')), p("None")])
+        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Weekly (After Testing Date)"), p(data.get(f'{prefix}af_obs_room_wk', '')), p(data.get(f'{prefix}af_etx_room_wk', '')), p(data.get(f'{prefix}af_id_room_wk', '')), p("None")])
         return r
     
     def build_em_table_style(row_count):
@@ -389,8 +390,8 @@ def create_table_pdf(data):
             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
             ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
         ]
-        # Section header rows are at offsets 1, 5, 9, 13, 16 within the data rows (after the header row)
-        section_offsets = [1, 5, 9, 13, 16]
+        # Section header rows are at offsets 1, 5, 9, 13, 17 within the data rows (after the header row)
+        section_offsets = [1, 5, 9, 13, 17]
         for offset in section_offsets:
             if offset < row_count:
                 style_cmds.append(('BACKGROUND', (0, offset), (-1, offset), colors.whitesmoke))

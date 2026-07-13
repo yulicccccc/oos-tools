@@ -114,54 +114,35 @@ def generate_celsis_equipment_text():
 def generate_celsis_narrative_and_details():
     default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
     
-    # Expanded mapping: category label → (obs_key, etx_key, id_key) in session_state
-    # Pro = Processing phase, Alq = Aliquoting phase
-    # Daily EM: be_ = before testing, (none) = date of testing, af_ = after testing
-    # Weekly EM: wk = before testing date, wk2 = on/after testing date
-    fixed_map = {
-        # --- Processing Daily ---
-        "Pro: Personnel (Before Testing)": ("pro_be_obs_pers", "pro_be_etx_pers", "pro_be_id_pers"),
-        "Pro: Personnel (Date of Testing)": ("pro_obs_pers", "pro_etx_pers", "pro_id_pers"),
-        "Pro: Personnel (After Testing)": ("pro_af_obs_pers", "pro_af_etx_pers", "pro_af_id_pers"),
-        "Pro: Surface (Before Testing)": ("pro_be_obs_surf", "pro_be_etx_surf", "pro_be_id_surf"),
-        "Pro: Surface (Date of Testing)": ("pro_obs_surf", "pro_etx_surf", "pro_id_surf"),
-        "Pro: Surface (After Testing)": ("pro_af_obs_surf", "pro_af_etx_surf", "pro_af_id_surf"),
-        "Pro: Settling (Before Testing)": ("pro_be_obs_sett", "pro_be_etx_sett", "pro_be_id_sett"),
-        "Pro: Settling (Date of Testing)": ("pro_obs_sett", "pro_etx_sett", "pro_id_sett"),
-        "Pro: Settling (After Testing)": ("pro_af_obs_sett", "pro_af_etx_sett", "pro_af_id_sett"),
-        # --- Processing Weekly ---
-        "Pro: Weekly Air (Before Testing Date)": ("pro_obs_air_wk", "pro_etx_air_wk", "pro_id_air_wk"),
-        "Pro: Weekly Air (On/After Testing Date)": ("pro_obs_air_wk2", "pro_etx_air_wk2", "pro_id_air_wk2"),
-        "Pro: Weekly Surf (Before Testing Date)": ("pro_obs_room_wk", "pro_etx_room_wk", "pro_id_room_wk"),
-        "Pro: Weekly Surf (On/After Testing Date)": ("pro_obs_room_wk2", "pro_etx_room_wk2", "pro_id_room_wk2"),
-        # --- Aliquoting Daily ---
-        "Alq: Personnel (Before Testing)": ("alq_be_obs_pers", "alq_be_etx_pers", "alq_be_id_pers"),
-        "Alq: Personnel (Date of Testing)": ("alq_obs_pers", "alq_etx_pers", "alq_id_pers"),
-        "Alq: Personnel (After Testing)": ("alq_af_obs_pers", "alq_af_etx_pers", "alq_af_id_pers"),
-        "Alq: Surface (Before Testing)": ("alq_be_obs_surf", "alq_be_etx_surf", "alq_be_id_surf"),
-        "Alq: Surface (Date of Testing)": ("alq_obs_surf", "alq_etx_surf", "alq_id_surf"),
-        "Alq: Surface (After Testing)": ("alq_af_obs_surf", "alq_af_etx_surf", "alq_af_id_surf"),
-        "Alq: Settling (Before Testing)": ("alq_be_obs_sett", "alq_be_etx_sett", "alq_be_id_sett"),
-        "Alq: Settling (Date of Testing)": ("alq_obs_sett", "alq_etx_sett", "alq_id_sett"),
-        "Alq: Settling (After Testing)": ("alq_af_obs_sett", "alq_af_etx_sett", "alq_af_id_sett"),
-        # --- Aliquoting Weekly ---
-        "Alq: Weekly Air (Before Testing Date)": ("alq_obs_air_wk", "alq_etx_air_wk", "alq_id_air_wk"),
-        "Alq: Weekly Air (On/After Testing Date)": ("alq_obs_air_wk2", "alq_etx_air_wk2", "alq_id_air_wk2"),
-        "Alq: Weekly Surf (Before Testing Date)": ("alq_obs_room_wk", "alq_etx_room_wk", "alq_id_room_wk"),
-        "Alq: Weekly Surf (On/After Testing Date)": ("alq_obs_room_wk2", "alq_etx_room_wk2", "alq_id_room_wk2"),
-    }
-    
-    for cat, (k_obs, k_etx, k_id) in fixed_map.items():
-        st.session_state[k_obs] = default_obs; st.session_state[k_etx] = default_etx; st.session_state[k_id] = default_id
+    # Initialize all keys to defaults
+    for _phase in ["pro_", "alq_"]:
+        for _em in ["pers", "surf", "sett", "air_wk", "room_wk"]:
+            for _day in ["be_", "on_", "af_"]:
+                st.session_state[f"{_phase}{_day}obs_{_em}"] = default_obs
+                st.session_state[f"{_phase}{_day}etx_{_em}"] = default_etx
+                st.session_state[f"{_phase}{_day}id_{_em}"] = default_id
 
     if st.session_state.get("em_growth_observed") == "Yes":
         count = st.session_state.get("em_growth_count", 1)
         for i in range(count):
-            cat = st.session_state.get(f"em_cat_{i}"); obs = st.session_state.get(f"em_obs_{i}", "")
-            etx = st.session_state.get(f"em_etx_{i}", ""); mid = st.session_state.get(f"em_id_{i}", "")
-            if cat in fixed_map:
-                k_obs, k_etx, k_id = fixed_map[cat]
-                st.session_state[k_obs] = obs; st.session_state[k_etx] = etx; st.session_state[k_id] = mid
+            p_val = st.session_state.get(f"em_phase_{i}")
+            t_val = st.session_state.get(f"em_type_{i}")
+            d_val = st.session_state.get(f"em_timing_{i}")
+            
+            if not (p_val and t_val and d_val): continue
+            
+            p_key = "pro_" if p_val == "Processing" else "alq_"
+            t_map = {"Personnel": "pers", "Surface": "surf", "Settling": "sett", "Weekly Air": "air_wk", "Weekly Surface": "room_wk"}
+            t_key = t_map.get(t_val, "pers")
+            d_key = "be_" if "Before" in d_val else "af_" if "After" in d_val else "on_"
+            
+            k_obs = f"{p_key}{d_key}obs_{t_key}"
+            k_etx = f"{p_key}{d_key}etx_{t_key}"
+            k_id  = f"{p_key}{d_key}id_{t_key}"
+            
+            st.session_state[k_obs] = st.session_state.get(f"em_obs_{i}", "")
+            st.session_state[k_etx] = st.session_state.get(f"em_etx_{i}", "")
+            st.session_state[k_id]  = st.session_state.get(f"em_id_{i}", "")
 
     def is_fail(val): return val and str(val).strip().lower() != "no growth"
     
