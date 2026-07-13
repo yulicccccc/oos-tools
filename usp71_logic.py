@@ -1,7 +1,7 @@
 import streamlit as st
 import re
 from datetime import datetime
-from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words
+from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative
 
 # --- 1. USP 71 FIELD_KEYS (Data Contract with Step 1) ---
 FIELD_KEYS = [
@@ -17,7 +17,8 @@ FIELD_KEYS = [
     "organism_morphology", "positive_id", "positive_media", "positive_org", "prepper_initial", 
     "prepper_name", "process_date", "reader_name", "reading_initial", "reading_name", 
     "received_data", "sample_history_paragraph", "sample_id", "sample_name", 
-    "subculture_initial", "subculture_name", "suit", "test_date", "usp71_id", "weekly_initial", "testing_method"
+    "subculture_initial", "subculture_name", "suit", "test_date", "usp71_id", "weekly_initial", "testing_method",
+    "testing_process_sentence", "inoculation_details_sentence", "incubator_setup_sentence"
 ]
 for i in range(10):
     FIELD_KEYS.extend([f"pos_media_{i}", f"pos_id_{i}", f"pos_org_{i}", f"em_cat_{i}", f"em_obs_{i}", f"em_etx_{i}", f"em_id_{i}"])
@@ -63,12 +64,13 @@ def generate_usp71_equipment_text():
     t_date = st.session_state.get("test_date", "[Test Date]")
     analyst = st.session_state.get("analyst_name", "[Processor Name]")
     
-    part1 = f"The cleanroom used for processing procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
+    part1 = get_cleanroom_narrative(t_suite, action_text="processing procedures", verb="comprises")
     
     bsc_id_str = str(st.session_state.bsc_id).strip()
-    part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for sample processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
+    suite_phrase = f"Suite {t_suite}{t_suffix}" if t_suite != "L-Suite" else "L-Suite"
+    part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, ({suite_phrase}), was used for sample processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
     
-    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} as per SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
+    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({suite_phrase}) by {analyst} on {p_date} as per SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
         
     return f"{part1}\n\n{part2} {usage_sent}"
 

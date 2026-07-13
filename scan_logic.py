@@ -11,12 +11,13 @@ from datetime import datetime, timedelta
 
 # --- 1. 从中央后勤部 (utils.py) 调取共享工具 ---
 try:
-    from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words
+    from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative
 except ImportError:
     def u_grl(i): return "Unknown", "000", "", "Unknown"
     def get_full_name(i): return i
     def ordinal(n): return str(n)
     def num_to_words(n): return str(n)
+    def get_cleanroom_narrative(s, r=None, a="", v=""): return ""
 
 # --- 2. CONFIG & KEYS (系统变量字典) ---
 FIELD_KEYS = [
@@ -99,22 +100,26 @@ def clean_filename(text):
 def generate_equipment_text():
     t_room, t_suite, t_suffix, t_loc = u_grl(st.session_state.bsc_id)
     c_room, c_suite, c_suffix, c_loc = u_grl(st.session_state.chgbsc_id)
+    
+    t_suite_phrase = f"Suite {t_suite}{t_suffix}" if t_suite != "L-Suite" else "L-Suite"
+    c_suite_phrase = f"Suite {c_suite}{c_suffix}" if c_suite != "L-Suite" else "L-Suite"
+    
     if st.session_state.bsc_id == st.session_state.chgbsc_id:
-        part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-        part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{st.session_state.bsc_id} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{st.session_state.bsc_id} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
+        part1 = get_cleanroom_narrative(t_suite, action_text="testing and changeover procedures", verb="comprises")
+        part2 = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, ({t_suite_phrase}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{st.session_state.bsc_id} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{st.session_state.bsc_id} in the {t_loc}, ({t_suite_phrase}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
         return f"{part1}\n\n{part2}"
     else:
         if t_suite == c_suite:
-             part1 = f"The cleanroom used for testing and changeover procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
+             part1 = get_cleanroom_narrative(t_suite, action_text="testing and changeover procedures", verb="comprises")
         else:
-             p1a = f"The cleanroom used for testing (E00{t_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which opens into the middle ISO 7 buffer room ({t_suite}A), and then into the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-             p1b = f"The cleanroom used for changeover (E00{c_room}) consists of three interconnected sections: the innermost ISO 7 cleanroom ({c_suite}B), which opens into the middle ISO 7 buffer room ({c_suite}A), and then into the outermost ISO 8 anteroom ({c_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {c_suite}B through {c_suite}A and into {c_suite}."
+             p1a = get_cleanroom_narrative(t_suite, t_room=t_room, action_text="testing", verb="consists of")
+             p1b = get_cleanroom_narrative(c_suite, t_room=c_room, action_text="changeover", verb="consists of")
              part1 = f"{p1a}\n\n{p1b}"
-        intro = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, (Suite {c_suite}{c_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams."
+        intro = f"The ISO 5 BSC E00{st.session_state.bsc_id}, located in the {t_loc}, ({t_suite_phrase}), and ISO 5 BSC E00{st.session_state.chgbsc_id}, located in the {c_loc}, ({c_suite_phrase}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Furthermore, the BSCs used throughout testing, E00{st.session_state.bsc_id} for sample processing and E00{st.session_state.chgbsc_id} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams."
         if st.session_state.analyst_name == st.session_state.changeover_name:
-            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
+            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom ({t_suite_phrase}, BSC E00{st.session_state.bsc_id}) and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom ({c_suite_phrase}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.analyst_name} on {st.session_state.test_date}."
         else:
-            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom (Suite {t_suite}{t_suffix}, BSC E00{st.session_state.bsc_id}) by {st.session_state.analyst_name} and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom (Suite {c_suite}{c_suffix}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.changeover_name} on {st.session_state.test_date}."
+            usage_sent = f"Sample processing was conducted within the ISO 5 BSC in the innermost section of the cleanroom ({t_suite_phrase}, BSC E00{st.session_state.bsc_id}) by {st.session_state.analyst_name} and the changeover step was conducted within the ISO 5 BSC in the middle section of the cleanroom ({c_suite_phrase}, BSC E00{st.session_state.chgbsc_id}) by {st.session_state.changeover_name} on {st.session_state.test_date}."
         return f"{part1}\n\n{intro} {usage_sent}"
 
 def generate_history_text():

@@ -141,13 +141,22 @@ def get_monthly_cleaning_date(process_date_str):
     return res_date.strftime("%d%b%y")
 
 def get_room_logic(bsc_id):
-    """单双号规则推断洁净室编号 + 1798 强制拦截"""
+    """根据 BSC ID 自动推断洁净室及房间信息"""
     bsc_str = str(bsc_id).strip()
     
-    # 强制拦截 Celsis 专属设备 (1798 是偶数，但它在 A 房)
+    # 1. 强制拦截 Celsis 专属设备 (1798 是偶数，但它在 A 房)
     if bsc_str == "1798":
         return "1736", "114", "A", "middle ISO 7 buffer room"
         
+    # 2. L-Suite 专属设备拦截 (145 房为内间, 144 房为外/缓冲间)
+    l_suite_145 = ["1938", "1317", "1319"]
+    l_suite_144 = ["1988", "1937"]
+    if bsc_str in l_suite_145:
+        return "145", "L-Suite", "", "innermost ISO 7 cleanroom"
+    elif bsc_str in l_suite_144:
+        return "144", "L-Suite", "", "adjacent ISO 7 buffer cleanroom"
+        
+    # 3. 常规 3-room suite 逻辑
     try:
         num = int(bsc_str)
         suffix = "B" if num % 2 == 0 else "A"
@@ -163,6 +172,42 @@ def get_room_logic(bsc_id):
     
     room_id = {"117": "1739", "116": "1738", "115": "1737", "114": "1736"}.get(suite, "Unknown")
     return room_id, suite, suffix, location
+
+def get_cleanroom_narrative(suite, t_room=None, action_text="processing procedures", verb="comprises"):
+    """
+    根据 suite ('L-Suite' 或 114/115/116/117) 动态生成洁净室套间描述。
+    """
+    suite_str = str(suite).strip()
+    opens_or_connects = "opens into" if verb == "consists of" else "connects to"
+    
+    if suite_str == "L-Suite":
+        if t_room:
+            header = f"The cleanroom used for {action_text} (E00{t_room})"
+        else:
+            header = f"The cleanroom used for {action_text} (L-Suite)"
+            
+        return (
+            f"{header} {verb} four interconnected rooms: the innermost ISO 7 cleanroom (145), "
+            f"which {opens_or_connects} the adjacent ISO 7 buffer cleanroom (144), followed by "
+            f"ISO 8 anteroom 143 and the outermost ISO 8 room 142. A positive air pressure system "
+            f"is maintained throughout the suite to ensure controlled, unidirectional airflow from 145 "
+            f"through 144 and 143 into 142."
+        )
+    else:
+        if t_room:
+            header = f"The cleanroom used for {action_text} (E00{t_room})"
+            and_then = "and then into"
+        else:
+            header = f"The cleanroom used for {action_text} (Suite {suite_str})"
+            and_then = "and then to"
+            
+        return (
+            f"{header} {verb} three interconnected sections: the innermost ISO 7 cleanroom ({suite_str}B), "
+            f"which {opens_or_connects} the middle ISO 7 buffer room ({suite_str}A), {and_then} "
+            f"the outermost ISO 8 anteroom ({suite_str}). A positive air pressure system is maintained "
+            f"throughout the suite to ensure controlled, unidirectional airflow from {suite_str}B "
+            f"through {suite_str}A and into {suite_str}."
+        )
 
 def num_to_words(n):
     """数字转单词"""

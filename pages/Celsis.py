@@ -549,7 +549,7 @@ if st.session_state.report_generated:
             "smart_comment_records": f"Yes, Information is available in EagleTrax under {st.session_state.sample_id}",
             "smart_comment_storage": f"Yes, the {sample_noun} {sample_verb} stored as per client's instructions. Information is available in EagleTrax Sample Location History under {st.session_state.sample_id}",
             "control_positive": "Celsis ATP Positive Control", "control_lot": st.session_state.control_lot, "control_data": st.session_state.control_data,
-            "smart_scan_id": f"E00{st.session_state.celsis_id}", "smart_cr_id": f"E00{t_room} (CR{t_suite})" if t_suite == "114" else f"For Processing/Reading: E00{t_room} (CR{t_suite})\nFor Aliquoting: E001736 (CR114)",
+            "smart_scan_id": f"E00{st.session_state.celsis_id}", "smart_cr_id": f"E00{t_room} (L-Suite)" if t_suite == "L-Suite" else (f"E00{t_room} (CR{t_suite})" if t_suite == "114" else f"For Processing/Reading: E00{t_room} (CR{t_suite})\nFor Aliquoting: E001736 (CR114)"),
             "smart_phase1_summary": smart_phase1_full, "smart_phase1_continued": ""
         }
 

@@ -1,7 +1,7 @@
 # filename: celsis_logic.py
 import streamlit as st
 import re
-from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words
+from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative
 
 # --- 1. CONFIG & KEYS (前后端数据契约) ---
 FIELD_KEYS = [
@@ -76,31 +76,34 @@ def generate_celsis_equipment_text():
     analyst = st.session_state.get("analyst_name", "[Processor Name]")
     aliquoter = st.session_state.get("aliquoting_name", "[Aliquoting Name]")
 
+    t_suite_phrase = f"Suite {t_suite}{t_suffix}" if t_suite != "L-Suite" else "L-Suite"
+    a_suite_phrase = f"Suite {a_suite}{a_suffix}" if a_suite != "L-Suite" else "L-Suite"
+
     if t_suite == a_suite:
-        part1 = f"The cleanroom used for processing and aliquoting procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
+        part1 = get_cleanroom_narrative(t_suite, action_text="processing and aliquoting procedures", verb="comprises")
     else:
-        p1a = f"The cleanroom used for processing procedures (Suite {t_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({t_suite}B), which connects to the middle ISO 7 buffer room ({t_suite}A), and then to the outermost ISO 8 anteroom ({t_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {t_suite}B through {t_suite}A and into {t_suite}."
-        p1b = f"The cleanroom used for aliquoting procedures (Suite {a_suite}) comprises three interconnected sections: the innermost ISO 7 cleanroom ({a_suite}B), which connects to the middle ISO 7 buffer room ({a_suite}A), and then to the outermost ISO 8 anteroom ({a_suite}). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow from {a_suite}B through {a_suite}A and into {a_suite}."
+        p1a = get_cleanroom_narrative(t_suite, action_text="processing procedures", verb="comprises")
+        p1b = get_cleanroom_narrative(a_suite, action_text="aliquoting procedures", verb="comprises")
         part1 = f"{p1a}\n\n{p1b}"
 
     bsc_id_str = str(st.session_state.bsc_id).strip()
     
     if bsc_id_str == a_bsc:
-        part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both sample processing and aliquoting steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
+        part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, ({t_suite_phrase}), was used for both sample processing and aliquoting steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
         
         # --- 在这里加入了绝杀的 as per SOP 2.600.059 ---
         if analyst == aliquoter:
-            usage_sent = f"Sample processing and aliquoting were conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date} and {t_date}, respectively, as per SOP 2.600.059."
+            usage_sent = f"Sample processing and aliquoting were conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({t_suite_phrase}) by {analyst} on {p_date} and {t_date}, respectively, as per SOP 2.600.059."
         else:
-            usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {aliquoter} on {t_date} as per SOP 2.600.059."
+            usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({t_suite_phrase}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({t_suite_phrase}) by {aliquoter} on {t_date} as per SOP 2.600.059."
             
         return f"{part1}\n\n{part2} {usage_sent}"
         
     else:
-        part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), and ISO 5 BSC E00{a_bsc}, located in the {a_loc}, (Suite {a_suite}{a_suffix}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, the BSCs used throughout testing, E00{bsc_id_str} for sample processing and E00{a_bsc} for the aliquoting step, were certified and approved by both the Engineering and Quality Assurance teams."
+        part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, ({t_suite_phrase}), and ISO 5 BSC E00{a_bsc}, located in the {a_loc}, ({a_suite_phrase}), were thoroughly cleaned and disinfected prior to their respective procedures in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, the BSCs used throughout testing, E00{bsc_id_str} for sample processing and E00{a_bsc} for the aliquoting step, were certified and approved by both the Engineering and Quality Assurance teams."
         
         # --- 在这里加入了绝杀的 as per SOP 2.600.059 ---
-        usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{a_bsc} in the {a_loc}, (Suite {a_suite}{a_suffix}) by {aliquoter} on {t_date} as per SOP 2.600.059."
+        usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({t_suite_phrase}) by {analyst} on {p_date}, and the aliquoting step was conducted in the ISO 5 BSC E00{a_bsc} in the {a_loc}, ({a_suite_phrase}) by {aliquoter} on {t_date} as per SOP 2.600.059."
         
         return f"{part1}\n\n{part2} {usage_sent}"
 

@@ -2,9 +2,21 @@ import os
 from docxtpl import DocxTemplate
 
 def generate_rich_template():
-    # 1. We load the HOLLOW template (0.docx)
-    tpl = DocxTemplate("USP71 OOS P1 template 0.docx")
+    # 1. Load raw template using python-docx to pre-process hardcoded cells
+    import docx
+    doc = docx.Document("USP71 OOS P1 template 0.docx")
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                if "E00{{ cr_id }} (CR{{ cr_suit }})" in cell.text:
+                    for paragraph in cell.paragraphs:
+                        if "E00{{ cr_id }} (CR{{ cr_suit }})" in paragraph.text:
+                            paragraph.text = paragraph.text.replace("E00{{ cr_id }} (CR{{ cr_suit }})", "E00{{ cr_id }} ({% raw %}{% if cr_suit == 'L-Suite' %}L-Suite{% else %}CR{{ cr_suit }}{% endif %}{% endraw %})")
+    doc.save("temp_template.docx")
     
+    # 2. Load the modified template into DocxTemplate
+    tpl = DocxTemplate("temp_template.docx")
+                            
     # 2. We construct the hardcoded English paragraphs for USP 71, 
     # but we inject literal Jinja2 tags (e.g., '{{ sample_id }}') instead of real data.
     
@@ -82,11 +94,32 @@ def generate_rich_template():
         "smart_comment_samples": f"Yes, {sample_noun} ID: {{{{ sample_id }}}}",
         "smart_comment_records": f"Yes, Information is available in EagleTrax under {{{{ sample_id }}}}",
         "smart_comment_storage": f"Yes, the {sample_noun} {sample_verb} stored as per client's instructions. Information is available in EagleTrax Sample Location History under {{{{ sample_id }}}}",
-        "smart_cr_id": f"CR{{{{ cr_suite }}}} (E00{{{{ cr_room }}}})"
+        "smart_cr_id": "{{% if cr_suit == 'L-Suite' %}}L-Suite (E00{{{{ cr_id }}}}){{% else %}}CR{{{{ cr_suit }}}} (E00{{{{ cr_id }}}}){{% endif %}}"
     }
     
+    # Preserve all other placeholders in the raw template
+    raw_vars = [
+        'aliquoting_initial', 'analyst_initial', 'analyst_name', 'bsc_id', 'client_name', 
+        'cr_id', 'cr_suit', 'cross_contamination_summary', 'date_of_weekly', 'dosage_form', 
+        'equipment_summary', 'etx_air_wk_of', 'etx_pers_dur', 'etx_room_wk_of', 'etx_sett_dur', 
+        'etx_surf_dur', 'id_air_wk_of', 'id_pers_dur', 'id_room_wk_of', 'id_sett_dur', 
+        'id_surf_dur', 'incubation_time', 'lot_number', 'monthly_cleaning_date', 'narrative_summary', 
+        'obs_air_wk_of', 'obs_pers_dur', 'obs_room_wk_of', 'obs_sett_dur', 'obs_surf_dur', 
+        'positive_id', 'positive_media', 'positive_org', 'prepper_initial', 'prepper_name', 
+        'process_date', 'reader_name', 'reading_initial', 'reading_name', 'received_data', 
+        'sample_history_paragraph', 'sample_id', 'sample_name', 'subculture_initial', 
+        'subculture_name', 'suit', 'test_date', 'weekly_initial'
+    ]
+    for var in raw_vars:
+        if var not in context:
+            context[var] = f"{{{{ {var} }}}}"
+            
     tpl.render(context)
     tpl.save("USP71 OOS P1 template.docx")
+    try:
+        os.remove("temp_template.docx")
+    except:
+        pass
     print("Successfully reverse-rendered the hollow template into the rich template!")
 
 if __name__ == "__main__":
