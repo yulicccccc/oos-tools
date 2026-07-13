@@ -339,52 +339,68 @@ def create_table_pdf(data):
     elements.append(t1)
     elements.append(Spacer(1, 20))
     
-    elements.append(Paragraph(f"Table 2: Environmental Monitoring from Processing Performed on {data.get('process_date', '')}", styles['Heading2']))
-    elements.append(Spacer(1, 5))
+    # --- Helper: build EM rows for a given phase (processing or aliquoting) ---
+    def build_em_rows(data, prefix, bsc_key, analyst_key, date_key, before_key, after_key, weekly_key):
+        """Build the 5 EM sections (personnel, surface, settling, weekly air, weekly surf) for one phase."""
+        r = []
+        # Personnel
+        r.append([p("Personnel EM Bracketing", True)] + [""]*8)
+        r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_pers', '')), p(data.get(f'{prefix}be_etx_pers', '')), p(data.get(f'{prefix}be_id_pers', '')), p("None")])
+        r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_pers', '')), p(data.get(f'{prefix}etx_pers', '')), p(data.get(f'{prefix}id_pers', '')), p("None")])
+        r.append([p("Personal (Left/Right)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_pers', '')), p(data.get(f'{prefix}af_etx_pers', '')), p(data.get(f'{prefix}af_id_pers', '')), p("None")])
+        # BSC Surface
+        r.append([p(f"Biological Safety Cabinet EM Bracketing ({data.get(bsc_key, '')})", True)] + [""]*8)
+        r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_surf', '')), p(data.get(f'{prefix}be_etx_surf', '')), p(data.get(f'{prefix}be_id_surf', '')), p("None")])
+        r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_surf', '')), p(data.get(f'{prefix}etx_surf', '')), p(data.get(f'{prefix}id_surf', '')), p("None")])
+        r.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_surf', '')), p(data.get(f'{prefix}af_etx_surf', '')), p(data.get(f'{prefix}af_id_surf', '')), p("None")])
+        # Settling
+        r.append([p("Settling Sampling of ISO 5", True)] + [""]*8)
+        r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(before_key, '')), p(data.get(analyst_key, '')), p("Date Before Testing"), p(data.get(f'{prefix}be_obs_sett', '')), p(data.get(f'{prefix}be_etx_sett', '')), p(data.get(f'{prefix}be_id_sett', '')), p("None")])
+        r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(date_key, '')), p(data.get(analyst_key, '')), p("Date of Testing"), p(data.get(f'{prefix}obs_sett', '')), p(data.get(f'{prefix}etx_sett', '')), p(data.get(f'{prefix}id_sett', '')), p("None")])
+        r.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get(after_key, '')), p(data.get(analyst_key, '')), p("Date After Testing"), p(data.get(f'{prefix}af_obs_sett', '')), p(data.get(f'{prefix}af_etx_sett', '')), p(data.get(f'{prefix}af_id_sett', '')), p("None")])
+        # Weekly Air
+        r.append([p("Weekly Active Air Sampling Bracketing", True)] + [""]*8)
+        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get(f'{prefix}obs_air_wk', '')), p(data.get(f'{prefix}etx_air_wk', '')), p(data.get(f'{prefix}id_air_wk', '')), p("None")])
+        r.append([p("Active Air Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get(f'{prefix}obs_air_wk2', '')), p(data.get(f'{prefix}etx_air_wk2', '')), p(data.get(f'{prefix}id_air_wk2', '')), p("None")])
+        # Weekly Surface
+        r.append([p("Surface Sampling of Anteroom and Cleanroom Bracketing", True)] + [""]*8)
+        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get(f'{prefix}obs_room_wk', '')), p(data.get(f'{prefix}etx_room_wk', '')), p(data.get(f'{prefix}id_room_wk', '')), p("None")])
+        r.append([p("Surface Sampling"), p("Weekly"), p(data.get(weekly_key, '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get(f'{prefix}obs_room_wk2', '')), p(data.get(f'{prefix}etx_room_wk2', '')), p(data.get(f'{prefix}id_room_wk2', '')), p("None")])
+        return r
+    
+    def build_em_table_style(row_count):
+        """Build TableStyle for EM table with header backgrounds on section-header rows."""
+        style_cmds = [
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ]
+        # Section header rows are at offsets 1, 5, 9, 13, 16 within the data rows (after the header row)
+        section_offsets = [1, 5, 9, 13, 16]
+        for offset in section_offsets:
+            if offset < row_count:
+                style_cmds.append(('BACKGROUND', (0, offset), (-1, offset), colors.whitesmoke))
+                style_cmds.append(('SPAN', (0, offset), (-1, offset)))
+        return TableStyle(style_cmds)
     
     t2_headers = [p(h, True) for h in ["Sampling Site", "Freq", "Date", "Analyst", "Day/Week(s)", "Observation*", "Plate ETX ID", "Microbial ID", "Notes"]]
     
-    rows = []
-    # Personnel
-    rows.append([p("Personnel EM Bracketing", True)] + [""]*8)
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_pers_dur_pro', '')), p(data.get('be_etx_pers_dur_pro', '')), p(data.get('be_id_pers_dur_pro', '')), p("None")])
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_pers_dur_pro', '')), p(data.get('etx_pers_dur_pro', '')), p(data.get('id_pers_dur_pro', '')), p("None")])
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_pers_dur_pro', '')), p(data.get('af_etx_pers_dur_pro', '')), p(data.get('af_id_pers_dur_pro', '')), p("None")])
+    # --- Table 2a: Processing EM ---
+    elements.append(Paragraph(f"Table 2a: Environmental Monitoring from Processing Performed on {data.get('process_date', '')}", styles['Heading2']))
+    elements.append(Spacer(1, 5))
+    pro_rows = build_em_rows(data, 'pro_', 'bsc_id', 'analyst_initial', 'pro_test_date', 'pro_before_test', 'pro_after_test', 'pro_date_of_weekly')
+    t2a = Table([t2_headers] + pro_rows, colWidths=[150, 40, 60, 45, 130, 80, 80, 110, 45])
+    t2a.setStyle(build_em_table_style(len(pro_rows) + 1))
+    elements.append(t2a)
+    elements.append(Spacer(1, 20))
     
-    # BSC
-    rows.append([p(f"Biological Safety Cabinet EM Bracketing ({data.get('bsc_id', '')})", True)] + [""]*8)
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_surf_dur_pro', '')), p(data.get('be_etx_surf_dur_pro', '')), p(data.get('be_id_surf_dur_pro', '')), p("None")])
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_surf_dur_pro', '')), p(data.get('etx_surf_dur_pro', '')), p(data.get('id_surf_dur_pro', '')), p("None")])
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_surf_dur_pro', '')), p(data.get('af_etx_surf_dur_pro', '')), p(data.get('af_id_surf_dur_pro', '')), p("None")])
-    
-    # Settling
-    rows.append([p("Settling Sampling of ISO 5", True)] + [""]*8)
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('before_test', '')), p(data.get('analyst_initial', '')), p("Date Before Testing"), p(data.get('be_obs_sett_dur_pro', '')), p(data.get('be_etx_sett_dur_pro', '')), p(data.get('be_id_sett_dur_pro', '')), p("None")])
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('test_date', '')), p(data.get('analyst_initial', '')), p("Date of Testing"), p(data.get('obs_sett_dur_pro', '')), p(data.get('etx_sett_dur_pro', '')), p(data.get('id_sett_dur_pro', '')), p("None")])
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data.get('after_test', '')), p(data.get('analyst_initial', '')), p("Date After Testing"), p(data.get('af_obs_sett_dur_pro', '')), p(data.get('af_etx_sett_dur_pro', '')), p(data.get('af_id_sett_dur_pro', '')), p("None")])
-    
-    # Weekly Air
-    rows.append([p("Weekly Active Air Sampling Bracketing", True)] + [""]*8)
-    rows.append([p("Active Air Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get('obs_air_wk_of', '')), p(data.get('etx_air_wk_of', '')), p(data.get('id_air_wk_of', '')), p("None")])
-    rows.append([p("Active Air Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get('obs_air_wk_of', '')), p(data.get('etx_air_wk_of', '')), p(data.get('id_air_wk_of', '')), p("None")])
-    
-    # Weekly Surface
-    rows.append([p("Surface Sampling of Anteroom and Cleanroom Bracketing", True)] + [""]*8)
-    rows.append([p("Surface Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (Before Testing Date)"), p(data.get('obs_room_wk_of', '')), p(data.get('etx_room_wk_of', '')), p(data.get('id_room_wk_of', '')), p("None")])
-    rows.append([p("Surface Sampling"), p("Weekly"), p(data.get('date_of_weekly', '')), p("SMO"), p("Week (On/After Testing Date)"), p(data.get('obs_room_wk_of', '')), p(data.get('etx_room_wk_of', '')), p(data.get('id_room_wk_of', '')), p("None")])
-    
-    t2 = Table([t2_headers] + rows, colWidths=[150, 40, 60, 45, 130, 80, 80, 110, 45])
-    t2.setStyle(TableStyle([
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-        ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('SPAN', (0, 1), (-1, 1)),
-        ('BACKGROUND', (0, 5), (-1, 5), colors.whitesmoke), ('SPAN', (0, 5), (-1, 5)),
-        ('BACKGROUND', (0, 9), (-1, 9), colors.whitesmoke), ('SPAN', (0, 9), (-1, 9)),
-        ('BACKGROUND', (0, 13), (-1, 13), colors.whitesmoke), ('SPAN', (0, 13), (-1, 13)),
-        ('BACKGROUND', (0, 16), (-1, 16), colors.whitesmoke), ('SPAN', (0, 16), (-1, 16)),
-    ]))
-    elements.append(t2)
+    # --- Table 2b: Aliquoting EM ---
+    elements.append(Paragraph(f"Table 2b: Environmental Monitoring from Aliquoting Performed on {data.get('test_date', '')}", styles['Heading2']))
+    elements.append(Spacer(1, 5))
+    alq_rows = build_em_rows(data, 'alq_', 'alq_bsc_id', 'aliquoting_initial', 'alq_test_date', 'alq_before_test', 'alq_after_test', 'alq_date_of_weekly')
+    t2b = Table([t2_headers] + alq_rows, colWidths=[150, 40, 60, 45, 130, 80, 80, 110, 45])
+    t2b.setStyle(build_em_table_style(len(alq_rows) + 1))
+    elements.append(t2b)
     doc.build(elements)
     buffer.seek(0)
     return buffer
@@ -571,48 +587,73 @@ if st.session_state.report_generated:
 
         # --- CALCULATE TABLE SPECIFIC DATA ---
         table_data = word_data.copy()
-        process_date_str = st.session_state.get("process_date", "")
-        before_test_val = ""
-        after_test_val = ""
-        if process_date_str:
+        
+        def calc_before_after(date_str):
+            """Calculate before/after dates from a DDMMMYY date string."""
+            if not date_str: return "", ""
             try:
-                fmt = "%d%b%y" if len(process_date_str) <= 7 else "%d%b%Y"
-                p_dt = datetime.strptime(process_date_str, fmt)
-                before_dt = p_dt - timedelta(days=1)
-                after_dt = p_dt + timedelta(days=1)
-                before_test_val = before_dt.strftime("%d%b%y")
-                after_test_val = after_dt.strftime("%d%b%y")
-            except: pass
-            
-        table_data["before_test"] = before_test_val
-        table_data["after_test"] = after_test_val
-        table_data["test_date"] = process_date_str
+                fmt = "%d%b%y" if len(date_str) <= 7 else "%d%b%Y"
+                dt = datetime.strptime(date_str, fmt)
+                return (dt - timedelta(days=1)).strftime("%d%b%y"), (dt + timedelta(days=1)).strftime("%d%b%y")
+            except: return "", ""
         
-        table_data["obs_pers_dur_pro"] = st.session_state.get("obs_pers", "No Growth")
-        table_data["etx_pers_dur_pro"] = st.session_state.get("etx_pers", "N/A")
-        table_data["id_pers_dur_pro"] = st.session_state.get("id_pers", "N/A")
+        # --- Processing phase dates ---
+        process_date_str = st.session_state.get("process_date", "")
+        pro_before, pro_after = calc_before_after(process_date_str)
+        table_data["pro_test_date"] = process_date_str
+        table_data["pro_before_test"] = pro_before
+        table_data["pro_after_test"] = pro_after
+        table_data["pro_date_of_weekly"] = st.session_state.get("date_of_weekly", "")
         
-        table_data["obs_surf_dur_pro"] = st.session_state.get("obs_surf", "No Growth")
-        table_data["etx_surf_dur_pro"] = st.session_state.get("etx_surf", "N/A")
-        table_data["id_surf_dur_pro"] = st.session_state.get("id_surf", "N/A")
+        # --- Aliquoting phase dates ---
+        test_date_str = st.session_state.get("test_date", "")
+        alq_before, alq_after = calc_before_after(test_date_str)
+        table_data["alq_test_date"] = test_date_str
+        table_data["alq_before_test"] = alq_before
+        table_data["alq_after_test"] = alq_after
+        table_data["alq_date_of_weekly"] = st.session_state.get("date_of_weekly", "")
+        table_data["alq_bsc_id"] = "1798"
         
-        table_data["obs_sett_dur_pro"] = st.session_state.get("obs_sett", "No Growth")
-        table_data["etx_sett_dur_pro"] = st.session_state.get("etx_sett", "N/A")
-        table_data["id_sett_dur_pro"] = st.session_state.get("id_sett", "N/A")
+        # --- Processing EM (daily: Date of Testing row gets real data, before/after default to No Growth) ---
+        table_data["pro_obs_pers"] = st.session_state.get("obs_pers", "No Growth")
+        table_data["pro_etx_pers"] = st.session_state.get("etx_pers", "N/A")
+        table_data["pro_id_pers"] = st.session_state.get("id_pers", "N/A")
+        table_data["pro_obs_surf"] = st.session_state.get("obs_surf", "No Growth")
+        table_data["pro_etx_surf"] = st.session_state.get("etx_surf", "N/A")
+        table_data["pro_id_surf"] = st.session_state.get("id_surf", "N/A")
+        table_data["pro_obs_sett"] = st.session_state.get("obs_sett", "No Growth")
+        table_data["pro_etx_sett"] = st.session_state.get("etx_sett", "N/A")
+        table_data["pro_id_sett"] = st.session_state.get("id_sett", "N/A")
+        for day_prefix in ["be_", "af_"]:
+            for em_type in ["pers", "surf", "sett"]:
+                table_data[f"pro_{day_prefix}obs_{em_type}"] = "No Growth"
+                table_data[f"pro_{day_prefix}etx_{em_type}"] = "N/A"
+                table_data[f"pro_{day_prefix}id_{em_type}"] = "N/A"
         
-        for prefix in ["be_", "af_"]:
-            for suffix in ["pers_dur_pro", "surf_dur_pro", "sett_dur_pro"]:
-                table_data[f"{prefix}obs_{suffix}"] = "No Growth"
-                table_data[f"{prefix}etx_{suffix}"] = "N/A"
-                table_data[f"{prefix}id_{suffix}"] = "N/A"
-                
-        table_data["obs_air_wk_of"] = st.session_state.get("obs_air", "No Growth")
-        table_data["etx_air_wk_of"] = st.session_state.get("etx_air_weekly", "N/A")
-        table_data["id_air_wk_of"] = st.session_state.get("id_air_weekly", "N/A")
+        # --- Processing EM (weekly) ---
+        table_data["pro_obs_air_wk"] = st.session_state.get("obs_air", "No Growth")
+        table_data["pro_etx_air_wk"] = st.session_state.get("etx_air_weekly", "N/A")
+        table_data["pro_id_air_wk"] = st.session_state.get("id_air_weekly", "N/A")
+        table_data["pro_obs_air_wk2"] = st.session_state.get("obs_air", "No Growth")
+        table_data["pro_etx_air_wk2"] = st.session_state.get("etx_air_weekly", "N/A")
+        table_data["pro_id_air_wk2"] = st.session_state.get("id_air_weekly", "N/A")
+        table_data["pro_obs_room_wk"] = st.session_state.get("obs_room", "No Growth")
+        table_data["pro_etx_room_wk"] = st.session_state.get("etx_room_weekly", "N/A")
+        table_data["pro_id_room_wk"] = st.session_state.get("id_room_wk_of", "N/A")
+        table_data["pro_obs_room_wk2"] = st.session_state.get("obs_room", "No Growth")
+        table_data["pro_etx_room_wk2"] = st.session_state.get("etx_room_weekly", "N/A")
+        table_data["pro_id_room_wk2"] = st.session_state.get("id_room_wk_of", "N/A")
         
-        table_data["obs_room_wk_of"] = st.session_state.get("obs_room", "No Growth")
-        table_data["etx_room_wk_of"] = st.session_state.get("etx_room_weekly", "N/A")
-        table_data["id_room_wk_of"] = st.session_state.get("id_room_wk_of", "N/A")
+        # --- Aliquoting EM (default all to No Growth / N/A) ---
+        for em_type in ["pers", "surf", "sett"]:
+            for day_prefix in ["", "be_", "af_"]:
+                table_data[f"alq_{day_prefix}obs_{em_type}"] = "No Growth"
+                table_data[f"alq_{day_prefix}etx_{em_type}"] = "N/A"
+                table_data[f"alq_{day_prefix}id_{em_type}"] = "N/A"
+        for wk_suffix in ["air_wk", "air_wk2", "room_wk", "room_wk2"]:
+            table_data[f"alq_obs_{wk_suffix}"] = "No Growth"
+            table_data[f"alq_etx_{wk_suffix}"] = "N/A"
+            table_data[f"alq_id_{wk_suffix}"] = "N/A"
         
         table_data["positive_id"] = st.session_state.get("positive_id", "N/A")
         table_data["positive_media"] = st.session_state.get("positive_media", "N/A")
