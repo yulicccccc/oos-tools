@@ -200,16 +200,28 @@ with c3:
     else:
         st.session_state.dosage_form = selected_dosage
 with c4: 
-    st.text_input("Test Date (Aliquoting)", key="test_date", help="DDMMMYY")
-    st.text_input("Process Date (Set up)", key="process_date", help="DDMMMYY")
+    st.text_input("Test Date (Test Initiated Date)", key="test_date", help="DDMMMYY")
+    st.text_input("Process Date (Set up)", key="process_date", help="DDMMMYY (Auto-calculated to T-7 days from Test Date)")
+
+# Calculate Process Date
+process_date_str = st.session_state.get("process_date", "").strip()
+test_date_str = st.session_state.get("test_date", "").strip()
+
+if test_date_str and not process_date_str:
+    try:
+        t_dt = datetime.strptime(test_date_str, "%d%b%y")
+        p_dt = t_dt - timedelta(days=7)
+        process_date_str = p_dt.strftime("%d%b%y")
+        st.info(f"📅 **Auto-Calculated Engine:** Process Date (T-7 Days from Test Date): `{process_date_str}`")
+    except: pass
 
 received_date_str = "[Missing Process Date]"
-if st.session_state.get("process_date"):
+if process_date_str:
     try:
-        p_dt = datetime.strptime(st.session_state.process_date, "%d%b%y")
+        p_dt = datetime.strptime(process_date_str, "%d%b%y")
         r_dt = get_business_day_back(p_dt, 1)
         received_date_str = r_dt.strftime("%d%b%y")
-        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day): `{received_date_str}`")
+        st.info(f"📅 **Auto-Calculated Engine:** Received Date (T-1 Business Day from Process Date): `{received_date_str}`")
     except: pass
 
 st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
@@ -613,7 +625,14 @@ if st.session_state.report_generated:
             except: return "", ""
         
         # --- Processing phase dates ---
-        process_date_str = st.session_state.get("process_date", "")
+        process_date_str = st.session_state.get("process_date", "").strip()
+        test_date_str = st.session_state.get("test_date", "").strip()
+        if test_date_str and not process_date_str:
+            try:
+                t_dt = datetime.strptime(test_date_str, "%d%b%y")
+                process_date_str = (t_dt - timedelta(days=7)).strftime("%d%b%y")
+            except: pass
+            
         pro_before, pro_after = calc_before_after(process_date_str)
         table_data["pro_test_date"] = process_date_str
         table_data["pro_before_test"] = pro_before
