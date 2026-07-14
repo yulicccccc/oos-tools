@@ -112,154 +112,109 @@ def generate_celsis_equipment_text():
         return f"{part1}\n\n{part2} {usage_sent}"
 
 def generate_celsis_narrative_and_details():
-    default_obs, default_etx, default_id = "No Growth", "N/A", "N/A"
-    
-    # Initialize all keys to defaults
-    for _phase in ["pro_", "alq_"]:
-        for _em in ["pers", "surf", "sett", "air_wk", "room_wk"]:
-            for _day in ["be_", "on_", "af_"]:
-                st.session_state[f"{_phase}{_day}obs_{_em}"] = default_obs
-                st.session_state[f"{_phase}{_day}etx_{_em}"] = default_etx
-                st.session_state[f"{_phase}{_day}id_{_em}"] = default_id
-
-    if st.session_state.get("em_growth_observed") == "Yes":
-        count = st.session_state.get("em_growth_count", 1)
-        for i in range(count):
-            p_val = st.session_state.get(f"em_phase_{i}")
-            t_val = st.session_state.get(f"em_type_{i}")
-            d_val = st.session_state.get(f"em_timing_{i}")
-            
-            if not (p_val and t_val and d_val): continue
-            
-            p_key = "pro_" if p_val == "Processing" else "alq_"
-            t_map = {"Personnel": "pers", "Surface": "surf", "Settling": "sett", "Weekly Air": "air_wk", "Weekly Surface": "room_wk"}
-            t_key = t_map.get(t_val, "pers")
-            d_key = "be_" if "Before" in d_val else "af_" if "After" in d_val else "on_"
-            
-            k_obs = f"{p_key}{d_key}obs_{t_key}"
-            k_etx = f"{p_key}{d_key}etx_{t_key}"
-            k_id  = f"{p_key}{d_key}id_{t_key}"
-            
-            st.session_state[k_obs] = st.session_state.get(f"em_obs_{i}", "")
-            st.session_state[k_etx] = st.session_state.get(f"em_etx_{i}", "")
-            st.session_state[k_id]  = st.session_state.get(f"em_id_{i}", "")
-
-    def is_fail(val): return val and str(val).strip().lower() != "no growth"
-    
-    # Aggregate: for narrative purposes, check if ANY timing variant across both phases has growth for each EM type
-    def any_fail(*keys):
-        """Return True if any of the given session_state keys has a non-'No Growth' value."""
-        return any(is_fail(st.session_state.get(k, "No Growth")) for k in keys)
-    
-    def first_fail(key_tuples):
-        """Return the first failing (obs, etx, id, phase_text, timing_text) tuple from the given key groups."""
-        for k_obs, k_etx, k_id, p_text, t_text in key_tuples:
-            if is_fail(st.session_state.get(k_obs, "No Growth")):
-                return st.session_state.get(k_obs), st.session_state.get(k_etx, "N/A"), st.session_state.get(k_id, "N/A"), p_text, t_text
+    import streamlit as st
+    import re
+    def any_fail(*keys): return any(str(st.session_state.get(k, 'No growth')).lower() != 'no growth' and str(st.session_state.get(k, 'No growth')).strip() != '' for k in keys)
+    def first_fail(variants):
+        for v in variants:
+            obs = str(st.session_state.get(v[0], 'No growth')).lower()
+            if obs != 'no growth' and obs.strip() != '':
+                return (st.session_state.get(v[0]), st.session_state.get(v[1]), st.session_state.get(v[2]), v[3], v[4])
         return None
 
-    def get_phase_text(p): return "processing step" if p == "pro_" else "aliquoting step"
-    def get_daily_time(d): return "on the date before testing" if d == "be_" else "on the date after testing" if d == "af_" else "on the date of testing"
-    def get_weekly_time(d): return "during the week before testing date" if d == "be_" else "during the week after testing date" if d == "af_" else "during the week on testing date"
+    def get_phase_text(p): return "processing" if p == "pro_" else "aliquoting"
+    def get_daily_time(d): return "the date before testing" if d == "be_" else "the date after testing" if d == "af_" else "the date of testing"
+    def get_weekly_time(d): return "the week prior to testing" if d == "be_" else "the week after testing" if d == "af_" else "the week of testing"
 
-    pers_variants = [(f"{p}{d}obs_pers", f"{p}{d}etx_pers", f"{p}{d}id_pers", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
-    surf_variants = [(f"{p}{d}obs_surf", f"{p}{d}etx_surf", f"{p}{d}id_surf", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
-    sett_variants = [(f"{p}{d}obs_sett", f"{p}{d}etx_sett", f"{p}{d}id_sett", get_phase_text(p), get_daily_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
-    air_variants  = [(f"{p}{d}obs_air_wk", f"{p}{d}etx_air_wk", f"{p}{d}id_air_wk", get_phase_text(p), get_weekly_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
-    room_variants = [(f"{p}{d}obs_room_wk", f"{p}{d}etx_room_wk", f"{p}{d}id_room_wk", get_phase_text(p), get_weekly_time(d)) for p in ["pro_","alq_"] for d in ["be_","on_","af_"]]
+    # Separate processing and aliquoting variants
+    pro_pers = [(f"pro_{d}obs_pers", f"pro_{d}etx_pers", f"pro_{d}id_pers", "processing", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    pro_surf = [(f"pro_{d}obs_surf", f"pro_{d}etx_surf", f"pro_{d}id_surf", "processing", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    pro_sett = [(f"pro_{d}obs_sett", f"pro_{d}etx_sett", f"pro_{d}id_sett", "processing", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    pro_air  = [(f"pro_{d}obs_air_wk", f"pro_{d}etx_air_wk", f"pro_{d}id_air_wk", "processing", get_weekly_time(d)) for d in ["be_","on_","af_"]]
+    pro_room = [(f"pro_{d}obs_room_wk", f"pro_{d}etx_room_wk", f"pro_{d}id_room_wk", "processing", get_weekly_time(d)) for d in ["be_","on_","af_"]]
 
-    pers_obs_keys = [v[0] for v in pers_variants]
-    surf_obs_keys = [v[0] for v in surf_variants]
-    sett_obs_keys = [v[0] for v in sett_variants]
-    air_obs_keys = [v[0] for v in air_variants]
-    room_obs_keys = [v[0] for v in room_variants]
+    alq_pers = [(f"alq_{d}obs_pers", f"alq_{d}etx_pers", f"alq_{d}id_pers", "aliquoting", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    alq_surf = [(f"alq_{d}obs_surf", f"alq_{d}etx_surf", f"alq_{d}id_surf", "aliquoting", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    alq_sett = [(f"alq_{d}obs_sett", f"alq_{d}etx_sett", f"alq_{d}id_sett", "aliquoting", get_daily_time(d)) for d in ["be_","on_","af_"]]
+    alq_air  = [(f"alq_{d}obs_air_wk", f"alq_{d}etx_air_wk", f"alq_{d}id_air_wk", "aliquoting", get_weekly_time(d)) for d in ["be_","on_","af_"]]
+    alq_room = [(f"alq_{d}obs_room_wk", f"alq_{d}etx_room_wk", f"alq_{d}id_room_wk", "aliquoting", get_weekly_time(d)) for d in ["be_","on_","af_"]]
     
-    failures = []
-    if any_fail(*pers_obs_keys):
-        f = first_fail(pers_variants)
-        if f: failures.append({"cat": "personnel sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily", "phase": f[3], "timing": f[4]})
-    if any_fail(*surf_obs_keys):
-        f = first_fail(surf_variants)
-        if f: failures.append({"cat": "surface sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily", "phase": f[3], "timing": f[4]})
-    if any_fail(*sett_obs_keys):
-        f = first_fail(sett_variants)
-        if f: failures.append({"cat": "settling plates", "obs": f[0], "etx": f[1], "id": f[2], "time": "daily", "phase": f[3], "timing": f[4]})
-    if any_fail(*air_obs_keys):
-        f = first_fail(air_variants)
-        if f: failures.append({"cat": "weekly active air sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "weekly", "phase": f[3], "timing": f[4]})
-    if any_fail(*room_obs_keys):
-        f = first_fail(room_variants)
-        if f: failures.append({"cat": "weekly surface sampling", "obs": f[0], "etx": f[1], "id": f[2], "time": "weekly", "phase": f[3], "timing": f[4]})
-
-    pass_daily_clean, pass_wk_clean = [], []
-    if not any_fail(*pers_obs_keys): pass_daily_clean.append("personnel sampling (left touch and right touch)")
-    if not any_fail(*surf_obs_keys): pass_daily_clean.append("surface sampling")
-    if not any_fail(*sett_obs_keys): pass_daily_clean.append("settling plates")
-    if not any_fail(*air_obs_keys): pass_wk_clean.append("weekly active air sampling")
-    if not any_fail(*room_obs_keys): pass_wk_clean.append("weekly surface sampling")
-
-    narr_parts = []
-    if pass_daily_clean:
-        d_str = f"{pass_daily_clean[0]}" if len(pass_daily_clean)==1 else f"{pass_daily_clean[0]} and {pass_daily_clean[1]}" if len(pass_daily_clean)==2 else f"{pass_daily_clean[0]}, {pass_daily_clean[1]}, and {pass_daily_clean[2]}"
-        narr_parts.append(f"no microbial growth was observed in {d_str} during both the processing and aliquoting steps")
-    if pass_wk_clean:
-        w_str = f"{pass_wk_clean[0]}" if len(pass_wk_clean)==1 else f"{pass_wk_clean[0]} and {pass_wk_clean[1]}" if len(pass_wk_clean)==2 else ", ".join(pass_wk_clean)
-        narr_parts.append(f"Additionally, {w_str} showed no microbial growth" if narr_parts else f"no microbial growth was observed in {w_str}")
-    
-    narrative = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "." if narr_parts else "Upon analyzing the environmental monitoring results, microbial growth was observed in all sampled areas."
-
-    details = ""
-    if failures:
-        daily_fails = [f["cat"] for f in failures if f['time'] == 'daily']
-        weekly_fails = [f["cat"] for f in failures if f['time'] == 'weekly']
-        intro_parts = []
-        if daily_fails: intro_parts.append(f"{' and '.join(daily_fails)} during the processing and aliquoting steps")
-        if weekly_fails: intro_parts.append(f"{' and '.join(weekly_fails)}")
-        fail_intro = f"However, microbial growth was observed during { ' and '.join(intro_parts) }." if intro_parts else ""
+    def generate_phase_narrative(phase_title, pers, surf, sett, air, room, analyst_init, bsc_id):
+        all_daily = pers + surf + sett
+        all_weekly = air + room
         
-        detail_sentences = []
-        for i, f in enumerate(failures):
-            is_plural = "s" in str(f['obs']).lower() or (re.search(r'\d+', str(f['obs'])) and int(re.search(r'\d+', str(f['obs'])).group()) > 1)
-            verb = "were" if is_plural else "was"; noun = "organisms were" if is_plural else "organism was"
-            prefix = "Specifically, " if i == 0 else "Additionally, "
-            detail_sentences.append(f"{prefix}{f['obs']} {verb} detected during {f['cat']} {f['timing']} for the {f['phase']} and {verb} submitted for microbial identification under sample ID {f['etx']}, where the {noun} identified as {f['id']}.")
-        details = f"{fail_intro} {' '.join(detail_sentences)}"
+        daily_fails = []
+        for v in all_daily:
+            obs = str(st.session_state.get(v[0], 'No growth')).lower()
+            if obs != 'no growth' and obs.strip() != '':
+                daily_fails.append(v)
+                
+        weekly_fails = []
+        for v in all_weekly:
+            obs = str(st.session_state.get(v[0], 'No growth')).lower()
+            if obs != 'no growth' and obs.strip() != '':
+                weekly_fails.append(v)
+
+        if not daily_fails:
+            daily_str = f"After reviewing the Environmental Monitoring results for the relevant testing dates, no microbial growth was detected on the personnel monitoring plates (analyst {analyst_init}) or on the ISO 5 BSC (E00{bsc_id}) settling and surface plates for the date of testing, the preceding date, or the subsequent date."
+        else:
+            daily_str = f"After reviewing the Environmental Monitoring results for the relevant testing dates, microbial growth was detected during daily sampling."
+            for v in daily_fails:
+                cat = "personnel sampling" if "pers" in v[0] else "surface sampling" if "surf" in v[0] else "settling plates"
+                daily_str += f" Specifically, on {v[4]}, {st.session_state.get(v[0])} was detected on {cat}. The organism was submitted under ID {st.session_state.get(v[1])} and identified as {st.session_state.get(v[2])}."
+
+        if not weekly_fails:
+            weekly_str = "No growth was observed on weekly surface and active air sampling plates for either the week prior to testing or the week of testing."
+        else:
+            weekly_str = "However, microbial growth was observed during weekly sampling."
+            for v in weekly_fails:
+                cat = "active air sampling" if "air" in v[0] else "surface sampling"
+                weekly_str += f" During {v[4]}, {st.session_state.get(v[0])} was detected on weekly {cat} plates. The organism was submitted under ID {st.session_state.get(v[1])} and identified as {st.session_state.get(v[2])}."
+
+        return f"Environmental Monitoring from Celsis Sterility {phase_title.capitalize()}: {daily_str}\n\n{weekly_str}"
+
+    a_init = st.session_state.get('analyst_initial', '').strip()
+    alq_init = st.session_state.get('aliquoting_initial', '').strip()
+    pro_bsc = st.session_state.get('bsc_id', '').strip()
+    alq_bsc = "1798"
+    
+    em_pro_narrative = generate_phase_narrative("Processing", pro_pers, pro_surf, pro_sett, pro_air, pro_room, a_init, pro_bsc)
+    em_alq_narrative = generate_phase_narrative("Aliquoting", alq_pers, alq_surf, alq_sett, alq_air, alq_room, alq_init, alq_bsc)
+    
+    # Collect ALL failures for the Smart Justification Engine
+    failures = []
+    all_vars = pro_pers + pro_surf + pro_sett + pro_air + pro_room + alq_pers + alq_surf + alq_sett + alq_air + alq_room
+    for v in all_vars:
+        obs = str(st.session_state.get(v[0], 'No growth')).lower()
+        if obs != 'no growth' and obs.strip() != '':
+            time_type = 'daily' if v in pro_pers+pro_surf+pro_sett+alq_pers+alq_surf+alq_sett else 'weekly'
+            failures.append({"id": st.session_state.get(v[2], ""), "time": time_type, "timing": v[4]})
 
     # SMART JUSTIFICATION ENGINE
     smart_just = ""
     positive_org = st.session_state.get("positive_org", "N/A").strip()
-    other_pos_str = st.session_state.get("other_positives", "No").strip()
     
     if not failures:
         smart_just = "Based on the observations outlined above, the cleanroom environment was in optimal condition with no microbial growth detected. Therefore, it is highly unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal, and the original result is deemed to be valid."
     else:
         just_parts = []
         
-        # Rule 1: Not Identical
         all_em_ids = [f['id'].lower() for f in failures]
         if positive_org.lower() not in all_em_ids and "pending" not in positive_org.lower():
-            just_parts.append(f"Although microbial growth was observed during environmental monitoring, none of the fully identified isolates were identical to the {positive_org} recovered from the sample under investigation. These differences indicate that the environmental findings and the test sample contamination represent independent and unrelated events.")
+            just_parts.append(f"Notably, the colony morphology of all microorganisms recovered from the processing cleanroom environments differed from that of the microorganism isolated from the test sample ({positive_org}). This observation indicates that the environmental monitoring findings and the test sample contamination were likely isolated and unrelated events.")
         
-        # Rule 2: ISO 8 vs ISO 5 (User Add 1)
         has_weekly = any(f['time'] == 'weekly' for f in failures)
         if has_weekly:
-            just_parts.append("Furthermore, while microbial growth was detected during weekly monitoring, it is important to note that these organisms were detected in the ISO 8 background room environment, whereas the sample manipulation occurred strictly within the ISO 5 primary engineering control. The samples underwent layered disinfection prior to processing and aliquoting and were transported in disinfected, lidded bins.")
+            just_parts.append("Also, while microbial growth was detected during weekly monitoring, it is important to note that these organisms were detected in the ISO 8 background room environment, whereas the sample manipulation occurred strictly within the ISO 5 primary engineering control.")
             
-        # Rule 3: No Transfer Pathway
         has_daily_testing_day_failure = any(f['time'] == 'daily' and 'of testing' in f['timing'].lower() for f in failures)
         if not has_daily_testing_day_failure:
-            just_parts.append("Importantly, the absence of contamination on the analyst's glove plates and work surfaces on the actual dates of testing indicates that there was no viable transfer pathway from the outer rooms or the analyst to the ISO 5 BSC.")
+            just_parts.append("Also, the absence of contamination on analyst glove plates and work surface monitoring indicates that no viable transfer pathway existed from the ISO 8 areas to the ISO 5 BSCs where processing and aliquoting were performed.")
             
-        # Rule 4: Other Samples Clean (User Add 2)
-        if other_pos_str == "No":
-            just_parts.append("Furthermore, the lack of contamination in other samples supports the fact that the testing environment was operating under optimal conditions.")
-            
-        # Universal Conclusion
-        just_parts.append("Consequently, considering the facility's layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that the microbial contaminants detected in the cleanroom environment impacted the sample processed and aliquoted within the ISO 5 BSC. The possibility of laboratory error contributing to this failure is minimal, and the original result is deemed to be valid.")
-        
-        smart_just = " ".join(just_parts)
+        just_parts.append("Furthermore, the lack of contamination in other samples supports the fact that the testing environment was operating under optimal conditions.")
+        smart_just = "\\n\\n".join(just_parts)
 
-    return narrative, details, smart_just
+    return em_pro_narrative, em_alq_narrative, smart_just
 
 def generate_celsis_history_text():
     if st.session_state.get("incidence_count", 0) == 0 or st.session_state.get("has_prior_failures") == "No": 
