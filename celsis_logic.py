@@ -225,7 +225,41 @@ def generate_celsis_narrative_and_details():
             detail_sentences.append(f"{prefix}{f['obs']} {verb} detected during {f['cat']} {f['timing']} for the {f['phase']} and {verb} submitted for microbial identification under sample ID {f['etx']}, where the {noun} identified as {f['id']}.")
         details = f"{fail_intro} {' '.join(detail_sentences)}"
 
-    return narrative, details
+    # SMART JUSTIFICATION ENGINE
+    smart_just = ""
+    positive_org = st.session_state.get("positive_org", "N/A").strip()
+    other_pos_str = st.session_state.get("other_positives", "No").strip()
+    
+    if not failures:
+        smart_just = "Based on the observations outlined above, the cleanroom environment was in optimal condition with no microbial growth detected. Therefore, it is highly unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal, and the original result is deemed to be valid."
+    else:
+        just_parts = []
+        
+        # Rule 1: Not Identical
+        all_em_ids = [f['id'].lower() for f in failures]
+        if positive_org.lower() not in all_em_ids and "pending" not in positive_org.lower():
+            just_parts.append(f"Although microbial growth was observed during environmental monitoring, none of the fully identified isolates were identical to the {positive_org} recovered from the sample under investigation. These differences indicate that the environmental findings and the test sample contamination represent independent and unrelated events.")
+        
+        # Rule 2: ISO 8 vs ISO 5 (User Add 1)
+        has_weekly = any(f['time'] == 'weekly' for f in failures)
+        if has_weekly:
+            just_parts.append("Furthermore, while microbial growth was detected during weekly monitoring, it is important to note that these organisms were detected in the ISO 8 background room environment, whereas the sample manipulation occurred strictly within the ISO 5 primary engineering control. The samples underwent layered disinfection prior to processing and aliquoting and were transported in disinfected, lidded bins.")
+            
+        # Rule 3: No Transfer Pathway
+        has_daily_testing_day_failure = any(f['time'] == 'daily' and 'of testing' in f['timing'].lower() for f in failures)
+        if not has_daily_testing_day_failure:
+            just_parts.append("Importantly, the absence of contamination on the analyst's glove plates and work surfaces on the actual dates of testing indicates that there was no viable transfer pathway from the outer rooms or the analyst to the ISO 5 BSC.")
+            
+        # Rule 4: Other Samples Clean (User Add 2)
+        if other_pos_str == "No":
+            just_parts.append("Furthermore, the lack of contamination in other samples supports the fact that the testing environment was operating under optimal conditions.")
+            
+        # Universal Conclusion
+        just_parts.append("Consequently, considering the facility's layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that the microbial contaminants detected in the cleanroom environment impacted the sample processed and aliquoted within the ISO 5 BSC. The possibility of laboratory error contributing to this failure is minimal, and the original result is deemed to be valid.")
+        
+        smart_just = " ".join(just_parts)
+
+    return narrative, details, smart_just
 
 def generate_celsis_history_text():
     if st.session_state.get("incidence_count", 0) == 0 or st.session_state.get("has_prior_failures") == "No": 

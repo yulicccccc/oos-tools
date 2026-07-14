@@ -538,6 +538,7 @@ if st.session_state.report_generated:
         p9 = f"Following the reading, {sample_noun} {st.session_state.sample_id} {sample_verb} found to yield a positive reading in the {st.session_state.positive_media} media {bottle_noun}. The average Relative Luminescence Units (RLU) from the duplicate reading tubes, originating from the {st.session_state.positive_media} sample {bottle_noun}, exceeded the average RLU of the {st.session_state.positive_media} negative control, confirming a positive result. The %CV from the duplicate reading tubes for the positive {st.session_state.positive_media} {bottle_noun} were well within the specification (< 30%). Additionally, all Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
         p10 = f"Following the OOS result, the positive {st.session_state.positive_media} {bottle_noun} for {st.session_state.sample_id} {submit_verb} submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}, where the {org_noun} identified as {st.session_state.positive_org}."
         p11 = "The culture media utilized were within their expiry period. The negative culture media bottles for the direct inoculation method for the original culture were handled, processed, and incubated in a manner identical to that of actual samples. No microbial growth was observed in the corresponding negative control."
+        fresh_narr, fresh_det, smart_just = cl.generate_celsis_narrative_and_details()
         p12 = fresh_narr
         if fresh_det: p12 += "\n\n" + fresh_det
         p13 = "The analysts confirmed full compliance with cleaning procedures as outlined in SOPs 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology), 2.600.059 (Celsis Sterility Testing), and 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
@@ -547,7 +548,9 @@ if st.session_state.report_generated:
             p14 = f"Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing ISO 5 Biosafety Cabinets for CR {t_suite} and CR 114 was performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology) During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanrooms {t_suite} and 114."
         p15 = fresh_history
         p16 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
-        p17 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+        
+        # Replace the hardcoded p17 with the dynamic smart justification engine output
+        p17 = smart_just
 
         smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17])
         smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6, p7])
