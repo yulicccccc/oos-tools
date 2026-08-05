@@ -1,4 +1,6 @@
 streamlit
 docxtpl
+python-docx
+PyMuPDF
 pypdf>=3.17.0
 reportlab>=4.0.0
