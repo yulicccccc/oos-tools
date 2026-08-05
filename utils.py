@@ -85,11 +85,11 @@ def get_full_name(initial):
     mapping = {
         "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
         "QC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
-        "CSG": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
+        "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
         "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
         "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
-        "AC": "Andrew Carrillo", "KC": "Kira C",
+        "AC": "Andrew Carrillo", "KC": "Kira C", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
         "SMO": "SMO"             # EM 表格特定缩写

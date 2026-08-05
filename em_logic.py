@@ -100,6 +100,15 @@ def parse_em_text(text):
         if bsc_match:
             data["bsc_id"] = f"BSC {bsc_match.group(1)}"
             
+        # Extract Setup Analyst Initial from plate name (e.g. ScanC/O CGS -> CGS -> Clea S. Garza)
+        analyst_match = re.search(r"(?:ScanC/O|ScanCO|Scan|Sterility|EM)\s+([A-Z]{2,3})\b", p_name, re.IGNORECASE)
+        if analyst_match:
+            init = analyst_match.group(1).upper()
+            full_n = get_full_name(init)
+            if full_n and full_n != init:
+                data["analyst_name"] = full_n
+                data["analyst_initial"] = init
+
         # Infer sampling type
         if "sett" in p_name.lower():
             data["sampling_type"] = "Settling Sampling"
