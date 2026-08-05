@@ -41,6 +41,11 @@ This system is designed to seamlessly generate Phase I OOS investigation reports
     * **SOP Reference**: 2.600.008 / 2.600.018
     * **Key Metrics**: 14-day continuous incubation and TSB/FTM dual media tracking.
 
+4.  **🧫 Environmental Monitoring (EM) Investigation**
+    * **Methodology**: Environmental Monitoring (Surface, Settling, Personnel, Active Air Sampling).
+    * **SOP Reference**: 2.600.002
+    * **Key Metrics**: Exceeded action/alert level CFU tracking & transient contamination defense.
+
 ---
 **Directions for Use**: 
 Please expand the sidebar on the left and click on the specific module you need to run today's investigation. Ensure your Word and PDF templates are correctly placed in the root directory.
