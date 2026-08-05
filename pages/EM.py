@@ -58,20 +58,13 @@ with col2:
 
 with col3:
     reader_options = [
-        "Maraya Chukwumerije & Simin Mohammad",
-        "Simin Mohammad & Maraya Chukwumerije",
-        "Maraya Chukwumerije",
         "Simin Mohammad",
-        "Other (Custom)"
+        "Maraya Chukwumerije"
     ]
     current_reader = st.session_state.get("reader_name", reader_options[0])
-    idx = reader_options.index(current_reader) if current_reader in reader_options[:-1] else 4
+    idx = reader_options.index(current_reader) if current_reader in reader_options else 0
     selected_reader = st.selectbox("Reader Analyst Name(s)", reader_options, index=idx, key="reader_select")
-    if selected_reader == "Other (Custom)":
-        custom_reader = st.text_input("Custom Reader Name(s)", value=st.session_state.get("reader_custom", ""), key="reader_custom")
-        st.session_state["reader_name"] = custom_reader
-    else:
-        st.session_state["reader_name"] = selected_reader
+    st.session_state["reader_name"] = selected_reader
 
     st.text_input("Action / Alert Level", key="action_level", value="Action Level: ≥ 1 CFU/Plate")
     st.text_input("CFU Count & Organism", key="manual_org", placeholder="e.g. 10 CFUs - Staphylococcus epidermidis")

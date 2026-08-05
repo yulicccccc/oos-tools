@@ -132,7 +132,7 @@ def parse_em_text(text):
         if "manual_org" in data:
             data["manual_org"] += f" ({org_match.group(1).strip()})"
     # Default Reader Name
-    data["reader_name"] = "Maraya Chukwumerije & Simin Mohammad"
+    data["reader_name"] = "Simin Mohammad"
 
     return data
 
