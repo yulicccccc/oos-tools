@@ -194,10 +194,13 @@ def generate_em_reports():
                 "oos_id": s.get("oos_id", ""),
                 "sample_id": s.get("event_number", s.get("sample_id", "")),
                 "sample_name": s.get("sample_name", ""),
+                "lot_number": s.get("sample_name", ""),
                 "test_date": s.get("test_date", ""),
                 "analyst_name": s.get("analyst_name", ""),
+                "analyst_initial": s.get("analyst_initial", ""),
                 "reader_name": s.get("reader_name", ""),
                 "bsc_id": s.get("bsc_id", ""),
+                "dosage_form": "Plate",
                 "smart_comment_interview": interview_block,
                 "smart_comment_records": records_block,
                 "smart_phase1_summary": summary_block,
@@ -216,20 +219,25 @@ def generate_em_reports():
     if os.path.exists(target_pdf):
         try:
             from pypdf import PdfWriter
+            analyst_name = s.get('analyst_name', '')
+            analyst_init = s.get('analyst_initial', '')
+            initiator_sig = f"{analyst_name} (written by: Qiyue Chen)" if analyst_name else ""
+            
             pdf_map = {
                 'Text Field57': s.get("oos_id", ""),
+                'Text Field0': initiator_sig,
                 'Date Field0': s.get("test_date", ""),
                 'Date Field1': s.get("test_date", ""),
                 'Date Field2': s.get("test_date", ""),
                 'Text Field1': "Environmental Monitoring",
                 'Text Field2': s.get("event_number", s.get("sample_id", "")),
-                'Text Field3': f"Setup Analyst: {s.get('analyst_name', '')}\nReader Analyst: {s.get('reader_name', '')}",
+                'Text Field3': f"Setup Analyst:\n{analyst_name} ({analyst_init})\n\nReader Analyst:\n{s.get('reader_name', '')}",
                 'Text Field4': s.get("sample_name", ""),
                 'Text Field5': "Plate",
                 'Text Field6': s.get("sample_name", ""),
                 'Text Field7': "The CFU count for the environmental monitoring plate exceeded the action level.",
                 'Text Field8': "2.600.002",
-                'Text Field11': s.get("action_level", "Action Level: ≥ 1 CFU/Plate"),
+                'Text Field11': s.get("action_level", "Action Level: >= 1 CFU/Plate").replace("≥", ">="),
                 'Text Field15': "Yes, as per SOP 2.600.002",
                 'Text Field16': "Yes, as per SOP 2.600.002",
                 'Text Field21': "Yes, as per SOP 2.600.002",
