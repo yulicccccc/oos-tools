@@ -35,6 +35,7 @@ if st.button("🪄 Parse & Auto-Fill Form"):
     if parsed:
         for k, v in parsed.items():
             st.session_state[k] = v
+        st.session_state["em_show_reports"] = False
         st.success("✨ Auto-filled parsed fields! Please review below.")
         st.rerun()
     else:
@@ -73,9 +74,13 @@ st.markdown("---")
 st.markdown("### 📝 Phase I Narrative Preview")
 
 if st.button("🚀 Generate Reports & Documents (Word & PDF)"):
+    st.session_state["em_show_reports"] = True
+
+if st.session_state.get("em_show_reports", False):
     errors, warnings = el.validate_inputs()
     if errors:
         for err in errors: st.error(err)
+        st.session_state["em_show_reports"] = False
     else:
         if warnings:
             st.warning(f"⚠️ Missing recommended fields: {', '.join(warnings)}")
