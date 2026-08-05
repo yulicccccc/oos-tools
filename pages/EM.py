@@ -72,7 +72,7 @@ with col3:
 st.markdown("---")
 st.markdown("### 📝 Phase I Narrative Preview")
 
-if st.button("🔄 Generate Narrative Preview"):
+if st.button("🚀 Generate Reports & Documents (Word & PDF)"):
     errors, warnings = el.validate_inputs()
     if errors:
         for err in errors: st.error(err)
@@ -81,9 +81,49 @@ if st.button("🔄 Generate Narrative Preview"):
             st.warning(f"⚠️ Missing recommended fields: {', '.join(warnings)}")
         
         interview_block, records_block, summary_block = el.generate_em_narrative()
+        docx_buf, pdf_buf = el.generate_em_reports()
         
-        st.success("✅ EM Phase I Narrative Generated Successfully!")
+        st.success("✅ EM Phase I Report Generated Successfully!")
         
+        st.markdown("### 📂 Download Reports")
+        c1, c2, c3 = st.columns(3)
+        safe_name = el.clean_filename(st.session_state.get("oos_id", "EM_Report"))
+        
+        with c1:
+            st.subheader("Word Document")
+            if docx_buf:
+                st.download_button(
+                    "📄 EM OOS Report (.docx)", 
+                    docx_buf, 
+                    f"{safe_name}.docx", 
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+            else:
+                st.error("Word template not found or rendering failed.")
+
+        with c2:
+            st.subheader("PDF Form Document")
+            if pdf_buf:
+                st.download_button(
+                    "🔴 EM OOS Report (.pdf)", 
+                    pdf_buf, 
+                    f"{safe_name}.pdf", 
+                    "application/pdf"
+                )
+            else:
+                st.error("PDF template not found or rendering failed.")
+
+        with c3:
+            st.subheader("Backup Session")
+            session_data = {k: st.session_state[k] for k in el.FIELD_KEYS if k in st.session_state}
+            st.download_button(
+                "💾 Save Session Data (.txt)", 
+                json.dumps(session_data, indent=2), 
+                f"SAVE_{safe_name}.txt", 
+                "text/plain"
+            )
+            
+        st.markdown("---")
         st.subheader("1. Analyst Interview & Storage Narrative")
         st.info(interview_block)
         

@@ -175,3 +175,75 @@ def generate_em_narrative():
     )
     
     return interview_block, records_block, summary_block
+
+def generate_em_reports():
+    """Generates DOCX and PDF buffers for EM OOS Report"""
+    s = st.session_state
+    interview_block, records_block, summary_block = generate_em_narrative()
+    
+    docx_buf = None
+    pdf_form_buf = None
+    
+    # 1. Render DOCX Template
+    target_docx = "EM OOS P1 template 0.docx" if os.path.exists("EM OOS P1 template 0.docx") else "EM OOS P1 template.docx"
+    if os.path.exists(target_docx):
+        try:
+            from docxtpl import DocxTemplate
+            doc = DocxTemplate(target_docx)
+            context = {
+                "oos_id": s.get("oos_id", ""),
+                "sample_id": s.get("event_number", s.get("sample_id", "")),
+                "sample_name": s.get("sample_name", ""),
+                "test_date": s.get("test_date", ""),
+                "analyst_name": s.get("analyst_name", ""),
+                "reader_name": s.get("reader_name", ""),
+                "bsc_id": s.get("bsc_id", ""),
+                "smart_comment_interview": interview_block,
+                "smart_comment_records": records_block,
+                "smart_phase1_summary": summary_block,
+                "smart_phase1_part1": interview_block,
+                "smart_phase1_part2": summary_block
+            }
+            doc.render(context)
+            docx_buf = io.BytesIO()
+            doc.save(docx_buf)
+            docx_buf.seek(0)
+        except Exception as e:
+            st.error(f"DOCX Generation Error: {e}")
+            
+    # 2. Render PDF Form Template
+    target_pdf = "EM OOS P1 template.pdf"
+    if os.path.exists(target_pdf):
+        try:
+            from pypdf import PdfWriter
+            pdf_map = {
+                'Text Field57': s.get("oos_id", ""),
+                'Date Field0': s.get("test_date", ""),
+                'Date Field1': s.get("test_date", ""),
+                'Date Field2': s.get("test_date", ""),
+                'Text Field1': "Environmental Monitoring",
+                'Text Field2': s.get("event_number", s.get("sample_id", "")),
+                'Text Field3': f"Setup Analyst: {s.get('analyst_name', '')}\nReader Analyst: {s.get('reader_name', '')}",
+                'Text Field4': s.get("sample_name", ""),
+                'Text Field5': "Plate",
+                'Text Field6': s.get("sample_name", ""),
+                'Text Field7': "The CFU count for the environmental monitoring plate exceeded the action level.",
+                'Text Field8': "2.600.002",
+                'Text Field11': s.get("action_level", "Action Level: ≥ 1 CFU/Plate"),
+                'Text Field15': "Yes, as per SOP 2.600.002",
+                'Text Field16': "Yes, as per SOP 2.600.002",
+                'Text Field21': "Yes, as per SOP 2.600.002",
+                'Text Field49': interview_block,
+                'Text Field50': records_block,
+                'Text Field51': summary_block
+            }
+            writer = PdfWriter(clone_from=target_pdf)
+            for page in writer.pages:
+                writer.update_page_form_field_values(page, pdf_map)
+            pdf_form_buf = io.BytesIO()
+            writer.write(pdf_form_buf)
+            pdf_form_buf.seek(0)
+        except Exception as e:
+            st.error(f"PDF Form Generation Error: {e}")
+            
+    return docx_buf, pdf_form_buf
