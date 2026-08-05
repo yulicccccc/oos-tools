@@ -72,7 +72,7 @@ def apply_eagle_style():
         
         with st.expander("Micro", expanded=True):
             st.page_link("pages/ScanRDI.py", label="ScanRDI")
-            st.page_link("pages/USP_71.py", label="USP <71>")
+            st.page_link("pages/USP71.py", label="USP <71>")
             st.page_link("pages/Celsis.py", label="Celsis")
             st.page_link("pages/EM.py", label="EM")
 
