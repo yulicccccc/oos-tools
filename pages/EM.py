@@ -26,7 +26,22 @@ apply_eagle_style()
 st.title("🧫 Environmental Monitoring (EM) OOS Investigation")
 st.caption("Form 3.100.019.F01 - SOP 2.600.002 Automated Report Generator")
 
-# --- 3. INPUT FORM ---
+# --- 3. SMART EMAIL IMPORT ---
+st.markdown("### 📧 Smart Email Import / Paste Text")
+email_text = st.text_area("Paste EM Notification Email or OOS Results text here:", height=130, placeholder="Paste email content containing OOS-261187, Plate Name, CFU Count, Organisms, etc.")
+
+if st.button("🪄 Parse & Auto-Fill Form"):
+    parsed = el.parse_em_text(email_text)
+    if parsed:
+        for k, v in parsed.items():
+            st.session_state[k] = v
+        st.success("✨ Auto-filled parsed fields! Please review below.")
+        st.rerun()
+    else:
+        st.warning("⚠️ No matching fields found in pasted text. Please enter details manually.")
+
+st.markdown("---")
+# --- 4. INPUT FORM ---
 st.markdown("### 📋 Section A: Test & Environmental Details")
 
 col1, col2, col3 = st.columns(3)
