@@ -729,8 +729,8 @@ def generate_em_reports():
                 'Text Field54': "Kathan Parikh"
             }
 
-            # Checkbox Yes/No defaults matching production PDF QA standards (EM is internal facility testing, so Client Care Check Box0 and Check Box1 are NEVER checked)
-            yes_boxes = {4, 9, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 79, 87}
+            # Checkbox Yes/No defaults matching production PDF QA standards (EM is internal facility testing, so Client Care and Sample Discrepancy rows are N/A)
+            yes_boxes = {4, 9, 10, 13, 16, 19, 24, 27, 28, 33, 36, 39, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 79, 87}
             for i in range(100):
                 if i in yes_boxes:
                     pdf_map[f'Check Box{i}'] = '/Yes'
