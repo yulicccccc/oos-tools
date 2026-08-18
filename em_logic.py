@@ -730,12 +730,12 @@ def generate_em_reports():
             }
 
             # Checkbox Yes/No defaults matching production PDF QA standards (EM is internal facility testing, so Client Care Check Box0 and Check Box1 are NEVER checked)
-            pdf_map['Check Box0'] = ''
-            pdf_map['Check Box1'] = ''
-            
-            yes_boxes = [4, 9, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 87, 79]
-            for b_num in yes_boxes:
-                pdf_map[f'Check Box{b_num}'] = '/Yes'
+            yes_boxes = {4, 9, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 79, 87}
+            for i in range(100):
+                if i in yes_boxes:
+                    pdf_map[f'Check Box{i}'] = '/Yes'
+                else:
+                    pdf_map[f'Check Box{i}'] = ''
 
             # Fill Form 1-6
             writer = PdfWriter(clone_from=target_pdf)
