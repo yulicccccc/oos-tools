@@ -367,6 +367,36 @@ def generate_em_narrative():
 
     return interview_block, records_block, summary_block
 
+def get_cleanroom_info(sample_name="", bsc_id=""):
+    """
+    Infers Cleanroom Suite and Equipment ID:
+    - CR116 -> CR116 ( E001738 )
+    - CR115 -> CR115 ( E001737 )
+    - CR114 -> CR114 ( E001736 )
+    - CR117 -> CR117 ( E001739 )
+    - CR118 -> CR118 ( E001740 )
+    - L-Suite -> CR145 ( E001979 )
+    """
+    combined = (str(sample_name) + " " + str(bsc_id)).upper()
+    if "117" in combined or "1310" in combined or "1309" in combined:
+        return "CR117 ( E001739 )", "December 2026"
+    elif "116" in combined or "1311" in combined or "1312" in combined:
+        return "CR116 ( E001738 )", "December 2026"
+    elif "115" in combined or "1314" in combined or "1313" in combined:
+        return "CR115 ( E001737 )", "December 2026"
+    elif "114" in combined or "1316" in combined or "1798" in combined:
+        return "CR114 ( E001736 )", "December 2026"
+    elif "145" in combined or "1938" in combined or "1317" in combined:
+        return "CR145 ( E001979 )", "December 2026"
+    elif "144" in combined or "1988" in combined or "1937" in combined:
+        return "CR144 ( E001978 )", "December 2026"
+    elif "143" in combined:
+        return "CR143 ( E001977 )", "December 2026"
+    elif "142" in combined:
+        return "CR142 ( E001976 )", "December 2026"
+    else:
+        return "CR116 ( E001738 )", "December 2026"
+
 def build_em_context():
     """Builds a complete context dictionary for rendering DOCX and PDF templates"""
     s = st.session_state
@@ -410,6 +440,9 @@ def build_em_context():
     reagent_lot_str = f"{plate_media_type}:\n{media_lot}"
     reagent_exp_str = f"{plate_media_type}:\n{media_exp}"
 
+    # Cleanroom & Equipment Certification Info
+    cr_display, cr_exp = get_cleanroom_info(plate_name, bsc_id)
+
     ctx = {
         # General & Section A
         "oos_id": oos_id,
@@ -431,7 +464,9 @@ def build_em_context():
         "smart_personnel_block": personnel_block,
         "bsc_id": bsc_id,
         "equipment_summary": "Incubator E001031 and Incubator E001034",
-        "cr_id": "CR115",
+        "cr_display": cr_display,
+        "cr_exp": cr_exp,
+        "cr_id": cr_display,
         "action_level": action_level,
         "incident_description": "The CFU count for the environmental monitoring plate exceeded the action level.",
         "smart_incident_opening": "The CFU count for the environmental monitoring plate exceeded the action level.",
@@ -739,8 +774,10 @@ def generate_em_reports():
                 'Text Field29': "Not Applicable",
                 'Text Field30': "Please see below",
                 'Text Field31': "Please see below",
-                'Text Field34': "Not Applicable",
-                'Text Field35': "Not Applicable",
+                'Text Field32': ctx.get('cr_display', "CR116 ( E001738 )"),
+                'Text Field33': ctx.get('cr_exp', "December 2026"),
+                'Text Field34': "N/A",
+                'Text Field35': "N/A",
                 'Text Field36': "Not Applicable",
                 'Text Field37': "Not Applicable",
                 'Text Field38': "Not Applicable",
