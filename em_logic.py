@@ -30,6 +30,8 @@ FIELD_KEYS = [
     "analyst_name", "analyst_initial", "reader_name", "reader_initial",
     "action_level", "cfu_count", "event_number", "manual_org", "monthly_cleaning_date",
     "cleaner_name", "writer_name", "manager_name", "test_method",
+    # Media Plate / Reagents
+    "plate_media_type", "media_plate_lot", "media_plate_exp",
     # Bracketing fields
     "before_date", "after_date",
     "pers_obs_before", "pers_obs_during", "pers_obs_after",
@@ -153,6 +155,20 @@ def parse_em_text(text):
     org_match = re.search(r"(?:Microbial Identification|Colony Description|Organism)\s*(?:\(Optional\))?\s*[:\n\r]*\s*([^\n\r]+)", text, re.IGNORECASE)
     if org_match and org_match.group(1).strip().upper() not in ["N/A", "NONE", ""]:
         data["manual_org"] = org_match.group(1).strip()
+
+    # 6. Reagent / Plate Media Lot & Exp
+    lot_match = re.search(r"(?:TSA Lot|Contact Plate Lot|Plate Lot|Lot\s*#?|Media Lot)\s*[:\s]*(\d{7,10})", text, re.IGNORECASE)
+    if not lot_match:
+        lot_match = re.search(r"\b(1011\d{6})\b", text)
+    if lot_match:
+        data["media_plate_lot"] = lot_match.group(1).strip()
+        
+    exp_match = re.search(r"(?:Exp|Expiry|Expiration)\s*[:\s]*(\d{1,2}\s*[A-Za-z]{3}\s*\d{2,4})", text, re.IGNORECASE)
+    if not exp_match:
+        exp_match = re.search(r"\b(\d{1,2}[A-Za-z]{3}\d{2,4})\b", text)
+    if exp_match:
+        raw_exp = exp_match.group(1).replace(" ", "").upper()
+        data["media_plate_exp"] = raw_exp
 
     # Defaults
     data["reader_name"] = "Simin Mohammad & Maraya Chukwumerije"
@@ -387,6 +403,13 @@ def build_em_context():
     else:
         analyst_sig = analyst_name
 
+    # Media Plate / Reagent Info
+    plate_media_type = s.get('plate_media_type', 'TSA Plate' if ('air' in plate_name.lower() or 'sett' in plate_name.lower()) else 'Contact Plate')
+    media_lot = s.get('media_plate_lot', '1011543730')
+    media_exp = s.get('media_plate_exp', '29SEP2026')
+    reagent_lot_str = f"{plate_media_type}:\n{media_lot}"
+    reagent_exp_str = f"{plate_media_type}:\n{media_exp}"
+
     ctx = {
         # General & Section A
         "oos_id": oos_id,
@@ -425,6 +448,13 @@ def build_em_context():
         "smart_phase1_continued": "",
         "smart_phase1_part1": interview_block,
         "smart_phase1_part2": summary_block,
+
+        # Media Plate / Reagent Info
+        "plate_media_type": plate_media_type,
+        "media_plate_lot": media_lot,
+        "media_plate_exp": media_exp,
+        "reagent_lot": reagent_lot_str,
+        "reagent_exp": reagent_exp_str,
 
         # Table 1 Fields
         "sampling_location": f"{sampling_type} Plate ({bsc_id})",
@@ -699,8 +729,8 @@ def generate_em_reports():
                 'Text Field19': "Not Applicable",
                 'Text Field20': "Not Applicable",
                 'Text Field21': "Yes, as per SOP 2.600.002",
-                'Text Field22': "Incubator E001031\nIncubator E001034",
-                'Text Field23': "20 Feb 2026\n20 Feb 2026",
+                'Text Field22': ctx.get('reagent_lot', "TSA Plate:\n1011543730"),
+                'Text Field23': ctx.get('reagent_exp', "TSA Plate:\n29SEP2026"),
                 'Text Field24': "Not Applicable",
                 'Text Field25': "Not Applicable",
                 'Text Field26': "Not Applicable",

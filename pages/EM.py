@@ -47,29 +47,37 @@ st.markdown("---")
 # --- 4. INPUT FORM ---
 st.markdown("### 📋 Section A: Test & Environmental Details")
 
-col1, col2, col3 = st.columns(3)
-
-with col1:
+c1, c2, c3, c4 = st.columns(4)
+with c1:
     st.text_input("OOS Number", key="oos_id", placeholder="e.g. OOS-260361")
-    st.text_input("Sample / Plate Name", key="sample_name", placeholder="e.g. Sterility GS BSC1314 Sett2 05FEB2026")
-    st.text_input("Event / ETX Number", key="event_number", placeholder="e.g. ETX-260216-0348")
-    st.text_input("Test Date (DDMMMYY)", key="test_date", placeholder="e.g. 05Feb26")
-
-with col2:
+    st.text_input("Setup Analyst Name", key="analyst_name", placeholder="e.g. Simin Mohammad")
+with c2:
+    st.text_input("Sample / Plate Name", key="sample_name", placeholder="e.g. EM SMO 116A Air 07MAY2026")
+    st.text_input("Setup Analyst Initial", key="analyst_initial", placeholder="e.g. SMO")
+with c3:
+    st.text_input("Event / ETX Number", key="event_number", placeholder="e.g. ETX-260518-0254")
+    st.selectbox("Plate Media Type", ["TSA Plate", "Contact Plate"], key="plate_media_type")
+with c4:
+    st.text_input("Test Date (DDMMMYY)", key="test_date", placeholder="e.g. 07May26")
     st.selectbox(
         "Sampling Type", 
         ["Settling Sampling", "Surface Sampling", "Surface Sampling (Changeover)", "Weekly Cleanroom Sampling", "Personnel Sampling (Glove)"], 
         key="sampling_type"
     )
-    st.text_input("Equipment / BSC ID", key="bsc_id", placeholder="e.g. BSC 1314 or CR114")
-    st.text_input("Setup Analyst Name", key="analyst_name", placeholder="e.g. Gabrielle Surber")
-    st.text_input("Setup Analyst Initial", key="analyst_initial", placeholder="e.g. GS")
 
-with col3:
+st.markdown("##### 🔬 Media / Reagents & Investigation Results")
+r1, r2, r3, r4 = st.columns(4)
+with r1:
+    st.text_input("Media Plate Lot #", key="media_plate_lot", value=st.session_state.get("media_plate_lot", "1011543730"))
+    st.text_input("Equipment / BSC ID", key="bsc_id", placeholder="e.g. BSC 1314 or CR116")
+with r2:
+    st.text_input("Media Plate Expiration", key="media_plate_exp", value=st.session_state.get("media_plate_exp", "29SEP2026"))
     st.text_input("Reader Analyst Name(s)", key="reader_name", value=st.session_state.get("reader_name", "Maraya Chukwumerije & Simin Mohammad"))
+with r3:
+    st.text_input("CFU Count", key="cfu_count", placeholder="e.g. 748")
     st.text_input("Action / Alert Level", key="action_level", value=st.session_state.get("action_level", "Action Level: ≥ 1 CFU/Plate"))
-    st.text_input("CFU Count", key="cfu_count", placeholder="e.g. 10")
-    st.text_input("Organism(s) Identified", key="manual_org", placeholder="e.g. Staphylococcus capitis (Gram (+) cocci)...")
+with r4:
+    st.text_input("Organism(s) Identified", key="manual_org", placeholder="e.g. Kocuria palustris (Gram (+) cocci)...")
 
 st.markdown("---")
 st.markdown("### 📝 Phase I Narrative & Report Generation")
