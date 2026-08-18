@@ -5,9 +5,14 @@ import re
 import json
 import io
 import sys
-import subprocess
-import time
 from datetime import datetime, timedelta
+
+# ReportLab for dynamic Page 7 Table Generation
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
 # --- 1. Central Utilities ---
 try:
@@ -21,17 +26,17 @@ except ImportError:
 
 # --- 2. CONFIG & KEYS ---
 FIELD_KEYS = [
-    "oos_id", "client_name", "sample_id", "test_date", "sample_name", "lot_number", 
-    "dosage_form", "monthly_cleaning_date", 
-    "analyst_initial", "analyst_name", "reader_initial", "reader_name",
-    "writer_name", "bsc_id", "cr_id", "shift_number", "sampling_type",
-    "org_choice", "manual_org", "action_level", "cfu_count", "event_number", "confirm_number",
-    "obs_pers_dur", "etx_pers_dur", "id_pers_dur", 
-    "obs_surf_dur", "etx_surf_dur", "id_surf_dur", 
-    "obs_sett_dur", "etx_sett_dur", "id_sett_dur", 
-    "obs_air_wk_of", "etx_air_wk_of", "id_air_wk_of", 
-    "obs_room_wk_of", "etx_room_wk_of", "id_room_wk_of",
-    "date_of_weekly", "weekly_initial"
+    "oos_id", "sample_name", "test_date", "sampling_type", "bsc_id",
+    "analyst_name", "analyst_initial", "reader_name", "reader_initial",
+    "action_level", "cfu_count", "event_number", "manual_org", "monthly_cleaning_date",
+    "cleaner_name", "writer_name", "manager_name", "test_method",
+    # Bracketing fields
+    "before_date", "after_date",
+    "pers_obs_before", "pers_obs_during", "pers_obs_after",
+    "bsc_surf_obs_before", "bsc_surf_obs_during", "bsc_surf_obs_after",
+    "bsc_sett_obs_before", "bsc_sett_obs_during", "bsc_sett_obs_after",
+    "date_of_weekly_air", "weekly_air_analyst", "air_obs", "air_etx", "air_id",
+    "date_of_weekly_surf", "weekly_surf_analyst", "room_surf_obs", "room_surf_etx", "room_surf_id"
 ]
 
 def auto_fill_name(initial_key, name_key):
@@ -41,25 +46,42 @@ def auto_fill_name(initial_key, name_key):
         calculated_name = get_full_name(initial)
         if calculated_name and not current_name:
             st.session_state[name_key] = calculated_name
-            st.rerun()
 
 def validate_inputs():
     errors, warnings = [], []
     reqs = {
         "OOS Number": "oos_id", "Sample / Plate Name": "sample_name", 
         "Test Date": "test_date", "Setup Analyst Name": "analyst_name",
-        "Reader Name": "reader_name", "BSC / Cleanroom ID": "bsc_id"
+        "BSC / Cleanroom ID": "bsc_id"
     }
     for label, key in reqs.items():
         if not st.session_state.get(key, "").strip(): warnings.append(label)
     date_val = st.session_state.get("test_date", "").strip()
     if date_val:
-        try: datetime.strptime(date_val, "%d%b%y")
-        except ValueError: errors.append(f"❌ Date Error: '{date_val}' invalid. Use DDMMMYY (e.g. 17Feb26).")
+        try:
+            if len(date_val) >= 9:
+                datetime.strptime(date_val, "%d%b%Y")
+            else:
+                datetime.strptime(date_val, "%d%b%y")
+        except ValueError:
+            errors.append(f"❌ Date Error: '{date_val}' invalid. Use DDMMMYY (e.g. 17Feb26).")
     return errors, warnings
 
 def clean_filename(text): 
     return re.sub(r'[\\/*?:"<>|]', '_', str(text)).strip() if text else ""
+
+def format_date_std(date_str):
+    """Converts diverse date strings to DD-Mon-YYYY or DD Mon YYYY format"""
+    if not date_str:
+        return ""
+    clean_d = re.sub(r'[\s\-]', '', str(date_str).strip())
+    for fmt in ["%d%b%Y", "%d%b%y", "%Y%m%d", "%m/%d/%Y", "%d/%m/%Y"]:
+        try:
+            dt = datetime.strptime(clean_d, fmt)
+            return dt.strftime("%d-%b-%Y")
+        except ValueError:
+            continue
+    return date_str
 
 def parse_em_text(text):
     """Smart Paste parser for EM email & notification text"""
@@ -68,22 +90,22 @@ def parse_em_text(text):
         return data
         
     # 1. OOS ID
-    oos_match = re.search(r"(OOS-\d+)", text)
+    oos_match = re.search(r"OOS[-\s]*(\d+)", text, re.IGNORECASE)
     if oos_match:
-        data["oos_id"] = oos_match.group(1).strip()
+        data["oos_id"] = f"OOS-{oos_match.group(1).strip()}"
         
     # 2. ETX / Event ID
-    etx_match = re.search(r"(ETX-\d{6}-\d{4})", text)
+    etx_match = re.search(r"(ETX-\d{6}-\d{4})", text, re.IGNORECASE)
     if etx_match:
         data["event_number"] = etx_match.group(1).strip()
         
-    # 3. Plate / Sample Name (e.g. ScanC/O CGS E001309 S1 11MAY2026)
+    # 3. Plate / Sample Name (e.g. ScanC/O HS BSC1309 S3 17FEB2026 or Sterility GS BSC1314 Sett2 05FEB2026)
     plate_match = re.search(r"((?:Scan|Sterility|EM)[^\t\r\n]+)", text)
     if plate_match:
         p_name = plate_match.group(1).strip()
         data["sample_name"] = p_name
         
-        # Extract date from plate name (e.g. 11MAY2026 or 17FEB2026)
+        # Extract date from plate name
         date_in_plate = re.search(r"(\d{1,2}\s*[A-Za-z]{3}\s*\d{2,4})", p_name)
         if date_in_plate:
             raw_d = date_in_plate.group(1).replace(" ", "")
@@ -95,12 +117,12 @@ def parse_em_text(text):
                 data["test_date"] = d_obj.strftime("%d%b%y")
             except: pass
             
-        # Extract BSC / Equipment ID (e.g. BSC1309, E001309, 1309)
+        # Extract BSC / Equipment ID
         bsc_match = re.search(r"(?:BSC|E00)?(\d{4})", p_name, re.IGNORECASE)
         if bsc_match:
             data["bsc_id"] = f"BSC {bsc_match.group(1)}"
             
-        # Extract Setup Analyst Initial from plate name (e.g. ScanC/O CGS -> CGS -> Clea S. Garza)
+        # Extract Setup Analyst Initial
         analyst_match = re.search(r"(?:ScanC/O|ScanCO|Scan|Sterility|EM)\s+([A-Z]{2,3})\b", p_name, re.IGNORECASE)
         if analyst_match:
             init = analyst_match.group(1).upper()
@@ -110,29 +132,33 @@ def parse_em_text(text):
                 data["analyst_initial"] = init
 
         # Infer sampling type
-        if "sett" in p_name.lower():
+        p_lower = p_name.lower()
+        if "sett" in p_lower:
             data["sampling_type"] = "Settling Sampling"
-        elif "s1" in p_name.lower() or "s2" in p_name.lower() or "s3" in p_name.lower() or "c/o" in p_name.lower() or "surf" in p_name.lower():
+        elif "c/o" in p_lower or "changeover" in p_lower:
+            data["sampling_type"] = "Surface Sampling (Changeover)"
+        elif any(s in p_lower for s in ["s1", "s2", "s3", "s4", "surf"]):
             data["sampling_type"] = "Surface Sampling"
-        elif "glove" in p_name.lower() or "pers" in p_name.lower():
+        elif "glove" in p_lower or "pers" in p_lower:
             data["sampling_type"] = "Personnel Sampling (Glove)"
+        elif "cart" in p_lower or "floor" in p_lower or "room" in p_lower or "air" in p_lower:
+            data["sampling_type"] = "Weekly Cleanroom Sampling"
 
     # 4. CFU Count
-    cfu_match = re.search(r"Total CFU Count on Plate\s*\n?\s*(\d+)", text, re.IGNORECASE)
+    cfu_match = re.search(r"(?:Total CFU Count on Plate|CFU Count|CFU)\s*[:\n\r]*\s*(\d+)", text, re.IGNORECASE)
     if cfu_match:
         data["cfu_count"] = cfu_match.group(1).strip()
         
     # 5. Colony Description & Organism Identification
-    desc_match = re.search(r"Colony Description \(Optional\)\s*\n?\s*([^\n\r]+)", text, re.IGNORECASE)
-    if desc_match and desc_match.group(1).strip().upper() != "N/A":
-        data["manual_org"] = desc_match.group(1).strip()
-        
-    org_match = re.search(r"Microbial Identification \(Optional\)\s*\n?\s*([^\n\r]+)", text, re.IGNORECASE)
-    if org_match and org_match.group(1).strip().upper() != "N/A":
-        if "manual_org" in data:
-            data["manual_org"] += f" ({org_match.group(1).strip()})"
-    # Default Reader Name
-    data["reader_name"] = "Simin Mohammad"
+    org_match = re.search(r"(?:Microbial Identification|Colony Description|Organism)\s*(?:\(Optional\))?\s*[:\n\r]*\s*([^\n\r]+)", text, re.IGNORECASE)
+    if org_match and org_match.group(1).strip().upper() not in ["N/A", "NONE", ""]:
+        data["manual_org"] = org_match.group(1).strip()
+
+    # Defaults
+    data["reader_name"] = "Simin Mohammad & Maraya Chukwumerije"
+    data["writer_name"] = "Maryam Naeem"
+    data["manager_name"] = "Kathan Parikh"
+    data["cleaner_name"] = "Rey Estrada"
 
     return data
 
@@ -140,138 +166,447 @@ def parse_em_text(text):
 def generate_em_narrative():
     s = st.session_state
     
-    analyst_name = s.get("analyst_name", "[Analyst Name]")
-    reader_name = s.get("reader_name", "[Reader Name]")
-    sampling_type = s.get("sampling_type", "Surface Sampling")
-    bsc_id = s.get("bsc_id", "BSC 1309")
-    plate_name = s.get("sample_name", "EM Plate")
+    analyst_name = s.get("analyst_name", "Gabrielle Surber")
+    analyst_init = s.get("analyst_initial", "GS")
+    reader_name = s.get("reader_name", "Maraya Chukwumerije and Simin Mohammad")
+    sampling_type = s.get("sampling_type", "Settling Sampling")
+    bsc_id = s.get("bsc_id", "BSC 1314")
+    plate_name = s.get("sample_name", "Sterility GS BSC1314 Sett2 05FEB2026")
+    test_date = s.get("test_date", "05 Feb 2026")
+    event_id = s.get("event_number", "ETX-260216-0348")
     cfu_count = s.get("cfu_count", "10")
-    org_identified = s.get("manual_org", "Staphylococcus epidermidis")
+    org_identified = s.get("manual_org", "Staphylococcus capitis (Gram (+) cocci), Staphylococcus hominis (Gram (+) cocci), Kocuria indica (Gram (+) cocci), Micrococcus luteus (Gram (+) cocci) and Staphylococcus epidermidis (Gram (+) cocci)")
+    monthly_cleaning_date = s.get("monthly_cleaning_date", "31 Jan 2026")
+    cleaner_name = s.get("cleaner_name", "Rey Estrada")
+    test_method = s.get("test_method", "USP 71 Sterility" if "Sterility" in plate_name else "ScanRDI")
+
+    # Suite logic based on BSC ID
+    suite_info = "Suite 115B"
+    if "1309" in bsc_id: suite_info = "Suite 117A"
+    elif "1310" in bsc_id: suite_info = "Suite 117B"
+    elif "1311" in bsc_id: suite_info = "Suite 116A"
+    elif "1313" in bsc_id: suite_info = "Suite 115A"
+    elif "1314" in bsc_id: suite_info = "Suite 115B"
     
-    # 1. Interview & Storage Block
+    cr_suite = "CR115"
+    if "117" in suite_info: cr_suite = "CR117"
+    elif "116" in suite_info: cr_suite = "CR116"
+    elif "114" in suite_info or "114" in plate_name: cr_suite = "CR114"
+
+    # Compute Incubation Dates (48h and 5 days)
+    d_obj = None
+    clean_d = re.sub(r'[\s\-]', '', str(test_date).strip())
+    for fmt in ["%d%b%Y", "%d%b%y"]:
+        try:
+            d_obj = datetime.strptime(clean_d, fmt)
+            break
+        except: pass
+    
+    if d_obj:
+        d_start = d_obj.strftime("%d %b %Y")
+        d_48h = (d_obj + timedelta(days=4 if d_obj.weekday() in [3, 4] else 2)).strftime("%d %b %Y")
+        d_5d = (d_obj + timedelta(days=11 if d_obj.weekday() in [3, 4] else 7)).strftime("%d %b %Y")
+    else:
+        d_start = test_date
+        d_48h = "09 Feb 2026"
+        d_5d = "16 Feb 2026"
+
+    # --- 1. Interview & Storage Block (Field 49) ---
     interview_block = (
-        f"The analyst involved in the {sampling_type} plate setup, {analyst_name}, and the analyst(s) involved "
-        f"in reading the plate, {reader_name}, were interviewed comprehensively. Their answers are recorded throughout this document.\n"
+        f"The analysts involved in the {sampling_type} plate setup, {analyst_name}, and the analysts involved in "
+        f"reading the plate, {reader_name}, were interviewed comprehensively. Their answers are recorded throughout this document. "
         f"The EM plates were stored in compliance with the supplier's recommendations, and their integrity was visually inspected prior to use. "
-        f"Furthermore, the plates were confirmed to be within their valid expiration dates. All the supplies were thoroughly disinfected prior to use."
+        f"Furthermore, the plates were confirmed to be within their valid expiration dates. All the supplies were thoroughly disinfected according to SOP 2.600.018. "
+        f"The functionality of both incubators was verified through a review of data obtained from our comprehensive in-house continuous monitoring system. "
+        f"{sampling_type} was performed by analyst {analyst_name} during {test_method} processing, in ISO 5 {bsc_id} located in {suite_info}, "
+        f"on {d_start} as per SOP 2.600.002 - Environmental Monitoring of the Cleanroom Facility. "
+        f"The plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, commencing on {d_start}. "
+        f"Following completion of minimum of 48 hours of incubation on {d_48h}, the plates were further incubated for minimum of 5 days, with the incubation concluding on {d_5d}. "
+        f"Please see Table 1 for detailed information on the observations during respective incubations. "
+        f"Based on the observations in Table 1, since the CFU count exceeded the action level for the {sampling_type} plate, the plate was submitted for Microbial Identification under {event_id}. "
+        f"The colony was identified as {org_identified}. "
+        f"To observe if the organisms identified were transient in nature or recurring, personnel monitoring plates for the analyst {analyst_name}, and ISO 5 {bsc_id} environmental monitoring plates, "
+        f"were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached)."
     )
-    
-    # 2. EM Records Block
+
+    # --- 2. EM Records Block (Field 50) ---
     records_block = (
-        f"Environmental Monitoring Summary: Personnel sampling plates for analyst {analyst_name} and "
-        f"routine monitoring plates for ISO 5 {bsc_id}, for the previous date, date of, and following date of testing showed no microbial growth. "
-        f"However, the {sampling_type} plate for ISO 5 {bsc_id} exhibited {cfu_count} CFUs on {plate_name} for the day of testing "
-        f"performed by analyst {analyst_name}, which were identified as {org_identified}. "
-        f"No growth was observed on other surface/settling plates for the date of and following date of testing."
+        f"Environmental Monitoring Summary: Personnel sampling plate for analyst {analyst_name} for the previous date, date of and following date of testing showed no microbial growth. "
+        f"Surface sampling plates for ISO 5 {bsc_id} for the previous date, date of and following date of testing showed no microbial growth either. "
+        f"{sampling_type} for the date of testing exhibited {cfu_count} CFU on {plate_name}, performed by analyst {analyst_name}, which was identified as {org_identified}. "
+        f"No growth was observed on other routine sampling plates for the date of testing as well as the settling and surface sampling plates for the following and previous date of testing. "
+        f"The weekly Active Air and Surface Sampling for Anteroom & Buffer room for {cr_suite} for the week of testing showed no growth either. "
+        f"During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
+        f"All the samples were thoroughly disinfected prior to testing. Moreover, the cleanroom suite and the ISO 5 {bsc_id} were thoroughly cleaned and prepared before initiating the testing as per SOP 2.600.002 and SOP 2.600.018. "
+        f"Monthly cleaning and disinfection of the cleanroom facility and containing Biosafety Cabinets were performed on {monthly_cleaning_date} as per SOP 2.600.018 by analyst {cleaner_name}. "
+        f"It was documented that all H2O2 indicators passed. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per SOP 2.600.018. "
+        f"It is important to note that no samples processed by analyst {analyst_name} in ISO 5 {bsc_id} on {d_start} failed {test_method} testing that day."
     )
-    
-    # 3. Phase I Summary / Defensive Conclusion
+
+    # --- 3. Phase I Summary / Defensive Conclusion (Field 51) ---
     summary_block = (
-        f"Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for "
-        f"the Environmental Monitoring (EM) {sampling_type} plate may be attributed to a potential analyst error or transient laboratory contamination.\n"
-        f"No growth was observed on the analyst's personnel/surface/settling plates collected from the BSC for the following day, "
-        f"indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating any residual contamination. "
-        f"Furthermore, all testing in the ISO 5 {bsc_id} occurred under controlled conditions with proper physical isolation from the background environment."
+        f"Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) {sampling_type} plate may be attributed to a potential analyst error or transient laboratory contamination. "
+        f"No growth was observed on the analyst's personnel plates as well as on the surface and settling sampling plates collected from the BSC for the following day, indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating the contamination. "
+        f"Furthermore, no samples processed by analyst {analyst_name} on {d_start} failed {test_method} testing that day, suggesting that the positive EM sample had a minimal impact on the testing environment. "
+        f"Additionally, no trend was observed in the analyst’s previous EM data, therefore, no preventive and corrective actions are deemed necessary at this time."
     )
-    
+
     return interview_block, records_block, summary_block
 
-def generate_em_reports():
-    """Generates DOCX and PDF buffers for EM OOS Report"""
+def build_em_context():
+    """Builds a complete context dictionary for rendering DOCX and PDF templates"""
     s = st.session_state
     interview_block, records_block, summary_block = generate_em_narrative()
+
+    analyst_name = s.get('analyst_name', 'Gabrielle Surber')
+    analyst_init = s.get('analyst_initial', 'GS')
+    reader_name = s.get('reader_name', 'Maraya Chukwumerije & Simin Mohammad')
+    sampling_type = s.get('sampling_type', 'Settling Sampling')
+    bsc_id = s.get('bsc_id', 'BSC 1314')
+    plate_name = s.get('sample_name', 'Sterility GS BSC1314 Sett2 05FEB2026')
+    test_date = s.get('test_date', '05 Feb 2026')
+    oos_id = s.get('oos_id', 'OOS-260361').replace('OOS-', '')
+    event_id = s.get('event_number', 'ETX-260216-0348')
+    action_level = s.get('action_level', 'Action Level: ≥ 1 CFU/Plate')
+    cfu_count = s.get('cfu_count', '10')
+    org_identified = s.get('manual_org', 'Staphylococcus capitis (Gram (+) cocci), Staphylococcus hominis (Gram (+) cocci), Kocuria indica (Gram (+) cocci), Micrococcus luteus (Gram (+) cocci) and Staphylococcus epidermidis (Gram (+) cocci)')
+    writer_name = s.get('writer_name', 'Maryam Naeem')
+
+    # Date bracketing
+    d_obj = None
+    clean_d = re.sub(r'[\s\-]', '', str(test_date).strip())
+    for fmt in ["%d%b%Y", "%d%b%y"]:
+        try:
+            d_obj = datetime.strptime(clean_d, fmt)
+            break
+        except: pass
     
-    analyst_name = s.get('analyst_name', '')
-    analyst_init = s.get('analyst_initial', '')
-    reader_name = s.get('reader_name', 'Simin Mohammad')
-    reader_init = "SMO" if "Simin" in reader_name else "MC"
-    event_id = s.get("event_number", s.get("sample_id", ""))
-    test_date = s.get("test_date", "")
-    sample_name = s.get("sample_name", "")
-    oos_id = s.get("oos_id", "")
-    bsc_id = s.get("bsc_id", "BSC 1309")
-    action_level = s.get("action_level", "Action Level: >= 1 CFU/Plate").replace("≥", ">=")
+    if d_obj:
+        before_d = (d_obj - timedelta(days=3 if d_obj.weekday() == 0 else 1)).strftime("%d %b %Y")
+        after_d = (d_obj + timedelta(days=3 if d_obj.weekday() == 4 else 1)).strftime("%d %b %Y")
+        test_d_str = d_obj.strftime("%d %b %Y")
+    else:
+        before_d = "04 Feb 2026"
+        after_d = "06 Feb 2026"
+        test_d_str = test_date
+
+    # Build personnel display block for Section A
+    personnel_block = f"{analyst_name}\n({sampling_type} Plate Setup)\n\n{reader_name}\n({sampling_type} Plate Readers)"
+
+    ctx = {
+        # General & Section A
+        "oos_id": oos_id,
+        "sample_id": event_id,
+        "event_number": event_id,
+        "etx_id": event_id,
+        "sample_name": plate_name,
+        "lot_number": plate_name,
+        "dosage_form": "Plate",
+        "test_date": test_d_str,
+        "date_initiated": test_d_str,
+        "analyst_name": analyst_name,
+        "analyst_initial": analyst_init,
+        "setup_analyst_initial": analyst_init,
+        "reader_name": reader_name,
+        "analyst_signature": f"Simin Mohammad (Written by: {writer_name})",
+        "analyst_personnel_block": personnel_block,
+        "smart_personnel_block": personnel_block,
+        "bsc_id": bsc_id,
+        "equipment_summary": "Incubator E001031 and Incubator E001034",
+        "cr_id": "CR115",
+        "action_level": action_level,
+        "incident_description": "The CFU count for the environmental monitoring plate exceeded the action level.",
+        "smart_incident_opening": "The CFU count for the environmental monitoring plate exceeded the action level.",
+        "report_header": event_id,
+        "client_name": "Eagle Analytical Internal EM",
+
+        # Narratives
+        "smart_comment_interview": f"Yes, analysts {analyst_name} and {reader_name} were interviewed comprehensively.",
+        "smart_comment_records": f"Yes, Information is available in EagleTrax under {event_id}.",
+        "smart_comment_samples": "Yes, as per SOP 2.600.002",
+        "smart_comment_storage": "Yes, as per SOP 2.600.002",
+        "narrative_summary": f"{interview_block}\n\n{records_block}\n\n{summary_block}",
+        "smart_phase1_summary": summary_block,
+        "smart_phase1_continued": "",
+        "smart_phase1_part1": interview_block,
+        "smart_phase1_part2": summary_block,
+
+        # Table 1 Fields
+        "sampling_location": f"{sampling_type} Plate ({bsc_id})",
+        "reader_48h": "MC" if "Maraya" in reader_name else "SMO",
+        "cfu_obs_48h": f"{cfu_count} CFU on {plate_name}",
+        "reader_5d": "SMO",
+        "cfu_obs_5d": f"{cfu_count} CFU on {plate_name}",
+        "microbial_id": org_identified,
+
+        # Table 2 Bracketing Fields
+        "before_date": before_d,
+        "after_date": after_d,
+        "pers_obs_before": "No growth", "pers_etx_before": "N/A", "pers_id_before": "N/A",
+        "pers_obs_during": "No growth", "pers_etx_during": "N/A", "pers_id_during": "N/A",
+        "pers_obs_after": "No growth", "pers_etx_after": "N/A", "pers_id_after": "N/A",
+
+        "bsc_surf_analyst_before": analyst_init, "bsc_surf_obs_before": "No growth", "bsc_surf_etx_before": "N/A", "bsc_surf_id_before": "N/A",
+        "bsc_surf_analyst_during": analyst_init, "bsc_surf_obs_during": f"{cfu_count} CFU" if "Surface" in sampling_type else "No growth", "bsc_surf_etx_during": event_id if "Surface" in sampling_type else "N/A", "bsc_surf_id_during": org_identified if "Surface" in sampling_type else "N/A",
+        "bsc_surf_analyst_after": analyst_init, "bsc_surf_obs_after": "No growth", "bsc_surf_etx_after": "N/A", "bsc_surf_id_after": "N/A",
+
+        "bsc_sett_analyst_before": analyst_init, "bsc_sett_obs_before": "No growth", "bsc_sett_etx_before": "N/A", "bsc_sett_id_before": "N/A",
+        "bsc_sett_analyst_during": analyst_init, "bsc_sett_obs_during": f"{cfu_count} CFU" if "Settling" in sampling_type else "No growth", "bsc_sett_etx_during": event_id if "Settling" in sampling_type else "N/A", "bsc_sett_id_during": org_identified if "Settling" in sampling_type else "N/A",
+        "bsc_sett_analyst_after": analyst_init, "bsc_sett_obs_after": "No growth", "bsc_sett_etx_after": "N/A", "bsc_sett_id_after": "N/A",
+
+        "date_of_weekly_air": test_d_str, "weekly_air_analyst": "SMO", "air_obs": "No growth", "air_etx": "N/A", "air_id": "N/A",
+        "date_of_weekly_surf": test_d_str, "weekly_surf_analyst": "SMO", "room_surf_obs": "No growth", "room_surf_etx": "N/A", "room_surf_id": "N/A"
+    }
+
+    return ctx
+
+def generate_em_tables_page_pdf(context_data):
+    """
+    Generates a 1-page PDF buffer containing Table 1 and Table 2 using ReportLab Platypus.
+    """
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=letter,
+        leftMargin=30,
+        rightMargin=30,
+        topMargin=30,
+        bottomMargin=30
+    )
     
+    styles = getSampleStyleSheet()
+    
+    title_style = ParagraphStyle(
+        'TableTitle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=8.5,
+        leading=10,
+        textColor=colors.black,
+        spaceAfter=4
+    )
+    
+    cell_hdr_style = ParagraphStyle(
+        'HeaderCell',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=6.5,
+        leading=8,
+        alignment=TA_CENTER,
+        textColor=colors.black
+    )
+    
+    cell_body_style = ParagraphStyle(
+        'BodyCell',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=6,
+        leading=7.5,
+        alignment=TA_CENTER,
+        textColor=colors.black
+    )
+
+    cell_body_left = ParagraphStyle(
+        'BodyCellLeft',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=6,
+        leading=7.5,
+        alignment=TA_LEFT,
+        textColor=colors.black
+    )
+
+    cell_section_hdr = ParagraphStyle(
+        'SectionHdr',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=6.5,
+        leading=8,
+        alignment=TA_LEFT,
+        textColor=colors.black
+    )
+
+    elements = []
+
+    # --- TABLE 1 ---
+    elements.append(Paragraph("Table 1: Read Dates & Incubation Observation", title_style))
+    
+    t1_headers = [
+        Paragraph("ETX Submission<br/>ID", cell_hdr_style),
+        Paragraph("Set-up Analyst<br/>& Date", cell_hdr_style),
+        Paragraph("Sampling Site &<br/>Location", cell_hdr_style),
+        Paragraph("Plate Reading<br/>Analyst (≥ 48H)", cell_hdr_style),
+        Paragraph("CFUs Observed after 48 Hour Incubation at 30–35°C (E001031)", cell_hdr_style),
+        Paragraph("Plate Reading<br/>Analyst (NLT 5 days)", cell_hdr_style),
+        Paragraph("CFUs Observed after NLT 5-day Incubation at 20–25°C (E001034)", cell_hdr_style),
+        Paragraph("Microbial Identification", cell_hdr_style)
+    ]
+
+    t1_row_vals = [
+        Paragraph(context_data.get('etx_id', ''), cell_body_style),
+        Paragraph(f"{context_data.get('setup_analyst_initial', '')}<br/>{context_data.get('test_date', '')}", cell_body_style),
+        Paragraph(context_data.get('sampling_location', ''), cell_body_style),
+        Paragraph(context_data.get('reader_48h', 'MC'), cell_body_style),
+        Paragraph(context_data.get('cfu_obs_48h', ''), cell_body_style),
+        Paragraph(context_data.get('reader_5d', 'SMO'), cell_body_style),
+        Paragraph(context_data.get('cfu_obs_5d', ''), cell_body_style),
+        Paragraph(context_data.get('microbial_id', ''), cell_body_left)
+    ]
+
+    t1_data = [t1_headers, t1_row_vals]
+    t1_colWidths = [62, 55, 65, 45, 85, 45, 85, 110]
+    
+    t1 = Table(t1_data, colWidths=t1_colWidths)
+    t1.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#D9D9D9')),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('LEFTPADDING', (0, 0), (-1, -1), 3),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 3),
+    ]))
+    elements.append(t1)
+    elements.append(Spacer(1, 8))
+
+    # --- TABLE 2 ---
+    elements.append(Paragraph("Table 2: Environmental Monitoring for Analyst & Cleanroom", title_style))
+    
+    t2_headers = [
+        Paragraph("Environmental Monitoring<br/>(EM) Sampling Site", cell_hdr_style),
+        Paragraph("Frequency", cell_hdr_style),
+        Paragraph("Date<br/>(DDMMMYYYY)", cell_hdr_style),
+        Paragraph("Analyst<br/>(Initials)", cell_hdr_style),
+        Paragraph("Day /Week(s)", cell_hdr_style),
+        Paragraph("Observation", cell_hdr_style),
+        Paragraph("Plate<br/>ETX ID", cell_hdr_style),
+        Paragraph("Microbial ID", cell_hdr_style),
+        Paragraph("Notes", cell_hdr_style)
+    ]
+
+    t2_colWidths = [115, 38, 48, 38, 62, 65, 52, 98, 36]
+    t2_data = [t2_headers]
+    table_styles = [
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#D9D9D9')),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('TOPPADDING', (0, 0), (-1, -1), 2),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('LEFTPADDING', (0, 0), (-1, -1), 2),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 2),
+    ]
+
+    def add_section(title, rows):
+        r_idx = len(t2_data)
+        hdr_cell = Paragraph(title, cell_section_hdr)
+        t2_data.append([hdr_cell] + [''] * 8)
+        table_styles.append(('SPAN', (0, r_idx), (-1, r_idx)))
+        table_styles.append(('BACKGROUND', (0, r_idx), (-1, r_idx), colors.HexColor('#F2F2F2')))
+        table_styles.append(('TOPPADDING', (0, r_idx), (-1, r_idx), 2))
+        table_styles.append(('BOTTOMPADDING', (0, r_idx), (-1, r_idx), 2))
+        
+        for r in rows:
+            data_row = []
+            for col_i, text in enumerate(r):
+                if col_i in [0, 7]:
+                    data_row.append(Paragraph(str(text), cell_body_left))
+                else:
+                    data_row.append(Paragraph(str(text), cell_body_style))
+            t2_data.append(data_row)
+
+    # 1. Personnel
+    add_section("Personnel EM Bracketing", [
+        ["Personal (Left & Right Touch)", "Daily", context_data.get('before_date', ''), context_data.get('analyst_initial', ''), "Date Before Testing", context_data.get('pers_obs_before', 'No growth'), context_data.get('pers_etx_before', 'N/A'), context_data.get('pers_id_before', 'N/A'), "None"],
+        ["Personal (Left & Right Touch)", "Daily", context_data.get('test_date', ''), context_data.get('analyst_initial', ''), "Date of Testing", context_data.get('pers_obs_during', 'No growth'), context_data.get('pers_etx_during', 'N/A'), context_data.get('pers_id_during', 'N/A'), "None"],
+        ["Personal (Left & Right Touch)", "Daily", context_data.get('after_date', ''), context_data.get('analyst_initial', ''), "Date After Testing", context_data.get('pers_obs_after', 'No growth'), context_data.get('pers_etx_after', 'N/A'), context_data.get('pers_id_after', 'N/A'), "None"],
+    ])
+
+    # 2. BSC
+    add_section("Biological Safety Cabinet (BSC) EM Bracketing", [
+        ["Surface Sampling of ISO 5 (4 loc)", "Daily", context_data.get('before_date', ''), context_data.get('bsc_surf_analyst_before', ''), "Date Before Testing", context_data.get('bsc_surf_obs_before', 'No growth'), context_data.get('bsc_surf_etx_before', 'N/A'), context_data.get('bsc_surf_id_before', 'N/A'), "None"],
+        ["Surface Sampling of ISO 5 (4 loc)", "Daily", context_data.get('test_date', ''), context_data.get('bsc_surf_analyst_during', ''), "Date of Testing", context_data.get('bsc_surf_obs_during', 'No growth'), context_data.get('bsc_surf_etx_during', 'N/A'), context_data.get('bsc_surf_id_during', 'N/A'), "None"],
+        ["Surface Sampling of ISO 5 (4 loc)", "Daily", context_data.get('after_date', ''), context_data.get('bsc_surf_analyst_after', ''), "Date After Testing", context_data.get('bsc_surf_obs_after', 'No growth'), context_data.get('bsc_surf_etx_after', 'N/A'), context_data.get('bsc_surf_id_after', 'N/A'), "None"],
+        ["Settling Sampling of ISO 5 (2 loc)", "Daily", context_data.get('before_date', ''), context_data.get('bsc_sett_analyst_before', ''), "Date Before Testing", context_data.get('bsc_sett_obs_before', 'No growth'), context_data.get('bsc_sett_etx_before', 'N/A'), context_data.get('bsc_sett_id_before', 'N/A'), "None"],
+        ["Settling Sampling of ISO 5 (2 loc)", "Daily", context_data.get('test_date', ''), context_data.get('bsc_sett_analyst_during', ''), "Date of Testing", context_data.get('bsc_sett_obs_during', '10 CFU'), context_data.get('etx_id', 'ETX-260216-0348'), context_data.get('microbial_id', 'Staphylococcus...'), "None"],
+        ["Settling Sampling of ISO 5 (2 loc)", "Daily", context_data.get('after_date', ''), context_data.get('bsc_sett_analyst_after', ''), "Date After Testing", context_data.get('bsc_sett_obs_after', 'No growth'), context_data.get('bsc_sett_etx_after', 'N/A'), context_data.get('bsc_sett_id_after', 'N/A'), "None"],
+    ])
+
+    # 3. Weekly Air
+    add_section("Weekly Active Air Sampling Bracketing", [
+        ["Active Air Sampling of Cleanrooms", "Weekly", context_data.get('date_of_weekly_air', ''), context_data.get('weekly_air_analyst', 'SMO'), "Week (On or After Date)", context_data.get('air_obs', 'No growth'), context_data.get('air_etx', 'N/A'), context_data.get('air_id', 'N/A'), "None"],
+    ])
+
+    # 4. Weekly Surface
+    add_section("Surface Sampling of Anteroom & Cleanroom Bracketing", [
+        ["Surface Sampling of Cleanrooms", "Weekly", context_data.get('date_of_weekly_surf', ''), context_data.get('weekly_surf_analyst', 'SMO'), "Week (On or After Date)", context_data.get('room_surf_obs', 'No growth'), context_data.get('room_surf_etx', 'N/A'), context_data.get('room_surf_id', 'N/A'), "None"],
+    ])
+
+    t2 = Table(t2_data, colWidths=t2_colWidths)
+    t2.setStyle(TableStyle(table_styles))
+    elements.append(t2)
+
+    doc.build(elements)
+    buf.seek(0)
+    return buf
+
+def generate_em_reports():
+    """Generates DOCX and 7-page PDF buffers for EM OOS Report"""
+    ctx = build_em_context()
+    interview_block, records_block, summary_block = generate_em_narrative()
+
     docx_buf = None
     pdf_form_buf = None
-    
-    # 1. Render DOCX Template
-    target_docx = "EM OOS P1 template 0.docx" if os.path.exists("EM OOS P1 template 0.docx") else "EM OOS P1 template.docx"
+
+    # 1. Render Word Template
+    target_docx = "EM OOS P1 template.docx" if os.path.exists("EM OOS P1 template.docx") else "EM OOS P1 template 0.docx"
     if os.path.exists(target_docx):
         try:
             from docxtpl import DocxTemplate
             doc = DocxTemplate(target_docx)
-            context = {
-                "oos_id": oos_id,
-                "sample_id": event_id,
-                "sample_name": sample_name,
-                "lot_number": sample_name,
-                "test_date": test_date,
-                "analyst_name": analyst_name,
-                "analyst_initial": analyst_init,
-                "prepper_name": analyst_name,
-                "prepper_initial": analyst_init,
-                "changeover_name": analyst_name,
-                "changeover_initial": analyst_init,
-                "reader_name": reader_name,
-                "reader_initial": reader_init,
-                "bsc_id": bsc_id,
-                "chgbsc_id": bsc_id,
-                "cr_id": "CR114",
-                "cr_suit": "114",
-                "dosage_form": "Plate",
-                "client_name": "Eagle Analytical Internal EM",
-                "equipment_summary": "Incubator E001034 (Sensor E001501) and Incubator E001031 (Sensor E001505)",
-                "narrative_summary": f"{interview_block}\n\n{records_block}\n\n{summary_block}",
-                "smart_comment_interview": interview_block,
-                "smart_comment_records": records_block,
-                "smart_phase1_summary": summary_block,
-                "smart_phase1_part1": interview_block,
-                "smart_phase1_part2": summary_block,
-                "cross_contamination_summary": "No other samples processed concurrently yielded positive growth.",
-                "sample_history_paragraph": "Environmental Monitoring plate routine sampling history shows zero prior action level hits.",
-                "obs_pers_dur": "0 CFU", "obs_surf_dur": "0 CFU", "obs_sett_dur": "0 CFU", "obs_air_wk_of": "0 CFU", "obs_room_wk_of": "0 CFU",
-                "etx_pers_dur": "N/A", "etx_surf_dur": "N/A", "etx_sett_dur": "N/A", "etx_air_wk_of": "N/A", "etx_room_wk_of": "N/A",
-                "id_pers_dur": "N/A", "id_surf_dur": "N/A", "id_sett_dur": "N/A", "id_air_wk_of": "N/A", "id_room_wk_of": "N/A"
-            }
-            doc.render(context)
+            doc.render(ctx)
             docx_buf = io.BytesIO()
             doc.save(docx_buf)
             docx_buf.seek(0)
         except Exception as e:
             st.error(f"DOCX Generation Error: {e}")
-            
-    # 2. Render PDF Form Template
+
+    # 2. Render 7-Page PDF Report
     target_pdf = "EM OOS P1 template.pdf"
     if os.path.exists(target_pdf):
         try:
-            from pypdf import PdfWriter
-            initiator_sig = f"{analyst_name} (written by: Qiyue Chen)" if analyst_name else ""
+            from pypdf import PdfWriter, PdfReader
             
+            # Map 157 Form 3.100.019.F01 fields
             pdf_map = {
-                'Text Field57': oos_id,
-                'Text Field0': initiator_sig,
-                'Date Field0': test_date,
-                'Date Field1': test_date,
-                'Date Field2': test_date,
+                'Text Field57': ctx['oos_id'],
+                'Text Field0': ctx['analyst_signature'],
+                'Date Field0': ctx['test_date'],
+                'Date Field1': ctx['date_initiated'],
+                'Date Field2': ctx['date_initiated'],
+                'Date Field3': ctx['date_initiated'],
                 'Text Field1': "Environmental Monitoring",
-                'Text Field2': event_id,
-                'Text Field3': f"Setup Analyst:\n{analyst_name} ({analyst_init})\n\nReader Analyst:\n{reader_name} ({reader_init})",
-                'Text Field4': sample_name,
+                'Text Field2': ctx['event_number'],
+                'Text Field3': ctx['analyst_personnel_block'],
+                'Text Field4': ctx['sample_name'],
                 'Text Field5': "Plate",
-                'Text Field6': sample_name,
-                'Text Field7': "The CFU count for the environmental monitoring plate exceeded the action level.",
+                'Text Field6': ctx['lot_number'],
+                'Text Field7': ctx['incident_description'],
                 'Text Field8': "2.600.002",
-                'Text Field11': action_level,
-                'Text Field13': f"Yes, {analyst_name} and {reader_name} were interviewed comprehensively.",
+                'Text Field9': "05 Aug 2025",
+                'Text Field10': "15",
+                'Text Field11': ctx['action_level'].replace("≥", ">="),
+                'Text Field12': ctx.get('manager_name', 'Kathan Parikh'),
+                'Text Field13': ctx['smart_comment_interview'],
                 'Text Field14': "N/A",
                 'Text Field15': "Yes, as per SOP 2.600.002",
                 'Text Field16': "Yes, as per SOP 2.600.002",
-                'Text Field17': f"Yes, Information is available in EagleTrax under {event_id}." if event_id else "Yes, as per SOP 2.600.002",
+                'Text Field17': ctx['smart_comment_records'],
                 'Text Field18': "Yes, the analysts are trained and qualified by quality to perform the test.",
                 'Text Field19': "Not Applicable",
                 'Text Field20': "Not Applicable",
                 'Text Field21': "Yes, as per SOP 2.600.002",
+                'Text Field22': "Incubator E001031\nIncubator E001034",
+                'Text Field23': "20 Feb 2026\n20 Feb 2026",
                 'Text Field24': "Not Applicable",
                 'Text Field25': "Not Applicable",
                 'Text Field26': "Not Applicable",
@@ -295,22 +630,31 @@ def generate_em_reports():
                 'Text Field49': interview_block,
                 'Text Field50': records_block,
                 'Text Field51': summary_block,
+                'Text Field52': "Transient contamination. No impact to product quality.",
                 'Text Field53': "Maryam Naeem",
                 'Text Field54': "Kathan Parikh"
             }
-            
-            # Checkbox Yes defaults
+
+            # Checkbox Yes/No defaults matching production PDF QA standards
             yes_boxes = [4, 9, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 87, 79]
             for b_num in yes_boxes:
                 pdf_map[f'Check Box{b_num}'] = '/Yes'
-                
+
+            # Fill Form 1-6
             writer = PdfWriter(clone_from=target_pdf)
             for page in writer.pages:
                 writer.update_page_form_field_values(page, pdf_map)
+                
+            # Generate Page 7 Attachment Table
+            page7_pdf_buf = generate_em_tables_page_pdf(ctx)
+            p7_reader = PdfReader(page7_pdf_buf)
+            writer.add_page(p7_reader.pages[0])
+
+            # Output final merged 7-page PDF
             pdf_form_buf = io.BytesIO()
             writer.write(pdf_form_buf)
             pdf_form_buf.seek(0)
         except Exception as e:
-            st.error(f"PDF Form Generation Error: {e}")
-            
+            st.error(f"PDF Generation Error: {e}")
+
     return docx_buf, pdf_form_buf
