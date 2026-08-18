@@ -180,18 +180,21 @@ def generate_em_narrative():
     cleaner_name = s.get("cleaner_name", "Rey Estrada")
     test_method = s.get("test_method", "USP 71 Sterility" if "Sterility" in plate_name else "ScanRDI")
 
-    # Suite logic based on BSC ID
-    suite_info = "Suite 115B"
-    if "1309" in bsc_id: suite_info = "Suite 117A"
-    elif "1310" in bsc_id: suite_info = "Suite 117B"
-    elif "1311" in bsc_id: suite_info = "Suite 116A"
-    elif "1313" in bsc_id: suite_info = "Suite 115A"
-    elif "1314" in bsc_id: suite_info = "Suite 115B"
-    
-    cr_suite = "CR115"
-    if "117" in suite_info: cr_suite = "CR117"
-    elif "116" in suite_info: cr_suite = "CR116"
-    elif "114" in suite_info or "114" in plate_name: cr_suite = "CR114"
+    # Suite logic based on BSC ID or Plate Name
+    combined_id = f"{bsc_id} {plate_name}"
+    if "1309" in combined_id or "117A" in combined_id: suite_info, cr_suite = "Suite 117A", "CR117"
+    elif "1310" in combined_id or "117B" in combined_id: suite_info, cr_suite = "Suite 117B", "CR117"
+    elif "117" in combined_id: suite_info, cr_suite = "Suite 117", "CR117"
+    elif "1311" in combined_id or "116A" in combined_id: suite_info, cr_suite = "Suite 116A", "CR116"
+    elif "116B" in combined_id: suite_info, cr_suite = "Suite 116B", "CR116"
+    elif "116" in combined_id: suite_info, cr_suite = "Suite 116", "CR116"
+    elif "1313" in combined_id or "115A" in combined_id: suite_info, cr_suite = "Suite 115A", "CR115"
+    elif "1314" in combined_id or "115B" in combined_id: suite_info, cr_suite = "Suite 115B", "CR115"
+    elif "115" in combined_id: suite_info, cr_suite = "Suite 115", "CR115"
+    elif "114A" in combined_id: suite_info, cr_suite = "Suite 114A", "CR114"
+    elif "114B" in combined_id: suite_info, cr_suite = "Suite 114B", "CR114"
+    elif "114" in combined_id: suite_info, cr_suite = "Suite 114", "CR114"
+    else: suite_info, cr_suite = "Suite 115B", "CR115"
 
     # Compute Incubation Dates (48h and 5 days)
     d_obj = None
@@ -211,45 +214,71 @@ def generate_em_narrative():
         d_48h = "09 Feb 2026"
         d_5d = "16 Feb 2026"
 
+    is_cleanroom_weekly = any(k in sampling_type.lower() or k in plate_name.lower() for k in ["weekly", "air", "cart", "floor", "cleanroom"])
+
     # --- 1. Interview & Storage Block (Field 49) ---
+    location_desc = f"Cleanroom Suite {suite_info.replace('Suite ', '')}" if is_cleanroom_weekly else f"ISO 5 {bsc_id} located in {suite_info}"
+    purpose_desc = "during weekly environmental monitoring" if is_cleanroom_weekly else f"during {test_method} processing"
+    
     interview_block = (
         f"The analysts involved in the {sampling_type} plate setup, {analyst_name}, and the analysts involved in "
         f"reading the plate, {reader_name}, were interviewed comprehensively. Their answers are recorded throughout this document. "
         f"The EM plates were stored in compliance with the supplier's recommendations, and their integrity was visually inspected prior to use. "
         f"Furthermore, the plates were confirmed to be within their valid expiration dates. All the supplies were thoroughly disinfected according to SOP 2.600.018. "
         f"The functionality of both incubators was verified through a review of data obtained from our comprehensive in-house continuous monitoring system. "
-        f"{sampling_type} was performed by analyst {analyst_name} during {test_method} processing, in ISO 5 {bsc_id} located in {suite_info}, "
+        f"{sampling_type} was performed by analyst {analyst_name} {purpose_desc}, in {location_desc}, "
         f"on {d_start} as per SOP 2.600.002 - Environmental Monitoring of the Cleanroom Facility. "
         f"The plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, commencing on {d_start}. "
         f"Following completion of minimum of 48 hours of incubation on {d_48h}, the plates were further incubated for minimum of 5 days, with the incubation concluding on {d_5d}. "
         f"Please see Table 1 for detailed information on the observations during respective incubations. "
         f"Based on the observations in Table 1, since the CFU count exceeded the action level for the {sampling_type} plate, the plate was submitted for Microbial Identification under {event_id}. "
         f"The colony was identified as {org_identified}. "
-        f"To observe if the organisms identified were transient in nature or recurring, personnel monitoring plates for the analyst {analyst_name}, and ISO 5 {bsc_id} environmental monitoring plates, "
+        f"To observe if the organisms identified were transient in nature or recurring, environmental monitoring plates for the analyst {analyst_name} and {location_desc} "
         f"were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached)."
     )
 
     # --- 2. EM Records Block (Field 50) ---
-    records_block = (
-        f"Environmental Monitoring Summary: Personnel sampling plate for analyst {analyst_name} for the previous date, date of and following date of testing showed no microbial growth. "
-        f"Surface sampling plates for ISO 5 {bsc_id} for the previous date, date of and following date of testing showed no microbial growth either. "
-        f"{sampling_type} for the date of testing exhibited {cfu_count} CFU on {plate_name}, performed by analyst {analyst_name}, which was identified as {org_identified}. "
-        f"No growth was observed on other routine sampling plates for the date of testing as well as the settling and surface sampling plates for the following and previous date of testing. "
-        f"The weekly Active Air and Surface Sampling for Anteroom & Buffer room for {cr_suite} for the week of testing showed no growth either. "
-        f"During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
-        f"All the samples were thoroughly disinfected prior to testing. Moreover, the cleanroom suite and the ISO 5 {bsc_id} were thoroughly cleaned and prepared before initiating the testing as per SOP 2.600.002 and SOP 2.600.018. "
-        f"Monthly cleaning and disinfection of the cleanroom facility and containing Biosafety Cabinets were performed on {monthly_cleaning_date} as per SOP 2.600.018 by analyst {cleaner_name}. "
-        f"It was documented that all H2O2 indicators passed. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per SOP 2.600.018. "
-        f"It is important to note that no samples processed by analyst {analyst_name} in ISO 5 {bsc_id} on {d_start} failed {test_method} testing that day."
-    )
+    if is_cleanroom_weekly:
+        records_block = (
+            f"Environmental Monitoring Summary: Weekly surface and active air sampling for {cr_suite} for the previous week and following week of testing showed no microbial growth. "
+            f"However, the {sampling_type} for {cr_suite} for the week of testing, performed on {d_start} by analyst {analyst_init}, exhibited {cfu_count} CFUs on {plate_name}, "
+            f"which were identified as {org_identified}. Routine monitoring on the date of testing showed no growth across other monitored locations. "
+            f"During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
+            f"All the samples were thoroughly disinfected prior to testing. Moreover, the cleanroom suites in {cr_suite} were thoroughly cleaned and prepared before initiating testing as per SOP 2.600.002 and SOP 2.600.018. "
+            f"Monthly cleaning and disinfection of the cleanroom facility and containing Biosafety Cabinets were performed on {monthly_cleaning_date} as per SOP 2.600.018 by analyst {cleaner_name}. "
+            f"It was documented that all H2O2 indicators passed. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per SOP 2.600.018. "
+            f"It is important to note that no samples processed within that week in {cr_suite} failed {test_method} component testing that week."
+        )
+    else:
+        records_block = (
+            f"Environmental Monitoring Summary: Personnel sampling plate for analyst {analyst_name} for the previous date, date of and following date of testing showed no microbial growth. "
+            f"Surface sampling plates for ISO 5 {bsc_id} for the previous date, date of and following date of testing showed no microbial growth either. "
+            f"{sampling_type} for the date of testing exhibited {cfu_count} CFU on {plate_name}, performed by analyst {analyst_name}, which was identified as {org_identified}. "
+            f"No growth was observed on other routine sampling plates for the date of testing as well as the settling and surface sampling plates for the following and previous date of testing. "
+            f"The weekly Active Air and Surface Sampling for Anteroom & Buffer room for {cr_suite} for the week of testing showed no growth either. "
+            f"During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
+            f"All the samples were thoroughly disinfected prior to testing. Moreover, the cleanroom suite and the ISO 5 {bsc_id} were thoroughly cleaned and prepared before initiating the testing as per SOP 2.600.002 and SOP 2.600.018. "
+            f"Monthly cleaning and disinfection of the cleanroom facility and containing Biosafety Cabinets were performed on {monthly_cleaning_date} as per SOP 2.600.018 by analyst {cleaner_name}. "
+            f"It was documented that all H2O2 indicators passed. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per SOP 2.600.018. "
+            f"It is important to note that no samples processed by analyst {analyst_name} in ISO 5 {bsc_id} on {d_start} failed {test_method} testing that day."
+        )
 
     # --- 3. Phase I Summary / Defensive Conclusion (Field 51) ---
-    summary_block = (
-        f"Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) {sampling_type} plate may be attributed to a potential analyst error or transient laboratory contamination. "
-        f"No growth was observed on the analyst's personnel plates as well as on the surface and settling sampling plates collected from the BSC for the following day, indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating the contamination. "
-        f"Furthermore, no samples processed by analyst {analyst_name} on {d_start} failed {test_method} testing that day, suggesting that the positive EM sample had a minimal impact on the testing environment. "
-        f"Additionally, no trend was observed in the analyst’s previous EM data, therefore, no preventive and corrective actions are deemed necessary at this time."
-    )
+    if is_cleanroom_weekly:
+        summary_block = (
+            f"Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the weekly Environmental Monitoring (EM) {sampling_type} plate may be attributed to a potential laboratory or sampling error. "
+            f"It is important to note that the product samples are processed exclusively within the ISO 5 Primary Engineering Control (BSC) and are not exposed to the background environment in the ISO 8 or ISO 7 areas. "
+            f"Furthermore, all sample containers and supplies are thoroughly disinfected during transfer across the ISO 8 to ISO 7 to ISO 5 cascade. "
+            f"Additionally, no sample tested during that week in {cr_suite} failed {test_method} testing, confirming that the elevated environmental reading had no impact on sample integrity. "
+            f"Therefore, no preventive and corrective actions are deemed necessary at this time."
+        )
+    else:
+        summary_block = (
+            f"Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) {sampling_type} plate may be attributed to a potential analyst error or transient laboratory contamination. "
+            f"No growth was observed on the analyst's personnel plates as well as on the surface and settling sampling plates collected from the BSC for the following day, indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating the contamination. "
+            f"Furthermore, no samples processed by analyst {analyst_name} on {d_start} failed {test_method} testing that day, suggesting that the positive EM sample had a minimal impact on the testing environment. "
+            f"Additionally, no trend was observed in the analyst’s previous EM data, therefore, no preventive and corrective actions are deemed necessary at this time."
+        )
 
     return interview_block, records_block, summary_block
 
