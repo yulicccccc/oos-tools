@@ -167,6 +167,87 @@ def generate_em_narrative():
     s = st.session_state
     
     analyst_name = s.get("analyst_name", "Gabrielle Surber")
+def compute_em_dates(test_date_str, etx_id=""):
+    """
+    Computes standard EM incubation milestones and OOS initiation/incident dates.
+    - Test Date: Setup date (e.g., 07-May-2026)
+    - 48h Read (30-35°C in E001031): +2d (Mon-Wed) or +4d (Thu-Fri)
+    - 5-Day Read / Date of Incident / Date Initiated (20-25°C in E001034):
+      NLT 5 days later (concluding on business day, e.g., 18-May-2026).
+    """
+    # 1. Parse setup test_date
+    clean_d = re.sub(r'[\s\-]', '', str(test_date_str).strip())
+    d_obj = None
+    for fmt in ["%d%b%Y", "%d%b%y"]:
+        try:
+            d_obj = datetime.strptime(clean_d, fmt)
+            break
+        except: pass
+
+    # 2. Check if ETX ID encodes the discovery/initiation date (e.g. ETX-260518-0254 -> 18-May-2026)
+    dt_etx = None
+    if etx_id:
+        etx_match = re.search(r'ETX-(\d{2})(\d{2})(\d{2})-\d+', str(etx_id), re.IGNORECASE)
+        if etx_match:
+            yy, mm, dd = etx_match.groups()
+            try:
+                dt_etx = datetime.strptime(f"20{yy}{mm}{dd}", "%Y%m%d")
+            except: pass
+
+    if d_obj:
+        test_d_std = d_obj.strftime("%d-%b-%Y")
+        d_start = d_obj.strftime("%d %b %Y")
+        w = d_obj.weekday() # 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun
+        
+        # 48 hours incubation read date
+        if w in [3, 4]: # Thu -> Mon (+4d), Fri -> Tue (+4d)
+            d_48h_dt = d_obj + timedelta(days=4)
+        else: # Mon -> Wed (+2d), Tue -> Thu (+2d), Wed -> Fri (+2d)
+            d_48h_dt = d_obj + timedelta(days=2)
+        d_48h = d_48h_dt.strftime("%d %b %Y")
+
+        # NLT 5 days incubation read / initiation date
+        if dt_etx:
+            d_final_dt = dt_etx
+        else:
+            if w == 3: # Thu setup -> final read 2nd Mon (+11d)
+                d_final_dt = d_obj + timedelta(days=11)
+            elif w == 4: # Fri setup -> final read 2nd Mon (+10d)
+                d_final_dt = d_obj + timedelta(days=10)
+            else: # Mon/Tue/Wed setup -> final read same day next week (+7d)
+                d_final_dt = d_obj + timedelta(days=7)
+        
+        d_5d = d_final_dt.strftime("%d %b %Y")
+        date_initiated = d_final_dt.strftime("%d-%b-%Y")
+        date_of_incident = date_initiated
+        
+        before_d = (d_obj - timedelta(days=3 if w == 0 else 1)).strftime("%d %b %Y")
+        after_d = (d_obj + timedelta(days=3 if w == 4 else 1)).strftime("%d %b %Y")
+    else:
+        test_d_std = str(test_date_str)
+        d_start = str(test_date_str)
+        d_48h = "11 May 2026"
+        d_5d = "18 May 2026"
+        date_initiated = "18-May-2026"
+        date_of_incident = "18-May-2026"
+        before_d = "06 May 2026"
+        after_d = "08 May 2026"
+
+    return {
+        "test_date_std": test_d_std,
+        "d_start": d_start,
+        "d_48h": d_48h,
+        "d_5d": d_5d,
+        "date_initiated": date_initiated,
+        "date_of_incident": date_of_incident,
+        "before_d": before_d,
+        "after_d": after_d
+    }
+
+def generate_em_narrative():
+    """Generates the standardized 3-part Phase I narrative for Environmental Monitoring OOS"""
+    s = st.session_state
+    analyst_name = s.get("analyst_name", "Gabrielle Surber")
     analyst_init = s.get("analyst_initial", "GS")
     reader_name = s.get("reader_name", "Maraya Chukwumerije and Simin Mohammad")
     sampling_type = s.get("sampling_type", "Settling Sampling")
@@ -196,23 +277,11 @@ def generate_em_narrative():
     elif "114" in combined_id: suite_info, cr_suite = "Suite 114", "CR114"
     else: suite_info, cr_suite = "Suite 115B", "CR115"
 
-    # Compute Incubation Dates (48h and 5 days)
-    d_obj = None
-    clean_d = re.sub(r'[\s\-]', '', str(test_date).strip())
-    for fmt in ["%d%b%Y", "%d%b%y"]:
-        try:
-            d_obj = datetime.strptime(clean_d, fmt)
-            break
-        except: pass
-    
-    if d_obj:
-        d_start = d_obj.strftime("%d %b %Y")
-        d_48h = (d_obj + timedelta(days=4 if d_obj.weekday() in [3, 4] else 2)).strftime("%d %b %Y")
-        d_5d = (d_obj + timedelta(days=11 if d_obj.weekday() in [3, 4] else 7)).strftime("%d %b %Y")
-    else:
-        d_start = test_date
-        d_48h = "09 Feb 2026"
-        d_5d = "16 Feb 2026"
+    # Compute Incubation & Milestone Dates
+    dates = compute_em_dates(test_date, event_id)
+    d_start = dates["d_start"]
+    d_48h = dates["d_48h"]
+    d_5d = dates["d_5d"]
 
     is_cleanroom_weekly = any(k in sampling_type.lower() or k in plate_name.lower() for k in ["weekly", "air", "cart", "floor", "cleanroom"])
 
@@ -301,26 +370,22 @@ def build_em_context():
     org_identified = s.get('manual_org', 'Staphylococcus capitis (Gram (+) cocci), Staphylococcus hominis (Gram (+) cocci), Kocuria indica (Gram (+) cocci), Micrococcus luteus (Gram (+) cocci) and Staphylococcus epidermidis (Gram (+) cocci)')
     writer_name = s.get('writer_name', 'Maryam Naeem')
 
-    # Date bracketing
-    d_obj = None
-    clean_d = re.sub(r'[\s\-]', '', str(test_date).strip())
-    for fmt in ["%d%b%Y", "%d%b%y"]:
-        try:
-            d_obj = datetime.strptime(clean_d, fmt)
-            break
-        except: pass
-    
-    if d_obj:
-        before_d = (d_obj - timedelta(days=3 if d_obj.weekday() == 0 else 1)).strftime("%d %b %Y")
-        after_d = (d_obj + timedelta(days=3 if d_obj.weekday() == 4 else 1)).strftime("%d %b %Y")
-        test_d_str = d_obj.strftime("%d %b %Y")
-    else:
-        before_d = "04 Feb 2026"
-        after_d = "06 Feb 2026"
-        test_d_str = test_date
+    # Compute Incubation & Milestone Dates
+    dates = compute_em_dates(test_date, event_id)
+    test_d_std = dates["test_date_std"]
+    date_initiated = dates["date_initiated"]
+    date_of_incident = dates["date_of_incident"]
+    before_d = dates["before_d"]
+    after_d = dates["after_d"]
 
     # Build personnel display block for Section A
     personnel_block = f"{analyst_name}\n({sampling_type} Plate Setup)\n\n{reader_name}\n({sampling_type} Plate Readers)"
+
+    # Signature line
+    if writer_name and writer_name.strip() and writer_name.strip() != analyst_name.strip():
+        analyst_sig = f"{analyst_name} (written by {writer_name})"
+    else:
+        analyst_sig = analyst_name
 
     ctx = {
         # General & Section A
@@ -331,13 +396,14 @@ def build_em_context():
         "sample_name": plate_name,
         "lot_number": plate_name,
         "dosage_form": "Plate",
-        "test_date": test_d_str,
-        "date_initiated": test_d_str,
+        "test_date": test_d_std,
+        "date_initiated": date_initiated,
+        "date_of_incident": date_of_incident,
         "analyst_name": analyst_name,
         "analyst_initial": analyst_init,
         "setup_analyst_initial": analyst_init,
         "reader_name": reader_name,
-        "analyst_signature": f"Simin Mohammad (Written by: {writer_name})",
+        "analyst_signature": analyst_sig,
         "analyst_personnel_block": personnel_block,
         "smart_personnel_block": personnel_block,
         "bsc_id": bsc_id,
@@ -382,9 +448,8 @@ def build_em_context():
         "bsc_sett_analyst_before": analyst_init, "bsc_sett_obs_before": "No growth", "bsc_sett_etx_before": "N/A", "bsc_sett_id_before": "N/A",
         "bsc_sett_analyst_during": analyst_init, "bsc_sett_obs_during": f"{cfu_count} CFU" if "Settling" in sampling_type else "No growth", "bsc_sett_etx_during": event_id if "Settling" in sampling_type else "N/A", "bsc_sett_id_during": org_identified if "Settling" in sampling_type else "N/A",
         "bsc_sett_analyst_after": analyst_init, "bsc_sett_obs_after": "No growth", "bsc_sett_etx_after": "N/A", "bsc_sett_id_after": "N/A",
-
-        "date_of_weekly_air": test_d_str, "weekly_air_analyst": "SMO", "air_obs": "No growth", "air_etx": "N/A", "air_id": "N/A",
-        "date_of_weekly_surf": test_d_str, "weekly_surf_analyst": "SMO", "room_surf_obs": "No growth", "room_surf_etx": "N/A", "room_surf_id": "N/A"
+        "date_of_weekly_air": dates["d_start"], "weekly_air_analyst": "SMO", "air_obs": "No growth", "air_etx": "N/A", "air_id": "N/A",
+        "date_of_weekly_surf": dates["d_start"], "weekly_surf_analyst": "SMO", "room_surf_obs": "No growth", "room_surf_etx": "N/A", "room_surf_id": "N/A"
     }
 
     return ctx
@@ -607,12 +672,12 @@ def generate_em_reports():
             
             # Map 157 Form 3.100.019.F01 fields
             pdf_map = {
-                'Text Field57': ctx['oos_id'],
-                'Text Field0': ctx['analyst_signature'],
-                'Date Field0': ctx['test_date'],
-                'Date Field1': ctx['date_initiated'],
-                'Date Field2': ctx['date_initiated'],
-                'Date Field3': ctx['date_initiated'],
+                'Text Field57': ctx.get('oos_id', ''),
+                'Text Field0': ctx.get('analyst_signature', ''),
+                'Date Field0': ctx.get('test_date', ''),
+                'Date Field1': ctx.get('date_initiated', ''),
+                'Date Field2': ctx.get('date_of_incident', ''),
+                'Date Field3': ctx.get('date_initiated', ''),
                 'Text Field1': "Environmental Monitoring",
                 'Text Field2': ctx['event_number'],
                 'Text Field3': ctx['analyst_personnel_block'],
