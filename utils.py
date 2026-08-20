@@ -83,7 +83,7 @@ def get_full_name(initial):
     if not initial: 
         return ""
     mapping = {
-        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
+        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen (David) Li", "DS": "Devanshi Shah",
         "QC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
         "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
@@ -92,7 +92,7 @@ def get_full_name(initial):
         "AC": "Andrew Carrillo", "KC": "Kira C", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
-        "SMO": "SMO"             # EM 表格特定缩写
+        "SMO": "Simin Mohammad" # EM 表格全名
     }
     return mapping.get(initial.strip().upper(), "")
 
