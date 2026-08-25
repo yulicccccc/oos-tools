@@ -810,7 +810,7 @@ def generate_em_tables_page_pdf(ctx):
         fontName='Helvetica-Bold',
         fontSize=9,
         leading=11,
-        textColor=colors.HexColor('#002060'),
+        textColor=colors.black,
         spaceAfter=4
     )
     cell_hdr_style = ParagraphStyle(
@@ -820,7 +820,7 @@ def generate_em_tables_page_pdf(ctx):
         fontSize=7,
         leading=9,
         alignment=TA_CENTER,
-        textColor=colors.white
+        textColor=colors.black
     )
     cell_body_style = ParagraphStyle(
         'BodyCell',
@@ -868,7 +868,7 @@ def generate_em_tables_page_pdf(ctx):
     
     t1_table = Table([t1_headers, t1_row], colWidths=[100, 65, 30, 80, 65, 30, 80, 90])
     t1_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#002060')),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#E8E8E8')),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
@@ -960,7 +960,7 @@ def generate_em_tables_page_pdf(ctx):
 
     t2_table = Table(t2_rows, colWidths=[90, 90, 60, 70, 60, 70, 60, 70])
     t2_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 1), colors.HexColor('#002060')),
+        ('BACKGROUND', (0, 0), (-1, 1), colors.HexColor('#E8E8E8')),
         ('SPAN', (0, 0), (0, 1)),
         ('SPAN', (1, 0), (1, 1)),
         ('SPAN', (2, 0), (3, 0)),
@@ -1128,8 +1128,10 @@ def format_date_em_tbl(d_str):
 
 def generate_em_standalone_table_docx(ctx=None):
     """
-    Generates a 100% faithful, plain, authentic EM Table Word document (.docx)
-    matching the exact style, font (Times New Roman 6-7pt), shading (#E8E8E8 / #D9D9D9),
+    Generates a 100% faithful, plain, authentic EM Tables Word document (.docx)
+    containing both Table 1 (Read Dates & Incubation Observation) and
+    Table 2 (EM Bracketing Table, 18 rows) matching the exact style,
+    font (Times New Roman 6-7pt), shading (#E8E8E8 / #D9D9D9 / #FFFFFF),
     and layout of 'EM table OOS-261187 11MAY2026.docx'.
     """
     if ctx is None:
@@ -1163,6 +1165,72 @@ def generate_em_standalone_table_docx(ctx=None):
     else:
         org_display = "N/A"
         
+    # --- TABLE 1: Read Dates and Incubation Observation ---
+    t1_headers = [
+        "Sampling Location",
+        "Read Date\n(30-35°C, NLT 48h)",
+        "Read\nBy",
+        "CFU Count /\nObservation",
+        "Read Date\n(20-25°C, NLT 5d)",
+        "Read\nBy",
+        "CFU Count /\nObservation",
+        "Microbial Identification"
+    ]
+    t1_col_widths = [1.5, 0.7, 0.4, 0.9, 0.7, 0.4, 0.9, 1.0] # Sum = 6.5 inches
+    
+    t1_data = [
+        ctx.get('sampling_location', f"{ctx.get('sampling_type', 'Surface Sampling')} Plate ({ctx.get('bsc_id', 'BSC E001309')})"),
+        ctx.get('d_48h', '13 May 2026'),
+        ctx.get('reader_48h', 'MC'),
+        ctx.get('cfu_obs_48h', 'No microbial growth was observed'),
+        ctx.get('d_5d', '18 May 2026'),
+        ctx.get('reader_5d', 'SAS'),
+        ctx.get('cfu_obs_5d', f"{cfu_cnt} CFU on {ctx.get('sample_name', '')}"),
+        clean_org if clean_org else ctx.get('microbial_id', 'colony-like artifact')
+    ]
+    
+    table1 = doc.add_table(rows=2, cols=8)
+    table1.alignment = WD_TABLE_ALIGNMENT.LEFT
+    table1.autofit = False
+    
+    # Table 1 Header Row
+    for c_idx, text in enumerate(t1_headers):
+        cell = table1.cell(0, c_idx)
+        cell.width = Inches(t1_col_widths[c_idx])
+        set_cell_background(cell, "E8E8E8")
+        set_cell_borders(cell)
+        p = cell.paragraphs[0]
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        r = p.add_run(text)
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(6.0)
+        r.bold = True
+        r.font.color.rgb = RGBColor(0, 0, 0)
+        
+    # Table 1 Data Row
+    for c_idx, text in enumerate(t1_data):
+        cell = table1.cell(1, c_idx)
+        cell.width = Inches(t1_col_widths[c_idx])
+        set_cell_background(cell, "FFFFFF")
+        set_cell_borders(cell)
+        p = cell.paragraphs[0]
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        r = p.add_run(str(text))
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(7.0)
+        r.bold = False
+        r.font.color.rgb = RGBColor(0, 0, 0)
+        
+    # Spacer paragraph
+    p_spacer = doc.add_paragraph()
+    p_spacer.paragraph_format.space_before = Pt(6)
+    p_spacer.paragraph_format.space_after = Pt(6)
+    
+    # --- TABLE 2: EM Bracketing Table (18 Rows) ---
     t2_rows_data = [
         # Row 0: Headers
         ["Environmental Monitoring (EM) Sampling Site", "Frequency", "Date\n(DDMM\nYYYY)", "Analyst (Initials)", "Day /Week(s)", "Observation*", "Environmental Monitoring Plate ETX ID", "Microbial ID", "Notes"],
@@ -1196,12 +1264,12 @@ def generate_em_standalone_table_docx(ctx=None):
     
     col_widths = [1.1125, 0.5271, 0.5660, 0.6243, 0.7611, 0.9368, 0.9014, 0.7201, 0.4222]
     
-    table = doc.add_table(rows=len(t2_rows_data), cols=9)
-    table.alignment = WD_TABLE_ALIGNMENT.LEFT
-    table.autofit = False
+    table2 = doc.add_table(rows=len(t2_rows_data), cols=9)
+    table2.alignment = WD_TABLE_ALIGNMENT.LEFT
+    table2.autofit = False
     
     for r_idx, row_data in enumerate(t2_rows_data):
-        row = table.rows[r_idx]
+        row = table2.rows[r_idx]
         is_hdr = (r_idx == 0)
         is_sec = (r_idx in [1, 5, 12, 15])
         
