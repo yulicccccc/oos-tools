@@ -23,24 +23,36 @@ apply_eagle_style()
 st.title("🧫 Environmental Monitoring (EM) OOS Investigation")
 st.caption("Form 3.100.019.F01 (Rev 11) - SOP 2.600.002 Standard Automated Report & Table Generator")
 
-# --- 3. SMART EMAIL IMPORT ---
-st.markdown("### 📧 Smart Email Import / Paste Text")
-email_text = st.text_area(
-    "Paste EM Notification Email or OOS Results text here:", 
-    height=120, 
-    placeholder="Paste notification text containing OOS-260361, ETX-260216-0348, Plate Name, CFU Count, Organisms, etc."
-)
+# --- 3. SMART EMAIL & DOCX TABLE IMPORT ---
+st.markdown("### 📥 Smart Import: EM Table (.docx) or Email Text")
+u_col1, u_col2 = st.columns([1, 1])
 
-if st.button("🪄 Parse & Auto-Fill Form"):
-    parsed = el.parse_em_text(email_text)
-    if parsed:
-        for k, v in parsed.items():
-            st.session_state[k] = v
-        st.session_state["em_show_reports"] = False
-        st.success("✨ Auto-filled parsed fields! Please review below.")
-        st.rerun()
-    else:
-        st.warning("⚠️ No matching fields found in pasted text. Please enter details manually.")
+with u_col1:
+    uploaded_table = st.file_uploader("📂 Upload EM Summary Table (.docx):", type=["docx"])
+    if uploaded_table is not None:
+        if st.button("🪄 Parse Uploaded .docx Table"):
+            parsed = el.parse_em_docx_table(uploaded_table)
+            if parsed:
+                for k, v in parsed.items():
+                    st.session_state[k] = v
+                st.session_state["em_show_reports"] = False
+                st.success("✨ Successfully parsed EM Table .docx! All fields auto-filled.")
+                st.rerun()
+
+with u_col2:
+    email_text = st.text_area(
+        "📧 Paste EM Notification Email / Text:", 
+        height=100, 
+        placeholder="Paste notification text containing OOS-260361, ETX-260216-0348, Plate Name, CFU Count, etc."
+    )
+    if st.button("🪄 Parse Pasted Text"):
+        parsed = el.parse_em_text(email_text)
+        if parsed:
+            for k, v in parsed.items():
+                st.session_state[k] = v
+            st.session_state["em_show_reports"] = False
+            st.success("✨ Auto-filled parsed fields! Please review below.")
+            st.rerun()
 
 st.markdown("---")
 

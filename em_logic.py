@@ -14,15 +14,18 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
+import docx
+
 # --- 1. Central Utilities ---
 try:
-    from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative
+    from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative, get_monthly_cleaning_date
 except ImportError:
     def u_grl(i): return "Unknown", "000", "", "Unknown"
     def get_full_name(i): return i
     def ordinal(n): return str(n)
     def num_to_words(n): return str(n)
     def get_cleanroom_narrative(s, r=None, a="", v=""): return ""
+    def get_monthly_cleaning_date(p): return "26-Apr-2026"
 
 # --- 2. CONFIG & KEYS ---
 FIELD_KEYS = [
@@ -173,10 +176,119 @@ def parse_em_text(text):
 
     # RS Approved Standard Defaults
     data["reader_name"] = "Maraya Chukwumerije and Simin Mohammad"
-    data["writer_name"] = "Maryam Naeem"
+    data["writer_name"] = "Qiyue Chen"
+    data["writer_initial"] = "QYC"
     data["manager_name"] = "Kathan Parikh"
+    data["manager_notified"] = "Kathan Parikh"
+    data["manager_signer"] = "Robin Seymour"
     data["cleaner_name"] = "Rey Estrada"
 
+    return data
+
+def parse_em_docx_table(docx_input):
+    """
+    Parses a single EM summary docx file (like 'EM table OOS-261187 11MAY2026.docx')
+    and extracts all investigation details, bracketing data, incident notes, and cleanroom mapping.
+    """
+    if isinstance(docx_input, str):
+        d = docx.Document(docx_input)
+        src_text = docx_input
+    else:
+        d = docx.Document(docx_input)
+        src_text = getattr(docx_input, 'name', '')
+
+    data = {}
+    oos_match = re.search(r'OOS-(\d+)', src_text, re.IGNORECASE)
+    if oos_match:
+        data['oos_id'] = f"OOS-{oos_match.group(1)}"
+
+    for table in d.tables:
+        current_section = ''
+        for row in table.rows:
+            cells = [c.text.strip() for c in row.cells]
+            unique_cells = []
+            for c in cells:
+                if not unique_cells or c != unique_cells[-1]:
+                    unique_cells.append(c)
+            
+            first_cell = unique_cells[0] if unique_cells else ''
+            
+            if 'Personnel EM Bracketing' in first_cell:
+                current_section = 'pers'
+                continue
+            elif 'Biological Safety Cabinet EM Bracketing' in first_cell:
+                current_section = 'bsc'
+                bsc_num_m = re.search(r'\(BSC\)\s*(\d+)', first_cell)
+                if bsc_num_m:
+                    data['bsc_num'] = bsc_num_m.group(1)
+                    data['bsc_id'] = f"BSC E00{bsc_num_m.group(1)}"
+                continue
+            elif 'Weekly Active Air Sampling Bracketing' in first_cell:
+                current_section = 'weekly_air'
+                suite_m = re.search(r'Bracketing\s*(\d+)', first_cell)
+                if suite_m:
+                    data['suite_num'] = suite_m.group(1)
+                continue
+            elif 'Surface Sampling of Anteroom and Cleanroom Bracketing' in first_cell:
+                current_section = 'weekly_surf'
+                continue
+            elif 'Environmental Monitoring (EM) Sampling Site' in first_cell:
+                continue
+                
+            if len(unique_cells) >= 6:
+                site = unique_cells[0]
+                freq = unique_cells[1]
+                date_str = unique_cells[2]
+                analyst = unique_cells[3]
+                day_timing = unique_cells[4]
+                obs = unique_cells[5]
+                etx = unique_cells[6] if len(unique_cells) > 6 else ''
+                org = unique_cells[7] if len(unique_cells) > 7 else ''
+                
+                # Check for incident row (where CFU > 0 or ETX present)
+                if etx.startswith('ETX-') and 'Air' not in obs:
+                    data['incident_date'] = date_str
+                    data['incident_analyst_init'] = analyst.split(',')[0].strip()
+                    data['analyst_initial'] = data['incident_analyst_init']
+                    data['analyst_name'] = get_full_name(data['analyst_initial'])
+                    data['event_number'] = etx
+                    data['cfu_obs'] = obs
+                    
+                    cfu_m = re.search(r'(\d+)\s*CFU', obs)
+                    data['cfu_count'] = cfu_m.group(1) if cfu_m else '1'
+                    
+                    site_m = re.search(r'on\s*(S\d+)', obs)
+                    site_code = site_m.group(1) if site_m else 'S1'
+                    data['site_code'] = site_code
+                    
+                    if 'artifact' in org.lower() or 'embeded' in org.lower() or 'smooth' in org.lower() or org.startswith('N/A'):
+                        clean_org = org.replace('N/A', '').strip()
+                        data['manual_org'] = f"colony-like artifact ({clean_org})" if clean_org else "colony-like artifact"
+                    else:
+                        data['manual_org'] = org
+                        
+                    clean_d = date_str.replace(' ', '')
+                    bsc_short = data.get('bsc_num', '1309')
+                    data['sample_name'] = f"ScanC/O {data['analyst_initial']} E00{bsc_short} {site_code} {clean_d}"
+                    data['test_date'] = clean_d
+                    data['sampling_type'] = 'Surface Sampling (Changeover)'
+
+    if 'test_date' in data:
+        raw_mc = get_monthly_cleaning_date(data['test_date'])
+        data['monthly_cleaning_date'] = format_date_std(raw_mc) if raw_mc else "26 April 2026"
+        
+    data['reader_name'] = "Maraya Chukwumerije and Sophia Santamaria"
+    data['reader_48h'] = "MC"
+    data['reader_5d'] = "SAS"
+    data['writer_name'] = "Qiyue Chen"
+    data['writer_initial'] = "QYC"
+    data['manager_notified'] = "Kathan Parikh"
+    data['manager_signer'] = "Robin Seymour"
+    data['cleaner_name'] = "Tamiru Kotisso and Cuong Du"
+    data['plate_media_type'] = "Contact Plate"
+    data['media_plate_lot'] = "1011543730"
+    data['media_plate_exp'] = "29SEP2026"
+    
     return data
 
 def compute_em_dates(test_date_str, etx_id=""):
