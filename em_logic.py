@@ -15,6 +15,11 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
 import docx
+from docx.shared import Inches, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
 
 # --- 1. Central Utilities ---
 try:
@@ -1095,3 +1100,190 @@ def generate_em_reports():
         pdf_buf = None
 
     return docx_buf, pdf_buf
+
+def set_cell_background(cell, hex_color):
+    tcPr = cell._tc.get_or_add_tcPr()
+    shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_color}"/>')
+    tcPr.append(shd)
+
+def set_cell_margins(cell, top=60, bottom=60, left=100, right=100):
+    tcPr = cell._tc.get_or_add_tcPr()
+    tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="{top}" w:type="dxa"/><w:bottom w:w="{bottom}" w:type="dxa"/><w:left w:w="{left}" w:type="dxa"/><w:right w:w="{right}" w:type="dxa"/></w:tcMar>')
+    tcPr.append(tcMar)
+
+def generate_em_standalone_table_docx(ctx=None):
+    """
+    Generates a standalone, beautifully styled Word document (.docx) containing
+    both Table 1 (Read Dates & Incubation Observation) and Table 2 (EM Bracketing Table).
+    """
+    if ctx is None:
+        ctx = build_em_context()
+        
+    doc = docx.Document()
+    
+    # Page setup - Landscape
+    section = doc.sections[0]
+    section.orientation = docx.enum.section.WD_ORIENT.LANDSCAPE
+    section.page_width = Inches(11.0)
+    section.page_height = Inches(8.5)
+    section.top_margin = Inches(0.5)
+    section.bottom_margin = Inches(0.5)
+    section.left_margin = Inches(0.5)
+    section.right_margin = Inches(0.5)
+    
+    # Title
+    p_title = doc.add_paragraph()
+    run_title = p_title.add_run(f"Environmental Monitoring (EM) Investigation Tables - {ctx.get('oos_id', 'OOS-261187')}")
+    run_title.bold = True
+    run_title.font.size = Pt(13)
+    run_title.font.color.rgb = RGBColor(0, 32, 96)
+    p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    # Subtitle
+    p_sub = doc.add_paragraph()
+    run_sub = p_sub.add_run(f"Sample: {ctx.get('sample_name', '')} | Event: {ctx.get('event_number', '')} | Test Date: {ctx.get('test_date', '')}")
+    run_sub.font.size = Pt(9.5)
+    run_sub.font.italic = True
+    p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    # --- TABLE 1: Read Dates and Incubation Observation ---
+    p_t1 = doc.add_paragraph()
+    r_t1 = p_t1.add_run("Table 1: Read Dates and Incubation Observation")
+    r_t1.bold = True
+    r_t1.font.size = Pt(10.5)
+    r_t1.font.color.rgb = RGBColor(0, 32, 96)
+    
+    t1 = doc.add_table(rows=2, cols=8)
+    t1.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t1.autofit = False
+    
+    t1_headers = [
+        "Sampling Location",
+        "Read Date\n(30-35°C, NLT 48h)",
+        "Read\nBy",
+        "CFU Count /\nObservation",
+        "Read Date\n(20-25°C, NLT 5d)",
+        "Read\nBy",
+        "CFU Count /\nObservation",
+        "Microbial Identification"
+    ]
+    t1_widths = [Inches(1.8), Inches(1.1), Inches(0.6), Inches(1.5), Inches(1.1), Inches(0.6), Inches(1.5), Inches(1.8)]
+    
+    for c_idx, text in enumerate(t1_headers):
+        cell = t1.cell(0, c_idx)
+        cell.width = t1_widths[c_idx]
+        set_cell_background(cell, "002060")
+        set_cell_margins(cell, 80, 80, 100, 100)
+        p = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = p.add_run(text)
+        r.bold = True
+        r.font.size = Pt(8)
+        r.font.color.rgb = RGBColor(255, 255, 255)
+        
+    t1_data = [
+        ctx.get('sampling_location', f"{ctx.get('sampling_type', 'Surface Sampling')} Plate ({ctx.get('bsc_id', 'BSC E001309')})"),
+        ctx.get('d_48h', '13 May 2026'),
+        ctx.get('reader_48h', 'MC'),
+        ctx.get('cfu_obs_48h', 'No microbial growth was observed'),
+        ctx.get('d_5d', '18 May 2026'),
+        ctx.get('reader_5d', 'SAS'),
+        ctx.get('cfu_obs_5d', f"{ctx.get('cfu_count', '1')} CFU on {ctx.get('sample_name', '')}"),
+        ctx.get('microbial_id', 'colony-like artifact')
+    ]
+    
+    for c_idx, text in enumerate(t1_data):
+        cell = t1.cell(1, c_idx)
+        cell.width = t1_widths[c_idx]
+        set_cell_background(cell, "F2F2F2")
+        set_cell_margins(cell, 80, 80, 100, 100)
+        p = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER if c_idx not in [0, 7] else WD_ALIGN_PARAGRAPH.LEFT
+        r = p.add_run(str(text))
+        r.font.size = Pt(8)
+        
+    doc.add_paragraph()
+    
+    # --- TABLE 2: EM Bracketing Table ---
+    p_t2 = doc.add_paragraph()
+    r_t2 = p_t2.add_run("Table 2: Environmental Monitoring Plates for Analyst and Cleanroom Bracketing")
+    r_t2.bold = True
+    r_t2.font.size = Pt(10.5)
+    r_t2.font.color.rgb = RGBColor(0, 32, 96)
+    
+    bsc_label = ctx.get('bsc_id', 'BSC 1309')
+    suite_label = ctx.get('suite_num', '117')
+    
+    t2_rows = [
+        ["Environmental Monitoring (EM) Sampling Site", "Frequency", "Date (DDMM YYYY)", "Analyst (Initials)", "Day /Week(s)", "Observation*", "Environmental Monitoring Plate ETX ID", "Microbial ID", "Notes"],
+        ["Personnel EM Bracketing", "", "", "", "", "", "", "", ""],
+        ["Personal (Left Touch and Right Touch)", "Daily", ctx.get('before_date', '08MAY 2026'), ctx.get('analyst_initial', 'CGS'), "Date Before Testing", "No growth", "N/A", "N/A", "None"],
+        ["Personal (Left Touch and Right Touch)", "Daily", ctx.get('test_date', '11MAY 2026'), ctx.get('analyst_initial', 'CGS'), "Date of Testing", "No growth", "N/A", "N/A", "None"],
+        ["Personal (Left Touch and Right Touch)", "Daily", ctx.get('after_date', '12MAY 2026'), ctx.get('analyst_initial', 'CGS'), "Date After Testing", "No growth", "N/A", "N/A", "None"],
+        [f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet ({bsc_label})", "", "", "", "", "", "", "", ""],
+        ["Surface Sampling of ISO 5 (4 locations)", "Daily", ctx.get('before_date', '09MAY 2026'), "VV", "Date Before Testing", "No growth", "N/A", "N/A", "None"],
+        ["Surface Sampling of ISO 5 (4 locations)", "Daily", ctx.get('test_date', '11MAY 2026'), f"{ctx.get('analyst_initial', 'CGS')}, DT, GA, VV", "Date of Testing", f"{ctx.get('cfu_count', '1')} CFU on S1 for {ctx.get('analyst_initial', 'CGS')}", ctx.get('event_number', 'ETX-260518-0273'), ctx.get('microbial_id', 'colony-like artifact'), "None"],
+        ["Surface Sampling of ISO 5 (4 locations)", "Daily", ctx.get('after_date', '12MAY 2026'), "PG, DT, HS, ELB, GA, VV", "Date After Testing", "No growth", "N/A", "N/A", "None"],
+        ["Settling Sampling of ISO 5 (2 locations)", "Daily", ctx.get('before_date', '09MAY 2026'), "VV", "Date Before Testing", "No growth", "N/A", "N/A", "None"],
+        ["Settling Sampling of ISO 5 (2 locations)", "Daily", ctx.get('test_date', '11MAY 2026'), f"{ctx.get('analyst_initial', 'CGS')}, DT, GA, VV", "Date of Testing", "No growth", "N/A", "N/A", "None"],
+        ["Settling Sampling of ISO 5 (2 locations)", "Daily", ctx.get('after_date', '12MAY 2026'), "PG, DT, HS, ELB, GA, VV", "Date After Testing", "No growth", "N/A", "N/A", "None"],
+        [f"Weekly Active Air Sampling Bracketing {suite_label}", "", "", "", "", "", "", "", ""],
+        ["Active Air Sampling of Cleanrooms", "Weekly", "29APR 2026", "SMO", "Week (On of Testing Date)", "No growth", "N/A", "N/A", "None"],
+        ["Active Air Sampling of Cleanrooms", "Weekly", "07MAY 2026", "SMO", "Week (On or After Testing Date)", f"2 CFU for {suite_label} Air", "ETX-260518-0263", "Gram (+) cocci  Gram (+) pleomorphic rods", "None"],
+        [f"Surface Sampling of Anteroom and Cleanroom Bracketing {suite_label}", "", "", "", "", "", "", "", ""],
+        ["Surface Sampling of Cleanrooms", "Weekly", "29APR 2026", "SMO", "Week (On of Testing Date)", "No growth", "N/A", "N/A", "None"],
+        ["Surface Sampling of Cleanrooms", "Weekly", "07MAY 2026", "SMO", "Week (On or After Testing Date)", "No growth", "N/A", "N/A", "None"]
+    ]
+    
+    t2 = doc.add_table(rows=len(t2_rows), cols=9)
+    t2.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t2.autofit = False
+    
+    t2_widths = [Inches(1.8), Inches(0.7), Inches(0.9), Inches(1.3), Inches(1.1), Inches(1.3), Inches(1.1), Inches(1.4), Inches(0.4)]
+    
+    for r_idx, row_data in enumerate(t2_rows):
+        is_hdr = (r_idx == 0)
+        is_sec = (r_idx in [1, 5, 12, 15])
+        
+        if is_sec:
+            row = t2.rows[r_idx]
+            first_c = row.cells[0]
+            for c in row.cells[1:]:
+                first_c.merge(c)
+            set_cell_background(first_c, "D9E1F2")
+            set_cell_margins(first_c, 50, 50, 80, 80)
+            p = first_c.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            r = p.add_run(row_data[0])
+            r.bold = True
+            r.font.size = Pt(8.5)
+            r.font.color.rgb = RGBColor(0, 32, 96)
+            continue
+            
+        for c_idx, text in enumerate(row_data):
+            cell = t2.cell(r_idx, c_idx)
+            cell.width = t2_widths[c_idx]
+            set_cell_margins(cell, 40, 40, 60, 60)
+            
+            if is_hdr:
+                set_cell_background(cell, "002060")
+            else:
+                set_cell_background(cell, "F9F9F9" if r_idx % 2 == 1 else "FFFFFF")
+                
+            p = cell.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER if c_idx in [1, 2, 4, 6, 8] else WD_ALIGN_PARAGRAPH.LEFT
+            r = p.add_run(str(text))
+            if is_hdr:
+                r.bold = True
+                r.font.size = Pt(8)
+                r.font.color.rgb = RGBColor(255, 255, 255)
+            else:
+                r.font.size = Pt(7.5)
+                if "CFU" in str(text) and "No growth" not in str(text):
+                    r.bold = True
+                    r.font.color.rgb = RGBColor(192, 0, 0)
+                    
+    buf = io.BytesIO()
+    doc.save(buf)
+    buf.seek(0)
+    return buf

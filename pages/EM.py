@@ -112,7 +112,7 @@ if st.session_state.get("em_show_reports", False):
         st.success("✅ EM Phase I Complete 7-Page Report Generated Successfully!")
         
         st.markdown("### 📂 Download Reports & Attachments")
-        c1, c2, c3 = st.columns(3)
+        c1, c2, c3, c4 = st.columns(4)
         safe_name = el.clean_filename(st.session_state.get("oos_id", "EM_Report"))
         
         with c1:
@@ -140,6 +140,17 @@ if st.session_state.get("em_show_reports", False):
                 st.error("PDF template not found or rendering failed.")
 
         with c3:
+            st.subheader("EM Tables (.docx)")
+            tbl_docx_buf = el.generate_em_standalone_table_docx()
+            if tbl_docx_buf:
+                st.download_button(
+                    "📊 EM Tables 1 & 2 (.docx)", 
+                    tbl_docx_buf, 
+                    f"EM_table_{safe_name}.docx", 
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+
+        with c4:
             st.subheader("Backup Session")
             session_data = {k: st.session_state[k] for k in el.FIELD_KEYS if k in st.session_state}
             st.download_button(
