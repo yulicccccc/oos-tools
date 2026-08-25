@@ -1165,28 +1165,37 @@ def generate_em_standalone_table_docx(ctx=None):
     else:
         org_display = "N/A"
         
-    # --- TABLE 1: Read Dates and Incubation Observation ---
+    # --- TABLE 1: Read Dates & Incubation Observation ---
+    p_t1_title = doc.add_paragraph()
+    p_t1_title.paragraph_format.space_before = Pt(0)
+    p_t1_title.paragraph_format.space_after = Pt(4)
+    r_t1_title = p_t1_title.add_run("Table 1: Read Dates & Incubation Observation")
+    r_t1_title.font.name = "Times New Roman"
+    r_t1_title.font.size = Pt(9.5)
+    r_t1_title.font.underline = True
+    r_t1_title.bold = False
+    
     t1_headers = [
-        "Sampling Location",
-        "Read Date\n(30-35°C, NLT 48h)",
-        "Read\nBy",
-        "CFU Count /\nObservation",
-        "Read Date\n(20-25°C, NLT 5d)",
-        "Read\nBy",
-        "CFU Count /\nObservation",
+        "ETX Submission ID",
+        "Set-up Analyst\n& Date",
+        "Sampling Site &\nLocation",
+        "Plate\nReading\nAnalyst (≥\n48H)",
+        "CFUs Observed after\n48 Hour Incubation\nat 30–35°C\n(E001031)",
+        "Plate\nReading\nAnalyst\n(NLT 5\ndays)",
+        "CFUs Observed\nafter NLT 5-day\nIncubation at\n20–25°C (E001034)",
         "Microbial Identification"
     ]
-    t1_col_widths = [1.5, 0.7, 0.4, 0.9, 0.7, 0.4, 0.9, 1.0] # Sum = 6.5 inches
+    t1_col_widths = [0.95, 0.75, 0.85, 0.65, 1.05, 0.65, 1.05, 0.55] # Sum = 6.5 inches
     
     t1_data = [
-        ctx.get('sampling_location', f"{ctx.get('sampling_type', 'Surface Sampling')} Plate ({ctx.get('bsc_id', 'BSC E001309')})"),
-        ctx.get('d_48h', '13 May 2026'),
+        etx_num,
+        f"{analyst_init}\n{test_d.replace(' ', chr(10))}",
+        "Surface\nsampling plate",
         ctx.get('reader_48h', 'MC'),
-        ctx.get('cfu_obs_48h', 'No microbial growth was observed'),
-        ctx.get('d_5d', '18 May 2026'),
+        "0",
         ctx.get('reader_5d', 'SAS'),
-        ctx.get('cfu_obs_5d', f"{cfu_cnt} CFU on {ctx.get('sample_name', '')}"),
-        clean_org if clean_org else ctx.get('microbial_id', 'colony-like artifact')
+        f"{cfu_cnt} CFU on surface\n#1 sampling\nplate",
+        "N/A"
     ]
     
     table1 = doc.add_table(rows=2, cols=8)
@@ -1197,38 +1206,41 @@ def generate_em_standalone_table_docx(ctx=None):
     for c_idx, text in enumerate(t1_headers):
         cell = table1.cell(0, c_idx)
         cell.width = Inches(t1_col_widths[c_idx])
-        set_cell_background(cell, "E8E8E8")
         set_cell_borders(cell)
         p = cell.paragraphs[0]
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
-        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         r = p.add_run(text)
         r.font.name = "Times New Roman"
-        r.font.size = Pt(6.0)
-        r.bold = True
+        r.font.size = Pt(6.5)
+        r.bold = False
         r.font.color.rgb = RGBColor(0, 0, 0)
         
     # Table 1 Data Row
     for c_idx, text in enumerate(t1_data):
         cell = table1.cell(1, c_idx)
         cell.width = Inches(t1_col_widths[c_idx])
-        set_cell_background(cell, "FFFFFF")
         set_cell_borders(cell)
         p = cell.paragraphs[0]
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
-        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         r = p.add_run(str(text))
         r.font.name = "Times New Roman"
-        r.font.size = Pt(7.0)
+        r.font.size = Pt(6.5)
         r.bold = False
         r.font.color.rgb = RGBColor(0, 0, 0)
         
-    # Spacer paragraph
-    p_spacer = doc.add_paragraph()
-    p_spacer.paragraph_format.space_before = Pt(6)
-    p_spacer.paragraph_format.space_after = Pt(6)
+    # --- TABLE 2 Title ---
+    p_t2_title = doc.add_paragraph()
+    p_t2_title.paragraph_format.space_before = Pt(14)
+    p_t2_title.paragraph_format.space_after = Pt(4)
+    r_t2_title = p_t2_title.add_run("Table 2: Environmental Monitoring Plates for Analyst and Cleanroom Bracketing")
+    r_t2_title.font.name = "Times New Roman"
+    r_t2_title.font.size = Pt(9.5)
+    r_t2_title.font.underline = True
+    r_t2_title.bold = False
     
     # --- TABLE 2: EM Bracketing Table (18 Rows) ---
     t2_rows_data = [
