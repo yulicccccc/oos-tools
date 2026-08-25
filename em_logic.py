@@ -653,7 +653,9 @@ def build_em_context():
         "room_surf_obs": "No growth", "room_surf_etx": "N/A", "room_surf_id": "N/A",
         
         "writer_name": writer_name,
-        "manager_name": manager_name
+        "manager_name": manager_name,
+        "manager_notified": s.get('manager_notified', 'Kathan Parikh'),
+        "manager_signer": s.get('manager_signer', 'Robin Seymour')
     }
     return ctx
 
@@ -897,7 +899,7 @@ def generate_em_reports():
                 'Text Field9': "23-Jul-2026",
                 'Text Field10': "16",
                 'Text Field11': ctx['action_level'].replace("≥", ">="),
-                'Text Field12': ctx.get('manager_name', 'Kathan Parikh'),
+                'Text Field12': ctx.get('manager_notified', 'Kathan Parikh'),
                 'Text Field13': ctx['smart_comment_interview'],
                 'Text Field14': "Not applicable",
                 'Text Field15': "Yes, as per MICRO-SOP-2",
@@ -937,7 +939,7 @@ def generate_em_reports():
                 'Text Field51': summary_block,
                 'Text Field52': "",
                 'Text Field53': ctx.get('writer_name', "Dhvanir Kansara"),
-                'Text Field54': ctx.get('manager_name', "Robin Seymour")
+                'Text Field54': ctx.get('manager_signer', "Robin Seymour")
             }
 
             # Checkbox Yes/No defaults matching production PDF QA standards (EM is internal facility testing)
