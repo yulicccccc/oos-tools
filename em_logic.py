@@ -298,7 +298,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "115"
         cr_suite = "CR115"
         cr_display = "CR115 (E001737)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = f"Cleanroom Suite {room_num}"
     elif bsc_num in ["1312", "1311"] or "116" in combined:
@@ -306,7 +306,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "116"
         cr_suite = "CR116"
         cr_display = "CR116 (E001738)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = f"Cleanroom Suite {room_num}"
     elif bsc_num in ["1310", "1309"] or "117" in combined:
@@ -314,7 +314,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "117"
         cr_suite = "CR117"
         cr_display = "CR117 (E001739)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = f"Cleanroom Suite {room_num}"
     elif bsc_num in ["1316", "1798"] or "114" in combined:
@@ -322,7 +322,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "114"
         cr_suite = "CR114"
         cr_display = "CR114 (E001736)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = f"Cleanroom Suite {room_num}"
     elif bsc_num in ["1938", "1317", "1319", "1988", "1937"] or "145" in combined or "L-SUITE" in combined:
@@ -330,7 +330,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "L-Suite"
         cr_suite = "L-Suite"
         cr_display = "CR145 (E001979)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = f"Cleanroom Suite {room_num}"
     else:
@@ -338,7 +338,7 @@ def get_cleanroom_info(sample_name="", bsc_id=""):
         suite_num = "115"
         cr_suite = "CR115"
         cr_display = "CR115 (E001737)"
-        cr_exp = "December 2026"
+        cr_exp = "Dec 2026"
         if not bsc_e_id:
             bsc_e_id = "BSC E001314"
         
@@ -920,7 +920,7 @@ def generate_em_reports():
                 'Text Field30': "Please see below",
                 'Text Field31': "Please see below",
                 'Text Field32': ctx.get('cr_display', "CR115 (E001737)"),
-                'Text Field33': ctx.get('cr_exp', "December 2026"),
+                'Text Field33': ctx.get('cr_exp', "Dec 2026"),
                 'Text Field34': "N/A",
                 'Text Field35': "N/A",
                 'Text Field36': "Not Applicable",
