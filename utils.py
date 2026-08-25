@@ -92,7 +92,8 @@ def get_full_name(initial):
         "AC": "Andrew Carrillo", "KC": "Kira C", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
-        "SMO": "Simin Mohammad" # EM 表格全名
+        "SMO": "Simin Mohammad", # EM 表格全名
+        "SAS": "Sophia Santamaria" # EM 读板分析员
     }
     return mapping.get(initial.strip().upper(), "")
 

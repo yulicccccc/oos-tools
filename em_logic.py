@@ -392,8 +392,18 @@ def generate_em_narrative():
     is_artifact = any(k in org_identified.lower() for k in ["artifact", "anomaly", "nonviable", "no growth upon subculture", "could not be confirmed"])
 
     # Determine reader names split
-    if "Maraya" in reader_name and "Simin" in reader_name:
+    if " and " in reader_name:
+        r_parts = [p.strip() for p in reader_name.split(" and ")]
+        reader_1 = r_parts[0]
+        reader_2 = r_parts[1]
+    elif "," in reader_name:
+        r_parts = [p.strip() for p in reader_name.split(",")]
+        reader_1 = r_parts[0]
+        reader_2 = r_parts[1]
+    elif "Maraya" in reader_name and "Simin" in reader_name:
         reader_1, reader_2 = "Maraya Chukwumerije", "Simin Mohammad"
+    elif "Maraya" in reader_name and ("Sophia" in reader_name or "SAS" in reader_name):
+        reader_1, reader_2 = "Maraya Chukwumerije", "Sophia Santamaria"
     else:
         reader_1, reader_2 = reader_name, reader_name
 
@@ -585,6 +595,9 @@ def build_em_context():
         "lot_number": plate_name,
         "dosage_form": "Plate",
         "test_date": test_d_std,
+        "d_start": dates["d_start"],
+        "d_48h": dates["d_48h"],
+        "d_5d": dates["d_5d"],
         "date_initiated": date_initiated,
         "date_of_incident": date_of_incident,
         "analyst_name": analyst_name,
@@ -625,9 +638,9 @@ def build_em_context():
 
         # Table 1 Fields
         "sampling_location": f"{sampling_type} Plate ({bsc_e_id})",
-        "reader_48h": "MC",
+        "reader_48h": s.get('reader_48h', 'MC' if ('maraya' in reader_name.lower() or 'mc' in reader_name.lower()) else 'MC'),
         "cfu_obs_48h": f"No microbial growth was observed",
-        "reader_5d": "SMO",
+        "reader_5d": s.get('reader_5d', 'SAS' if ('sophia' in reader_name.lower() or 'sas' in reader_name.lower()) else 'SMO'),
         "cfu_obs_5d": f"{cfu_count} CFU on {plate_name}",
         "microbial_id": org_identified,
 
