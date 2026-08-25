@@ -655,7 +655,8 @@ def build_em_context():
         "writer_name": writer_name,
         "manager_name": manager_name,
         "manager_notified": s.get('manager_notified', 'Kathan Parikh'),
-        "manager_signer": s.get('manager_signer', 'Robin Seymour')
+        "manager_signer": s.get('manager_signer', 'Robin Seymour'),
+        "section_c_other": s.get('section_c_other', f"N/A {s.get('writer_initial', 'QYC')} {datetime.now().strftime('%d-%b-%Y')}")
     }
     return ctx
 
@@ -933,7 +934,7 @@ def generate_em_reports():
                 'Text Field45': "Not Applicable",
                 'Text Field46': "Not Applicable",
                 'Text Field47': "Not Applicable",
-                'Text Field48': "N/A",
+                'Text Field48': ctx.get('section_c_other', f"N/A QYC {datetime.now().strftime('%d-%b-%Y')}"),
                 'Text Field49': interview_block,
                 'Text Field50': records_block,
                 'Text Field51': summary_block,
