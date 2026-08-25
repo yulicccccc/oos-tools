@@ -1139,15 +1139,15 @@ def generate_em_standalone_table_docx(ctx=None):
         
     doc = docx.Document()
     
-    # 1. Page Setup - Portrait 8.5 x 11.0 in, 1.0 in margins
+    # 1. Page Setup - Portrait 8.5 x 11.0 in, 0.75 in margins (Total printable width = 7.00 inches)
     sec = doc.sections[0]
     sec.orientation = docx.enum.section.WD_ORIENT.PORTRAIT
     sec.page_width = Inches(8.5)
     sec.page_height = Inches(11.0)
-    sec.top_margin = Inches(1.0)
-    sec.bottom_margin = Inches(1.0)
-    sec.left_margin = Inches(1.0)
-    sec.right_margin = Inches(1.0)
+    sec.top_margin = Inches(0.8)
+    sec.bottom_margin = Inches(0.8)
+    sec.left_margin = Inches(0.75)
+    sec.right_margin = Inches(0.75)
     
     bsc_num = ctx.get('bsc_num', '1309')
     suite_num = ctx.get('suite_num', '117')
@@ -1183,9 +1183,10 @@ def generate_em_standalone_table_docx(ctx=None):
         "CFUs Observed after\n48 Hour Incubation\nat 30–35°C\n(E001031)",
         "Plate\nReading\nAnalyst\n(NLT 5\ndays)",
         "CFUs Observed\nafter NLT 5-day\nIncubation at\n20–25°C (E001034)",
-        "Microbial Identification"
+        "Microbial\nIdentification"
     ]
-    t1_col_widths = [0.95, 0.75, 0.85, 0.65, 1.05, 0.65, 1.05, 0.55] # Sum = 6.5 inches
+    # Exact 7.00 inches sum to match Table 2 and printable page width perfectly
+    t1_col_widths = [0.90, 0.75, 0.85, 0.65, 1.10, 0.65, 1.10, 1.00] 
     
     t1_data = [
         etx_num,
@@ -1207,6 +1208,7 @@ def generate_em_standalone_table_docx(ctx=None):
         cell = table1.cell(0, c_idx)
         cell.width = Inches(t1_col_widths[c_idx])
         set_cell_borders(cell)
+        set_cell_margins(cell, top=30, bottom=30, left=30, right=30)
         p = cell.paragraphs[0]
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
@@ -1222,6 +1224,7 @@ def generate_em_standalone_table_docx(ctx=None):
         cell = table1.cell(1, c_idx)
         cell.width = Inches(t1_col_widths[c_idx])
         set_cell_borders(cell)
+        set_cell_margins(cell, top=30, bottom=30, left=30, right=30)
         p = cell.paragraphs[0]
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
@@ -1274,7 +1277,8 @@ def generate_em_standalone_table_docx(ctx=None):
         ["Surface Sampling of Cleanrooms", "Weekly", "07MAY 2026", "SMO", "Week (On or After Testing Date)", "No growth", "N/A", "N/A", "None"]
     ]
     
-    col_widths = [1.1125, 0.5271, 0.5660, 0.6243, 0.7611, 0.9368, 0.9014, 0.7201, 0.4222]
+    # Exact 7.00 inches sum (1.15+0.65+0.65+0.60+0.80+0.90+0.95+0.85+0.45 = 7.00 in)
+    t2_col_widths = [1.15, 0.65, 0.65, 0.60, 0.80, 0.90, 0.95, 0.85, 0.45]
     
     table2 = doc.add_table(rows=len(t2_rows_data), cols=9)
     table2.alignment = WD_TABLE_ALIGNMENT.LEFT
@@ -1291,6 +1295,7 @@ def generate_em_standalone_table_docx(ctx=None):
                 first_c.merge(c)
             set_cell_background(first_c, "D9D9D9")
             set_cell_borders(first_c)
+            set_cell_margins(first_c, top=30, bottom=30, left=30, right=30)
             p = first_c.paragraphs[0]
             p.paragraph_format.space_before = Pt(0)
             p.paragraph_format.space_after = Pt(0)
@@ -1304,8 +1309,9 @@ def generate_em_standalone_table_docx(ctx=None):
             
         for c_idx, text in enumerate(row_data):
             cell = row.cells[c_idx]
-            cell.width = Inches(col_widths[c_idx])
+            cell.width = Inches(t2_col_widths[c_idx])
             set_cell_borders(cell)
+            set_cell_margins(cell, top=30, bottom=30, left=30, right=30)
             
             if is_hdr:
                 set_cell_background(cell, "E8E8E8")
