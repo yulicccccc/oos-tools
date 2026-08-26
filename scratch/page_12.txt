@@ -1,0 +1,53 @@
+
+Room 145 Floor 
+nearRoom 144
+Room 144 Floor near 
+Room 143
+Section I
+Section II
+Section I
+Section II
+Section I
+Section II
+Cart
+Cart
+Cart
+Cart
+Cart
+Cart
+Cart 1 in Room 
+145
+Cart 2 in Room 
+145
+Cart 3 in Room 
+145
+Cart 1 in Room 
+144
+Cart 2 in Room 
+144
+Table 1 with Scan 
+Unit
+Table 2 with Scan 
+Unit
+Table 3 with Scan 
+Unit
+Sink
+Table with 
+Sink
+Table 4
+Table 4
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 12 of 20
+
+

@@ -1,0 +1,63 @@
+
+• Anterooms:
+o Alert: >20 CFU/Plate 
+o Action: >50 CFU/Plate
+• Buffer Rooms: 
+o Alert: >3 CFU/Plate
+o Action: >5 CFU/Plate
+8.3
+Action and Alert Investigations for Environmental Sampling
+8.3.1
+All microbial growth observed from environmental monitoring results shall 
+be sent out for differential staining (if feasible) and identification to the 
+species level.
+8.3.1.1
+Isolates found within the ISO 8 only need to be stained as per SOP 
+2.600.020, Differential Staining, except in the following 
+circumstances
+8.3.1.1.1
+Submit any isolates recovered from the ISO 8 area to the 
+R&D Microbiology Lab for microbial identification, 
+provided they are linked to samples that produced out-
+of-specification results during the same testing session. 
+8.3.1.1.2
+Submit ISO 8 isolates if CFU is at or above the Action 
+Level
+Note: All fungal isolates recovered, regardless of ISO classification, must 
+be identified to ensure appropriate documentation, risk assessment, and 
+compliance with microbiological standards.
+8.3.2
+If the microbial contamination is greater than the designated action limit, 
+follow SOP 2.100.019, Out-of-Specification (OOS) – Test Failure 
+Investigation, to initiate an OOS investigation.
+8.3.2.1
+If a Sterility Test OOS occurs on the same day as the environmental 
+monitoring OOS, a thorough investigation of the cleanroom 
+facility, personnel, and other microbiological processes shall be 
+initiated.
+8.4
+Action and Alert Investigations for Physical or Operational Parameters of the 
+Anteroom and Buffer Room
+8.4.1
+Physical or operational parameters include relative humidity, temperature, 
+and pressure of the cleanroom facility. These parameters are monitored 
+electronically through the Lighthouse System. The action and alert levels are 
+defined as such in SOP 2.700.014 Use of Lighthouse for Monitoring 
+Environmental Conditions for the Houston location, and in SOP 2.700.059 
+Use of Aircare Automation System for monitoring environmental conditions 
+for the Canada Location.
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 14 of 20
+
+

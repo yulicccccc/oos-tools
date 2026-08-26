@@ -1,0 +1,971 @@
+================================================================================
+FILE: OOS- 260361 Sterility GS BSC1314 Sett2 05FEB2026-signed by MN - KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial Identification 
+ETX-260216-0348  GS 05 Feb 
+2026 
+Settling 
+Sampling Plate MC 10 CFU on Settling 
+S2 sampling plate SMO 10 CFU on Settling 
+S2 sampling plate 
+Staphylococcus capitis 
+(Gram (+) cocci), 
+Staphylococcus hominis 
+(Gram (+) cocci), 
+Kocuria indica (Gram (+) 
+cocci), Micrococcus 
+luteus (Gram (+) cocci) 
+and Staphylococcus 
+epidermidis (Gram (+) 
+cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental Monitoring 
+(EM) Sampling Site Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) Daily 04 Feb 
+2026  GS  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch and 
+Right Touch) Daily  05 Feb 
+2026 GS Date of Testing No growth  N/A  N/A  None 
+Personal (Left Touch and 
+Right Touch) Daily  06 Feb 
+2026 GS  Date After Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of ISO 
+5 (4 locations) Daily 04 Feb 
+2026  GS, VV, DH  Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of ISO 
+5 (4 locations) Daily  05 Feb 
+2026  AOD, GS Date of Testing No growth  N/A  N/A  None  
+Surface Sampling of ISO 
+5 (4 locations) Daily  06 Feb 
+2026 GS, SU Date After Testing No growth  N/A  N/A  None  
+Settling Sampling of ISO 
+5 (2 locations) Daily 04 Feb 
+2026  GS, VV, DH  Date Before 
+Testing 
+No growth  N/A  N/A   None 
+Settling Sampling of ISO 
+5 (2 locations) Daily  05 Feb 
+2026  AOD, GS Date of Testing 
+10 CFU on 
+Settling S2 
+sampling 
+plate 
+ETX-260216-
+0348 
+Staphylococcus capitis 
+(Gram (+) cocci), 
+Staphylococcus hominis 
+(Gram (+) cocci), 
+Kocuria indica (Gram 
+(+) cocci), Micrococcus 
+luteus (Gram (+) cocci) 
+and Staphylococcus 
+epidermidis (Gram (+) 
+cocci) 
+None  
+Settling Sampling of ISO 
+5 (2 locations) Daily  06 Feb 
+2026 GS, SU Date After Testing  No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling of 
+Cleanrooms Weekly  06 Feb 
+2026 SMO  Week (On or After 
+Testing Date) No growth  N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly  06 Feb 
+2026 SMO  Week (On or After 
+Testing Date) No growth  N/A  N/A  None 
+ 
+================================================================================
+FILE: OOS- 260365 EM OA 114A cart 10FEB2026-Signed by MN - KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up 
+Analyst & 
+Date 
+Sampling Site 
+& Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed 
+after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed 
+after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial 
+Identification 
+ETX-260217-0245 
+ 
+ETX-260217-0246 
+OA 10 Feb 
+2026 
+Weekly Surface 
+Sampling Plate SMO 
+58 CFUs on the cart 
+of CR114A cart; 2 
+CFUs on the Floor 
+in CR114B 
+SMO 
+58 CFUs on the cart 
+of CR114A cart; 2 
+CFUs on the Floor in 
+CR114B 
+Staphylococcus 
+epidermidis 
+(Gram (+) 
+cocci), 
+Micrococcus 
+luteus (Gram 
+(+) cocci), 
+Staphylococcus 
+warneri (Gram 
+(+) cocci); 
+Bacillus 
+paranthracis 
+(Gram (+) rods) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID Notes 
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling 
+of Cleanrooms Weekly 06 Feb 
+2026 OA Week (Before 
+Testing Date) No growth N/A N/A None 
+Active Air Sampling 
+of Cleanrooms Weekly 10 Feb 
+2026 OA Week (Of 
+Testing Date) 
+4 CFUs in 
+ISO 8 114 
+ETX-260217-
+0248 
+Micrococcus 
+luteus (Gram (+) 
+cocci), 
+Corynebacterium 
+xerosis (Gram (+) 
+rods) 
+None 
+Active Air Sampling 
+of Cleanrooms Weekly 20 Feb 
+2026 QYC Week (After 
+Testing Date) No growth N/A N/A None 
+Surface Sampling of Anteroom and Cleanroom Bracketing  
+Surface Sampling of 
+Cleanrooms Weekly 06 Feb 
+2026 OA Week (Before 
+Testing Date) No growth N/A N/A None 
+ 
+ 
+Surface Sampling of 
+Cleanrooms 
+ 
+ 
+Weekly 
+ 
+ 
+10 Feb 
+2026 
+ 
+ 
+OA 
+ 
+ 
+Week (Of 
+Testing Date) 
+ 
+58 CFUs on 
+the cart of 
+CR114A 
+cart 
+2 CFUs on 
+the Floor in 
+CR114B 
+ 
+ 
+ETX-260217-
+0245 
+ 
+ 
+ 
+ETX-260217-
+0246 
+Staphylococcus 
+epidermidis (Gram 
+(+) cocci), 
+Micrococcus 
+luteus (Gram (+) 
+cocci), 
+Staphylococcus 
+warneri (Gram (+) 
+cocci); Bacillus 
+paranthracis 
+(Gram (+) rods) 
+N/A 
+Surface Sampling of 
+Cleanrooms Weekly 20 Feb 
+2026 QYC Week (After 
+Testing Date) No growth N/A N/A None 
+ 
+================================================================================
+FILE: OOS- 260422 ScanCO HS BSC1309 S3 17FEB2026 and ScanCO HS BSC1309 S1 17FEB2026 MN-KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst (NLT 
+5 days) 
+CFUs Observed after 
+NLT 5-day Incubation at 
+20–25°C (E001034) 
+Microbial Identification 
+ETX-260224-0356 
+ 
+HS 17 Feb 
+2026 
+Surface 
+Sampling Plate MC 
+0 CFUs on ISO 5 
+BSC 1309 Surface#1 
+sampling plate 
+SMO 
+1 CFU on ISO 5 BSC 
+1309 Surface#3 
+sampling plate 
+Bacillus megaterium 
+(Gram (+) rods) 
+ETX-260224-0354 HS 17 Feb 
+2026 
+Surface 
+Sampling Plate MC 
+0 CFU on ISO 5 
+BSC 1309 Surface#3 
+sampling plate 
+SMO 
+13 CFUs on ISO 5 BSC 
+1309 Surface#1 
+sampling plate 
+Staphylococcus epidermidis 
+(Gram (+) cocci), 
+Staphylococcus caprae(Gram (+) 
+cocci), 
+Staphylococcus hominis (Gram 
+(+) cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring Plate ETX 
+ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) Daily 16 Feb 
+2026  HS  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily 17 Feb 
+2026 HS Date of Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily 18 Feb 
+2026 HS  Date After 
+Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of 
+ISO 5 (4 locations) Daily 16 Feb 
+2026  HS, PG, DT Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of 
+ISO 5 (4 locations) Daily 17 Feb 
+2026 
+HS, PG, DT, 
+VV, DS Date of Testing 
+1 CFUs on HS 
+ISO 5 BSC 1309 
+Surface#3 and 13 
+CFU on HS 
+Surface#1 
+sampling plate 
+ETX-260224-0356 
+ETX-260224-0354 
+Bacillus megaterium 
+(Gram (+) rods), 
+Staphylococcus epidermidis 
+(Gram (+) cocci), 
+Staphylococcus caprae(Gram 
+(+) cocci) and Staphylococcus 
+hominis (Gram (+) cocci) 
+None  
+Surface Sampling of 
+ISO 5 (4 locations) Daily 18 Feb 
+2026 
+HS, PG, DT, 
+KSM  
+Date After 
+Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily 16 Feb 
+2026  HS, PG, DT Date Before 
+Testing 
+No growth  N/A  N/A   None 
+Settling Sampling of 
+ISO 5 (2 locations) Daily 17 Feb 
+2026 
+HS, PG, DT 
+VV, DS Date of Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily 18 Feb 
+2026 
+HS, PG, DT, 
+KSM 
+Date After 
+Testing 
+No growth  N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling of 
+Cleanrooms Weekly 18 Feb 
+2026 VV  
+Week (On or 
+After Testing 
+Date) 
+No growth  N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly 18 Feb 
+2026 VV  
+Week (On or 
+After Testing 
+Date) 
+No growth  N/A  N/A  None 
+ 
+================================================================================
+FILE: OOS- 260469 Scan GA 1311 SettR 23FEB2026-MN-KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 30–35°C 
+(E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial 
+Identification 
+ETX-260302-0285  GA 23 Feb 
+2026 
+Settling 
+Sampling Plate MC 0 CFU on Settling 
+sampling plate SMO 1 CFU on Settling#1 
+sampling plate 
+Micrococcus 
+luteus 
+ (Gram (+) 
+cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) Daily  20 FEB 
+2026 GA  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily  23 FEB 
+2026  GA Date of  
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily  24 FEB 
+2026  GA Date After 
+Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of 
+ISO 5 (4 locations) Daily  21 FEB 
+2026 KSM, GL Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of 
+ISO 5 (4 locations) Daily  23 FEB 
+2026 HS, GA Date of 
+ Testing No growth  N/A  N/A  None  
+Surface Sampling of 
+ISO 5 (4 locations) Daily  24 FEB 
+2026  HS, GA Date After 
+Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily  21 FEB 
+2026 KSM, GL Date Before 
+Testing No growth  N/A  N/A   None 
+Settling Sampling of 
+ISO 5 (2 locations) Daily  23 FEB 
+2026 HS, GA Date of  
+Testing 
+1 CFU on GA 
+settling#1 
+sampling plate 
+ETX-
+260302-
+0285  
+Micrococcus 
+luteus 
+ (Gram (+) cocci) 
+None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily  24 FEB 
+2026  HS, GA Date After 
+Testing  No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling 
+of Cleanrooms Weekly  27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly  27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A  None 
+ 
+================================================================================
+FILE: OOS- 260541 Scan PG BSC1310 Sett2 26FEB2026-MN-KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial 
+Identification 
+ETX-260309-0374 PG 26 Feb 
+2026 
+Settling 
+Sampling Plate MC 1 CFU on Settling#2 
+sampling plate SMO 1 CFU on Settling#2 
+sampling plate 
+Staphylococcus 
+pasteuri  
+(Gram (+) 
+cocci), 
+Staphylococcus 
+epidermidis 
+(Gram (+) 
+cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) Daily 25FEB 
+2026   PG Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily 26FEB 
+2026  PG  Date of  
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily  27FEB 
+2026 PG  Date After 
+Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of 
+ISO 5 (4 locations) Daily 25FEB 
+2026  
+PG, VV, 
+GL,   
+Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of 
+ISO 5 (4 locations) Daily 26FEB 
+2026  
+PG, VV, 
+MRB 
+Date of 
+ Testing No growth  N/A  N/A  None  
+Surface Sampling of 
+ISO 5 (4 locations) Daily  27FEB 
+2026 PG, DH Date After 
+Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily 25FEB 
+2026  
+PG, VV, 
+GL,   
+Date Before 
+Testing 
+No growth  N/A  N/A   None 
+Settling Sampling of 
+ISO 5 (2 locations) Daily 26FEB 
+2026  
+PG, VV, 
+MRB  
+Date of  
+Testing 
+1 CFU on PG 
+settling#2 
+sampling plate 
+ETX-
+260309-0374 
+Staphylococcus 
+pasteuri  
+(Gram (+) cocci), 
+Staphylococcus 
+epidermidis  
+(Gram (+) cocci) 
+None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily  27FEB 
+2026 PG, DH Date After 
+Testing 
+ No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling 
+of Cleanrooms Weekly  27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly  27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A  None 
+ 
+================================================================================
+FILE: OOS- 260542 Scan DH BSC1313 SettL 26FEB2026 draft-MN-KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission ID 
+Set-up 
+Analyst & 
+Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial 
+Identification 
+ETX-260309-0382  
+DH 26 Feb 
+2026 
+Settling 
+Sampling Plate MC 6 CFU on Settling#1 
+sampling plate SMO 6 CFU on Settling#1 
+sampling plate 
+Staphylococcus 
+pasteuri  
+(Gram (+) 
+cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) Daily 25 FEB 
+2026  DH  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily 26 FEB 
+2026  DH Date of  
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily  27 FEB 
+2026  DH Date After 
+Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of 
+ISO 5 (4 locations) Daily 25 FEB 
+2026  DH  Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of 
+ISO 5 (4 locations) Daily 26 FEB 
+2026  DH Date of 
+ Testing No growth  N/A  N/A  None  
+Surface Sampling of 
+ISO 5 (4 locations) Daily  27 FEB 
+2026  DH Date After 
+Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily 25 FEB 
+2026  DH  Date Before 
+Testing No growth N/A  N/A   None 
+Settling Sampling of 
+ISO 5 (2 locations) Daily 26 FEB 
+2026  DH Date of  
+Testing 
+6 CFU on DH 
+settling#1 
+sampling plate 
+ ETX-
+260309-
+0382   
+Staphylococcus 
+pasteuri  
+(Gram (+) cocci) 
+None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily  27 FEB 
+2026  DH Date After 
+Testing  No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling 
+of Cleanrooms Weekly 26 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly   26 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A  None 
+ 
+================================================================================
+FILE: OOS- 260543 Scan VV BSC1309 S1 27FEB2026  draft-MN-KSP.pdf
+--- PAGE 7 TABLES ---
+Table 1: Read Dates & Incubation Observation 
+ETX Submission ID 
+Set-up 
+Analyst & 
+Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial 
+Identification 
+ETX-260309-0433 VV 27 Feb 
+2026 
+Surface 
+Sampling Plate MC 
+10 CFUs on 
+surface#1 sampling 
+plate 
+SMO 
+10 CFUs on 
+surface#1 sampling 
+plate 
+Staphylococcus 
+epidermidis 
+(Gram (+) 
+cocci) 
+Staphylococcus 
+capitis (Gram 
+(+) cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) Daily 26 FEB 
+2026  VV  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily 27 FEB 
+2026  VV Date of  
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch 
+and Right Touch) Daily  02 Mar 
+2026  VV Date After 
+Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of 
+ISO 5 (4 locations) Daily 26 FEB 
+2026  
+HS, GL, 
+VV  
+Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of 
+ISO 5 (4 locations) Daily 27 FEB 
+2026  
+HS, PG, 
+VV 
+Date of 
+ Testing 
+10 CFUs on VV 
+Surface#1 
+sampling plate 
+ETX-
+260309-0433 
+Staphylococcus 
+epidermidis 
+(Gram (+) cocci) 
+Staphylococcus 
+capitis (Gram (+) 
+cocci) 
+Dropped 
+inadvertently 
+before 
+incubation  
+Surface Sampling of 
+ISO 5 (4 locations) Daily  02 Mar 
+2026 
+ PG, HS, 
+DT, KSM, 
+VV 
+Date After 
+Testing 
+10 CFUs on HS 
+Surface#4 
+sampling plate 
+ETX-
+260309-0453 
+Staphylococcus 
+epidermidis 
+(Gram (+) cocci) 
+Staphylococcus 
+hominis (Gram 
+(+) cocci) 
+OOS-
+260544 
+Settling Sampling of 
+ISO 5 (2 locations) Daily 26 FEB 
+2026  
+HS, GL, 
+VV  
+Date Before 
+Testing No growth  N/A  N/A   None 
+Settling Sampling of 
+ISO 5 (2 locations) Daily 27 FEB 
+2026  
+HS, PG, 
+VV 
+Date of  
+Testing No growth  N/A  N/A  None  
+Settling Sampling of 
+ISO 5 (2 locations) Daily  02 Mar 
+2026 
+ PG, HS, 
+DT, KSM, 
+VV 
+Date After 
+Testing  No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling 
+of Cleanrooms Weekly 27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly   27 FEB 
+2026 SMO  
+Week (On or 
+Before Testing 
+Date) 
+ No growth N/A  N/A  None 
+ 

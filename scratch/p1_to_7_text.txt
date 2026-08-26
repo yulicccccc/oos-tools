@@ -1,0 +1,507 @@
+=== PAGE 1 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 1 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+  Phase I 
+Section A – Test Details 
+Initiator:  Test Date:  Date 
+Initiated:  
+Date of Incident:  Test Name:  Sample 
+ID:  
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ Lot #:  
+ 
+Dosage Form  
+Description of 
+Incident: 
+  Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ SOP / Test Method # Effective Date: SOP / Test Method Rev:  Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: Yes          No  
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy Comments 
+Analyst interviewed? Yes     No    N/A  
+Correct samples analyzed? Yes     No    N/A  
+Correct SOP / Test Method used/followed? Yes     No    N/A  
+Correct sample collection/technique? Yes     No    N/A  
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? Yes     No    N/A  
+Is the analyst qualified to perform the test? Yes     No    N/A  
+Is formula worksheet provided and verified? Yes     No    N/A  
+Does the processing method/method set 
+conform to the required specification? Yes     No    N/A  
+Was the sample stored appropriately?  Yes     No    N/A  
+Material Discrepancy Lot Number Expiry Date 
+Is the integrity of the sample(s) questionable? Yes     No   N/A   
+Was the sample transported appropriately? Yes     No   N/A   
+Are the other test results from this run under 
+investigation? Yes     No   N/A  
+
+=== PAGE 2 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 2 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Appropriate/correct glassware used? Yes     No   N/A   
+Are reagents stored in proper condition and not 
+expired? Yes     No   N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+  
+Solvent Used  
+ 
+ 
+ 
+ 
+  
+Is the standard the source of the root cause? Yes     No   N/A   
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? Yes     No   N/A   
+Equipment Discrepancy Equipment ID Calibration Due Date 
+Was the instrument set up correctly? Yes     No    N/A   
+Is the clean room facility certified? Yes     No    N/A   
+System Performance Check (if applicable)? Yes     No    N/A   
+System Suitability RSD < 2% (PDA)? Yes     No    N/A   
+System Suitability RSD < 10% (QDA, CAD)? Yes     No    N/A   
+Do the environmental monitoring results 
+conform to required standards? Yes     No    N/A   
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? Yes     No    N/A   
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? Yes     No    N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PAGE 3 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 3 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? Yes     No    N/A   
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A  Re-vialing of original working sample solution 
+ Re-injection of sample vial  Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial  Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution  Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PAGE 4 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 4 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PAGE 5 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 5 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PAGE 6 ===
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 LEVEL: 3 
+Effective Date:  Revision #: 11 
+TITLE: LABORATORY OOS INVESTIGATION FORM Page 6 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+  If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+  
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+  Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+
+=== PAGE 7 ===
+Table 1: Read Dates & Incubation Observation 
+ETX Submission 
+ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial Identification 
+ETX-260216-0348  GS 05 Feb 
+2026 
+Settling 
+Sampling Plate MC 10 CFU on Settling 
+S2 sampling plate SMO 10 CFU on Settling 
+S2 sampling plate 
+Staphylococcus capitis 
+(Gram (+) cocci), 
+Staphylococcus hominis 
+(Gram (+) cocci), 
+Kocuria indica (Gram (+) 
+cocci), Micrococcus 
+luteus (Gram (+) cocci) 
+and Staphylococcus 
+epidermidis (Gram (+) 
+cocci) 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental Monitoring 
+(EM) Sampling Site Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) Day /Week(s) Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) Daily 04 Feb 
+2026  GS  Date Before 
+Testing No growth  N/A  N/A  None 
+Personal (Left Touch and 
+Right Touch) Daily  05 Feb 
+2026 GS Date of Testing No growth  N/A  N/A  None 
+Personal (Left Touch and 
+Right Touch) Daily  06 Feb 
+2026 GS  Date After Testing  No growth  N/A  N/A  None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC)  
+Surface Sampling of ISO 
+5 (4 locations) Daily 04 Feb 
+2026  GS, VV, DH  Date Before 
+Testing No growth  N/A  N/A   None 
+Surface Sampling of ISO 
+5 (4 locations) Daily  05 Feb 
+2026  AOD, GS Date of Testing No growth  N/A  N/A  None  
+Surface Sampling of ISO 
+5 (4 locations) Daily  06 Feb 
+2026 GS, SU Date After Testing No growth  N/A  N/A  None  
+Settling Sampling of ISO 
+5 (2 locations) Daily 04 Feb 
+2026  GS, VV, DH  Date Before 
+Testing 
+No growth  N/A  N/A   None 
+Settling Sampling of ISO 
+5 (2 locations) Daily  05 Feb 
+2026  AOD, GS Date of Testing 
+10 CFU on 
+Settling S2 
+sampling 
+plate 
+ETX-260216-
+0348 
+Staphylococcus capitis 
+(Gram (+) cocci), 
+Staphylococcus hominis 
+(Gram (+) cocci), 
+Kocuria indica (Gram 
+(+) cocci), Micrococcus 
+luteus (Gram (+) cocci) 
+and Staphylococcus 
+epidermidis (Gram (+) 
+cocci) 
+None  
+Settling Sampling of ISO 
+5 (2 locations) Daily  06 Feb 
+2026 GS, SU Date After Testing  No growth N/A  N/A  None  
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling of 
+Cleanrooms Weekly  06 Feb 
+2026 SMO  Week (On or After 
+Testing Date) No growth  N/A  N/A   None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms Weekly  06 Feb 
+2026 SMO  Week (On or After 
+Testing Date) No growth  N/A  N/A  None 
+ 
+

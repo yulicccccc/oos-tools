@@ -1,0 +1,64 @@
+
+• Action level: > 3 CFU/Plate
+8.2
+Environmental Monitoring of the Cleanroom
+8.2.1
+Active Air Sampling of the Cleanroom
+8.2.1.1
+Use TSA (Settle) plates to collect Active Air Sampling of the 
+cleanroom.
+8.2.1.2
+Collect the active air sampling by following the steps below. 
+8.2.1.2.1 Power on Active Air Sampler.
+8.2.1.2.2 Label the TSA plates with analyst initials, date, 
+location, and “active air”. For example: Active air 
+sampling from cleanroom suite 115B inner ISO 7 
+room will be labelled as “RS 01 Jul 2026 Active Air 
+115B”. 
+8.2.1.2.3 Unscrew the metal lid and uncover the slot for the 
+TSA plate of the active air sampler.
+8.2.1.2.4 Place the opened TSA plate in the slot.
+8.2.1.2.5 Screw the metal lid of the active air sampler. The 
+metal lid will go over the positioned TSA plate. 
+8.2.1.2.6 Press the “CONFIGURATION” button on the home 
+screen. 
+8.2.1.2.7 Select Constant in the Mode menu item, then select 
+total sampling volume to 1000L. If desired, also 
+select an optional delay time (in seconds). 
+8.2.1.2.8 Press the HOME button to return to the Home 
+screen.
+8.2.1.2.9 Press the START button to begin sampling and 
+ensure that the total run time is 10 minutes.
+8.2.1.2.10After sampling has been completed, unscrew the 
+metal air sampler lid, retrieve plate and recover TSA 
+plate with original lid.
+8.2.1.2.11Twist the TSA plate lid and ensure that lid is locked 
+and properly secured.
+8.2.1.2.12Proceed to incubate plates as per 8.2.1.3.5
+8.2.1.3
+Viable microbes are sampled and measured by a Certified Service 
+Company or Microbiologist on a weekly basis. 
+8.2.1.3.1
+Cleanroom suites 114, 115, 116, 117, and L-shape 
+cleanroom suite (142-145) are located at the Eagle 
+Houston facility, and Cleanroom Suite 100 is located 
+at the Eagle Canada facility.
+8.2.1.3.2
+For cleanroom suits 100, 100A, 100B, 114, 114A, 
+114B, 115, 115A, 115B, 116, 116A, 116B, 117, 117A, 
+117B, and 142, an active air sampling will be taken by 
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 9 of 20
+
+

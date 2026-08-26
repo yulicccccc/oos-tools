@@ -1,0 +1,73 @@
+
+08
+03/11/2022 Updated the CRR for the different cleanroom areas
+and types of plates
+Frequency table to add weekly active air sampling
+Added in steps regarding incubation of viable air
+sampling plates and the alert/action levels
+Added in alert and action levels for surface 
+sampling plates
+Referenced Lighthouse SOP for operational
+parameters
+Added new form for active air sampling
+Updated the allowable plate counts on Form
+3.600.002.F04
+Updated wording, formatting and minor details
+CR#21107
+3.2
+6.0
+8.2.1.1
+8.2.2.1.2
+8.4.1 & 8.4.3.1.1
+3.600.002.F05
+3.600.002.F04
+Various
+09
+06/03/2022 Added section for documentation
+Updated references
+See EagleTrax Revision History
+8.5
+9.0
+10
+01/17/2023 Added direction regarding when an NCR is 
+required.
+Updated form references throughout
+See EagleTrax Document Revision History
+7.0
+Various
+11
+02/06/2024 Removed duplicate material
+Updated incubation parameters to match newly 
+released USP <797>
+Added SOP reference
+Removed biennial review section
+See EagleTrax Document Revision History
+5.0
+8.0
+8.3.1 & 9.0
+10.0
+12
+04/16/2024 Updated language for the incubation parameters to 
+match newly released USP <797>
+See EagleTrax Document Revision History
+8.0
+13
+12/01/2024 Added “L” Cleanroom Suite Diagram and 
+Sampling Sites for Environmental Monitoring
+Section 8.0,
+Figure 6
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 17 of 20
+
+

@@ -1,0 +1,60 @@
+
+placing the sampler in the middle of the respective 
+room/section. 
+8.2.1.3.3
+As cleanroom suites 143, 144, and 145 are bigger, they 
+are divided into two hypothetical sections, as shown in 
+Figure 6. The active air sampling will be taken by 
+placing the air sampler in both section I and Section II, 
+of each room. This will result in the 2 active air samples 
+from cleanroom suites 143, 144, and 145 as per ISO 
+14644. 
+8.2.1.3.4
+Transfer TSA plates to the lab and log plates on the    
+Active Air Sampling Logbook (Form 3.600.002.F05). 
+8.2.1.3.5
+Incubate the TSA plate at 30-35ºC for NLT 48 hours 
+and then at 20-25ºC for NLT 5 additional days. 
+8.2.1.3.6
+Record the result of active air sampling on the Active 
+Air Sampling Logbook (Form 3.600.002.F05) 
+Note: The action and alert levels for Active Air 
+Sampling are as follows: 
+• Alert level: ≥ 8 CFU/Plate
+• Action level: > 10 CFU/Plate
+8.2.1.4
+Non-viable microbes are sampled and measured by a Certified 
+Service Company or trained and qualified Eagle personnel. 
+ 
+8.2.1.4.1
+The report must be reviewed by the designee from the 
+Microbiology team and the QA team, and filed under 
+the equipment folder. 
+8.2.2
+Weekly Surface Sampling of the Cleanroom Facility
+8.2.2.1
+Use RODAC plates/Contact plates for the Surface Sampling of the 
+Cleanroom Facility. 
+8.2.2.2
+Take a surface sample utilizing RODAC plates of the sample sites 
+indicated in the Sample Plan of Clean Rooms (Figure 6). Sites 
+sampled were determined by the most active areas during normal 
+operational flow.
+8.2.2.3
+Incubate the RODAC plates at 30-35ºC for NLT 48 hours and then 
+at 20-25ºC for NLT 5 additional days.
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 10 of 20
+
+

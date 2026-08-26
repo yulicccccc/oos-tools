@@ -1,0 +1,45 @@
+
+8.1.3.2.2
+After the testing process is finished, take the surface 
+sampling from all four sites as shown in Figure 3 using 
+RODAC/Contact plates. The sampling shall take place 
+before the BSC is disinfected at the end of each testing 
+process.
+Figure 3. Surface Sampling Plan
+8.1.3.2.3
+Aseptically remove the contact plate’s lid and gently 
+press the plate to one sampling site without twisting or 
+sliding as shown in Figure 4. Ensure that the complete 
+agar contacts the sampled surface.
+Figure 4. Surface Sampling
+8.1.3.2.4
+Replace the contact plate’s lid.
+8.1.3.2.5
+Record the test performed on that date (e.g., Scan), 
+sampling site (e.g., #1), BSC #, date, and initials of 
+microbiologist on the base of the plate.
+8.1.3.2.6
+After sampling, thoroughly clean the sampled area 
+with a 70% sterile IPA wipe.
+8.1.3.2.7
+Transfer the contact plate to the lab and log plates on 
+the Surface Sampling Logbook (Form 3.600.002.F02). 
+Plates must be logged within 24 hours of sampling.
+8.1.3.2.8
+Incubate the contact plate at 30-35ºC for NLT 48 hours 
+and then at 20-25ºC for NLT 5 additional days.
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 7 of 20
+
+

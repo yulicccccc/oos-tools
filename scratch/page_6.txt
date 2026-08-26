@@ -1,0 +1,39 @@
+
+The settling plate will be numbered sequentially (like 
+S1, S2, …) for the 6-ft BSC, with odd numbers (like 
+S1, S3, …) representing the left side of the 6-ft BSC 
+and even numbers (like S2, S4, …) representing the 
+right side of the 6-ft BSC.  
+The settling plates will be numbered sequentially for 
+the 4-ft hood. 
+8.1.3.1.7
+Transfer the TSA plate(s) to the lab. 
+8.1.3.1.8
+Incubate the TSA plate(s) at 30-35ºC for NLT 48 hours 
+and then at 20-25ºC for NLT 5 additional days. 
+8.1.3.1.9
+Record the results of microbial growth on the Settling 
+Sampling Logbook (Form 3.600.002.F01).
+Note: The action and alert levels for Air Sampling are 
+as follows:
+• Action level: ≥1 CFU/Plate
+8.1.3.2
+Surface Sampling of ISO 5 BSC
+8.1.3.2.1
+Use RODAC plates or Contact plates for surface 
+sampling. 
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 6 of 20
+
+

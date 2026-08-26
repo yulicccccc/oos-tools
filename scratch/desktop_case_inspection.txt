@@ -1,0 +1,31 @@
+============================================================
+DOCX DETAILS:
+P: Table 1: Read Dates & Incubation Observation
+P: Table 2: Environmental Monitoring for Analyst & Cleanroom
+--- TABLE 1 (2 rows, 8 cols) ---
+  R0: ['ETX Submission ID', 'Set-up Analyst & Date', 'Sampling Site & Location', 'Plate Reading Analyst (≥ 48H)', 'CFUs Observed after 48 Hour Incubation at 30–35°C (E001031)', 'Plate Reading Analyst (NLT 5 days)', 'CFUs Observed after NLT 5-day Incubation at 20–25°C (E001034)', 'Microbial Identification']
+  R1: ['ETX-260518-0254', 'SMO 07MAY   2026', 'Active air sampling plate', 'SAS', '504', 'SAS', '748 CFU on Active air sample plate', 'Kocuria palustris']
+--- TABLE 2 (9 rows, 9 cols) ---
+  R0: ['Environmental Monitoring (EM) Sampling Site', 'Frequency', 'Date (DDMM YYYY)', 'Analyst (Initials)', 'Day /Week(s)', 'Observation*', 'Environmental Monitoring Plate ETX ID', 'Microbial ID', 'Notes']
+  R1: ['Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116', 'Weekly Active Air Sampling Bracketing 116']
+  R2: ['Active Air Sampling of Cleanrooms', 'Weekly', '29APR 2026', 'SMO', 'Week (Before Testing Date)', 'No growth', 'N/A', 'N/A', 'None']
+  R3: ['Active Air Sampling of Cleanrooms', 'Weekly', '07MAY 2026', 'SMO', 'Week (On of Testing Date)', '748 CFU in ISO 7 116A and 1 CFU in ISO 7 116B', 'ETX-260518-0254 ETX-260518-0256', 'Kocuria palustris', 'None']
+  R4: ['Active Air Sampling of Cleanrooms', 'Weekly', '15MAY 2026', 'SMO', 'Week (On or After Testing Date)', '6 CFU in ISO 8 116', 'ETX-260526-0428', 'Gram (+) cocci Gram-variable coccobacilli', 'None']
+  R5: ['Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11', 'Surface Sampling of Anteroom and Cleanroom Bracketing 11']
+  R6: ['Surface Sampling of Cleanrooms', 'Weekly', '29APR 2026', 'SMO', 'Week (Before Testing Date)', 'No growth', 'N/A', 'N/A', 'None']
+  R7: ['Surface Sampling of Cleanrooms', 'Weekly', '07MAY 2026', 'SMO', 'Week (On of Testing Date)', 'No growth', 'N/A', 'N/A', 'None']
+  R8: ['Surface Sampling of Cleanrooms', 'Weekly', '15MAY 2026', 'SMO', 'Week (On or After Testing Date)', '1 CFU on cart in ISO 8 116 and 2 CFU on floor in 116A ISO 7', 'ETX-260526-0442 ETX-260526-0448', 'Gram (+) cocci Sporosarcina psychrophila Bacillus pumilus', 'None']
+============================================================
+PDF DETAILS:
+Total pages: 6
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+
+--- PAGE 3 ---
+
+--- PAGE 4 ---
+
+--- PAGE 5 ---
+
+--- PAGE 6 ---

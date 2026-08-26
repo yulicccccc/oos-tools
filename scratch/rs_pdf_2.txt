@@ -1,0 +1,1248 @@
+FILE: C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS_261401_Sterility GL E001314 S1 -Signed by DK-RS.pdf
+PAGES: 8
+
+=== PAGE 1 ===
+OOS Number: OOS- 
+                                                 
+  Phase I 
+Section A – Test Details 
+Initiator: 
+ 
+Test Date: 
+ 
+Date 
+Initiated: 
+ 
+Date of Incident: 
+ 
+Test Name: 
+ 
+Sample 
+ID: 
+ 
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ 
+Lot #: 
+ 
+ 
+Dosage Form 
+ 
+Description of 
+Incident: 
+ 
+ Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ 
+SOP / Test Method # 
+Effective Date: 
+SOP / Test Method Rev:  
+Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: 
+Yes   
+       No 
+ 
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy 
+Comments 
+Analyst interviewed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct samples analyzed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct SOP / Test Method used/followed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct sample collection/technique? 
+Yes    
+ No   
+ N/A 
+ 
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? 
+Yes    
+ No   
+ N/A 
+ 
+Is the analyst qualified to perform the test? 
+Yes    
+ No   
+ N/A 
+ 
+Is formula worksheet provided and verified? 
+Yes    
+ No   
+ N/A 
+ 
+Does the processing method/method set 
+conform to the required specification? 
+Yes    
+ No   
+ N/A 
+ 
+Was the sample stored appropriately?  
+Yes    
+ No   
+ N/A 
+ 
+Material Discrepancy 
+Lot Number 
+Expiry Date 
+Is the integrity of the sample(s) questionable? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Was the sample transported appropriately? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are the other test results from this run under 
+investigation? 
+Yes    
+ No   
+N/A 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 1 of 7
+Simin Mohammad (Written by: Dhvanir Kansara)
+04-Jun-2026
+15-Jun-2026
+15-Jun-2026
+Environmental Monitoring
+ETX-260615-0424
+Guanchen (David) Li
+(Surface Sampling Analyst)
+ 
+Simin Mohammad
+(Surface Sampling Plate Reader)
+ 
+ 
+ 
+ 
+Sterility GL E001314 S1 
+04JUN2026
+ 
+ 
+Plate
+Sterility GL E001314 S1 
+04JUN2026
+ 
+ 
+ 
+ 
+ 
+ 
+The CFU count for the environmental monitoring 
+plate exceeded the action level.
+ 
+MICRO-SOP-2
+05 Aug 2025
+15
+Action level: ≥ 1CFU/Plate
+Kathan Parikh
+15-Jun-2026
+Yes, analysts Guanchen (David) Li and Simin Mohammad were comprehensively 
+interviewed.
+Not applicable
+Yes, as per MICRO-SOP-2
+Yes, as per MICRO-SOP-2
+Yes, Information is available on Eagletrax under ETX-
+260615-0424
+Yes, the analysts are trained and qualified by quality to perform the test
+Not Applicable
+Not Applicable
+Yes, as per MICRO-SOP-2
+261401
+
+
+--- FORM WIDGETS ---
+Text Field0: val='Simin Mohammad (Written by: Dhvanir Kansara)' (type=7)
+Date Field0: val='04-Jun-2026' (type=7)
+Date Field1: val='15-Jun-2026' (type=7)
+Date Field2: val='15-Jun-2026' (type=7)
+Text Field1: val='Environmental Monitoring' (type=7)
+Text Field2: val='ETX-260615-0424' (type=7)
+Text Field3: val='Guanchen (David) Li\r(Surface Sampling Analyst)\r \rSimin Mohammad\r(Surface Sampling Plate Reader)\r \r \r \r \r' (type=7)
+Text Field4: val='Sterility GL E001314 S1 \r04JUN2026\r \r \r' (type=7)
+Text Field5: val='Plate' (type=7)
+Text Field6: val='Sterility GL E001314 S1 \r04JUN2026\r \r \r \r \r \r \r' (type=7)
+Text Field7: val='The CFU count for the environmental monitoring plate exceeded the action level.\r \r' (type=7)
+Check Box0: val='' (type=2)
+Check Box1: val='' (type=2)
+Text Field8: val='MICRO-SOP-2' (type=7)
+Text Field9: val='05 Aug 2025' (type=7)
+Text Field10: val='15' (type=7)
+Text Field11: val='Action level: ≥ 1CFU/Plate' (type=7)
+Text Field12: val='Kathan Parikh' (type=7)
+Date Field3: val='15-Jun-2026' (type=7)
+Check Box2: val='' (type=2)
+Check Box3: val='' (type=2)
+Text Field13: val='Yes, analysts Guanchen (David) Li and Simin Mohammad were comprehensively interviewed.' (type=7)
+Text Field14: val='Not applicable' (type=7)
+Text Field15: val='Yes, as per MICRO-SOP-2' (type=7)
+Text Field16: val='Yes, as per MICRO-SOP-2' (type=7)
+Text Field17: val='Yes, Information is available on Eagletrax under ETX-260615-0424' (type=7)
+Text Field18: val='Yes, the analysts are trained and qualified by quality to perform the test' (type=7)
+Text Field19: val='Not Applicable' (type=7)
+Text Field20: val='Not Applicable' (type=7)
+Text Field21: val='Yes, as per MICRO-SOP-2' (type=7)
+Check Box4: val='Yes' (type=2)
+Check Box5: val='' (type=2)
+Check Box6: val='' (type=2)
+Check Box7: val='' (type=2)
+Check Box8: val='' (type=2)
+Check Box9: val='Yes' (type=2)
+Check Box10: val='Yes' (type=2)
+Check Box11: val='' (type=2)
+Check Box12: val='' (type=2)
+Check Box13: val='Yes' (type=2)
+Check Box14: val='' (type=2)
+Check Box15: val='' (type=2)
+Check Box16: val='Yes' (type=2)
+Check Box17: val='' (type=2)
+Check Box18: val='' (type=2)
+Check Box19: val='Yes' (type=2)
+Check Box20: val='' (type=2)
+Check Box21: val='' (type=2)
+Check Box22: val='' (type=2)
+Check Box23: val='' (type=2)
+Check Box24: val='Yes' (type=2)
+Check Box25: val='' (type=2)
+Check Box26: val='' (type=2)
+Check Box27: val='Yes' (type=2)
+Check Box28: val='Yes' (type=2)
+Check Box29: val='' (type=2)
+Check Box30: val='' (type=2)
+Check Box31: val='' (type=2)
+Check Box32: val='Yes' (type=2)
+Check Box33: val='' (type=2)
+Check Box34: val='Yes' (type=2)
+Check Box35: val='' (type=2)
+Check Box36: val='' (type=2)
+Check Box37: val='' (type=2)
+Check Box38: val='Yes' (type=2)
+Check Box39: val='' (type=2)
+Text Field57: val='261401' (type=7)
+Signature1: val='' (type=6)
+
+==================================================
+
+=== PAGE 2 ===
+OOS Number: OOS- 
+                                                 
+Appropriate/correct glassware used? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are reagents stored in proper condition and not 
+expired? 
+Yes    
+ No   
+N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+ 
+ 
+Solvent Used  
+ 
+ 
+ 
+ 
+ 
+ 
+Is the standard the source of the root cause? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Equipment Discrepancy 
+Equipment ID 
+Calibration Due Date 
+Was the instrument set up correctly? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is the clean room facility certified? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Performance Check (if applicable)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 2% (PDA)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 10% (QDA, CAD)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the environmental monitoring results 
+conform to required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 2 of 7
+1011756170
+15 Aug 2026
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Please see below
+Please see below
+CR115 (E001737)
+Dec 2026
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Not applicable
+Incubator E001034
+ 
+(Sensor E001501)
+ 
+Incubator E001031 
+ 
+(Sensor E001505)
+ 
+ 
+ 
+ 
+Aug 2026
+ 
+Feb 2027
+ 
+Aug 2026
+ 
+Feb 2027
+ 
+ 
+ 
+ 
+Not applicable
+261401
+
+
+--- FORM WIDGETS ---
+Check Box40: val='' (type=2)
+Check Box41: val='' (type=2)
+Check Box42: val='Yes' (type=2)
+Check Box43: val='Yes' (type=2)
+Check Box44: val='' (type=2)
+Check Box45: val='' (type=2)
+Text Field22: val='1011756170' (type=7)
+Text Field23: val='15 Aug 2026' (type=7)
+Text Field24: val='Not applicable' (type=7)
+Text Field25: val='Not applicable' (type=7)
+Text Field26: val='Not applicable' (type=7)
+Text Field27: val='Not applicable' (type=7)
+Text Field28: val='Not applicable' (type=7)
+Text Field29: val='Not applicable' (type=7)
+Text Field30: val='Please see below' (type=7)
+Text Field31: val='Please see below' (type=7)
+Text Field32: val='CR115 (E001737)' (type=7)
+Text Field33: val='Dec 2026' (type=7)
+Text Field34: val='Not applicable' (type=7)
+Text Field35: val='Not applicable' (type=7)
+Text Field36: val='Not applicable' (type=7)
+Text Field37: val='Not applicable' (type=7)
+Text Field38: val='Not applicable' (type=7)
+Text Field39: val='Not applicable' (type=7)
+Text Field40: val='Not applicable' (type=7)
+Text Field41: val='Not applicable' (type=7)
+Text Field42: val='Not applicable' (type=7)
+Text Field43: val='Incubator E001034\r \r(Sensor E001501)\r \rIncubator E001031 \r \r(Sensor E001505)\r \r \r \r ' (type=7)
+Text Field44: val='Aug 2026\r \rFeb 2027\r \rAug 2026\r \rFeb 2027\r \r \r \r \r' (type=7)
+Text Field45: val='Not applicable' (type=7)
+Check Box46: val='' (type=2)
+Check Box47: val='' (type=2)
+Check Box48: val='Yes' (type=2)
+Check Box49: val='' (type=2)
+Check Box50: val='' (type=2)
+Check Box51: val='Yes' (type=2)
+Check Box52: val='Yes' (type=2)
+Check Box53: val='' (type=2)
+Check Box54: val='' (type=2)
+Check Box55: val='Yes' (type=2)
+Check Box56: val='' (type=2)
+Check Box57: val='' (type=2)
+Check Box58: val='' (type=2)
+Check Box59: val='' (type=2)
+Check Box60: val='Yes' (type=2)
+Check Box61: val='' (type=2)
+Check Box62: val='' (type=2)
+Check Box63: val='Yes' (type=2)
+Check Box64: val='' (type=2)
+Check Box65: val='' (type=2)
+Check Box66: val='Yes' (type=2)
+Check Box67: val='' (type=2)
+Check Box68: val='' (type=2)
+Check Box69: val='Yes' (type=2)
+Check Box70: val='' (type=2)
+Check Box71: val='' (type=2)
+Check Box72: val='Yes' (type=2)
+Check Box73: val='Yes' (type=2)
+Check Box74: val='' (type=2)
+Check Box75: val='' (type=2)
+Text Field57: val='261401' (type=7)
+
+==================================================
+
+=== PAGE 3 ===
+OOS Number: OOS- 
+                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 3 of 7
+Not applicable
+Not applicable
+N/A DK 17Aug2026
+The analyst involved in the surface-sampling plate setup, Guanchen (David) Li (GL), and the analysts involved in reading the 
+plate, Maraya Chukwumerije (MC) and Simin Mohammad (SMO), were interviewed comprehensively. Their responses are 
+documented throughout this investigation.
+ 
+The EM plates were stored in accordance with the supplier’s recommendations, visually inspected before use, and verified to 
+be within their assigned expiration dates. All materials and supplies were disinfected in accordance with MICRO-SOP-9, 
+Cleaning and Disinfecting Procedure for Microbiology. The functionality of the incubators was verified through review of data 
+generated by the in-house continuous monitoring system.
+ 
+Surface sampling was performed by Guanchen (David) Li in ISO 5 BSC E001314 located in room 115B in suite CR115 on 
+the date of testing (04 June 2026), in accordance with MICRO-SOP-2, Environmental Monitoring of the Cleanroom Facility.
+ 
+The plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, 
+commencing on 04 June 2026. Following completion of the minimum 48 hours of incubation on 06 June 2026, no microbial 
+growth was observed. The plates were subsequently incubated for a minimum of 5 days at 20–25°C in incubator E001034, 
+with incubation ending on 11 June 2026. At completion of the second incubation period, one colony-like artifact was observed 
+on Surface Plate #1.
+ 
+The observed artifact was submitted for microbial identification under ETX-260615-0424. However, following transfer or 
+inoculation onto fresh media, no growth was observed. Therefore, the observed artifact could not be confirmed as a viable 
+microbial colony or reported as a confirmed colony forming unit (CFU). The lack of growth upon subculture indicates that the 
+observation may have been nonviable material, an artifact associated with agar preparation or pouring, or another non-
+microbial artifact.
+ 
+ 
+The plate was read by Maraya Chukwumerije after the initial incubation period and by Simin Mohammad after the second 
+incubation period. Please see Table 1 for detailed information on the observations during the respective incubations.
+ 
+To determine whether the recovery was transient or recurring, personnel-monitoring plates for Guanchen (David) Li and ISO 
+5 BSC E001314 environmental-monitoring plates were bracketed to include the date before testing (03 June 2026), the date 
+of testing (04 June 2026), and the date after testing (05 June 2026), as detailed in Table 2
+261401
+
+
+--- FORM WIDGETS ---
+Check Box76: val='' (type=2)
+Check Box77: val='' (type=2)
+Check Box78: val='Yes' (type=2)
+Text Field46: val='Not applicable' (type=7)
+Text Field47: val='Not applicable' (type=7)
+Check Box80: val='' (type=2)
+Check Box81: val='' (type=2)
+Check Box82: val='' (type=2)
+Check Box83: val='' (type=2)
+Check Box84: val='' (type=2)
+Check Box85: val='' (type=2)
+Check Box86: val='' (type=2)
+Text Field48: val='N/A DK 17Aug2026' (type=7)
+Text Field49: val='\rThe analyst involved in the surface-sampling plate setup, Guanchen (David) Li (GL), and the analysts involved in reading the plate, Maraya Chukwumerije (MC) and Simin Mohammad (SMO), were interviewed comprehensively. Their responses are documented throughout this investigation.\r \rThe EM plates were stored in accordance with the supplier’s recommendations, visually inspected before use, and verified to be within their assigned expiration dates. All materials and supplies were disinfected in accordance with MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. The functionality of the incubators was verified through review of data generated by the in-house continuous monitoring system.\r \rSurface sampling was performed by Guanchen (David) Li in ISO 5 BSC E001314 located in room 115B in suite CR115 on the date of testing (04 June 2026), in accordance with MICRO-SOP-2, Environmental Monitoring of the Cleanroom Facility.\r \rThe plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, commencing on 04 June 2026. Following completion of the minimum 48 hours of incubation on 06 June 2026, no microbial growth was observed. The plates were subsequently incubated for a minimum of 5 days at 20–25°C in incubator E001034, with incubation ending on 11 June 2026. At completion of the second incubation period, one colony-like artifact was observed on Surface Plate #1.\r \rThe observed artifact was submitted for microbial identification under ETX-260615-0424. However, following transfer or inoculation onto fresh media, no growth was observed. Therefore, the observed artifact could not be confirmed as a viable microbial colony or reported as a confirmed colony forming unit (CFU). The lack of growth upon subculture indicates that the observation may have been nonviable material, an artifact associated with agar preparation or pouring, or another non-microbial artifact.\r \r \rThe plate was read by Maraya Chukwumerije after the initial incubation period and by Simin Mohammad after the second incubation period. Please see Table 1 for detailed information on the observations during the respective incubations.\r \rTo determine whether the recovery was transient or recurring, personnel-monitoring plates for Guanchen (David) Li and ISO 5 BSC E001314 environmental-monitoring plates were bracketed to include the date before testing (03 June 2026), the date of testing (04 June 2026), and the date after testing (05 June 2026), as detailed in Table 2' (type=7)
+Check Box79: val='Yes' (type=2)
+Text Field57: val='261401' (type=7)
+
+==================================================
+
+=== PAGE 4 ===
+OOS Number: OOS- 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 4 of 7
+Environmental Monitoring Summary: Personnel monitoring plates for Guanchen (David) Li, including left- and right-touch plates, 
+showed no microbial growth on the date before testing (03 June 2026), the date of testing (04 June 2026), and the date after testing (05 
+June 2026).
+ 
+For ISO 5 BSC E001314, daily surface sampling of four locations showed no microbial growth on the date before testing (03 June 
+2026). On the date of testing (04 June 2026), 1 CFU was recovered from Surface #1 associated with Guanchen (David) Li. The 
+recovery was documented under ETX-260615-0424; microbial identification was not available at the time of review. Surface sampling 
+performed on the date after testing (05 June 2026) showed no microbial growth.
+ 
+Settling sampling of ISO 5 BSC E001314, including two locations, showed no microbial growth on the date before testing (03 June 
+2026), the date of testing (04 June 2026), and the date after testing (05 June 2026).
+ 
+Weekly active-air monitoring of Suite 115 conducted during the week before testing (29 May 2026) showed no microbial growth. Weekly 
+active-air monitoring conducted during the week after testing (05 June 2026) recovered 2 CFU in the ISO 8 area of Room 115 under 
+ETX-260615-0432. The organism was identified as Staphylococcus epidermidis.
+ 
+Weekly surface monitoring of the anteroom and cleanroom areas associated with Suite 115 showed no microbial growth during the 
+week before testing (29 May 2026) or the week after testing (05 June 2026).
+ 
+During the interview, the analyst indicated that no obvious abnormalities or deviations occurred during the testing process. All materials 
+were disinfected before testing, and the relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance 
+with MICRO-SOP-2 and MICRO-SOP-9.
+ 
+Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (115), ISO 7 buffer room (115A), ISO 7 
+cleanroom (115B), and the ISO 5 biosafety cabinets located within Room 115B, were performed on 26 April 2026 by Analyst - Rey 
+Estrada - in accordance with MICRO SOP-9, Cleaning and Disinfecting Procedure for Microbiology. All H₂O₂ indicators passed, 
+confirming the successful completion and effectiveness of the monthly cleaning and disinfection activities within Rooms 115, 115A, and 
+115B. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO 
+SOP-9.
+ 
+It is also important to note that no samples processed by Guanchen(David) Li in ISO 5 BSC E001314 on the date of testing (04 Jun 
+2026) failed sterility testing.
+ 
+ 
+Based on the available evidence, one colony-like artifact was observed on Surface Plate #1 in ISO 5 BSC E001314 on the date of 
+testing (04 June 2026). However, the observation could not be confirmed as a viable microbial CFU because no growth was obtained 
+following inoculation onto fresh media. Therefore, the observation may represent a nonviable or non-microbial artifact, including a 
+potential artifact associated with agar preparation or the agar-pouring process.
+ 
+If the observed artifact had represented a viable CFU, it would appear to be an isolated event. This assessment is supported by the 
+absence of microbial recovery from Guanchen (David) Li’s personnel-monitoring plates on the date before testing (03 June 2026), the 
+date of testing (04 June 2026), and the date after testing (05 June 2026); the absence of growth from BSC E001314 surface samples 
+collected on the date before testing and the date after testing; and the absence of growth from ISO 5 settling plates throughout the 
+bracketing period.
+ 
+Although active-air monitoring recovered Staphylococcus epidermidis in the surrounding ISO 8 area of Room 115 during the week after 
+testing (05 June 2026), this recovery occurred outside the ISO 5 critical environment of BSC E001314. In addition, microbial 
+identification of the ISO 5 Surface # 1 recovery was not available at the time of review. Therefore, a microbiological relationship 
+between the ISO 5 surface recovery and the ISO 8 active-air recovery cannot be established. 
+ 
+The negative ISO 5 settling, personnel, and bracketing surface monitoring results demonstrate that the BSC E001314 critical 
+environment remained in a state of control. The available data do not support migration, persistence, or recurrence of contamination 
+within ISO 5 BSC E001314. Collectively, the evidence supports that the recovery was an isolated, transient, and non-recurring event, 
+while established cleaning, disinfection, and aseptic controls remained effective.
+261401
+
+
+--- FORM WIDGETS ---
+Text Field50: val='Environmental Monitoring Summary: Personnel monitoring plates for Guanchen (David) Li, including left- and right-touch plates, showed no microbial growth on the date before testing (03 June 2026), the date of testing (04 June 2026), and the date after testing (05 June 2026).\r \rFor ISO 5 BSC E001314, daily surface sampling of four locations showed no microbial growth on the date before testing (03 June 2026). On the date of testing (04 June 2026), 1 CFU was recovered from Surface #1 associated with Guanchen (David) Li. The recovery was documented under ETX-260615-0424; microbial identification was not available at the time of review. Surface sampling performed on the date after testing (05 June 2026) showed no microbial growth.\r \rSettling sampling of ISO 5 BSC E001314, including two locations, showed no microbial growth on the date before testing (03 June 2026), the date of testing (04 June 2026), and the date after testing (05 June 2026).\r \rWeekly active-air monitoring of Suite 115 conducted during the week before testing (29 May 2026) showed no microbial growth. Weekly active-air monitoring conducted during the week after testing (05 June 2026) recovered 2 CFU in the ISO 8 area of Room 115 under ETX-260615-0432. The organism was identified as Staphylococcus epidermidis.\r \rWeekly surface monitoring of the anteroom and cleanroom areas associated with Suite 115 showed no microbial growth during the week before testing (29 May 2026) or the week after testing (05 June 2026).\r \rDuring the interview, the analyst indicated that no obvious abnormalities or deviations occurred during the testing process. All materials were disinfected before testing, and the relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance with MICRO-SOP-2 and MICRO-SOP-9.\r \rMonthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (115), ISO 7 buffer room (115A), ISO 7 cleanroom (115B), and the ISO 5 biosafety cabinets located within Room 115B, were performed on 26 April 2026 by Analyst - Rey Estrada - in accordance with MICRO SOP-9, Cleaning and Disinfecting Procedure for Microbiology. All H₂O₂ indicators passed, confirming the successful completion and effectiveness of the monthly cleaning and disinfection activities within Rooms 115, 115A, and 115B. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO SOP-9.\r \rIt is also important to note that no samples processed by Guanchen(David) Li in ISO 5 BSC E001314 on the date of testing (04 Jun 2026) failed sterility testing.\r \r \rBased on the available evidence, one colony-like artifact was observed on Surface Plate #1 in ISO 5 BSC E001314 on the date of testing (04 June 2026). However, the observation could not be confirmed as a viable microbial CFU because no growth was obtained following inoculation onto fresh media. Therefore, the observation may represent a nonviable or non-microbial artifact, including a potential artifact associated with agar preparation or the agar-pouring process.\r \rIf the observed artifact had represented a viable CFU, it would appear to be an isolated event. This assessment is supported by the absence of microbial recovery from Guanchen (David) Li’s personnel-monitoring plates on the date before testing (03 June 2026), the date of testing (04 June 2026), and the date after testing (05 June 2026); the absence of growth from BSC E001314 surface samples collected on the date before testing and the date after testing; and the absence of growth from ISO 5 settling plates throughout the bracketing period.\r \rAlthough active-air monitoring recovered Staphylococcus epidermidis in the surrounding ISO 8 area of Room 115 during the week after testing (05 June 2026), this recovery occurred outside the ISO 5 critical environment of BSC E001314. In addition, microbial identification of the ISO 5 Surface # 1 recovery was not available at the time of review. Therefore, a microbiological relationship between the ISO 5 surface recovery and the ISO 8 active-air recovery cannot be established. \r \rThe negative ISO 5 settling, personnel, and bracketing surface monitoring results demonstrate that the BSC E001314 critical environment remained in a state of control. The available data do not support migration, persistence, or recurrence of contamination within ISO 5 BSC E001314. Collectively, the evidence supports that the recovery was an isolated, transient, and non-recurring event, while established cleaning, disinfection, and aseptic controls remained effective.\r' (type=7)
+Text Field57: val='261401' (type=7)
+
+==================================================
+
+=== PAGE 5 ===
+OOS Number: OOS- 
+ 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 5 of 7
+Accordingly, no systemic environmental control deficiencies were identified, and no additional 
+corrective or preventive actions are warranted at this time beyond continued routine 
+environmental monitoring and adherence to approved cleaning, disinfection, and aseptic 
+procedures.
+261401
+
+
+--- FORM WIDGETS ---
+Text Field51: val='Accordingly, no systemic environmental control deficiencies were identified, and no additional corrective or preventive actions are warranted at this time beyond continued routine environmental monitoring and adherence to approved cleaning, disinfection, and aseptic procedures.' (type=7)
+Text Field57: val='261401' (type=7)
+
+==================================================
+
+=== PAGE 6 ===
+OOS Number: OOS- 
+                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+ 
+ If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+ 
+ 
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+ 
+ Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 6 of 7
+Dhvanir Kansara
+Robin Seymour
+Digitally signed by Dhvanir Kansara
+DN: CN=Dhvanir Kansara, O=Eagle Analytical Services, OU=Project Microbiologist - 
+Microbiology, E=dkansara@eagleanalytical.com
+Reason: I am the author of this document
+Location: 
+Date: 2026.08.19 20:05:47-05'00'
+Foxit PDF Editor Version: 14.0.6
+Dhvanir Kansara
+Digitally signed by Robin Seymour
+DN: CN=Robin Seymour, O=Eagle Analytical Services, OU=Microbiology - Cleanroom Ops , 
+E=rseymour@eagleanalytical.com
+Reason: I have reviewed this document
+Location: 
+Date: 2026.08.20 13:52:28-05'00'
+Foxit PDF Editor Version: 14.0.6
+Robin Seymour
+SIGN
+261401
+
+
+--- FORM WIDGETS ---
+Check Box87: val='Yes' (type=2)
+Check Box88: val='' (type=2)
+Check Box89: val='' (type=2)
+Text Field52: val='' (type=7)
+Text Field53: val='Dhvanir Kansara' (type=7)
+Text Field54: val='Robin Seymour' (type=7)
+Signature_0: val='' (type=6)
+Signature_1: val='' (type=6)
+Check Box90: val='' (type=2)
+Check Box91: val='' (type=2)
+Check Box92: val='' (type=2)
+Signature_2: val='' (type=6)
+Text Field55: val='' (type=7)
+Text Field57: val='261401' (type=7)
+
+==================================================
+
+=== PAGE 7 ===
+VERSION HISTORY
+Laboratory OOS Investigation Form
+(v11.1)
+Approved: 10-JUL-2026 | Effective: 10-JUL-2026 | Retired: N/A
+Minor up version to fillable PDF
+Laboratory OOS Investigation Form
+(v11.0)
+Approved: 30-SEP-2025 | Effective: 30-SEP-2025 | Retired: 10-JUL-2026
+Refer to original approved version on ETX
+ELECTRONIC SIGNATURES
+Approvals
+Preeti Purwaha (DPP)
+Director of Quality Assurance
+ppurwaha@eagleanalytical.com
+Document Author
+I am the author of this document.
+Signed 05:05:09 PM UTC 09-JUL-2026
+Comment: Author review completed.
+Minh-Anh (Alison) Eng (AE)
+Quality Site Manager
+meng@eagleanalytical.com
+Technical Manager Approval
+I have reviewed and approve this Minor Revision.
+Signed 05:32:28 PM UTC 10-JUL-2026
+Comment: approved. AE10JUL2026
+Jacqueline Esqueda (JE)
+VP of Quality and Regulatory Comp
+jesqueda@eagleanalytical.com
+Quality Approval
+I have reviewed and approve this Minor Revision.
+Signed 05:41:18 PM UTC 10-JUL-2026
+Comment: Approved
+CURRENT AUTHORS
+Preeti Purwaha (DPP)
+Director of Quality Assurance
+CUSTOM FIELDS
+Location
+Houston
+ETX ID
+3.100.019.F01
+LINKS/ATTACHMENTS
+Document CORP-SOP-13: Out-of-Specification (OOS) - Test Failure Investigation (10.0) [effective]
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston
+ETX ID
+3.100.019.F01
+Printed by dkansara@eagleanalytical.com from https://app.zenqms.com on 17-Aug-2026 at 8:27:01 PM UTC
+Page 7 of 7
+
+
+--- FORM WIDGETS ---
+
+==================================================
+
+=== PAGE 8 ===
+Table 1: Read Dates & Incubation Observation 
+ETX Submission ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate 
+Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation 
+at 30–35°C 
+(E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed 
+after NLT 5-day 
+Incubation at 
+20–25°C (E001034) 
+Microbial Identification 
+ETX-260615-0424 
+ 
+GL 
+04JUN   
+2026 
+Surface 
+sampling plate 
+MC 
+0 
+SMO 
+1 CFU on surface 
+#1 sampling 
+plate 
+N/A 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation* 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+03JUN 
+2026 
+GL 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+04JUN 
+2026 
+GL 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+05JUN 
+2026 
+GL 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 1314 
+Surface Sampling of 
+ISO 5 (4 locations) 
+Daily 
+03JUN 
+2026 
+AOD, GL 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+ISO 5 
+(4 locations) 
+Daily 
+04JUN 
+2026 
+GL 
+Date of Testing 
+1 CFU on S1 for 
+GL 
+ETX-260615-0424 
+N/A 
+None 
+Surface Sampling of 
+ISO 5 (4 locations) 
+Daily 
+05JUN 
+2026 
+GL 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of 
+ISO 5 (2 locations) 
+Daily 
+03JUN 
+2026 
+AOD, GL 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of 
+ISO 5 (2 locations) 
+Daily 
+04JUN 
+2026 
+GL 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of 
+ISO 5 (2 locations) 
+Daily 
+05JUN 
+2026 
+GL 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 115 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+29MAY 
+2026 
+SMO 
+Week (On of 
+Testing Date) 
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+05JUN 
+2026 
+SMO 
+Week (On or 
+After Testing 
+Date) 
+2 CFU in 115 ISO 
+8 
+ETX-260615-0432 
+Staphylococcus 
+epidermidis 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 115 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+29MAY 
+2026 
+SMO 
+Week (On of 
+Testing Date) 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+05JUN 
+2026 
+SMO 
+Week (On or 
+After Testing 
+Date) 
+No growth 
+N/A 
+N/A 
+None 
+ 
+
+
+--- FORM WIDGETS ---
+
+==================================================
+

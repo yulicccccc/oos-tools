@@ -1,0 +1,60 @@
+
+4.4
+Biological Safety Cabinet (BSC): a ventilated cabinet for compounded sterile 
+preparations, personnel, product, and environmental protection having an open front 
+with inward airflow for personnel protection, downward high-efficiency particulate 
+air (HEPA)-filtered laminar airflow for product protection, and HEPA-filtered 
+exhausted air for environmental protection. 
+4.5
+Clean Room/Buffer Area: An ISO 7 room in which the concentration of airborne 
+particles is controlled to meet a specified airborne particulate cleanliness class. 
+Microorganisms in the environment are monitored so that a microbial level for air, 
+surface, and personnel gear is not exceeded for the specified cleanliness class.
+4.6
+Clean Room Facility: The controlled area consists of an anteroom, cleanrooms, and 
+BSCs.
+4.7
+Contact Plate/Replicate Organisms Detection and Counting (RODAC): nutrient agar 
+plate containing Lecithin and Polysorbate 80 that is used for the detection and 
+enumeration of microorganisms present on surfaces. 
+4.8
+Colony Forming Unit (CFU): a unit used to estimate the number of viable bacteria or 
+fungal cells in a sample.
+4.9
+International Organization for Standardization (ISO): The International Organization 
+for Standardization is an international standard-setting body composed of 
+representatives from various national standards organizations.
+4.10 United States Pharmacopeia National Formulary (USP) – The USP-NF contains the 
+pharmacopeia standards for medicines, dosage forms, drug substances, excipients, 
+medical devices, and dietary supplements.
+4.11 Standard Operating Procedure (SOP) – Controlled Document with a unique 
+numerical identifier that provides instructions regarding a particular operational 
+procedure.
+4.12 Tryptic Soy Agar (TSA): a non-selective culture medium used for the isolation and 
+cultivation of microorganisms. 
+4.13 Sabouraud Dextrose Media (SDA): selective media primarily used for the isolation 
+of fungi, dermatophytes, and yeasts.
+4.14 Testing Process/Session: A Testing Session is defined as the complete and continuous 
+period during which a sample or group of samples is subjected to a specific testing 
+method. This session encompasses all procedures, equipment, personnel activities, 
+and environmental conditions directly associated with the execution of that method. 
+All preparatory, in-process, and post-process steps that are integral to the testing 
+method are considered part of the testing process. For example, in the case of USP 
+<71> Sterility Testing, the testing session includes all activities performed within the 
+cleanroom, including the use and monitoring of the Biosafety Cabinet (BSC), as these 
+are essential components of the sterility testing process.
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 2 of 20
+
+

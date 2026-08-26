@@ -1,0 +1,30 @@
+
+Figure 6: Sampling Plan for Cleanroom Facility. Cleanroom suites 114, 115, 116, 117, and the L-shape 
+cleanroom suite (142-145) are located at the Eagle Houston facility, and Cleanroom Suite 100 is located at the 
+Eagle Canada facility
+8.2.2.3.1
+Record the result of surface sampling for the anteroom 
+and buffer room on the Surface Sampling of Anteroom 
+and Buffer Room Logbook (Form 3.600.002.F04).
+Note: The action and alert levels for surface sampling 
+of the cleanroom facility are as follows: 
+Table in Room 100
+Floor Near Door in 
+Room 100A
+Floor Near Door in 
+Room 100B
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 13 of 20
+
+

@@ -1,0 +1,76 @@
+
+1.0
+Purpose:
+This procedure describes the requirements, methods, and documentation of nonviable 
+particles and viable microbes monitored in the cleanroom facility at Eagle. 
+2.0
+Scope:
+This procedure is applicable to the Anteroom (ISO 8), Cleanroom (ISO 7), and Biological 
+Safety Cabinets (ISO 5) at Eagle.
+ 
+3.0
+Responsibilities:
+3.1
+It is the responsibility of microbiologists to follow this procedure.
+3.2
+It is the responsibility of the Quality Unit or designee to calculate the Contamination 
+Recovery Rate (CRR), monthly through trending analysis.
+3.2.1
+Contamination Recovery Rate Action Limit
+Room 
+Classification
+Active Air 
+Samples (%)
+Settle Plate 
+(%)
+Contact Plate 
+(%)
+ISO5
+≥1
+≥1
+≥1
+ISO7
+≥5
+≥5
+≥5
+ISO8
+≥10
+≥10
+≥10
+3.2.2
+If the incident rate is over the allowable percentage, an OOS shall be 
+initiated with a complete process and operational investigation 
+encompassing the following: review of cleanroom facility maintenance, 
+sanitization/decontamination documentation, occurrence of non-routine 
+events, the inherent physical or operational parameters (e.g., relative 
+humidity, temperature changes and pressure changes) and the training status 
+of all personnel.
+3.3
+It is the responsibility of Quality to ensure this procedure is followed as written.
+4.0
+Definitions:
+4.1
+Alert Level: A level of microorganisms that shows a potential drift from normal 
+operating conditions and is based on historical data. 
+4.2
+Action Level: A higher level of contamination than the alert level that, if exceeded, 
+is answered by an immediate follow-up, directed toward investigating the source of 
+contamination and controlling it, resulting in a Corrective Action Response (CAR).
+4.3
+Anteroom: An ISO 8, or better area where personnel garbing, staging of components, 
+and other designated activities are performed. 
+Effective
+MICRO-SOP-2
+v16.0
+Category: SOP Microbiology
+Name: Environmental Monitoring of the Clean Room Facility
+Effective
+23-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+2.600.002
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 8:32:59 PM UTC
+Page 1 of 20
+
+
