@@ -135,9 +135,9 @@ chgbsc_id = str(data.get('chgbsc_id', '')).strip()
 is_single_bsc = (not chgbsc_id or chgbsc_id == 'N/A' or bsc_id == chgbsc_id)
 
 if is_single_bsc:
-    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} on {data['test_date']}"
+    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id}"
 else:
-    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} and E00{chgbsc_id} on {data['test_date']}"
+    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} and E00{chgbsc_id}"
 
 d_obj = datetime.strptime(data['test_date'], "%d%b%y")
 tr_id = f"{d_obj.strftime('%m%d%y')}-{data['scan_id']}-{data['shift_number']}"
@@ -313,19 +313,39 @@ with open(out_json_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 print("Saved updated JSON state to:", out_json_path)
 
+prior_count = int(data.get('incidence_count', 0) or 0)
+has_more_than_3_prior = (prior_count > 3) or (len(data.get('other_positives', [])) > 3)
+
 def clean_em_table_rows(doc_obj):
-    if not is_single_bsc:
-        return
     for t in doc_obj.docx.tables:
-        if len(t.rows) >= 13 and ('Environmental Monitoring (EM)' in t.rows[0].cells[0].text or 'Biological Safety Cabinet' in t.rows[3].cells[0].text):
-            t._tbl.remove(t.rows[7]._tr)
-            t._tbl.remove(t.rows[5]._tr)
+        if len(t.rows) >= 11 and ('Environmental Monitoring (EM)' in t.rows[0].cells[0].text or 'Biological Safety Cabinet' in t.rows[3].cells[0].text):
+            for row in t.rows:
+                if len(row.cells) >= 14:
+                    row.cells[13].width = 1014090
+            if is_single_bsc and len(t.rows) >= 13:
+                t._tbl.remove(t.rows[7]._tr)
+                t._tbl.remove(t.rows[5]._tr)
+
+def handle_trend_table(doc_obj, is_standalone_tables=False):
+    if not has_more_than_3_prior:
+        for p in list(doc_obj.docx.paragraphs):
+            if 'In Trend of Past OOS Results' in p.text:
+                p._element.getparent().remove(p._element)
+        if is_standalone_tables:
+            if len(doc_obj.docx.tables) >= 3:
+                t = doc_obj.docx.tables[2]
+                t._element.getparent().remove(t._element)
+        else:
+            if len(doc_obj.docx.tables) >= 4:
+                t = doc_obj.docx.tables[3]
+                t._element.getparent().remove(t._element)
 
 # Render Word Report (Target primary template: ScanRDI OOS P1 template.docx)
 primary_tpl = "ScanRDI OOS P1 template.docx" if os.path.exists("ScanRDI OOS P1 template.docx") else "ScanRDI OOS template 0.docx"
 tpl_report = DocxTemplate(primary_tpl)
 tpl_report.render(data)
 clean_em_table_rows(tpl_report)
+handle_trend_table(tpl_report, is_standalone_tables=False)
 out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_report.save(out_doc_report)
 print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
@@ -334,6 +354,7 @@ print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
 tpl_tables = DocxTemplate("tables for scan.docx")
 tpl_tables.render(data)
 clean_em_table_rows(tpl_tables)
+handle_trend_table(tpl_tables, is_standalone_tables=True)
 out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_tables.save(out_doc_tables)
 print("Saved Word Tables to:", out_doc_tables)

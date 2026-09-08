@@ -561,9 +561,9 @@ if st.session_state.report_generated:
     chgbsc_id_str = str(st.session_state.chgbsc_id).strip()
     is_single_bsc = (not chgbsc_id_str or chgbsc_id_str == 'N/A' or bsc_id_str == chgbsc_id_str)
     smart_bsc_header = (
-        f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str} on {st.session_state.test_date}"
+        f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str}"
         if is_single_bsc
-        else f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str} and E00{chgbsc_id_str} on {st.session_state.test_date}"
+        else f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str} and E00{chgbsc_id_str}"
     )
 
     final_data_docx = {k: v for k, v in st.session_state.items()}
@@ -704,6 +704,23 @@ if st.session_state.report_generated:
                 t._tbl.remove(t.rows[7]._tr)
                 t._tbl.remove(t.rows[5]._tr)
 
+    prior_count = int(st.session_state.get('incidence_count', 0) or 0)
+    has_more_than_3_prior = (prior_count > 3) or (len(st.session_state.get('other_positives', [])) > 3)
+
+    def handle_trend_table(doc_obj, is_standalone_tables=False):
+        if not has_more_than_3_prior:
+            for p in list(doc_obj.docx.paragraphs):
+                if 'In Trend of Past OOS Results' in p.text:
+                    p._element.getparent().remove(p._element)
+            if is_standalone_tables:
+                if len(doc_obj.docx.tables) >= 3:
+                    t = doc_obj.docx.tables[2]
+                    t._element.getparent().remove(t._element)
+            else:
+                if len(doc_obj.docx.tables) >= 4:
+                    t = doc_obj.docx.tables[3]
+                    t._element.getparent().remove(t._element)
+
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
     target_primary_docx = "ScanRDI OOS P1 template.docx"
     if not os.path.exists(target_primary_docx):
@@ -711,12 +728,12 @@ if st.session_state.report_generated:
     if os.path.exists(target_primary_docx):
         try:
             from docxtpl import DocxTemplate
-            doc = DocxTemplate(target_primary_docx); doc.render(final_data_docx); clean_em_table_rows(doc); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
+            doc = DocxTemplate(target_primary_docx); doc.render(final_data_docx); clean_em_table_rows(doc); handle_trend_table(doc, is_standalone_tables=False); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
         except Exception as e: st.error(f"DOCX Error: {e}")
     if os.path.exists("tables for scan.docx"):
         try:
             from docxtpl import DocxTemplate
-            doc_tbl = DocxTemplate("tables for scan.docx"); doc_tbl.render(final_data_docx); clean_em_table_rows(doc_tbl); tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
+            doc_tbl = DocxTemplate("tables for scan.docx"); doc_tbl.render(final_data_docx); clean_em_table_rows(doc_tbl); handle_trend_table(doc_tbl, is_standalone_tables=True); tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
     try: tables_pdf_buf = create_table_pdf(final_data_docx)
     except Exception as e: st.warning(f"Tables PDF generation failed: {e}")
