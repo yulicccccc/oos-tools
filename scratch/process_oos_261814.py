@@ -36,7 +36,9 @@ for row in table.rows:
 print("Parsed EM Raw:", json.dumps(em_raw, indent=2))
 
 # 3. Update session state fields
+data['sample_url'] = data.get('sample_url') or "https://etrax.eagleanalytical.com/Submission/Details/RjtF7Gpyb7QIgSCtaB%24Udw__"
 data['obs_pers'] = em_raw['pers']['obs']
+
 data['etx_pers'] = em_raw['pers']['etx']
 data['id_pers'] = em_raw['pers']['id']
 data['obs_pers_dur'] = em_raw['pers']['obs']
@@ -340,12 +342,42 @@ def handle_trend_table(doc_obj, is_standalone_tables=False):
                 t = doc_obj.docx.tables[3]
                 t._element.getparent().remove(t._element)
 
+from docx.oxml import parse_xml
+from docx.opc.constants import RELATIONSHIP_TYPE
+
+def set_cell_hyperlink(cell, url, text):
+    cell.text = ''
+    p = cell.paragraphs[0]
+    p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+    part = p.part
+    r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+    hyperlink_xml = (
+        f'<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+        f'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '
+        f'r:id="{r_id}" w:history="1">'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rStyle w:val="Hyperlink"/>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:color w:val="467886"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'<w:u w:val="single"/>'
+        f'</w:rPr>'
+        f'<w:t>{text}</w:t>'
+        f'</w:r>'
+        f'</w:hyperlink>'
+    )
+    p._p.append(parse_xml(hyperlink_xml))
+
 # Render Word Report (Target primary template: ScanRDI OOS P1 template.docx)
 primary_tpl = "ScanRDI OOS P1 template.docx" if os.path.exists("ScanRDI OOS P1 template.docx") else "ScanRDI OOS template 0.docx"
 tpl_report = DocxTemplate(primary_tpl)
 tpl_report.render(data)
 clean_em_table_rows(tpl_report)
 handle_trend_table(tpl_report, is_standalone_tables=False)
+if data.get('sample_url') and len(tpl_report.docx.tables) >= 2:
+    set_cell_hyperlink(tpl_report.docx.tables[1].rows[1].cells[2], data['sample_url'], data['sample_id'])
 out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_report.save(out_doc_report)
 print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
@@ -355,9 +387,12 @@ tpl_tables = DocxTemplate("tables for scan.docx")
 tpl_tables.render(data)
 clean_em_table_rows(tpl_tables)
 handle_trend_table(tpl_tables, is_standalone_tables=True)
+if data.get('sample_url') and len(tpl_tables.docx.tables) >= 1:
+    set_cell_hyperlink(tpl_tables.docx.tables[0].rows[1].cells[2], data['sample_url'], data['sample_id'])
 out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_tables.save(out_doc_tables)
 print("Saved Word Tables to:", out_doc_tables)
+
 
 pdf_map = {
     'Text Field57': data['oos_id'],
@@ -406,9 +441,9 @@ try:
     import win32com.client
     word = win32com.client.DispatchEx("Word.Application")
     word.Visible = False
-    doc = word.Documents.Open(os.path.abspath(out_doc_tables))
+    doc = word.Documents.Open(os.path.abspath(out_doc_tables), ReadOnly=True)
     doc.SaveAs(os.path.abspath(out_pdf_tables), FileFormat=17)
-    doc.Close()
+    doc.Close(SaveChanges=False)
     word.Quit()
     print("Saved Tables PDF via Word to:", out_pdf_tables)
 except Exception as e:
