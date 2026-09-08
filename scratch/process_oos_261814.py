@@ -132,11 +132,48 @@ data['equipment_summary'] = f"{part1}\n\n{part2}"
 
 # 5. History & Cross-Contamination
 data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
-# 5. History & Cross-Contamination
-data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
 data['cross_contamination_summary'] = "The microbiological findings were also assessed for evidence of a broader contamination pattern. All other samples processed by the same analyst, as well as samples processed by other laboratory personnel on the date of testing, were negative for microbial growth. The absence of additional positive samples or a clustering pattern provides further evidence against a systemic environmental, procedural, or sample-to-sample cross-contamination event."
 
 # 6. Narrative & EM Details + FDA-Aligned cGMP Defense Engine
+p_transposition_1 = (
+    "On 07-Aug-2026, Processing Analyst SU completed ScanRDI sterility testing for sample ETX-260804-0101, "
+    "associated with DCA Pharmacy (E12860), and sample ETX-260805-0189, associated with GoGoMeds Select (E10747), "
+    "in accordance with MICRO-SOP-12, ScanRDI Sterility Testing Process."
+)
+
+p_transposition_2 = (
+    "During sample reading and result verification using the ScanRDI instrument, Second Shift Reading Analyst VV "
+    "determined that ETX-260804-0101 met the established acceptance criteria and generated a passing result, "
+    "whereas ETX-260805-0189 generated a failing result."
+)
+
+p_transposition_3 = (
+    "During subsequent result entry, Analyst VV inadvertently transposed the results between the two samples. "
+    "As a result, the passing result generated for ETX-260804-0101 was incorrectly assigned to ETX-260805-0189, "
+    "while the failing result generated for ETX-260805-0189 was incorrectly assigned to ETX-260804-0101."
+)
+
+p_transposition_4 = (
+    "During the subsequent data review, Reviewer OA did not identify the result transposition and approved the "
+    "incorrectly assigned failing result for ETX-260804-0101. Consequently, ETX-260804-0101, which had actually "
+    "met the acceptance criteria, was placed on hold pending an Out-of-Specification (OOS) investigation."
+)
+
+p_transposition_5 = (
+    "Review of the original ScanRDI testing and instrument-generated data confirmed that the testing process itself "
+    "was performed as intended and that the instrument results were correctly generated for each sample. The discrepancy "
+    "occurred after testing, during manual result transcription and subsequent review, and did not reflect an analytical "
+    "failure or an actual failing result for ETX-260804-0101."
+)
+
+p_transposition_6 = (
+    "The investigation therefore identified the event as an unintentional result-transposition error during data entry "
+    "that was not detected during the initial data review. The original instrument-generated result for ETX-260804-0101 "
+    "remained passing, while ETX-260805-0189 was confirmed as the sample associated with the failing ScanRDI result. "
+    "Following confirmation of the correct result attribution, the investigation proceeded to evaluate potential "
+    "laboratory sources of the microbial recovery for ETX-260805-0189."
+)
+
 p_em_intro = f"Upon review of the environmental monitoring data associated with the sterility test, no microbial growth was recovered from any of the four ISO 5 work-surface monitoring locations within BSC E00{data['bsc_id']} on the date of testing. Low-level microbial recoveries were identified from personnel and settling-plate monitoring performed in association with testing, as well as from routine weekly monitoring of the surrounding cleanroom areas."
 
 p_personnel = "One CFU was recovered from the analyst’s right-hand touch plate and submitted for microbial identification under sample ID ETX-260817-0447. The isolate was identified as Micrococcus luteus. This recovery was not microbiologically consistent with the organism observed in the test sample: M. luteus is coccal in morphology, whereas the microorganism recovered from the test sample exhibited rod-shaped morphology. Accordingly, the personnel monitoring result does not support direct transfer of the recovered right-glove organism to the test sample."
@@ -151,7 +188,16 @@ p_history = data['sample_history_paragraph']
 
 p_cross = data['cross_contamination_summary']
 
-p_conclusion = "Taken together, the environmental monitoring results demonstrate isolated, low-level recoveries at discrete monitoring locations, with no microbiological match established between the recovered monitoring organisms and the test-sample isolate, no microbial recovery from the ISO 5 work surfaces used for testing, and no broader pattern of contamination among concurrently processed samples. Therefore, the available environmental and personnel monitoring data do not identify an assignable laboratory source for the microbial growth observed in the test sample and do not support laboratory-introduced contamination as the cause of the positive sterility result."
+p_conclusion = (
+    "Taken together, the environmental monitoring results demonstrate isolated, low-level recoveries at discrete monitoring locations, "
+    "with no microbiological match established between the recovered monitoring organisms and the test-sample isolate, no microbial recovery "
+    "from the ISO 5 work surfaces used for testing, and no broader pattern of contamination among concurrently processed samples. "
+    "Therefore, the available environmental and personnel monitoring data do not identify an assignable laboratory source for the microbial "
+    "growth observed in the test sample and do not support laboratory-introduced contamination as the cause of the positive sterility result. "
+    "In summary, while a post-analytical documentation error occurred during manual data transcription and review (resulting in the initial "
+    "transposition of sample results), no assignable laboratory analytical or microbiological cause was identified for the microbial contamination "
+    f"in {data['sample_id']}; accordingly, the positive sterility result for {data['sample_id']} remains valid."
+)
 
 # Table 3 fields for other positives
 data['oos1_analyst_name'] = data['analyst_name']
@@ -165,8 +211,25 @@ org_lower = str(data.get('organism_morphology', 'rod')).strip().lower()
 p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} {org_lower}-shaped viable {suffix}, see table 1."
 p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {data['sample_id']}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
 
-smart_phase1_part2 = "\n\n".join([p7, p8, p_em_intro, p_personnel, p_settling, p_weekly, p_monthly, p_history, p_cross, p_conclusion])
-data['narrative_summary'] = "\n\n".join([p_em_intro, p_personnel, p_settling, p_weekly])
+smart_phase1_part2 = "\n\n".join([
+    p7,
+    p_transposition_1,
+    p_transposition_2,
+    p_transposition_3,
+    p_transposition_4,
+    p_transposition_5,
+    p_transposition_6,
+    p8,
+    p_em_intro,
+    p_personnel,
+    p_settling,
+    p_weekly,
+    p_monthly,
+    p_history,
+    p_cross,
+    p_conclusion
+])
+data['narrative_summary'] = "\n\n".join([p_transposition_1, p_transposition_2, p_transposition_3, p_transposition_4, p_transposition_5, p_transposition_6, p_em_intro, p_personnel, p_settling, p_weekly])
 data['smart_justification'] = p_conclusion
 data['smart_phase1_part2'] = smart_phase1_part2
 data['Text Field50'] = smart_phase1_part2
