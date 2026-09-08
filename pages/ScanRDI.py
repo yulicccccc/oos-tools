@@ -582,11 +582,12 @@ if st.session_state.report_generated:
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
     final_data_docx['Text Field50'] = smart_phase1_part2
 
-    # --- P1 TEXT BLOCK CONSTRUCTION (FOR P2 USE) ---
-    # Collect and deduplicate analyst names preserving order
+    # --- P1 TEXT BLOCK CONSTRUCTION (FOR P2 AND TEMPLATES) ---
+    # Collect and deduplicate all analyst names preserving order
     analysts_raw = [
         st.session_state.get("prepper_name", ""),
         st.session_state.get("analyst_name", ""),
+        st.session_state.get("changeover_name", ""),
         st.session_state.get("reader_name", ""),
     ]
     analysts_clean = [str(x).strip() for x in analysts_raw if str(x).strip() and str(x).strip() != "N/A"]
@@ -623,23 +624,51 @@ if st.session_state.report_generated:
         prep_proc_phrase = f"{prep_proc_unique[0]} and {prep_proc_unique[1]}"
         prep_proc_noun = "Analysts"
 
-    p1_text = (
-        f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document.\n\n"
-        f"The sample was stored upon arrival according to the Client’s instructions. {prep_proc_noun} {prep_proc_phrase} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample.\n\n"
-        f"All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates.\n\n"
-        f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method.\n\n"
-        f"{fresh_equip}\n\n"
-        f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results.\n\n"
-        f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.analyst_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1.\n\n"
-        f"Table 2 (see attached table) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility).\n\n"
-        f"{fresh_narr}\n\n"
-        f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed.\n\n"
-        f"{fresh_history}\n\n"
-        f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}\n\n"
-        f"Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
-    )
-    if fresh_det: p1_text = p1_text.replace(fresh_narr, fresh_narr + "\n\n" + fresh_det)
-    st.session_state.phase1_full_text = p1_text # Save for P2
+    analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
+    personnel_lines = []
+    p_name = st.session_state.prepper_name.strip().lower()
+    a_name = st.session_state.analyst_name.strip().lower()
+    p_init = st.session_state.prepper_initial.strip().lower()
+    a_init = st.session_state.analyst_initial.strip().lower()
+    is_same = (p_name == a_name) or (p_init and a_init and p_init == a_init)
+    
+    if not is_same:
+        personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
+    personnel_lines.extend([
+        f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
+        f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})",
+        f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})"
+    ])
+    smart_personnel_block = "\n\n".join(personnel_lines)
+    smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
+    smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
+    smart_comment_samples = f"Yes, {st.session_state.sample_id}"
+    smart_comment_records = f"Yes, See {tr_id} for more information."
+    smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
+    
+    p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document."
+    p2 = f"The sample was stored upon arrival according to the Client’s instructions. {prep_proc_noun} {prep_proc_phrase} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+    p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
+    p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
+    p5 = fresh_equip
+    p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
+    smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
+    smart_phase1_summary = f"{smart_phase1_part1}\n\n{smart_phase1_part2}"
+    st.session_state.phase1_full_text = smart_phase1_summary # Save for P2
+
+    final_data_docx.update({
+        "smart_personnel_block": smart_personnel_block,
+        "smart_incident_opening": smart_incident_opening,
+        "smart_comment_interview": smart_comment_interview,
+        "smart_comment_samples": smart_comment_samples,
+        "smart_comment_records": smart_comment_records,
+        "smart_comment_storage": smart_comment_storage,
+        "smart_phase1_part1": smart_phase1_part1,
+        "smart_phase1_part2": smart_phase1_part2,
+        "smart_phase1_summary": smart_phase1_summary,
+        "smart_phase1_continued": smart_phase1_part2,
+        "analyst_signature": analyst_sig_text,
+    })
  
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
     if os.path.exists("ScanRDI OOS template 0.docx"):
@@ -656,36 +685,6 @@ if st.session_state.report_generated:
     except Exception as e: st.warning(f"Tables PDF generation failed: {e}")
     try:
         from pypdf import PdfWriter, PdfReader
-        analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
-        personnel_lines = []
-        p_name = st.session_state.prepper_name.strip().lower()
-        a_name = st.session_state.analyst_name.strip().lower()
-        p_init = st.session_state.prepper_initial.strip().lower()
-        a_init = st.session_state.analyst_initial.strip().lower()
-        is_same = (p_name == a_name) or (p_init and a_init and p_init == a_init)
-        
-        if not is_same:
-            personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
-        personnel_lines.extend([
-            f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
-            f"Changeover\nProcessor:\n{st.session_state.changeover_name} ({st.session_state.changeover_initial})",
-            f"Reader:\n{st.session_state.reader_name} ({st.session_state.reader_initial})"
-        ])
-        smart_personnel_block = "\n\n".join(personnel_lines)
-        smart_incident_opening = f"On {st.session_state.test_date}, sample {st.session_state.sample_id} was found positive for viable microorganisms after ScanRDI testing."
-        smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
-        smart_comment_samples = f"Yes, {st.session_state.sample_id}"
-        smart_comment_records = f"Yes, See {tr_id} for more information."
-        smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {st.session_state.sample_id}"
-        p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document."
-        p2 = f"The sample was stored upon arrival according to the Client’s instructions. {prep_proc_noun} {prep_proc_phrase} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
-        p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
-        p4 = f"During the preparation phase, {st.session_state.prepper_name} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.test_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
-        p5 = fresh_equip
-        p6 = f"The analyst, {st.session_state.reader_name}, confirmed that the equipment was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control and the positive control for the analyst, {st.session_state.reader_name}, yielded expected results."
-        smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
-        
-        # 请确保 pdf_map 位于正确的缩进位置（通常在 st.button 下面）
         pdf_map = {
             'Text Field57': st.session_state.oos_id, 
             'Date Field0': pdf_date_str, 

@@ -14,6 +14,8 @@
   5. Page 7 PDF Table Generator: Dynamically renders Table 1 & Table 2 with ReportLab and merges with the 6-page form to produce a complete 7-page official PDF report.
 - Upgraded `em_logic.py` and `pages/EM.py` to support automatic 7-page PDF generation, Smart Paste parsing, and full Word/PDF rendering.
 - Created a standardized **SKU Module Generator Workflow** (`create_new_module.py`) to automatically instantiate future OOS test modules in seconds.
+- Migrated all Scan RDI SOP references across all Word (`ScanRDI OOS template.docx`, `template 0.docx`, `P1 template.docx`, `P1 template 0.docx`) and PDF templates to ZenQMS standards: `MICRO-SOP-12 (Rev 16, Effective 24Jul26)` and `ENG-SOP-4 (Rev 05, Effective 24Jul26)`.
+- Fixed Scan RDI Section B `Analyst interviewed?` comment (`smart_comment_interview` / `Text Field13`) and paragraph 1 narrative to aggregate and deduplicate all involved analysts (`Prepper`, `Processor`, `Changeover`, and `Reader`), correctly producing comprehensive multi-analyst interview phrasing (e.g. `Yes, analysts Elysse Nioupin, Sonal Uprety, and Varsha Subramanian were interviewed comprehensively.`). Passed smart variables to `final_data_docx` prior to docx rendering.
 
 ### Current File Structure
 The codebase is actively operating in the clean context boundary:
