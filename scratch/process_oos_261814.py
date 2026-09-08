@@ -400,4 +400,41 @@ if os.path.exists("ScanRDI OOS template.pdf"):
         writer.write(f)
     print("Saved PDF Report to:", out_pdf_report)
 
-print("\n--- ALL GENERATION COMPLETED SUCCESSFULLY! ---")
+# Export Tables Docx to PDF via Word COM
+out_pdf_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
+try:
+    import win32com.client
+    word = win32com.client.DispatchEx("Word.Application")
+    word.Visible = False
+    doc = word.Documents.Open(os.path.abspath(out_doc_tables))
+    doc.SaveAs(os.path.abspath(out_pdf_tables), FileFormat=17)
+    doc.Close()
+    word.Quit()
+    print("Saved Tables PDF via Word to:", out_pdf_tables)
+except Exception as e:
+    print(f"Error exporting tables to PDF via Word: {e}")
+
+# Deploy / Sync generated files to Documents directory
+DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
+import shutil
+files_to_sync = [
+    out_doc_report,
+    out_doc_tables,
+    out_pdf_report if 'out_pdf_report' in locals() else None,
+    out_pdf_tables,
+    out_json_path
+]
+for fpath in files_to_sync:
+    if fpath and os.path.exists(fpath):
+        dest = os.path.join(DOCUMENTS_DIR, os.path.basename(fpath))
+        try:
+            shutil.copy2(fpath, dest)
+            print(f"Synced to Documents: {dest}")
+        except PermissionError:
+            print(f"Notice: {dest} is currently open in another application, skipped overwrite.")
+        except Exception as e:
+            print(f"Warning: Could not sync {fpath} to {dest}: {e}")
+
+print("\n--- ALL GENERATION AND DEPLOYMENT COMPLETED SUCCESSFULLY! ---")
+
+
