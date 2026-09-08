@@ -234,7 +234,7 @@ def generate_history_text():
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
-        return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
+        return "The microbiological findings were also assessed for evidence of a broader contamination pattern. All other samples processed by the same analyst, as well as samples processed by other laboratory personnel on the date of testing, were negative for microbial growth. The absence of additional positive samples or a clustering pattern provides further evidence against a systemic environmental, procedural, or sample-to-sample cross-contamination event."
     num = st.session_state.total_pos_count_num - 1
     other_list_ids = []; detail_sentences = []
     for i in range(num):
@@ -578,8 +578,11 @@ if st.session_state.report_generated:
     if fresh_det: p9 += "\n\n" + fresh_det
     p10 = f"Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂ indicators passed."
     p11 = fresh_history
-    p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
-    p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
+    p12 = fresh_cross
+    if st.session_state.get("em_growth_observed") == "Yes":
+        p13 = "Taken together, the environmental monitoring results demonstrate isolated, low-level recoveries at discrete monitoring locations, with no microbiological match established between the recovered monitoring organisms and the test-sample isolate, no microbial recovery from the ISO 5 work surfaces used for testing, and no broader pattern of contamination among concurrently processed samples. Therefore, the available environmental and personnel monitoring data do not identify an assignable laboratory source for the microbial growth observed in the test sample and do not support laboratory-introduced contamination as the cause of the positive sterility result."
+    else:
+        p13 = "Based on the comprehensive review of equipment, personnel monitoring, environmental controls, reagents, and concurrent sample processing, no assignable laboratory cause was identified. The available data do not support laboratory-introduced contamination as the cause of the positive sterility result, and the original result is deemed valid."
     smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
     final_data_docx['Text Field50'] = smart_phase1_part2
 
@@ -666,16 +669,24 @@ if st.session_state.report_generated:
         "smart_comment_storage": smart_comment_storage,
         "smart_phase1_part1": smart_phase1_part1,
         "smart_phase1_part2": smart_phase1_part2,
-        "smart_phase1_summary": smart_phase1_summary,
+        "smart_phase1_summary": smart_phase1_part1,
         "smart_phase1_continued": smart_phase1_part2,
         "analyst_signature": analyst_sig_text,
+        "report_header": f"{st.session_state.sample_id}\n\n{st.session_state.client_name}",
+        "smart_cr_id": f"CR{t_suite} (E00{t_room})",
+        "smart_scan_id": f"E00{st.session_state.scan_id}",
+        "narrative_summary": fresh_narr + ("\n\n" + fresh_det if fresh_det else ""),
+        "cross_contamination_summary": fresh_cross,
     })
  
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
-    if os.path.exists("ScanRDI OOS template 0.docx"):
+    target_primary_docx = "ScanRDI OOS P1 template.docx"
+    if not os.path.exists(target_primary_docx):
+        target_primary_docx = "ScanRDI OOS template.docx" if os.path.exists("ScanRDI OOS template.docx") else "ScanRDI OOS template 0.docx"
+    if os.path.exists(target_primary_docx):
         try:
             from docxtpl import DocxTemplate
-            doc = DocxTemplate("ScanRDI OOS template 0.docx"); doc.render(final_data_docx); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
+            doc = DocxTemplate(target_primary_docx); doc.render(final_data_docx); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
         except Exception as e: st.error(f"DOCX Error: {e}")
     if os.path.exists("tables for scan.docx"):
         try:

@@ -132,46 +132,26 @@ data['equipment_summary'] = f"{part1}\n\n{part2}"
 
 # 5. History & Cross-Contamination
 data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
-data['cross_contamination_summary'] = "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
+# 5. History & Cross-Contamination
+data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
+data['cross_contamination_summary'] = "The microbiological findings were also assessed for evidence of a broader contamination pattern. All other samples processed by the same analyst, as well as samples processed by other laboratory personnel on the date of testing, were negative for microbial growth. The absence of additional positive samples or a clustering pattern provides further evidence against a systemic environmental, procedural, or sample-to-sample cross-contamination event."
 
-# 6. Narrative & EM Details + Smart Justification Engine (4-Step Shielding)
-pass_daily_clean = ['surface sampling']
-narr_parts = ["no microbial growth was observed in surface sampling"]
-narr = "Upon analyzing the environmental monitoring results, " + ". ".join(narr_parts) + "."
+# 6. Narrative & EM Details + FDA-Aligned cGMP Defense Engine
+p_em_intro = f"Upon review of the environmental monitoring data associated with the sterility test, no microbial growth was recovered from any of the four ISO 5 work-surface monitoring locations within BSC E00{data['bsc_id']} on the date of testing. Low-level microbial recoveries were identified from personnel and settling-plate monitoring performed in association with testing, as well as from routine weekly monitoring of the surrounding cleanroom areas."
 
-daily_fails = [f['cat'] for f in failures if f['time'] == 'daily']
-weekly_fails = [f['cat'] for f in failures if f['time'] == 'weekly']
-intro_parts = []
-if daily_fails: intro_parts.append(f"{' and '.join(daily_fails)} on the date of testing")
-if weekly_fails: intro_parts.append(f"{' and '.join(weekly_fails)} from the week of testing")
-fail_intro = f"However, microbial growth was observed during {' and '.join(intro_parts)}."
+p_personnel = "One CFU was recovered from the analyst’s right-hand touch plate and submitted for microbial identification under sample ID ETX-260817-0447. The isolate was identified as Micrococcus luteus. This recovery was not microbiologically consistent with the organism observed in the test sample: M. luteus is coccal in morphology, whereas the microorganism recovered from the test sample exhibited rod-shaped morphology. Accordingly, the personnel monitoring result does not support direct transfer of the recovered right-glove organism to the test sample."
 
-detail_sentences = []
-for i, f in enumerate(failures):
-    is_plural = bool(re.search(r'\d+', f['obs']) and int(re.search(r'\d+', f['obs']).group()) > 1)
-    verb_detect = 'were' if is_plural else 'was'
-    noun_id = 'organisms were' if is_plural else 'organism was'
-    method_text = 'differential staining' if 'gram' in f['id'].lower() else 'microbial identification'
-    note_txt = f" (Note: {f['note']})" if f.get('note') and f['note'].strip() and f['note'].strip().lower() != 'none' else ""
-    base_sentence = f"{f['obs']} {verb_detect} detected during {f['cat']} and was submitted for {method_text} under sample ID {f['etx']}, where the {noun_id} identified as {f['id']}{note_txt}"
-    lead = "Specifically" if i==0 else "Additionally" if i==1 else "Furthermore" if i==2 else "Also"
-    detail_sentences.append(f"{lead}, {base_sentence}.")
+p_settling = f"Two CFUs were also recovered from settling plate Sett 2 and submitted for differential staining under sample ID ETX-260817-0507. The organisms were characterized as Gram-positive rods; however, definitive identification could not be obtained because the plate was documented as desiccated at the 5-day read. Therefore, an organism-level microbiological match between the settling-plate recovery and the test-sample isolate could not be established. This finding was evaluated in conjunction with the remaining contemporaneous environmental monitoring data, including the absence of microbial recovery from all four ISO 5 work surfaces within BSC E00{data['bsc_id']}."
 
-det = f"{fail_intro} {' '.join(detail_sentences)}"
+p_weekly = f"Routine weekly facility monitoring during the week of testing additionally recovered 1 CFU of Gram-positive short rods from active air monitoring in ISO 8 Cleanroom 115 (ETX-260817-0370) and 2 CFUs identified as Bacillus megaterium from the floor of ISO 7 Suite 115A (ETX-260817-0366). These recoveries occurred in lower-classified background areas physically separated from the critical ISO 5 testing zone. Sample manipulation was performed within BSC E00{data['bsc_id']}, and samples were transported into the testing area in disinfected, lidded containers. No corresponding microbial recovery was observed from the ISO 5 work surfaces within the BSC that would support transfer of contamination from these surrounding areas into the critical testing environment."
 
-# Smart Justification Shielding Block
-smart_just_blocks = [
-    "Notably, the colony morphology of the recovered microorganisms differed between monitoring locations and the test sample. While the test sample exhibited rod-shaped morphology, personnel touch plates recovered Micrococcus luteus (cocci), and settling plates showed insufficient growth of Gram (+) rods with plate desiccation documented on the 5-day read. This indicates that the personnel monitoring findings were isolated, unrelated events.",
-    "Also, while microbial growth was detected during weekly monitoring (Gram (+) short rods in air and Bacillus megaterium on the floor), these organisms were detected strictly in the ISO 8 background room environment (Cleanroom 115) and ISO 7 floor (Suite 115A), whereas the sample manipulation occurred strictly within the ISO 5 Primary Engineering Control (BSC E001313).",
-    "Additionally, the absence of contamination on ISO 5 work surface monitoring inside BSC E001313 indicates that no viable transfer pathway existed from outer cleanroom areas to the critical ISO 5 testing zone.",
-    "Furthermore, all other samples processed by the analyst that day tested negative for microbial growth, confirming that the testing environment operated under optimal conditions and cross-contamination did not occur.",
-    "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
-]
-smart_just_text = "\n\n".join(smart_just_blocks)
+p_monthly = f"Monthly cleaning and disinfection, using H2O2, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {data['monthly_cleaning_date']}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H2O2 indicators passed."
 
-data['narrative_summary'] = narr
-data['em_details'] = det
-data['smart_justification'] = smart_just_text
+p_history = data['sample_history_paragraph']
+
+p_cross = data['cross_contamination_summary']
+
+p_conclusion = "Taken together, the environmental monitoring results demonstrate isolated, low-level recoveries at discrete monitoring locations, with no microbiological match established between the recovered monitoring organisms and the test-sample isolate, no microbial recovery from the ISO 5 work surfaces used for testing, and no broader pattern of contamination among concurrently processed samples. Therefore, the available environmental and personnel monitoring data do not identify an assignable laboratory source for the microbial growth observed in the test sample and do not support laboratory-introduced contamination as the cause of the positive sterility result."
 
 # Table 3 fields for other positives
 data['oos1_analyst_name'] = data['analyst_name']
@@ -184,13 +164,11 @@ suffix = "microorganism" if str(data.get('confirm_number','1')).strip() == "1" e
 org_lower = str(data.get('organism_morphology', 'rod')).strip().lower()
 p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} {org_lower}-shaped viable {suffix}, see table 1."
 p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {data['sample_id']}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
-p9 = narr + "\n\n" + det + "\n\n" + smart_just_text
-p10 = f"Monthly cleaning and disinfection, using H2O2, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {data['monthly_cleaning_date']}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H2O2 indicators passed."
-p11 = data['sample_history_paragraph']
-p12 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {data['cross_contamination_summary']}"
-p13 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
 
-smart_phase1_part2 = "\n\n".join([p7, p8, p9, p10, p11, p12, p13])
+smart_phase1_part2 = "\n\n".join([p7, p8, p_em_intro, p_personnel, p_settling, p_weekly, p_monthly, p_history, p_cross, p_conclusion])
+data['narrative_summary'] = "\n\n".join([p_em_intro, p_personnel, p_settling, p_weekly])
+data['smart_justification'] = p_conclusion
+data['smart_phase1_part2'] = smart_phase1_part2
 data['Text Field50'] = smart_phase1_part2
 
 # Collect and deduplicate all analyst names
@@ -219,27 +197,7 @@ else:
 smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
 data['smart_comment_interview'] = smart_comment_interview
 
-# Save updated JSON state
-out_json_path = os.path.join(OUTPUT_DIR, f"UPDATED_SAVE_OOS-{data['oos_id']} {data['client_name']} - ScanRDI.txt")
-with open(out_json_path, "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=2)
-print("Saved updated JSON state to:", out_json_path)
-
-# Render Word Report
-tpl_report = DocxTemplate("ScanRDI OOS template 0.docx")
-tpl_report.render(data)
-out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
-tpl_report.save(out_doc_report)
-print("Saved Word Report to:", out_doc_report)
-
-# Render Word Tables
-tpl_tables = DocxTemplate("tables for scan.docx")
-tpl_tables.render(data)
-out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
-tpl_tables.save(out_doc_tables)
-print("Saved Word Tables to:", out_doc_tables)
-
-# Render PDF Form
+# Form Phase 1 Part 1
 analyst_sig_text = f"{data['analyst_name']} (Written by: Qiyue Chen)"
 smart_personnel_block = f"Prepper: \n{data['prepper_name']} ({data['prepper_initial']})\n\nProcessor:\n{data['analyst_name']} ({data['analyst_initial']})\n\nChangeover\nProcessor:\n{data['changeover_name']} ({data['changeover_initial']})\n\nReader:\n{data['reader_name']} ({data['reader_initial']})"
 smart_incident_opening = f"On {data['test_date']}, sample {data['sample_id']} was found positive for viable microorganisms after ScanRDI testing."
@@ -254,6 +212,40 @@ p4 = f"During the preparation phase, {data['prepper_name']} disinfected the samp
 p5 = data['equipment_summary']
 p6 = f"The analyst, {data['reader_name']}, confirmed that the equipment was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control and the positive control for the analyst, {data['reader_name']}, yielded expected results."
 smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
+
+data['smart_phase1_part1'] = smart_phase1_part1
+data['smart_phase1_summary'] = smart_phase1_part1
+data['smart_phase1_continued'] = smart_phase1_part2
+data['smart_cr_id'] = f"CR{t_suite} (E00{t_room})"
+data['smart_scan_id'] = f"E00{data['scan_id']}"
+data['analyst_signature'] = analyst_sig_text
+data['report_header'] = f"{data['sample_id']}\n\n{data['client_name']}"
+data['smart_personnel_block'] = smart_personnel_block
+data['smart_incident_opening'] = smart_incident_opening
+data['smart_comment_samples'] = smart_comment_samples
+data['smart_comment_records'] = smart_comment_records
+data['smart_comment_storage'] = smart_comment_storage
+
+# Save updated JSON state
+out_json_path = os.path.join(OUTPUT_DIR, f"UPDATED_SAVE_OOS-{data['oos_id']} {data['client_name']} - ScanRDI.txt")
+with open(out_json_path, "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=2)
+print("Saved updated JSON state to:", out_json_path)
+
+# Render Word Report (Target primary template: ScanRDI OOS P1 template.docx)
+primary_tpl = "ScanRDI OOS P1 template.docx" if os.path.exists("ScanRDI OOS P1 template.docx") else "ScanRDI OOS template 0.docx"
+tpl_report = DocxTemplate(primary_tpl)
+tpl_report.render(data)
+out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
+tpl_report.save(out_doc_report)
+print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
+
+# Render Word Tables
+tpl_tables = DocxTemplate("tables for scan.docx")
+tpl_tables.render(data)
+out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
+tpl_tables.save(out_doc_tables)
+print("Saved Word Tables to:", out_doc_tables)
 
 pdf_map = {
     'Text Field57': data['oos_id'],

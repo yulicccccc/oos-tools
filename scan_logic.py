@@ -134,7 +134,7 @@ def generate_history_text():
 
 def generate_cross_contam_text():
     if st.session_state.other_positives == "No": 
-        return "All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
+        return "The microbiological findings were also assessed for evidence of a broader contamination pattern. All other samples processed by the same analyst, as well as samples processed by other laboratory personnel on the date of testing, were negative for microbial growth. The absence of additional positive samples or a clustering pattern provides further evidence against a systemic environmental, procedural, or sample-to-sample cross-contamination event."
     num = st.session_state.total_pos_count_num - 1
     other_list_ids = []; detail_sentences = []
     for i in range(num):
