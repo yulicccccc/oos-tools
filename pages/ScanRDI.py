@@ -122,13 +122,13 @@ def create_table_pdf(data):
     t2_headers = [p(h, True) for h in ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]]
     rows = []
     rows.append([p("Personnel EM Bracketing", True)] + [""]*7)
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), p(data['id_pers_dur']), p("None")])
+    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), p(data['id_pers_dur']), p(data.get('note_pers', 'None'))])
     rows.append([p(f"BSC EM Bracketing ({data['bsc_id']})", True)] + [""]*7)
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), p(data['id_surf_dur']), p("None")])
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), p(data['id_sett_dur']), p("None")])
+    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), p(data['id_surf_dur']), p(data.get('note_surf', 'None'))])
+    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), p(data['id_sett_dur']), p(data.get('note_sett', 'None'))])
     rows.append([p(f"Weekly Bracketing (CR {data['cr_id']})", True)] + [""]*7)
-    rows.append([p("Active Air Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), p(data['id_air_wk_of']), p("None")])
-    rows.append([p("Surface Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), p(data['id_room_wk_of']), p("None")])
+    rows.append([p("Active Air Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), p(data['id_air_wk_of']), p(data.get('note_air', 'None'))])
+    rows.append([p("Surface Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), p(data['id_room_wk_of']), p(data.get('note_room', 'None'))])
     t2 = Table([t2_headers] + rows, colWidths=[140, 50, 60, 45, 120, 100, 140, 55])
     t2.setStyle(TableStyle([('GRID', (0, 0), (-1, -1), 0.5, colors.black), ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'), ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('SPAN', (0, 1), (-1, 1)), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('SPAN', (0, 3), (-1, 3)), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('SPAN', (0, 6), (-1, 6))]))
     elements.append(t2)
@@ -557,18 +557,35 @@ if st.session_state.report_generated:
     base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
     safe_filename = clean_filename(base_name)
 
+    bsc_id_str = str(st.session_state.bsc_id).strip()
+    chgbsc_id_str = str(st.session_state.chgbsc_id).strip()
+    is_single_bsc = (not chgbsc_id_str or chgbsc_id_str == 'N/A' or bsc_id_str == chgbsc_id_str)
+    smart_bsc_header = (
+        f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str} on {st.session_state.test_date}"
+        if is_single_bsc
+        else f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id_str} and E00{chgbsc_id_str} on {st.session_state.test_date}"
+    )
+
     final_data_docx = {k: v for k, v in st.session_state.items()}
     final_data_docx.update({
         "equipment_summary": fresh_equip, "sample_history_paragraph": fresh_history, "cross_contamination_summary": fresh_cross,
         "test_record": tr_id, "organism_morphology": org_title, "control_positive": st.session_state.control_pos,
         "control_data": st.session_state.control_exp, "cr_id": t_room, "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
         "smart_bsc_id": f"E00{st.session_state.bsc_id}",
+        "smart_bsc_bracketing_header": smart_bsc_header,
         "date_of_weekly": st.session_state.get("date_weekly", ""), "weekly_initial": st.session_state.get("weekly_init", ""),
         "obs_pers_dur": st.session_state.obs_pers, "etx_pers_dur": st.session_state.etx_pers, "id_pers_dur": st.session_state.id_pers,
         "obs_surf_dur": st.session_state.obs_surf, "etx_surf_dur": st.session_state.etx_surf, "id_surf_dur": st.session_state.id_surf,
         "obs_sett_dur": st.session_state.obs_sett, "etx_sett_dur": st.session_state.etx_sett, "id_sett_dur": st.session_state.id_sett,
         "obs_air_wk_of": st.session_state.obs_air, "etx_air_wk_of": st.session_state.etx_air_weekly, "id_air_wk_of": st.session_state.id_air_weekly,
         "obs_room_wk_of": st.session_state.obs_room, "etx_room_wk_of": st.session_state.etx_room_weekly, "id_room_wk_of": st.session_state.id_room_wk_of,
+        "note_pers": st.session_state.get("note_pers", "None"),
+        "note_surf": st.session_state.get("note_surf", "None"),
+        "note_sett": st.session_state.get("note_sett", "None"),
+        "note_air": st.session_state.get("note_air", "None"),
+        "note_room": st.session_state.get("note_room", "None"),
+        "note_surf_chg": st.session_state.get("note_surf", "None"),
+        "note_sett_chg": st.session_state.get("note_sett", "None"),
         "notes": "None" 
     })
 
@@ -679,6 +696,14 @@ if st.session_state.report_generated:
         "cross_contamination_summary": fresh_cross,
     })
  
+    def clean_em_table_rows(doc_obj):
+        if not is_single_bsc:
+            return
+        for t in doc_obj.docx.tables:
+            if len(t.rows) >= 13 and ('Environmental Monitoring (EM)' in t.rows[0].cells[0].text or 'Biological Safety Cabinet' in t.rows[3].cells[0].text):
+                t._tbl.remove(t.rows[7]._tr)
+                t._tbl.remove(t.rows[5]._tr)
+
     docx_buf = None; tables_docx_buf = None; tables_pdf_buf = None; pdf_form_buf = None
     target_primary_docx = "ScanRDI OOS P1 template.docx"
     if not os.path.exists(target_primary_docx):
@@ -686,12 +711,12 @@ if st.session_state.report_generated:
     if os.path.exists(target_primary_docx):
         try:
             from docxtpl import DocxTemplate
-            doc = DocxTemplate(target_primary_docx); doc.render(final_data_docx); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
+            doc = DocxTemplate(target_primary_docx); doc.render(final_data_docx); clean_em_table_rows(doc); docx_buf = io.BytesIO(); doc.save(docx_buf); docx_buf.seek(0)
         except Exception as e: st.error(f"DOCX Error: {e}")
     if os.path.exists("tables for scan.docx"):
         try:
             from docxtpl import DocxTemplate
-            doc_tbl = DocxTemplate("tables for scan.docx"); doc_tbl.render(final_data_docx); tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
+            doc_tbl = DocxTemplate("tables for scan.docx"); doc_tbl.render(final_data_docx); clean_em_table_rows(doc_tbl); tables_docx_buf = io.BytesIO(); doc_tbl.save(tables_docx_buf); tables_docx_buf.seek(0)
         except Exception as e: st.error(f"Tables DOCX Error: {e}")
     try: tables_pdf_buf = create_table_pdf(final_data_docx)
     except Exception as e: st.warning(f"Tables PDF generation failed: {e}")

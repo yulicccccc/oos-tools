@@ -236,13 +236,13 @@ def create_table_pdf(data):
     t2_headers = [p(h, True) for h in ["Sampling Site", "Freq", "Date", "Analyst", "Observation", "Plate ETX ID", "Microbial ID", "Notes"]]
     rows = []
     rows.append([p("Personnel EM Bracketing", True)] + [""]*7)
-    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), p(data['id_pers_dur']), p("None")])
+    rows.append([p("Personal (Left/Right)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_pers_dur']), p(data['etx_pers_dur']), p(data['id_pers_dur']), p(data.get('note_pers', 'None'))])
     rows.append([p(f"BSC EM Bracketing ({data['bsc_id']})", True)] + [""]*7)
-    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), p(data['id_surf_dur']), p("None")])
-    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), p(data['id_sett_dur']), p("None")])
+    rows.append([p("Surface Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_surf_dur']), p(data['etx_surf_dur']), p(data['id_surf_dur']), p(data.get('note_surf', 'None'))])
+    rows.append([p("Settling Sampling (ISO 5)"), p("Daily"), p(data['test_date']), p(data['analyst_initial']), p(data['obs_sett_dur']), p(data['etx_sett_dur']), p(data['id_sett_dur']), p(data.get('note_sett', 'None'))])
     rows.append([p(f"Weekly Bracketing (CR {data['cr_id']})", True)] + [""]*7)
-    rows.append([p("Active Air Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), p(data['id_air_wk_of']), p("None")])
-    rows.append([p("Surface Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), p(data['id_room_wk_of']), p("None")])
+    rows.append([p("Active Air Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_air_wk_of']), p(data['etx_air_wk_of']), p(data['id_air_wk_of']), p(data.get('note_air', 'None'))])
+    rows.append([p("Surface Sampling"), p("Weekly"), p(data['date_of_weekly']), p(data['weekly_initial']), p(data['obs_room_wk_of']), p(data['etx_room_wk_of']), p(data['id_room_wk_of']), p(data.get('note_room', 'None'))])
     t2 = Table([t2_headers] + rows, colWidths=[140, 50, 60, 45, 120, 100, 140, 55])
     t2.setStyle(TableStyle([('GRID', (0, 0), (-1, -1), 0.5, colors.black), ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'), ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey), ('BACKGROUND', (0, 1), (-1, 1), colors.whitesmoke), ('SPAN', (0, 1), (-1, 1)), ('BACKGROUND', (0, 3), (-1, 3), colors.whitesmoke), ('SPAN', (0, 3), (-1, 3)), ('BACKGROUND', (0, 6), (-1, 6), colors.whitesmoke), ('SPAN', (0, 6), (-1, 6))]))
     elements.append(t2)

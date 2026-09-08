@@ -70,6 +70,15 @@ data['id_room_wk_of'] = em_raw['room']['id']
 data['obs_room_wk_of'] = em_raw['room']['obs']
 data['etx_room_wk_of'] = em_raw['room']['etx']
 
+# Notes extraction from EM raw data
+data['note_pers'] = em_raw['pers']['note'] if em_raw['pers']['note'] else 'None'
+data['note_surf'] = em_raw['surf']['note'] if em_raw['surf']['note'] else 'None'
+data['note_sett'] = em_raw['sett']['note'] if em_raw['sett']['note'] else 'None'
+data['note_air'] = em_raw['air']['note'] if em_raw['air']['note'] else 'None'
+data['note_room'] = em_raw['room']['note'] if em_raw['room']['note'] else 'None'
+data['note_surf_chg'] = data['note_surf']
+data['note_sett_chg'] = data['note_sett']
+
 # Dates & Initials
 clean_weekly_d = em_raw['air']['date'].replace(' ', '')
 try:
@@ -120,6 +129,15 @@ data['bsc_location'] = t_loc
 data['organism_morphology'] = 'Rod'
 data['control_positive'] = data.get('control_pos', 'A. brasiliensis')
 data['control_data'] = data.get('control_exp', '22May28')
+
+bsc_id = str(data.get('bsc_id', '')).strip()
+chgbsc_id = str(data.get('chgbsc_id', '')).strip()
+is_single_bsc = (not chgbsc_id or chgbsc_id == 'N/A' or bsc_id == chgbsc_id)
+
+if is_single_bsc:
+    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} on {data['test_date']}"
+else:
+    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} and E00{chgbsc_id} on {data['test_date']}"
 
 d_obj = datetime.strptime(data['test_date'], "%d%b%y")
 tr_id = f"{d_obj.strftime('%m%d%y')}-{data['scan_id']}-{data['shift_number']}"
@@ -295,10 +313,19 @@ with open(out_json_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 print("Saved updated JSON state to:", out_json_path)
 
+def clean_em_table_rows(doc_obj):
+    if not is_single_bsc:
+        return
+    for t in doc_obj.docx.tables:
+        if len(t.rows) >= 13 and ('Environmental Monitoring (EM)' in t.rows[0].cells[0].text or 'Biological Safety Cabinet' in t.rows[3].cells[0].text):
+            t._tbl.remove(t.rows[7]._tr)
+            t._tbl.remove(t.rows[5]._tr)
+
 # Render Word Report (Target primary template: ScanRDI OOS P1 template.docx)
 primary_tpl = "ScanRDI OOS P1 template.docx" if os.path.exists("ScanRDI OOS P1 template.docx") else "ScanRDI OOS template 0.docx"
 tpl_report = DocxTemplate(primary_tpl)
 tpl_report.render(data)
+clean_em_table_rows(tpl_report)
 out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_report.save(out_doc_report)
 print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
@@ -306,6 +333,7 @@ print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
 # Render Word Tables
 tpl_tables = DocxTemplate("tables for scan.docx")
 tpl_tables.render(data)
+clean_em_table_rows(tpl_tables)
 out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_tables.save(out_doc_tables)
 print("Saved Word Tables to:", out_doc_tables)
