@@ -136,7 +136,7 @@ data['cross_contamination_summary'] = "The microbiological findings were also as
 
 # 6. Narrative & EM Details + FDA-Aligned cGMP Defense Engine
 p_transposition_1 = (
-    "On 07-Aug-2026, Processing Analyst SU completed ScanRDI sterility testing for sample ETX-260804-0101, "
+    f"On {data['test_date']}, Processing Analyst {data['analyst_initial']} completed ScanRDI sterility testing for sample ETX-260804-0101, "
     "associated with DCA Pharmacy (E12860), and sample ETX-260805-0189, associated with GoGoMeds Select (E10747), "
     "in accordance with MICRO-SOP-12, ScanRDI Sterility Testing Process."
 )
