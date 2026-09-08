@@ -553,6 +553,7 @@ if st.session_state.report_generated:
     suffix = "microorganism" if str(st.session_state.confirm_number).strip() == "1" else "microorganisms"
     raw_org = st.session_state.get('org_choice','') + " " + st.session_state.get('manual_org','')
     org_title = raw_org.strip().title()
+    org_lower = raw_org.strip().lower()
     base_name = f"OOS-{st.session_state.oos_id} {st.session_state.client_name} - ScanRDI"
     safe_filename = clean_filename(base_name)
 
@@ -571,7 +572,7 @@ if st.session_state.report_generated:
         "notes": "None" 
     })
 
-    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_title}-shaped viable {suffix}, see table 1."
+    p7 = f"On {st.session_state.test_date}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {st.session_state.prepper_name}, processed by {st.session_state.analyst_name}, and subsequently read by {st.session_state.reader_name}. The test revealed {st.session_state.confirm_number} {org_lower}-shaped viable {suffix}, see table 1."
     p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {st.session_state.sample_id}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
     p9 = fresh_narr
     if fresh_det: p9 += "\n\n" + fresh_det

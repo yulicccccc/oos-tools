@@ -181,8 +181,8 @@ data['oos1_organism_morphology'] = data['organism_morphology']
 
 # Paragraphs for Form 3.100.019.F01
 suffix = "microorganism" if str(data.get('confirm_number','1')).strip() == "1" else "microorganisms"
-org_title = "Rod"
-p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} {org_title}-shaped viable {suffix}, see table 1."
+org_lower = str(data.get('organism_morphology', 'rod')).strip().lower()
+p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} {org_lower}-shaped viable {suffix}, see table 1."
 p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {data['sample_id']}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility)."
 p9 = narr + "\n\n" + det + "\n\n" + smart_just_text
 p10 = f"Monthly cleaning and disinfection, using H2O2, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {data['monthly_cleaning_date']}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H2O2 indicators passed."
