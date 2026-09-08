@@ -72,14 +72,25 @@ data['id_room_wk_of'] = em_raw['room']['id']
 data['obs_room_wk_of'] = em_raw['room']['obs']
 data['etx_room_wk_of'] = em_raw['room']['etx']
 
+def format_table_note(note_str):
+    if not note_str or str(note_str).strip().lower() in ['none', 'n/a', '']:
+        return 'None'
+    s = str(note_str).strip()
+    if s.endswith('.'):
+        s = s[:-1].strip()
+    if s:
+        s = s[0].upper() + s[1:]
+    return s
+
 # Notes extraction from EM raw data
-data['note_pers'] = em_raw['pers']['note'] if em_raw['pers']['note'] else 'None'
-data['note_surf'] = em_raw['surf']['note'] if em_raw['surf']['note'] else 'None'
-data['note_sett'] = em_raw['sett']['note'] if em_raw['sett']['note'] else 'None'
-data['note_air'] = em_raw['air']['note'] if em_raw['air']['note'] else 'None'
-data['note_room'] = em_raw['room']['note'] if em_raw['room']['note'] else 'None'
+data['note_pers'] = format_table_note(em_raw['pers']['note'])
+data['note_surf'] = format_table_note(em_raw['surf']['note'])
+data['note_sett'] = format_table_note(em_raw['sett']['note'])
+data['note_air'] = format_table_note(em_raw['air']['note'])
+data['note_room'] = format_table_note(em_raw['room']['note'])
 data['note_surf_chg'] = data['note_surf']
 data['note_sett_chg'] = data['note_sett']
+
 
 # Dates & Initials
 clean_weekly_d = em_raw['air']['date'].replace(' ', '')
@@ -324,9 +335,14 @@ def clean_em_table_rows(doc_obj):
             for row in t.rows:
                 if len(row.cells) >= 14:
                     row.cells[13].width = 1014090
+                    for p in row.cells[13].paragraphs:
+                        for r in p.runs:
+                            if 'plate was desiccated' in r.text.lower():
+                                r.text = r.text.replace('plate was desiccated on 5 day read.', 'Plate was desiccated on 5 day read').replace('plate was desiccated on 5 day read', 'Plate was desiccated on 5 day read')
             if is_single_bsc and len(t.rows) >= 13:
                 t._tbl.remove(t.rows[7]._tr)
                 t._tbl.remove(t.rows[5]._tr)
+
 
 def handle_trend_table(doc_obj, is_standalone_tables=False):
     if not has_more_than_3_prior:
@@ -426,15 +442,6 @@ pdf_map = {
     'Text Field50': smart_phase1_part2
 }
 
-if os.path.exists("ScanRDI OOS template.pdf"):
-    writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
-    for p in writer.pages:
-        writer.update_page_form_field_values(p, pdf_map)
-    out_pdf_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
-    with open(out_pdf_report, "wb") as f:
-        writer.write(f)
-    print("Saved PDF Report to:", out_pdf_report)
-
 # Export Tables Docx to PDF via Word COM
 out_pdf_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
 try:
@@ -449,13 +456,44 @@ try:
 except Exception as e:
     print(f"Error exporting tables to PDF via Word: {e}")
 
+# Transcribe into freshly downloaded CORP-FORM-21 and append Tables PDF
+CORP_FORM_DOWNLOADED = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf"
+base_pdf_source = CORP_FORM_DOWNLOADED if os.path.exists(CORP_FORM_DOWNLOADED) else "ScanRDI OOS template.pdf"
+print(f"Using base PDF form: {base_pdf_source}")
+
+# Extract boilerplate from template to ensure all checkboxes and lab meta are populated
+prefilled_boilerplate = {}
+if os.path.exists("ScanRDI OOS template.pdf"):
+    reader_tpl = PdfReader("ScanRDI OOS template.pdf")
+    fields_tpl = reader_tpl.get_fields()
+    if fields_tpl:
+        prefilled_boilerplate = {k: v.get('/V') for k, v in fields_tpl.items() if v.get('/V') is not None}
+
+combined_pdf_map = {**prefilled_boilerplate, **pdf_map}
+
+writer = PdfWriter(clone_from=base_pdf_source)
+for p in writer.pages:
+    writer.update_page_form_field_values(p, combined_pdf_map)
+
+# Append Tables PDF page(s) to the end of the form
+if os.path.exists(out_pdf_tables):
+    table_reader = PdfReader(out_pdf_tables)
+    for table_page in table_reader.pages:
+        writer.add_page(table_page)
+    print(f"Appended Tables PDF to form. Total pages: {len(writer.pages)}")
+
+out_pdf_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
+with open(out_pdf_report, "wb") as f:
+    writer.write(f)
+print("Saved complete 7-Page PDF Report to:", out_pdf_report)
+
 # Deploy / Sync generated files to Documents directory
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 import shutil
 files_to_sync = [
     out_doc_report,
     out_doc_tables,
-    out_pdf_report if 'out_pdf_report' in locals() else None,
+    out_pdf_report,
     out_pdf_tables,
     out_json_path
 ]
@@ -469,6 +507,7 @@ for fpath in files_to_sync:
             print(f"Notice: {dest} is currently open in another application, skipped overwrite.")
         except Exception as e:
             print(f"Warning: Could not sync {fpath} to {dest}: {e}")
+
 
 print("\n--- ALL GENERATION AND DEPLOYMENT COMPLETED SUCCESSFULLY! ---")
 
