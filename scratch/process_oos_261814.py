@@ -253,7 +253,7 @@ with open(out_json_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 print("Saved updated JSON state to:", out_json_path)
 
-# 7. Helper functions for docx formatting
+# 7. Helper functions for docx formatting with strict CENTERING
 def set_cell_hyperlink(cell, url, text):
     cell.text = ''
     p = cell.paragraphs[0]
@@ -269,8 +269,8 @@ def set_cell_hyperlink(cell, url, text):
         f'<w:rStyle w:val="Hyperlink"/>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
         f'<w:color w:val="467886"/>'
-        f'<w:sz w:val="14"/>'
-        f'<w:szCs w:val="14"/>'
+        f'<w:sz w:val="16"/>'
+        f'<w:szCs w:val="16"/>'
         f'<w:u w:val="single"/>'
         f'</w:rPr>'
         f'<w:t>{text}</w:t>'
@@ -278,10 +278,12 @@ def set_cell_hyperlink(cell, url, text):
         f'</w:hyperlink>'
     )
     p._p.append(parse_xml(hyperlink_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
-def update_cell_text(cell, text, bold=False, italic=False, font_size=Pt(7)):
+def update_cell_text(cell, text, bold=False, italic=False, font_size=Pt(7), align=docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER):
     cell.text = ''
     p = cell.paragraphs[0]
+    p.alignment = align
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(0)
     p.paragraph_format.line_spacing = 1.0
@@ -290,6 +292,7 @@ def update_cell_text(cell, text, bold=False, italic=False, font_size=Pt(7)):
     run.font.size = font_size
     run.font.bold = bold
     run.font.italic = italic
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
 def build_corrected_em_table_element():
     doc_raw_em = docx.Document(EM_DOCX_FILE)
@@ -349,38 +352,49 @@ def build_corrected_em_table_element():
     # L-Suite Surface
     update_cell_text(t.rows[16].cells[2], '07Aug26')
     
+    # Ensure EVERY cell across all rows is centered horizontally and vertically
+    for row in t.rows:
+        for cell in row.cells:
+            cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            for p in cell.paragraphs:
+                p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.space_before = Pt(0)
+                p.paragraph_format.space_after = Pt(0)
+    
     return copy.deepcopy(t._element)
 
-# 8. Render Standalone Tables Document
+# 8. Render Standalone Tables Document using DocxTemplate
 out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
-doc_tables = docx.Document("tables for scan.docx")
+tpl_tables = DocxTemplate("tables for scan.docx")
+tpl_tables.render(data)
 
 # Remove Table 2 (trend table)
-if len(doc_tables.tables) >= 3:
-    t_trend = doc_tables.tables[2]._element
+if len(tpl_tables.docx.tables) >= 3:
+    t_trend = tpl_tables.docx.tables[2]._element
     t_trend.getparent().remove(t_trend)
-for p in list(doc_tables.paragraphs):
+for p in list(tpl_tables.docx.paragraphs):
     if 'In Trend of Past OOS Results' in p.text:
         p._element.getparent().remove(p._element)
 
-# Fill Table 0 (Sample Information)
-t0 = doc_tables.tables[0]
-update_cell_text(t0.rows[1].cells[0], data['analyst_name'], font_size=Pt(8))
-update_cell_text(t0.rows[1].cells[1], data['reader_name'], font_size=Pt(8))
+# Table 0: Center all cells and set hyperlink
+t0 = tpl_tables.docx.tables[0]
+for row in t0.rows:
+    for cell in row.cells:
+        cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+        for p in cell.paragraphs:
+            p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+
 set_cell_hyperlink(t0.rows[1].cells[2], data['sample_url'], data['sample_id'])
-update_cell_text(t0.rows[1].cells[3], str(data.get('event_number', '187')), font_size=Pt(8))
-update_cell_text(t0.rows[1].cells[4], str(data.get('confirm_number', '4')), font_size=Pt(8))
-update_cell_text(t0.rows[1].cells[5], f"{data['organism_morphology']}-shaped Morphology", font_size=Pt(8))
 
 # Replace Table 1 with the 17-row EM table
-t1_old = doc_tables.tables[1]._element
+t1_old = tpl_tables.docx.tables[1]._element
 t1_parent = t1_old.getparent()
 idx1 = t1_parent.index(t1_old)
 t1_parent.remove(t1_old)
 t_new_em = build_corrected_em_table_element()
 t1_parent.insert(idx1, t_new_em)
 
-doc_tables.save(out_doc_tables)
+tpl_tables.save(out_doc_tables)
 print("Saved Standalone Tables Docx to:", out_doc_tables)
 
 # 9. Export Standalone Tables Docx to PDF via Word COM
@@ -411,9 +425,15 @@ for p in list(tpl_report.docx.paragraphs):
     if 'In Trend of Past OOS Results' in p.text:
         p._element.getparent().remove(p._element)
 
-# In Table 1: set hyperlink on Sample ID
+# In Table 1: ensure centering and set hyperlink on Sample ID
 if len(tpl_report.docx.tables) >= 2:
-    set_cell_hyperlink(tpl_report.docx.tables[1].rows[1].cells[2], data['sample_url'], data['sample_id'])
+    t1_rep = tpl_report.docx.tables[1]
+    for row in t1_rep.rows:
+        for cell in row.cells:
+            cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            for p in cell.paragraphs:
+                p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+    set_cell_hyperlink(t1_rep.rows[1].cells[2], data['sample_url'], data['sample_id'])
 
 # In Table 2: replace with the 17-row EM table
 if len(tpl_report.docx.tables) >= 3:
