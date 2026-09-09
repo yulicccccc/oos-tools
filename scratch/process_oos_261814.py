@@ -115,7 +115,7 @@ data['smart_phase1_summary'] = smart_phase1_part1
 data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
 data['cross_contamination_summary'] = "To evaluate the potential for sample-to-sample contamination, all samples processed on the same day were reviewed. All other samples processed by the same analyst and by other analysts on that day yielded negative results, indicating that cross-contamination is unlikely."
 
-# 6. FDA-Aligned cGMP Defense Engine & EM Details (Dual-BSC & Dual-Suite)
+# 6. FDA-Aligned cGMP Defense Engine & EM Details (Dual-BSC & Dual-Suite with Fungal ID Defense)
 p_transposition_1 = (
     f"During the OOS investigation and subsequent review of the testing records, a result-transposition event was identified "
     f"involving {data['sample_id']} and ETX-260804-0101. Processing Analyst SU completed ScanRDI sterility testing for sample "
@@ -160,11 +160,12 @@ p_personnel = (
 )
 
 p_settling = (
-    f"Two CFUs were also recovered from settling plate Sett 1 within BSC E00{data['bsc_id']} and submitted for differential staining "
-    "under sample ID ETX-260817-0507. The organisms were characterized as Gram-positive rods; however, definitive identification "
-    "could not be obtained because the plate was documented as desiccated at the 5-day read. Therefore, an organism-level microbiological "
-    "match between the settling-plate recovery and the test-sample isolate could not be established. Settling plates within changeover "
-    f"BSC E00{data['chgbsc_id']} yielded no growth. This finding was evaluated in conjunction with the remaining contemporaneous "
+    f"Two CFUs were also recovered from settling plate Sett 1 within BSC E00{data['bsc_id']} and submitted for microbial identification "
+    "under sample ID ETX-260817-0507. The isolates were identified as Sporisorium graminicola and Ustilago maydis. These microorganisms "
+    "are fungal (smut) species, which are taxonomically and morphologically distinct from the bacterial rod-shaped microorganisms "
+    "recovered from the test sample. Additionally, the settling plate was documented as desiccated at the 5-day read. Therefore, "
+    "no microbiological match exists between the settling-plate isolates and the test-sample contaminant. Settling plates within "
+    f"changeover BSC E00{data['chgbsc_id']} yielded no growth. This finding was evaluated in conjunction with the remaining contemporaneous "
     f"environmental monitoring data, including the complete absence of microbial recovery from all ISO 5 work surfaces within both "
     f"BSC E00{data['bsc_id']} and BSC E00{data['chgbsc_id']}."
 )
@@ -314,10 +315,10 @@ def build_corrected_em_table_element():
     update_cell_text(t.rows[6].cells[0], 'Surface Sampling of ISO 5 E001937 (4 locations)')
     update_cell_text(t.rows[6].cells[2], '07Aug26')
     
-    # SU Settling BSC 1313
+    # SU Settling BSC 1313 - with newly identified fungal species
     update_cell_text(t.rows[7].cells[0], 'Settling Sampling of ISO 5 E001313 (2 locations)')
     update_cell_text(t.rows[7].cells[2], '07Aug26')
-    update_cell_text(t.rows[7].cells[7], 'Insufficient read Gram (+) rods')
+    update_cell_text(t.rows[7].cells[7], 'Sporisorium graminicola\nUstilago maydis')
     update_cell_text(t.rows[7].cells[8], 'Plate was desiccated on 5 day read')
     
     # GA Settling BSC 1937
