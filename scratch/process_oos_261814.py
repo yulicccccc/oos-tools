@@ -1,171 +1,121 @@
-import os, sys, json, re, io
+import os, sys, json, re, io, copy, shutil
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import docx
+from docx.shared import Pt, RGBColor
+from docx.oxml import parse_xml
+from docx.opc.constants import RELATIONSHIP_TYPE
 from docxtpl import DocxTemplate
 from pypdf import PdfWriter, PdfReader
 from datetime import datetime
+import win32com.client
 from utils import get_room_logic, get_cleanroom_narrative, ordinal, num_to_words, get_full_name
 
 SAVE_FILE = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\SAVE_OOS-261814 GoGoMeds Select (E10747) - ScanRDI.txt"
-EM_DOCX_FILE = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\EM table 07AUG2026 (1).docx"
+EM_DOCX_FILE = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\EM Table OOS-261814 07AUG2026.docx"
+DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 OUTPUT_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\scratch"
+QYC_PDF_PATH = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\OOS-261814 GoGoMeds Select (E10747) - ScanRDI - QYC.pdf"
+CORP_FORM_DOWNLOADED = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf"
 
-# 1. Load OOS base save
+# 1. Load base save
 with open(SAVE_FILE, "r", encoding="utf-8") as f:
     data = json.load(f)
 
-# 2. Parse EM docx
-doc_em = docx.Document(EM_DOCX_FILE)
-table = doc_em.tables[0]
-
-em_raw = {}
-for row in table.rows:
-    c = [cell.text.strip().replace('\n', ' ') for cell in row.cells]
-    site = c[0]
-    if 'Personal (Left' in site:
-        em_raw['pers'] = {'site': site, 'freq': c[1], 'date': c[2], 'analyst': c[3], 'timing': c[4], 'obs': c[5], 'etx': c[6], 'id': c[7], 'note': c[8]}
-    elif 'Surface Sampling of ISO 5' in site:
-        em_raw['surf'] = {'site': site, 'freq': c[1], 'date': c[2], 'analyst': c[3], 'timing': c[4], 'obs': c[5], 'etx': c[6], 'id': c[7], 'note': c[8]}
-    elif 'Settling Sampling of ISO 5' in site:
-        em_raw['sett'] = {'site': site, 'freq': c[1], 'date': c[2], 'analyst': c[3], 'timing': c[4], 'obs': c[5], 'etx': c[6], 'id': c[7], 'note': c[8]}
-    elif 'Active Air Sampling' in site:
-        em_raw['air'] = {'site': site, 'freq': c[1], 'date': c[2], 'analyst': c[3], 'timing': c[4], 'obs': c[5], 'etx': c[6], 'id': c[7], 'note': c[8]}
-    elif 'Surface Sampling of Cleanrooms' in site:
-        em_raw['room'] = {'site': site, 'freq': c[1], 'date': c[2], 'analyst': c[3], 'timing': c[4], 'obs': c[5], 'etx': c[6], 'id': c[7], 'note': c[8]}
-
-print("Parsed EM Raw:", json.dumps(em_raw, indent=2))
-
-# 3. Update session state fields
+# 2. Update Personnel and Equipment for GA in L-Suite BSC 1937
 data['sample_url'] = data.get('sample_url') or "https://etrax.eagleanalytical.com/Submission/Details/RjtF7Gpyb7QIgSCtaB%24Udw__"
-data['obs_pers'] = em_raw['pers']['obs']
-
-data['etx_pers'] = em_raw['pers']['etx']
-data['id_pers'] = em_raw['pers']['id']
-data['obs_pers_dur'] = em_raw['pers']['obs']
-data['etx_pers_dur'] = em_raw['pers']['etx']
-data['id_pers_dur'] = em_raw['pers']['id']
-
-data['obs_surf'] = em_raw['surf']['obs']
-data['etx_surf'] = em_raw['surf']['etx']
-data['id_surf'] = em_raw['surf']['id']
-data['obs_surf_dur'] = em_raw['surf']['obs']
-data['etx_surf_dur'] = em_raw['surf']['etx']
-data['id_surf_dur'] = em_raw['surf']['id']
-
-data['obs_sett'] = em_raw['sett']['obs']
-data['etx_sett'] = em_raw['sett']['etx']
-data['id_sett'] = em_raw['sett']['id']
-data['obs_sett_dur'] = em_raw['sett']['obs']
-data['etx_sett_dur'] = em_raw['sett']['etx']
-data['id_sett_dur'] = em_raw['sett']['id']
-
-data['obs_air'] = em_raw['air']['obs']
-data['etx_air_weekly'] = em_raw['air']['etx']
-data['id_air_weekly'] = em_raw['air']['id']
-data['obs_air_wk_of'] = em_raw['air']['obs']
-data['etx_air_wk_of'] = em_raw['air']['etx']
-data['id_air_wk_of'] = em_raw['air']['id']
-
-data['obs_room'] = em_raw['room']['obs']
-data['etx_room_weekly'] = em_raw['room']['etx']
-data['id_room_wk_of'] = em_raw['room']['id']
-data['obs_room_wk_of'] = em_raw['room']['obs']
-data['etx_room_wk_of'] = em_raw['room']['etx']
-
-def format_table_note(note_str):
-    if not note_str or str(note_str).strip().lower() in ['none', 'n/a', '']:
-        return 'None'
-    s = str(note_str).strip()
-    if s.endswith('.'):
-        s = s[:-1].strip()
-    if s:
-        s = s[0].upper() + s[1:]
-    return s
-
-# Notes extraction from EM raw data
-data['note_pers'] = format_table_note(em_raw['pers']['note'])
-data['note_surf'] = format_table_note(em_raw['surf']['note'])
-data['note_sett'] = format_table_note(em_raw['sett']['note'])
-data['note_air'] = format_table_note(em_raw['air']['note'])
-data['note_room'] = format_table_note(em_raw['room']['note'])
-data['note_surf_chg'] = data['note_surf']
-data['note_sett_chg'] = data['note_sett']
-
-
-# Dates & Initials
-clean_weekly_d = em_raw['air']['date'].replace(' ', '')
-try:
-    d_weekly_obj = datetime.strptime(clean_weekly_d, "%d%b%Y")
-    formatted_weekly_d = d_weekly_obj.strftime("%d%b%y")
-except:
-    formatted_weekly_d = clean_weekly_d
-
-data['date_weekly'] = formatted_weekly_d
-data['date_of_weekly'] = formatted_weekly_d
-data['weekly_init'] = em_raw['air']['analyst']
-data['weekly_initial'] = em_raw['air']['analyst']
-
-# Dynamic EM UI list in Session State
-data['em_growth_observed'] = "Yes"
-failures = []
-if data['obs_pers'].lower() != 'no growth':
-    failures.append({"cat": "personnel sampling (right touch)", "obs": data['obs_pers'], "etx": data['etx_pers'], "id": data['id_pers'], "time": "daily", "note": em_raw['pers']['note']})
-if data['obs_surf'].lower() != 'no growth':
-    failures.append({"cat": "surface sampling", "obs": data['obs_surf'], "etx": data['etx_surf'], "id": data['id_surf'], "time": "daily", "note": em_raw['surf']['note']})
-if data['obs_sett'].lower() != 'no growth':
-    failures.append({"cat": "settling plates", "obs": data['obs_sett'], "etx": data['etx_sett'], "id": data['id_sett'], "time": "daily", "note": em_raw['sett']['note']})
-if data['obs_air'].lower() != 'no growth':
-    failures.append({"cat": "weekly active air sampling", "obs": data['obs_air'], "etx": data['etx_air_weekly'], "id": data['id_air_weekly'], "time": "weekly", "note": em_raw['air']['note']})
-if data['obs_room'].lower() != 'no growth':
-    failures.append({"cat": "weekly surface sampling", "obs": data['obs_room'], "etx": data['etx_room_weekly'], "id": data['id_room_wk_of'], "time": "weekly", "note": em_raw['room']['note']})
-
-data['em_growth_count'] = len(failures)
-cat_map = {
-    "personnel sampling (right touch)": "Personnel Obs",
-    "surface sampling": "Surface Obs",
-    "settling plates": "Settling Obs",
-    "weekly active air sampling": "Weekly Air Obs",
-    "weekly surface sampling": "Weekly Surf Obs"
-}
-for i, f in enumerate(failures):
-    data[f'em_cat_{i}'] = cat_map.get(f['cat'], "")
-    data[f'em_obs_{i}'] = f['obs']
-    data[f'em_etx_{i}'] = f['etx']
-    data[f'em_id_{i}'] = f['id']
-
-# 4. Generate Equipment Text
-t_room, t_suite, t_suffix, t_loc = get_room_logic(data['bsc_id'])
-data['cr_id'] = t_room
-data['cr_suit'] = t_suite
-data['suit'] = t_suffix
-data['bsc_location'] = t_loc
+data['prepper_initial'] = 'EN'
+data['prepper_name'] = 'Elysse Nioupin'
+data['analyst_initial'] = 'SU'
+data['analyst_name'] = 'Sonal Uprety'
+data['changeover_initial'] = 'GA'
+data['changeover_name'] = 'Gerald Anyangwe'
+data['reader_initial'] = 'VV'
+data['reader_name'] = 'Varsha Subramanian'
+data['bsc_id'] = '1313'
+data['chgbsc_id'] = '1937'
+data['diff_changeover_analyst'] = 'Yes'
+data['diff_changeover_bsc'] = 'Yes'
 data['organism_morphology'] = 'Rod'
 data['control_positive'] = data.get('control_pos', 'A. brasiliensis')
 data['control_data'] = data.get('control_exp', '22May28')
 
-bsc_id = str(data.get('bsc_id', '')).strip()
-chgbsc_id = str(data.get('chgbsc_id', '')).strip()
-is_single_bsc = (not chgbsc_id or chgbsc_id == 'N/A' or bsc_id == chgbsc_id)
+# Room logic
+t_room, t_suite, t_suffix, t_loc = get_room_logic(data['bsc_id'])
+c_room, c_suite, c_suffix, c_loc = get_room_logic(data['chgbsc_id'])
+t_suite_phrase = f"Suite {t_suite}{t_suffix}" if t_suite != "L-Suite" else "L-Suite"
+c_suite_phrase = f"Suite {c_suite}{c_suffix}" if c_suite != "L-Suite" else "L-Suite"
 
-if is_single_bsc:
-    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id}"
-else:
-    data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{bsc_id} and E00{chgbsc_id}"
+data['cr_id'] = t_room
+data['cr_suit'] = t_suite
+data['suit'] = t_suffix
+data['bsc_location'] = t_loc
+data['smart_bsc_bracketing_header'] = f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{data['bsc_id']} and E00{data['chgbsc_id']}"
 
 d_obj = datetime.strptime(data['test_date'], "%d%b%y")
 tr_id = f"{d_obj.strftime('%m%d%y')}-{data['scan_id']}-{data['shift_number']}"
 pdf_date_str = d_obj.strftime("%d-%b-%Y")
 data['test_record'] = tr_id
 
-part1 = get_cleanroom_narrative(t_suite, action_text="testing and changeover procedures", verb="comprises")
-part2 = f"The ISO 5 BSC E00{data['bsc_id']}, located in the {t_loc}, (Suite {t_suite}{t_suffix}), was used for both testing and changeover steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{data['bsc_id']} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing and changeover were conducted in the ISO 5 BSC E00{data['bsc_id']} in the {t_loc}, (Suite {t_suite}{t_suffix}) by {data['analyst_name']} on {data['test_date']}."
-data['equipment_summary'] = f"{part1}\n\n{part2}"
+# 3. Cleanroom and Equipment Narrative (Dual-Suite / Dual-BSC with MICRO-SOP-9)
+p1a = get_cleanroom_narrative(t_suite, t_room=t_room, action_text="testing", verb="consists of")
+p1b = get_cleanroom_narrative(c_suite, t_room=c_room, action_text="changeover", verb="consists of")
+intro = (
+    f"The ISO 5 BSC E00{data['bsc_id']}, located in the {t_loc}, ({t_suite_phrase}), and "
+    f"ISO 5 BSC E00{data['chgbsc_id']}, located in the {c_loc}, ({c_suite_phrase}), were thoroughly cleaned and "
+    "disinfected prior to their respective procedures in accordance with MICRO-SOP-9, Cleaning and Disinfecting Procedure "
+    f"for Microbiology. Furthermore, the BSCs used throughout testing, E00{data['bsc_id']} for sample processing and "
+    f"E00{data['chgbsc_id']} for the changeover step, were certified and approved by both the Engineering and Quality Assurance teams."
+)
+usage_sent = (
+    f"Sample processing was conducted within the ISO 5 BSC in the {t_loc} ({t_suite_phrase}, BSC E00{data['bsc_id']}) "
+    f"by {data['analyst_name']} and the changeover step was conducted within the ISO 5 BSC in the {c_loc} "
+    f"({c_suite_phrase}, BSC E00{data['chgbsc_id']}) by {data['changeover_name']} on {data['test_date']}."
+)
+data['equipment_summary'] = f"{p1a}\n\n{p1b}\n\n{intro} {usage_sent}"
+
+# 4. Personnel block & interview
+names_only_phrase = "Elysse Nioupin, Sonal Uprety, Gerald Anyangwe, and Varsha Subramanian"
+analysts_with_prefix_phrase = f"analysts {names_only_phrase}"
+smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
+data['smart_comment_interview'] = smart_comment_interview
+
+analyst_sig_text = f"{data['analyst_name']} (Written by: Qiyue Chen)"
+smart_personnel_block = (
+    f"Prepper: \n{data['prepper_name']} ({data['prepper_initial']})\n\n"
+    f"Processor:\n{data['analyst_name']} ({data['analyst_initial']})\n\n"
+    f"Changeover Processor:\n{data['changeover_name']} ({data['changeover_initial']})\n\n"
+    f"Reader:\n{data['reader_name']} ({data['reader_initial']})"
+)
+smart_incident_opening = f"On {data['test_date']}, sample {data['sample_id']} was found positive for viable microorganisms after ScanRDI testing."
+smart_comment_samples = f"Yes, {data['sample_id']}"
+smart_comment_records = f"Yes, See {tr_id} for more information."
+smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {data['sample_id']}"
+
+p1 = f"All analysts involved in the prepping, processing, changeover, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document."
+p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {data['prepper_name']} and {data['analyst_name']} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
+p4 = (
+    f"During the preparation phase, {data['prepper_name']} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. "
+    f"On {data['test_date']}, prior to sample processing, {data['analyst_name']} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes "
+    "before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the "
+    f"ISO 5 Biological Safety Cabinet (BSC), E00{data['bsc_id']}, located within the {t_loc}, ({t_suite_phrase}). All activities were performed in accordance with "
+    "MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
+)
+p5 = data['equipment_summary']
+p6 = (
+    f"The analyst, {data['reader_name']}, confirmed that the equipment was set up as per ENG-SOP-4 "
+    "(Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control "
+    f"and the positive control for the analyst, {data['reader_name']}, yielded expected results."
+)
+smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
+data['smart_phase1_part1'] = smart_phase1_part1
+data['smart_phase1_summary'] = smart_phase1_part1
 
 # 5. History & Cross-Contamination
 data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
 data['cross_contamination_summary'] = "To evaluate the potential for sample-to-sample contamination, all samples processed on the same day were reviewed. All other samples processed by the same analyst and by other analysts on that day yielded negative results, indicating that cross-contamination is unlikely."
 
-# 6. Narrative & EM Details + FDA-Aligned cGMP Defense Engine (QYC Final Gold Standard)
+# 6. FDA-Aligned cGMP Defense Engine & EM Details (Dual-BSC & Dual-Suite)
 p_transposition_1 = (
     f"During the OOS investigation and subsequent review of the testing records, a result-transposition event was identified "
     f"involving {data['sample_id']} and ETX-260804-0101. Processing Analyst SU completed ScanRDI sterility testing for sample "
@@ -191,36 +141,62 @@ p_transposition_2 = (
     f"evaluate potential laboratory sources of the microbial recovery for {data['sample_id']}."
 )
 
-p_em_intro = f"Upon review of the environmental monitoring data associated with the sterility test, no microbial growth was recovered from any of the four ISO 5 work-surface monitoring locations within BSC E00{data['bsc_id']} on the date of testing. Low-level microbial recoveries were identified from personnel and settling-plate monitoring performed in association with testing, as well as from routine weekly monitoring of the surrounding cleanroom areas."
+p_em_intro = (
+    f"Upon review of the environmental monitoring data associated with the sterility test, no microbial growth was recovered from "
+    f"any of the four ISO 5 work-surface monitoring locations within BSC E00{data['bsc_id']} (Suite 115A) or "
+    f"BSC E00{data['chgbsc_id']} (L-Suite Room 144) on the date of testing. In addition, no microbial growth was observed on the "
+    f"changeover personnel monitoring (analyst {data['changeover_name']}) or settling plates within BSC E00{data['chgbsc_id']}. "
+    f"Low-level microbial recoveries were identified from processing personnel and settling-plate monitoring within BSC E00{data['bsc_id']}, "
+    "as well as from routine weekly monitoring of the surrounding cleanroom areas."
+)
 
-p_personnel = "One CFU was recovered from the analyst’s right-hand touch plate and submitted for microbial identification under sample ID ETX-260817-0447. The isolate was identified as Micrococcus luteus. This recovery was not microbiologically consistent with the organism observed in the test sample: Micrococcus luteus is coccal in morphology, whereas the microorganism recovered from the test sample exhibited rod-shaped morphology. Accordingly, the personnel monitoring result does not support direct transfer of the recovered right-glove organism to the test sample."
+p_personnel = (
+    "One CFU was recovered from Processing Analyst SU's right-hand touch plate and submitted for microbial identification "
+    "under sample ID ETX-260817-0447. The isolate was identified as Micrococcus luteus. This recovery was not microbiologically "
+    "consistent with the organism observed in the test sample: Micrococcus luteus is coccal in morphology, whereas the microorganism "
+    "recovered from the test sample exhibited rod-shaped morphology. Accordingly, the personnel monitoring result does not support "
+    "direct transfer of the recovered right-glove organism to the test sample. In contrast, personnel monitoring for Changeover Analyst GA "
+    "yielded no microbial growth."
+)
 
-p_settling = f"Two CFUs were also recovered from settling plate Sett 2 and submitted for differential staining under sample ID ETX-260817-0507. The organisms were characterized as Gram-positive rods; however, definitive identification could not be obtained because the plate was documented as desiccated at the 5-day read. Therefore, an organism-level microbiological match between the settling-plate recovery and the test-sample isolate could not be established. This finding was evaluated in conjunction with the remaining contemporaneous environmental monitoring data, including the absence of microbial recovery from all four ISO 5 work surfaces within BSC E00{data['bsc_id']}."
+p_settling = (
+    f"Two CFUs were also recovered from settling plate Sett 1 within BSC E00{data['bsc_id']} and submitted for differential staining "
+    "under sample ID ETX-260817-0507. The organisms were characterized as Gram-positive rods; however, definitive identification "
+    "could not be obtained because the plate was documented as desiccated at the 5-day read. Therefore, an organism-level microbiological "
+    "match between the settling-plate recovery and the test-sample isolate could not be established. Settling plates within changeover "
+    f"BSC E00{data['chgbsc_id']} yielded no growth. This finding was evaluated in conjunction with the remaining contemporaneous "
+    f"environmental monitoring data, including the complete absence of microbial recovery from all ISO 5 work surfaces within both "
+    f"BSC E00{data['bsc_id']} and BSC E00{data['chgbsc_id']}."
+)
 
-p_weekly = f"Routine weekly facility monitoring during the week of testing additionally recovered 1 CFU of Gram-positive short rods from active air monitoring in ISO 8 Cleanroom 115 (ETX-260817-0370) and 2 CFUs identified as Bacillus megaterium from the floor of ISO 7 Suite 115A (ETX-260817-0366). These recoveries occurred in lower-classified background areas physically separated from the critical ISO 5 testing zone. Sample manipulation was performed within BSC E00{data['bsc_id']}, and samples were transported into the testing area in disinfected, lidded containers. No corresponding microbial recovery was observed from the ISO 5 work surfaces within the BSC that would support transfer of contamination from these surrounding areas into the critical testing environment."
+p_weekly = (
+    "Routine weekly facility monitoring during the week of testing recovered 1 CFU of Gram-positive short rods from active air "
+    "monitoring in ISO 8 Cleanroom 115 (ETX-260817-0370) and 2 CFUs identified as Bacillus megaterium from the floor of ISO 7 "
+    "Suite 115A (ETX-260817-0366). In the L-Suite, routine weekly surface sampling of cleanroom Room 144 (CR1978) yielded no microbial "
+    "growth, while active air monitoring recovered typical human-associated flora (Staphylococcus, Micrococcus, Corynebacterium spp.) "
+    "strictly confined to lower-classified background areas (ISO 8 anteroom 143 and outer room 142). All of these recoveries occurred "
+    "in lower-classified background areas physically separated from the critical ISO 5 testing zones. Furthermore, the positive pressure cascade "
+    "(flowing outwards from ISO 7 rooms 145 and 144 toward ISO 8 rooms 143 and 142) and the transfer of samples in disinfected, closed containers "
+    "provide robust barriers preventing ingress of airborne contaminants into the ISO 5 work areas. The complete absence of microbial recovery "
+    "on all ISO 5 critical surfaces within both BSCs further demonstrates that environmental controls effectively prevented transfer into the "
+    "critical testing zone."
+)
 
-p_monthly = f"Monthly cleaning and disinfection, using H2O2, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5) were performed on {data['monthly_cleaning_date']}, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H2O2 indicators passed."
+p_monthly = (
+    f"Monthly cleaning and disinfection, using H2O2, of the cleanrooms (ISO 7) and their containing Biosafety Cabinets (BSCs, ISO 5) "
+    f"were performed on {data['monthly_cleaning_date']}, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. "
+    "It was documented that all H2O2 indicators passed."
+)
 
 p_history = data['sample_history_paragraph']
-
 p_cross = data['cross_contamination_summary']
-
 p_conclusion = (
     "Based on the cumulative evidence, it is highly unlikely that the failing results were due to reagents, supplies, "
     "the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error "
     "contributing to this failure is minimal. Therefore, the original test result is deemed valid."
 )
 
-# Table 3 fields for other positives
-data['oos1_analyst_name'] = data['analyst_name']
-data['oos1_sample_id'] = data['sample_id']
-data['oos1_sample_name'] = data['sample_name']
-data['oos1_organism_morphology'] = data['organism_morphology']
-
-# Paragraphs for Form 3.100.019.F01
-suffix = "microorganism" if str(data.get('confirm_number','1')).strip() == "1" else "microorganisms"
-org_lower = str(data.get('organism_morphology', 'rod')).strip().lower()
-p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} {org_lower}-shaped viable {suffix}, see Table 1."
+p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} rod-shaped viable microorganisms, see Table 1."
 p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {data['sample_id']}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30–35°C and for no less than an additional five days at 20–25°C, as per SOP 2.600.002, Environmental Monitoring of the Clean-room Facility."
 
 smart_phase1_part2_page5 = "\r \r".join([
@@ -255,58 +231,12 @@ smart_phase1_part2 = "\n\n".join([
     p_cross,
     p_conclusion
 ])
+
 data['narrative_summary'] = smart_phase1_part2
 data['smart_justification'] = p_conclusion
 data['smart_phase1_part2'] = smart_phase1_part2
-
-data['Text Field50'] = smart_phase1_part2
-
-# Collect and deduplicate all analyst names
-analysts_raw = [
-    data.get("prepper_name", ""),
-    data.get("analyst_name", ""),
-    data.get("changeover_name", ""),
-    data.get("reader_name", "")
-]
-analysts_clean = [str(x).strip() for x in analysts_raw if str(x).strip() and str(x).strip() != "N/A"]
-analysts_unique = list(dict.fromkeys(analysts_clean))
-
-if not analysts_unique:
-    names_only_phrase = "N/A"
-    analysts_with_prefix_phrase = "the analysts"
-elif len(analysts_unique) == 1:
-    names_only_phrase = analysts_unique[0]
-    analysts_with_prefix_phrase = f"analyst {analysts_unique[0]}"
-elif len(analysts_unique) == 2:
-    names_only_phrase = f"{analysts_unique[0]} and {analysts_unique[1]}"
-    analysts_with_prefix_phrase = f"analysts {analysts_unique[0]} and {analysts_unique[1]}"
-else:
-    names_only_phrase = ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
-    analysts_with_prefix_phrase = "analysts " + ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
-
-smart_comment_interview = f"Yes, {analysts_with_prefix_phrase} were interviewed comprehensively."
-data['smart_comment_interview'] = smart_comment_interview
-
-# Form Phase 1 Part 1
-analyst_sig_text = f"{data['analyst_name']} (Written by: Qiyue Chen)"
-smart_personnel_block = f"Prepper: \n{data['prepper_name']} ({data['prepper_initial']})\n\nProcessor:\n{data['analyst_name']} ({data['analyst_initial']})\n\nChangeover\nProcessor:\n{data['changeover_name']} ({data['changeover_initial']})\n\nReader:\n{data['reader_name']} ({data['reader_initial']})"
-smart_incident_opening = f"On {data['test_date']}, sample {data['sample_id']} was found positive for viable microorganisms after ScanRDI testing."
-smart_comment_samples = f"Yes, {data['sample_id']}"
-smart_comment_records = f"Yes, See {tr_id} for more information."
-smart_comment_storage = f"Yes, Information is available in Eagle Trax Sample Location History under {data['sample_id']}"
-
-p1 = f"All analysts involved in the prepping, processing, and reading of the samples – {names_only_phrase} – were interviewed and their answers are recorded throughout this document."
-p2 = f"The sample was stored upon arrival according to the Client’s instructions. Analysts {data['prepper_name']} and {data['analyst_name']} confirmed the integrity of the samples throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
-p3 = "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates."
-p4 = f"During the preparation phase, {data['prepper_name']} disinfected the samples using acidified bleach and placed them into a pre-disinfected storage bin. On {data['test_date']}, prior to sample processing, {data['analyst_name']} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step was completed immediately before the samples were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{data['bsc_id']}, located within the {t_loc}, (Suite {t_suite}{t_suffix}), All activities were performed in accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
-p5 = data['equipment_summary']
-p6 = f"The analyst, {data['reader_name']}, confirmed that the equipment was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup) and Maintenance), and the negative control and the positive control for the analyst, {data['reader_name']}, yielded expected results."
-smart_phase1_part1 = "\n\n".join([p1, p2, p3, p4, p5, p6])
-
-data['smart_phase1_part1'] = smart_phase1_part1
-data['smart_phase1_summary'] = smart_phase1_part1
 data['smart_phase1_continued'] = smart_phase1_part2
-data['smart_cr_id'] = f"CR{t_suite} (E00{t_room})"
+data['smart_cr_id'] = f"CR{t_suite} (E00{t_room}) & CR{c_room} (L-Suite)"
 data['smart_scan_id'] = f"E00{data['scan_id']}"
 data['analyst_signature'] = analyst_sig_text
 data['report_header'] = f"{data['sample_id']}\n\n{data['client_name']}"
@@ -322,41 +252,7 @@ with open(out_json_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 print("Saved updated JSON state to:", out_json_path)
 
-prior_count = int(data.get('incidence_count', 0) or 0)
-has_more_than_3_prior = (prior_count > 3) or (len(data.get('other_positives', [])) > 3)
-
-def clean_em_table_rows(doc_obj):
-    for t in doc_obj.docx.tables:
-        if len(t.rows) >= 11 and ('Environmental Monitoring (EM)' in t.rows[0].cells[0].text or 'Biological Safety Cabinet' in t.rows[3].cells[0].text):
-            for row in t.rows:
-                if len(row.cells) >= 14:
-                    row.cells[13].width = 1014090
-                    for p in row.cells[13].paragraphs:
-                        for r in p.runs:
-                            if 'plate was desiccated' in r.text.lower():
-                                r.text = r.text.replace('plate was desiccated on 5 day read.', 'Plate was desiccated on 5 day read').replace('plate was desiccated on 5 day read', 'Plate was desiccated on 5 day read')
-            if is_single_bsc and len(t.rows) >= 13:
-                t._tbl.remove(t.rows[7]._tr)
-                t._tbl.remove(t.rows[5]._tr)
-
-
-def handle_trend_table(doc_obj, is_standalone_tables=False):
-    if not has_more_than_3_prior:
-        for p in list(doc_obj.docx.paragraphs):
-            if 'In Trend of Past OOS Results' in p.text:
-                p._element.getparent().remove(p._element)
-        if is_standalone_tables:
-            if len(doc_obj.docx.tables) >= 3:
-                t = doc_obj.docx.tables[2]
-                t._element.getparent().remove(t._element)
-        else:
-            if len(doc_obj.docx.tables) >= 4:
-                t = doc_obj.docx.tables[3]
-                t._element.getparent().remove(t._element)
-
-from docx.oxml import parse_xml
-from docx.opc.constants import RELATIONSHIP_TYPE
-
+# 7. Helper functions for docx formatting
 def set_cell_hyperlink(cell, url, text):
     cell.text = ''
     p = cell.paragraphs[0]
@@ -382,30 +278,155 @@ def set_cell_hyperlink(cell, url, text):
     )
     p._p.append(parse_xml(hyperlink_xml))
 
-# Render Word Report (Target primary template: ScanRDI OOS P1 template.docx)
+def update_cell_text(cell, text, bold=False, italic=False, font_size=Pt(7)):
+    cell.text = ''
+    p = cell.paragraphs[0]
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(0)
+    p.paragraph_format.line_spacing = 1.0
+    run = p.add_run(text)
+    run.font.name = 'Times New Roman'
+    run.font.size = font_size
+    run.font.bold = bold
+    run.font.italic = italic
+
+def build_corrected_em_table_element():
+    doc_raw_em = docx.Document(EM_DOCX_FILE)
+    t = doc_raw_em.tables[0]
+    
+    update_cell_text(t.rows[0].cells[2], 'Date (DDMMM YY)', bold=True, font_size=Pt(6))
+    
+    # SU Personal
+    update_cell_text(t.rows[2].cells[2], '07Aug26')
+    update_cell_text(t.rows[2].cells[8], 'Plate was desiccated on 5 day read')
+    
+    # GA Personal
+    update_cell_text(t.rows[3].cells[2], '07Aug26')
+    
+    # BSC Header
+    update_cell_text(t.rows[4].cells[0], 'Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E001313 and E001937', bold=True, font_size=Pt(7))
+    
+    # SU Surface BSC 1313
+    update_cell_text(t.rows[5].cells[0], 'Surface Sampling of ISO 5 E001313 (4 locations)')
+    update_cell_text(t.rows[5].cells[2], '07Aug26')
+    
+    # GA Surface BSC 1937
+    update_cell_text(t.rows[6].cells[0], 'Surface Sampling of ISO 5 E001937 (4 locations)')
+    update_cell_text(t.rows[6].cells[2], '07Aug26')
+    
+    # SU Settling BSC 1313
+    update_cell_text(t.rows[7].cells[0], 'Settling Sampling of ISO 5 E001313 (2 locations)')
+    update_cell_text(t.rows[7].cells[2], '07Aug26')
+    update_cell_text(t.rows[7].cells[7], 'Insufficient read Gram (+) rods')
+    update_cell_text(t.rows[7].cells[8], 'Plate was desiccated on 5 day read')
+    
+    # GA Settling BSC 1937
+    update_cell_text(t.rows[8].cells[0], 'Settling Sampling of ISO 5 E001937 (2 locations)')
+    update_cell_text(t.rows[8].cells[2], '07Aug26')
+    
+    # Header Suite 115 Air
+    update_cell_text(t.rows[9].cells[0], 'Weekly Active Air Sampling Bracketing - Cleanroom 115 - CR1737', bold=True, font_size=Pt(7))
+    
+    # Suite 115 Air
+    update_cell_text(t.rows[10].cells[2], '06Aug26')
+    
+    # Header L-Suite Air
+    update_cell_text(t.rows[11].cells[0], 'Weekly Active Air Sampling Bracketing - Cleanroom 144 - CR1978 (L-Suite)', bold=True, font_size=Pt(7))
+    
+    # L-Suite Air
+    update_cell_text(t.rows[12].cells[2], '07Aug26')
+    
+    # Header Suite 115 Surface
+    update_cell_text(t.rows[13].cells[0], 'Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 115 - CR1737', bold=True, font_size=Pt(7))
+    
+    # Suite 115 Surface
+    update_cell_text(t.rows[14].cells[2], '06Aug26')
+    
+    # Header L-Suite Surface (Corrected title)
+    update_cell_text(t.rows[15].cells[0], 'Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 144 - CR1978 (L-Suite)', bold=True, font_size=Pt(7))
+    
+    # L-Suite Surface
+    update_cell_text(t.rows[16].cells[2], '07Aug26')
+    
+    return copy.deepcopy(t._element)
+
+# 8. Render Standalone Tables Document
+out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
+doc_tables = docx.Document("tables for scan.docx")
+
+# Remove Table 2 (trend table)
+if len(doc_tables.tables) >= 3:
+    t_trend = doc_tables.tables[2]._element
+    t_trend.getparent().remove(t_trend)
+for p in list(doc_tables.paragraphs):
+    if 'In Trend of Past OOS Results' in p.text:
+        p._element.getparent().remove(p._element)
+
+# Fill Table 0 (Sample Information)
+t0 = doc_tables.tables[0]
+update_cell_text(t0.rows[1].cells[0], data['analyst_name'], font_size=Pt(8))
+update_cell_text(t0.rows[1].cells[1], data['reader_name'], font_size=Pt(8))
+set_cell_hyperlink(t0.rows[1].cells[2], data['sample_url'], data['sample_id'])
+update_cell_text(t0.rows[1].cells[3], str(data.get('event_number', '187')), font_size=Pt(8))
+update_cell_text(t0.rows[1].cells[4], str(data.get('confirm_number', '4')), font_size=Pt(8))
+update_cell_text(t0.rows[1].cells[5], f"{data['organism_morphology']}-shaped Morphology", font_size=Pt(8))
+
+# Replace Table 1 with the 17-row EM table
+t1_old = doc_tables.tables[1]._element
+t1_parent = t1_old.getparent()
+idx1 = t1_parent.index(t1_old)
+t1_parent.remove(t1_old)
+t_new_em = build_corrected_em_table_element()
+t1_parent.insert(idx1, t_new_em)
+
+doc_tables.save(out_doc_tables)
+print("Saved Standalone Tables Docx to:", out_doc_tables)
+
+# 9. Export Standalone Tables Docx to PDF via Word COM
+out_pdf_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
+word = win32com.client.DispatchEx("Word.Application")
+word.Visible = False
+try:
+    d = word.Documents.Open(os.path.abspath(out_doc_tables), ReadOnly=True)
+    d.SaveAs(os.path.abspath(out_pdf_tables), FileFormat=17)
+    d.Close(SaveChanges=False)
+    print("Saved Standalone Tables PDF via Word to:", out_pdf_tables)
+finally:
+    word.Quit()
+
+r_check = PdfReader(out_pdf_tables)
+print(f"Verified Tables PDF Page Count: {len(r_check.pages)}")
+
+# 10. Render Master Word Report (ScanRDI OOS P1 template.docx)
 primary_tpl = "ScanRDI OOS P1 template.docx" if os.path.exists("ScanRDI OOS P1 template.docx") else "ScanRDI OOS template 0.docx"
 tpl_report = DocxTemplate(primary_tpl)
 tpl_report.render(data)
-clean_em_table_rows(tpl_report)
-handle_trend_table(tpl_report, is_standalone_tables=False)
-if data.get('sample_url') and len(tpl_report.docx.tables) >= 2:
+
+# Remove Table 3 (trend table)
+if len(tpl_report.docx.tables) >= 4:
+    t3 = tpl_report.docx.tables[3]._element
+    t3.getparent().remove(t3)
+for p in list(tpl_report.docx.paragraphs):
+    if 'In Trend of Past OOS Results' in p.text:
+        p._element.getparent().remove(p._element)
+
+# In Table 1: set hyperlink on Sample ID
+if len(tpl_report.docx.tables) >= 2:
     set_cell_hyperlink(tpl_report.docx.tables[1].rows[1].cells[2], data['sample_url'], data['sample_id'])
+
+# In Table 2: replace with the 17-row EM table
+if len(tpl_report.docx.tables) >= 3:
+    t2_rep = tpl_report.docx.tables[2]._element
+    t2_parent = t2_rep.getparent()
+    idx2 = t2_parent.index(t2_rep)
+    t2_parent.remove(t2_rep)
+    t2_parent.insert(idx2, build_corrected_em_table_element())
+
 out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
 tpl_report.save(out_doc_report)
-print(f"Saved Word Report (using {primary_tpl}) to: {out_doc_report}")
+print(f"Saved Master Word Report to: {out_doc_report}")
 
-# Render Word Tables
-tpl_tables = DocxTemplate("tables for scan.docx")
-tpl_tables.render(data)
-clean_em_table_rows(tpl_tables)
-handle_trend_table(tpl_tables, is_standalone_tables=True)
-if data.get('sample_url') and len(tpl_tables.docx.tables) >= 1:
-    set_cell_hyperlink(tpl_tables.docx.tables[0].rows[1].cells[2], data['sample_url'], data['sample_id'])
-out_doc_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.docx")
-tpl_tables.save(out_doc_tables)
-print("Saved Word Tables to:", out_doc_tables)
-
-
+# 11. Populate CORP-FORM-21 PDF and Append Page 7 Tables PDF
 pdf_map = {
     'Text Field57': data['oos_id'],
     'Date Field0': pdf_date_str,
@@ -429,7 +450,7 @@ pdf_map = {
     'Text Field17': smart_comment_records,
     'Text Field21': smart_comment_storage,
     'Text Field30': f"E00{data['scan_id']}",
-    'Text Field32': f"E00{t_room} (CR{t_suite})",
+    'Text Field32': f"E001737 (CR115) & E001978 (L-Suite)",
     'Text Field34': f"E00{data['scan_id']}",
     'Text Field24': data['control_pos'],
     'Text Field25': data['control_lot'] + "\n\n\n",
@@ -440,41 +461,23 @@ pdf_map = {
     'Text Field51': smart_phase1_part2_page6
 }
 
-
-# Export Tables Docx to PDF via Word COM
-out_pdf_tables = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - ScanRDI.pdf")
-try:
-    import win32com.client
-    word = win32com.client.DispatchEx("Word.Application")
-    word.Visible = False
-    doc = word.Documents.Open(os.path.abspath(out_doc_tables), ReadOnly=True)
-    doc.SaveAs(os.path.abspath(out_pdf_tables), FileFormat=17)
-    doc.Close(SaveChanges=False)
-    word.Quit()
-    print("Saved Tables PDF via Word to:", out_pdf_tables)
-except Exception as e:
-    print(f"Error exporting tables to PDF via Word: {e}")
-
-# Transcribe into freshly downloaded CORP-FORM-21 and append Tables PDF
-CORP_FORM_DOWNLOADED = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf"
-base_pdf_source = CORP_FORM_DOWNLOADED if os.path.exists(CORP_FORM_DOWNLOADED) else "ScanRDI OOS template.pdf"
-print(f"Using base PDF form: {base_pdf_source}")
-
-# Extract boilerplate from template to ensure all checkboxes and lab meta are populated
+# Pull prefilled boilerplate checkboxes and fields from QYC.pdf / template
 prefilled_boilerplate = {}
-if os.path.exists("ScanRDI OOS template.pdf"):
-    reader_tpl = PdfReader("ScanRDI OOS template.pdf")
-    fields_tpl = reader_tpl.get_fields()
-    if fields_tpl:
-        prefilled_boilerplate = {k: v.get('/V') for k, v in fields_tpl.items() if v.get('/V') is not None}
+source_prefill = QYC_PDF_PATH if os.path.exists(QYC_PDF_PATH) else "ScanRDI OOS template.pdf"
+if os.path.exists(source_prefill):
+    reader_pre = PdfReader(source_prefill)
+    fields_pre = reader_pre.get_fields()
+    if fields_pre:
+        prefilled_boilerplate = {k: v.get('/V') for k, v in fields_pre.items() if v.get('/V') is not None}
 
 combined_pdf_map = {**prefilled_boilerplate, **pdf_map}
 
+base_pdf_source = CORP_FORM_DOWNLOADED if os.path.exists(CORP_FORM_DOWNLOADED) else source_prefill
 writer = PdfWriter(clone_from=base_pdf_source)
 for p in writer.pages:
     writer.update_page_form_field_values(p, combined_pdf_map)
 
-# Append Tables PDF page(s) to the end of the form
+# Append Tables PDF as Page 7
 if os.path.exists(out_pdf_tables):
     table_reader = PdfReader(out_pdf_tables)
     for table_page in table_reader.pages:
@@ -486,9 +489,7 @@ with open(out_pdf_report, "wb") as f:
     writer.write(f)
 print("Saved complete 7-Page PDF Report to:", out_pdf_report)
 
-# Deploy / Sync generated files to Documents directory
-DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
-import shutil
+# 12. Deploy / Sync all outputs to Documents directory
 files_to_sync = [
     out_doc_report,
     out_doc_tables,
@@ -507,7 +508,4 @@ for fpath in files_to_sync:
         except Exception as e:
             print(f"Warning: Could not sync {fpath} to {dest}: {e}")
 
-
 print("\n--- ALL GENERATION AND DEPLOYMENT COMPLETED SUCCESSFULLY! ---")
-
-
