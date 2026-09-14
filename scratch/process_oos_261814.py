@@ -10,12 +10,19 @@ from datetime import datetime
 import win32com.client
 from utils import get_room_logic, get_cleanroom_narrative, ordinal, num_to_words, get_full_name
 
-SAVE_FILE = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\SAVE_OOS-261814 GoGoMeds Select (E10747) - ScanRDI.txt"
-EM_DOCX_FILE = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\EM Table OOS-261814 07AUG2026.docx"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 OUTPUT_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\scratch"
+
+SAVE_FILE_PRIMARY = os.path.join(DOCUMENTS_DIR, "SAVE_OOS-261814 GoGoMeds Select (E10747) - ScanRDI.txt")
+SAVE_FILE_SCRATCH = os.path.join(OUTPUT_DIR, "UPDATED_SAVE_OOS-261814 GoGoMeds Select (E10747) - ScanRDI.txt")
+SAVE_FILE = SAVE_FILE_PRIMARY if os.path.exists(SAVE_FILE_PRIMARY) else SAVE_FILE_SCRATCH
+
+EM_DOCX_PRIMARY = os.path.join(DOCUMENTS_DIR, "EM Table OOS-261814 07AUG2026.docx")
+EM_DOCX_SCRATCH = os.path.join(OUTPUT_DIR, "test_tables_perfect.docx")
+EM_DOCX_FILE = EM_DOCX_PRIMARY if os.path.exists(EM_DOCX_PRIMARY) else EM_DOCX_SCRATCH
+
 QYC_PDF_PATH = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\OOS-261814 GoGoMeds Select (E10747) - ScanRDI - QYC.pdf"
-CORP_FORM_DOWNLOADED = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf"
+CORP_FORM_DOWNLOADED = os.path.join(DOCUMENTS_DIR, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf")
 
 # 1. Load base save
 with open(SAVE_FILE, "r", encoding="utf-8") as f:
@@ -58,7 +65,7 @@ data['test_record'] = tr_id
 
 # 3. Cleanroom and Equipment Narrative (Dual-Suite / Dual-BSC with MICRO-SOP-9)
 p1a = get_cleanroom_narrative(t_suite, t_room=t_room, action_text="testing", verb="consists of")
-p1b = get_cleanroom_narrative(c_suite, t_room=c_room, action_text="changeover", verb="consists of")
+p1b = get_cleanroom_narrative(c_suite, t_room=None, action_text="changeover", verb="consists of")
 intro = (
     f"The ISO 5 BSC E00{data['bsc_id']}, located in the {t_loc}, ({t_suite_phrase}), and "
     f"ISO 5 BSC E00{data['chgbsc_id']}, located in the {c_loc}, ({c_suite_phrase}), were thoroughly cleaned and "
@@ -115,19 +122,19 @@ data['smart_phase1_summary'] = smart_phase1_part1
 data['sample_history_paragraph'] = f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using the Scan RDI method during this period."
 data['cross_contamination_summary'] = "To evaluate the potential for sample-to-sample contamination, all samples processed on the same day were reviewed. All other samples processed by the same analyst and by other analysts on that day yielded negative results, indicating that cross-contamination is unlikely."
 
-# 6. FDA-Aligned cGMP Defense Engine & EM Details (Dual-BSC & Dual-Suite with Fungal ID Defense)
+# 6. FDA-Aligned cGMP Defense Engine & EM Details (Section D: Strict Full Names & Correct Capitalization)
 p_transposition_1 = (
     f"During the OOS investigation and subsequent review of the testing records, a result-transposition event was identified "
-    f"involving {data['sample_id']} and ETX-260804-0101. Processing Analyst SU completed ScanRDI sterility testing for sample "
+    f"involving {data['sample_id']} and ETX-260804-0101. Processing analyst {data['analyst_name']} completed ScanRDI sterility testing for sample "
     f"ETX-260804-0101, associated with DCA Pharmacy (E12860), and sample {data['sample_id']}, associated with {data['client_name']}, "
     "in accordance with MICRO-SOP-12, ScanRDI Sterility Testing Process. During sample reading and result verification using "
-    "the ScanRDI instrument, Second Shift Reading Analyst VV determined that ETX-260804-0101 met the established acceptance "
+    f"the ScanRDI instrument, second shift reading analyst {data['reader_name']} determined that ETX-260804-0101 met the established acceptance "
     f"criteria and generated a passing result, whereas {data['sample_id']} generated a failing result. During subsequent result "
-    "entry, Analyst VV inadvertently transposed the results between the two samples. As a result, the passing result generated "
+    f"entry, analyst {data['reader_name']} inadvertently transposed the results between the two samples. As a result, the passing result generated "
     f"for ETX-260804-0101 was incorrectly assigned to {data['sample_id']}, while the failing result generated for {data['sample_id']} "
-    "was incorrectly assigned to ETX-260804-0101. During the subsequent data review, reviewer OA did not identify the result "
+    "was incorrectly assigned to ETX-260804-0101. During the subsequent data review, reviewer Olugbenga Ajayi did not identify the result "
     "transposition and approved the incorrectly assigned failing result for ETX-260804-0101. Consequently, ETX-260804-0101, "
-    "which had actually met the acceptance criteria, was placed on hold pending an Out-of-Specification (OOS) investigation."
+    "which had actually met the acceptance criteria, was placed on hold pending an investigation."
 )
 
 p_transposition_2 = (
@@ -143,26 +150,26 @@ p_transposition_2 = (
 
 p_em_intro = (
     f"Upon review of the environmental monitoring data associated with the sterility test, no microbial growth was recovered from "
-    f"any of the four ISO 5 work-surface monitoring locations within BSC E00{data['bsc_id']} (Suite 115A) or "
+    f"any of the four ISO 5 work surface monitoring locations within BSC E00{data['bsc_id']} (Suite 115A) or "
     f"BSC E00{data['chgbsc_id']} (L-Suite Room 144) on the date of testing. In addition, no microbial growth was observed on the "
     f"changeover personnel monitoring (analyst {data['changeover_name']}) or settling plates within BSC E00{data['chgbsc_id']}. "
-    f"Low-level microbial recoveries were identified from processing personnel and settling-plate monitoring within BSC E00{data['bsc_id']}, "
+    f"Low level microbial recoveries were identified from processing personnel and settling-plate monitoring within BSC E00{data['bsc_id']}, "
     "as well as from routine weekly monitoring of the surrounding cleanroom areas."
 )
 
 p_personnel = (
-    "One CFU was recovered from Processing Analyst SU's right-hand touch plate and submitted for microbial identification "
+    f"One CFU was recovered from processing analyst {data['analyst_name']}'s right-hand touch plate and submitted for microbial identification "
     "under sample ID ETX-260817-0447. The isolate was identified as Micrococcus luteus. This recovery was not microbiologically "
     "consistent with the organism observed in the test sample: Micrococcus luteus is coccal in morphology, whereas the microorganism "
     "recovered from the test sample exhibited rod-shaped morphology. Accordingly, the personnel monitoring result does not support "
-    "direct transfer of the recovered right-glove organism to the test sample. In contrast, personnel monitoring for Changeover Analyst GA "
+    f"direct transfer of the recovered right-glove organism to the test sample. In contrast, personnel monitoring for changeover analyst {data['changeover_name']} "
     "yielded no microbial growth."
 )
 
 p_settling = (
-    f"Two CFUs were also recovered from settling plate Sett 1 within BSC E00{data['bsc_id']} and submitted for microbial identification "
+    f"Two CFUs were also recovered from settling plate Settling 1 within BSC E00{data['bsc_id']} and submitted for microbial identification "
     "under sample ID ETX-260817-0507. The isolates were identified as Sporisorium graminicola and Ustilago maydis. These microorganisms "
-    "are fungal (smut) species, which are taxonomically and morphologically distinct from the bacterial rod-shaped microorganisms "
+    "are fungal species, which are taxonomically and morphologically distinct from the bacterial rod-shaped microorganisms "
     "recovered from the test sample. Additionally, the settling plate was documented as desiccated at the 5-day read. Therefore, "
     "no microbiological match exists between the settling-plate isolates and the test-sample contaminant. Settling plates within "
     f"changeover BSC E00{data['chgbsc_id']} yielded no growth. This finding was evaluated in conjunction with the remaining contemporaneous "
@@ -197,7 +204,7 @@ p_conclusion = (
     "contributing to this failure is minimal. Therefore, the original test result is deemed valid."
 )
 
-p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by Analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} rod-shaped viable microorganisms, see Table 1."
+p7 = f"On {data['test_date']}, a rapid sterility test was conducted on the sample using the ScanRDI method. The sample was initially prepared by analyst {data['prepper_name']}, processed by {data['analyst_name']}, and subsequently read by {data['reader_name']}. The test revealed {data['confirm_number']} rod-shaped viable microorganisms, see Table 1."
 p8 = f"Table 2 (see attached tables) presents the environmental monitoring results for {data['sample_id']}. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30–35°C and for no less than an additional five days at 20–25°C, as per SOP 2.600.002, Environmental Monitoring of the Clean-room Facility."
 
 smart_phase1_part2_page5 = "\r \r".join([
@@ -296,7 +303,7 @@ def update_cell_text(cell, text, bold=False, italic=False, font_size=Pt(7), alig
 
 def build_corrected_em_table_element():
     doc_raw_em = docx.Document(EM_DOCX_FILE)
-    t = doc_raw_em.tables[0]
+    t = doc_raw_em.tables[1] if len(doc_raw_em.tables) > 1 else doc_raw_em.tables[0]
     
     update_cell_text(t.rows[0].cells[2], 'Date (DDMMM YY)', bold=True, font_size=Pt(6))
     
@@ -495,6 +502,8 @@ combined_pdf_map = {**prefilled_boilerplate, **pdf_map}
 
 base_pdf_source = CORP_FORM_DOWNLOADED if os.path.exists(CORP_FORM_DOWNLOADED) else source_prefill
 writer = PdfWriter(clone_from=base_pdf_source)
+while len(writer.pages) > 6:
+    del writer.pages[-1]
 for p in writer.pages:
     writer.update_page_form_field_values(p, combined_pdf_map)
 
@@ -509,6 +518,28 @@ out_pdf_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_n
 with open(out_pdf_report, "wb") as f:
     writer.write(f)
 print("Saved complete 7-Page PDF Report to:", out_pdf_report)
+
+# Adjust font sizes of narrative fields to prevent text overflow
+try:
+    import fitz
+    doc_fitz = fitz.open(out_pdf_report)
+    font_sizes = {
+        'Text Field49': 8.75,
+        'Text Field50': 10.2,
+        'Text Field51': 10.0,
+    }
+    for page in doc_fitz:
+        for w in page.widgets():
+            if w.field_name in font_sizes:
+                w.text_fontsize = font_sizes[w.field_name]
+                w.update()
+    temp_pdf_out = out_pdf_report + ".tmp.pdf"
+    doc_fitz.save(temp_pdf_out)
+    doc_fitz.close()
+    shutil.move(temp_pdf_out, out_pdf_report)
+    print("Successfully adjusted narrative field font sizes for perfect visual rendering.")
+except Exception as e:
+    print(f"Notice: fitz font adjustment skipped: {e}")
 
 # 12. Deploy / Sync all outputs to Documents directory
 files_to_sync = [
