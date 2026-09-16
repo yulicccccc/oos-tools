@@ -204,14 +204,16 @@ def generate_celsis_narrative_and_details():
             just_parts.append(f"Notably, the colony morphology of all microorganisms recovered from the processing cleanroom environments differed from that of the microorganism isolated from the test sample ({positive_org}). This observation indicates that the environmental monitoring findings and the test sample contamination were likely isolated and unrelated events.")
         
         has_weekly = any(f['time'] == 'weekly' for f in failures)
-        if has_weekly:
-            just_parts.append("Also, while microbial growth was detected during weekly monitoring, it is important to note that these organisms were detected in the ISO 8 background room environment, whereas the sample manipulation occurred strictly within the ISO 5 primary engineering control.")
-            
         has_daily_testing_day_failure = any(f['time'] == 'daily' and 'of testing' in f['timing'].lower() for f in failures)
-        if not has_daily_testing_day_failure:
-            just_parts.append("Also, the absence of contamination on analyst glove plates and work surface monitoring indicates that no viable transfer pathway existed from the ISO 8 areas to the ISO 5 BSCs where processing and aliquoting were performed.")
+        
+        if has_weekly and not has_daily_testing_day_failure:
+            just_parts.append("It is important to note that the microbial recovery occurred in a non-critical area that is physically separated from the ISO 5 processing zone. Furthermore, the absence of contamination on critical work surfaces and analyst glove plates indicates that no viable transfer pathway existed between the non-critical area and the ISO 5 BSC where processing and aliquoting were performed.")
+        elif has_weekly:
+            just_parts.append("It is important to note that the microbial recovery during weekly monitoring occurred in a non-critical area that is physically separated from the ISO 5 processing zone.")
+        elif not has_daily_testing_day_failure:
+            just_parts.append("Furthermore, the absence of contamination on critical work surfaces and analyst glove plates indicates that no viable transfer pathway existed to the ISO 5 BSC where processing and aliquoting were performed.")
             
-        just_parts.append("Furthermore, the lack of contamination in other samples supports the fact that the testing environment was operating under optimal conditions.")
+        just_parts.append("Additionally, the lack of contamination in other samples supports the fact that the testing environment was operating under optimal conditions.")
         smart_just = "\\n\\n".join(just_parts)
 
     return em_pro_narrative, em_alq_narrative, smart_just
