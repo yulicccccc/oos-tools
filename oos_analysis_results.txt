@@ -1,0 +1,570 @@
+--- File: OOS-252561 - Prime Health Inc -Chemist Shop - E00298 (E00298) - Scan RDI - P2 - Signed by OA-RS.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations outlined above, laboratory error cannot be conclusively confirmed for either the original test or  the retest.
+
+
+--- File: OOS-252561_Prime Health Inc -Chemist Shop - E00298 (E00298) ScanRDI P1 - Signed by OA-RS.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations outlined above, there is no definitive evidence that the contamination originated  from reagents, supplies, the cleanroom environment, or the analyst.
+
+
+--- File: OOS-252665- Rancho Park Compounding Phcy (E12481) - USP71 - Signed by MN.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycolate 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-252667- Hurricane Family Pharmacy (E11946) - USP 71 (Day 18+) Signed by MN.pdf ---
+Growth: microbial growth was observed on a personnel 
+Justification: Therefore, although microbial growth was observed on a personnel  monitoring plate on the day of processing and on an active air sample from the ISO 7 115A Buffer Room  during the week of subculture, these isolates were not identical to those recovered from the sample under  investigation.
+
+
+--- File: OOS-252840 Greenwich Health & Wellness (E73695) - ScanRDI - Signed by QYC.pdf ---
+Growth: microbial growth was observed in personal 
+Details: Specifically, 4 CFUs in ISO 8 117 were detected during weekly active air sampling and was submitted for  differential staining under sample ID ETX-251229-0393, where the organisms were identified as Gram (+)  rods and Gram (+) cocci. Even though the environmental isolate showed a cocci-shaped morphology  similar to what was observed in the sample, it is important to note that isolate was found in ISO 8 room not  in the innermost ISO 7 room where processing occurred. Additionally, the absence of widespread  contamination supports the conclusion that the cleanroom environment remained under control during the  testing period.   Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety  Cabinets (BSCs, ISO 5) were performed on 30 Nov 2025, as per SOP 2.600.018 Cleaning and  Disinfection Procedure. It was documented that all H₂O₂ indicators passed.   Analyzing a 6-month sample history for Greenwich Health & Wellness (E73695), this specific analyte " Semaglutide/B12 3mg/0.5mg/ml" has had no prior failures using the Scan RDI method during this period.   To assess the potential for sample-to-sample contamination contributing to the positive results, a  comprehensive review was conducted of all samples processed on the same day. All other samples  processed by the analyst and other analysts that day tested negative. These findings suggest that cross- contamination between samples is highly unlikely.   Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of  laboratory error contributing to this failure is minimal and the original result is deemed to be valid. 252840
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-252869- Prince Sterilization Service (E71465)  - USP 71 - P1 - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the clean-room environment, the process, or analyst involvement.
+
+
+--- File: OOS-252869- Prince Sterilization Service (E71465)  - USP 71 Draft by MN.pdf ---
+Growth: microbial growth was observed in personal 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the clean-room environment, the process, or analyst involvement.
+
+
+--- File: OOS-252890 Scan MRB 1314 LT 11DEC2025 - MN-NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Left Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-251222-0325.
+
+
+--- File: OOS-252890 Scan MRB 1314 LT 11DEC2025-NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Left Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-251222-0325.
+
+
+--- File: OOS-252907 Scan MRB BSC1311 S2 16DEC2025-MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Surface# 2  Sampling plate, the plate was submitted for Microbial Identification under ETX-251226-0141.
+
+
+--- File: OOS-252909- Jungle Jim  Compounding (E10747) USP 71 signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) and 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-252922- Archway Apothecary (E13694) USP 71 - Edit by RS - Signed by MN-OA --RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-252922- Archway Apothecary (E13694) USP 71 - Edit by RS - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-252923 Scan GL 1312 S4 18DEC2025-NVH-MN.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Surface# 4  Sampling plate, the plate was submitted for Microbial Identification under ETX-251229-0314.
+
+
+--- File: OOS-252925 Scan GL 1312 Sett1 19DEC2025- MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-251229-0338.
+
+
+--- File: OOS-252932 Celsis ETX-251219-0478 & ETX-251219-0459 Puramint, LLC (E17973)-NVH.pdf ---
+Growth: microbial growth was observed on the personnel monitoring 
+Justification: Based on the observations outlined in the preceding paragraphs, the likelihood of contamination originating from  reagents, supplies, the analyst, or the cleanroom environment appears minimal.
+
+
+--- File: OOS-252932 Celsis ETX-251219-0478 & ETX-251219-0459 Puramint, LLC (E17973).pdf ---
+Growth: microbial growth was observed on the personnel monitoring 
+Justification: Based on the observations outlined in the preceding paragraphs, the likelihood of contamination originating from  reagents, supplies, the analyst, or the cleanroom environment appears minimal.
+
+
+--- File: OOS-252952 Scan DH 1310 Sett1 22DEC2025-MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-251231-0229.
+
+
+--- File: OOS-260020 Sterility AOD 1314 S2 27DEC2025-signed by MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Surface# 2  Sampling plate, the plate was submitted for Microbial Identification under ETX-260105-0239.
+
+
+--- File: OOS-260021 ScanCO MRB BSC1310 S4 27DEC2025-MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the ISO 5 BSC  1310 Surface# 4 sampling plate, the plate was submitted for Microbial Identification under  ETX-260105-0259.
+
+
+--- File: OOS-260022 ScanCO GS BSC1311 Sett1 26DEC2025-signed by MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260105-0265.
+
+
+--- File: OOS-260023 Scan CGS E001312 Sett2 29DEC2025-MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260105-0274.
+
+
+--- File: OOS-260046 Eagle Pharma Outsourcing LLC (E14166) USP 71 - P1  Edited by RS - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottles 
+End Text Snippet: A  N/A  None      Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 114, 114A, 114B  Surface Sampling of  Cleanrooms  Weekly  31 Dec  2025  OA  Week of Testing   3 CFU on the  floor of ISO 7  (suite114A)    ETX-260107-0361   Staphylococc us  epidermidis  Staphylococc us cohnii,  Staphylococc us hominis  Staphylococc us  haemolyticu  Staphylococc us aureus  None   Surface Sampling of  Cleanrooms  Weekly  05 Jan  2026  SMO  Week after Testing   No growth  N/A  N/A  None            
+
+
+--- File: OOS-260046 Eagle Pharma Outsourcing LLC (E14166) USP 71 - P1 - RS Updated - Signed by.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottles by analyst 
+End Text Snippet:  N/A  None      Surface Sampling of Anteroom and Cleanroom Bracketing – Cleanroom (CR) 114, 114A, 114B  Surface Sampling of  Cleanrooms  Weekly  31 Dec  2025  OA  Week of Testing   3 CFU on the  floor of ISO 7  (suite114A)    ETX-260107-0361   Staphylococcus  epidermidis  Staphylococcus  cohnii,  Staphylococcus  hominis  Staphylococcus  haemolyticus  Staphylococcus  aureus  None   Surface Sampling of  Cleanrooms  Weekly  05 Jan  2026  SMO  Week after Testing   No growth  N/A  N/A  None          
+
+
+--- File: OOS-260046 Eagle Pharma Outsourcing LLC (E14166) USP 71 - P2  Edited by RS - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottles 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-251229-0111 is most likely due to analyst error.
+
+
+--- File: OOS-260046 Eagle Pharma Outsourcing LLC (E14166) USP 71 - P2 - RS Updated - Signed by.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottles by analyst Kathleen Aruta and 
+Justification: Based on the observations outlined above, the failing result associated with submission ETX-251229-0111 is most like due to the  following potential sources: the innate sample or the inadvertent cross contamination that could have stemmed from other positive  sample (ETX-251224-0065 - OOS-260018) detected on day of testing.
+
+
+--- File: OOS-260055 Reshape RX Houston (E74105)_Scan RDI- P1 - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – Karla Silva. Both 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents, supplies,  cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260055 Reshape RX Houston (E74105)_Scan RDI- P2 - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – Karla Silva. Both 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents, supplies,  cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260183- Specialty Pharmacy (E19321) - USP 71 - P1  -Editted by RS - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+Justification: Consequently, the  possibility of laboratory error contributing to this failure is minimal.
+
+
+--- File: OOS-252647_Celsis_ETX-251117-0626-Greenwich Health& Wellness - Signed by OA- RS.pdf ---
+Growth: microbial growth was observed in the corresponding negative control.  
+Justification: Based on the observations outlined above, there is no clear indication that the contamination originated from reagents, supplies, the cleanroom  environment, or the analyst.
+
+
+--- File: OOS-252911- Eagle Pharma Outsourcing LLC (E14166) USP 71 Phase I Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+End Text Snippet: 5  SMO  Week after Testing   2 CFU on the floor  of ISO 7 (suite115B)  ETX-251231-0215  Brevibacterium  frigoritolerans,  Bacillus  pseudomycoides/  cereus/  cytotoxicus/  thuringiensis,  Bacillus simplex,  and Bacillus  infantis  None          Table 3: Trend of the past results    OOS#  Analyst  ETX-Submissions  Sample Name  Microbial Identification  251497    CGS    ETX-250623-0354       Oxytocin 30 units in 500mL    Staphylococcus warneri, Staphylococcus  epidermidis                          
+
+
+--- File: OOS-252911- Eagle Pharma Outsourcing LLC (E14166) USP 71 Phase II Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by analyst Kathleen Aruta and 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-250918-0257-T90 is most likely due to analyst error.
+
+
+--- File: OOS-252912- Cartesian Therapeutics 71000 (PO Required) (E71000) USP 71 -P1- Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-251215-0375 was most likely due to inadvertent contamination by  analyst during processing.
+
+
+--- File: OOS-252912- Cartesian Therapeutics 71000 (PO Required) (E71000) USP 71 -P2-  Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+End Text Snippet: e      Surface Sampling of Anteroom and Cleanroom Bracketing – Cleanroom (CR) 115, 115A, 115B  Surface Sampling of  Cleanrooms  Weekly  10 Dec  2025  TK  Week Before Testing    No growth  N/A   N/A   None   Surface Sampling of  Cleanrooms  Weekly  23 Dec  2025  SMO  Week after Testing   2 CFU on the floor  of ISO 7 (suite115B)  ETX-251231-0215  Brevibacterium  frigoritolerans,  Bacillus  pseudomycoides/  cereus/  cytotoxicus/  thuringiensis,  Bacillus simplex,  and Bacillus  infantis  None      
+
+
+--- File: OOS-252932 Celsis ETX-251219-0478 & ETX-251219-0459 Puramint, LLC (E17973)-NVH-KSP.pdf ---
+Growth: microbial growth was observed on the personnel 
+Justification: Therefore, the environmental growths are unlikely to be the  source of the contamination.
+
+
+--- File: OOS-260018 Americare Pharmaceutical Ser (E12786) USP 71 - P1 - Edit Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottles by analyst Kathleen 
+Justification: Therefore, in the absence of  contradicting evidence and given that all controlled systems were verified to be functioning properly, the Phase I investigation  results are still considered valid, 260018      QUALITY SYSTEM    FORM  DOCUMENT #:  3.
+
+
+--- File: OOS-260048 Sterility AOD 1316 LT 29DEC2025 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Left Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-260107-0345.
+
+
+--- File: OOS-260048 Sterility AOD 1316 RT 29DEC2025 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Left Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-260107-0345.
+
+
+--- File: OOS-260052 Prime Health Inc _ Chemist Shop - E00298 (E00298) - ScanRDI - RS Edits  P1--Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260052 Prime Health Inc _ Chemist Shop - E00298 (E00298) - ScanRDI - RS Edits -P2 - Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal sampling (left touch 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260081 Optio RX (E18631) - ScanRDI - P1 - Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal sampling (left touch and 
+Details: Specifically, 2 CFUs in  ISO8 116 were detected during weekly active air sampling and was submitted for differential staining under sample ID ETX- 260119-0350, where the organisms were identified as Gram (+) cocci. Additionally, 2 CFUs in ISO7 116A were detected  during weekly active air sampling and was submitted for microbial identification under sample ID ETX-260119-0356, which  were identified as Staphylococcus epidermidis. It is important to note that the sample vials and contents were only briefly  exposed and handled entirely within the  ISO 5 BSC located in ISO 7 room 116A, and environmental monitoring data  confirmed that this critical testing area was in a controlled state, as no microbial growth was recovered from personnel  monitoring, contact surfaces, or settling plates.    Although weekly active air sampling yielded low‑level recoveries—2 CFUs of Gram‑positive cocci in ISO 8 room 116 and 2  CFUs of Staphylococcus epidermidis in ISO 7 room 116A—these were detected in background room air samples rather than  within the ISO 5 primary engineering control where sample manipulation occurred. Importantly, the absence of contamination  on analyst glove plates and work surfaces indicates no transfer pathway from room air to the aseptic workspace. Additionally,  the absence of a broader contamination of samples further indicates that the testing environment was in optimal conditions.  Consequently, given that the ISO 5 environment showed no viable organisms, personnel monitoring was clean, and the  environmental isolates were not recovered from locations or surfaces directly involved in sample preparation and testing, the  environmental isolates are not considered a plausible source of the cocci-shaped microorganisms detected in the sample.   Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5)  were performed on 14Dec25, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all H₂O₂  indicators passed.   Analyzing a 6-month sample history for Optio RX (E18631), this specific analyte "Niacinamide/Semaglutide 2mg/1.15mg/mL  (1mL) Inj." has had 1 incident (OOS-252015) using the Scan RDI method during this period.   To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was  conducted of all samples processed on the same day. All other samples processed by the analyst and other analysts that  day tested negative. These findings suggest that cross-contamination between samples is highly unlikely.   Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom  environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure  is minimal and the original result is deemed to be valid. 260081
+Justification: Consequently, given that the ISO 5 environment showed no viable organisms, personnel monitoring was clean, and the  environmental isolates were not recovered from locations or surfaces directly involved in sample preparation and testing, the  environmental isolates are not considered a plausible source of the cocci-shaped microorganisms detected in the sample.
+
+
+--- File: OOS-260086 Scan GA BSC1311 RT 02JAN2026- MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Right Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-260112-0264.
+
+
+--- File: OOS-260088 Scan PG BSC1310 SettR 02JAN2026 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the one of the  Settling Sampling plates (Plate# 1), the plate was submitted for Microbial Identification under  ETX-260112-0278.
+
+
+--- File: OOS-260089 Scan CGS BSC1312 Sett1 05JAN2026 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260112-0298.
+
+
+--- File: OOS-260113 Celsis ETX-260106-0056 Tailor Made Compounding (E14883)- P2 - Final.pdf ---
+Growth: microbial growth was observed in the corresponding negative control. Monthly cleaning and 
+Justification: Based on the observations described above, it is likely that the contamination resulted from the inadvertent introduction of a foreign object  during sample processing.
+
+
+--- File: OOS-260113 Celsis ETX-260106-0056 Tailor Made Compounding (E14883)-P1-Final.pdf ---
+Growth: microbial growth was observed on the 
+Justification: Based on the observations described above, it is likely that the contamination resulted from the inadvertent  introduction of a foreign object during sample processing.
+
+
+--- File: OOS-260128 Link Pharmacy (E19112) -Scan RDI -P1 - RS Edits - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents,  supplies, cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260150 Scan KSM E001310 RT 13JAN2026 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Right Touch  Personnel Sampling plate, the plate was submitted for Microbial Identification under ETX-260120-0300.
+
+
+--- File: OOS-260159 -QuVa Pharma, Inc (E00124) USP 71  - P1- Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+Justification: Consequently, given the  timing, location, and nature of this isolate, and the absence of contamination in critical areas, it is unlikely  that the environmental isolate was the source of contamination for the sample.
+
+
+--- File: OOS-260174 Celsis ETX-251218-0331 Vials Rx Pharmacy (E74120)-NVH.pdf ---
+Growth: microbial growth was observed on the 
+Justification: Based on the observations outlined in the preceding paragraphs, the likelihood of contamination  originating from reagents, supplies, the analyst, or the cleanroom environment appears minimal.
+
+
+--- File: OOS-260181 Strive Pharmacy Missouri (E16802) USP 71 signed by MN-RS.pdf ---
+Growth: microbial growth was observed in both TSB (Tryptic Soy Broth) 
+Justification: Consequently, given the  timing, location, and nature of this isolate, and the absence of contamination in critical areas, it is unlikely  that the environmental isolate was the source of contamination for the sample.
+
+
+--- File: OOS-260213 Tailor Made Compounding (E14883) - Scan RDI - P1 - RS Edits - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – Devanshi 
+Justification: Consequently, given that the ISO 5 environment showed no viable organisms, personnel monitoring was clean,  and the environmental isolates were not recovered from locations or surfaces directly involved in sample  preparation and testing, the environmental isolates are not considered a plausible source of the contamination  detected in the sample.
+
+
+--- File: OOS-260223- Southend Pharmacy (E19207) - USP 71 - P1 - Revised - KSP - Signed by RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by analyst 
+Justification: Consequently, given the timing, location, and nature of this isolate, and the absence of contamination in critical areas, it  is unlikely that the environmental isolate was the source of contamination for the sample.
+
+
+--- File: OOS-260223- Southend Pharmacy (E19207) - USP 71 - P2 - Revised - KSP - Signed by RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by analyst 
+Justification: Consequently, given the timing, location, and nature of this isolate, and the absence of contamination in critical areas, it  is unlikely that the environmental isolate was the source of contamination for the sample.
+
+
+--- File: OOS- 260363 VLS Pharmacy Inc (E12063) USP 71 - P2 - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+Justification: Based on the observations outlined above, the failing result associated with  submission ETX-260204-0673 is most likely due to analyst error.
+
+
+--- File: OOS- 260363 VLS Pharmacy Inc (E12063) USP 71 -P1- Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+End Text Snippet: s,  Paracoccus  yeei,  Staphylococcus  epidermidis  None   Active Air Sampling of  Cleanrooms  Weekly  12 Feb  2026  SMO  Week after Testing   No growth  N/A    N/A    None      Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 115, 115A, 115B  Surface Sampling of  Cleanrooms  Weekly  29 Jan   2026  SMO  Week Before Testing    No growth  N/A    N/A    None   Surface Sampling of  Cleanrooms  Weekly  12 Feb  2026  SMO  Week after Testing   No growth  N/A    N/A    None             
+
+
+--- File: OOS- 260468 Neighbors Pharmacy (E15513) USP 71 Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Consequently, it is unlikely that  the cleanroom environment was the source of contamination for the sample.
+
+
+--- File: OOS-260122 -Nucleus Biologics 70795 (E70795) USP 71 Phase I - signed by MN-RS.pdf ---
+Growth: microbial growth was observed in both TSB (Tryptic Soy Broth) and FTM  (Fluid Thioglycollate Medium) bottle by analyst Cuong Du and confirmed by Microbiology Lab Supervisor Robin 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260122 -Nucleus Biologics 70795 (E70795) USP 71 Phase II - signed by MN-RS.pdf ---
+Growth: microbial growth was observed in both TSB (Tryptic Soy Broth) and 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-251224-0133 and the passing retest result under ETX-260126-0251,  both are deemed valid.
+
+
+--- File: OOS-260153 Grand Avenue Pharmacy 13409 (E13409) - ScanRDI - QYC-RS.pdf ---
+Growth: No 'microbial growth was observed' found
+End Text Snippet: 
+
+
+--- File: OOS-260153 Grand Avenue Pharmacy 13409 (E13409) - ScanRDI - Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal sampling (left 
+Details: Specifically, 1 CFU was recovered in ISO 8 room 115 and submitted for microbial identification under  sample ID ETX‑260121‑0270, where the organism was identified as Staphylococcus epidermidis. This low‑level  recovery, detected only in background room air, rather than within the ISO 5 primary engineering control where  sample manipulation occurred.    Importantly, the morphology observed in the ScanRDI analysis for the OOS sample showed rod‑shaped  microorganisms, which differs from the coccal morphology seen on the EM plates and from the organism identified  in the weekly air sample. This morphological difference supports that the environmental recovery was unrelated to  the organism detected in the sample. Additionally, the absence of contamination on analyst glove plates and work  surfaces indicates no transfer pathway from room air to the aseptic workspace, and the lack of contamination  among concurrently processed samples further confirms that the testing environment remained under optimal  aseptic conditions.   Consequently, given that the ISO 5 environment showed no viable organisms, personnel monitoring was clean,  and the environmental isolates were not recovered from locations or surfaces directly involved in sample  preparation and testing, the environmental isolates are not considered a plausible source of the cocci-shaped  microorganisms detected in the sample.   Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets  (BSCs, ISO 5) were performed on 14Dec25, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was  documented that all H₂O₂ indicators passed.   Analyzing a 6-month sample history for Grand Avenue Pharmacy 13409 (E13409), this specific analyte " Semaglutide/Pyridoxine 4mg-8 mg/mL MDV (2mL 8mg)" has had no prior failures using the Scan RDI method  during this period.   To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive  review was conducted of all samples processed on the same day. All other samples processed by the analyst and  other analysts that day tested negative. These findings suggest that cross-contamination between samples is  highly unlikely.   Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error  contributing to this failure is minimal and the original result is deemed to be valid. 260153
+Justification: Consequently, given that the ISO 5 environment showed no viable organisms, personnel monitoring was clean,  and the environmental isolates were not recovered from locations or surfaces directly involved in sample  preparation and testing, the environmental isolates are not considered a plausible source of the cocci-shaped  microorganisms detected in the sample.
+
+
+--- File: OOS-260209 Las Colinas Pharmacy (E02273) USP 71 - P1 -  Signed by MN-QYC-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260230 Coastal Compounding Pharmacy (E17115) USP 71 - P1 - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260269 Scan DH E001316 Sett1 23JAN2026 - Signed by MN - NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260202-0330.
+
+
+--- File: OOS-260271 Peptidology (E74035) - ScanRDI - Signed by QYC - RS.pdf ---
+Growth: microbial growth was observed in personal 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260275 Scan DH 1311 S4 27Jan2026 - Signed by MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the ISO 5 BSC  1311 Surface# 4 sampling plate, the plate was submitted for Microbial Identification under  ETX-260203-0227.
+
+
+--- File: OOS-260369 - ETX-260213-0260 - Vertisis Custom Pharmacy (E14697)_Scan RDI - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor, Tamiru 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents,  supplies, cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260390 MedisourceRX (E14555) Phase I USP 71 signed by MN-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Consequently, it is unlikely that  the cleanroom environment was the source of contamination for the sample.
+
+
+--- File: OOS-260390 MedisourceRX (E14555) Phase II USP 71 Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Consequently, it is  unlikely that the cleanroom environment was the source of contamination for the sample.
+
+
+--- File: OOS-260485 for ETX-260223-0247, ETX-260225-0451, ETX-260225-0425 Galleria Medical Pharmacy (E14925) - Edit RS - Signed by NVH-RS.pdf ---
+Growth: microbial growth was observed in the 
+Justification: therefore not considered to have impacted the testing activities.
+
+
+--- File: OOS-260503 - ETX-260302-0287 - Buy-Rite Drugs 2195 (E02195) - Scan RDI - P1 - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – Clea 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents, supplies,  cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260555 Link Pharmacy (E19112) - ScanRDI - QYC-RS.pdf ---
+Growth: microbial growth was observed in personal 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260570 Beaker Pharmac (E18668) - ScanRDI - Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 260487 ETX-260220-0089 Hillstone Pharmacy (E17047) Celsis - Phase I - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed on surface sampling, 
+End Text Snippet: e  Surface Sampling of Anteroom and Cleanroom Bracketing – Cleanroom (CR) 114, 114A, 114B  Surface Sampling of  Cleanrooms  Weekly  26 Feb  2026  QYC  Week Before Testing  No growth  N/A    N/A    None  Surface Sampling of  Cleanrooms  Weekly  09 Mar  2026  OA  Week after Testing  1 CFU on the floor  of ISO 7 (suite114A)  and 1 CFU on the  floor of ISO 7  (suite114B)  ETX-260316-0644     ETX-260316-0649    Bacillus  megaterium  (Gram (+)  rods),   Bacillus  miscanthi  (Gram (+)  rods)  None     
+
+
+--- File: OOS- 260487 ETX-260220-0089 Hillstone Pharmacy (E17047) Phase II Celsis  Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in the corresponding negative controls.  
+Justification: Based on the observations outlined above, the failing result associated with  submission ETX-260220-0089 is most likely due to analyst error in reagent preparation.
+
+
+--- File: OOS- 260592 ETX-260305-0360 Galleria Medical Pharmacy (E14925)) Celsis - P1 - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 260842 ETX-260318-0600 Americare Pharmaceutical Ser (E12786) signed MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) media 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 260843 Spectra Medical Devices, LLC (PO Required) (E74690)  - Signed by RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by analyst Cuong Du and confirmed by 
+Justification: Therefore, the original test result is  deemed valid.
+
+
+--- File: OOS- 260843 Spectra Medical Devices, LLC (PO Required) (E74690) - 20 Apr 2026 - Signed by RS.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations summarized above, the evidence does not suggest that the contamination  originated from the testing method, testing technique, materials, reagents, or the cleanroom environment.
+
+
+--- File: OOS-260229 Scan HS E001311 Sett1 20JAN2026- merged - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260127-0144.
+
+
+--- File: OOS-260282 Sterility GS E001314 settR 28JAN2026 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260204-0268.
+
+
+--- File: OOS-260324 Scan DT E001313 Sett1 29JAN2026 - MN, NVH.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260209-0373.
+
+
+--- File: OOS-260472-Town Total Compounding Ctr (E14995)  signed by MN-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-260566 - ETX-260309-0151 & ETX-260309-0591 - Beaker Pharmac (E18668)_Scan RDI - Signed by RS-OA.pdf ---
+Growth: microbial growth was observed on the left and right touch plates associated with the processor – Halaina Smith. Both 
+Justification: Based on the observations outlined above, the possibility of contamination originating from reagents, supplies,  cleanroom environment, analyst, or processing is minimal.
+
+
+--- File: OOS-260591_Celsis_ETX-260304-0709-Southend Pharmacy (E19207) - P1 - Signed by OA-RS.pdf ---
+Growth: microbial growth was observed in the corresponding negative control.  
+Justification: Consequently, given that the ISO  5 environment showed no viable organisms, personnel monitoring was clean, and the environmental isolates were  not recovered from locations or surfaces directly involved in sample preparation and testing, the environmental  isolates are not considered a plausible source of the contamination detected in the sample.
+
+
+--- File: OOS-260598 - ETX-260312-0359 - Wellness Pharmacy 2542 (E02542) - Scan RDI - P1- Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left or right personnel touch plates associated with the processor, Halaina Smith. In 
+Justification: Consequently, the possibility of laboratory error cannot be ruled out.
+
+
+--- File: OOS-260598 - ETX-260312-0359 - Wellness Pharmacy 2542 (E02542) - Scan RDI - P2- Signed by OA-RS.pdf ---
+Growth: microbial growth was observed on the left or right personnel touch plates associated with the processor, Halaina Smith. In addition, 
+Justification: Consequently, the  possibility of laboratory error cannot be ruled out.
+
+
+--- File: OOS-260612 Southend Pharmacy (E19207) - ScanRDI -  Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal 
+Details: Specifically, 3 CFUs in ISO8 room 117 were detected and were submitted for differential staining under  sample ID ETX-260330-0399, where the organisms were identified as Gram (+) cocci. Although weekly  active air sampling yielded 3 CFUs of Gram‑positive cocci in ISO 8 room 117, these were detected in  background room air samples rather than within the ISO 5 primary engineering control where sample  manipulation occurred. Samples are prepared and placed into disinfected, lidded bins, which are then  transported on cart in ISO 7 room. Importantly, the absence of contamination on analyst glove plates and  work surface monitoring indicates that there was no viable transfer pathway from the room floor to the ISO 5  BSC. The absence of broader contamination of samples further indicates that the testing environment was  in optimal condition. Consequently, considering the facility’s layered disinfection, controlled unidirectional  airflow, and cleanroom design, it is unlikely that the microbial contaminant detected in the ISO 8 outermost  environment (Suite 117) impacted on the sample processed within the ISO 5 area of the ISO 7 innermost  cleanroom (Suite 117B).    Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety  Cabinets (BSCs, ISO 5) were performed on 22Feb26, as per SOP 2.600.018 Cleaning and Disinfection  Procedure. It was documented that all H₂O₂ indicators passed.   Analyzing a 6-month sample history for Southend Pharmacy (E19207), this specific analyte "Tirzepatide  22mg/mL-Pyridoxine HCl 4mg/mL (1 mL)" has had 1 incident (OOS-252039 associated with ETX-250929- 0542 and ETX-250929-0103) using the Scan RDI method during this period.   To assess the potential for sample-to-sample contamination contributing to the positive results, a  comprehensive review was conducted of all samples processed on the same day. All other samples  processed by the analyst and other analysts that day tested negative. These findings suggest that cross- contamination between samples is highly unlikely.   Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of  laboratory error contributing to this failure is minimal and the original result is deemed to be valid. 260612
+Justification: Consequently, considering the facility’s layered disinfection, controlled unidirectional  airflow, and cleanroom design, it is unlikely that the microbial contaminant detected in the ISO 8 outermost  environment (Suite 117) impacted on the sample processed within the ISO 5 area of the ISO 7 innermost  cleanroom (Suite 117B).
+
+
+--- File: OOS-260629 Westlake Pharmacy - 0344 (E0344) - ScanRDI - Signed by QYC-RS.pdf ---
+Growth: microbial growth was observed in personal sampling (left touch and 
+Details: Specifically, 2 CFUs in ISO 8 115 were detected during weekly active air sampling and  were submitted for microbial identification under sample ID ETX-260323-0387, where the organisms were identified as  Brevibacterium frigoritolerans, Aspergillus species (A. austroafricanus / fructus / griseoaurantiacus / protuberus / tabacinus /  versicolor complex), and Bacillus simplex. Additionally, 4 CFUs from the floor in 115A were detected during weekly surface  sampling and were submitted for microbial identification under sample ID ETX-260323-0383, where the organisms were  identified as Bacillus megaterium and Bacillus marisflavi,.   Weekly active air sampling yielded 2 CFUs of Brevibacterium frigoritolerans, Aspergillus austroafricanus / fructus /  griseoaurantiacus / protuberus / tabacinus / versicolor and Bacillus simplex in ISO 8 room 115, but these were detected in  background room air samples rather than within the ISO 5 primary engineering control where sample manipulation occurred.  All samples were prepared and placed into disinfected, lidded containers prior to transport through the ISO 7 cleanroom,  further limiting the potential for environmental exposure. Although microbial growths were observed on the floor of Cleanroom  Suite 115A, the colony morphology of microorganisms (Gram positive rod morphology) detected through environmental  monitoring differed from that observed in the microorganisms (circular/oval colony morphology) isolated from the test sample.  These differences indicate that the environmental findings and the test sample contamination represent independent and  unrelated events. Furthermore, no microbial growth was observed on analyst glove plates, work surfaces, or via settle plate  monitoring, indicating the absence of a viable transfer pathway from the room floor to the ISO 5 BSC E001313. The absence  of broader contamination of samples further indicates that the testing environment was in optimal condition. Consequently,  considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that the  microbial contaminant detected from the cleanroom environment impacted on the sample processed within the ISO 5 BSC  E001313 in Suite 115A.   Monthly cleaning and disinfection, using H₂O₂, of the cleanroom (ISO 7) and its containing Biosafety Cabinets (BSCs, ISO 5)  were performed on 22 Feb 2026, as per SOP 2.600.018 Cleaning and Disinfection Procedure. It was documented that all  H₂O₂ indicators passed.   Analyzing a 6-month sample history for Westlake Pharmacy - 0344 (E0344), this specific analyte "Tirzepatide/Glycine 20-5  mg/ml" has had no prior failures using the Scan RDI method during this period.   To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was  conducted of all samples processed on the same day. All other samples processed by the analyst and other analysts that  day tested negative. These findings suggest that cross-contamination between samples is highly unlikely.   Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom  environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure  is minimal and the original result is deemed to be valid. 260629
+Justification: Consequently,  considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that the  microbial contaminant detected from the cleanroom environment impacted on the sample processed within the ISO 5 BSC  E001313 in Suite 115A.
+
+
+--- File: OOS-260725 Greenwich Health & Wellness (E73695) - Celsis - Signed by QYC -RS.pdf ---
+Growth: microbial growth was observed in the corresponding negative control.  
+Details: Specifically, 1 CFU in 115 was detected during weekly active air sampling on 27Mar26 and  was submitted for differential staining under sample ID: ETX-260406-0261, where the organism was characterized as  Gram (+) cocci. Additionally, 3 CFUs in 115 were detected during weekly active air sampling on 02Apr26 and were  submitted for microbial identification under sample ID: ETX-260413-0322, where the organisms were identified as  Micrococcus luteus and Staphylococcus cohnii. Furthermore, 3 CFUs in 115A were detected during weekly active air  sampling on 02Apr26 and were submitted for microbial identification under sample ID:ETX-260413-0326, where the  organisms were identified as Staphylococcus hominis, Pending FunITS, Staphylococcus capitis, Staphylococcus  epidermidis, and Staphylococcus lugdunensis. 260725
+Justification: Consequently, considering the facility’s layered disinfection,  controlled unidirectional airflow, and cleanroom design, it is unlikely that the microbial contaminant detected  from the cleanroom environment impacted on the sample processed within the ISO 5 BSC E001314 in  Suite 115B.
+
+
+--- File: OOS- 260361 Sterility GS BSC1314 Sett2 05FEB2026-signed by MN - KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate# 2, the plate was submitted for Microbial Identification under ETX-260216-0348.
+
+
+--- File: OOS- 260365 EM OA 114A cart 10FEB2026-Signed by MN - KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the ISO 8  CR114A surface sampling plate, the plate was submitted for Microbial Identification under ETX-260217- 0245.
+
+
+--- File: OOS- 260422 ScanCO HS BSC1309 S3 17FEB2026 and ScanCO HS BSC1309 S1 17FEB2026 MN-KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the ISO 5 BSC  1309 Surface# 3 and Surface# 1 sampling plate, the plates were submitted for Microbial Identification  under ETX-260224-0356 and ETX-260224-0354.
+
+
+--- File: OOS- 260469 Scan GA 1311 SettR 23FEB2026-MN-KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling plate, the plate was submitted for Microbial Identification under ETX-260302-0285.
+
+
+--- File: OOS- 260541 Scan PG BSC1310 Sett2 26FEB2026-MN-KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the one of the  Settling Sampling plates (Plate# 2), the plate was submitted for Microbial Identification under  ETX-260309-0374.
+
+
+--- File: OOS- 260542 Scan DH BSC1313 SettL 26FEB2026 draft-MN-KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Settling  Sampling (Left) plate, the plate was submitted for Microbial Identification under ETX-260309-0382.
+
+
+--- File: OOS- 260543 Scan VV BSC1309 S1 27FEB2026  draft-MN-KSP.pdf ---
+Growth: No 'microbial growth was observed' found
+Justification: Based on the observations in Table 1, since the CFU count exceeded the action level for the Surface# 1  Sampling plate, the plate was submitted for Microbial Identification under ETX-260309-0433.
+
+
+--- File: OOS- 261197 ETX-260508-0478 Hillstone Pharmacy (E17047) Phase I - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle by 
+Justification: Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies,  the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 261197 ETX-260508-0478 Hillstone Pharmacy (E17047) Phase II - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in TSB (Tryptic Soy Broth) bottle 
+Justification: Based on the observations outlined  above, the failing result associated with submission ETX-260508-0478, and the passing retest result  under ETX-260527-0139 and ETX-260602-0131 are deemed valid.
+
+
+--- File: OOS- 261225 ETX-260430-0268 The Good Pharma (E18946) - USP 71 - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in the original and subcultured TSB (Trypticase Soy 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 261241 ETX-251218-0360-T150 Ourpharma, LLC (PO # REQUIRED) (E17347) - USP 71 -  Phase I - QYC-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+End Text Snippet: ions)  Daily  12 May   2026  GL  Date After Testing   No growth    N/A      N/A    None      Weekly Active Air Sampling Bracketing – Cleanroom 115, 115A, 115B  Active Air Sampling of  Cleanrooms  Weekly  22 May  2026  SMO  Week after Testing    No growth    N/A      N/A    None      Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 115, 115A, 115B  Surface Sampling of  Cleanrooms  Weekly  22 May  2026  SMO  Week after Testing   No growth    N/A      N/A    None                   
+
+
+--- File: OOS- 261241 ETX-251218-0360-T150 Ourpharma, LLC (PO # REQUIRED) (E17347) - USP 71 - Phase II - QYC-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-251218-0360-T150 is most likely due to analyst error.
+
+
+--- File: OOS- 261241 ETX-251218-0360-T150 Ourpharma, LLC (PO REQUIRED) (E17347) - USP 71 - Phase I - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+End Text Snippet: ions)  Daily  12 May   2026  GL  Date After Testing   No growth    N/A      N/A    None      Weekly Active Air Sampling Bracketing – Cleanroom 115, 115A, 115B  Active Air Sampling of  Cleanrooms  Weekly  22 May  2026  SMO  Week after Testing    No growth    N/A      N/A    None      Surface Sampling of Anteroom and Cleanroom Bracketing - Cleanroom 115, 115A, 115B  Surface Sampling of  Cleanrooms  Weekly  22 May  2026  SMO  Week after Testing   No growth    N/A      N/A    None                   
+
+
+--- File: OOS- 261241 ETX-251218-0360-T150 Ourpharma, LLC (PO REQUIRED) (E17347) - USP 71 - Phase II - Signed by MN-OA-RS.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Based on the observations outlined above, the failing result  associated with submission ETX-251218-0360-T150 is most likely due to analyst error.
+
+
+--- File: OOS- 261247 ETX-260515-0212 Puramint, LLC (E17973) Celsis - Phase I - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed on surface sampling, 
+End Text Snippet:  Weekly  21 May  2026  OA  Week Before Testing  No growth  N/A    N/A    None  Active Air Sampling of  Cleanrooms    Weekly  27 May  2026  OA  Week of Testing  No growth  N/A    N/A    None  Surface Sampling of Anteroom and Cleanroom Bracketing – Cleanroom (CR) 114, 114A, 114B  Surface Sampling of  Cleanrooms  Weekly  21 May  2026  OA  Week Before Testing  No growth  N/A    N/A    None  Surface Sampling of  Cleanrooms  Weekly  27 May  2026  OA  Week of Testing  No growth  N/A    N/A    None     
+
+
+--- File: OOS- 261247 ETX-260515-0212 Puramint, LLC (E17973) Celsis - Phase II - Signed by MN-RS.pdf ---
+Growth: microbial growth was observed in the corresponding negative controls.    
+Justification: Based on the observations outlined above, the failing result associated with  submission ETX-260515-0212 is most likely due to analyst error.
+
+
+--- File: OOS-261165_ETX_260505-0317_Galleria_Medical_Pharmacy (E14925)- Celsis -  Signed by DK-RS.pdf ---
+Growth: microbial growth was observed on ISO 5 BSC (E001798) surface and settling plates (analyst ALA) for the date of testing  (14May2026), the preceding date (13May2026), or the subsequent date (18May2026). Additionally, no microbial growth was detected on active 
+End Text Snippet: 5-0451  Tirzepatide 16.75mg/ml-Glycine 5mg/ml  Injection (0.7ml)  Bacillus circulans (Gram (+)  rods)  260519  AOD  ALA  ETX-260225-0425  Tirzepatide 16.75mg/ml-Glycine 5mg/ml  Injection (4.4 ml)  Inconclusive: cell morphology  not visualized  260592  GLI  ALA  ETX-260305-0360  semaglutide 2.65mg - L-Carnitine  100mg/ml (0.7ml)  Cutibacterium acnes Gram (+)  rods  260802  DS  ALA  ETX-260327-0141  Tirzepatide 16.75mg/ml-Glycine 5mg/ml  Injection (1.2ml)  Bacillus freudenreichii Gram  (+) rods   
+
+
+--- File: OOS-261248 ETX-260507-0181 Create Fertility Centre (E00196) - Signed by MN - RS.pdf ---
+Growth: microbial growth was observed in TSB (Trypticase Soy Broth) 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 261040 - ETX-260421-0345 Neighbors Pharmacy (E15513)  - Signed by NVH.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 261094 - ETX-260424-0123 Neighbors Pharmacy (E15513) - Signed by NVH.pdf ---
+Growth: microbial growth was observed in TSB (Trypticase Soy Broth) 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS- 261096  - ETX-260415-0260 -Neighbors Pharmacy (E15513) - Signed by NVH.pdf ---
+Growth: microbial growth was observed in FTM (Fluid Thioglycollate 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-261378 - ETX-260605-0187 - Perrone Pharmacy (E01504) - Scan RDI - P1 - Signed by OA-DK-RS.pdf ---
+Growth: microbial growth was observed on the left or right personnel touch plates associated with the processor, 
+Justification: Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+
+--- File: OOS-261414 Southend Pharmacy (E19207) - ScanRDI - Signed by DK-RS.pdf ---
+Growth: No 'microbial growth was observed' found
+End Text Snippet: rooms  Weekly  19Jun26  SMO  Week of Testing  3 CFUs in ISO8  ETX-260630- 0741  Gram (+) cocci  N/A  Surface Sampling of Anteroom and Cleanroom Bracketing– Cleanroom 116-CR1738  Environmental Monitoring  (EM) Sampling Site  Frequency  Date  (DDMMM  YYYY)  Analyst  (Initials)  Observation  Observation  Environmental  Monitoring Plate  ETX ID  Microbial ID  Notes  Surface Sampling of  Cleanrooms  Weekly  19Jun26  SMO  Week of Testing  1 CFU on Floor in ISO7  ETX-260630- 0749  Gram (+) rods  N/A   
+

@@ -1,0 +1,151 @@
+================ USP <71> ================
+--- File: OOS-252665- Rancho Park Compounding Phcy (E12481) - USP71 - Signed by MN.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-252667- Hurricane Family Pharmacy (E11946) - USP 71 (Day 18+) Signed by MN.pdf ---
+Therefore, although microbial growth was observed on a personnel  monitoring plate on the day of processing and on an active air sample from the ISO 7 115A Buffer Room  during the week of subculture, these isolates were not identical to those recovered from the sample under  investigation.
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-252869- Prince Sterilization Service (E71465)  - USP 71 - P1 - Signed by MN-OA-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the clean-room environment, the process, or analyst involvement.
+
+--- File: OOS-252869- Prince Sterilization Service (E71465)  - USP 71 Draft by MN.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the clean-room environment, the process, or analyst involvement.
+
+--- File: OOS-252909- Jungle Jim  Compounding (E10747) USP 71 signed by MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-252922- Archway Apothecary (E13694) USP 71 - Edit by RS - Signed by MN-OA --RS.pdf ---
+Although microbial growth was observed from environmental  monitoring, it is important to note that none of the isolates were identical to microbial growth identified in  sample.
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-252922- Archway Apothecary (E13694) USP 71 - Edit by RS - Signed by MN-OA-RS.pdf ---
+Although microbial growth was observed from environmental  monitoring, it is important to note that none of the isolates were identical to microbial growth identified in  sample.
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260159 -QuVa Pharma, Inc (E00124) USP 71  - P1- Signed by MN-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies , the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260181 Strive Pharmacy Missouri (E16802) USP 71 signed by MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 260468 Neighbors Pharmacy (E15513) USP 71 Signed by MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260209 Las Colinas Pharmacy (E02273) USP 71 - P1 -  Signed by MN-QYC-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260230 Coastal Compounding Pharmacy (E17115) USP 71 - P1 - Signed by MN-OA-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 260842 ETX-260318-0600 Americare Pharmaceutical Ser (E12786) signed MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260472-Town Total Compounding Ctr (E14995)  signed by MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 261225 ETX-260430-0268 The Good Pharma (E18946) - USP 71 - Signed by MN-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-261248 ETX-260507-0181 Create Fertility Centre (E00196) - Signed by MN - RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 261040 - ETX-260421-0345 Neighbors Pharmacy (E15513)  - Signed by NVH.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 261094 - ETX-260424-0123 Neighbors Pharmacy (E15513) - Signed by NVH.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS- 261096  - ETX-260415-0260 -Neighbors Pharmacy (E15513) - Signed by NVH.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+================ Scan RDI ================
+--- File: OOS-252840 Greenwich Health & Wellness (E73695) - ScanRDI - Signed by QYC.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260055 Reshape RX Houston (E74105)_Scan RDI- P1 - Signed by OA-RS.pdf ---
+Considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that  the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area  of the ISO 7 cleanroom (Suite 117A).
+Although microbial growth was also observed on the floor of Cleanroom Suite  117A, it is unlikely that contamination present on the floor of the ISO 7 area affected the sample processed in ISO 5  BSC E001309.
+
+--- File: OOS-260055 Reshape RX Houston (E74105)_Scan RDI- P2 - Signed by OA-RS.pdf ---
+Considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that  the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of  the ISO 7 cleanroom (Suite 117A).
+Although microbial growth was also observed on the floor of Cleanroom Suite 117A, it  is unlikely that contamination present on the floor of the ISO 7 area affected the sample processed in ISO 5 BSC  E001309.
+
+--- File: OOS-260183- Specialty Pharmacy (E19321) - USP 71 - P1  -Editted by RS - Signed by MN-RS.pdf ---
+Based on the evidence presented in the preceding sections, it is unlikely that the failing results were due to  reagents, supplies, the clean-room environment, the process, or analyst involvement.
+
+--- File: OOS-260052 Prime Health Inc _ Chemist Shop - E00298 (E00298) - ScanRDI - RS Edits  P1--Signed by QYC-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260052 Prime Health Inc _ Chemist Shop - E00298 (E00298) - ScanRDI - RS Edits -P2 - Signed by QYC-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260081 Optio RX (E18631) - ScanRDI - P1 - Signed by QYC-RS.pdf ---
+Although weekly active air sampling yielded low‑level recoveries—2 CFUs of Gram‑positive cocci in ISO 8 room 116 and 2  CFUs of Staphylococcus epidermidis in ISO 7 room 116A—these were detected in background room air samples rather than  within the ISO 5 primary engineering control where sample manipulation occurred.
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom  environment, the process, or analyst involvement.
+
+--- File: OOS-260213 Tailor Made Compounding (E14883) - Scan RDI - P1 - RS Edits - Signed by OA-RS.pdf ---
+Importantly, the absence of contamination on analyst glove plates and work surface monitoring  indicates that there was no viable transfer pathway from the room cart to the ISO 5 BSC.
+
+--- File: OOS-260122 -Nucleus Biologics 70795 (E70795) USP 71 Phase I - signed by MN-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260153 Grand Avenue Pharmacy 13409 (E13409) - ScanRDI - Signed by QYC-RS.pdf ---
+This low‑level  recovery, detected only in background room air, rather than within the ISO 5 primary engineering control where  sample manipulation occurred.
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the  cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260271 Peptidology (E74035) - ScanRDI - Signed by QYC - RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260503 - ETX-260302-0287 - Buy-Rite Drugs 2195 (E02195) - Scan RDI - P1 - Signed by OA-RS.pdf ---
+Considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely  that the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO  5 area of the ISO 7 cleanroom (Suite 116B).
+
+--- File: OOS-260555 Link Pharmacy (E19112) - ScanRDI - QYC-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260570 Beaker Pharmac (E18668) - ScanRDI - Signed by QYC-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260566 - ETX-260309-0151 & ETX-260309-0591 - Beaker Pharmac (E18668)_Scan RDI - Signed by RS-OA.pdf ---
+Considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that  the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of  the ISO 7 cleanroom (Suite 117A).
+Although microbial growth was also observed on the floor of Cleanroom Suite 117B,  contamination present on the floor of the ISO 7 area is unlikely to have affected the sample processed in ISO 5 BSC  E001309.
+
+--- File: OOS-260612 Southend Pharmacy (E19207) - ScanRDI -  Signed by QYC-RS.pdf ---
+Although weekly  active air sampling yielded 3 CFUs of Gram‑positive cocci in ISO 8 room 117, these were detected in  background room air samples rather than within the ISO 5 primary engineering control where sample  manipulation occurred.
+Importantly, the absence of contamination on analyst glove plates and  work surface monitoring indicates that there was no viable transfer pathway from the room floor to the ISO 5  BSC.
+Consequently, considering the facility’s layered disinfection, controlled unidirectional  airflow, and cleanroom design, it is unlikely that the microbial contaminant detected in the ISO 8 outermost  environment (Suite 117) impacted on the sample processed within the ISO 5 area of the ISO 7 innermost  cleanroom (Suite 117B).
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260629 Westlake Pharmacy - 0344 (E0344) - ScanRDI - Signed by QYC-RS.pdf ---
+Weekly active air sampling yielded 2 CFUs of Brevibacterium frigoritolerans, Aspergillus austroafricanus / fructus /  griseoaurantiacus / protuberus / tabacinus / versicolor and Bacillus simplex in ISO 8 room 115, but these were detected in  background room air samples rather than within the ISO 5 primary engineering control where sample manipulation occurred.
+Although microbial growths were observed on the floor of Cleanroom  Suite 115A, the colony morphology of microorganisms (Gram positive rod morphology) detected through environmental  monitoring differed from that observed in the microorganisms (circular/oval colony morphology) isolated from the test sample.
+Furthermore, no microbial growth was observed on analyst glove plates, work surfaces, or via settle plate  monitoring, indicating the absence of a viable transfer pathway from the room floor to the ISO 5 BSC E001313.
+Consequently,  considering the facility’s layered disinfection, controlled unidirectional airflow, and cleanroom design, it is unlikely that the  microbial contaminant detected from the cleanroom environment impacted on the sample processed within the ISO 5 BSC  E001313 in Suite 115A.
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom  environment, the process, or analyst involvement.
+
+--- File: OOS- 261197 ETX-260508-0478 Hillstone Pharmacy (E17047) Phase I - Signed by MN-RS.pdf ---
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies,  the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-261378 - ETX-260605-0187 - Perrone Pharmacy (E01504) - Scan RDI - P1 - Signed by OA-DK-RS.pdf ---
+Although microbial growth was detected within  the innermost Suite 117B, contamination originating from this area is unlikely to affect samples processed  within ISO 5 Biological Safety Cabinet (BSC) E001309, which is located in the middle ISO 7 Suite 117A.
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+================ Celsis ================
+--- File: OOS-252932 Celsis ETX-251219-0478 & ETX-251219-0459 Puramint, LLC (E17973)-NVH-KSP.pdf ---
+Additionally, the samples underwent layered disinfection prior to both processing and aliquoting.
+
+--- File: OOS- 260592 ETX-260305-0360 Galleria Medical Pharmacy (E14925)) Celsis - P1 - Signed by MN-OA-RS.pdf ---
+Based on the observations outlined above, it is highly unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-260591_Celsis_ETX-260304-0709-Southend Pharmacy (E19207) - P1 - Signed by OA-RS.pdf ---
+Importantly, the absence of contamination on analyst glove plates and work surface monitoring indicates that there  was no viable transfer pathways from the room floor to the ISO 5 BSC.
+
+--- File: OOS-260725 Greenwich Health & Wellness (E73695) - Celsis - Signed by QYC -RS.pdf ---
+Phase I Summary (continued):                                                                                                         JEsqueda , 9/30/2025, 4:15:53 PM Although EM hits were observed during weekly active air sampling in ISO 8 room 115 and Cleanroom Suite  115A, these were detected in background room air samples rather than within the ISO 5 primary  engineering control where sample manipulation occurred.
+Additionally, no microbial growth was observed on analyst glove plates, work  surfaces, or via settle plate monitoring, indicating the absence of a viable transfer pathway from the room  air to the ISO 5 BSC E001314.
+Consequently, considering the facility’s layered disinfection,  controlled unidirectional airflow, and cleanroom design, it is unlikely that the microbial contaminant detected  from the cleanroom environment impacted on the sample processed within the ISO 5 BSC E001314 in  Suite 115B.
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents,  supplies, the cleanroom environment, the process, or analyst involvement.
+
+--- File: OOS-261165_ETX_260505-0317_Galleria_Medical_Pharmacy (E14925)- Celsis -  Signed by DK-RS.pdf ---
+Also, the absence of contamination on analyst glove plates and work surface monitoring indicates that no viable transfer pathway existed from  the ISO 8 area of Suite 114 to the ISO 5 BSC in Suite 114A where aliquoting was performed.
+

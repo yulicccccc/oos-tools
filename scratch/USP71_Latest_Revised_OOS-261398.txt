@@ -1,0 +1,1741 @@
+============================== PAGE 1 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 1 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+  Phase I 
+Section A – Test Details 
+Initiator: 
+ 
+Test Date: 
+ 
+Date 
+Initiated: 
+ 
+Date of Incident: 
+ 
+Test Name: 
+ 
+Sample 
+ID: 
+ 
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ 
+Lot #: 
+ 
+ 
+Dosage Form 
+ 
+Description of 
+Incident: 
+ 
+ Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ 
+SOP / Test Method # 
+Effective Date: 
+SOP / Test Method Rev:  
+Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: 
+Yes   
+       No 
+ 
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy 
+Comments 
+Analyst interviewed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct samples analyzed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct SOP / Test Method used/followed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct sample collection/technique? 
+Yes    
+ No   
+ N/A 
+ 
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? 
+Yes    
+ No   
+ N/A 
+ 
+Is the analyst qualified to perform the test? 
+Yes    
+ No   
+ N/A 
+ 
+Is formula worksheet provided and verified? 
+Yes    
+ No   
+ N/A 
+ 
+Does the processing method/method set 
+conform to the required specification? 
+Yes    
+ No   
+ N/A 
+ 
+Was the sample stored appropriately?  
+Yes    
+ No   
+ N/A 
+ 
+Material Discrepancy 
+Lot Number 
+Expiry Date 
+Is the integrity of the sample(s) questionable? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Was the sample transported appropriately? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are the other test results from this run under 
+investigation? 
+Yes    
+ No   
+N/A 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Qiyue Chen (Written by: Olugbenga Ajayi
+01-Jun-2026
+17-Jun-2026
+17-Jun-2026
+USP <71> / EP 2.6.1 Sterility 
+ETX-260529-0274 
+ETX-260601-0310
+ETX-260603-0062
+ETX-260605-0141
+USP <71> Sterility Processor:
+Qiyue Chen (QYC)
+ 
+USP <71> Sterility Reader (Day 14):
+Andrew Carrillo (ANC)
+ 
+USP <71> Sterility Reader (Day 14):
+Andrew Carrillo (ANC)
+ 
+USP <71> Sterility Reader (Day 12):
+Andrew Carrillo (ANC)
+ 
+USP <71> Sterility Reader (Day 14):
+Andrew Carrillo (ANC)
+DWK 50cc Sterile- Clear Glass Vials [SKU# 024] 
+- [16 Facility]
+ 
+DWK 50cc Sterile- Clear Glass Vials [SKU# 024] 
+- [16 Facility]
+ 
+DWK 3cc Clear Vials SKU# 120 - Upright - [16 
+Facility]
+ 
+DWK 3cc Clear Vials SKU# 120 - Upright - [16 
+Facility]
+Component
+PSS-031106
+PSS-031149
+PSS-030666
+PSS-031328
+ 
+Samples ETX-260529-0274, ETX-260601-0310,  
+ETX-260603-0062 and ETX-260605-0141 were 
+found to be positive for growth during USP <71> / 
+EP 2.6.1 Sterility Testing.
+2.600.008
+26 Aug 2025
+18
+Pass/Fail
+Kathan Parikh
+17-Jun-2026
+Yes, the analysts Qiyue Chen and Andrew Carrillo were comprehensively 
+interviewed.
+Yes, Sample IDs: ETX-260529-0274, ETX-260601-0310,  ETX-260603-0062 
+and ETX-260605-0141  
+Yes, as per SOP 2.600.008
+Yes, as per SOP 2.600.008
+Yes, Information is available in Eagle Trax under ETX-260529-0274
+, ETX-260601-0310, ETX-260603-0062 and ETX-260605-0141
+Yes, all analysts are trained and qualified by the quality department to perform the test.
+Not Applicable
+Not Applicable
+Yes, Information is available in Eagle Trax Sample Location History under ETX
+-260529-0274, ETX-260601-0310, ETX-260603-0062 and ETX-260605-0141
+261398
+
+
+============================== PAGE 2 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 2 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Appropriate/correct glassware used? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are reagents stored in proper condition and not 
+expired? 
+Yes    
+ No   
+N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+ 
+ 
+Solvent Used  
+ 
+ 
+ 
+ 
+ 
+ 
+Is the standard the source of the root cause? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Equipment Discrepancy 
+Equipment ID 
+Calibration Due Date 
+Was the instrument set up correctly? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is the clean room facility certified? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Performance Check (if applicable)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 2% (PDA)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 10% (QDA, CAD)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the environmental monitoring results 
+conform to required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+TSB: 
+04092026-1
+04082026-1
+04232026-1
+04082026-1
+ 
+FTM: 
+04132026-2
+04062026-13
+04062026-8
+04132026-6
+ 
+TSA and Surface Plates: Please see 
+Environmental Logs uploaded under 
+the submission on EagleTrax
+ 
+Monthly Cleaning:
+Please see Monthly Cleaning Logs 
+uploaded under the submission on 
+EagleTrax
+TSB: 
+08 Jul 2026
+07 Jul 2026
+22 Jul 2026
+07 Jul 2026
+ 
+FTM: 
+12 Jul 2026
+05 Jul 2026
+05 Jul 2026
+12 Jul 2026
+ 
+TSA and Surface Plates: Please see 
+Environmental Logs uploaded under the 
+submission on EagleTrax
+ 
+Monthly Cleaning:
+Please see Monthly Cleaning Logs 
+uploaded under the submission on 
+EagleTrax
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+ISO 5 BSC E001316
+Jun 2027
+CR114 (E001736) Jun 2026
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+See Phase I Summary See Phase I Summary
+See Phase I Summary
+E001356 (monitored 
+by sensor E001450)
+ 
+E001357 (monitored 
+by sensor E001449)
+ 
+Incubator E001034
+(Sensor E001501)
+ 
+Incubator E001031
+(Sensor E001505)
+Jul 2026
+Feb 2027
+ 
+Jul 2026
+Feb 2027
+ 
+Aug 2026
+Feb 2026
+ 
+Aug 2026
+Feb 2027
+See Phase I Summary
+261398
+
+
+============================== PAGE 3 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 3 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Not Applicable
+Not Applicable
+N/A OA 20Jun2026
+All analysts involved in the testing process were comprehensively interviewed, including the processing 
+analyst, Qiyue Chen, and the reading analyst who confirmed the positive result, Andrew Carrillo. Their 
+responses have been documented throughout this report.
+ 
+The samples were stored as per the Client’s direction upon arrival. The processing analyst who performed the 
+testing on 01Jun2026, 03Jun2026, 04Jun2026, and 08Jun2026, respectively, Qiyue Chen, confirmed that all 
+sample containers were intact, and no visible particles were observed. These visual checks confirmed the 
+sample's integrity.
+ 
+All reagents and supplies used are mentioned in the material section above. All reagents and supplies were 
+stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. 
+Moreover, each reagent and supply had a valid expiration date. The functionality of all equipment was 
+confirmed by reviewing data generated by our comprehensive in-house continuous monitoring system.
+ 
+The samples were processed within the ISO 5 Biological Safety Cabinet (BSC), E001316, situated in the 
+innermost clean room (Suite 114B), which connects to the intermediate ISO 7 buffer room (Suite 114A). This 
+buffer room, in turn, leads to the outermost ISO 8 Anteroom (Suite 114). Furthermore, a positive air pressure 
+system is maintained, ensuring airflow from the innermost ISO 7 cleanroom to the intermediate ISO 7 buffer 
+room and finally to the outermost ISO 8 Anteroom. 
+ 
+The innermost ISO 7 Clean-room Suite 114B, and the ISO 5 BSC E001316 within the Suite 114B were 
+thoroughly cleaned and prepared before initiating the testing as per SOP 2.600.002 (Environmental 
+Monitoring of the Clean Room Facility), and SOP 2.600.018 (Cleaning and Disinfecting Procedure for 
+Microbiology). Furthermore, the BSC used for the testing, E001316, was certified and approved by the 
+Engineering and Quality Assurance teams. 
+ 
+Samples Disinfection Procedure
+Upon receipt from the Sample Submissions team, the component sterility samples - DWK 50cc Sterile- Clear 
+Glass Vials associated with ETX-260529-0274 and ETX-260601-0310 and DWK 3cc Clear Vials associated 
+with ETX-260603-0062 and ETX-260605-0141 were transferred into the wet lab for preliminary disinfection. In 
+accordance with SOP 2.600.008, the outermost plastic layers were sprayed with acidified bleach and allowed 
+a 10-minute contact time. Following disinfection, the samples were placed into pre-disinfected bins and 
+transferred to the ISO 8 anteroom (Suite 114).
+261398
+
+
+============================== PAGE 4 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 4 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+From Suite 114 (ISO 8) to the innermost Suite 114B (ISO 7) and ultimately into the ISO 5 Biological Safety 
+Cabinet (BSC), all outermost disinfected plastic layers were removed, and any additional plastic packaging 
+layers were subjected to disinfection using acidified bleach, with a 10-minute contact time applied at each 
+stage of handling. In contrast, Tyvek layers were not sprayed with acidified bleach during this process. 
+Instead, Tyvek packaging was removed at designated cleanroom stages, in accordance with established 
+aseptic handling procedures. This distinction in handling ensures that both packaging types are managed 
+appropriately while maintaining sterility throughout the cleanroom transition.
+ 
+Within the ISO 5 BSC, the last innermost layer was aseptically opened. Twenty vials for each sample were 
+randomly selected using sterile forceps and transferred into media jars for sterility testing. 
+ 
+The observations above and the confirmation from the processing analyst, Qiyue Chen, indicate that the 
+samples under investigation, ETX-260529-0274, ETX-260601-0310, ETX-260603-0062, ETX-260603-
+0062, and ETX-260605-0141 were cleaned, transferred to the Clean Room, processed, and tested as per 
+2.600.008 (USP <71> / EP 2.6.1 Sterility Test) on 01Jun2026, 03Jun2026, 04Jun2026, and 08Jun2026, 
+respectively. The media bottles were subsequently transferred into designated incubators, E001356 and 
+E001357, to initiate incubation.
+ 
+On Day 14 of incubation (15Jun2026,17Jun2026 and 22Jun2026), the samples associated with ETX-
+260529-0274, ETX-260601-0310, and ETX-260605-0141 were found to be positive for microbial growth in 
+one of the FTM (Fluid Thioglycollate Media) bottles, while on Day 12 of incubation (16Jun2026), the 
+sample associated with ETX-260603-0062 was found to be positive for microbial growth in one of the TSB 
+(Tryptic Soy Broth) bottles by Andrew Carrillo, and confirmed by Microbiology Lab Supervisor, Robin 
+Seymour. 
+ 
+The microbial IDs were confirmed to be Staphylococcus epidermidis, Cutibacterium acnes, and 
+Dermacoccus nishinomiyaensis for ETX-260529-0274, ETX-260601-0310, and ETX-260603-0062 
+respectively, while the microbial IDs associated with ETX-260605-0141 were Microbacterium paraoxydans
+, Microbacterium sp. str. 'China', and Microbacterium sp. PAMC 28756. Details of the samples under 
+investigation, including the reading analyst, day of incubation at which growth was observed, and microbial 
+identification results, are summarized in Table 2 (see attached).
+ 
+The culture media used were within their expiry period. During testing, the negative control media bottles 
+were handled, processed, and incubated under the same conditions as the test samples. No microbial 
+growth was observed in the corresponding negative controls, confirming the integrity of the test procedure.
+Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the 
+innermost ISO 7 clean-room, and its containing ISO 5 Biosafety Cabinets were performed on 31May2026 
+as per SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). It was documented that all 
+H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom 114.
+ 
+261398
+
+
+============================== PAGE 5 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 5 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Tables 3-6 (see attached) presents the environmental monitoring results. The environmental monitoring 
+(EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days 
+at 20-25°C as per SOP 2.600.002 (Environmental Monitoring of the Clean-room Facility).
+ 
+Upon reviewing the Environmental Monitoring results for the relevant testing dates, no microbial growth 
+was observed on the ISO 5 BSC surface or settling plates, nor on the weekly active air and surface 
+sampling plates from Cleanroom Suite 114 on the dates of testing, the dates prior and the subsequent 
+testing dates. Additionally, both weekly active air sampling and weekly active surface sampling plates from 
+both the week of testing and the week before testing, showed no microbial growth.
+ 
+Review of the 6-month trend of past results for the specific sample analytes indicate that there is no other 
+failing sample associated with “DWK 3cc Clear Vials SKU# 120 - Upright - [16 Facility], and DWK 50cc 
+Sterile- Clear Glass Vials [SKU# 024] - [16 Facility].
+ 
+To assess the potential for sample-to-sample contamination, all samples processed for USP <71> Sterility 
+component testing in the same batch on 01Jun2026, 03Jun2026, 04Jun2026, and 08Jun2026 were 
+reviewed (see Table 1). No other sample was found to be positive for microbial growth from the same 
+batch of sample tested on respective days. Therefore, the probability of cross contamination among 
+samples is negligible.
+ 
+Although no microorganisms were identified from personnel or environmental monitoring samples, an 
+adverse trend was observed. The lots that yielded failing results were tested by the same analyst within a 
+span of a few days. Based on the historical analysis of samples from this client and the client’s sterilization 
+process, it is highly unlikely that this number of lots would fail sterility testing in quick succession. Therefore
+, the possibility of an unidentified analyst-related error contributing to the failing results cannot be ruled out. 
+These findings were discussed with the client, and the client will submit additional samples from the same 
+lots for retesting. These additional samples were received under submission IDs ETX-260618-0132, ETX-
+260618-0133, ETX-260618-0134, and ETX-260624-0149. The results from the retest will be covered in the 
+Phase 2 investigation summary.
+261398
+
+
+============================== PAGE 6 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 6 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+ 
+ If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+ 
+ 
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+ 
+ Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+JEsqueda , 9/30/2025, 4:15:53 PM
+Olugbenga Ajayi
+Robin Seymour
+SIGN
+Digitally signed by Olugbenga Ajayi
+DN: OU=Microbiology, O=Eagle Analytical Services, 
+CN=Olugbenga Ajayi, E=oajayi@eagleanalytical.com
+Reason: I am the author of this document
+Location: 
+Date: 2026.07.20 16:29:05-05'00'
+Foxit PDF Editor Version: 13.2.5
+Olugbenga 
+Ajayi
+Digitally signed by Robin Seymour
+DN: OU="Microbiology - Cleanroom Ops ", O=Eagle 
+Analytical Services, CN=Robin Seymour, E=rseymour@
+eagleanalytical.com
+Reason: I have reviewed this document
+Location: 
+Date: 2026.07.21 14:33:18-05'00'
+Foxit PDF Editor Version: 13.0.1
+Robin 
+Seymour
+261398
+261398
+261398
+
+
+============================== PAGE 7 ==============================
+ 
+                           Table 1: Prince samples processed on 01Jun2026, 03Jun2026, 04Jun2026, and 08Jun2026 
+Date of Processing 
+Sample ID 
+ 
+Days of Incubation 
+ 
+ 
+Result 
+ 
+Processing Analyst  
+01Jun2026 
+ETX-260529-0274 
+ETX-260529-0278 
+14 
+14 
+Positive 
+Negative 
+ 
+QYC 
+03Jun2026 
+ETX-260601-0310 
+ETX-260601-0308 
+ETX-260601-0311 
+ETX-260526-0169 
+ETX-260601-0296 
+ETX-260601-0302 
+ETX-260601-0283 
+14 
+14 
+14 
+14 
+14 
+14 
+14 
+Positive 
+Negative 
+Negative 
+Negative 
+Negative 
+Negative 
+Negative 
+ 
+ 
+ 
+ 
+QYC 
+04Jun2026 
+ETX-260603-0062 
+ETX-260603-0059 
+ETX-260603-0064 
+ETX-260603-0060 
+ETX-260603-0067 
+ETX-260603-0066 
+12 
+14 
+14 
+14 
+14 
+14 
+Positive 
+Negative 
+Negative 
+Negative 
+Negative 
+Negative 
+ 
+ 
+QYC 
+08Jun2026 
+ETX-260605-0141 
+ETX-260519-0209 
+ETX-260605-0268 
+ETX-260605-0144 
+ETX-260605-0140 
+ETX-260605-0145 
+14 
+14 
+14 
+14 
+14 
+14 
+Positive 
+Negative 
+Negative 
+Negative 
+Negative 
+Negative 
+ 
+ 
+ 
+QYC 
+ 
+Table 2: Reading Analysts, Days of Incubation and Microbial IDs for samples under investigation 
+Reading Analyst 
+Day of Incubation 
+Sample ID 
+Related Microbial ID 
+Media with microbial growth 
+Microbial Identification 
+Andrew Carrillo 
+14 
+ETX-260529-0274 
+ETX-260615-0350 
+1 x 300 mL FTM 
+Staphylococcus epidermidis (Gram (+) cocci) 
+Andrew Carrillo 
+14 
+ETX-260601-0310 
+ETX-260617-0271 
+1 x 300 mL FTM 
+Cutibacterium acnes (Gram (+) irregular rods) 
+Andrew Carrillo 
+12 
+ETX-260603-0062 
+ETX-260616-0280 
+1 x 300 ml of TSB 
+Dermacoccus nishinomiyaensis  
+(Gram (+) cocci) 
+Andrew Carrillo 
+14 
+ETX-260605-0141 
+ETX-260622-0167 
+1 X 300 mL of FTM 
+Microbacterium paraoxydans (Gram (+) rods), 
+Microbacterium sp. str. 'China (Gram (+) rods), 
+Microbacterium sp. PAMC 28756 (Gram (+) rods). 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+============================== PAGE 8 ==============================
+ 
+Table 3: Environmental Monitoring from Testing Performed on 01Jun2026 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+04 May 2026 
+QYC 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+01 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+02 Jun 2026 
+QYC 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 1316 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+04 May 2026 
+QYC 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+01 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+02 Jun 2026 
+QYC 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+04 May 2026 
+QYC 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+01 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+02 Jun 2026 
+QYC 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 114 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before 
+Testing Date 
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After 
+Testing Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 114 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before 
+Testing Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After 
+Testing Date 
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+============================== PAGE 9 ==============================
+ 
+Table 4: Environmental Monitoring from Testing Performed on 03Jun2026 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+02 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+03 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+04 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 1316 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+02 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+03 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+04 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+02 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+03 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+04 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 114 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 114 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+============================== PAGE 10 ==============================
+Table 5: Environmental Monitoring from Testing Performed on 04Jun2026 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+03 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+04 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+05 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 1316 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+03 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+04 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+05 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+03 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+04 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+05 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 114 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 114 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+29 May 2026 
+OA 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+============================== PAGE 11 ==============================
+Table 6: Environmental Monitoring from Testing Performed on 08Jun2026 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+05 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+08 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+10 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 1316 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+05 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+08 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+10 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+05 Jun 2026 
+QYC 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+08 Jun 2026 
+QYC 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+10 Jun 2026 
+QYC 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 114 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+19 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 114 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+05 Jun 2026 
+QYC 
+Week Before Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+12 Jun 2026 
+QYC 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+19 Jun 2026 
+QYC 
+Week After Testing 
+Date 
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+ 
+ 
+ 
+ 
+
+

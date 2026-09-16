@@ -1,0 +1,1033 @@
+============================== PAGE 1 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 1 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+  Phase I 
+Section A – Test Details 
+Initiator: 
+ 
+Test Date: 
+ 
+Date 
+Initiated: 
+ 
+Date of Incident: 
+ 
+Test Name: 
+ 
+Sample 
+ID: 
+ 
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ 
+Lot #: 
+ 
+ 
+Dosage Form 
+ 
+Description of 
+Incident: 
+ 
+ Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ 
+SOP / Test Method # 
+Effective Date: 
+SOP / Test Method Rev:  
+Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: 
+Yes   
+       No 
+ 
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy 
+Comments 
+Analyst interviewed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct samples analyzed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct SOP / Test Method used/followed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct sample collection/technique? 
+Yes    
+ No   
+ N/A 
+ 
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? 
+Yes    
+ No   
+ N/A 
+ 
+Is the analyst qualified to perform the test? 
+Yes    
+ No   
+ N/A 
+ 
+Is formula worksheet provided and verified? 
+Yes    
+ No   
+ N/A 
+ 
+Does the processing method/method set 
+conform to the required specification? 
+Yes    
+ No   
+ N/A 
+ 
+Was the sample stored appropriately?  
+Yes    
+ No   
+ N/A 
+ 
+Material Discrepancy 
+Lot Number 
+Expiry Date 
+Is the integrity of the sample(s) questionable? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Was the sample transported appropriately? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are the other test results from this run under 
+investigation? 
+Yes    
+ No   
+N/A 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Varsha Subramanian (Written by: Dhvanir Kansara)
+10-Jul-2026
+10-Jul-2026
+10-Jul-2026
+Scan RDI Sterility Test
+ETX-260706-0599
+Prepper: 
+Elysse Nioupin(EN)
+ 
+Processor:
+Varsha Subramanian(VV)
+ 
+Changeover
+Processor:
+Ellen Bennett (ELB)
+ 
+Reading Analyst:
+Gerald Anyangwe (GA)
+Semaglutide/Glycine 
+ 
+ 
+2.5mg/5mg/mL 2mL
+Solution
+5532232
+On, 10Jul 2026, sample ETX-260706-0599 was 
+found positive for viable microorganisms after 
+ScanRDI testing.
+2.600.023 (14)
+2.700.004 (04)
+02Apr26
+07Nov25
+Rev: 14
+Rev: 04
+<1 event
+Kathan Parikh
+10-Jul-2026
+Yes, Elysse Nioupin, Varsha Subramanian, Ellen Bennett, and Gerald 
+Anyangwe  were interviewed comprehensively.
+Yes, ETX-260706-0599
+Yes, as per SOP 2.600.023, 2.700.004
+Yes, as per SOP 2.600.023, 2.700.004
+Yes, See 071026-1040-2 for more information.
+Yes, all analysts are trained and qualified by quality to perform the test.
+Not Applicable
+Not Applicable
+Yes, Information is available in Eagle Trax Sample Location History under 
+ETX-260706-0599
+261604
+
+
+============================== PAGE 2 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 2 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Appropriate/correct glassware used? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are reagents stored in proper condition and not 
+expired? 
+Yes    
+ No   
+N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+ 
+ 
+Solvent Used  
+ 
+ 
+ 
+ 
+ 
+ 
+Is the standard the source of the root cause? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Equipment Discrepancy 
+Equipment ID 
+Calibration Due Date 
+Was the instrument set up correctly? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is the clean room facility certified? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Performance Check (if applicable)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 2% (PDA)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 10% (QDA, CAD)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the environmental monitoring results 
+conform to required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Scan Consumables:
+See the attached data 
+packet
+ 
+Environmental Plates:
+TSA and Surface Plate: 
+see attached 
+environmental logs
+ 
+Monthly Cleaning:
+H2O2 strips and IPA: 
+See attached monthly 
+cleaning logs
+Scan Consumables:
+See the attached data 
+packet
+ 
+Environmental Plates:
+TSA and Surface Plate: see 
+attached environmental 
+logs
+ 
+Monthly Cleaning:
+H2O2 strips and IPA: See 
+attached monthly cleaning 
+logs
+P. aeruginosa 
+02062026-9027-PA
+ 
+06 Feb 2028
+Not Applicable
+Not Applicable
+Not Applicable
+E001040
+Oct 2026
+CR145(E001979)
+CR144(E001978)
+Nov 2026
+Nov 2026
+E001040
+Oct 2026
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+See Phase I Summary See Phase I Summary
+See Phase I Summary
+Incubator E001933
+ 
+Incubator E001932
+ 
+Incubator E001033 
+ 
+(Sensor E001491)
+ 
+ 
+ 
+ 
+ 
+Mar 2027
+ 
+Mar 2027 
+ 
+Aug 2026
+ 
+Feb 2027
+ 
+ 
+ 
+ 
+ 
+See Phase I Summary
+261604
+
+
+============================== PAGE 3 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 3 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Not Applicable
+Not Applicable
+N/A DK 10 Jul 2026
+All analysts involved in the preparation, processing, and reading of the samples Elysse Nioupin, Varsha Subramanian, Ellen 
+Bennett, and Gerald Anyangwe were interviewed, and their responses are documented throughout this report.
+ 
+The samples were stored upon arrival in accordance with the Client’s instructions. Elysse Nioupin and Varsha Subramanian 
+confirmed sample integrity throughout both the preparation and processing stages. No leaks or turbidity were observed at any point
+, confirming the integrity of the samples.
+ 
+All reagents and supplies listed in the materials section were stored in accordance with the supplier’s recommendations, and their 
+integrity was visually verified prior to use. In addition, all reagents and supplies were within their established expiration dates at the 
+time of use.
+ 
+During the preparation phase, Elysse Nioupin disinfected the samples using acidified bleach and transferred them into a pre-
+disinfected storage bin. On 10 Jul 2026, prior to sample processing, Varsha Subramanian performed a second disinfection with 
+acidified bleach and allowed a minimum contact time of 10 minutes before the samples were transferred into the controlled 
+cleanroom suite. 
+ 
+The samples entered through an outermost ISO 8 cleanroom (CR142) and progressed into buffer ISO 8 cleanroom (CR143) before 
+being introduced into the adjoining ISO 7 cleanroom (CR144) and finally into innermost ISO 7 cleanroom (CR145). Together, these 
+rooms form the L-suite, so named for their L-shaped configuration. Final disinfection was completed immediately prior to placement 
+into the ISO 5 Biological Safety Cabinet, E001317, located in CR145. All activities were performed in accordance with SOP 
+2.600.023, Rapid Scan RDI® Test Using FIFU Method.
+ 
+ 
+The ISO 7 cleanroom (CR145) is configured as a controlled cleanroom suite utilized for pre-labeling and filtration activities. The 
+room is divided into two sections (Section I and Section II), which collectively support aseptic processing . Adjacent CR144 is a 
+separate ISO 7 controlled area that is similarly divided into two designated sections (Section I and Section II).  CR143 serves as 
+the ISO 8 buffer room, while CR142 functions as the ISO 8 anteroom providing controlled access to the suite. A positive pressure 
+cascade is maintained throughout the interconnected areas to facilitate directional airflow from higher- to lower-classified spaces, 
+thereby supporting effective contamination control and maintaining the required environmental conditions within all classified areas.
+ 
+ 
+The ISO 5 BSC E001317, located in CR145, was used for the pre-labelling and filtration steps, while the ISO 5 BSC E001937, 
+located in CR144, was used for changeover steps. Both units were thoroughly cleaned and disinfected prior to each procedure in 
+accordance with SOP 2.600.018, Cleaning and Disinfecting Procedure for Microbiology. In addition, both BSCs were certified and 
+approved by Engineering and Quality Assurance. Sample processing was conducted by Varsha Subramanian in CR145, and 
+changeover was conducted by Ellen Bennett in CR144 on 10 Jul 2026.
+ 
+Gerald Anyangwe confirmed that equipment E001040 was set up in accordance with SOP 2.700.004, Scan RDI® System – 
+Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and that both the negative control and positive 
+control yielded the expected results.
+261604
+
+
+============================== PAGE 4 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 4 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+On 10 Jul 2026, a rapid sterility test was performed on the sample using the ScanRDI method. Sample 
+processing was conducted by Analyst Varsha Subramanian, and the final reading was carried out by Gerald 
+Anyangwe. The test detected 128 total events, of which 9 were confirmed as viable microbial events exhibiting 
+rod-shaped morphology (see Table 1).
+ 
+Table 2 and Table 3 present the environmental monitoring results for sample ETX-260706-0599. 
+Environmental monitoring (EM) plates were incubated for a minimum of 48 hours at 30–35°C, followed by no 
+less than five additional days at 20–25°C, in accordance with SOP 2.600.002 (Environmental Monitoring of the 
+Cleanroom Facility).
+ 
+Review of the environmental monitoring data showed no microbial growth in personnel monitoring samples (left 
+and right touch), ISO 5 surface sampling, or ISO 5 settling plates associated with both the processing analyst 
+VV (Biological Safety Cabinet E001317) and the changeover analyst ELB (Biological Safety Cabinet E001937).
+ 
+However, the following findings were noted:
+ 
+One CFU (ETX-260720-0292) was recovered during weekly active air sampling in the ISO 7 area bracketing 
+the suite (Room 145); the organisms were identified as Gram-positive and Gram-negative short rods.
+ 
+Seventeen CFUs (ETX-260720-0295) were recovered during weekly active air sampling in Section I of the ISO 
+8 area (Room 143). The organisms were identified as Gram-positive rods and are currently under investigation 
+as OOS # 261657.
+ 
+Eleven CFUs (ETX-260720-0299) were recovered during weekly active air sampling in Section II of the ISO 8 
+area (Room 143); the organisms were identified as Gram-positive cocci and are currently under investigation 
+as OOS # 261657.
+ 
+Seven CFUs (ETX-260720-0302) were recovered during weekly active air sampling in the ISO 8 area (Room 
+142); the organisms were identified as Gram-positive cocci.
+ 
+Weekly surface sampling of the anteroom and cleanroom bracketing the suite showed no microbial growth.
+ 
+The microbial recoveries identified during environmental monitoring are not considered to have impacted the 
+sterility test results. All product-contact activities, including processing and changeover, were performed within 
+certified ISO 5 biological safety cabinets (BSC E001317 and BSC E001937), which provide a significantly 
+higher level of environmental control than the ISO 7 and ISO 8 areas where the air recoveries were detected. 
+Environmental monitoring performed on the date of testing demonstrated no microbial growth in personnel 
+monitoring samples, ISO 5 surface samples, or ISO 5 settling plates associated with either processing or 
+changeover activities. In addition, the cleanroom suites operate under a positive-pressure airflow design that 
+directs air from the cleaner ISO 5/ISO 7 areas outward toward the ISO 7/ISO 8 anterooms, minimizing the 
+potential for contamination migration from the lower-classification areas into the critical processing 
+environments.
+ 
+261604
+
+
+============================== PAGE 5 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 5 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Furthermore, the organisms recovered from the ISO 8 active air samples (Section II and Room 142) were 
+identified as Gram-positive cocci, whereas the microorganisms detected in the ScanRDI test sample 
+exhibited rod-shaped morphology. This morphological distinction indicates that at least a portion of the 
+environmental monitoring recoveries were not consistent with the microorganisms detected in the sample.
+Although rod-shaped organisms were recovered during environmental monitoring, these findings were 
+limited to a single CFU recovered from the ISO 7 (CR145) and seventeen CFUs recovered from ISO 8 
+(CR143) Section I. Importantly, these recoveries were confined to the ambient air of the surrounding lower-
+classification areas and were not associated with the ISO 5 processing environment. In addition, no 
+corresponding microbial growth was detected on personnel monitoring samples, ISO 5 surface samples, or 
+settling plates. When considered in conjunction with the satisfactory cleaning and disinfection activities 
+performed prior to processing, the absence of contamination in critical environmental monitoring locations, 
+and the negative results obtained for all other samples processed on the same day, the available evidence 
+supports the conclusion that the microbial growth detected in the ISO 7 and ISO 8 areas neither 
+contributed to nor affected the positive ScanRDI result.
+ 
+Monthly cleaning and disinfection of the ISO 7 cleanroom and associated ISO 5 biosafety cabinets (BSCs) 
+were performed on 14 Jun 2026, using hydrogen peroxide (H₂O₂), in accordance with SOP 2.600.018 
+(Cleaning and Disinfection Procedure). All H₂O₂ indicators met acceptance criteria.
+ 
+A six-month historical review of samples from Tailor made compounding identified one prior out-of-
+specification (OOS-260213) result for the same product, Semaglutide/Glycine 2.5mg/5mg/mL (2mL), using 
+the ScanRDI method.
+ 
+To evaluate the potential for sample-to-sample contamination, all samples processed on the same day 
+were reviewed. All other samples processed by the same analyst and by other analysts on that day yielded 
+negative results, indicating that cross-contamination is unlikely.
+ 
+Based on the cumulative evidence, it is highly unlikely that the failing results were due to reagents, 
+supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of 
+laboratory error contributing to this failure is minimal. Therefore, the original test result is deemed valid.
+ 
+ 
+261604
+
+
+============================== PAGE 6 ==============================
+ 
+ 
+QUALITY SYSTEM 
+ 
+FORM 
+DOCUMENT #:  3.100.019.F01 
+LEVEL: 3 
+Effective Date:  
+Revision #: 11 
+TITLE: 
+LABORATORY OOS INVESTIGATION FORM 
+Page 6 of 6 
+OOS Number: OOS- 
+ 
+The version of the document displayed in EagleTrax is the only controlled copy – Confidential document.                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+ 
+ If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+ 
+ 
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+ 
+ Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+JEsqueda , 9/30/2025, 4:15:53 PM
+Dhvanir Kansara
+Robin Seymour
+Digitally signed by Dhvanir Kansara
+DN: CN=Dhvanir Kansara, O=Eagle Analytical Services, OU=Project Microbiologist - 
+Microbiology, E=dkansara@eagleanalytical.com
+Reason: I am the author of this document
+Location: 
+Date: 2026.08.05 17:42:19-05'00'
+Foxit PDF Editor Version: 14.0.5
+Dhvanir Kansara
+Digitally signed by Robin Seymour
+DN: OU="Microbiology - Cleanroom Ops ", O=Eagle Analytical Services, CN=Robin Seymour, 
+E=rseymour@eagleanalytical.com
+Reason: I have reviewed this document
+Location: 
+Date: 2026.08.05 19:13:51-05'00'
+Foxit PDF Editor Version: 13.0.1
+Robin Seymour
+SIGN
+261604
+
+
+============================== PAGE 7 ==============================
+Table 1: Information for ETX-260706-0599 under investigation 
+Processing Analyst 
+Reading 
+Analyst 
+Sample ID 
+Events 
+Confirmed Microbial 
+Events 
+Morphology Description 
+Varsha Subramanian 
+Gerald 
+Anyangwe 
+ ETX-260706-0599  
+128 
+9 
+Rod-shaped Morphology 
+  
+Table 2: Environmental Monitoring from Testing Performed on 10Jul26 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate ETX 
+ID 
+Microbial ID 
+Notes 
+Personnel EM on 10Jul26 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+10Jul26 
+VV 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+Biological Safety Cabinet EM for Biological Safety Cabinet (BSC) E001317 on 10Jul26 
+Surface Sampling of 
+ISO 5 (4 locations) 
+Daily 
+10Jul26 
+VV 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+Settling Sampling of 
+ISO 5 (2 locations) 
+Daily 
+10Jul26 
+VV 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+Weekly Active Air Sampling of L-Suite 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) 
+Observation 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Active Air Sampling 
+of Cleanrooms 
+Weekly 
+10Jul26 
+SMO 
+Week of Testing 
+1 CFU in Section I of ISO7 (145) 
+ 
+17 CFUs in Section I of ISO8 (143) 
+11 CFUs in Section II of ISO8 (143) 
+7 CFUs in ISO8 (142) 
+ 
+ETX-260720-0292 
+ 
+ETX-260720-0295 
+ETX-260720-0299 
+ETX-260720-0302 
+ 
+ 
+Gram (+) and Gram (-) short 
+rods 
+Gram (+) rods 
+Gram (+) cocci 
+Gram (+) cocci 
+ 
+N/A 
+Surface Sampling of Anteroom and Cleanroom L-Suite 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) 
+Observation 
+Observation 
+Environmental 
+Monitoring Plate 
+ETX ID 
+Microbial ID 
+Notes 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+10Jul26 
+SMO 
+Week of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+ 
+ 
+ 
+ 
+ 
+
+
+============================== PAGE 8 ==============================
+Table 3: Environmental Monitoring from Changeover Procedure Performed on 10Jul26 
+ 
+ 
+ 
+ 
+Environmental Monitoring 
+(EM) Sampling Site 
+Frequency 
+Date 
+(DDMMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID 
+Notes 
+Personnel EM on 10Jul26 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+10Jul26 
+ELB 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+Biological Safety Cabinet EM Biological Safety Cabinet (BSC) E001937 on 10Jul26 
+Surface Sampling of 
+ISO 5 (4 locations) 
+Daily 
+10Jul26 
+ELB 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+Settling Sampling of 
+ISO 5 (2 locations) 
+Daily 
+10Jul26 
+ELB 
+Date of Testing 
+No Growth 
+N/A 
+N/A 
+N/A 
+
+
