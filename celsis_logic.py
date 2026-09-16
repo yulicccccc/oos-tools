@@ -8,7 +8,7 @@ FIELD_KEYS = [
     "oos_id", "client_name", "sample_id", "test_date", "process_date", "sample_name", "lot_number", 
     "dosage_form", "monthly_cleaning_date", 
     "prepper_initial", "prepper_name", "analyst_initial", "analyst_name",
-    "aliquoting_initial", "aliquoting_name", 
+    "aliquoting_initial", "aliquoting_name", "reading_initial", "reading_name",
     "bsc_id", "celsis_id", "test_record",
     "positive_media", "positive_id", "positive_org",
     "control_lot", "control_data",

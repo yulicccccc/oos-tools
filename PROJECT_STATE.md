@@ -3,7 +3,7 @@
 ## Current Phase: Rollover to New Project Environment
 
 ### What Was Completed
-- The Celsis reporting logic (`celsis_logic.py`, `pages/Celsis.py`) has been fully redesigned to match the narrative structure of the "RS Reviewed" model (OOS-261165).
+- The Celsis reporting logic (`celsis_logic.py`, `pages/Celsis.py`) has been fully redesigned to match the narrative structure of the "RS Reviewed" model (OOS-261165), and has been subsequently updated based on the 2026-09-16 RS feedback for OOS-261878 (adding Reading Analyst tracking, "viable but not culturable" terminology for no-growth, and finalized conclusion).
 - A 4-Step Smart Justification Engine (Shielding Mechanism) has been developed and integrated into the Celsis module, successfully synthesizing defenses based on ID mismatch, physical isolation, transfer pathways, and macro-environment history.
 - The underlying decision trees (flowcharts) for all three test types (Celsis, Scan RDI, USP <71>) have been finalized and documented in `OOS_Justification_Flowcharts.md`.
 - Analyzed 7 real EM OOS PDF reports from G: drive and fully built the standalone **Environmental Monitoring (EM)** 5-template ecosystem:

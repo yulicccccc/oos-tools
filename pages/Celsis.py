@@ -227,7 +227,7 @@ if process_date_str:
 st.text_input("Monthly Cleaning Date", key="monthly_cleaning_date", help="Required")
 
 st.header("2. Personnel & Equipment")
-p1, p2, p3 = st.columns(3)
+p1, p2, p3, p4 = st.columns(4)
 with p1: 
     st.text_input("Prepper Initials", key="prepper_initial")
     cl.auto_fill_name("prepper_initial", "prepper_name")
@@ -239,7 +239,11 @@ with p2:
 with p3: 
     st.text_input("Aliquoting Initials", key="aliquoting_initial")
     cl.auto_fill_name("aliquoting_initial", "aliquoting_name")
-    st.text_input("Aliquoting Name", key="aliquoting_name", help="Acts as Reader too")
+    st.text_input("Aliquoting Name", key="aliquoting_name")
+with p4: 
+    st.text_input("Reading Initials", key="reading_initial")
+    cl.auto_fill_name("reading_initial", "reading_name")
+    st.text_input("Reading Name", key="reading_name")
 
 e1, e2 = st.columns(2)
 bsc_list = ["1310", "1309", "1311", "1312", "1314", "1313", "1316", "1798", "Other"]
@@ -507,40 +511,41 @@ if st.session_state.report_generated:
 
         # Collect and deduplicate analyst names preserving order
         analysts_raw = [
-            st.session_state.get("prepper_name", ""),
-            st.session_state.get("analyst_name", ""),
-            st.session_state.get("aliquoting_name", ""),
+            (st.session_state.get("prepper_name", ""), st.session_state.get("prepper_initial", "")),
+            (st.session_state.get("analyst_name", ""), st.session_state.get("analyst_initial", "")),
+            (st.session_state.get("aliquoting_name", ""), st.session_state.get("aliquoting_initial", "")),
+            (st.session_state.get("reading_name", ""), st.session_state.get("reading_initial", "")),
         ]
-        analysts_clean = [str(x).strip() for x in analysts_raw if str(x).strip() and str(x).strip() != "N/A"]
-        analysts_unique = list(dict.fromkeys(analysts_clean))
-        
-        if not analysts_unique:
-            names_only_phrase = "N/A"
-            analysts_with_prefix_phrase = "the analysts"
-        elif len(analysts_unique) == 1:
-            names_only_phrase = analysts_unique[0]
-            analysts_with_prefix_phrase = f"analyst {analysts_unique[0]}"
-        elif len(analysts_unique) == 2:
-            names_only_phrase = f"{analysts_unique[0]} and {analysts_unique[1]}"
-            analysts_with_prefix_phrase = f"analysts {analysts_unique[0]} and {analysts_unique[1]}"
+        analysts_with_init_unique = []
+        for name, init in analysts_raw:
+            if name.strip() and name.strip() != "N/A":
+                item = f"{name.strip()} ({init.strip()})"
+                if item not in analysts_with_init_unique:
+                    analysts_with_init_unique.append(item)
+                    
+        if not analysts_with_init_unique:
+            analyst_intro = "N/A"
+        elif len(analysts_with_init_unique) == 1:
+            analyst_intro = analysts_with_init_unique[0]
+        elif len(analysts_with_init_unique) == 2:
+            analyst_intro = f"{analysts_with_init_unique[0]} and {analysts_with_init_unique[1]}"
         else:
-            names_only_phrase = ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
-            analysts_with_prefix_phrase = f"analysts " + ", ".join(analysts_unique[:-1]) + ", and " + analysts_unique[-1]
+            analyst_intro = ", ".join(analysts_with_init_unique[:-1]) + ", and " + analysts_with_init_unique[-1]
 
-        # Extract initials
+        # Extract initials for other uses
         p_name = st.session_state.prepper_name.strip()
         a_name = st.session_state.analyst_name.strip()
         alq_name = st.session_state.aliquoting_name.strip()
+        r_name = st.session_state.reading_name.strip()
         p_init = st.session_state.prepper_initial.strip()
         a_init = st.session_state.analyst_initial.strip()
         alq_init = st.session_state.aliquoting_initial.strip()
+        r_init = st.session_state.reading_initial.strip()
         is_same_prep = (p_name.lower() == a_name.lower()) or (p_init and a_init and p_init.lower() == a_init.lower())
 
         if is_same_prep:
-            analyst_intro = f"{a_name} ({a_init}) and {alq_name} ({alq_init})"
             integrity_intro = f"the sample prepping and processing analyst - {a_init} -"
         else:
-            analyst_intro = f"{p_name} ({p_init}), {a_name} ({a_init}) and {alq_name} ({alq_init})"
             integrity_intro = f"both the sample prepping analyst - {p_init} - and the processing analyst - {a_init} -"
 
         p1 = f"The analysts involved in the prepping, processing, aliquoting, and reading of the samples - {analyst_intro} - were interviewed comprehensively. Their answers are recorded throughout this document. This investigation was performed as per SOP 2.600.069 - Sterility Test Out-of-Specification (OOS) Investigation Procedure."
@@ -562,8 +567,11 @@ if st.session_state.report_generated:
         p5 = f"The innermost ISO 7 {suite_inner}, and the ISO 5 BSC E00{st.session_state.bsc_id} within the {suite_inner} were thoroughly cleaned and prepared before initiating the testing by analyst {a_init} as per SOP 2.600.002 (Environmental Monitoring of the Clean Room Facility), and SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Similarly, for Celsis aliquoting, the ISO 7 Cleanroom 114A, and the ISO 5 BSC E001798 within the ISO 7 Cleanroom 114A were thoroughly cleaned and prepared by aliquoting analyst {alq_init}, before initiating the testing as per SOP 2.600.002 and SOP 2.600.018. Both the BSCs, E00{st.session_state.bsc_id} and E001798 in suite 114A, were certified and approved by the Engineering and Quality Assurance teams prior to use."
         p6 = f"On {received_date_str}, {a_init} confirmed that each sample vial for {st.session_state.sample_id}, was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. Following initial disinfection, the bins were transferred to {disinf_route} Inside this cleanroom, the processing analyst, {a_init}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}. Inside the BSC, the vials were placed on the disinfected work surface, aseptically opened, and tested in accordance with SOP 2.600.059 (Celsis Sterility Testing). Following testing, the media bottles were subsequently transferred into designated incubators, E001356 and E001357, to initiate incubation."
         p7 = f"Upon completion of incubation on {st.session_state.test_date}, TSB & FTM bottles for {st.session_state.sample_id} were disinfected and transferred to the middle ISO 7 buffer room (Suite 114A) for aliquoting step per SOP 2.600.059 (Celsis Sterility Testing). In Suite 114A, the media bottles were disinfected one more time before transferring them to the ISO 5 BSC E001798 located in Suite 114A. In ISO 5 BSC E001798, the {sample_noun} was aliquoted into assay cuvettes by analyst {alq_init}."
-        p8 = f"After aliquoting, Celsis Sterility Reading was performed in accordance with SOP 2.600.059 by analyst {alq_init}. Following the reading, {sample_noun} {st.session_state.sample_id} was found to be positive in the {st.session_state.positive_media} media {bottle_noun}. The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from the {st.session_state.positive_media} sample {bottle_noun}, exceeded the average RLU of the {st.session_state.positive_media} negative control, confirming a positive result. It is to be noted that the %CV from the duplicate {st.session_state.positive_media} media bottles readings was greater than 30%. However, both duplicate tubes reached the instrument's upper detection limit, resulting in an 'overload' readings. All Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
-        p9 = f"Following the OOS result, the positive {st.session_state.positive_media} {bottle_noun} for the sample was submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}. Microbial growth was identified as {st.session_state.positive_org}."
+        p8 = f"After aliquoting, Celsis Sterility Reading was performed in accordance with SOP 2.600.059 by analyst {r_init}. Following the reading, {sample_noun} {st.session_state.sample_id} was found to be positive in the {st.session_state.positive_media} media {bottle_noun}. The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from the {st.session_state.positive_media} sample {bottle_noun}, exceeded the average RLU of the {st.session_state.positive_media} negative control, confirming a positive result. It is to be noted that the %CV from the duplicate {st.session_state.positive_media} media bottles readings was greater than 30%. However, both duplicate tubes reached the instrument's upper detection limit, resulting in an 'overload' readings. All Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
+        if "no growth" in st.session_state.positive_org.lower() or "no microbial growth" in st.session_state.positive_org.lower():
+            p9 = f"Following the OOS result, the positive {st.session_state.positive_media} {bottle_noun} for the sample was submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}. No microbial growth was recovered from the subculture, indicating that the microorganism present in the sample was potentially 'viable but not culturable'."
+        else:
+            p9 = f"Following the OOS result, the positive {st.session_state.positive_media} {bottle_noun} for the sample was submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}. Microbial growth was identified as {st.session_state.positive_org}."
         p10 = "The culture media utilized were within their expiry period. The negative culture media bottles were handled, processed, and incubated in a manner identical to that of actual samples. No microbial growth was observed in the corresponding negative control."
         p12 = "Tables 2 & 3 (please see attached) present the environmental monitoring results for the duration of testing. The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per SOP 2.600.002, Rev 15 (Environmental Monitoring of the Cleanroom Facility). Table 2 pertains to Environmental Monitoring performed during Celsis Sterility Processing, and Table 3 pertains to Environmental Monitoring performed during Celsis Sterility Aliquoting."
         
@@ -584,7 +592,7 @@ if st.session_state.report_generated:
             fresh_cross = cl.generate_celsis_cross_contam_text()
             
         p19 = f"To assess the potential for sample-to-sample contamination as a contributing factor to the positive result, a comprehensive review was conducted of all samples processed during the same testing session on {received_date_str}. {fresh_cross} These findings support the conclusion that the positive result was an isolated event confined to the specific test article and was not attributable to analyst technique, sample handling procedures, or the laboratory environment."
-        p20 = "A thorough review of all available data, encompassing reagents, supplies, cleanroom environmental monitoring, analyst performance records, and procedural compliance documentation, confirms that no contributing factors attributable to the laboratory or its personnel were identified. All critical control points were operating within established acceptance criteria at the time of testing and aliquoting. Accordingly, the positive result is considered a valid and isolated finding limited to the specific test article, with the probability of laboratory-introduced error effectively ruled out."
+        p20 = "A thorough review of all available data, encompassing reagents, supplies, cleanroom environmental monitoring, analyst performance records, and procedural compliance documentation, confirms that no contributing factors attributable to the laboratory or its personnel were identified. All critical control points were operating within established acceptance criteria at the time of testing and aliquoting. Accordingly, the positive result is considered a valid and isolated finding limited to the specific test article, and laboratory error is highly unlikely."
 
         smart_phase1_full = "\\n\\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20])
         smart_phase1_part1 = "\\n\\n".join([p1, p2, p3, p4, p5, p6])
@@ -592,18 +600,21 @@ if st.session_state.report_generated:
 
         analyst_sig_text = f"{st.session_state.analyst_name} (Written by: Qiyue Chen)"
         personnel_lines = []
-        p_name = st.session_state.prepper_name.strip().lower()
-        a_name = st.session_state.analyst_name.strip().lower()
-        p_init = st.session_state.prepper_initial.strip().lower()
-        a_init = st.session_state.analyst_initial.strip().lower()
-        is_same = (p_name == a_name) or (p_init and a_init and p_init == a_init)
-        
-        if not is_same:
+        if not is_same_prep:
             personnel_lines.append(f"Prepper: \n{st.session_state.prepper_name} ({st.session_state.prepper_initial})")
         personnel_lines.extend([
             f"Processor:\n{st.session_state.analyst_name} ({st.session_state.analyst_initial})",
             f"Aliquoting Analyst:\n{st.session_state.aliquoting_name} ({st.session_state.aliquoting_initial})"
         ])
+        alq_name = st.session_state.aliquoting_name.strip().lower()
+        r_name = st.session_state.reading_name.strip().lower()
+        alq_init = st.session_state.aliquoting_initial.strip().lower()
+        r_init = st.session_state.reading_initial.strip().lower()
+        is_same_alq_read = (alq_name == r_name) or (alq_init and r_init and alq_init == r_init)
+        
+        if not is_same_alq_read and r_name:
+            personnel_lines.append(f"Reading Analyst:\n{st.session_state.reading_name} ({st.session_state.reading_initial})")
+        
         smart_personnel_block = "\n\n".join(personnel_lines)
                                  
         smart_incident_opening = f"On {st.session_state.test_date}, {sample_noun} {st.session_state.sample_id} {sample_verb} found positive for viable microorganisms after Celsis sterility testing."
@@ -621,6 +632,7 @@ if st.session_state.report_generated:
             "prepper_name": st.session_state.prepper_name, "prepper_initial": st.session_state.prepper_initial,
             "analyst_name": st.session_state.analyst_name, "analyst_initial": st.session_state.analyst_initial,
             "aliquoting_name": st.session_state.aliquoting_name, "aliquoting_initial": st.session_state.aliquoting_initial,
+            "reading_name": st.session_state.reading_name, "reading_initial": st.session_state.reading_initial,
             "bsc_id": st.session_state.bsc_id, "smart_bsc_id": f"E00{st.session_state.bsc_id}", "cr_suit": t_suite, "suit": t_suffix, "bsc_location": t_loc,
             "positive_media": st.session_state.positive_media, "positive_id": st.session_state.positive_id, "positive_org": st.session_state.positive_org,
             "monthly_cleaning_date": st.session_state.monthly_cleaning_date,
