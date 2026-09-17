@@ -30,35 +30,36 @@ date_requested = datetime.now().strftime("%d-%b-%Y")
 
 # Concise, structured text for Page 1 Reference Box (w=142.8, h=87)
 ref_text = (
-    f"Sample: {sample_id}\n"
+    f"{sample_id}\n"
     f"Client: {client_name}\n"
+    f"Lot #: {lot_number}\n"
     f"Analyte: {sample_name}\n"
-    f"Lot #: {lot_number} | Date: {test_date}\n"
-    f"Test: Scan RDI Sterility Testing\n\n"
-    f"Related Quality Records:\n"
-    f"• {oos_id} (Phase I OOS Investigation)\n"
-    f"• NCR {ncr_id} (Sample Mix-up)\n"
-    f"• MICRO-SOP-12 | CORP-SOP-15"
+    f"Test: Scan RDI Sterility\n\n"
+    f"Coupled Quality Records:\n"
+    f"• {oos_id}\n"
+    f"• NCR {ncr_id}"
 )
 
-# Concise, structured text for Page 1 Description Box (w=372, h=87)
+# Narrative text for Page 1 Description Box (matching Robin Seymour's cGMP in-house style)
 desc_text = (
-    f"1. Incident & NCR {ncr_id}: On {test_date}, sample {sample_id} failed Scan RDI sterility testing "
-    f"(4 CFUs rod morphology). Due to a clerical transposition during data entry, it was inadvertently marked "
-    f"and approved as 'Passing/Complete' in EagleTrax, while passing sample {transposed_sample_id} was placed on hold "
-    f"(documented under closed NCR {ncr_id}).\n"
-    f"2. Client Notification: On {test_date}, Client Care and Lab Management promptly notified the client by phone and email "
-    f"to place Lot {lot_number} on quarantine, preventing unintended product release.\n"
-    f"3. OOS Investigation: Phase I investigation {oos_id} confirmed the failing result is valid and not due to laboratory "
-    f"contamination or analytical error. Original test failure is deemed valid.\n"
-    f"4. Action in EagleTrax: Correct result from 'Pass' to 'Fail' (Positive, 4 CFUs, rod morphology) and update final test "
-    f"status for {sample_id} in EagleTrax, coupled with closed {oos_id}."
+    f"On {test_date}, sample {sample_id} ({client_name}, Lot {lot_number}) failed Scan RDI sterility testing with a positive result "
+    f"of 4 CFUs (rod morphology). Due to an unintentional clerical transposition during manual data entry, this failing result "
+    f"was inadvertently approved as 'Passing/Complete' in EagleTrax, while passing sample {transposed_sample_id} was placed on hold. "
+    f"This nonconformance was immediately identified and documented under NCR {ncr_id}.\n\n"
+    f"Eagle Client Care and Laboratory Management promptly contacted the client on {test_date} to notify them of the positive "
+    f"test result and confirm immediate quarantine of Lot {lot_number}, preventing unintended product release. Subsequent Phase I "
+    f"laboratory investigation {oos_id} confirmed that the positive sterility result was valid and not caused by laboratory "
+    f"contamination or analytical error. Retraining on MICRO-SOP-12 and CORP-SOP-15 was completed under NCR {ncr_id} in ZenQMS.\n\n"
+    f"Required Change:\n"
+    f"Within Eagle Trax Submission Information, under the Test Results field for Submission ID {sample_id}, update the entry as follows:\n"
+    f"• Change 'Pass' to 'Fail' (Positive: 4 CFUs, rod-shaped morphology).\n"
+    f"• Cross-reference both closed investigation {oos_id} and closed NCR {ncr_id} within ETX test notes.\n\n"
+    f"This change ensures the submission record accurately reflects the validated failing test result and aligns EagleTrax with finalized quality records."
 )
 
-# Justification of Impact (placed in the left box under Section 3, avoiding the colored matrix on the right)
+# Justification of Impact (captured comprehensively in Section 2 narrative and closing purpose statement)
 just_text = (
-    "Justification of Impact:\n"
-    f"The transposition occurred during manual data entry on {test_date}. Client was notified immediately on the same day "
+    f"The transposition occurred during manual data entry on {test_date}. Client Care immediately notified the client on the same day "
     f"to quarantine Lot {lot_number}, preventing release of affected product. Investigation {oos_id} confirmed test validity. "
     f"This CR authorizes correcting EagleTrax records from Pass to Fail. Retraining was completed under closed NCR {ncr_id}. "
     "Overall product quality risk is fully controlled."
@@ -76,11 +77,13 @@ p1_vals = {
     'Text Field1': 'Microbiology',
     'Date Field0': date_requested,
     'Check Box6': 'Yes', # Other:
-    'Text Field2': 'EagleTrax Test Result Correction (Pass to Fail)',
+    'Text Field2': f'EagleTrax Result Correction (Pass to Fail) - {sample_id}',
     'Check Box8': 'Yes', # OOS #
     'Text Field3': oos_id,
+    'Text Field4': f'N/A QC {date_requested}', # CAR #
+    'Text Field5': f'N/A QC {date_requested}', # Audit #
     'Check Box12': 'Yes', # Other
-    'Text Field6': f"NCR {ncr_id}",
+    'Text Field6': f'NCR {ncr_id}',
     'Text Field7': ref_text,
     'Text Field8': desc_text,
     'Text Field9': '1',  # Frequency
@@ -95,11 +98,13 @@ font_sizes_p1 = {
     'Text Field0': 8.5,
     'Text Field1': 8.5,
     'Date Field0': 8.5,
-    'Text Field2': 7.8,
+    'Text Field2': 6.5,
     'Text Field3': 8.5,
-    'Text Field6': 7.5,
+    'Text Field4': 5.8,
+    'Text Field5': 5.8,
+    'Text Field6': 8.0,
     'Text Field7': 6.8,
-    'Text Field8': 6.2,
+    'Text Field8': 5.0,
     'Text Field9': 9.0,
     'Text Field10': 9.0,
     'Text Field11': 9.0,
@@ -112,10 +117,6 @@ for w in p1.widgets():
         if w.field_name in font_sizes_p1:
             w.text_fontsize = font_sizes_p1[w.field_name]
         w.update()
-
-# Insert Impact Justification text cleanly into the Section 3 left column space on Page 1 (x: 46.2 to 195.0, avoiding middle legend and matrix)
-rect_just = fitz.Rect(46.2, 528.0, 195.0, 626.0)
-p1.insert_textbox(rect_just, just_text, fontsize=6.2, fontname='helv', color=(0, 0, 0))
 
 # Page 2 Field Values & Font Sizes
 p2_vals = {
