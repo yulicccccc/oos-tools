@@ -915,8 +915,12 @@ if st.session_state.report_generated:
                 "Aug 2027\r\n \r\nFeb 2027"
             ),
             'Text Field45': 'See Phase I Summary',
-            'Text Field48': f"N/A QC {datetime.now().strftime('%d%b%y')}",
-            'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
+            'Text Field48': f"N/A QYC {datetime.now().strftime('%d%b%y')}",
+            'Text Field49': smart_phase1_part1,
+            'Text Field50': smart_phase1_part2,
+            'Text Field51': f"N/A QYC {datetime.now().strftime('%d%b%y')}",
+            'Text Field53': st.session_state.get('writer_name', 'Qiyue Chen'),
+            'Text Field54': ''
         }
 
         docx_buf, pdf_form_buf = None, None

@@ -100,9 +100,6 @@ p5 = (
     f"conducted in the ISO 5 BSC E00{data['bsc_id']} in the innermost ISO 7 room, (114B) by Alex Saravia on {data['process_date_full']} as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
-text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
-
-# --- PAGE 4 (Text Field 50) ---
 p6 = (
     f"On 28 Aug 2026, the sample vials for {data['sample_id_pure']} were received from the Sample Submissions team and brought into "
     "the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into "
@@ -126,8 +123,7 @@ p8 = (
 p9 = (
     f"On {data['test_date_full']} (Day 7 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by reading analyst, "
     f"Andrew Carrillo, and confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for {data['sample_id_pure']} was submitted "
-    f"for Differential Staining and Microbial Identification under {data['positive_id']}. Differential staining indicated the presence of Gram-positive rods. "
-    f"Definitive identification identified the isolate as {data['positive_org']}."
+    f"for Differential Staining and Microbial Identification under {data['positive_id']}.  Definitive identification identified the isolate as {data['positive_org']}."
 )
 
 p10 = (
@@ -142,9 +138,9 @@ p11 = (
     "However, weekly active air monitoring of ISO 8 Room 114 (CR 114) recovered 1 CFU (ETX-260914-0487, pending identification)."
 )
 
-text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11])
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11])
 
-# --- PAGE 5 (Text Field 51) ---
+# --- PAGE 4 (Text Field 50) ---
 p12 = (
     f"It is important to note that all sample processing activities were performed within the validated ISO 5 BSC E00{data['bsc_id']} located in the innermost "
     "ISO 7 cleanroom (Suite 114B). The test samples do not come into contact with ambient ISO 8 air, as samples are transferred in disinfected, "
@@ -182,12 +178,8 @@ p17 = (
 
 p18 = (
     f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using "
-    f"USP <71> / EP 2.6.1 Sterility Test during this period. Crucially, this sample was submitted as part of a Beyond-Use Date (BUD) stability study "
-    f"for lot {data['lot_number']}. The baseline T0 time point (tested on 06 Aug 2026 by analyst G. Li) yielded valid passing results for USP <71> sterility, "
-    "along with passing USP <1207> Container Closure Integrity and USP <85> Bacterial Endotoxin testing. Furthermore, at the current T30 time point, all other "
-    "concurrent testing—including Appearance, pH, Potency (TB-500 & Benzyl Alcohol), USP <788> Particulate Matter, and USP <85> Bacterial Endotoxin—met all "
-    "acceptance criteria and passed. The isolation of microbial growth (Paenibacillus lautus) exclusively at the 30-day stability storage interval indicates a true product "
-    "stability/Beyond-Use Date limitation rather than laboratory contamination during sample manipulation on 31 Aug 2026."
+    f"USP <71> / EP 2.6.1 Sterility Test during this period. This sample was submitted as part of a Beyond-Use Date (BUD) stability study "
+    f"for lot {data['lot_number']}. The baseline T0 time point (tested on 06 Aug 2026 by analyst GL) yielded valid passing results for USP <71> sterility."
 )
 
 p19 = (
@@ -202,10 +194,14 @@ p20 = (
     "result is deemed to be valid."
 )
 
-text_field_51 = "\n\n".join([p12, p13, p14, p15, p16, p17, p18, p19, p20])
+text_field_50 = "\r \r".join([p12, p13, p14, p15, p16, p17, p18, p19, p20])
+
+# --- PAGE 5 (Text Field 51) ---
+writer_initial = "QYC"
+text_field_51 = f"N/A {writer_initial} {datetime.now().strftime('%d%b%y')}"
 
 # Assemble Master Narrative for Word Template
-smart_phase1_full = f"{text_field_49}\n\n{text_field_50}\n\n{text_field_51}"
+smart_phase1_full = f"{text_field_49}\n\n{text_field_50}"
 
 data["smart_phase1_summary"] = smart_phase1_full
 data["equipment_summary"] = p5
@@ -540,12 +536,12 @@ pdf_map = {
     'Text Field45': "See Phase I Summary",
     'Text Field46': "Not applicable",
     'Text Field47': "Not applicable",
-    'Text Field48': f"N/A QC {datetime.now().strftime('%d%b%y')}",
+    'Text Field48': f"N/A {writer_initial} {datetime.now().strftime('%d%b%y')}",
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
-    'Text Field53': f"Alex Saravia (Written by: {data['writer_name']})",
-    'Text Field54': data['qa_manager']
+    'Text Field53': data['writer_name'],
+    'Text Field54': ""
 }
 
 # Checkboxes exactly matching OOS-261987
