@@ -1061,6 +1061,8 @@ def generate_em_reports():
                 'Text Field40': "Not Applicable",
                 'Text Field41': "Not Applicable",
                 'Text Field42': "Not Applicable",
+                'Text Field43': "Incubator E001034\n\n(Sensor E001501)\n\nIncubator E001031\n\n(Sensor E001505)",
+                'Text Field44': "Aug 2026\n\nFeb 2027\n\nAug 2026\n\nFeb 2027",
                 'Text Field45': "Not Applicable",
                 'Text Field46': "Not Applicable",
                 'Text Field47': "Not Applicable",
@@ -1069,12 +1071,12 @@ def generate_em_reports():
                 'Text Field50': records_block,
                 'Text Field51': summary_block,
                 'Text Field52': "",
-                'Text Field53': ctx.get('writer_name', "Dhvanir Kansara"),
+                'Text Field53': ctx.get('writer_name', "Qiyue Chen"),
                 'Text Field54': ctx.get('manager_signer', "Robin Seymour")
             }
 
             # Checkbox Yes/No defaults matching production PDF QA standards (EM is internal facility testing)
-            yes_boxes = {4, 9, 10, 13, 16, 19, 24, 27, 28, 33, 36, 39, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 79, 87}
+            yes_boxes = {4, 9, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 60, 63, 66, 69, 72, 73, 78, 79, 87}
             for i in range(100):
                 if i in yes_boxes:
                     pdf_map[f'Check Box{i}'] = '/Yes'
