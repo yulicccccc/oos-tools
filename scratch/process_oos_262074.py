@@ -57,10 +57,10 @@ data = {
     "writer_name": "Qiyue Chen",
     "qa_manager": "Robin Seymour",
     "qa_notified": "Kathan Parikh",
-    "bsc_id": "1314",
-    "chgbsc_id": "1314",
-    "cr_suit": "115",
-    "cr_id": "1737",
+    "bsc_id": "1316",
+    "chgbsc_id": "1316",
+    "cr_suit": "114",
+    "cr_id": "1736",
     "suit": "B",
     "bsc_location": "innermost ISO 7 room",
     "monthly_cleaning_date": "30Aug26",
@@ -88,16 +88,16 @@ p3 = (
 )
 
 p4 = (
-    "The cleanroom suite (CR 115) used for processing procedures comprises three interconnected sections: the innermost ISO 7 cleanroom (115B), "
-    "which connects to the middle ISO 7 buffer room (115A), and then to the outermost ISO 8 anteroom (115). A positive air pressure system "
-    "is maintained throughout the suite to ensure controlled, unidirectional airflow from 115B through 115A and into 115."
+    "The cleanroom suite (CR 114) used for processing procedures comprises three interconnected sections: the innermost ISO 7 cleanroom (114B), "
+    "which connects to the middle ISO 7 buffer room (114A), and then to the outermost ISO 8 anteroom (114). A positive air pressure system "
+    "is maintained throughout the suite to ensure controlled, unidirectional airflow from 114B through 114A and into 114."
 )
 
 p5 = (
-    f"The ISO 5 BSC E00{data['bsc_id']}, located in the innermost ISO 7 room, (115B), was used for sample processing steps. It was thoroughly "
+    f"The ISO 5 BSC E00{data['bsc_id']}, located in the innermost ISO 7 room, (114B), was used for sample processing steps. It was thoroughly "
     "cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
     f"Additionally, BSC E00{data['bsc_id']} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing was "
-    f"conducted in the ISO 5 BSC E00{data['bsc_id']} in the innermost ISO 7 room, (115B) by Alex Saravia on {data['process_date_full']} as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
+    f"conducted in the ISO 5 BSC E00{data['bsc_id']} in the innermost ISO 7 room, (114B) by Alex Saravia on {data['process_date_full']} as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
@@ -110,8 +110,8 @@ p6 = (
 )
 
 p7 = (
-    "The secondary disinfection happened in the ISO 8 anteroom (115), where the vials were again treated with acidified bleach and provided "
-    "a 10-minute contact time before processing. Subsequently, the vials were moved into innermost ISO 7 cleanroom (115B). Inside this cleanroom, "
+    "The secondary disinfection happened in the ISO 8 anteroom (114), where the vials were again treated with acidified bleach and provided "
+    "a 10-minute contact time before processing. Subsequently, the vials were moved into innermost ISO 7 cleanroom (114B). Inside this cleanroom, "
     "the processing analyst, Alex Saravia, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, "
     f"the vials were transferred into the ISO 5 BSC E00{data['bsc_id']}."
 )
@@ -138,7 +138,7 @@ p10 = (
 p11 = (
     "Upon analyzing the environmental monitoring results, no microbial growth was detected on personnel monitoring plates, settling plates, or "
     f"ISO 5 BSC surface sampling plates on the date of testing ({data['process_date_full']}), the preceding testing date (28 Aug 2026), or the subsequent "
-    "testing date (01 Sep 2026). Additionally, no microbial growth was recovered from the weekly surface sampling plate collected on 04 Sep 2026 for Cleanroom 115 (E001737). "
+    "testing date (01 Sep 2026). Additionally, no microbial growth was recovered from the weekly surface sampling plate collected on 04 Sep 2026 for Cleanroom 114 (E001736). "
     "However, weekly active air monitoring of ISO 8 Room 114 (CR 114) recovered 1 CFU (ETX-260914-0487, pending identification)."
 )
 
@@ -146,15 +146,15 @@ text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11])
 
 # --- PAGE 5 (Text Field 51) ---
 p12 = (
-    "It is important to note that all sample processing activities were performed within the validated ISO 5 BSC E001314 located in the innermost "
-    "ISO 7 cleanroom (Suite 115B). The test samples do not come into contact with ambient ISO 8 air, as samples are transferred in disinfected, "
+    f"It is important to note that all sample processing activities were performed within the validated ISO 5 BSC E00{data['bsc_id']} located in the innermost "
+    "ISO 7 cleanroom (Suite 114B). The test samples do not come into contact with ambient ISO 8 air, as samples are transferred in disinfected, "
     "lidded containers through the layered cleanroom suites. Furthermore, the colony recovery occurred in the lower-classified ISO 8 anteroom environment, "
     "which is physically segregated from the ISO 5 processing zone."
 )
 
 p13 = (
     "In addition, considering the facility's layered disinfection program, controlled unidirectional airflow, and cleanroom design, it is unlikely "
-    "that the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (Suite 115B)."
+    "that the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (Suite 114B)."
 )
 
 p14 = (
@@ -176,8 +176,8 @@ p16 = (
 
 p17 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing "
-    f"ISO 5 BSCs for Cleanroom suite CR115 was performed on {data['monthly_cleaning_date_full']}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
-    "During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR115."
+    f"ISO 5 BSCs for Cleanroom suite CR114 was performed on {data['monthly_cleaning_date_full']}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
+    "During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR114."
 )
 
 p18 = (
@@ -223,7 +223,7 @@ data["smart_personnel_block"] = (
 )
 data["analyst_signature"] = f"Alex Saravia (Written by: {data['writer_name']})"
 data["smart_incident_opening"] = f"On {data['test_date_full']}, sample {data['sample_id']} was found positive for viable microorganisms after USP <71> sterility testing."
-data["smart_cr_id"] = "CR E001737"
+data["smart_cr_id"] = "CR E001736"
 data["usp71_id"] = f"E00{data['bsc_id']}"
 data["reader_name"] = data["reading_name"]
 
@@ -353,7 +353,7 @@ for r_offset, row_vals in enumerate(em_personnel_data):
 
 # Row 5: Merged BSC header
 t2_clean.rows[5].cells[0].merge(t2_clean.rows[5].cells[-1])
-update_cell_text(t2_clean.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E001314", bold=True, font_size=Pt(7.5))
+update_cell_text(t2_clean.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E001316", bold=True, font_size=Pt(7.5))
 
 # Surface sampling (6, 7, 8)
 em_surf_data = [
@@ -379,7 +379,7 @@ for r_offset, row_vals in enumerate(em_sett_data):
 
 # Row 12: Weekly Active Air header
 t2_clean.rows[12].cells[0].merge(t2_clean.rows[12].cells[-1])
-update_cell_text(t2_clean.rows[12].cells[0], "Weekly Active Air Sampling of CR 115 (E001737)", bold=True, font_size=Pt(7.5))
+update_cell_text(t2_clean.rows[12].cells[0], "Weekly Active Air Sampling of CR 114 (E001736)", bold=True, font_size=Pt(7.5))
 
 # Row 13: Active Air data
 air_vals = ("Active Air Sampling of Cleanrooms", "Weekly", "04 Sep 2026", "SMO", "Week of Testing", "1 CFU\n(ISO 8 114)", "ETX-260914-0487", "Pending", "None")
@@ -389,7 +389,7 @@ for c_idx, val in enumerate(air_vals):
 
 # Row 14: Surface Sampling Anteroom header
 t2_clean.rows[14].cells[0].merge(t2_clean.rows[14].cells[-1])
-update_cell_text(t2_clean.rows[14].cells[0], "Surface Sampling of Anteroom and Cleanroom of CR 115 (E001737)", bold=True, font_size=Pt(7.5))
+update_cell_text(t2_clean.rows[14].cells[0], "Surface Sampling of Anteroom and Cleanroom of CR 114 (E001736)", bold=True, font_size=Pt(7.5))
 
 # Row 15: Cleanroom surface data
 clean_vals = ("Surface Sampling of Cleanrooms", "Weekly", "04 Sep 2026", "SMO", "Week of Testing", "No growth", "N/A", "N/A", "None")
