@@ -147,7 +147,7 @@ def parse_em_text(text):
         if "sett" in p_lower:
             data["sampling_type"] = "Settling Sampling"
         elif "c/o" in p_lower or "changeover" in p_lower:
-            data["sampling_type"] = "Surface Sampling (Changeover)"
+            data["sampling_type"] = "Changeover Surface Sampling"
         elif any(s in p_lower for s in ["s1", "s2", "s3", "s4", "surf"]):
             data["sampling_type"] = "Surface Sampling"
         elif "glove" in p_lower or "pers" in p_lower:
@@ -276,7 +276,7 @@ def parse_em_docx_table(docx_input):
                     bsc_short = data.get('bsc_num', '1309')
                     data['sample_name'] = f"ScanC/O {data['analyst_initial']} E00{bsc_short} {site_code} {clean_d}"
                     data['test_date'] = clean_d
-                    data['sampling_type'] = 'Surface Sampling (Changeover)'
+                    data['sampling_type'] = 'Changeover Surface Sampling'
 
     if 'test_date' in data:
         raw_mc = get_monthly_cleaning_date(data['test_date'])

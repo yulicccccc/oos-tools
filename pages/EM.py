@@ -73,7 +73,7 @@ with c4:
     st.text_input("Test Date (DDMMMYY)", key="test_date", placeholder="e.g. 07May26")
     st.selectbox(
         "Sampling Type", 
-        ["Settling Sampling", "Surface Sampling", "Surface Sampling (Changeover)", "Weekly Cleanroom Sampling", "Personnel Sampling (Glove)"], 
+        ["Settling Sampling", "Surface Sampling", "Changeover Surface Sampling", "Weekly Cleanroom Sampling", "Personnel Sampling (Glove)"], 
         key="sampling_type"
     )
 
