@@ -695,10 +695,10 @@ def build_em_context():
     else:
         analyst_sig = analyst_name
 
-    # Media Plate / Reagent Info
+    # Media Plate / Reagent Info (from 20260727171905680.pdf Lab Logbook Form 3.600.002.F02)
     plate_media_type = s.get('plate_media_type', 'TSA Plate' if ('air' in plate_name.lower() or 'sett' in plate_name.lower()) else 'Contact Plate')
-    media_lot = s.get('media_plate_lot', '1011834770')
-    media_exp = s.get('media_plate_exp', '25 Sep 2026')
+    media_lot = s.get('media_plate_lot', '1011695040')
+    media_exp = s.get('media_plate_exp', '03 Jul 2026')
     reagent_lot_str = f"{plate_media_type}:\n{media_lot}"
     reagent_exp_str = f"{plate_media_type}:\n{media_exp}"
 

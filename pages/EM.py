@@ -112,41 +112,59 @@ if st.session_state.get("em_show_reports", False):
         st.success("✅ EM Phase I Complete 7-Page Report Generated Successfully!")
         
         st.markdown("### 📂 Download Reports & Attachments")
-        c1, c2, c3, c4 = st.columns(4)
-        safe_name = el.clean_filename(st.session_state.get("oos_id", "EM_Report"))
+        sample_clean = el.clean_filename(st.session_state.get("sample_name", "EM"))
+        oos_clean = el.clean_filename(st.session_state.get("oos_id", "EM_Report"))
+        if not oos_clean.startswith("OOS-"):
+            oos_clean = f"OOS-{oos_clean}"
+        base_name = f"{oos_clean} {sample_clean} - EM"
+        test_d_clean = el.clean_filename(st.session_state.get("test_date", "11MAY2026"))
+        legacy_table_name = f"EM table {oos_clean} {test_d_clean}"
+        
+        # Prepare standalone tables docx & pdf
+        tbl_docx_buf = el.generate_em_standalone_table_docx()
+        page7_pdf_buf = el.generate_em_tables_page_pdf(el.build_em_context())
         
         with c1:
-            st.subheader("Word Document")
+            st.subheader("Word Documents")
             if docx_buf:
                 st.download_button(
-                    "📄 EM OOS Full Report (.docx)", 
+                    "📄 EM Report (.docx)", 
                     docx_buf, 
-                    f"{safe_name}.docx", 
+                    f"{base_name}.docx", 
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
-            else:
-                st.error("Word template not found or rendering failed.")
-
-        with c2:
-            st.subheader("7-Page PDF Report")
-            if pdf_buf:
-                st.download_button(
-                    "🔴 EM OOS Complete 7-Page PDF (.pdf)", 
-                    pdf_buf, 
-                    f"{safe_name}.pdf", 
-                    "application/pdf"
-                )
-            else:
-                st.error("PDF template not found or rendering failed.")
-
-        with c3:
-            st.subheader("EM Tables (.docx)")
-            tbl_docx_buf = el.generate_em_standalone_table_docx()
             if tbl_docx_buf:
                 st.download_button(
-                    "📊 EM Tables 1 & 2 (.docx)", 
+                    "📄 Tables (.docx)", 
                     tbl_docx_buf, 
-                    f"EM_table_{safe_name}.docx", 
+                    f"Tables {base_name}.docx", 
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+
+        with c2:
+            st.subheader("PDF Reports")
+            if pdf_buf:
+                st.download_button(
+                    "🔴 EM Complete 7-Page PDF", 
+                    pdf_buf, 
+                    f"{base_name}.pdf", 
+                    "application/pdf"
+                )
+            if page7_pdf_buf:
+                st.download_button(
+                    "🔴 Tables Standalone PDF", 
+                    page7_pdf_buf, 
+                    f"Tables {base_name}.pdf", 
+                    "application/pdf"
+                )
+
+        with c3:
+            st.subheader("Legacy Table Name")
+            if tbl_docx_buf:
+                st.download_button(
+                    "📊 EM Table (.docx)", 
+                    tbl_docx_buf, 
+                    f"{legacy_table_name}.docx", 
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
 
@@ -154,9 +172,9 @@ if st.session_state.get("em_show_reports", False):
             st.subheader("Backup Session")
             session_data = {k: st.session_state[k] for k in el.FIELD_KEYS if k in st.session_state}
             st.download_button(
-                "💾 Save Session Data (.txt)", 
+                "💾 Save Session (.txt)", 
                 json.dumps(session_data, indent=2), 
-                f"SAVE_{safe_name}.txt", 
+                f"SAVE_{base_name}.txt", 
                 "text/plain"
             )
             
