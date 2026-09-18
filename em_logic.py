@@ -505,6 +505,17 @@ def generate_em_narrative():
     before_d_full = dates["before_d_full"]
     after_d_full = dates["after_d_full"]
 
+    # Bracketing dates for Personnel vs Surface/Settling
+    pers_before_d_full = s.get("pers_date_before_full", before_d_full)
+    if "11MAY" in plate_name.upper():
+        pers_before_d_full = "08 May 2026"
+        surf_before_d_full = "09 May 2026"
+        sett_before_d_full = "09 May 2026"
+        after_d_full = "12 May 2026"
+    else:
+        surf_before_d_full = s.get("surf_date_before_full", before_d_full)
+        sett_before_d_full = s.get("sett_date_before_full", before_d_full)
+
     is_cleanroom_weekly = any(k in sampling_type.lower() or k in plate_name.lower() for k in ["weekly", "air", "cart", "floor", "cleanroom"])
     is_artifact = any(k in org_identified.lower() for k in ["artifact", "anomaly", "nonviable", "no growth upon subculture", "could not be confirmed"])
 
@@ -542,7 +553,7 @@ def generate_em_narrative():
             f"Based on the observations in Table 1, the {sampling_lower} plate recovery was submitted for microbial identification under {event_id}. "
             f"The recovered microorganism was identified as {org_identified}."
         )
-        recovery_nature = "organism identified was transient or recurring"
+        recovery_nature = "recovery"
 
     if is_cleanroom_weekly:
         interview_block = (
@@ -559,8 +570,8 @@ def generate_em_narrative():
             f"{cfu_obs_desc}. The plate was read by {reader_1} after the initial incubation period and by {reader_2} after the second incubation period. "
             f"Please see Table 1 for detailed information on the observations during the respective incubations.\n\n"
             f"{artifact_block}\n\n"
-            f"To determine whether the recovery was transient or recurring, personnel-monitoring plates for {analyst_name} and Cleanroom Suite {room_num} "
-            f"environmental-monitoring plates were bracketed to include the date before testing ({before_d_full}), the date of testing ({d_start_full}), and the date after testing ({after_d_full}), as detailed in Table 2."
+            f"To evaluate environmental controls and determine whether the recovery was transient or recurring, environmental-monitoring plates for Cleanroom Suite {room_num} "
+            f"were bracketed across the testing period, as detailed in Table 2."
         )
     else:
         interview_block = (
@@ -577,77 +588,117 @@ def generate_em_narrative():
             f"{cfu_obs_desc}. The plate was read by {reader_1} after the initial incubation period and by {reader_2} after the second incubation period. "
             f"Please see Table 1 for detailed information on the observations during the respective incubations.\n\n"
             f"{artifact_block}\n\n"
-            f"To determine whether the {recovery_nature} was transient or recurring, personnel-monitoring plates for {analyst_name} and ISO 5 {bsc_e_id} "
-            f"environmental-monitoring plates were bracketed to include the date before testing ({before_d_full}), the date of testing ({d_start_full}), and the date after testing ({after_d_full}), as detailed in Table 2."
+            f"To evaluate environmental controls and determine whether the {recovery_nature} was transient or recurring, personnel-monitoring plates for {analyst_name} and ISO 5 {bsc_e_id} "
+            f"environmental-monitoring plates were bracketed across the testing period, as detailed in Table 2."
         )
 
     # --- 2. EM Records Block (Field 50) ---
     if is_cleanroom_weekly:
         records_block = (
-            f"Environmental Monitoring Summary:\n"
-            f"Weekly surface and active air sampling for {cr_suite} for the previous week and following week of testing showed no microbial growth.\n\n"
+            f"Upon analyzing the environmental monitoring results summarized in Table 2, weekly surface and active air sampling for {cr_suite} "
+            f"for the previous week and following week of testing showed no microbial growth.\n\n"
             f"However, the {sampling_type} for {cr_suite} for the week of testing, performed on {d_start_full} by analyst {analyst_init}, exhibited {cfu_count} CFUs on {plate_name}, "
             f"which were identified as {org_identified}. Routine monitoring on the date of testing showed no growth across other monitored locations.\n\n"
             f"During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
             f"All materials were disinfected prior to testing. Moreover, the cleanroom suites in {cr_suite} were thoroughly cleaned and prepared before initiating testing as per MICRO-SOP-2 and MICRO-SOP-9.\n\n"
-            f"Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom ({suite_num}), ISO 7 buffer room ({suite_num}A), ISO 7 cleanroom ({suite_num}B), "
-            f"and the ISO 5 biosafety cabinets located within Room {suite_num}B, were performed on {monthly_cleaning_date} by Analyst - {cleaner_name} - in accordance with MICRO-SOP-9, "
+            f"Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (Room {suite_num}) and ISO 7 cleanroom areas, "
+            f"were performed on {monthly_cleaning_date} by Analyst - {cleaner_name} - in accordance with MICRO-SOP-9, "
             f"Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators passed, confirming the successful completion and effectiveness of the monthly cleaning and disinfection activities "
-            f"within Rooms {suite_num}, {suite_num}A, and {suite_num}B. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9.\n\n"
-            f"It is important to note that no samples processed within that week in {cr_suite} failed {test_method} testing that week.\n\n"
+            f"within Suite {suite_num}. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9.\n\n"
+            f"It is important to note that no samples processed within that week in {cr_suite} failed {test_method} testing that week."
+        )
+        summary_block = (
             f"Based on the available evidence, the recovery of {cfu_count} CFU of {org_identified} from {plate_name} in {room_num} on the date of testing ({d_start_full}) appears to be an isolated event. "
             f"This assessment is supported by the absence of microbial recovery from surrounding monitored areas and negative routine monitoring results throughout the bracketing period.\n\n"
             f"The negative settling, personnel, and bracketing surface monitoring results demonstrate that the critical environment remained in a state of control. "
             f"The available data do not support migration, persistence, or recurrence of contamination within {cr_suite}. Collectively, the evidence supports that the recovery was an isolated, "
-            f"transient, and non-recurring event, while established cleaning, disinfection, and aseptic controls remained effective."
+            f"transient, and non-recurring event, while established cleaning, disinfection, and aseptic controls remained effective.\n\n"
+            f"Accordingly, no systemic environmental control deficiencies were identified, and no additional corrective or preventive actions are warranted at this time beyond continued routine environmental monitoring and adherence to approved cleaning, disinfection, and aseptic procedures."
         )
     else:
-        if is_artifact:
-            obs_assessment = (
-                f"Based on the available evidence, one colony-like artifact was observed on {plate_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start_full}). "
-                f"However, the observation could not be confirmed as a viable microbial CFU because no growth was obtained following inoculation onto fresh media. "
-                f"Therefore, the observation may represent a nonviable or non-microbial artifact, including a potential artifact associated with agar preparation or the agar-pouring process.\n\n"
-                f"If the observed artifact had represented a viable CFU, it would appear to be an isolated event. This assessment is supported by the absence of microbial recovery from "
-                f"{analyst_name}'s personnel-monitoring plates on the date before testing ({before_d_full}), the date of testing ({d_start_full}), and the date after testing ({after_d_full}); "
-                f"the absence of growth from {bsc_e_id} surface samples collected on the date before testing and the date after testing; and the absence of growth from ISO 5 settling plates throughout the bracketing period."
+        # Check active air recovery for suite
+        if "117" in str(suite_num):
+            active_air_text = (
+                f"Weekly active-air monitoring of Suite {suite_num} conducted during the week before testing (29 April 2026) showed no microbial growth. "
+                f"Weekly active-air monitoring conducted during the week of testing (07 May 2026) recovered 2 CFU in Room {suite_num} under ETX-260518-0263, "
+                f"which were identified as Gram-positive cocci and Gram-positive pleomorphic rods. "
+                f"Weekly surface monitoring of the anteroom and cleanroom areas associated with Suite {suite_num} showed no microbial growth on 29 April 2026 or 07 May 2026."
+            )
+            air_defense_text = (
+                f"Although active-air monitoring recovered 2 CFU (Gram-positive cocci and Gram-positive pleomorphic rods) in the surrounding area of Room {suite_num} "
+                f"during the week of testing (07 May 2026), this recovery occurred outside the ISO 5 critical environment of {bsc_e_id}. "
+                f"Furthermore, the ISO 5 Surface S1 observation yielded no growth upon subculture and was confirmed as a non-viable artifact. "
+                f"Therefore, a microbiological relationship between the ISO 5 surface artifact and the cleanroom active-air recovery cannot be established."
+            )
+            monthly_cleaning_text = (
+                f"Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (Room {suite_num}) and ISO 7 buffer room (Room {suite_num}A) "
+                f"housing ISO 5 {bsc_e_id}, were performed on {monthly_cleaning_date} by Analyst - {cleaner_name} - in accordance with MICRO-SOP-9, "
+                f"Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators passed, confirming the successful completion and effectiveness "
+                f"of the monthly cleaning and disinfection activities within Suite {suite_num}. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9."
             )
         else:
-            obs_assessment = (
-                f"Based on the available evidence, the recovery of {cfu_count} CFU of {org_identified} from {plate_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start_full}) appears to be an isolated event. "
-                f"This assessment is supported by the absence of microbial recovery from {analyst_name}'s personnel-monitoring plates on the date before testing ({before_d_full}) and the date of testing ({d_start_full}); "
-                f"the absence of growth from {bsc_e_id} surface samples collected on the date before testing and the subsequent available monitoring date after testing ({after_d_full}); "
+            active_air_text = (
+                f"Weekly active-air monitoring of Suite {suite_num} conducted during the week before testing and the week of testing showed no microbial growth. "
+                f"Weekly surface monitoring of the anteroom and cleanroom areas associated with Suite {suite_num} showed no microbial growth during the week before testing or the week of testing."
+            )
+            air_defense_text = (
+                f"Weekly active-air and surface monitoring of Suite {suite_num} confirmed the absence of viable airborne or surface contaminants throughout the testing period."
+            )
+            monthly_cleaning_text = (
+                f"Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (Room {suite_num}), ISO 7 buffer room (Room {suite_num}A), "
+                f"and ISO 7 cleanroom (Room {suite_num}B) housing ISO 5 {bsc_e_id}, were performed on {monthly_cleaning_date} by Analyst - {cleaner_name} - in accordance with MICRO-SOP-9, "
+                f"Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators passed, confirming the successful completion and effectiveness "
+                f"of the monthly cleaning and disinfection activities within Suite {suite_num}. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9."
+            )
+
+        # Field 50: Contemporaneous EM records, cleaning, and product safety
+        records_block = (
+            f"Upon analyzing the environmental monitoring results summarized in Table 2, personnel monitoring plates for {analyst_name}, including left- and right-touch plates, "
+            f"showed no microbial growth on the date before testing ({pers_before_d_full}), the date of testing ({d_start_full}), and the date after testing ({after_d_full}).\n\n"
+            f"For ISO 5 {bsc_e_id}, daily surface sampling of four locations showed no microbial growth on the date before testing ({surf_before_d_full}). "
+            f"On the date of testing ({d_start_full}), {cfu_count} CFU was recovered from {plate_name.split()[3] if len(plate_name.split()) > 3 else 'Surface #1'} associated with {analyst_name}. "
+            f"The recovery was documented under {event_id}; microbial identification indicated a {org_identified}. Surface sampling performed on the date after testing ({after_d_full}) showed no microbial growth across all locations.\n\n"
+            f"Settling sampling of ISO 5 {bsc_e_id}, including two locations, showed no microbial growth on the date before testing ({sett_before_d_full}), "
+            f"the date of testing ({d_start_full}), and the date after testing ({after_d_full}).\n\n"
+            f"{active_air_text}\n\n"
+            f"During the interview, the analyst indicated that no obvious abnormalities or deviations occurred during the testing process. All materials were disinfected before testing, "
+            f"and the relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance with MICRO-SOP-2 and MICRO-SOP-9.\n\n"
+            f"{monthly_cleaning_text}\n\n"
+            f"It is also important to note that no product samples processed by {analyst_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start_full}) failed {test_method} testing."
+        )
+
+        # Field 51: Scientific assessment, isolated event defense, air defense, state of control, and QA conclusion
+        if is_artifact:
+            obs_eval = (
+                f"Based on the available evidence, one colony-like artifact was observed on {plate_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start_full}). "
+                f"However, the observation could not be confirmed as a viable microbial CFU because no growth was obtained following inoculation onto fresh media. "
+                f"Therefore, the observation represents a nonviable or non-microbial artifact, including a potential artifact associated with agar preparation or the agar-pouring process."
+            )
+            isolated_eval = (
+                f"Even if the observed artifact had represented a viable CFU, it would appear to be an isolated event. This assessment is supported by the absence of microbial recovery from "
+                f"{analyst_name}'s personnel-monitoring plates on the date before testing ({pers_before_d_full}), the date of testing ({d_start_full}), and the date after testing ({after_d_full}); "
+                f"the absence of growth from {bsc_e_id} surface samples collected on the date before testing ({surf_before_d_full}) and the date after testing ({after_d_full}); "
+                f"and the absence of growth from ISO 5 settling plates throughout the bracketing period."
+            )
+        else:
+            obs_eval = (
+                f"Based on the available evidence, the recovery of {cfu_count} CFU of {org_identified} from {plate_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start_full}) appears to be an isolated event."
+            )
+            isolated_eval = (
+                f"This assessment is supported by the absence of microbial recovery from {analyst_name}'s personnel-monitoring plates on the date before testing ({pers_before_d_full}) and the date of testing ({d_start_full}); "
+                f"the absence of growth from {bsc_e_id} surface samples collected on the date before testing ({surf_before_d_full}) and the date after testing ({after_d_full}); "
                 f"and the absence of growth from ISO 5 settling plates throughout the bracketing period."
             )
 
-        records_block = (
-            f"Environmental Monitoring Summary:\n"
-            f"Personnel monitoring plates for {analyst_name}, including left- and right-touch plates, showed no microbial growth on the date before testing ({before_d_full}), "
-            f"the date of testing ({d_start_full}), and the date after testing ({after_d_full}).\n\n"
-            f"For ISO 5 {bsc_e_id}, daily surface sampling of four locations showed no microbial growth on the date before testing ({before_d_full}). "
-            f"On the date of testing ({d_start_full}), {cfu_count} CFU was recovered from {plate_name.split()[3] if len(plate_name.split()) > 3 else 'Surface #1'} associated with {analyst_name}. "
-            f"The recovery was documented under {event_id}; microbial identification indicated {org_identified}. Surface sampling performed on the date after testing ({after_d_full}) showed no microbial growth.\n\n"
-            f"Settling sampling of ISO 5 {bsc_e_id}, including two locations, showed no microbial growth on the date before testing ({before_d_full}), "
-            f"the date of testing ({d_start_full}), and the date after testing ({after_d_full}).\n\n"
-            f"Weekly active-air monitoring of Suite {suite_num} conducted during the week before testing and the week of testing showed no microbial growth.\n\n"
-            f"Weekly surface monitoring of the anteroom and cleanroom areas associated with Suite {suite_num} showed no microbial growth during the week before testing or the week of testing.\n\n"
-            f"During the interview, the analyst indicated that no obvious abnormalities or deviations occurred during the testing process. All materials were disinfected before testing, "
-            f"and the relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance with MICRO-SOP-2 and MICRO-SOP-9.\n\n"
-            f"Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom ({suite_num}), ISO 7 buffer room ({suite_num}A), ISO 7 cleanroom ({suite_num}B), "
-            f"and the ISO 5 biosafety cabinets located within Room {suite_num}B, were performed on {monthly_cleaning_date} by Analyst - {cleaner_name} - in accordance with MICRO-SOP-9, "
-            f"Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators passed, confirming the successful completion and effectiveness of the monthly cleaning and disinfection activities "
-            f"within Rooms {suite_num}, {suite_num}A, and {suite_num}B. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9.\n\n"
-            f"It is also important to note that no samples processed by {analyst_name} in ISO 5 {bsc_e_id} on the date of testing ({d_start}) failed {test_method} testing.\n\n"
-            f"{obs_assessment}\n\n"
+        summary_block = (
+            f"{obs_eval}\n\n"
+            f"{isolated_eval}\n\n"
+            f"{air_defense_text}\n\n"
             f"The negative ISO 5 settling, personnel, and bracketing surface monitoring results demonstrate that the {bsc_e_id} critical environment remained in a state of control. "
             f"The available data do not support migration, persistence, or recurrence of contamination within ISO 5 {bsc_e_id}. Collectively, the evidence supports that the recovery was an isolated, "
-            f"transient, and non-recurring event, while established cleaning, disinfection, and aseptic controls remained effective."
+            f"transient, and non-recurring event, while established cleaning, disinfection, and aseptic controls remained effective.\n\n"
+            f"Accordingly, no systemic environmental control deficiencies were identified, and no additional corrective or preventive actions are warranted at this time beyond continued routine environmental monitoring and adherence to approved cleaning, disinfection, and aseptic procedures."
         )
-
-    # --- 3. Phase I Summary / Defensive Conclusion (Field 51 - RS Gold Standard) ---
-    summary_block = (
-        "Accordingly, no systemic environmental control deficiencies were identified, and no additional corrective or preventive actions "
-        "are warranted at this time beyond continued routine environmental monitoring and adherence to approved cleaning, disinfection, and aseptic procedures."
-    )
 
     return interview_block, records_block, summary_block
 
@@ -741,7 +792,7 @@ def build_em_context():
         "smart_comment_samples": "Yes, as per MICRO-SOP-2",
         "smart_comment_storage": "Yes, as per MICRO-SOP-2",
         "narrative_summary": f"{interview_block}\n\n{records_block}\n\n{summary_block}",
-        "smart_phase1_summary": f"{records_block}\n\n{summary_block}",
+        "smart_phase1_summary": f"{interview_block}\n\n{records_block}",
         "smart_phase1_continued": summary_block,
         "smart_phase1_part1": interview_block,
         "smart_phase1_part2": f"{records_block}\n\n{summary_block}",
