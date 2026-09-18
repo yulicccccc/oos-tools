@@ -68,9 +68,9 @@ def generate_usp71_equipment_text():
     
     bsc_id_str = str(st.session_state.bsc_id).strip()
     suite_phrase = f"Suite {t_suite}{t_suffix}" if t_suite != "L-Suite" else "L-Suite"
-    part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, ({suite_phrase}), was used for sample processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
+    part2 = f"The ISO 5 BSC E00{bsc_id_str}, located in the {t_loc}, ({suite_phrase}), was used for sample processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E00{bsc_id_str} was certified and approved by both the Engineering and Quality Assurance teams."
     
-    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({suite_phrase}) by {analyst} on {p_date} as per SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
+    usage_sent = f"Sample processing was conducted in the ISO 5 BSC E00{bsc_id_str} in the {t_loc}, ({suite_phrase}) by {analyst} on {p_date} as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
         
     return f"{part1}\n\n{part2} {usage_sent}"
 

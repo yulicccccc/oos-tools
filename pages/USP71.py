@@ -756,15 +756,15 @@ if st.session_state.report_generated:
         cr_phrase = f"CR {t_suite}" if t_suite != "L-Suite" else "L-Suite"
         cleanroom_phrase = f"Cleanroom {t_suite}" if t_suite != "L-Suite" else "L-Suite"
         
-        p4 = f"During the preparation phase, {prepper_part} disinfected the {sample_noun} using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.process_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the {sample_noun} into the cleanroom suites. A final disinfection step was completed immediately before the {sample_noun} were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, ({suite_phrase}). All activities were conducted in accordance with SOP 2.600.008 for the USP <71> / EP 2.6.1 Sterility Test."
+        p4 = f"During the preparation phase, {prepper_part} disinfected the {sample_noun} using acidified bleach and placed them into a pre-disinfected storage bin. On {st.session_state.process_date}, prior to sample processing, {st.session_state.analyst_name} performed a second disinfection with acidified bleach, allowing a minimum contact time of 10 minutes before transferring the {sample_noun} into the cleanroom suites. A final disinfection step was completed immediately before the {sample_noun} were introduced into the ISO 5 Biological Safety Cabinet (BSC), E00{st.session_state.bsc_id}, located within the {t_loc}, ({suite_phrase}). All activities were conducted in accordance with MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
         p5 = fresh_equip
         is_membrane = st.session_state.get("testing_method") == "Membrane Filtration"
         if is_membrane:
             p6 = f"On {received_date_str}, the sample containers for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon receipt, each sample container was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. Following initial disinfection, the bins were transferred to the ISO 8 anteroom ({suite_only_phrase}), where the container underwent a second disinfection using acidified bleach, again with a 10-minute contact time. Subsequently, the containers were moved into the ISO 7 clean room {suite_phrase}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the containers were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
-            p7 = f"Once transferred into the ISO 5 BSC, the containers were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test). Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration. The sample {st.session_state.sample_id} was processed and tested as per SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
+            p7 = f"Once transferred into the ISO 5 BSC, the containers were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration. The sample {st.session_state.sample_id} was processed and tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
         else:
-            p6 = f"On {received_date_str}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom ({suite_only_phrase}), where the vials were again treated with acidified bleach and provided a 10‑minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom {suite_phrase}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
-            p7 = f"Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with SOP 2.600.008 (USP <71> / EP 2.6.1 Sterility Test). Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then transferred from the container into media bottles for direct inoculation. The {sample_noun} {sample_verb} inoculated into Fluid Thioglycollate Medium (FTM) and Tryptic Soy Broth (TSB). Following inoculation, the media bottles were transferred into designated incubators to initiate a 14-day continuous incubation cycle. FTM bottles were incubated at 30-35°C, while TSB bottles were incubated at 20-25°C. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
+            p6 = f"On {received_date_str}, the sample vials for {st.session_state.sample_id} were received from the Sample Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time. The secondary disinfection happened in the ISO 8 anteroom ({suite_only_phrase}), where the vials were again treated with acidified bleach and provided a 10-minute contact time before processing. Subsequently, the vials were moved into the ISO 7 cleanroom {suite_phrase}. Inside this cleanroom, the processing analyst, {st.session_state.analyst_name}, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E00{st.session_state.bsc_id}."
+            p7 = f"Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of the BSC E00{st.session_state.bsc_id} and aseptically processed in accordance with MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then transferred from the container into media bottles for direct inoculation. The {sample_noun} {sample_verb} inoculated into Fluid Thioglycollate Medium (FTM) and Tryptic Soy Broth (TSB). Following inoculation, the media bottles were transferred into designated incubators to initiate a 14-day continuous incubation cycle. FTM bottles were incubated at 30-35°C, while TSB bottles were incubated at 20-25°C. Visual inspections were performed periodically by the analyst over the {st.session_state.incubation_time}-day period to detect any macroscopic evidence of microbial growth."
         p9 = f"Following the {st.session_state.incubation_time}-day incubation and visual readings, {sample_noun} {st.session_state.sample_id} {sample_verb} found to yield a positive reading in the {st.session_state.positive_media} media {bottle_noun}, confirming a positive result for microbial growth."
         p10 = f"The positive {st.session_state.positive_media} {bottle_noun} for {st.session_state.sample_id} {submit_verb} submitted for Differential Staining and Microbial Identification under {st.session_state.positive_id}, where the {org_noun} identified as {st.session_state.positive_org}."
         
@@ -775,11 +775,11 @@ if st.session_state.report_generated:
             
         p12 = fresh_narr
         if fresh_det: p12 += "\n\n" + fresh_det
-        p13 = "The analysts confirmed full compliance with cleaning procedures as outlined in SOPs 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology) and 2.600.008 (USP <71> / EP 2.6.1 Sterility Test)."
+        p13 = "The analysts confirmed full compliance with cleaning procedures as outlined in MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology) and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
         if "L-Suite" in t_suite:
-            p14 = f"Monthly cleaning and disinfection of the outermost ISO 8 room, the ISO 8 anteroom, the ISO 7 buffer cleanroom, the innermost ISO 7 cleanroom, and its containing ISO 5 Biosafety Cabinets for {cr_phrase} was performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all four parts of {cleanroom_phrase}."
+            p14 = f"Monthly cleaning and disinfection of the outermost ISO 8 room, the ISO 8 anteroom, the ISO 7 buffer cleanroom, the innermost ISO 7 cleanroom, and its containing ISO 5 Biosafety Cabinets for {cr_phrase} was performed on {st.session_state.monthly_cleaning_date}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all four parts of {cleanroom_phrase}."
         else:
-            p14 = f"Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing ISO 5 Biosafety Cabinets for {cr_phrase} was performed on {st.session_state.monthly_cleaning_date}, as per SOP 2.600.018 (Cleaning and Disinfecting Procedure for Microbiology). During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of {cleanroom_phrase}."
+            p14 = f"Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing ISO 5 Biosafety Cabinets for {cr_phrase} was performed on {st.session_state.monthly_cleaning_date}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all three parts of {cleanroom_phrase}."
         p15 = fresh_history
         p16 = f"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. {fresh_cross}"
         p17 = "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
@@ -870,13 +870,53 @@ if st.session_state.report_generated:
         pdf_map = {
             'Text Field57': st.session_state.oos_id, 'Date Field0': pdf_process_date_str, 'Date Field1': pdf_date_str, 
             'Date Field2': pdf_date_str, 'Date Field3': pdf_date_str,
+            'Text Field1': 'USP <71> / EP 2.6.1 Sterility Test',
             'Text Field2': st.session_state.sample_id, 'Text Field6': st.session_state.lot_number, 
             'Text Field4': st.session_state.sample_name + "\n\n\n\n", 'Text Field5': st.session_state.dosage_form, 
             'Text Field0': analyst_sig_text, 'Text Field3': smart_personnel_block, 'Text Field7': smart_incident_opening + "\n\n",
+            'Text Field8': 'MICRO-SOP-5', 'Text Field9': '24Jul2026', 'Text Field10': '19', 'Text Field11': 'Pass/Fail',
+            'Text Field12': 'Kathan Parikh',
             'Text Field13': word_data["smart_comment_interview"], 'Text Field14': word_data["smart_comment_samples"], 
-            'Text Field17': word_data["smart_comment_records"], 'Text Field21': word_data["smart_comment_storage"],
-            'Text Field30': f"ISO 5 BSC E00{st.session_state.bsc_id}", 'Text Field32': word_data["smart_cr_id"], 
-            'Text Field34': st.session_state.usp71_id, 'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
+            'Text Field15': 'Yes, as per MICRO-SOP-5', 'Text Field16': 'Yes, as per MICRO-SOP-5',
+            'Text Field17': word_data["smart_comment_records"],
+            'Text Field18': 'Yes, the analysts are trained and qualified by quality to perform the test',
+            'Text Field19': 'Not Applicable', 'Text Field20': 'Not Applicable',
+            'Text Field21': word_data["smart_comment_storage"],
+            'Text Field22': (
+                "Process Consumables:\r\n"
+                "Information is available in EagleTrax Sample Consumables section\r\n \r\n"
+                "Environmental Plates:\r\n"
+                "TSA and Surface Plate: see attached environmental logs\r\n \r\n"
+                "Monthly Cleaning:\r\n"
+                "H2O2 strips and IPA: See attached monthly cleaning logs"
+            ),
+            'Text Field23': (
+                "Process Consumables:\r\n"
+                "Information is available in EagleTrax Sample Consumables section\r\n \r\n"
+                "Environmental Plates:\r\n"
+                "TSA and Surface Plate: see attached environmental logs\r\n \r\n"
+                "Monthly Cleaning:\r\n"
+                "H2O2 strips and IPA: See attached monthly cleaning logs"
+            ),
+            'Text Field30': f"ISO 5 BSC E00{st.session_state.bsc_id}", 'Text Field31': 'Jun 2027',
+            'Text Field32': word_data["smart_cr_id"], 'Text Field33': 'Dec 2026',
+            'Text Field34': 'Not applicable',
+            'Text Field40': 'See Phase I Summary', 'Text Field41': 'See Phase I Summary', 'Text Field42': 'See Phase I Summary',
+            'Text Field43': (
+                "Incubator E001356 \r\n(Monitored by\r\nSensor E001450)\r\n \r\n"
+                "Incubator E001357\r\n(Monitored by \r\nSensor E001449)\r\n \r\n"
+                "Incubator E001034\r\n(Monitored by \r\nSensor E001501)\r\n \r\n"
+                "Incubator E001031\r\n(Monitored by\r\nSensor E001505)"
+            ),
+            'Text Field44': (
+                "Jan 2027\r\n \r\nFeb 2027\r\n \r\n"
+                "Jan 2027\r\n \r\nFeb 2027\r\n \r\n"
+                "Aug 2027\r\n \r\nFeb 2027\r\n \r\n"
+                "Aug 2027\r\n \r\nFeb 2027"
+            ),
+            'Text Field45': 'See Phase I Summary',
+            'Text Field48': f"N/A QC {datetime.now().strftime('%d%b%y')}",
+            'Text Field49': smart_phase1_part1, 'Text Field50': smart_phase1_part2
         }
 
         docx_buf, pdf_form_buf = None, None
