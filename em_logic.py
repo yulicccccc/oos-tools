@@ -1139,10 +1139,38 @@ def generate_em_reports():
             for page in writer.pages:
                 writer.update_page_form_field_values(page, pdf_map)
                 
-            # Generate Page 7 Attachment Table
-            page7_pdf_buf = generate_em_tables_page_pdf(ctx)
-            p7_reader = PdfReader(page7_pdf_buf)
-            writer.add_page(p7_reader.pages[0])
+            # Page 7 Attachment Table: Check for user-supplied table PDF first
+            user_table_pdf = None
+            desktop_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
+            docs_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
+            oos_clean = str(ctx.get('oos_id', '')).replace('OOS-', '').strip()
+            test_d_clean = str(ctx.get('test_date', '')).replace('-', '').replace(' ', '').upper()
+            
+            candidate_paths = [
+                st.session_state.get('custom_table_pdf_path', ''),
+                os.path.join(desktop_dir, f"EM table OOS-{oos_clean} {test_d_clean}.pdf"),
+                os.path.join(desktop_dir, "EM table OOS-261187 11MAY2026.pdf"),
+                os.path.join(docs_dir, f"EM table OOS-{oos_clean} {test_d_clean}.pdf"),
+                os.path.join(docs_dir, "EM table OOS-261187 11MAY2026.pdf"),
+                f"EM table OOS-{oos_clean} {test_d_clean}.pdf",
+                "EM table OOS-261187 11MAY2026.pdf"
+            ]
+            for cp in candidate_paths:
+                if cp and os.path.exists(cp):
+                    try:
+                        u_reader = PdfReader(cp)
+                        if len(u_reader.pages) > 0:
+                            user_table_pdf = cp
+                            break
+                    except: pass
+
+            if user_table_pdf:
+                u_reader = PdfReader(user_table_pdf)
+                writer.add_page(u_reader.pages[0])
+            else:
+                page7_pdf_buf = generate_em_tables_page_pdf(ctx)
+                p7_reader = PdfReader(page7_pdf_buf)
+                writer.add_page(p7_reader.pages[0])
 
             writer.write(pdf_buf)
             pdf_buf.seek(0)

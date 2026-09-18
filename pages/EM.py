@@ -120,9 +120,22 @@ if st.session_state.get("em_show_reports", False):
         test_d_clean = el.clean_filename(st.session_state.get("test_date", "11MAY2026"))
         legacy_table_name = f"EM table {oos_clean} {test_d_clean}"
         
-        # Prepare standalone tables docx & pdf
-        tbl_docx_buf = el.generate_em_standalone_table_docx()
-        page7_pdf_buf = el.generate_em_tables_page_pdf(el.build_em_context())
+        # Prepare standalone tables docx & pdf (prioritize user-supplied files if present)
+        desktop_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
+        user_tbl_docx = os.path.join(desktop_dir, f"{legacy_table_name}.docx")
+        user_tbl_pdf = os.path.join(desktop_dir, f"{legacy_table_name}.pdf")
+        
+        if os.path.exists(user_tbl_docx):
+            with open(user_tbl_docx, "rb") as f:
+                tbl_docx_buf = io.BytesIO(f.read())
+        else:
+            tbl_docx_buf = el.generate_em_standalone_table_docx()
+
+        if os.path.exists(user_tbl_pdf):
+            with open(user_tbl_pdf, "rb") as f:
+                page7_pdf_buf = io.BytesIO(f.read())
+        else:
+            page7_pdf_buf = el.generate_em_tables_page_pdf(el.build_em_context())
         
         with c1:
             st.subheader("Word Documents")
