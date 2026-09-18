@@ -182,8 +182,12 @@ p17 = (
 
 p18 = (
     f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using "
-    f"USP <71> / EP 2.6.1 Sterility Test during this period. Furthermore, the previous T0 time point for this stability lot ({data['lot_number']}) "
-    "yielded valid passing sterility results."
+    f"USP <71> / EP 2.6.1 Sterility Test during this period. Crucially, this sample was submitted as part of a Beyond-Use Date (BUD) stability study "
+    f"for lot {data['lot_number']}. The baseline T0 time point (tested on 06 Aug 2026 by analyst G. Li) yielded valid passing results for USP <71> sterility, "
+    "along with passing USP <1207> Container Closure Integrity and USP <85> Bacterial Endotoxin testing. Furthermore, at the current T30 time point, all other "
+    "concurrent testing—including Appearance, pH, Potency (TB-500 & Benzyl Alcohol), USP <788> Particulate Matter, and USP <85> Bacterial Endotoxin—met all "
+    "acceptance criteria and passed. The isolation of microbial growth (Paenibacillus lautus) exclusively at the 30-day stability storage interval indicates a true product "
+    "stability/Beyond-Use Date limitation rather than laboratory contamination during sample manipulation on 31 Aug 2026."
 )
 
 p19 = (
@@ -605,7 +609,7 @@ try:
     font_sizes = {
         'Text Field49': 8.5,
         'Text Field50': 8.5,
-        'Text Field51': 8.5,
+        'Text Field51': 7.8,
     }
     for page in doc_fitz:
         for w in page.widgets():
