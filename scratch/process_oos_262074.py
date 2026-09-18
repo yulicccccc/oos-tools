@@ -77,7 +77,7 @@ data = {
 # Following OOS-261987 Gold Standard structure
 
 # --- PAGE 3 (Text Field 49) ---
-p1 = "All analysts involved in the prepping, processing, and reading of the sample – Andrew Carrillo, Alex Saravia and Andrew Carrillo, were interviewed comprehensively. Their answers are recorded throughout this document."
+p1 = "All analysts involved in the prepping, processing, and reading of the sample – Andrew Carrillo and Alex Saravia, were interviewed comprehensively. Their answers are recorded throughout this document."
 
 p2 = "Upon arrival, the sample was stored in accordance with the Client’s instructions. Analysts - Andrew Carrillo and Alex Saravia - verified the integrity of the sample throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
 
@@ -626,23 +626,29 @@ with open(out_json_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 print("Saved session state JSON to:", out_json_path)
 
-# 9. Sync all deliverables to Documents directory
+# 9. Sync all deliverables to Documents and Desktop directory
+DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
+qyc_pdf_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - USP71 - QYC.pdf")
+shutil.copy2(out_pdf_report, qyc_pdf_report)
+
 files_to_sync = [
     out_doc_report,
     out_doc_tables,
     out_pdf_report,
     out_pdf_tables,
+    qyc_pdf_report,
     out_json_path
 ]
 for fpath in files_to_sync:
     if fpath and os.path.exists(fpath):
-        dest = os.path.join(DOCUMENTS_DIR, os.path.basename(fpath))
-        try:
-            shutil.copy2(fpath, dest)
-            print(f"Synced to Documents: {dest}")
-        except PermissionError:
-            print(f"Notice: {dest} is open in another app, skipped overwrite.")
-        except Exception as e:
-            print(f"Sync notice: {e}")
+        for target_dir in [DOCUMENTS_DIR, DESKTOP_DIR]:
+            dest = os.path.join(target_dir, os.path.basename(fpath))
+            try:
+                shutil.copy2(fpath, dest)
+                print(f"Synced to: {dest}")
+            except PermissionError:
+                print(f"Notice: {dest} is open in another app, skipped overwrite.")
+            except Exception as e:
+                print(f"Sync notice for {dest}: {e}")
 
 print("\n--- ALL GOLD-STANDARD GENERATION COMPLETED SUCCESSFULLY! ---")
