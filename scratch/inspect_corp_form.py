@@ -1,27 +1,21 @@
-import pypdf, json
+import os
+from pypdf import PdfReader
 
-pdf_path = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (1).pdf"
-reader = pypdf.PdfReader(pdf_path)
-print("Page count:", len(reader.pages))
-
-fields = reader.get_fields()
-print("Total fields:", len(fields) if fields else 0)
-
-template_path = r"ScanRDI OOS template.pdf"
-reader_tpl = pypdf.PdfReader(template_path)
-tpl_fields = reader_tpl.get_fields()
-print("Template fields count:", len(tpl_fields) if tpl_fields else 0)
-
-# Check if fields match
-new_keys = set(fields.keys()) if fields else set()
-tpl_keys = set(tpl_fields.keys()) if tpl_fields else set()
-print("Intersection count:", len(new_keys & tpl_keys))
-print("Only in new form:", len(new_keys - tpl_keys))
-print("Only in template:", len(tpl_keys - new_keys))
-
-if new_keys - tpl_keys:
-    print("Sample keys only in new:", list(new_keys - tpl_keys)[:20])
-if tpl_keys - new_keys:
-    print("Sample keys only in tpl:", list(tpl_keys - new_keys)[:20])
-
-
+path = r'C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf'
+print('Exists:', os.path.exists(path))
+if os.path.exists(path):
+    reader = PdfReader(path)
+    print('Num pages:', len(reader.pages))
+    fields = reader.get_fields()
+    print('Num fields:', len(fields) if fields else 0)
+    if fields:
+        for i, (k, v) in enumerate(fields.items()):
+            val = v.get('/V', '')
+            ft = v.get('/FT', '')
+            print(f"[{i}] {k}: val='{val}' ft='{ft}'")
+    else:
+        print("No interactive form fields found! Let's check text on pages:")
+        for idx, page in enumerate(reader.pages):
+            text = page.extract_text() or ''
+            print(f"--- Page {idx+1} ({len(text)} chars) ---")
+            print(text[:300].replace('\n', ' '))

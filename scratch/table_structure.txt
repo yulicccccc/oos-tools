@@ -1,0 +1,110 @@
+=== TABLE 1 ===
+Row  0 (8 cells):
+  Col 0: ETX Submission ID
+  Col 1: Set-up Analyst & Date
+  Col 2: Sampling Site & Location
+  Col 3: Plate Reading Analyst (≥ 48H)
+  Col 4: CFUs Observed after 48 Hour Incubation at 30–35°C (E001031)
+  Col 5: Plate Reading Analyst (NLT 5 days)
+  Col 6: CFUs Observed after NLT 5-day Incubation at 20–25°C (E001034)
+  Col 7: Microbial Identification
+Row  1 (8 cells):
+  Col 0: ETX-260518-0254
+  Col 1: SMO 07MAY   2026
+  Col 2: Active air sampling plate
+  Col 3: SAS
+  Col 4: 504 CFUs on active air sample plate
+  Col 5: SAS
+  Col 6: 748 CFUs on active air sample plate
+  Col 7: Kocuria palustris
+=== TABLE 2 ===
+Row  0 (9 cells):
+  Col 0: Environmental Monitoring (EM) Sampling Site
+  Col 1: Frequency
+  Col 2: Date (DDMMM YYYY)
+  Col 3: Analyst (Initials)
+  Col 4: Day /Week(s)
+  Col 5: Observation*
+  Col 6: Environmental Monitoring Plate ETX ID
+  Col 7: Microbial ID
+  Col 8: Notes
+Row  1 (9 cells):
+  Col 0: Weekly Active Air Sampling Bracketing 116
+  Col 1: Weekly Active Air Sampling Bracketing 116
+  Col 2: Weekly Active Air Sampling Bracketing 116
+  Col 3: Weekly Active Air Sampling Bracketing 116
+  Col 4: Weekly Active Air Sampling Bracketing 116
+  Col 5: Weekly Active Air Sampling Bracketing 116
+  Col 6: Weekly Active Air Sampling Bracketing 116
+  Col 7: Weekly Active Air Sampling Bracketing 116
+  Col 8: Weekly Active Air Sampling Bracketing 116
+Row  2 (9 cells):
+  Col 0: Active Air Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 29APR 2026
+  Col 3: SMO
+  Col 4: Week Before Testing Date
+  Col 5: No growth
+  Col 6: N/A
+  Col 7: N/A
+  Col 8: None
+Row  3 (9 cells):
+  Col 0: Active Air Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 07MAY 2026
+  Col 3: SMO
+  Col 4: Week of Testing Date
+  Col 5: 748 CFUs in ISO 7 116A and 1 CFU in ISO 7 116B
+  Col 6: ETX-260518-0254 ETX-260518-0256
+  Col 7: Kocuria palustris
+  Col 8: None
+Row  4 (9 cells):
+  Col 0: Active Air Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 15MAY 2026
+  Col 3: SMO
+  Col 4: Week After Testing Date
+  Col 5: 6 CFUs in ISO 8 116
+  Col 6: ETX-260526-0428
+  Col 7: Gram (+) cocci Gram-variable coccobacilli
+  Col 8: None
+Row  5 (9 cells):
+  Col 0: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 1: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 2: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 3: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 4: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 5: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 6: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 7: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+  Col 8: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+Row  6 (9 cells):
+  Col 0: Surface Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 29APR 2026
+  Col 3: SMO
+  Col 4: Week Before Testing Date
+  Col 5: No growth
+  Col 6: N/A
+  Col 7: N/A
+  Col 8: None
+Row  7 (9 cells):
+  Col 0: Surface Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 07MAY 2026
+  Col 3: SMO
+  Col 4: Week of Testing Date
+  Col 5: No growth
+  Col 6: N/A
+  Col 7: N/A
+  Col 8: None
+Row  8 (9 cells):
+  Col 0: Surface Sampling of Cleanrooms
+  Col 1: Weekly
+  Col 2: 15MAY 2026
+  Col 3: SMO
+  Col 4: Week After Testing Date
+  Col 5: 1 CFU on cart in ISO 8 116 and 2 CFUs on floor in 116A ISO 7
+  Col 6: ETX-260526-0442 ETX-260526-0448
+  Col 7: Gram (+) cocci Sporosarcina psychrophila Bacillus pumilus
+  Col 8: None

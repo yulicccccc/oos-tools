@@ -1,0 +1,281 @@
+=====================================================
+OOS-261186 PDF CLEAN FIELDS DUMP
+=====================================================
+
+[Check Box10] (/Btn):
+/Yes
+
+[Check Box13] (/Btn):
+/Yes
+
+[Check Box16] (/Btn):
+/Yes
+
+[Check Box19] (/Btn):
+/Yes
+
+[Check Box24] (/Btn):
+/Yes
+
+[Check Box27] (/Btn):
+/Yes
+
+[Check Box28] (/Btn):
+/Yes
+
+[Check Box33] (/Btn):
+/Yes
+
+[Check Box36] (/Btn):
+/Yes
+
+[Check Box39] (/Btn):
+/Yes
+
+[Check Box4] (/Btn):
+/Yes
+
+[Check Box42] (/Btn):
+/Yes
+
+[Check Box43] (/Btn):
+/Yes
+
+[Check Box48] (/Btn):
+/Yes
+
+[Check Box51] (/Btn):
+/Yes
+
+[Check Box52] (/Btn):
+/Yes
+
+[Check Box55] (/Btn):
+/Yes
+
+[Check Box60] (/Btn):
+/Yes
+
+[Check Box63] (/Btn):
+/Yes
+
+[Check Box66] (/Btn):
+/Yes
+
+[Check Box69] (/Btn):
+/Yes
+
+[Check Box72] (/Btn):
+/Yes
+
+[Check Box73] (/Btn):
+/Yes
+
+[Check Box78] (/Btn):
+/Yes
+
+[Check Box79] (/Btn):
+/Yes
+
+[Check Box87] (/Btn):
+/Yes
+
+[Check Box9] (/Btn):
+/Yes
+
+[Date Field0] (/Tx):
+07-May-2026
+
+[Date Field1] (/Tx):
+18-May-2026
+
+[Date Field2] (/Tx):
+18-May-2026
+
+[Date Field3] (/Tx):
+18-May-2026
+
+[Text Field0] (/Tx):
+Simin Mohammad
+
+[Text Field1] (/Tx):
+Environmental Monitoring 
+
+[Text Field10] (/Tx):
+15
+
+[Text Field11] (/Tx):
+Action level: >10
+
+[Text Field12] (/Tx):
+Kathan Parikh
+
+[Text Field13] (/Tx):
+Yes, analyst Simin Mohammad, and Sophia Santamaria were comprehensively interviewed. 
+
+[Text Field14] (/Tx):
+N/A
+
+[Text Field15] (/Tx):
+Yes, as per MICRO-SOP-2
+
+[Text Field16] (/Tx):
+Yes, as per MICRO-SOP-2
+
+[Text Field17] (/Tx):
+Yes, information is available in EagleTrax under ETX-260518-0254.
+
+[Text Field18] (/Tx):
+Yes, the analysts are trained and qualified by quality to perform the test
+
+[Text Field19] (/Tx):
+N/A
+
+[Text Field2] (/Tx):
+ETX-260518-0254
+
+[Text Field20] (/Tx):
+N/A
+
+[Text Field21] (/Tx):
+Yes, as per MICRO-SOP-2
+
+[Text Field22] (/Tx):
+TSA Plate: 1011543730
+
+[Text Field23] (/Tx):
+TSA Plate: 29-SEP-2026
+
+[Text Field24] (/Tx):
+N/A
+
+[Text Field25] (/Tx):
+N/A
+
+[Text Field26] (/Tx):
+N/A
+
+[Text Field27] (/Tx):
+N/A
+
+[Text Field28] (/Tx):
+N/A
+
+[Text Field29] (/Tx):
+N/A
+
+[Text Field3] (/Tx):
+Simin Mohammad(Weekly Active Air Sampling Plate Setup)Sophia Santamaria (Weekly Active Air Sampling Plate Readers)
+
+[Text Field30] (/Tx):
+Please see below
+
+[Text Field31] (/Tx):
+Please see below
+
+[Text Field32] (/Tx):
+CR116 (E001738)
+
+[Text Field33] (/Tx):
+Dec-2026
+
+[Text Field34] (/Tx):
+N/A
+
+[Text Field35] (/Tx):
+N/A
+
+[Text Field36] (/Tx):
+N/A
+
+[Text Field37] (/Tx):
+N/A
+
+[Text Field38] (/Tx):
+N/A
+
+[Text Field39] (/Tx):
+N/A
+
+[Text Field4] (/Tx):
+EM SMO 116A Air 07MAY2026
+
+[Text Field40] (/Tx):
+N/A
+
+[Text Field41] (/Tx):
+N/A
+
+[Text Field42] (/Tx):
+N/A
+
+[Text Field43] (/Tx):
+Incubator E001034 (Sensor E001501)Incubator E001031 (Sensor E001505)
+
+[Text Field44] (/Tx):
+Aug-2026Feb-2027Aug-2026Feb-2027
+
+[Text Field45] (/Tx):
+N/A
+
+[Text Field46] (/Tx):
+N/A
+
+[Text Field47] (/Tx):
+N/A
+
+[Text Field48] (/Tx):
+N/A SMO 18-Aug-2026
+
+[Text Field49] (/Tx):
+The analyst involved in the Active air Sampling plate setup, Simin Mohammad, and the analysts involved in reading the plate Sophia Sanatamaria, were interviewed comprehensively. Their answers are recorded throughout this document.The EM plates were stored in compliance with the supplier's recommendations, and their integrity was visually inspected prior to use. Furthermore, the plates were confirmed to be within their valid expiration dates. All the supplies were thoroughly disinfected according to MICRO-SOP-9 Cleaning and Disinfecting Procedure for Microbiology. The functionality of both incubators were verified through a review of data obtained from our comprehensive in-house continuous monitoring system.Active air Sampling was performed by analyst Simin Mohammad during weekly environmental monitoring processing, in ISO 8 116, and ISO 7 116A, and ISO 7 116B on 07 May 2026 as per MICRO-SOP-2 - Environmental Monitoring of the Cleanroom Facility.The plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, commencing on 07 May 2026. Following completion of minimum of 48 hours of incubation on 11 May 2026, the plates were further incubated for minimum of 5 days, with the incubation concluding on 18 May 2026. Please see Table 1 for detailed information on the observations during respective incubations. Based on the observations in Table 1, since the CFU count exceeded the action level for the one of the Active air Sampling plates (116A), the plate was submitted for Microbial Identification under ETX-260518-0254. The colonies were identified as Kocuria palustris (Gram (+) cocci)To observe if the organisms identified, were transient in nature or recurring, weekly monitoring environmental monitoring plates for the clean room, were bracketed to include the week before testing, the week of testing and week after testing as detailed in Table 2 (please see attached).
+
+[Text Field5] (/Tx):
+Plate
+
+[Text Field50] (/Tx):
+Environmental Monitoring Summary: Weekly environmental sampling for the previous week showed no growth for the active air and weekly surface sample. Week of testing showed 748 CFUs in 116A ISO 7 and 1 CFU in 116B ISO 7 for active air identified as Kocuria palustris (Gram (+) cocci). Lastly, the following week of testing showed 6 CFUs in ISO 8 116 for active air, 1 CFU on cart in ISO 8 116, and 2 CFUs on floor in 116A ISO 7 identified as Gram (+) cocci, Gram-variable coccobacilli, Gram (+) cocci, Sporosarcina psychrophila, and Bacillus pumilus.  During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. All the samples were thoroughly disinfected prior to testing. Moreover, The CR116 was thoroughly cleaned and prepared before initiating the testing as per MICRO-SOP-2 (Environmental Monitoring of the Clean Room Facility), and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). Monthly cleaning and disinfection of the outermost ISO 8 Anteroom (Suite 116), the middle ISO 7 Buffer room (Suite 116A), the innermost ISO 7 clean room (Suite 116B), and its containing ISO 5 Biosafety Cabinets were performed on 31-May-2026 as per MICRO-SOP--9 (Cleaning and Disinfecting Procedure for Microbiology) by analyst Tamiru Kotisso and Cuong Du on 31-May-2026 It was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three suites 116, 116A, and 116B. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per MICRO-SOP-9. It is also important to note that no samples processed in suite 115 for the week of testing (03-May-2026 to 09-May-2026) failed testing. Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) Active Air Sampling plate may be attributed to a potential analyst error. It is to be noted that the growth observed on the weekly active air and weekly surface sampling plates for the day of testing do not follow a trend, indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating the contamination. Furthermore, no trend was observed in the clean rooms previous weekly EM data, therefore, no preventive and corrective actions are deemed necessary at this time.
+
+[Text Field51] (/Tx):
+N/A SMO 18-AUG-2026
+
+[Text Field53] (/Tx):
+Simin Mohammad
+
+[Text Field57] (/Tx):
+261186
+
+[Text Field6] (/Tx):
+EM SMO 116A Air 07MAY2026
+
+[Text Field7] (/Tx):
+The CFU count for environmental monitoring plate exceeded the action level.
+
+[Text Field8] (/Tx):
+MICRO-SOP-2
+
+[Text Field9] (/Tx):
+05-AUG-2026
+
+
+=====================================================
+DOCX CONTENT DUMP
+=====================================================
+
+P[0]: Table 1: Read Dates & Incubation Observation
+P[2]: Table 2: Environmental Monitoring for Analyst & Cleanroom 
+
+--- TABLE 1 (2 rows, 8 cols) ---
+Row  0: ETX Submission ID | Set-up Analyst & Date | Sampling Site & Location | Plate Reading Analyst (≥ 48H) | CFUs Observed after 48 Hour Incubation at 30–35°C (E001031) | Plate Reading Analyst (NLT 5 days) | CFUs Observed after NLT 5-day Incubation at 20–25°C (E001034) | Microbial Identification
+Row  1: ETX-260518-0254 | SMO 07MAY   2026 | Active air sampling plate | SAS | 504 CFUs on active air sample plate | SAS | 748 CFUs on active air sample plate | Kocuria palustris
+
+--- TABLE 2 (9 rows, 9 cols) ---
+Row  0: Environmental Monitoring (EM) Sampling Site | Frequency | Date (DDMMM YYYY) | Analyst (Initials) | Day /Week(s) | Observation* | Environmental Monitoring Plate ETX ID | Microbial ID | Notes
+Row  1: Weekly Active Air Sampling Bracketing 116
+Row  2: Active Air Sampling of Cleanrooms | Weekly | 29APR 2026 | SMO | Week Before Testing Date | No growth | N/A | None
+Row  3: Active Air Sampling of Cleanrooms | Weekly | 07MAY 2026 | SMO | Week of Testing Date | 748 CFUs in ISO 7 116A and 1 CFU in ISO 7 116B | ETX-260518-0254 ETX-260518-0256 | Kocuria palustris | None
+Row  4: Active Air Sampling of Cleanrooms | Weekly | 15MAY 2026 | SMO | Week After Testing Date | 6 CFUs in ISO 8 116 | ETX-260526-0428 | Gram (+) cocci Gram-variable coccobacilli | None
+Row  5: Surface Sampling of Anteroom and Cleanroom Bracketing 116
+Row  6: Surface Sampling of Cleanrooms | Weekly | 29APR 2026 | SMO | Week Before Testing Date | No growth | N/A | None
+Row  7: Surface Sampling of Cleanrooms | Weekly | 07MAY 2026 | SMO | Week of Testing Date | No growth | N/A | None
+Row  8: Surface Sampling of Cleanrooms | Weekly | 15MAY 2026 | SMO | Week After Testing Date | 1 CFU on cart in ISO 8 116 and 2 CFUs on floor in 116A ISO 7 | ETX-260526-0442 ETX-260526-0448 | Gram (+) cocci Sporosarcina psychrophila Bacillus pumilus | None
