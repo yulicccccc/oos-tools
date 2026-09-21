@@ -1057,7 +1057,15 @@ def generate_em_reports():
         docx_buf = None
 
     # 2. Generate Complete 7-Page PDF
-    target_pdf = "EM OOS P1 template.pdf"
+    desktop_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
+    docs_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
+    corp_candidates = [
+        os.path.join(desktop_dir, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf"),
+        os.path.join(docs_dir, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf"),
+        "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf",
+        "EM OOS P1 template.pdf"
+    ]
+    target_pdf = next((p for p in corp_candidates if os.path.exists(p)), "EM OOS P1 template.pdf")
     if os.path.exists(target_pdf):
         try:
             from pypdf import PdfWriter, PdfReader
@@ -1136,6 +1144,8 @@ def generate_em_reports():
 
             # Fill Form 1-6
             writer = PdfWriter(clone_from=target_pdf)
+            while len(writer.pages) > 6:
+                del writer.pages[-1]
             for page in writer.pages:
                 writer.update_page_form_field_values(page, pdf_map)
                 
