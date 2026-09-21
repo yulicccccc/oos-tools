@@ -20,25 +20,25 @@ shutil.copy2(pdf_amended, dest_tables_pdf)
 print(f"Updated: {dest_tables_docx}")
 print(f"Updated: {dest_tables_pdf}")
 
-# 2. Assemble Finalized 7-Page OOS PDF
+# 2. Assemble Finalized 7-Page OOS PDF using PyMuPDF (preserves form fields & OOS number)
 rs_reviewed_pdf = os.path.join(DESKTOP_DIR, "OOS-261814 GoGoMeds Select (E10747) - ScanRDI - RS Reviewed - Signed by.pdf")
-final_pdf_writer = PdfWriter()
+doc_rs = fitz.open(rs_reviewed_pdf)
 
-rs_reader = PdfReader(rs_reviewed_pdf)
-# Take Pages 1 to 6 (Reviewed content & Qiyue signature)
-for i in range(6):
-    final_pdf_writer.add_page(rs_reader.pages[i])
+# Delete old highlighted table page (Page 7, index 6)
+if len(doc_rs) >= 7:
+    doc_rs.delete_page(6)
 
 # Append clean amended Table page as Page 7
-table_reader = PdfReader(pdf_amended)
-final_pdf_writer.add_page(table_reader.pages[0])
+doc_table = fitz.open(pdf_amended)
+doc_rs.insert_pdf(doc_table, from_page=0, to_page=0)
 
 out_final_desktop = os.path.join(DESKTOP_DIR, "OOS-261814 GoGoMeds Select (E10747) - ScanRDI - Final Reviewed.pdf")
 out_std_desktop = os.path.join(DESKTOP_DIR, "OOS-261814 GoGoMeds Select (E10747) - ScanRDI.pdf")
 out_std_docs = os.path.join(DOCUMENTS_DIR, "OOS-261814 GoGoMeds Select (E10747) - ScanRDI.pdf")
 
-with open(out_final_desktop, "wb") as f:
-    final_pdf_writer.write(f)
+doc_rs.save(out_final_desktop)
+doc_rs.close()
+doc_table.close()
 print(f"Saved: {out_final_desktop}")
 
 try:
