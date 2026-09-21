@@ -1,4 +1,5 @@
 import os
+import win32com.client as win32
 import win32clipboard
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
@@ -11,7 +12,7 @@ desktop_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of Am
 docx_out = os.path.join(desktop_dir, "OOS-261185 Review Email.docx")
 html_out = os.path.join(desktop_dir, "OOS-261185_Review_Email_Robin_Format.html")
 
-# --- 1. GENERATE WORD DOCX (EXACT 3-COLUMN ROBIN SEYMOUR FORMAT) ---
+# --- 1. GENERATE WORD DOCX (ROBIN SEYMOUR EXACT FORMAT) ---
 doc = Document()
 
 # Page margins
@@ -30,6 +31,7 @@ r1 = p1.add_run("Good morning @Simin Mohammad,")
 r1.font.name = "Calibri"
 r1.font.size = Pt(11)
 
+# Intro matching Robin's exact wording
 p2 = doc.add_paragraph()
 p2.paragraph_format.left_indent = Inches(0)
 p2.paragraph_format.space_before = Pt(0)
@@ -63,7 +65,7 @@ def set_cell_borders(cell):
     ''')
     tcPr.append(borders)
 
-def set_cell_margins(cell, top=100, bottom=100, left=140, right=140):
+def set_cell_margins(cell, top=120, bottom=120, left=150, right=150):
     tcPr = cell._element.get_or_add_tcPr()
     for child in list(tcPr):
         if child.tag.endswith('tcMar'):
@@ -78,67 +80,48 @@ def set_cell_margins(cell, top=100, bottom=100, left=140, right=140):
     ''')
     tcPr.append(tcMar)
 
-# EXACT 3 COLUMNS: Section | Unreviewed Version | Reviewed Version
+# EXACT 3 COLUMNS MATCHING ROBIN'S GENERAL FEEDBACK CATEGORIES:
+# Section | Unreviewed Version | Reviewed Version
 table_data = [
     ["Section", "Unreviewed Version", "Reviewed Version"],
+    [
+        "Equipment/Facility Description",
+        "Only lists **CR115 (Sensor E001737)** in equipment section. In Section D, incubator IDs and calibration dates ran together without proper line spacing: **\"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\"** and **\"Aug 2026 Feb 2027 Aug 2026 Feb 2027\"**.",
+        "Added full cleanroom facility identifiers for **Suite 115 (ISO 8 Anteroom)**, **Suite 115A (ISO 7 Buffer room)**, and **Suite 115B (ISO 7 Cleanroom)** with Sensor E001737. Formatted **Incubator E001034 (Sensor E001501)** and **Incubator E001031 (Sensor E001505)** with clean line breaks and calibration dates (**Aug 2026 / Feb 2027**)."
+    ],
+    [
+        "Cleanroom Suite Description",
+        "Inconsistently mixed cleanroom suite nomenclature with **\"CR115\"** and references to **\"ISO 8, and ISO 7 BSC 1313, and ISO 7 BSC 1314 located in Suite 115, 115A, and 115B\"** during Active Air sampling narrative.",
+        "Standardized to clean **Suite 115 (ISO 8)**, **Suite 115A (ISO 7)**, and **Suite 115B (ISO 7)** cleanroom suite nomenclature and removed misplaced BSC references from the air sampling narrative."
+    ],
+    [
+        "Reading Analyst, Processing Analyst & SOP Description",
+        "Combined analyst names on a single line: **\"Simin Mohammad(weekly Active air Sampling Plate Setup)Maraya Chukwumerije & Sophia Santamaria(Weekly active air Sampling Plate Readers)\"**, misspelled reader as **\"Sophia Sanatamaria\"**, and cited legacy **\"SOP 20600.002\"** Rev **15** (05AUG2025) and truncated **\"SOP 2.600.00\"**.",
+        "Delineated setup analyst **Simin Mohammad (Weekly Active Air Sampling Plate Setup)** and readers **Maraya Chukwumerije (Weekly Active Air Sampling Plate Reader)** and **Sophia Santamaria (Weekly Active Air Sampling Plate Reader)**, and updated all procedure citations to current **MICRO-SOP-2** Rev **16** (Effective Date: **23-Jul-2026**) and **MICRO-SOP-9**."
+    ],
+    [
+        "Limits / Specification",
+        "Listed as **\"Action level >10\"**.",
+        "Standardized to **\"Action level: >= 10 CFU/Plate\"**."
+    ],
+    [
+        "EM hits, Cleanroom Bracketing Assessment",
+        "Contained contradictory monthly cleaning dates of **\"22 Feb 2026\"** and **\"26APR2026\"** within the same sentence, a missing punctuation break, and lacked taxonomic correlation of bracketing recoveries.",
+        "Reconciled monthly cleaning date to **26-Apr-2026** (performed by Tamiru Kotisso and Cuong Du with passing H2O2 indicators), inserted proper punctuation, and confirmed that weekly bracketing recoveries (**Micrococcus luteus**, **Staphylococcus aureus**, **Candida orthopsilosis**, etc.) exhibited different taxonomy from the OOS fungal isolates, verifying the contamination was transient."
+    ],
+    [
+        "Phase I Summary – Root Cause Statement",
+        "Erroneously stated that the OOS result observed for the Environmental Monitoring (EM) **\"Settling Sampling plate\"** may be attributed to a potential analyst error.",
+        "Revised plate type to **\"Active Air Sampling plate\"** to accurately reflect the test performed, while maintaining the determination that the result may be attributed to a potential analyst error, noting that the contamination was transient in nature and no corrective actions are necessary."
+    ],
     [
         "EM Table Attachment & Formatting",
         "The EM Table was omitted from the PDF submission. In the draft Word document, Table 1 listed ETX ID as **ETX-260526-0461** and Microbial ID as **Talaromyces purpurogenus**, Table 2 contained unclosed parentheses in timing descriptions, and multi-organism entries ran together without line breaks.",
         "Amended both tables to reflect the correct ETX submission ID **ETX-260518-0250**, updated the microbial identification to **Penicillium decumbens, Cladosporium tenuissimum, Cladosporium langeronii, Cladosporium halotolerans**, corrected all timing descriptions, formatted multi-organism line breaks, and attached the amended 1-page table as **Page 7** to complete the 7-page package."
-    ],
-    [
-        "Initiator Name",
-        "Listed as **\"Simin Mohammad (written by Simin Mohammad)\"**",
-        "Revised to **\"Simin Mohammad\"** to remove redundant parenthetical phrasing."
-    ],
-    [
-        "Name of Analyst who Performed the Test",
-        "Listed as **\"Simin Mohammad(weekly Active air Sampling Plate Setup)Maraya Chukwumerije & Sophia Santamaria(Weekly active air Sampling Plate Readers)\"**",
-        "Revised to separate entries with proper role titles and line breaks:\n**Simin Mohammad (Weekly Active Air Sampling Plate Setup)**\n**Maraya Chukwumerije (Weekly Active Air Sampling Plate Reader)**\n**Sophia Santamaria (Weekly Active Air Sampling Plate Reader)**"
-    ],
-    [
-        "SOP Reference & Effective Date",
-        "Listed as **\"20600.002\"** Rev **15**, Effective Date **05AUG2025**",
-        "Revised to **\"MICRO-SOP-2\"** Rev **16**, Effective Date **23-Jul-2026**"
-    ],
-    [
-        "Limits / Specification",
-        "Listed as **\"Action level >10\"**",
-        "Revised to **\"Action level: >= 10 CFU/Plate\"**"
-    ],
-    [
-        "Section B SOP Citations",
-        "Comments listed **\"SOP 2.600.00\"** missing trailing digit",
-        "Revised to **\"MICRO-SOP-2\"**"
-    ],
-    [
-        "Analyst Interview Comment",
-        "Stated **\"Yes, analysts Simin Mohammad, Maraya Chukwumerije, & Sophia Santamaria were comprehensively interviewed.\"**",
-        "Revised ampersand to \"and\": **\"Yes, analysts Simin Mohammad, Maraya Chukwumerije, and Sophia Santamaria were comprehensively interviewed.\"**"
-    ],
-    [
-        "Equipment & Calibration Details",
-        "Equipment IDs and calibration dates running together without spacing:\n**\"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\"**\n**\"Aug 2026 Feb 2027  Aug 2026 Feb 2027\"**",
-        "Revised with clean line breaks:\n**Incubator E001034 (Sensor E001501)**\n**Incubator E001031 (Sensor E001505)**\n\n**Aug 2026 / Feb 2027**"
-    ],
-    [
-        "Phase I Summary – Setup & Incubation Narrative",
-        "Contained spelling error in reader's name (**\"Sophia Sanatamaria\"**), grammatical error (**\"incubators were verified\"**), and inaccurate reference to biosafety cabinet locations instead of cleanroom suites.",
-        "Corrected name to **Sophia Santamaria**, corrected grammar to **incubator was verified**, updated locations to **Suite 115 (ISO 8), Suite 115A (ISO 7), and Suite 115B (ISO 7)**, and cited **MICRO-SOP-2** and **MICRO-SOP-9**."
-    ],
-    [
-        "Phase I Summary – Monthly Cleaning & Disinfection Narrative",
-        "Contained contradictory monthly cleaning dates of **\"22 Feb 2026\"** and **\"26APR2026\"** within the same sentence, a missing period, and legacy SOP citations.",
-        "Reconciled cleaning date to **26-Apr-2026** performed by Tamiru Kotisso and Cuong Du, inserted missing period before the H2O2 indicators statement, and updated procedure reference to **MICRO-SOP-9**."
-    ],
-    [
-        "Phase I Summary – Root Cause Statement",
-        "Stated that the OOS result observed for the Environmental Monitoring (EM) **\"Settling Sampling plate\"** may be attributed to a potential analyst error.",
-        "Revised plate type to **Active Air Sampling plate** to accurately reflect the test performed, while maintaining the determination that the result may be attributed to a potential analyst error, noting that the contamination was transient in nature and no corrective actions are necessary."
     ]
 ]
 
-col_widths = [1.8, 2.5, 2.7]
+col_widths = [1.8, 2.6, 2.8]
 table = doc.add_table(rows=len(table_data), cols=3)
 table.alignment = WD_TABLE_ALIGNMENT.CENTER
 table.autofit = False
@@ -151,7 +134,6 @@ if tblPr:
 
 def add_formatted_runs(paragraph, text, align=WD_ALIGN_PARAGRAPH.LEFT):
     paragraph.alignment = align
-    # Parse **bold** markers
     parts = text.split('**')
     for idx, part in enumerate(parts):
         if not part:
@@ -171,7 +153,7 @@ for r_idx, row_content in enumerate(table_data):
         cell = row.cells[c_idx]
         cell.width = Inches(col_widths[c_idx])
         set_cell_borders(cell)
-        set_cell_margins(cell, top=100, bottom=100, left=140, right=140)
+        set_cell_margins(cell, top=120, bottom=120, left=150, right=150)
         cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER if (is_header or c_idx == 0) else WD_ALIGN_VERTICAL.TOP
         
         if is_header:
@@ -233,7 +215,7 @@ r_sig.font.size = Pt(10)
 doc.save(docx_out)
 print(f"Saved Word review email: {docx_out}")
 
-# --- 2. GENERATE HTML FILE (EXACT 3-COLUMN ROBIN FORMAT) ---
+# --- 2. GENERATE HTML FILE (ROBIN FORMAT) ---
 def html_bold(text):
     lines = text.split('\n')
     formatted_lines = []
@@ -259,7 +241,7 @@ for r_idx, row in enumerate(table_data[1:]):
     
     html_rows += f"""
     <tr>
-      <td style="border: 1px solid #000000; padding: 8px 10px; text-align: center; vertical-align: middle;">{sec_html}</td>
+      <td style="border: 1px solid #000000; padding: 8px 10px; text-align: center; vertical-align: middle; font-weight: normal;">{sec_html}</td>
       <td style="border: 1px solid #000000; padding: 8px 10px; vertical-align: top; text-align: left;">{unrev_html}</td>
       <td style="border: 1px solid #000000; padding: 8px 10px; vertical-align: top; text-align: left;">{rev_html}</td>
     </tr>
@@ -284,8 +266,8 @@ full_html = f"""<!DOCTYPE html>
   <thead>
     <tr>
       <th bgcolor="#FFFF00" style="background-color: #FFFF00 !important; width: 25%; color: #000; font-weight: bold; text-align: center; border: 1px solid #000000; padding: 8px 10px;">Section</th>
-      <th bgcolor="#FFFF00" style="background-color: #FFFF00 !important; width: 35%; color: #000; font-weight: bold; text-align: center; border: 1px solid #000000; padding: 8px 10px;">Unreviewed Version</th>
-      <th bgcolor="#FFFF00" style="background-color: #FFFF00 !important; width: 40%; color: #000; font-weight: bold; text-align: center; border: 1px solid #000000; padding: 8px 10px;">Reviewed Version</th>
+      <th bgcolor="#FFFF00" style="background-color: #FFFF00 !important; width: 37%; color: #000; font-weight: bold; text-align: center; border: 1px solid #000000; padding: 8px 10px;">Unreviewed Version</th>
+      <th bgcolor="#FFFF00" style="background-color: #FFFF00 !important; width: 38%; color: #000; font-weight: bold; text-align: center; border: 1px solid #000000; padding: 8px 10px;">Reviewed Version</th>
     </tr>
   </thead>
   <tbody>
@@ -312,51 +294,67 @@ with open(html_out, "w", encoding="utf-8") as f:
     f.write(full_html)
 print(f"Saved clean HTML: {html_out}")
 
-# --- 3. COPY TO WINDOWS CLIPBOARD DIRECTLY ---
-header_tmpl = 'Version:0.9\r\nStartHTML:{:08d}\r\nEndHTML:{:08d}\r\nStartFragment:{:08d}\r\nEndFragment:{:08d}\r\n'
-dummy = header_tmpl.format(0, 0, 0, 0)
-header_len = len(dummy.encode('utf-8'))
+# --- 3. COPY TO WINDOWS CLIPBOARD VIA NATIVE WORD COM & WIN32CLIPBOARD ---
+# Method A: Use Word COM to copy entire native Office document to clipboard
+word_copied = False
+try:
+    word = win32.Dispatch('Word.Application')
+    word.Visible = False
+    doc_word = word.Documents.Open(docx_out)
+    doc_word.Content.Copy()
+    doc_word.Close(False)
+    word.Quit()
+    word_copied = True
+    print("SUCCESS: Copied native Office formatting directly to Windows Clipboard via Word COM!")
+except Exception as e:
+    print(f"Word COM copy failed or unavailable: {e}")
 
-start_html = header_len
-end_html = header_len + len(full_html.encode('utf-8'))
+# Method B: Fallback to CF_HTML + CF_UNICODETEXT if Word COM didn't run
+if not word_copied:
+    header_tmpl = 'Version:0.9\r\nStartHTML:{:08d}\r\nEndHTML:{:08d}\r\nStartFragment:{:08d}\r\nEndFragment:{:08d}\r\n'
+    dummy = header_tmpl.format(0, 0, 0, 0)
+    header_len = len(dummy.encode('utf-8'))
 
-start_frag_idx = full_html.find('<!--StartFragment-->') + len('<!--StartFragment-->')
-start_frag = header_len + len(full_html[:start_frag_idx].encode('utf-8'))
+    start_html = header_len
+    end_html = header_len + len(full_html.encode('utf-8'))
 
-end_frag_idx = full_html.find('<!--EndFragment-->')
-end_frag = header_len + len(full_html[:end_frag_idx].encode('utf-8'))
+    start_frag_idx = full_html.find('<!--StartFragment-->') + len('<!--StartFragment-->')
+    start_frag = header_len + len(full_html[:start_frag_idx].encode('utf-8'))
 
-final_header = header_tmpl.format(start_html, end_html, start_frag, end_frag)
-payload = final_header.encode('utf-8') + full_html.encode('utf-8')
+    end_frag_idx = full_html.find('<!--EndFragment-->')
+    end_frag = header_len + len(full_html[:end_frag_idx].encode('utf-8'))
 
-plain_text = f"""Good morning @Simin Mohammad,
+    final_header = header_tmpl.format(start_html, end_html, start_frag, end_frag)
+    payload = final_header.encode('utf-8') + full_html.encode('utf-8')
+
+    plain_text = f"""Good morning @Simin Mohammad,
 
 I have reviewed this OOS and made my edits to this and summary of the major ones as below. Please also note that the Highlighted sections in the table will need to be amended:
 
 Section | Unreviewed Version | Reviewed Version
 ---------------------------------------------------------------------------------------------------------
 """
-for r in table_data[1:]:
-    plain_text += f"{r[0]}:\n  Unreviewed Version: {r[1]}\n  Reviewed Version: {r[2]}\n\n"
+    for r in table_data[1:]:
+        plain_text += f"{r[0]}:\n  Unreviewed Version: {r[1]}\n  Reviewed Version: {r[2]}\n\n"
 
-plain_text += (
-    "@Simin Mohammad please review and sign the attached finalized 7-page PDF package.\n\n"
-    ".\n"
-    "Thanks,\n"
-    "Robin Seymour\n"
-    "Microbiology Supervisor (Sterile Lab)\n"
-    "Eagle Analytical Services\n"
-    "rseymour@eagleanalytical.com\n"
-    "11111 S. Wilcrest Dr. # S1000\n"
-    "Houston, Texas 77099\n"
-)
+    plain_text += (
+        "@Simin Mohammad please review and sign the attached finalized 7-page PDF package.\n\n"
+        ".\n"
+        "Thanks,\n"
+        "Robin Seymour\n"
+        "Microbiology Supervisor (Sterile Lab)\n"
+        "Eagle Analytical Services\n"
+        "rseymour@eagleanalytical.com\n"
+        "11111 S. Wilcrest Dr. # S1000\n"
+        "Houston, Texas 77099\n"
+    )
 
-win32clipboard.OpenClipboard()
-try:
-    win32clipboard.EmptyClipboard()
-    CF_HTML = win32clipboard.RegisterClipboardFormat("HTML Format")
-    win32clipboard.SetClipboardData(CF_HTML, payload)
-    win32clipboard.SetClipboardText(plain_text)
-    print("SUCCESS: Copied Robin Seymour exact 3-column email directly into Windows Clipboard!")
-finally:
-    win32clipboard.CloseClipboard()
+    win32clipboard.OpenClipboard()
+    try:
+        win32clipboard.EmptyClipboard()
+        CF_HTML = win32clipboard.RegisterClipboardFormat("HTML Format")
+        win32clipboard.SetClipboardData(CF_HTML, payload)
+        win32clipboard.SetClipboardText(plain_text)
+        print("SUCCESS: Copied CF_HTML & plain text directly into Windows Clipboard!")
+    finally:
+        win32clipboard.CloseClipboard()
