@@ -24,7 +24,7 @@ data = {
     "oos_id": "262074",
     "client_name": "Hillstone Pharmacy (E17047)",
     "sample_id": "ETX-260806-0702 (BUD-T30)",
-    "sample_id_pure": "ETX-260806-0702",
+    "sample_id_pure": "ETX-260806-0702-T30",
     "sample_url": "https://etrax.eagleanalytical.com/Submission/Details/l-JhbNGUHLdQSKAIyoIIMg__",
     "sample_name": "TB-500 10mg/ml",
     "lot_number": "24JUL2026-059",
@@ -114,7 +114,7 @@ p7 = (
 )
 
 p8 = (
-    "Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents of 10 vials (20 mL per media) "
+    "Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents of 10 vials (20 mL per media type) "
     "were dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration under method suitability "
     f"{data['method_suitability']}. The sample was processed and tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were "
     "transferred into incubators E001356 and E001357 to begin incubation."
@@ -123,82 +123,78 @@ p8 = (
 p9 = (
     f"On {data['test_date_full']} (Day 7 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by reading analyst, "
     f"Andrew Carrillo, and confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for {data['sample_id_pure']} was submitted "
-    f"for Differential Staining and Microbial Identification under {data['positive_id']}.  Definitive identification identified the isolate as {data['positive_org']}."
+    f"for Differential Staining and Microbial Identification under {data['positive_id']}.  Definitive identification identified the isolate as Paenibacillus lautus, Gram (+) rods."
 )
 
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8, p9])
+
+# --- PAGE 4 (Text Field 50) ---
 p10 = (
-    "The culture media utilized were within their expiry period. Negative control media bottles for the membrane filtration method were handled, "
-    "processed, and incubated in the same manner as the test samples. No microbial growth was observed in the corresponding negative controls."
+    "ISO 5 BSC Environmental Monitoring Results Evaluation:\r"
+    "After reviewing the Environmental Monitoring (EM) results for the relevant testing period, no microbial growth was detected "
+    "on personnel monitoring plates, settling plates, or ISO 5 BSC surface sampling plates on the date of testing, the preceding "
+    "sampling date, or the subsequent sampling date."
 )
 
 p11 = (
-    "Upon analyzing the environmental monitoring results, no microbial growth was detected on personnel monitoring plates, settling plates, or "
-    f"ISO 5 BSC surface sampling plates on the date of testing ({data['process_date_full']}), the preceding testing date (28 Aug 2026), or the subsequent "
-    "testing date (01 Sep 2026). Additionally, no microbial growth was recovered from the weekly surface sampling plate collected on 04 Sep 2026 for Cleanroom 114 (E001736). "
-    "However, weekly active air monitoring of ISO 8 Room 114 (CR 114) recovered 1 CFU (ETX-260914-0487, pending identification)."
+    "Cleanroom Environmental Monitoring Results Evaluation:\r"
+    "No microbial growth was recovered from the weekly active surface sampling plate collected on 04 Sep 2026. However, 2 CFUs "
+    "(ETX-260914-0487) were recovered from the weekly active air sampling of ISO 8 cleanroom 114. The organism was identified to be "
+    "of Gram-positive coccobacilli and Gram-positive rod morphology. It is important to note that all sample processing activities "
+    f"were performed within the validated ISO 5 BSC E00{data['bsc_id']} located in the innermost ISO 7 cleanroom (114B). The test samples do "
+    "not come into contact with ambient ISO 8 air, as samples are transferred in disinfected, lidded containers through the layered "
+    "cleanroom suites. Furthermore, the colony recovery occurred in the lower-classified ISO 8 anteroom environment, which is physically "
+    "segregated from the ISO 5 processing zone. In addition, considering the facility's layered disinfection program, controlled "
+    "unidirectional airflow, and cleanroom design, it is unlikely that the microbial contaminant detected in the ISO 8 environment "
+    "impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (114B)."
 )
 
-text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11])
-
-# --- PAGE 4 (Text Field 50) ---
 p12 = (
-    f"It is important to note that all sample processing activities were performed within the validated ISO 5 BSC E00{data['bsc_id']} located in the innermost "
-    "ISO 7 cleanroom (Suite 114B). The test samples do not come into contact with ambient ISO 8 air, as samples are transferred in disinfected, "
-    "lidded containers through the layered cleanroom suites. Furthermore, the colony recovery occurred in the lower-classified ISO 8 anteroom environment, "
-    "which is physically segregated from the ISO 5 processing zone."
-)
-
-p13 = (
-    "In addition, considering the facility's layered disinfection program, controlled unidirectional airflow, and cleanroom design, it is unlikely "
-    "that the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (Suite 114B)."
-)
-
-p14 = (
     "The absence of contamination on analyst glove plates and work-surface environmental monitoring plates collected on the date of testing indicates "
     "that there was no viable transfer of contaminants to the ISO 5 biological safety cabinet (BSC). Additionally, the lack of contamination in other samples "
     "processed during the same testing session further demonstrates that the testing environment was operating in optimal condition."
 )
 
-p15 = (
+p13 = (
     "Therefore, considering that no viable organisms were recovered from the ISO 5 environment, personnel monitoring results were acceptable on the date "
     "of testing, and the environmental isolates were not recovered from locations or surfaces directly involved in sample preparation or testing, the "
     "environmental isolate is not considered a credible source of the contamination detected in the test sample."
 )
 
-p16 = (
+p14 = (
     "The analysts confirmed full compliance with cleaning procedures as outlined in MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology) "
     "and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
-p17 = (
+p15 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing "
     f"ISO 5 BSCs for Cleanroom suite CR114 was performed on {data['monthly_cleaning_date_full']}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
     "During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR114."
 )
 
-p18 = (
+p16 = (
     f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using "
     f"USP <71> / EP 2.6.1 Sterility Test during this period. This sample was submitted as part of a Beyond-Use Date (BUD) stability study "
     f"for lot {data['lot_number']}. The baseline T0 time point (tested on 06 Aug 2026 by analyst GL) yielded valid passing results for USP <71> sterility."
 )
 
-p19 = (
+p17 = (
     "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples "
     f"processed on the same day ({data['process_date_full']}). Sample {data['sample_id_pure']} was the 4th sample processed in the batch. All other samples "
     "processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 )
 
-p20 = (
+p18 = (
     "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, "
     "the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original "
     "result is deemed to be valid."
 )
 
-text_field_50 = "\r \r".join([p12, p13, p14, p15, p16, p17, p18, p19, p20])
+text_field_50 = "\r \r".join([p10, p11, p12, p13, p14, p15, p16, p17, p18])
 
 # --- PAGE 5 (Text Field 51) ---
 writer_initial = "QYC"
-text_field_51 = f"N/A {writer_initial} {datetime.now().strftime('%d%b%y')}"
+text_field_51 = f"N/A {writer_initial} 18Sep26"
 
 # Assemble Master Narrative for Word Template
 smart_phase1_full = f"{text_field_49}\n\n{text_field_50}"
@@ -206,8 +202,8 @@ smart_phase1_full = f"{text_field_49}\n\n{text_field_50}"
 data["smart_phase1_summary"] = smart_phase1_full
 data["equipment_summary"] = p5
 data["narrative_summary"] = p11
-data["sample_history_paragraph"] = p18
-data["cross_contamination_summary"] = p19
+data["sample_history_paragraph"] = p16
+data["cross_contamination_summary"] = p17
 data["smart_comment_interview"] = "Yes, analysts Andrew Carrillo and Alex Saravia were interviewed comprehensively."
 data["smart_comment_samples"] = f"Yes, sample ID: {data['sample_id_pure']}"
 data["smart_comment_records"] = f"Yes, Information is available in EagleTrax under {data['sample_id_pure']}"
@@ -219,7 +215,7 @@ data["smart_personnel_block"] = (
 )
 data["analyst_signature"] = f"Alex Saravia (Written by: {data['writer_name']})"
 data["smart_incident_opening"] = f"On {data['test_date_full']}, sample {data['sample_id']} was found positive for viable microorganisms after USP <71> sterility testing."
-data["smart_cr_id"] = "CR E001736"
+data["smart_cr_id"] = "E001736"
 data["usp71_id"] = f"E00{data['bsc_id']}"
 data["reader_name"] = data["reading_name"]
 
@@ -283,7 +279,7 @@ sec.right_margin = Inches(0.45)
 p_t1 = doc_clean.add_paragraph()
 p_t1.paragraph_format.space_before = Pt(0)
 p_t1.paragraph_format.space_after = Pt(3)
-r_t1 = p_t1.add_run(f"Table 1: Information for {data['sample_id']} under investigation")
+r_t1 = p_t1.add_run(f"Table 1: Information for {data['sample_id_pure']} under investigation")
 r_t1.bold = True
 r_t1.font.name = "Times New Roman"
 r_t1.font.size = Pt(9.5)
@@ -308,7 +304,7 @@ for c_idx, h_text in enumerate(t1_headers):
 r1_clean = t1_clean.rows[1]
 update_cell_text(r1_clean.cells[0], "Alex Saravia", font_size=Pt(7.5))
 update_cell_text(r1_clean.cells[1], "Andrew Carrillo", font_size=Pt(7.5))
-set_cell_hyperlink(r1_clean.cells[2], data["sample_url"], data["sample_id"])
+set_cell_hyperlink(r1_clean.cells[2], data["sample_url"], data["sample_id_pure"])
 set_cell_hyperlink(r1_clean.cells[3], data["positive_id_url"], data["positive_id"])
 update_cell_text(r1_clean.cells[4], "1 x 100 mL TSB", font_size=Pt(7.5))
 update_cell_text(r1_clean.cells[5], "Paenibacillus lautus\n(Gram (+) rods)", font_size=Pt(7.5))
@@ -329,8 +325,19 @@ t2_clean.style = 'Table Grid'
 t2_clean.autofit = False
 
 # Row 0: Headers
-for c_idx, cell in enumerate(t2_orig.rows[0].cells):
-    update_cell_text(t2_clean.rows[0].cells[c_idx], cell.text.strip(), bold=True, font_size=Pt(7.0))
+t2_headers = [
+    "Environmental\nMonitoring\n(EM) Sampling\nSite",
+    "Frequency",
+    "Date\n(DDMMMYYYY)",
+    "Analyst\n(Initials)",
+    "Day /Week(s)",
+    "Observation",
+    "Environmental\nMonitoring\nPlate ETX ID",
+    "Microbial ID",
+    "Notes"
+]
+for c_idx, h_text in enumerate(t2_headers):
+    update_cell_text(t2_clean.rows[0].cells[c_idx], h_text, bold=True, font_size=Pt(7.0))
 
 # Row 1: Merged header
 t2_clean.rows[1].cells[0].merge(t2_clean.rows[1].cells[-1])
@@ -338,9 +345,9 @@ update_cell_text(t2_clean.rows[1].cells[0], "Personnel EM Bracketing 31Aug2026",
 
 # Personnel rows (2, 3, 4)
 em_personnel_data = [
-    ("Personal (Left Touch and Right Touch)", "Daily", "28 Aug 2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
-    ("Personal (Left Touch and Right Touch)", "Daily", "31 Aug 2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
-    ("Personal (Left Touch and Right Touch)", "Daily", "01 Sep 2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
+    ("Personal (Left Touch and Right Touch)", "Daily", "28Aug2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
+    ("Personal (Left Touch and Right Touch)", "Daily", "31Aug2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
+    ("Personal (Left Touch and Right Touch)", "Daily", "01Sep2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
 ]
 for r_offset, row_vals in enumerate(em_personnel_data):
     for c_idx, val in enumerate(row_vals):
@@ -353,9 +360,9 @@ update_cell_text(t2_clean.rows[5].cells[0], "Biological Safety Cabinet EM Bracke
 
 # Surface sampling (6, 7, 8)
 em_surf_data = [
-    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "28 Aug 2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
-    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "31 Aug 2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
-    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "01 Sep 2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
+    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "28Aug2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
+    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "31Aug2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
+    ("Surface Sampling of ISO 5 (4 locations)", "Daily", "01Sep2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
 ]
 for r_offset, row_vals in enumerate(em_surf_data):
     for c_idx, val in enumerate(row_vals):
@@ -364,9 +371,9 @@ for r_offset, row_vals in enumerate(em_surf_data):
 
 # Settling sampling (9, 10, 11)
 em_sett_data = [
-    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "28 Aug 2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
-    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "31 Aug 2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
-    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "01 Sep 2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
+    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "28Aug2026", "ES", "Date Before Testing", "No growth", "N/A", "N/A", "None"),
+    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "31Aug2026", "ES", "Date of Testing", "No growth", "N/A", "N/A", "None"),
+    ("Settling Sampling of ISO 5 (2 locations)", "Daily", "01Sep2026", "ES", "Date After Testing", "No growth", "N/A", "N/A", "None")
 ]
 for r_offset, row_vals in enumerate(em_sett_data):
     for c_idx, val in enumerate(row_vals):
@@ -378,7 +385,7 @@ t2_clean.rows[12].cells[0].merge(t2_clean.rows[12].cells[-1])
 update_cell_text(t2_clean.rows[12].cells[0], "Weekly Active Air Sampling of CR 114 (E001736)", bold=True, font_size=Pt(7.5))
 
 # Row 13: Active Air data
-air_vals = ("Active Air Sampling of Cleanrooms", "Weekly", "04 Sep 2026", "SMO", "Week of Testing", "1 CFU\n(ISO 8 114)", "ETX-260914-0487", "Pending", "None")
+air_vals = ("Active Air Sampling of Cleanrooms", "Weekly", "04Sep2026", "SMO", "Week of Testing", "2 CFUs\n(ISO 8 114)", "ETX-260914-0487", "Gram (+) rods and\nGram (+) coccobacilli", "None")
 for c_idx, val in enumerate(air_vals):
     align = docx.enum.text.WD_ALIGN_PARAGRAPH.LEFT if c_idx == 0 else docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
     update_cell_text(t2_clean.rows[13].cells[c_idx], val, font_size=Pt(7.0), align=align)
@@ -388,7 +395,7 @@ t2_clean.rows[14].cells[0].merge(t2_clean.rows[14].cells[-1])
 update_cell_text(t2_clean.rows[14].cells[0], "Surface Sampling of Anteroom and Cleanroom of CR 114 (E001736)", bold=True, font_size=Pt(7.5))
 
 # Row 15: Cleanroom surface data
-clean_vals = ("Surface Sampling of Cleanrooms", "Weekly", "04 Sep 2026", "SMO", "Week of Testing", "No growth", "N/A", "N/A", "None")
+clean_vals = ("Surface Sampling of Cleanrooms", "Weekly", "04Sep2026", "SMO", "Week of Testing", "No growth", "N/A", "N/A", "None")
 for c_idx, val in enumerate(clean_vals):
     align = docx.enum.text.WD_ALIGN_PARAGRAPH.LEFT if c_idx == 0 else docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
     update_cell_text(t2_clean.rows[15].cells[c_idx], val, font_size=Pt(7.0), align=align)
@@ -536,7 +543,7 @@ pdf_map = {
     'Text Field45': "See Phase I Summary",
     'Text Field46': "Not applicable",
     'Text Field47': "Not applicable",
-    'Text Field48': f"N/A {writer_initial} {datetime.now().strftime('%d%b%y')}",
+    'Text Field48': f"N/A {writer_initial} 18Sep26",
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
@@ -570,8 +577,8 @@ checkbox_fields = {
     'Check Box60': '/Yes',
     'Check Box63': '/Yes',
     'Check Box66': '/Yes',
-    'Check Box69': '/Yes',
-    'Check Box72': '/Yes',
+    'Check Box67': '/Yes',
+    'Check Box70': '/Yes',
     'Check Box73': '/Yes',
     'Check Box78': '/Yes',
     'Check Box79': '/Yes',
