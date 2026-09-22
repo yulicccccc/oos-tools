@@ -1,0 +1,1136 @@
+=== NEHA APPROVED PDF: OOS-261187 ScanC_O CGS E001309 S1 11MAY2026.pdf ===
+Total Pages: 7
+
+--- PAGE 1 ---
+Widget count: 67
+[Text Field0]: 'Simin Mohammad (Written by: Qiyue Chen)'
+[Date Field0]: '11-May-2026'
+[Date Field1]: '18-May-2026'
+[Date Field2]: '18-May-2026'
+[Text Field1]: 'Environmental Monitoring'
+[Text Field2]: 'ETX-260518-0273'
+[Text Field3]: 'Clea S. Garza\r(Surface Sampling Plate Setup)\r \rMaraya Chukwumerije and Sophia Santamaria\r(Surface Sampling Plate Readers)'
+[Text Field4]: 'ScanC/O CGS E001309 S1 11MAY2026'
+[Text Field5]: 'Plate'
+[Text Field6]: 'ScanC/O CGS E001309 S1 11MAY2026'
+[Text Field7]: 'The CFU count for the environmental monitoring plate exceeded the action level.'
+[Check Box0]: 'Off'
+[Check Box1]: 'Off'
+[Text Field8]: 'MICRO-SOP-2'
+[Text Field9]: '23-Jul-2026'
+[Text Field10]: '16'
+[Text Field11]: 'Action level: >= 1CFU/Plate'
+[Text Field12]: 'Kathan Parikh'
+[Date Field3]: '18-May-2026'
+[Check Box2]: 'Off'
+[Check Box3]: 'Off'
+[Text Field13]: 'Yes, analysts Clea S. Garza, Maraya Chukwumerije and Sophia Santamaria were comprehensively interviewed.'
+[Text Field14]: 'Not applicable'
+[Text Field15]: 'Yes, as per MICRO-SOP-2'
+[Text Field16]: 'Yes, as per MICRO-SOP-2'
+[Text Field17]: 'Yes, Information is available on Eagletrax under ETX-260518-0273'
+[Text Field18]: 'Yes, the analysts are trained and qualified by quality to perform the test'
+[Text Field19]: 'Not Applicable'
+[Text Field20]: 'Not Applicable'
+[Text Field21]: 'Yes, as per MICRO-SOP-2'
+[Check Box4]: 'Yes'
+[Check Box5]: 'Off'
+[Check Box6]: 'Off'
+[Check Box7]: 'Off'
+[Check Box8]: 'Off'
+[Check Box9]: 'Yes'
+[Check Box10]: 'Yes'
+[Check Box11]: 'Off'
+[Check Box12]: 'Off'
+[Check Box13]: 'Yes'
+[Check Box14]: 'Off'
+[Check Box15]: 'Off'
+[Check Box16]: 'Yes'
+[Check Box17]: 'Off'
+[Check Box18]: 'Off'
+[Check Box19]: 'Yes'
+[Check Box20]: 'Off'
+[Check Box21]: 'Off'
+[Check Box22]: 'Off'
+[Check Box23]: 'Off'
+[Check Box24]: 'Yes'
+[Check Box25]: 'Off'
+[Check Box26]: 'Off'
+[Check Box27]: 'Yes'
+[Check Box28]: 'Yes'
+[Check Box29]: 'Off'
+[Check Box30]: 'Off'
+[Check Box31]: 'Off'
+[Check Box32]: 'Yes'
+[Check Box33]: 'Off'
+[Check Box34]: 'Yes'
+[Check Box35]: 'Off'
+[Check Box36]: 'Off'
+[Check Box37]: 'Off'
+[Check Box38]: 'Yes'
+[Check Box39]: 'Off'
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+                                                 
+  Phase I 
+Section A – Test Details 
+Initiator: 
+ 
+Test Date: 
+ 
+Date 
+Initiated: 
+ 
+Date of Incident: 
+ 
+Test Name: 
+ 
+Sample 
+ID: 
+ 
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ 
+Lot #: 
+ 
+ 
+Dosage Form 
+ 
+Description of 
+Incident: 
+ 
+ Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ 
+SOP / Test Method # 
+Effective Date: 
+SOP / Test Method Rev:  
+Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: 
+Yes   
+       No 
+ 
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy 
+Comments 
+Analyst interviewed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct samples analyzed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct SOP / Test Method used/followed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct sample collection/technique? 
+Yes    
+ No   
+ N/A 
+ 
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? 
+Yes    
+ No   
+ N/A 
+ 
+Is the analyst qualified to perform the test? 
+Yes    
+ No   
+ N/A 
+ 
+Is formula worksheet provided and verified? 
+Yes    
+ No   
+ N/A 
+ 
+Does the processing method/method set 
+conform to the required specification? 
+Yes    
+ No   
+ N/A 
+ 
+Was the sample stored appropriately?  
+Yes    
+ No   
+ N/A 
+ 
+Material Discrepancy 
+Lot Number 
+Expiry Date 
+Is the integrity of the sample(s) questionable? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Was the sample transported appropriately? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are the other test results from this run under 
+investigation? 
+Yes    
+ No   
+N/A 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 1 of 6
+Simin Mohammad (Written by: Qiyue Chen)
+11-May-2026
+18-May-2026
+18-May-2026
+Environmental Monitoring
+ETX-260518-0273
+Clea S. Garza
+(Surface Sampling Plate 
+Setup)
+ 
+Maraya Chukwumerije 
+and Sophia Santamaria
+(Surface Sampling Plate 
+Readers)
+ScanC/O CGS 
+E001309 S1 
+11MAY2026
+Plate
+ScanC/O CGS 
+E001309 S1 
+11MAY2026
+The CFU count for the environmental 
+monitoring plate exceeded the action 
+level.
+MICRO-SOP-2
+23-Jul-2026
+16
+Action level: >= 1CFU/Plate
+Kathan Parikh
+18-May-2026
+Yes, analysts Clea S. Garza, Maraya Chukwumerije and Sophia Santamaria were 
+comprehensively interviewed.
+Not applicable
+Yes, as per MICRO-SOP-2
+Yes, as per MICRO-SOP-2
+Yes, Information is available on Eagletrax under ETX-
+260518-0273
+Yes, the analysts are trained and qualified by quality to perform the test
+Not Applicable
+Not Applicable
+Yes, as per MICRO-SOP-2
+261187
+
+
+--- PAGE 2 ---
+Widget count: 61
+[Check Box40]: 'Off'
+[Check Box41]: 'Off'
+[Check Box42]: 'Yes'
+[Check Box43]: 'Yes'
+[Check Box44]: 'Off'
+[Check Box45]: 'Off'
+[Text Field22]: 'Contact Plate:\r \r1011695040'
+[Text Field23]: 'Contact Plate:\r \r03 Jul 2026'
+[Text Field24]: 'Not Applicable'
+[Text Field25]: 'Not Applicable'
+[Text Field26]: 'Not Applicable'
+[Text Field27]: 'Not Applicable'
+[Text Field28]: 'Not Applicable'
+[Text Field29]: 'Not Applicable'
+[Text Field30]: 'Please see below'
+[Text Field31]: 'Please see below'
+[Text Field32]: 'CR117'
+[Text Field33]: 'Dec 2026'
+[Text Field34]: 'N/A'
+[Text Field35]: 'N/A'
+[Text Field36]: 'Not Applicable'
+[Text Field37]: 'Not Applicable'
+[Text Field38]: 'Not Applicable'
+[Text Field39]: 'Not Applicable'
+[Text Field40]: 'Not Applicable'
+[Text Field41]: 'Not Applicable'
+[Text Field42]: 'Not Applicable'
+[Text Field43]: 'Incubator E001034\n\n(Sensor E001501)\n\nIncubator E001031\n\n(Sensor E001505)'
+[Text Field44]: 'Aug 2027\r \r \rFeb 2027\r \r \rAug 2027\r \r \rFeb 2027'
+[Text Field45]: 'Not Applicable'
+[Check Box46]: 'Off'
+[Check Box47]: 'Off'
+[Check Box48]: 'Yes'
+[Check Box49]: 'Off'
+[Check Box50]: 'Off'
+[Check Box51]: 'Yes'
+[Check Box52]: 'Yes'
+[Check Box53]: 'Off'
+[Check Box54]: 'Off'
+[Check Box55]: 'Yes'
+[Check Box56]: 'Off'
+[Check Box57]: 'Off'
+[Check Box58]: 'Off'
+[Check Box59]: 'Off'
+[Check Box60]: 'Yes'
+[Check Box61]: 'Off'
+[Check Box62]: 'Off'
+[Check Box63]: 'Yes'
+[Check Box64]: 'Off'
+[Check Box65]: 'Off'
+[Check Box66]: 'Yes'
+[Check Box67]: 'Off'
+[Check Box68]: 'Off'
+[Check Box69]: 'Yes'
+[Check Box70]: 'Off'
+[Check Box71]: 'Off'
+[Check Box72]: 'Yes'
+[Check Box73]: 'Yes'
+[Check Box74]: 'Off'
+[Check Box75]: 'Off'
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+                                                 
+Appropriate/correct glassware used? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are reagents stored in proper condition and not 
+expired? 
+Yes    
+ No   
+N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+ 
+ 
+Solvent Used  
+ 
+ 
+ 
+ 
+ 
+ 
+Is the standard the source of the root cause? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Equipment Discrepancy 
+Equipment ID 
+Calibration Due Date 
+Was the instrument set up correctly? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is the clean room facility certified? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Performance Check (if applicable)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 2% (PDA)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 10% (QDA, CAD)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the environmental monitoring results 
+conform to required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 2 of 6
+Contact Plate:
+ 
+1011695040
+Contact Plate:
+ 
+03 Jul 2026
+Not Applicable
+Not Applicable Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Please see below
+Please see below
+CR117
+Dec 2026
+N/A
+N/A
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable
+Not Applicable Not Applicable
+Not Applicable
+Incubator 
+E001034
+(Sensor 
+E001501)
+Incubator 
+E001031
+(Sensor 
+E001505)
+Aug 2027
+ 
+ 
+Feb 2027
+ 
+ 
+Aug 2027
+ 
+ 
+Feb 2027
+Not Applicable
+261187
+
+
+--- PAGE 3 ---
+Widget count: 16
+[Check Box76]: 'Off'
+[Check Box77]: 'Off'
+[Check Box78]: 'Yes'
+[Text Field46]: 'Not Applicable'
+[Text Field47]: 'Not Applicable'
+[Check Box80]: 'Off'
+[Check Box81]: 'Off'
+[Check Box82]: 'Off'
+[Check Box83]: 'Off'
+[Check Box84]: 'Off'
+[Check Box85]: 'Off'
+[Check Box86]: 'Off'
+[Text Field48]: 'N/A QYC 18-Sep-2026'
+[Text Field49]: "The analyst involved in the surface sampling plate setup, Clea S. Garza (CGS), and the analysts involved in reading the plate, Maraya Chukwumerije and Sophia Santamaria, were interviewed comprehensively. Their responses are documented throughout this investigation.\r \rThe EM plates were stored in accordance with the supplier's recommendations, visually inspected before use, and verified to be within their assigned expiration dates. All materials and supplies were disinfected in accordance with MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. The functionality of the incubators was verified through review of data generated by the in-house continuous monitoring system.\r \rSurface Sampling was performed by analyst Clea S. Garza during the ScanRDI changeover process in ISO 5 BSC E001309 located in cleanroom suite CR117A on 11 May 2026, in accordance with MICRO-SOP-2, Environmental Monitoring of the Cleanroom Facility.\r \rThe plates were initially incubated at a temperature of 30-35°C in incubator E001031 for a minimum duration of 48 hours, commencing on 11 May 2026. Following completion of the minimum 48 hours of incubation on 13 May 2026, no microbial growth was observed. The plates were subsequently incubated for a minimum of 5 days at 20-25°C in incubator E001034, with incubation ending on 18 May 2026. Post-completion of the second incubation period, one colony-like artifact was observed on Suface Sampling Plate# 1. Please see Table 1 for detailed information on the observations during the respective incubations.\r \rThe observed artifact was submitted for microbial identification under ETX-260518-0273. However, following transfer or inoculation onto fresh media, no growth was observed. Therefore, the observed artifact could not be confirmed as a viable microbial colony, and hence, could not be reported as a confirmed CFU. The lack of growth upon subculture indicates that the observation may have been non-viable material. \r \rTo evaluate environmental controls and determine whether the recovery was transient or recurring, personnel-monitoring plates for Clea S. Garza and ISO 5 BSC E001309 environmental-monitoring plates were bracketed across the testing period, as detailed in Table 2."
+[Check Box79]: 'Yes'
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 3 of 6
+Not Applicable
+Not Applicable
+N/A QYC 18-Sep-2026
+The analyst involved in the surface sampling plate setup, Clea S. Garza (CGS), and the analysts 
+involved in reading the plate, Maraya Chukwumerije and Sophia Santamaria, were interviewed 
+comprehensively. Their responses are documented throughout this investigation.
+ 
+The EM plates were stored in accordance with the supplier's recommendations, visually inspected 
+before use, and verified to be within their assigned expiration dates. All materials and supplies were 
+disinfected in accordance with MICRO-SOP-9, Cleaning and Disinfecting Procedure for 
+Microbiology. The functionality of the incubators was verified through review of data generated by 
+the in-house continuous monitoring system.
+ 
+Surface Sampling was performed by analyst Clea S. Garza during the ScanRDI changeover 
+process in ISO 5 BSC E001309 located in cleanroom suite CR117A on 11 May 2026, in accordance 
+with MICRO-SOP-2, Environmental Monitoring of the Cleanroom Facility.
+ 
+The plates were initially incubated at a temperature of 30-35°C in incubator E001031 for a minimum 
+duration of 48 hours, commencing on 11 May 2026. Following completion of the minimum 48 hours 
+of incubation on 13 May 2026, no microbial growth was observed. The plates were subsequently 
+incubated for a minimum of 5 days at 20-25°C in incubator E001034, with incubation ending on 18 
+May 2026. Post-completion of the second incubation period, one colony-like artifact was observed 
+on Suface Sampling Plate# 1. Please see Table 1 for detailed information on the observations 
+during the respective incubations.
+ 
+The observed artifact was submitted for microbial identification under ETX-260518-0273. However, 
+following transfer or inoculation onto fresh media, no growth was observed. Therefore, the observed 
+artifact could not be confirmed as a viable microbial colony, and hence, could not be reported as a 
+confirmed CFU. The lack of growth upon subculture indicates that the observation may have been 
+non-viable material. 
+ 
+To evaluate environmental controls and determine whether the recovery was transient or recurring, 
+personnel-monitoring plates for Clea S. Garza and ISO 5 BSC E001309 environmental-monitoring 
+plates were bracketed across the testing period, as detailed in Table 2.
+261187
+
+
+--- PAGE 4 ---
+Widget count: 2
+[Text Field50]: 'Upon analyzing the environmental monitoring results summarized in Table 2, personnel monitoring plates for Clea S. Garza, including left- and right-touch plates, showed no microbial growth on the date before testing (08 May 2026), the date of testing (11 May 2026), and the date after testing (12 May 2026).\r \rFor ISO 5 BSC E001309, daily surface sampling of four locations showed no microbial growth on the date before testing (09 May 2026). On the date of testing (11 May 2026), 1 CFU was recovered from Surface sampling plate# 1 associated with Clea S. Garza. The recovery was documented under ETX-260518-0273; microbial identification indicated a colony-like artifact (White, shiny, hardened, smooth area embeded on agar), however, no microbial growth could be recovered from the subculture. Surface sampling performed on the date after testing (12 May 2026) showed no microbial growth across all locations.\r \rSettling sampling of ISO 5 BSC E001309, showed no microbial growth on the date before testing (09 May 2026), the date of testing (11 May 2026), and the date after testing (12 May 2026).\r \rWeekly active-air monitoring of Suite 117 conducted during the week of testing (07 May 2026) recovered 2 CFUs in ISO 8 CR117 under ETX-260518-0263, which were morpholgically identified as Gram-positive cocci and Gram-positive pleomorphic rods. Weekly surface monitoring of the anteroom and cleanroom areas associated with Suite 117 showed no microbial growth on during the week of testing on 07 May 2026.\r \rDuring the interview, the analyst indicated that no obvious abnormalities or deviations occurred during the testing process. All materials were disinfected before testing, and the relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance with MICRO-SOP-2 and MICRO-SOP-9.\r \rMonthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom (Room 117) and ISO 7 buffer room (Room 117A) housing ISO 5 BSC E001309, were performed on 26-Apr-2026 by analysts - Tamiru Kotisso and Cuong Du - in accordance with MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators passed, confirming the successful completion and effectiveness of the monthly cleaning and disinfection activities within Suite 117. Additionally, routine cleaning and disinfection were performed before and after the testing activity in accordance with MICRO-SOP-9.\r \rIt is also important to note that no product samples processed by Clea S. Garza in ISO 5 BSC E001309 on the date of testing (11 May 2026) failed ScanRDI testing.'
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 4 of 6
+Upon analyzing the environmental monitoring results summarized in Table 2, personnel 
+monitoring plates for Clea S. Garza, including left- and right-touch plates, showed no 
+microbial growth on the date before testing (08 May 2026), the date of testing (11 May 2026), 
+and the date after testing (12 May 2026).
+ 
+For ISO 5 BSC E001309, daily surface sampling of four locations showed no microbial growth 
+on the date before testing (09 May 2026). On the date of testing (11 May 2026), 1 CFU was 
+recovered from Surface sampling plate# 1 associated with Clea S. Garza. The recovery was 
+documented under ETX-260518-0273; microbial identification indicated a colony-like artifact 
+(White, shiny, hardened, smooth area embeded on agar), however, no microbial growth could 
+be recovered from the subculture. Surface sampling performed on the date after testing (12 
+May 2026) showed no microbial growth across all locations.
+ 
+Settling sampling of ISO 5 BSC E001309, showed no microbial growth on the date before 
+testing (09 May 2026), the date of testing (11 May 2026), and the date after testing (12 May 
+2026).
+ 
+Weekly active-air monitoring of Suite 117 conducted during the week of testing (07 May 2026) 
+recovered 2 CFUs in ISO 8 CR117 under ETX-260518-0263, which were morpholgically 
+identified as Gram-positive cocci and Gram-positive pleomorphic rods. Weekly surface 
+monitoring of the anteroom and cleanroom areas associated with Suite 117 showed no 
+microbial growth on during the week of testing on 07 May 2026.
+ 
+During the interview, the analyst indicated that no obvious abnormalities or deviations 
+occurred during the testing process. All materials were disinfected before testing, and the 
+relevant cleanroom and ISO 5 BSC were cleaned and prepared before testing in accordance 
+with MICRO-SOP-2 and MICRO-SOP-9.
+ 
+Monthly cleaning and disinfection of the cleanroom suite, including the ISO 8 anteroom 
+(Room 117) and ISO 7 buffer room (Room 117A) housing ISO 5 BSC E001309, were 
+performed on 26-Apr-2026 by analysts - Tamiru Kotisso and Cuong Du - in accordance with 
+MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. All H2O2 indicators 
+passed, confirming the successful completion and effectiveness of the monthly cleaning and 
+disinfection activities within Suite 117. Additionally, routine cleaning and disinfection were 
+performed before and after the testing activity in accordance with MICRO-SOP-9.
+ 
+It is also important to note that no product samples processed by Clea S. Garza in ISO 5 BSC 
+E001309 on the date of testing (11 May 2026) failed ScanRDI testing.
+261187
+
+
+--- PAGE 5 ---
+Widget count: 2
+[Text Field51]: "Based on the available evidence, one colony-like artifact was observed on ISO 5 BSC E001309 Surface Samplinf Plate# 1 on the date of testing (11 May 2026). However, the observation could not be confirmed as a viable microbial CFU because no growth was obtained following inoculation onto fresh media. Therefore, the observation represents a nonviable or non-microbial artifact.\r \rEven if the observed artifact had represented a viable CFU, it would appear to be an isolated event. This assessment is supported by the absence of microbial recovery from Clea S. Garza's personnel-monitoring plates on the date before testing (08 May 2026), the date of testing (11 May 2026), and the date after testing (12 May 2026); the absence of growth from BSC E001309 surface samples collected on the date before testing (09 May 2026) and the date after testing (12 May 2026); and the absence of growth from ISO 5 settling plates throughout the bracketing period. Additionally, it is important to note that no growth was observed on the other three surface sampling plates from the date of testing.\r \rThe negative ISO 5 settling, personnel, and bracketing surface monitoring results demonstrate that the BSC E001309 critical environment remained in a state of control. The available data do not support migration, persistence, or recurrence of contamination within ISO 5 BSC E001309. Collectively, the evidence supports that the recovery was an isolated, transient, and non-recurring event and could likely be attributed to an inadvertent laboratory error.\r \rAccordingly, no systemic environmental control deficiencies were identified, and no additional corrective or preventive actions are warranted at this time beyond continued routine environmental monitoring and adherence to approved cleaning, disinfection, and aseptic procedures."
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+ 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 5 of 6
+Based on the available evidence, one colony-like artifact was observed on ISO 5 BSC 
+E001309 Surface Samplinf Plate# 1 on the date of testing (11 May 2026). However, the 
+observation could not be confirmed as a viable microbial CFU because no growth was 
+obtained following inoculation onto fresh media. Therefore, the observation represents a 
+nonviable or non-microbial artifact.
+ 
+Even if the observed artifact had represented a viable CFU, it would appear to be an isolated 
+event. This assessment is supported by the absence of microbial recovery from Clea S. 
+Garza's personnel-monitoring plates on the date before testing (08 May 2026), the date of 
+testing (11 May 2026), and the date after testing (12 May 2026); the absence of growth from 
+BSC E001309 surface samples collected on the date before testing (09 May 2026) and the 
+date after testing (12 May 2026); and the absence of growth from ISO 5 settling plates 
+throughout the bracketing period. Additionally, it is important to note that no growth was 
+observed on the other three surface sampling plates from the date of testing.
+ 
+The negative ISO 5 settling, personnel, and bracketing surface monitoring results 
+demonstrate that the BSC E001309 critical environment remained in a state of control. The 
+available data do not support migration, persistence, or recurrence of contamination within 
+ISO 5 BSC E001309. Collectively, the evidence supports that the recovery was an isolated, 
+transient, and non-recurring event and could likely be attributed to an inadvertent laboratory 
+error.
+ 
+Accordingly, no systemic environmental control deficiencies were identified, and no additional 
+corrective or preventive actions are warranted at this time beyond continued routine 
+environmental monitoring and adherence to approved cleaning, disinfection, and aseptic 
+procedures.
+261187
+
+
+--- PAGE 6 ---
+Widget count: 14
+[Check Box87]: 'Yes'
+[Check Box88]: 'Off'
+[Check Box89]: 'Off'
+[Text Field53]: 'Qiyue Chen'
+[Text Field54]: 'Neha Hulyalkar'
+[Check Box90]: 'Off'
+[Check Box91]: 'Off'
+[Check Box92]: 'Off'
+[Text Field57]: '261187'
+TEXT CONTENT:
+OOS Number: OOS- 
+                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+ 
+ If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+ 
+ 
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+ 
+ Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by qchen@eagleanalytical.com from https://app.zenqms.com on 18-Sep-2026 at 2:11:28 PM UTC
+Page 6 of 6
+Qiyue Chen
+Neha Hulyalkar
+SIGN
+SIGN
+SIGN
+261187
+
+
+--- PAGE 7 ---
+Widget count: 0
+TEXT CONTENT:
+Table 1: Read Dates & Incubation Observation 
+ETX Submission ID 
+Set-up Analyst 
+& Date 
+Sampling Site & 
+Location 
+Plate Reading 
+Analyst (≥ 
+48H) 
+CFUs Observed after 
+48 Hour Incubation at 
+30–35°C (E001031) 
+Plate 
+Reading 
+Analyst 
+(NLT 5 
+days) 
+CFUs Observed after 
+NLT 5-day Incubation at 
+20–25°C (E001034) 
+Microbial Identification 
+ETX-260518-0273 
+CGS 
+07 MAY 2026 
+Surface sampling 
+plate 
+MC 
+13 MAY 2026 
+0 CFU/No growth 
+SAS 
+18 MAY 
+2026 
+1 CFU on Surface 
+Sampling Plate# 1 
+performed by CGS 
+N/A, White, shiny, hardened, 
+smooth area embeded on agar 
+- A defined CFU was not 
+identified. 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom  
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring 
+Plate ETX ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+08MAY 
+2026 
+CGS 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+11MAY 
+2026 
+CGS 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and 
+Right Touch) 
+Daily 
+12MAY 
+2026 
+CGS 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+09MAY 
+2026 
+VV 
+Date Before 
+Testing 
+No growth 
+ 
+ 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+11MAY 
+2026 
+CGS, DT, 
+GA, VV , PG 
+Date of Testing 
+1 CFU on Surface 
+Sampling Plate# 1 
+performed by CGS 
+ETX-260518-
+0273 
+N/A, White, shiny, hardened, 
+smooth area embeded on agar - A 
+defined CFU was not identified. 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+12MAY 
+2026 
+PG, DT, HS, 
+ELB, GA, VV 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+09MAY 
+2026 
+VV 
+Date Before 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+11MAY 
+2026 
+CGS, DT, 
+GA, VV , PG 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 
+(2 locations) 
+Daily 
+12MAY 
+2026 
+PG, DT, HS, 
+ELB, GA, VV 
+Date After 
+Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling Bracketing 
+Active Air Sampling of 
+Cleanrooms 
+Weekly 
+07MAY 
+2026 
+SMO 
+Week (On or 
+Before Testing 
+Date) 
+2 CFU for ISO 8 
+CR117 
+ETX-260518-
+0263 
+Gram (+) cocci 
+ Gram (+) pleomorphic rods 
+None 
+Surface Sampling of Anteroom and Cleanroom Bracketing 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+07MAY 
+2026 
+SMO 
+Week (On or 
+Before Testing 
+Date) 
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+
+
