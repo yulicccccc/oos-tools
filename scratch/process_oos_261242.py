@@ -596,7 +596,7 @@ for r_idx, row_content in enumerate(email_table_data):
 p_c = doc_email.add_paragraph()
 p_c.paragraph_format.space_before = Pt(14)
 p_c.paragraph_format.space_after = Pt(0)
-r_c = p_c.add_run("please review and sign the updated OOS form.")
+r_c = p_c.add_run("please review them, sign and please route for signatures.")
 r_c.font.name = "Calibri"
 r_c.font.size = Pt(11)
 
