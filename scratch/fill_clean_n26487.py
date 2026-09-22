@@ -74,11 +74,12 @@ for w in list(p1.widgets()):
         w.text_fontsize = 5.8
         w.field_value = '0216202602, 22666, LG342010613'
     elif fn == 'Text Field7':
-        # Nonconformance Description with complete sample/client/lot details
-        w.text_fontsize = 5.2
+        # Nonconformance Description with detailed personal timeline and actions
+        w.text_fontsize = 5.0
         w.field_value = (
-            "On 17-Sep-2026, during routine Scan RDI sterility testing operations, an unexpected software crash occurred on the Scan RDI instrument (Equipment ID: E001230) while running session '17 Sep 2026 - 3'. Following the crash, third-shift analysts and Microbiology Laboratory Supervisor Robin Seymour attempted to recover the session; however, the instrument displayed system error messages stating 'Unable to Create New Session Unknown Error' and 'Unable to Load Session Unknown Error', preventing completion of the verification and reading process.\n\n"
-            "On 18-Sep-2026, Eagle IT Coordinator Kevin Torres conducted a technical assessment of instrument E001230 and confirmed that the session file was corrupted, exporting as only 7 KB, and the corresponding raw acquisition dataset within the D:\\ directory was completely empty and unrecoverable.\n\n"
+            "On 17-Sep-2026, during routine Scan RDI sterility testing operations, an unexpected software crash occurred on the Scan RDI instrument (Equipment ID: E001230) while running session '17 Sep 2026 - 3'. Third-shift analyst JOC immediately notified Project Microbiologist QYC regarding the incident and software failure.\n\n"
+            "The following day, on 18-Sep-2026, QYC attempted to re-open the application and recover the testing session data; however, the instrument repeatedly displayed error messages stating 'Unable to Create New Session Unknown Error' and 'Unable to Load Session Unknown Error', preventing access to the session.\n\n"
+            "On 21-Sep-2026, QYC informed Eagle IT Coordinator KT (Kevin Torres) and together they attempted to restore and retrieve the session data. Following technical review, KT confirmed that the session file was corrupted, exporting as only 7 KB, and the corresponding raw acquisition dataset within the D:\\ directory was completely empty and unrecoverable.\n\n"
             "A total of three (3) sterility test sample submissions were actively processed in this corrupted session and impacted by data loss:\n"
             "• ETX-260915-0653 | Client: ANG Labs (E73555) | Sample: Semaglutide/Cyanocobalamin | Lot#: 0216202602\n"
             "• ETX-260916-0044 | Client: Southend Pharmacy (E19207) | Sample: Tirzepatide 22mg/mL-Pyridoxine HCl 4mg/mL (1 mL) | Lot#: 22666\n"
@@ -160,13 +161,13 @@ try:
     new_doc.save(out_pdf_docs)
     saved_paths.append(out_pdf_docs)
 except Exception as e:
-    print('Could not save to', out_pdf_docs, '(locked). Saving to Final copy.')
+    print('Could not save to', out_pdf_docs, '(locked).')
 
 try:
     new_doc.save(out_pdf_oos)
     saved_paths.append(out_pdf_oos)
 except Exception as e:
-    print('Could not save to', out_pdf_oos, '(locked). Saving to Final copy.')
+    print('Could not save to', out_pdf_oos, '(locked).')
 
 new_doc.save(out_pdf_docs_final)
 saved_paths.append(out_pdf_docs_final)
@@ -183,5 +184,5 @@ pix1.save(r'C:\Users\qchen\OneDrive - Professional Compounding Centers of Americ
 
 pix2 = d[1].get_pixmap(dpi=150)
 pix2.save(r'C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\scratch\clean_n26487_p2.png')
-print('Successfully regenerated clean N26487 PDF & PNGs with full sample info.')
+print('Successfully regenerated clean N26487 PDF & PNGs with detailed timeline.')
 print('Saved to:', saved_paths)
