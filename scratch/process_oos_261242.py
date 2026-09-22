@@ -595,28 +595,10 @@ for r_idx, row_content in enumerate(email_table_data):
 # Closing
 p_c = doc_email.add_paragraph()
 p_c.paragraph_format.space_before = Pt(14)
-p_c.paragraph_format.space_after = Pt(4)
-r_c = p_c.add_run("@Simin Mohammad please review, sign, and route back.")
+p_c.paragraph_format.space_after = Pt(0)
+r_c = p_c.add_run("please review and sign the updated OOS form.")
 r_c.font.name = "Calibri"
 r_c.font.size = Pt(11)
-
-p_s = doc_email.add_paragraph()
-p_s.paragraph_format.space_before = Pt(6)
-p_s.paragraph_format.space_after = Pt(0)
-p_s.paragraph_format.line_spacing = 1.15
-sig_text = (
-    ".\n"
-    "Thanks,\n"
-    "Robin Seymour\n"
-    "Microbiology Supervisor (Sterile Lab)\n"
-    "Eagle Analytical Services\n"
-    "rseymour@eagleanalytical.com\n"
-    "11111 S. Wilcrest Dr. # S1000\n"
-    "Houston, Texas 77099"
-)
-r_s = p_s.add_run(sig_text)
-r_s.font.name = "Calibri"
-r_s.font.size = Pt(10)
 
 doc_email.save(email_docx_out)
 print(f"Saved Word review email to: {email_docx_out}")
