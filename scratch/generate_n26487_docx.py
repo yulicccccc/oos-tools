@@ -151,7 +151,7 @@ set_cell_shading(c_c1, "F8F9FA")
 p = c_c1.paragraphs[0]
 p.paragraph_format.space_before = Pt(2)
 p.paragraph_format.space_after = Pt(2)
-p.add_run("Category:  [X] Equipment/System    [ ] Process/Method    [ ] Personnel    [ ] External Phenomena    [ ] Other").font.size = Pt(8.5)
+p.add_run("Category:  [X] Equipment/System    [ ] Process/Method    [ ] Personnel    [ ] External Phenomena    [ ] Other: N/A QYC 22Sep26").font.size = Pt(8.5)
 
 doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
@@ -169,9 +169,8 @@ tbl_ca.alignment = WD_TABLE_ALIGNMENT.CENTER
 c_ca = tbl_ca.rows[0].cells[0]
 set_cell_borders(c_ca, color="CBD5E0")
 ca_text = (
-    "1. Work Order WO-260470 was issued to Engineering and IT to investigate and resolve the software crash, clear corrupted temporary files, and evaluate database integrity on instrument E001230.\n"
-    "2. Instrument E001230 was taken out of service for live sample testing pending completion and sign-off of WO-260470.\n"
-    "3. Client Care was instructed to request additional sample vials for retesting from ANG Labs (ETX-260915-0653) and Southend Pharmacy (ETX-260916-0044). Additional sample for ETX-260916-0374 (Optimal Balance Pharmacy) was received and is in-process with the third shift for retesting on an alternate qualified Scan RDI unit."
+    "Work Order WO-260470 was issued to Engineering and IT to investigate and resolve the software crash, clear corrupted temporary files, and evaluate database integrity on instrument E001230. "
+    "Client Care was instructed to request additional sample vials for retesting for ETX-260915-0653, ETX-260916-0044 and ETX-260916-0374."
 )
 p = c_ca.paragraphs[0]
 p.paragraph_format.space_before = Pt(2)

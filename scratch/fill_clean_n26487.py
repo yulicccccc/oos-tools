@@ -43,8 +43,8 @@ for r in whiteout_rects_p1:
 for w in list(p1.widgets()):
     fn = w.field_name
     if fn == 'Text Field20':
-        p1.delete_widget(w)
-        continue
+        w.text_fontsize = 7.5
+        w.field_value = 'N/A QYC 22Sep26'
     elif fn == 'Text Field10':
         w.field_value = ''
     elif fn == 'Text Field0':
@@ -96,11 +96,10 @@ for w in list(p1.widgets()):
         w.field_value = ''
     elif fn == 'Text Field9':
         # Description of corrective action(s)
-        w.text_fontsize = 6.0
+        w.text_fontsize = 6.5
         w.field_value = (
-            "1. Work Order WO-260470 was issued to Engineering and IT to investigate and resolve the software crash, clear corrupted temporary files, and evaluate database integrity on instrument E001230.\n"
-            "2. Instrument E001230 was taken out of service for live sample testing pending completion and sign-off of WO-260470.\n"
-            "3. Client Care was instructed to request additional sample vials for retesting from ANG Labs (ETX-260915-0653) and Southend Pharmacy (ETX-260916-0044). Additional sample for ETX-260916-0374 (Optimal Balance Pharmacy) was received and is in-process with the third shift for retesting on an alternate qualified Scan RDI unit."
+            "Work Order WO-260470 was issued to Engineering and IT to investigate and resolve the software crash, clear corrupted temporary files, and evaluate database integrity on instrument E001230. "
+            "Client Care was instructed to request additional sample vials for retesting for ETX-260915-0653, ETX-260916-0044 and ETX-260916-0374."
         )
     elif fn == 'Check Box5':
         w.field_value = 'Yes'
