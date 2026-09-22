@@ -65,3 +65,11 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 5. **Surface Sampling Negative Control Statement**: For surface sampling EM OOS reports, always add this statement at the end of the second paragraph on Page 5:
    `"Additionally, it is important to note that no growth was observed on the other three surface sampling plates from the date of testing."`
 6. **Consumables (Contact Plate / TSA Plate) Lot & Expiration**: Accurately verify the Contact Plate / TSA Plate lot number and expiration date against the lab dispensing logs.
+7. **Action Level Wording ("Met" vs. "Exceeded")**:
+   - If the Action Level is $\ge 1\text{ CFU/Plate}$ (or $\ge X$) and the count is exactly $1\text{ CFU}$ (or $X$), write **"met the action level"**, NEVER "exceeded the action level".
+   - Only use "exceeded" if the count is strictly greater than the numerical threshold.
+8. **No Speculative Laboratory Error Statement (cGMP Root Cause Standard)**:
+   - Do NOT state that an event "could likely be attributed to an inadvertent laboratory error" unless a specific, documented, and verifiable laboratory discrepancy was identified during testing or interview.
+   - If no error was found, state that the recovery was an isolated, transient event, the analyst adhered to approved aseptic protocols with no deviations, the critical environment remained in control, and no specific or assignable laboratory discrepancy was identified.
+9. **Table 1 Setup Date vs. Sampling Date Consistency**:
+   - The setup date in Table 1 must strictly match the actual test/sampling date of the plate (e.g., `11MAY 2026`), not an earlier weekly monitoring date (e.g., `07MAY 2026`).
