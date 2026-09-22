@@ -596,7 +596,7 @@ for r_idx, row_content in enumerate(email_table_data):
 p_c = doc_email.add_paragraph()
 p_c.paragraph_format.space_before = Pt(14)
 p_c.paragraph_format.space_after = Pt(4)
-r_c = p_c.add_run("@Simin Mohammad please review and sign the attached finalized 8-page PDF package.")
+r_c = p_c.add_run("@Simin Mohammad please review, sign, and route back.")
 r_c.font.name = "Calibri"
 r_c.font.size = Pt(11)
 
