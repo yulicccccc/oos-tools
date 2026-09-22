@@ -108,14 +108,10 @@ set_cell_borders(cell_d, color="CBD5E0")
 set_cell_shading(cell_d, "FFFFFF")
 
 desc_paragraphs = [
-    "On 17-Sep-2026, during routine Scan RDI sterility testing operations, an unexpected software crash occurred on the Scan RDI instrument (Equipment ID: E001230) while running session '17 Sep 2026 - 3'. Third-shift analyst JOC immediately notified Project Microbiologist QYC regarding the incident and software failure.",
-    "The following day, on 18-Sep-2026, QYC attempted to re-open the application and recover the testing session data; however, the instrument repeatedly displayed error messages stating 'Unable to Create New Session Unknown Error' and 'Unable to Load Session Unknown Error', preventing access to the session.",
-    "On 21-Sep-2026, QYC informed Eagle IT Coordinator KT (Kevin Torres) and together they attempted to restore and retrieve the session data. Following technical review, KT confirmed that the session file was corrupted, exporting as only 7 KB, and the corresponding raw acquisition dataset within the D:\\ directory was completely empty and unrecoverable.",
-    "A total of three (3) sterility test sample submissions were actively processed in this corrupted session and impacted by data loss:\n"
-    "• ETX-260915-0653 | Client: ANG Labs (E73555) | Sample: Semaglutide/Cyanocobalamin | Lot#: 0216202602\n"
-    "• ETX-260916-0044 | Client: Southend Pharmacy (E19207) | Sample: Tirzepatide 22mg/mL-Pyridoxine HCl 4mg/mL (1 mL) | Lot#: 22666\n"
-    "• ETX-260916-0374 | Client: Optimal Balance Pharmacy (E19193) | Sample: SEMAGLUTIDE/ B12 1.2 MG/ 500 MCG/ML (2 ML) Inj | Lot#: LG342010613",
-    "No valid test results could be generated or verified for these submissions from the corrupted run. Work Order WO-260470 was promptly issued to Engineering/IT to formally investigate the software failure and initiate technical remediation."
+    "On 17-Sep-2026, during routine Scan RDI sterility testing operations, an unexpected software crash occurred on the Scan RDI instrument (Equipment ID: E001230) while running session '17 Sep 2026 - 3'. Third-shift analyst JOC immediately notified Project Microbiologist QYC regarding the incident and software failure. JOC attempted to re-open the application and recover the testing session data; however, the instrument repeatedly displayed error messages stating, 'Unable to Create New Session Unknown Error' and 'Unable to Load Session Unknown Error', preventing access to the session.",
+    "The following day, on 18-Sep-2026, QYC attempted to re-open the application and recover the testing session data again; the session '17 Sep 2026 - 3' could be opened, but no data was present within it. Work Order WO-260470 was promptly issued to Engineering/IT by RS to formally investigate the software failure and initiate technical remediation.",
+    "On 21-Sep-2026, QYC proactively reached out to Eagle IT Coordinator KT (who was previously unaware of the incident) and attempted to restore and retrieve the session data. Following technical review, KT confirmed that the session file was corrupted, exporting as only 7 KB, and the corresponding raw acquisition dataset within the D:\\ directory was completely empty and unrecoverable.",
+    "Three ScanRDI test sample submissions, ETX-260915-0653, ETX-260916-0044 and ETX-260916-0374 were actively processed in this corrupted session and impacted by data loss. No valid test results could be generated or verified for these submissions from the corrupted run."
 ]
 
 for idx, txt in enumerate(desc_paragraphs):
@@ -229,7 +225,6 @@ for r_idx, row in enumerate(tbl_sig.rows):
         set_cell_borders(cell, color="CBD5E0")
         set_cell_shading(cell, "F8F9FA")
         txt = sig_cells[0][c_idx] if r_idx == 0 else ""
-        # We put content in row 0
         if r_idx == 0:
             left_txt, right_txt = txt
             p = cell.paragraphs[0]
