@@ -440,7 +440,7 @@ p_g.paragraph_format.space_after = Pt(6)
 
 p_i = doc_email.add_paragraph()
 r_i = p_i.add_run(
-    "I have reviewed this OOS and made my edits to this and summary of the major ones as below. "
+    "I have reviewed OOS-261242 and made my edits to this and summary of the major ones as below. "
     "Please also note that the Highlighted sections in the table will need to be amended:"
 )
 r_i.font.name = "Calibri"
@@ -525,11 +525,15 @@ email_table_data = [
 
 col_widths = [1.8, 2.6, 2.8]
 e_table = doc_email.add_table(rows=len(email_table_data), cols=3)
-e_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+e_table.alignment = WD_TABLE_ALIGNMENT.LEFT
 e_table.autofit = False
 
 tblPr = e_table._element.xpath('w:tblPr')
 if tblPr:
+    for jc in tblPr[0].xpath('w:jc'):
+        tblPr[0].remove(jc)
+    tblPr[0].append(parse_xml(f'<w:jc {nsdecls("w")} w:val="left"/>'))
+    
     for ind in tblPr[0].xpath('w:tblInd'):
         tblPr[0].remove(ind)
     tblPr[0].append(parse_xml(f'<w:tblInd {nsdecls("w")} w:w="0" w:type="dxa"/>'))
