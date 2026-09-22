@@ -512,9 +512,9 @@ email_table_data = [
         "Reconciled monthly cleaning sentence to remove duplicate date, inserted period before **\"It was documented that all H₂O₂ indicators passed.\"** Corrected grammar to **\"there were two sterility test samples that tested positive\"**, capitalized sentence start, and explicitly detailed that the recoveries in BSC E001314 (**Staphylococcus lugdunensis** and **Cladosporium halotolerans**) exhibit distinct taxonomy from the OOS recovery (**Candida orthopsilosis**), confirming no common source or cleanroom facility contamination."
     ],
     [
-        "Phase I Summary – Root Cause Statement & Form Pagination",
-        "The Phase I Root Cause Statement was crammed into the bottom of Page 4 (`Text Field50`), leaving Page 5 (`Text Field51`) marked as **\"N/A SMO 18-AUG-2026\"**, causing Page 4 text to exceed visual margins while leaving Page 5 blank.",
-        "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 (`Text Field51`) houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement confirming that the recovery represents an isolated, transient environmental event with effective routine disinfection."
+        "Phase I Summary – Root Cause Statement & Continuation Pages",
+        "The Phase I Root Cause Statement was placed at the bottom of Page 4, leaving Page 5 marked as **\"N/A SMO 18-AUG-2026\"**, causing Page 4 to be overcrowded while leaving Page 5 blank.",
+        "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement confirming that the recovery represents an isolated, transient environmental event with effective routine disinfection."
     ],
     [
         "EM Table Attachment & Formatting",
