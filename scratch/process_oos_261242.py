@@ -517,9 +517,9 @@ email_table_data = [
         "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement confirming that the recovery represents an isolated, transient environmental event with effective routine disinfection."
     ],
     [
-        "EM Table Attachment & Formatting",
-        "The EM Table was omitted from the PDF submission. In the draft Word document, Table 1 date had excessive spacing (**\"14MAY   2026\"**), CFU count lacked spacing (**\"11CFUs\"**), Table 2 Row 7 had plural typo (**\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"**), and multi-organism entries lacked line breaks.",
-        "Amended both tables to correct spacing (**14MAY 2026**, **11 CFUs**), corrected plural typos (**1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8**), formatted multi-organism line breaks, standardized bracketing section headers, exported as a pixel-perfect 1-page PDF, and attached as **Page 8** to complete the finalized 8-page package."
+        "EM Table Formatting",
+        "In the draft Word document, Table 1 date had excessive spacing (**\"14MAY   2026\"**), CFU count lacked spacing (**\"11CFUs\"**), Table 2 Row 7 had plural typo (**\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"**), and multi-organism entries lacked line breaks.",
+        "Amended both tables to correct spacing (**14MAY 2026**, **11 CFUs**), corrected plural typos (**1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8**), formatted multi-organism line breaks, standardized bracketing section headers, and attached as **Page 8** to complete the finalized 8-page package."
     ]
 ]
 
