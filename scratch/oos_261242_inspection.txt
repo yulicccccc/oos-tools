@@ -1,0 +1,133 @@
+=== PDF INSPECTION ===
+PDF Page Count: 7
+
+--- PAGE 1 ---
+Widget count: 68
+[Text Field0] (Text): 'Simin Mohammad'
+[Date Field0] (Text): '14-May-2026'
+[Date Field1] (Text): '26-May-2026'
+[Date Field2] (Text): '26-May-2026'
+[Text Field1] (Text): 'Environmental Monitoring'
+[Text Field2] (Text): 'ETX-260526-0395'
+[Text Field3] (Text): 'Simin Mohammad\r(Weekly Active air Sampling Plate Setup)\r\rSophia Santamaria\r(Weekly Active air Sampling Plate Readers'
+[Text Field4] (Text): 'EM SMO 115B Air 14May2026'
+[Text Field5] (Text): 'plate'
+[Text Field6] (Text): 'EM SMO 115B Air 14May2026'
+[Text Field7] (Text): 'The CFU count for the environmental monitoring plate exceeded the action level.'
+[Text Field8] (Text): 'MICRO-SOP-2'
+[Text Field9] (Text): '05-AUG-2025'
+[Text Field10] (Text): '15'
+[Text Field11] (Text): 'Action level: >10CFU/plate'
+[Text Field12] (Text): 'Kathan Parikh'
+[Date Field3] (Text): '26-May-2026'
+[Text Field13] (Text): 'Yes, analysts Simin Mohammad, & Sophia Santamaria were comprehensively interviewed.'
+[Text Field14] (Text): 'N/A'
+[Text Field15] (Text): 'Yes, as per MICRO-SOP-2'
+[Text Field16] (Text): 'Yes, as per MICRO-SOP-2'
+[Text Field17] (Text): 'Yes, Information is available in EagleTrax under ETX-260526-0395'
+[Text Field18] (Text): 'Yes, the analysts are trained and qualified by quality to perform the test'
+[Text Field19] (Text): 'N/A'
+[Text Field20] (Text): 'N/A'
+[Text Field21] (Text): 'Yes, as per MICRO-SOP-2'
+[Check Box4] (CheckBox): 'Yes'
+[Check Box9] (CheckBox): 'Yes'
+[Check Box10] (CheckBox): 'Yes'
+[Check Box13] (CheckBox): 'Yes'
+[Check Box16] (CheckBox): 'Yes'
+[Check Box19] (CheckBox): 'Yes'
+[Check Box24] (CheckBox): 'Yes'
+[Check Box27] (CheckBox): 'Yes'
+[Check Box28] (CheckBox): 'Yes'
+[Check Box33] (CheckBox): 'Yes'
+[Check Box36] (CheckBox): 'Yes'
+[Check Box39] (CheckBox): 'Yes'
+[Text Field57] (Text): '261242'
+
+--- PAGE 2 ---
+Widget count: 61
+[Check Box42] (CheckBox): 'Yes'
+[Check Box43] (CheckBox): 'Yes'
+[Text Field22] (Text): 'TSA Plate: \r1011772520'
+[Text Field23] (Text): 'TSA Plate: \r11-Feb-2027'
+[Text Field24] (Text): 'N/A'
+[Text Field25] (Text): 'N/A'
+[Text Field26] (Text): 'N/A'
+[Text Field27] (Text): 'N/A'
+[Text Field28] (Text): 'N/A'
+[Text Field29] (Text): 'N/A'
+[Text Field30] (Text): 'Please see below'
+[Text Field31] (Text): 'Please see below'
+[Text Field32] (Text): 'CR115 (E001737)'
+[Text Field33] (Text): 'DEC-2026'
+[Text Field34] (Text): 'N/A'
+[Text Field35] (Text): 'N/A'
+[Text Field36] (Text): 'N/A'
+[Text Field37] (Text): 'N/A'
+[Text Field38] (Text): 'N/A'
+[Text Field39] (Text): 'N/A'
+[Text Field40] (Text): 'N/A'
+[Text Field41] (Text): 'N/A'
+[Text Field42] (Text): 'N/A'
+[Text Field43] (Text): 'Incubator E001034\r(Sensor E001501)\r\rIncubator E001031 (Sensor E001505)'
+[Text Field44] (Text): 'Aug-2026\r \rFeb-2027\r \r \rAug-2026\r \rFeb-2027'
+[Text Field45] (Text): 'N/A'
+[Check Box48] (CheckBox): 'Yes'
+[Check Box51] (CheckBox): 'Yes'
+[Check Box52] (CheckBox): 'Yes'
+[Check Box55] (CheckBox): 'Yes'
+[Check Box60] (CheckBox): 'Yes'
+[Check Box63] (CheckBox): 'Yes'
+[Check Box66] (CheckBox): 'Yes'
+[Check Box69] (CheckBox): 'Yes'
+[Check Box72] (CheckBox): 'Yes'
+[Check Box73] (CheckBox): 'Yes'
+[Text Field57] (Text): '261242'
+
+--- PAGE 3 ---
+Widget count: 16
+[Text Field48] (Text): 'N/A SMO 18-Aug-2026'
+[Text Field49] (Text): "The analyst involved in the Active air Sampling plate setup, Simin Mohammad, and the analysts involved in reading the plate Sophia Sanatamaria, were interviewed comprehensively. Their answers are recorded throughout this document.\r\rThe EM plates were stored in compliance with the supplier's recommendations, and their integrity was visually inspected prior to use. Furthermore, the plates were confirmed to be within their valid expiration dates. All the supplies were thoroughly disinfected according to MICRO-SOP-9 Cleaning and Disinfecting Procedure for Microbiology. The functionality of both incubators were verified through a review of data obtained from our comprehensive in-house continuous monitoring system.\r\rActive air Sampling was performed by analyst Simin Mohammad during weekly environmental monitoring processing, in ISO 8 115, and ISO 7 115A, and ISO 7 115B on 14 May 2026 as per MICRO-SOP-2 Environmental Monitoring of the Cleanroom Facility.\r\rThe plates were initially incubated at a temperature of 30–35°C in incubator E001031 for a minimum duration of 48 hours, commencing on 14 May 2026. Following completion of minimum of 48 hours of incubation on 18 May 2026, the plates were further incubated for minimum of 5 days, with the incubation concluding on 26 May 2026. Please see Table 1 for detailed information on the observations during respective incubations. \r\rBased on the observations in Table 1, since the CFU count exceeded the action level for the one of the Active air Sampling plates (115B), the plate was submitted for Microbial Identification under ETX-260526-0395. The colonies were identified as Candida orthopsilosis (Budding yeast)\r\rTo observe if the organisms identified, were transient in nature or recurring, weekly monitoring environmental monitoring plates for the clean room, were bracketed to include the week before testing, the week of testing and week after testing as detailed in Table 2 (please see attached)."
+[Check Box79] (CheckBox): 'Yes'
+[Text Field57] (Text): '261242'
+
+--- PAGE 4 ---
+Widget count: 2
+[Text Field50] (Text): 'Environmental Monitoring Summary: Weekly environmental sampling for the previous week showed 1 CFU in ISO 7 115A and 11 CFUs in ISO 7 115B identified as Staphylococcus aureus (Gram (+) cocci), Penicillium decumbens (Hyphae), Cladosporium tenuissimum (Hyphae), Cladosporium langeronii (Hyphae), and Cladosporium halotolerans (Hyphae). The week of testing showed 1 CFU in ISO 8 115, 11 CFUs in ISO 7 115B, 1 CFU on table  in 115 ISO 8, and 1 CFU on cart in 115 ISO 8 identified as Gram (+) cocci, Candida orthopsilosis (Budding yeast), and Staphylococcus capitis (Gram (+) cocci)\r\rDuring the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. All the samples were thoroughly disinfected prior to testing. Moreover, The CR115 was thoroughly cleaned and prepared before initiating the testing as per MICRO-SOP-2 (Environmental Monitoring of the Clean Room Facility), and MICRO-SOP-2 (Cleaning and Disinfecting Procedure for Microbiology).\r \rMonthly cleaning and disinfection of the outermost ISO 8 Anteroom (Suite 115), the middle ISO 7 Buffer room (Suite 115A), the innermost ISO 7 clean room (Suite 115B), and its containing ISO 5 Biosafety Cabinets were performed on 31-May-2026 as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology) by analyst Tamiru Kotisso and Cuong Du on 31-May-2026 It was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three suites 115, 115A, and 115B. Additionally, cleaning and disinfecting was performed both prior to and after the testing process as per MICRO-SOP-9.\r\rIt is important to note that there was two celsis sterility test sample that was tested positive on the week of testing for suite 115. on 11-May-2026 sample ETX-251218-0360 was tested by analyst Guanchen Li for USP<71> sterility testing in BSC E001314 in suite 115. On 26-May-2026 the FTM test vial  showed a positive on the 14 day sterility read by Mukyung Jang. The microbial ID for the test vial under ETX-260526-0342 showed 2 colonies and was identified as Staphylococcus lugdunensis (Gram (+) cocci). Furthermore, on 12-May-2026 sample ETX-260508-0478 was tested by analyst Devanshi Shah for USP<71> sterility testing in BSC E001314 in suite 115. On 19-May-2026 the TSB test vial  showed a positive on the 7 day sterility read by Elysse Nioupin.  The microbial ID for the test vial under ETX-260519-0388 showed 2 colonies and was identified as Cladosporium halotolerans (Hyphae). \r\rBased on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) active air sampling plate may be attributed to a potential analyst error. It is to be noted that the growth observed on the weekly active air and weekly surface sampling plates for the day of testing do not follow a trend, indicating that the contamination was transient in nature and that routine daily disinfection procedures were effective in eliminating the contamination. Furthermore, no trend was observed in the clean rooms previous weekly EM data, therefore, no preventive and corrective actions are deemed necessary at this time.'
+[Text Field57] (Text): '261242'
+
+--- PAGE 5 ---
+Widget count: 2
+[Text Field51] (Text): 'N/A SMO 18-AUG-2026'
+[Text Field57] (Text): '261242'
+
+--- PAGE 6 ---
+Widget count: 14
+[Check Box87] (CheckBox): 'Yes'
+[Text Field53] (Text): 'Simin Mohammad'
+[Text Field57] (Text): '261242'
+
+--- PAGE 7 ---
+Widget count: 0
+
+
+=== DOCX INSPECTION ===
+Paragraphs count: 4
+P: Table 1: Read Dates & Incubation Observation
+P: Table 2: Environmental Monitoring for Analyst & Cleanroom
+
+Tables count: 2
+
+--- Table 1 (2 rows, 8 cols) ---
+R0: ETX Submission ID | Set-up Analyst & Date | Sampling Site & Location | Plate Reading Analyst (≥ 48H) | CFUs Observed after 48 Hour Incubation at 30–35°C (E001031) | Plate // Reading // Analyst (NLT 5 days) | CFUs Observed after NLT 5-day Incubation at // 20–25°C (E001034) | Microbial Identification
+R1: ETX-260526-0395 | SMO // 14MAY   2026 | Active air sampling plate | SAS | 11CFUs on active air sample plate | SAS | 11 CFUs on active air sample plate | Candida orthopsilosis
+
+--- Table 2 (9 rows, 9 cols) ---
+R0: Environmental Monitoring (EM) Sampling Site | Frequency | Date // (DDMMM // YYYY) | Analyst (Initials) | Day /Week(s) | Observation* | Environmental Monitoring Plate ETX ID | Microbial ID | Notes
+R1: Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115 | Weekly Active Air Sampling Bracketing 115
+R2: Active Air Sampling of Cleanrooms | Weekly | 08MAY 2026 | SMO | Week Before Testing Date | 1 CFU in ISO 7 115A and 11 CFUs in ISO 7 115B | ETX-260518-0249 // ETX-260518-0250 | Staphylococcus aureus // Penicillium decumbens // Cladosporium tenuissimum // Cladosporium langeronii // Cladosporium halotolerans | None
+R3: Active Air Sampling of Cleanrooms | Weekly | 14MAY 2026 | SMO | Week of Testing Date | 1 CFU in ISO 8 115 and 11 CFUs in ISO 7 115B | ETX-260526-0391 // ETX-260526-0395 | Gram (+) cocci // Candida orthopsilosis | None
+R4: Active Air Sampling of Cleanrooms | Weekly | 22MAY 2026 | SMO | Week  After Testing Date | No growth | N/A | N/A | None
+R5: Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115 | Surface Sampling of Anteroom and Cleanroom Bracketing 115
+R6: Surface Sampling of Cleanrooms | Weekly | 08MAY 2026 | SMO | Week Before Testing Date | No growth | N/A | N/A | None
+R7: Surface Sampling of Cleanrooms | Weekly | 14MAY 2026 | SMO | Week of Testing Date | 1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8 | ETX-260526-0424 // ETX-260526-0425 | Gram (+) rods // Staphylococcus capitis | None
+R8: Surface Sampling of Cleanrooms | Weekly | 22MAY 2026 | SMO | Week  After Testing Date | No growth | N/A | N/A | None
