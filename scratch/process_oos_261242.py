@@ -442,7 +442,7 @@ p_g.paragraph_format.space_after = Pt(6)
 p_i = doc_email.add_paragraph()
 r_i = p_i.add_run(
     "I have reviewed OOS-261242 and made my edits to this and summary of the major ones as below. "
-    "Please also note that the Highlighted sections in the table will need to be amended:"
+    "Please also note that the highlighted sections in the table have been amended:"
 )
 r_i.font.name = "Calibri"
 r_i.font.size = Pt(11)
@@ -650,7 +650,7 @@ full_html = f"""<!DOCTYPE html>
 <body style="font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #000; line-height: 1.4;">
 <!--StartFragment-->
 <p style="margin: 0 0 8px 0; font-family: Calibri, sans-serif; font-size: 11pt;">Good morning @Simin Mohammad,</p>
-<p style="margin: 0 0 12px 0; font-family: Calibri, sans-serif; font-size: 11pt;">I have reviewed OOS-261242 and made my edits to this and summary of the major ones as below. Please also note that the Highlighted sections in the table will need to be amended:</p>
+<p style="margin: 0 0 12px 0; font-family: Calibri, sans-serif; font-size: 11pt;">I have reviewed OOS-261242 and made my edits to this and summary of the major ones as below. Please also note that the highlighted sections in the table have been amended:</p>
 <table border="1" bordercolor="#000000" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Calibri, sans-serif; font-size: 10pt; margin: 12px 0 16px 0;">
   <thead>
     <tr>
