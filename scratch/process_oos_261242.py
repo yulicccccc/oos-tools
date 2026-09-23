@@ -278,7 +278,7 @@ field_updates = {
         "as per MICRO-SOP-2 (Environmental Monitoring of the Cleanroom Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology).\n\n"
         "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom (Suite 115), the middle ISO 7 Buffer room (Suite 115A), the innermost ISO 7 "
         "clean room (Suite 115B), and its containing ISO 5 Biosafety Cabinets were performed on 31-May-2026 by analysts Tamiru Kotisso and Cuong Du "
-        "as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). It was documented that all H₂O₂ indicators passed. This confirms "
+        "as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). It was documented that all H2O2 indicators passed. This confirms "
         "the efficient monthly cleaning of all three suites 115, 115A, and 115B. Additionally, cleaning and disinfecting was performed both prior to "
         "and after the testing process as per MICRO-SOP-9."
     ),
@@ -311,7 +311,9 @@ for page in doc_pdf:
     for w in page.widgets():
         if w.field_name in field_updates:
             new_val = field_updates[w.field_name]
-            w.field_value = new_val
+            # Replace any non-cp1252 character to guarantee appearance stream (/AP) renders in all PDF viewers
+            clean_val = str(new_val).replace("₂", "2")
+            w.field_value = clean_val
             if w.field_name == "Text Field11":
                 w.text_fontsize = 6.5
             w.update()
