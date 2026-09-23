@@ -489,38 +489,38 @@ email_table_data = [
     ["Section", "Unreviewed Version", "Reviewed Version"],
     [
         "Equipment/Facility Description",
-        "Only lists **CR115 (E001737)** in equipment section. In Section D, incubator IDs and calibration dates ran together without proper line spacing: **\"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\"** and **\"Aug-2026 Feb-2027 Aug-2026 Feb-2027\"**.",
-        "Added full cleanroom facility identifiers for **Suite 115 (ISO 8 Anteroom)**, **Suite 115A (ISO 7 Buffer room)**, and **Suite 115B (ISO 7 Cleanroom)** with Sensor E001737. Formatted **Incubator E001034 (Sensor E001501)** and **Incubator E001031 (Sensor E001505)** with clean line breaks and calibration dates (**Aug 2027 / Feb 2027**)."
+        "Only lists CR115 (E001737) in equipment section. In Section D, incubator IDs and calibration dates ran together without proper line spacing: \"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\" and \"Aug-2026 Feb-2027 Aug-2026 Feb-2027\".",
+        "Added full cleanroom facility identifiers for Suite 115 (ISO 8 Anteroom), Suite 115A (ISO 7 Buffer room), and Suite 115B (ISO 7 Cleanroom) with Sensor E001737. Formatted Incubator E001034 (Sensor E001501) and Incubator E001031 (Sensor E001505) with clean line breaks and calibration dates (Aug 2027 / Feb 2027)."
     ],
     [
         "Cleanroom Suite Description",
-        "Inconsistently mixed cleanroom suite nomenclature with **\"CR115\"**, **\"ISO 8 115, and ISO 7 115A, and ISO 7 115B\"**, and capitalized **\"The CR115 was thoroughly cleaned\"** in the narrative.",
-        "Standardized to clean **Suite 115 (ISO 8)**, **Suite 115A (ISO 7)**, and **Suite 115B (ISO 7)** cleanroom suite nomenclature across all narrative sections and corrected capitalization."
+        "Inconsistently mixed cleanroom suite nomenclature with \"CR115\", \"ISO 8 115, and ISO 7 115A, and ISO 7 115B\", and capitalized \"The CR115 was thoroughly cleaned\" in the narrative.",
+        "Standardized to clean Suite 115 (ISO 8), Suite 115A (ISO 7), and Suite 115B (ISO 7) cleanroom suite nomenclature across all narrative sections and corrected capitalization."
     ],
     [
         "Reading Analyst, Processing Analyst & SOP Description",
-        "Combined analyst names on a single line: **\"Simin Mohammad(Weekly Active air Sampling Plate Setup)Sophia Santamaria(Weekly Active air Sampling Plate Readers\"** (missing closing parenthesis and plural typo). Cited legacy **\"MICRO-SOP-2\"** Rev **15** (05-AUG-2025). Stated **\"analysts Simin Mohammad, & Sophia Santamaria\"** with redundant ampersand. In Section D, misspelled reader as **\"Sophia Sanatamaria\"**, contained grammar error **\"incubators were verified\"**, and erroneously cited **\"MICRO-SOP-2 (Cleaning and Disinfecting Procedure for Microbiology)\"**.",
-        "Delineated setup analyst **Simin Mohammad (Weekly Active Air Sampling Plate Setup)** and reader **Sophia Santamaria (Weekly Active Air Sampling Plate Reader)**. Updated procedure to current **MICRO-SOP-2** Rev **16** (Effective Date: **23-Jul-2026**). Revised interview comment to **\"Simin Mohammad and Sophia Santamaria\"**. Corrected spelling to **Sophia Santamaria**, grammar to **incubator was verified**, and corrected cleaning procedure reference to **MICRO-SOP-9**."
+        "Combined analyst names on a single line: \"Simin Mohammad(Weekly Active air Sampling Plate Setup)Sophia Santamaria(Weekly Active air Sampling Plate Readers\" (missing closing parenthesis and plural typo). Cited legacy \"MICRO-SOP-2\" Rev 15 (05-AUG-2025). Stated \"analysts Simin Mohammad, & Sophia Santamaria\" with redundant ampersand. In Section D, misspelled reader as \"Sophia Sanatamaria\", contained grammar error \"incubators were verified\", and erroneously cited \"MICRO-SOP-2 (Cleaning and Disinfecting Procedure for Microbiology)\".",
+        "Delineated setup analyst Simin Mohammad (Weekly Active Air Sampling Plate Setup) and reader Sophia Santamaria (Weekly Active Air Sampling Plate Reader). Updated procedure to current MICRO-SOP-2 Rev 16 (Effective Date: 23-Jul-2026). Revised interview comment to \"Simin Mohammad and Sophia Santamaria\". Corrected spelling to Sophia Santamaria, grammar to incubator was verified, and corrected cleaning procedure reference to MICRO-SOP-9."
     ],
     [
         "Limits / Specification",
-        "Listed as **\"Action level: >10CFU/plate\"** without proper spacing or cGMP equality symbol.",
-        "Standardized to **\"Action level: >= 10 CFU/Plate\"**."
+        "Listed as \"Action level: >10CFU/plate\" without proper spacing or cGMP equality symbol.",
+        "Standardized to \"Action level: >= 10 CFU/Plate\"."
     ],
     [
         "EM hits, Cleanroom Bracketing & BSC Hits Assessment",
-        "Contained duplicate date in monthly cleaning: **\"performed on 31-May-2026 as per MICRO-SOP-9 ... on 31-May-2026 It was documented that all H₂O₂ indicators passed\"** (missing period). Note on concurrent sterility test hits contained grammatical errors (**\"there was two celsis sterility test sample that was tested positive\"**, lowercase **\"on 11-May-2026\"**), and lacked explicit taxonomic differentiation explaining why these hits are unrelated to the active air OOS.",
-        "Reconciled monthly cleaning sentence to remove duplicate date, inserted period before **\"It was documented that all H₂O₂ indicators passed.\"** Corrected grammar to **\"there were two sterility test samples that tested positive\"**, capitalized sentence start, and explicitly detailed that the recoveries in BSC E001314 (**Staphylococcus lugdunensis** and **Cladosporium halotolerans**) exhibit distinct taxonomy from the OOS recovery (**Candida orthopsilosis**), confirming no common source or cleanroom facility contamination."
+        "Contained duplicate date in monthly cleaning: \"performed on 31-May-2026 as per MICRO-SOP-9 ... on 31-May-2026 It was documented that all H₂O₂ indicators passed\" (missing period). Note on concurrent sterility test hits contained grammatical errors (\"there was two celsis sterility test sample that was tested positive\", lowercase \"on 11-May-2026\"), and lacked explicit taxonomic differentiation explaining why these hits are unrelated to the active air OOS.",
+        "Reconciled monthly cleaning sentence to remove duplicate date, inserted period before \"It was documented that all H₂O₂ indicators passed.\" Corrected grammar to \"there were two sterility test samples that tested positive\", capitalized sentence start, and explicitly detailed that the recoveries in BSC E001314 (Staphylococcus lugdunensis and Cladosporium halotolerans) exhibit distinct taxonomy from the OOS recovery (Candida orthopsilosis), confirming no common source or cleanroom facility contamination."
     ],
     [
         "Phase I Summary – Root Cause Statement & Continuation Pages",
-        "The Phase I Root Cause Statement was placed at the bottom of Page 4, leaving Page 5 marked as **\"N/A SMO 18-AUG-2026\"**, causing Page 4 to be overcrowded while leaving Page 5 blank.",
+        "The Phase I Root Cause Statement was placed at the bottom of Page 4, leaving Page 5 marked as \"N/A SMO 18-AUG-2026\", causing Page 4 to be overcrowded while leaving Page 5 blank.",
         "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement adhering to cGMP standards confirming that the recovery represents an isolated, transient event with no assignable laboratory discrepancy and effective routine disinfection."
     ],
     [
         "EM Table Formatting",
-        "In the draft Word document, Table 1 date had excessive spacing (**\"14MAY   2026\"**), CFU count lacked spacing (**\"11CFUs\"**), Table 2 Row 7 had plural typo (**\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"**), and multi-organism entries lacked line breaks.",
-        "Amended both tables to correct spacing (**14MAY 2026**, **11 CFUs**), corrected plural typos (**1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8**), formatted multi-organism line breaks, and standardized bracketing section headers."
+        "In the draft Word document, Table 1 date had excessive spacing (\"14MAY   2026\"), CFU count lacked spacing (\"11CFUs\"), Table 2 Row 7 had plural typo (\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"), and multi-organism entries lacked line breaks.",
+        "Amended both tables to correct spacing (14MAY 2026, 11 CFUs), corrected plural typos (1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8), formatted multi-organism line breaks, and standardized bracketing section headers."
     ]
 ]
 
@@ -541,16 +541,11 @@ if tblPr:
 
 def add_formatted_runs(paragraph, text, align=WD_ALIGN_PARAGRAPH.LEFT):
     paragraph.alignment = align
-    parts = text.split('**')
-    for idx, part in enumerate(parts):
-        if not part:
-            continue
-        is_bold = (idx % 2 == 1)
-        r = paragraph.add_run(part)
-        r.font.name = "Calibri"
-        r.font.size = Pt(10)
-        if is_bold:
-            r.bold = True
+    clean_text = text.replace('**', '')
+    r = paragraph.add_run(clean_text)
+    r.font.name = "Calibri"
+    r.font.size = Pt(10)
+    r.bold = False
 
 for r_idx, row_content in enumerate(email_table_data):
     row = e_table.rows[r_idx]
@@ -604,29 +599,18 @@ r_c.font.size = Pt(11)
 doc_email.save(email_docx_out)
 print(f"Saved Word review email to: {email_docx_out}")
 
-# Clean HTML
-def html_bold(text):
+# Clean HTML (NO BOLD inside cells)
+def html_clean(text):
     lines = text.split('\n')
-    formatted_lines = []
-    for line in lines:
-        parts = line.split('**')
-        out_line = ""
-        for idx, part in enumerate(parts):
-            if not part:
-                continue
-            if idx % 2 == 1:
-                out_line += f'<b>{part}</b>'
-            else:
-                out_line += part
-        formatted_lines.append(out_line)
-    return '<br>'.join(formatted_lines)
+    clean_lines = [line.replace('**', '') for line in lines]
+    return '<br>'.join(clean_lines)
 
 html_rows = ""
 for r_idx, row in enumerate(email_table_data[1:]):
     sec, unrev, rev = row
-    sec_html = html_bold(sec)
-    unrev_html = html_bold(unrev)
-    rev_html = html_bold(rev)
+    sec_html = html_clean(sec)
+    unrev_html = html_clean(unrev)
+    rev_html = html_clean(rev)
     
     html_rows += f"""
     <tr>
