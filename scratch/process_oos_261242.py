@@ -241,7 +241,7 @@ field_updates = {
     # Page 2
     "Text Field32": "CR115 (Sensor E001737)",
     "Text Field43": "Incubator E001034 (Sensor E001501)\rIncubator E001031 (Sensor E001505)",
-    "Text Field44": "Aug 2026 / Feb 2027\rAug 2026 / Feb 2027",
+    "Text Field44": "Aug 2027 / Feb 2027\rAug 2027 / Feb 2027",
     
     # Page 3
     "Text Field49": (
@@ -291,11 +291,12 @@ field_updates = {
         "Both organisms (Staphylococcus lugdunensis and Cladosporium halotolerans) exhibit distinct taxonomy from the OOS recovery of Candida orthopsilosis "
         "(Budding yeast) observed on the active air sampling plate, confirming no shared contamination source or cleanroom facility trend.\n\n"
         "Phase I Investigation Summary – Root Cause Statement:\n"
-        "Based on the findings outlined in the preceding sections, the Out-Of-Specification (OOS) result observed for the Environmental Monitoring (EM) "
-        "Active Air Sampling plate may be attributed to a potential analyst error. It is to be noted that the growth observed on the weekly active air and "
-        "weekly surface sampling plates for the day of testing does not follow a trend, indicating that the contamination was transient in nature and that "
-        "routine daily disinfection procedures were effective in eliminating the contamination. Furthermore, no trend was observed in the clean room's "
-        "previous weekly EM data; therefore, no preventive and corrective actions are deemed necessary at this time."
+        "Based on the comprehensive Phase I investigation and findings outlined in the preceding sections, the Out-Of-Specification (OOS) recovery observed "
+        "on the Environmental Monitoring (EM) Active Air Sampling plate represents an isolated, transient event. The analyst adhered strictly to approved "
+        "aseptic sampling techniques and facility protocols with no documented discrepancies or operational deviations. The critical cleanroom environment "
+        "remained in control, and no specific or assignable laboratory discrepancy was identified. The recovery did not establish a facility or environmental "
+        "trend, and subsequent cleanroom monitoring and routine disinfection procedures effectively eliminated any microbial recovery. Therefore, no "
+        "preventive or corrective actions are deemed necessary at this time."
     )
 }
 
@@ -322,7 +323,7 @@ reader_table = PdfReader(out_table_pdf)
 
 writer = PdfWriter()
 # Pages 1 to 7 from form (Form Pages 1-6 + Version History Page 7)
-for p in reader_form.pages:
+for p in reader_form.pages[:7]:
     writer.add_page(p)
 
 # Page 8: Amended EM Table
@@ -489,7 +490,7 @@ email_table_data = [
     [
         "Equipment/Facility Description",
         "Only lists **CR115 (E001737)** in equipment section. In Section D, incubator IDs and calibration dates ran together without proper line spacing: **\"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\"** and **\"Aug-2026 Feb-2027 Aug-2026 Feb-2027\"**.",
-        "Added full cleanroom facility identifiers for **Suite 115 (ISO 8 Anteroom)**, **Suite 115A (ISO 7 Buffer room)**, and **Suite 115B (ISO 7 Cleanroom)** with Sensor E001737. Formatted **Incubator E001034 (Sensor E001501)** and **Incubator E001031 (Sensor E001505)** with clean line breaks and calibration dates (**Aug 2026 / Feb 2027**)."
+        "Added full cleanroom facility identifiers for **Suite 115 (ISO 8 Anteroom)**, **Suite 115A (ISO 7 Buffer room)**, and **Suite 115B (ISO 7 Cleanroom)** with Sensor E001737. Formatted **Incubator E001034 (Sensor E001501)** and **Incubator E001031 (Sensor E001505)** with clean line breaks and calibration dates (**Aug 2027 / Feb 2027**)."
     ],
     [
         "Cleanroom Suite Description",
@@ -514,7 +515,7 @@ email_table_data = [
     [
         "Phase I Summary – Root Cause Statement & Continuation Pages",
         "The Phase I Root Cause Statement was placed at the bottom of Page 4, leaving Page 5 marked as **\"N/A SMO 18-AUG-2026\"**, causing Page 4 to be overcrowded while leaving Page 5 blank.",
-        "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement confirming that the recovery represents an isolated, transient environmental event with effective routine disinfection."
+        "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement adhering to cGMP standards confirming that the recovery represents an isolated, transient event with no assignable laboratory discrepancy and effective routine disinfection."
     ],
     [
         "EM Table Formatting",
