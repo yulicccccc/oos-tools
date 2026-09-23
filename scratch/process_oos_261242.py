@@ -520,7 +520,7 @@ email_table_data = [
     [
         "EM Table Formatting",
         "In the draft Word document, Table 1 date had excessive spacing (**\"14MAY   2026\"**), CFU count lacked spacing (**\"11CFUs\"**), Table 2 Row 7 had plural typo (**\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"**), and multi-organism entries lacked line breaks.",
-        "Amended both tables to correct spacing (**14MAY 2026**, **11 CFUs**), corrected plural typos (**1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8**), formatted multi-organism line breaks, standardized bracketing section headers, and attached as **Page 8** to complete the finalized 8-page package."
+        "Amended both tables to correct spacing (**14MAY 2026**, **11 CFUs**), corrected plural typos (**1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8**), formatted multi-organism line breaks, and standardized bracketing section headers."
     ]
 ]
 
@@ -650,7 +650,7 @@ full_html = f"""<!DOCTYPE html>
 <body style="font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #000; line-height: 1.4;">
 <!--StartFragment-->
 <p style="margin: 0 0 8px 0; font-family: Calibri, sans-serif; font-size: 11pt;">Good morning @Simin Mohammad,</p>
-<p style="margin: 0 0 12px 0; font-family: Calibri, sans-serif; font-size: 11pt;">I have reviewed this OOS and made my edits to this and summary of the major ones as below. Please also note that the Highlighted sections in the table will need to be amended:</p>
+<p style="margin: 0 0 12px 0; font-family: Calibri, sans-serif; font-size: 11pt;">I have reviewed OOS-261242 and made my edits to this and summary of the major ones as below. Please also note that the Highlighted sections in the table will need to be amended:</p>
 <table border="1" bordercolor="#000000" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Calibri, sans-serif; font-size: 10pt; margin: 12px 0 16px 0;">
   <thead>
     <tr>
@@ -663,17 +663,7 @@ full_html = f"""<!DOCTYPE html>
     {html_rows}
   </tbody>
 </table>
-<p style="margin: 14px 0 6px 0; font-family: Calibri, sans-serif; font-size: 11pt;">@Simin Mohammad please review and sign the attached finalized 8-page PDF package.</p>
-<p style="margin: 6px 0 0 0; font-family: Calibri, sans-serif; font-size: 10pt; line-height: 1.2;">
-.<br>
-Thanks,<br>
-Robin Seymour<br>
-Microbiology Supervisor (Sterile Lab)<br>
-Eagle Analytical Services<br>
-rseymour@eagleanalytical.com<br>
-11111 S. Wilcrest Dr. # S1000<br>
-Houston, Texas 77099
-</p>
+<p style="margin: 14px 0 0 0; font-family: Calibri, sans-serif; font-size: 11pt;">please review them, sign and please route for signatures.</p>
 <!--EndFragment-->
 </body>
 </html>

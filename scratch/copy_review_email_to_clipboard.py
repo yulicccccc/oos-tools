@@ -59,15 +59,18 @@ header = (
 
 cf_html_data = header.encode("utf-8") + html_bytes
 
-# Extract Plain Text from docx
+# Extract Plain Text from docx in document order
 doc = docx.Document(docx_path)
 text_parts = []
-for p in doc.paragraphs:
-    if p.text.strip():
-        text_parts.append(p.text)
-for t in doc.tables:
-    for row in t.rows:
-        text_parts.append("\t".join([c.text.strip().replace("\n", " ") for c in row.cells]))
+for child in doc.element.body:
+    if child.tag.endswith('p'):
+        p = docx.text.paragraph.Paragraph(child, doc)
+        if p.text.strip():
+            text_parts.append(p.text.strip())
+    elif child.tag.endswith('tbl'):
+        t = docx.table.Table(child, doc)
+        for row in t.rows:
+            text_parts.append("\t".join([c.text.strip().replace("\n", " ") for c in row.cells]))
 plain_text = "\n\n".join(text_parts)
 
 # Write to Clipboard
