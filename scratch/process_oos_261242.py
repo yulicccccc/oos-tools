@@ -220,7 +220,11 @@ print(f"Table PDF page count: {len(doc_check)} (Must be 1)")
 # STEP 3: UPDATE PDF FORM FIELDS
 # ==========================================
 print("\n=== STEP 3: UPDATE PDF FORM FIELDS ===")
-doc_pdf = fitz.open(src_pdf_path)
+pristine_pdf = os.path.join(history_dir, "OOS_261242_orig_backup.pdf")
+if not os.path.exists(pristine_pdf):
+    pristine_pdf = src_pdf_path
+
+doc_pdf = fitz.open(pristine_pdf)
 
 field_updates = {
     # Page 1
@@ -297,7 +301,10 @@ field_updates = {
         "remained in control, and no specific or assignable laboratory discrepancy was identified. The recovery did not establish a facility or environmental "
         "trend, and subsequent cleanroom monitoring and routine disinfection procedures effectively eliminated any microbial recovery. Therefore, no "
         "preventive or corrective actions are deemed necessary at this time."
-    )
+    ),
+    
+    # OOS Number across all pages
+    "Text Field57": "261242"
 }
 
 for page in doc_pdf:
@@ -309,39 +316,23 @@ for page in doc_pdf:
                 w.text_fontsize = 6.5
             w.update()
 
-temp_updated_pdf = os.path.join(scratch_dir, "temp_updated_261242_form.pdf")
-doc_pdf.save(temp_updated_pdf)
-doc_pdf.close()
-print("Saved updated form PDF.")
-
 # ==========================================
-# STEP 4: ASSEMBLE 8-PAGE FULL PDF PACKAGE
+# STEP 4: ASSEMBLE 8-PAGE FULL PDF PACKAGE (PyMuPDF preservation)
 # ==========================================
 print("\n=== STEP 4: ASSEMBLE 8-PAGE FULL PDF PACKAGE ===")
-reader_form = PdfReader(temp_updated_pdf)
-reader_table = PdfReader(out_table_pdf)
-
-writer = PdfWriter()
-# Pages 1 to 7 from form (Form Pages 1-6 + Version History Page 7)
-for p in reader_form.pages[:7]:
-    writer.add_page(p)
-
-# Page 8: Amended EM Table
-for p in reader_table.pages:
-    writer.add_page(p)
+# Append Page 8: Amended 1-page EM Table directly via fitz to preserve AcroForm fields
+doc_table = fitz.open(out_table_pdf)
+doc_pdf.insert_pdf(doc_table)
 
 final_full_pdf = os.path.join(desktop_dir, "OOS-261242 EM SMO 115B Air 14MAY2026 - EM.pdf")
-with open(final_full_pdf, "wb") as f:
-    writer.write(f)
+doc_pdf.save(final_full_pdf)
+doc_pdf.close()
+doc_table.close()
 
-# Synchronize original Desktop PDF
-with open(src_pdf_path, "wb") as f:
-    writer.write(f)
-
-# Also create OOS-261242.pdf on Desktop if doesn't exist
+# Synchronize original Desktop PDFs
+shutil.copy2(final_full_pdf, src_pdf_path)
 std_pdf_path = os.path.join(desktop_dir, "OOS-261242.pdf")
-with open(std_pdf_path, "wb") as f:
-    writer.write(f)
+shutil.copy2(final_full_pdf, std_pdf_path)
 
 print(f"Assembled complete 8-page package to: {final_full_pdf}")
 
