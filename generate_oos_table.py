@@ -16,7 +16,7 @@ import sys
 import io
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from docxtpl import DocxTemplate
 
 # Force UTF-8 output (only when running directly, not when imported)
@@ -32,6 +32,30 @@ TEMPLATE_MAP = {
     'celsis': os.path.join(SCRIPT_DIR, 'tables for celsis.docx'),
     'usp71':  os.path.join(SCRIPT_DIR, 'tables for 71.docx'),
 }
+
+# Date format used in templates
+DATE_FMT = '%d%b%Y'  # e.g., 19JUN2026
+
+
+def business_day_before(dt):
+    """Get the previous business day (skip weekends). Celsis/Scan/USP71 = Mon-Fri only."""
+    prev = dt - timedelta(days=1)
+    while prev.weekday() >= 5:  # 5=Sat, 6=Sun
+        prev -= timedelta(days=1)
+    return prev
+
+
+def business_day_after(dt):
+    """Get the next business day (skip weekends). Celsis/Scan/USP71 = Mon-Fri only."""
+    nxt = dt + timedelta(days=1)
+    while nxt.weekday() >= 5:
+        nxt += timedelta(days=1)
+    return nxt
+
+
+def format_date(dt):
+    """Format a datetime to DDMMMYYYY uppercase (e.g., 19JUN2026)."""
+    return dt.strftime(DATE_FMT).upper()
 
 
 def generate_table(oos_type: str, data: dict, output_path: str) -> str:
