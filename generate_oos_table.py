@@ -53,9 +53,10 @@ def business_day_after(dt):
     return nxt
 
 
-def format_date(dt):
-    """Format a datetime to DDMMMYYYY uppercase (e.g., 19JUN2026)."""
-    return dt.strftime(DATE_FMT).upper()
+def format_date(dt, uppercase: bool = False):
+    """Format a datetime to DDMMMYYYY (e.g., 31Aug2026 or 31AUG2026)."""
+    s = dt.strftime(DATE_FMT)
+    return s.upper() if uppercase else s
 
 
 def generate_table(oos_type: str, data: dict, output_path: str) -> str:
