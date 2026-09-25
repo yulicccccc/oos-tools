@@ -269,38 +269,57 @@ field_updates = {
     
     # Page 4
     "Text Field50": (
-        "Environmental Monitoring Summary: Weekly environmental sampling for the previous week showed 1 CFU in ISO 7 115A and 11 CFUs in ISO 7 115B "
-        "identified as Staphylococcus aureus (Gram (+) cocci), Penicillium decumbens (Hyphae), Cladosporium tenuissimum (Hyphae), Cladosporium langeronii (Hyphae), "
-        "and Cladosporium halotolerans (Hyphae). The week of testing showed 1 CFU in ISO 8 115, 11 CFUs in ISO 7 115B, 1 CFU on table in 115 ISO 8, "
-        "and 1 CFU on cart in 115 ISO 8 identified as Gram (+) cocci, Candida orthopsilosis (Budding yeast), and Staphylococcus capitis (Gram (+) cocci).\n\n"
-        "During the interview with the analyst, they indicated that no obvious abnormalities or deviations in the testing procedure were observed. "
-        "All the samples were thoroughly disinfected prior to testing. Moreover, CR115 was thoroughly cleaned and prepared before initiating the testing "
-        "as per MICRO-SOP-2 (Environmental Monitoring of the Cleanroom Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology).\n\n"
-        "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom (Suite 115), the middle ISO 7 Buffer room (Suite 115A), the innermost ISO 7 "
-        "clean room (Suite 115B), and its containing ISO 5 Biosafety Cabinets were performed on 31-May-2026 by analysts Tamiru Kotisso and Cuong Du "
-        "as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). It was documented that all H2O2 indicators passed. This confirms "
-        "the efficient monthly cleaning of all three suites 115, 115A, and 115B. Additionally, cleaning and disinfecting was performed both prior to "
-        "and after the testing process as per MICRO-SOP-9."
+        "Environmental Monitoring Bracketing & Trend Assessment:\n"
+        "Weekly environmental monitoring plates for the clean room were bracketed to include the week before testing (08-May-2026), "
+        "the week of testing (14-May-2026), and the week after testing (22-May-2026) as detailed in Table 2 (attached). The bracketing data "
+        "demonstrate that ISO 7 Room 115B had 11 CFUs during the week before testing (08-May-2026, under OOS-261185) and again 11 CFUs "
+        "during the week of testing (14-May-2026, under OOS-261242), both reaching/exceeding the established action level of >= 10 CFU/plate. "
+        "Acknowledging these two consecutive weekly active-air excursions in Room 115B, the recovered microbial populations were evaluated: "
+        "on 08-May-2026, the isolates were filamentous fungal molds identified as Penicillium decumbens, Cladosporium tenuissimum, "
+        "Cladosporium langeronii, and Cladosporium halotolerans (along with Staphylococcus aureus), whereas on 14-May-2026, the active air plate "
+        "exclusively yielded a budding yeast identified as Candida orthopsilosis (along with Gram (+) cocci in ISO 8 115, and Gram (+) rods and "
+        "Staphylococcus capitis on Suite 115 surfaces). While both consecutive weeks exhibited excursions meeting/exceeding the action level in "
+        "Room 115B, the recovered organisms belonged to distinctly different microbial classes (filamentous molds vs. budding yeast).\n\n"
+        "Analyst Interview & Cleanroom Disinfection:\n"
+        "During the comprehensive interview with the setup analyst (Simin Mohammad) and reader (Sophia Santamaria), no procedural deviations, "
+        "aseptic breaches, or equipment anomalies were identified. All samples and supplies were disinfected prior to introduction, and Suite 115 "
+        "was thoroughly cleaned and prepared before testing as per MICRO-SOP-2 (Environmental Monitoring of the Cleanroom Facility) and "
+        "MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology).\n\n"
+        "Cleanroom Monthly Disinfection & State of Control:\n"
+        "Prior to the event, monthly cleaning and disinfection of the outermost ISO 8 Anteroom (Suite 115), the middle ISO 7 Buffer room "
+        "(Suite 115A), the innermost ISO 7 clean room (Suite 115B), and its containing ISO 5 Biosafety Cabinets were performed on 26-Apr-2026 "
+        "by analysts Rey Estrada and Tamiru Kotisso as per MICRO-SOP-9. All H2O2 chemical indicator strips passed, confirming established "
+        "pre-event facility control. Furthermore, subsequent monthly cleaning and disinfection with H2O2 fogging was performed on 31-May-2026 "
+        "by analysts Tamiru Kotisso and Cuong Du with all H2O2 indicators passing, verifying complete facility restoration and ongoing "
+        "environmental control. Routine daily and between-session disinfection was actively maintained."
     ),
     
     # Page 5
     "Text Field51": (
-        "Evaluation of Cleanroom BSC Samples Tested During Week of Testing:\n"
-        "It is important to note that two sterility test samples tested positive during the week of testing for Suite 115. On 11-May-2026, sample ETX-251218-0360 "
-        "was tested by analyst Guanchen Li for USP <71> sterility testing in BSC E001314 in Suite 115. On 26-May-2026, the FTM test vial showed a positive "
-        "result on the 14-day sterility read by Mukyung Jang. The microbial identification under ETX-260526-0342 showed 2 colonies identified as "
-        "Staphylococcus lugdunensis (Gram (+) cocci). Furthermore, on 12-May-2026, sample ETX-260508-0478 was tested by analyst Devanshi Shah for "
-        "USP <71> sterility testing in BSC E001314 in Suite 115. On 19-May-2026, the TSB test vial showed a positive result on the 7-day sterility read by "
-        "Elysse Nioupin. The microbial identification under ETX-260519-0388 showed 2 colonies identified as Cladosporium halotolerans (Hyphae). "
-        "Both organisms (Staphylococcus lugdunensis and Cladosporium halotolerans) exhibit distinct taxonomy from the OOS recovery of Candida orthopsilosis "
-        "(Budding yeast) observed on the active air sampling plate, confirming no shared contamination source or cleanroom facility trend.\n\n"
-        "Phase I Investigation Summary – Root Cause Statement:\n"
-        "Based on the comprehensive Phase I investigation and findings outlined in the preceding sections, the Out-Of-Specification (OOS) recovery observed "
-        "on the Environmental Monitoring (EM) Active Air Sampling plate represents an isolated, transient event. The analyst adhered strictly to approved "
-        "aseptic sampling techniques and facility protocols with no documented discrepancies or operational deviations. The critical cleanroom environment "
-        "remained in control, and no specific or assignable laboratory discrepancy was identified. The recovery did not establish a facility or environmental "
-        "trend, and subsequent cleanroom monitoring and routine disinfection procedures effectively eliminated any microbial recovery. Therefore, no "
-        "preventive or corrective actions are deemed necessary at this time."
+        "Evaluation of Concurrent Suite 115 Sterility Samples & Cladosporium halotolerans Correlation:\n"
+        "A collective review of cleanroom operations and concurrent sterility testing in Suite 115 was performed for the week of testing:\n"
+        "1. On 11-May-2026, sample ETX-251218-0360 was processed for USP <71> sterility testing in BSC E001314 by Guanchen Li. On 26-May-2026, "
+        "the FTM vial yielded Staphylococcus lugdunensis (Gram (+) cocci, 2 colonies under ETX-260526-0342), which is taxonomically unrelated to "
+        "either the mold or yeast recoveries.\n"
+        "2. On 12-May-2026, sample ETX-260508-0478 was processed for USP <71> sterility testing in BSC E001314 by Devanshi Shah. On 19-May-2026, "
+        "the TSB vial yielded Cladosporium halotolerans (Hyphae, 2 colonies under ETX-260519-0388).\n\n"
+        "Collective Assessment of Environmental and Sterility Data:\n"
+        "Significantly, Cladosporium halotolerans was recovered from both the preceding active air monitoring event in Room 115B on 08-May-2026 "
+        "and from sterility sample ETX-260508-0478 processed inside Suite 115 on 12-May-2026. Evaluating this relationship collectively indicates "
+        "that Cladosporium halotolerans fungal spores had a localized presence within Suite 115 during the second week of May, demonstrating an "
+        "adverse environmental trend for that specific mold species during that timeframe (addressed and investigated under its respective "
+        "sterility failure investigation). However, in evaluating the 14-May-2026 active air excursion under current investigation, the recovered "
+        "isolate was Candida orthopsilosis, an asexual budding yeast that is biologically and phylogenetically distinct from Cladosporium halotolerans. "
+        "While the consecutive 11 CFU counts on 08-May and 14-May reflect an elevated bioburden in Room 115B during this period, the transition from "
+        "mold to yeast indicates that the 14-May excursion did not arise from persistent colonization or spreading of the Cladosporium mold, but "
+        "rather represented a separate, transient yeast recovery.\n\n"
+        "Cleanroom Clearance & Phase I Root Cause Conclusion:\n"
+        "Subsequent active air sampling performed in Room 115B on 22-May-2026 yielded No Growth (0 CFU), and surface contact plates across Suite 115 "
+        "on 22-May-2026 likewise yielded No Growth (0 CFU). Furthermore, the facility-wide monthly disinfection and H2O2 fogging completed on "
+        "31-May-2026 (all chemical indicators verified passing) successfully remediated any residual mold or yeast bioburden. Based on these "
+        "collective findings, the 14-May active air excursion was non-recurring following routine sanitization, and the cleanroom environment has "
+        "returned to a verified state of microbiological control. No additional corrective actions are deemed necessary beyond ongoing adherence "
+        "to strict cleanroom disinfection protocols."
     ),
     
     # OOS Number across all pages
@@ -316,6 +335,12 @@ for page in doc_pdf:
             w.field_value = clean_val
             if w.field_name == "Text Field11":
                 w.text_fontsize = 6.5
+            w.update()
+        elif w.field_name == "Check Box68":
+            w.field_value = "Yes"
+            w.update()
+        elif w.field_name == "Check Box69":
+            w.field_value = ""
             w.update()
 
 # ==========================================
@@ -481,37 +506,37 @@ def set_cell_margins(cell, top=120, bottom=120, left=150, right=150):
 email_table_data = [
     ["Section", "Unreviewed Version", "Reviewed Version"],
     [
-        "Equipment/Facility Description",
+        "Environmental Monitoring Conformance (Page 2)",
+        "For the question \"Do the environmental monitoring results conform to required standards?\", the selection was marked as N/A.",
+        "Revised selection to \"No\" (Check Box68), as the investigation was initiated due to an active-air result of 11 CFU in ISO 7 Room 115B reaching/exceeding the established action level of >= 10 CFU/plate."
+    ],
+    [
+        "Equipment/Facility Description (Page 2)",
         "Only lists CR115 (E001737) in equipment section. In Section D, incubator IDs and calibration dates ran together without proper line spacing: \"Incubator E001034(Sensor E001501)Incubator E001031 (Sensor E001505)\" and \"Aug-2026 Feb-2027 Aug-2026 Feb-2027\".",
         "Added full cleanroom facility identifiers for Suite 115 (ISO 8 Anteroom), Suite 115A (ISO 7 Buffer room), and Suite 115B (ISO 7 Cleanroom) with Sensor E001737. Formatted Incubator E001034 (Sensor E001501) and Incubator E001031 (Sensor E001505) with clean line breaks and calibration dates (Aug 2027 / Feb 2027)."
     ],
     [
-        "Cleanroom Suite Description",
-        "Inconsistently mixed cleanroom suite nomenclature with \"CR115\", \"ISO 8 115, and ISO 7 115A, and ISO 7 115B\", and capitalized \"The CR115 was thoroughly cleaned\" in the narrative.",
-        "Standardized to clean Suite 115 (ISO 8), Suite 115A (ISO 7), and Suite 115B (ISO 7) cleanroom suite nomenclature across all narrative sections and corrected capitalization."
-    ],
-    [
-        "Reading Analyst, Processing Analyst & SOP Description",
+        "Reading Analyst, Processing Analyst & SOP Description (Page 1)",
         "Combined analyst names on a single line: \"Simin Mohammad(Weekly Active air Sampling Plate Setup)Sophia Santamaria(Weekly Active air Sampling Plate Readers\" (missing closing parenthesis and plural typo). Cited legacy \"MICRO-SOP-2\" Rev 15 (05-AUG-2025). Stated \"analysts Simin Mohammad, & Sophia Santamaria\" with redundant ampersand. In Section D, misspelled reader as \"Sophia Sanatamaria\", contained grammar error \"incubators were verified\", and erroneously cited \"MICRO-SOP-2 (Cleaning and Disinfecting Procedure for Microbiology)\".",
         "Delineated setup analyst Simin Mohammad (Weekly Active Air Sampling Plate Setup) and reader Sophia Santamaria (Weekly Active Air Sampling Plate Reader). Updated procedure to current MICRO-SOP-2 Rev 16 (Effective Date: 23-Jul-2026). Revised interview comment to \"Simin Mohammad and Sophia Santamaria\". Corrected spelling to Sophia Santamaria, grammar to incubator was verified, and corrected cleaning procedure reference to MICRO-SOP-9."
     ],
     [
-        "Limits / Specification",
+        "Limits / Specification (Page 1)",
         "Listed as \"Action level: >10CFU/plate\" without proper spacing or cGMP equality symbol.",
         "Standardized to \"Action level: >= 10 CFU/Plate\"."
     ],
     [
-        "EM hits, Cleanroom Bracketing & BSC Hits Assessment",
-        "Contained duplicate date in monthly cleaning: \"performed on 31-May-2026 as per MICRO-SOP-9 ... on 31-May-2026 It was documented that all H₂O₂ indicators passed\" (missing period). Note on concurrent sterility test hits contained grammatical errors (\"there was two celsis sterility test sample that was tested positive\", lowercase \"on 11-May-2026\"), and lacked explicit taxonomic differentiation explaining why these hits are unrelated to the active air OOS.",
-        "Reconciled monthly cleaning sentence to remove duplicate date, inserted period before \"It was documented that all H₂O₂ indicators passed.\" Corrected grammar to \"there were two sterility test samples that tested positive\", capitalized sentence start, and explicitly detailed that the recoveries in BSC E001314 (Staphylococcus lugdunensis and Cladosporium halotolerans) exhibit distinct taxonomy from the OOS recovery (Candida orthopsilosis), confirming no common source or cleanroom facility contamination."
+        "Bracketing EM & Trend Assessment (Page 4)",
+        "Described the 14-May active air excursion as \"an isolated, transient event\" without acknowledging that the preceding week (08-May-2026) in Room 115B also had an active-air excursion of 11 CFU. Referenced only 31-May monthly cleaning without citing preceding April monthly cleaning.",
+        "Acknowledged two consecutive weekly active-air excursions reaching/exceeding the action level (11 CFU on 08-May-2026 under OOS-261185 and 11 CFU on 14-May-2026 under OOS-261242 in Room 115B). Evaluated the taxonomic shift between filamentous fungal molds (Penicillium decumbens, Cladosporium spp.) on 08-May and asexual budding yeast (Candida orthopsilosis) on 14-May. Cited both preceding 26-Apr-2026 and subsequent 31-May-2026 monthly H2O2 decontamination logs."
     ],
     [
-        "Phase I Summary – Root Cause Statement & Continuation Pages",
-        "The Phase I Root Cause Statement was placed at the bottom of Page 4, leaving Page 5 marked as \"N/A SMO 18-AUG-2026\", causing Page 4 to be overcrowded while leaving Page 5 blank.",
-        "Balanced narrative across continuation pages: Page 4 details bracketing summary, analyst interview, and monthly cleaning; Page 5 houses the evaluation of concurrent cleanroom BSC samples, taxonomic differentiation, and the finalized Phase I Root Cause Statement adhering to cGMP standards confirming that the recovery represents an isolated, transient event with no assignable laboratory discrepancy and effective routine disinfection."
+        "Concurrent Sterility Samples & Mold Correlation (Page 5)",
+        "Separately listed concurrent sterility test hits without evaluating the shared recovery of Cladosporium halotolerans between the 08-May active air plate and 12-May sterility sample ETX-260508-0478.",
+        "Evaluated the shared Cladosporium halotolerans recovery collectively as a localized adverse environmental presence for that mold species in mid-May (investigated under sterility failure), distinguished it from the 14-May Candida orthopsilosis yeast excursion (confirming no persistent mold colonization), and cited subsequent cleanroom clearance on 22-May-2026 (0 CFU / No Growth on active air and surfaces) and verified restoration of environmental control."
     ],
     [
-        "EM Table Formatting",
+        "EM Table Formatting (Page 8)",
         "In the draft Word document, Table 1 date had excessive spacing (\"14MAY   2026\"), CFU count lacked spacing (\"11CFUs\"), Table 2 Row 7 had plural typo (\"1 CFUs on table  in 115 ISO 8 and 1 CFUs on cart in 115 ISO 8\"), and multi-organism entries lacked line breaks.",
         "Amended both tables to correct spacing (14MAY 2026, 11 CFUs), corrected plural typos (1 CFU on table in 115 ISO 8 and 1 CFU on cart in 115 ISO 8), formatted multi-organism line breaks, and standardized bracketing section headers."
     ]
