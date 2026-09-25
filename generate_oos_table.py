@@ -33,8 +33,8 @@ TEMPLATE_MAP = {
     'usp71':  os.path.join(SCRIPT_DIR, 'tables for 71.docx'),
 }
 
-# Date format used in templates
-DATE_FMT = '%d%b%Y'  # e.g., 19JUN2026
+# Date format used in templates: DDMMMYY (e.g., 01Sep26)
+DATE_FMT = '%d%b%y'
 
 
 def business_day_before(dt):
