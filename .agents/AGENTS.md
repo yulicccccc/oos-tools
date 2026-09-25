@@ -73,3 +73,20 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
    - If no error was found, state that the recovery was an isolated, transient event, the analyst adhered to approved aseptic protocols with no deviations, the critical environment remained in control, and no specific or assignable laboratory discrepancy was identified.
 9. **Table 1 Setup Date vs. Sampling Date Consistency**:
    - The setup date in Table 1 must strictly match the actual test/sampling date of the plate (e.g., `11MAY 2026`), not an earlier weekly monitoring date (e.g., `07MAY 2026`).
+
+
+## Side-by-Side Diff Comparison Rule (左右对照找茬式对比规范)
+**CRITICAL**: Whenever you present text revisions, draft updates, QA feedback responses, prompt refinements, or document modifications to the user:
+1. **Always Use Side-by-Side (左右对照) Comparison Tables**:
+   - **NEVER** output vertically stacked "Before" followed by "After" large text blocks.
+   - You **MUST ALWAYS** format text modifications into a side-by-side Markdown comparison table (类似“大家来找茬”).
+2. **Strict Table Column Layout**:
+   - Column 1: `模块 / 关键要点 (Section / Focus)`
+   - Column 2: `🔴 修改前 (Original / Before)`
+   - Column 3: `🟢 修改后 (Revised / After)`
+   - Column 4: `💡 差异解析与核心改动 (Key Changes & Rationale)`
+3. **Line-by-Line Alignment & Granular Correspondence (逐段逐句严格对齐)**:
+   - Ensure the rows correspond directly line-by-line or sentence-by-sentence, so the user can easily trace every word, phrase, and logical alteration across the left and right columns.
+   - Use bolding or highlight markers (`**...**`) in both the Before and After columns to instantly flag specific additions, deletions, and phrasing shifts.
+4. **Spot-the-Difference Visual Ergonomics (大家来找茬极致体验)**:
+   - Make the contrast crystal clear so the user never has to scroll up and down or guess where subtle changes occurred.
