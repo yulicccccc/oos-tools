@@ -128,8 +128,10 @@ p13 = (
 p14 = (
     "Environmental Monitoring from Celsis Sterility Aliquoting:\n"
     "After reviewing the Environmental Monitoring (EM) results for the relevant aliquoting and reading dates, no microbial "
-    "growth was observed on personnel monitoring plates, ISO 5 BSC surface sampling plates, or settling plates on the date "
-    "of testing (08Sep2026), the preceding sampling date (07Sep2026), or the subsequent sampling date (09Sep2026)."
+    "growth was observed on personnel monitoring plates for analyst CCD on the date of testing (08Sep2026), the preceding "
+    "sampling date (03Sep2026), or the subsequent sampling date (15Sep2026). Similarly, ISO 5 BSC (E001798) surface sampling "
+    "and settling plates demonstrated no microbial growth on the date of testing (08Sep2026, CCD), the preceding sampling date "
+    "(07Sep2026, ALA), or the subsequent sampling date (09Sep2026, ALA)."
 )
 
 p15 = (
@@ -258,16 +260,49 @@ tables_docx_path = os.path.join(DESKTOP_DIR, "Celsis table OOS-262080.docx")
 tables_docx_scratch = os.path.join(SCRIPT_DIR, "Celsis table OOS-262080.docx")
 tpl_tables = DocxTemplate(os.path.join(ROOT_DIR, "tables for celsis.docx"))
 tpl_tables.render(table_context)
-tpl_tables.save(tables_docx_path)
+tpl_tables.save(tables_docx_scratch)
 
 # Add neat page break before Table 3 so Table 3 starts cleanly on Page 2
-doc_t_mod = docx.Document(tables_docx_path)
+doc_t_mod = docx.Document(tables_docx_scratch)
 for p in doc_t_mod.paragraphs:
     if "Table 3:" in p.text:
         p.paragraph_format.page_break_before = True
-doc_t_mod.save(tables_docx_path)
+
+def set_cell_text(cell, text):
+    if cell.paragraphs and cell.paragraphs[0].runs:
+        cell.paragraphs[0].runs[0].text = text
+        for r in cell.paragraphs[0].runs[1:]:
+            r.text = ""
+    else:
+        cell.text = text
+
+# Surgically update Table 3 (Aliquoting Phase) to match ground truth PDF records
+# Personnel follows CCD (03Sep26, 08Sep26, 15Sep26)
+# Surface & Settling in BSC 1798 follows ALA (07Sep26), CCD (08Sep26), ALA (09Sep26)
+t3 = doc_t_mod.tables[2]
+table3_updates = {
+    2: ("03Sep26", "CCD"),
+    3: ("08Sep26", "CCD"),
+    4: ("15Sep26", "CCD"),
+    6: ("07Sep26", "ALA"),
+    7: ("08Sep26", "CCD"),
+    8: ("09Sep26", "ALA"),
+    9: ("07Sep26", "ALA"),
+    10: ("08Sep26", "CCD"),
+    11: ("09Sep26", "ALA"),
+}
+for r_idx, (d_val, a_val) in table3_updates.items():
+    row = t3.rows[r_idx]
+    set_cell_text(row.cells[3], d_val)
+    set_cell_text(row.cells[4], a_val)
+    set_cell_text(row.cells[5], a_val)
+
 doc_t_mod.save(tables_docx_scratch)
-print(f"Generated Tables DOCX: {tables_docx_path}")
+try:
+    doc_t_mod.save(tables_docx_path)
+    print(f"Generated Tables DOCX: {tables_docx_path}")
+except PermissionError:
+    print(f"Warning: {tables_docx_path} is currently locked by Word. Saved to {tables_docx_scratch}.")
 
 # B. Main Word Report
 personnel_block = (
@@ -530,12 +565,16 @@ word = None
 try:
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
-    doc_word = word.Documents.Open(tables_docx_path)
+    source_docx = tables_docx_scratch if os.path.exists(tables_docx_scratch) else tables_docx_path
+    doc_word = word.Documents.Open(source_docx)
     # wdExportFormatPDF = 17
-    doc_word.ExportAsFixedFormat(tables_pdf_path, 17)
+    doc_word.ExportAsFixedFormat(tables_pdf_scratch, 17)
     doc_word.Close(False)
-    shutil.copy2(tables_pdf_path, tables_pdf_scratch)
-    print(f"Exported Tables PDF: {tables_pdf_path}")
+    try:
+        shutil.copy2(tables_pdf_scratch, tables_pdf_path)
+        print(f"Exported Tables PDF: {tables_pdf_path}")
+    except PermissionError:
+        print(f"Warning: {tables_pdf_path} is locked. PDF saved to {tables_pdf_scratch}")
 except Exception as e:
     print(f"Word COM Export error: {e}")
 finally:
@@ -555,14 +594,18 @@ combined_pdf_path = os.path.join(DESKTOP_DIR, "OOS-262080 Optimal Balance Pharma
 combined_pdf_scratch = os.path.join(SCRIPT_DIR, "OOS-262080 Optimal Balance Pharmacy (E19193) - Celsis (Complete).pdf")
 
 doc_main = fitz.open(main_pdf_path)
-if os.path.exists(tables_pdf_path):
-    doc_tables = fitz.open(tables_pdf_path)
+source_tables_pdf = tables_pdf_scratch if os.path.exists(tables_pdf_scratch) else tables_pdf_path
+if os.path.exists(source_tables_pdf):
+    doc_tables = fitz.open(source_tables_pdf)
     doc_main.insert_pdf(doc_tables)
     doc_tables.close()
 
-doc_main.save(combined_pdf_path)
 doc_main.save(combined_pdf_scratch)
+try:
+    doc_main.save(combined_pdf_path)
+    print(f"Generated Combined Complete PDF: {combined_pdf_path}")
+except PermissionError:
+    print(f"Warning: {combined_pdf_path} is locked. Saved to {combined_pdf_scratch}")
 doc_main.close()
-print(f"Generated Combined Complete PDF: {combined_pdf_path}")
 
 print("SUCCESS: All 5 deliverables generated successfully!")
