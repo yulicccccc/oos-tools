@@ -90,3 +90,39 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
    - Use bolding or highlight markers (`**...**`) in both the Before and After columns to instantly flag specific additions, deletions, and phrasing shifts.
 4. **Spot-the-Difference Visual Ergonomics (大家来找茬极致体验)**:
    - Make the contrast crystal clear so the user never has to scroll up and down or guess where subtle changes occurred.
+
+
+## 🚨 Laboratory Physical Topology, EM Dual-Track Tracing & cGMP Investigation Golden Rules
+
+### 1. Physical Spatial Topology Chain (物理空间拓扑链与房间推导法则)
+- **Do not blindly accept scan documents without spatial validation.** Every BSC is physically situated in a specific cleanroom, which belongs to a specific cleanroom suite:
+  $$\text{BSC 1316} \longrightarrow \text{Cleanroom 114B (ISO 7 核心室)} \longrightarrow \text{Cleanroom 114A (ISO 7 缓冲室)} \longrightarrow \text{Anteroom 114 (ISO 8 走廊)} \longrightarrow \text{Suite 114}$$
+  $$\text{BSC 1798} \longrightarrow \text{Cleanroom 114A (ISO 7 缓冲室)} \longrightarrow \text{Anteroom 114 (ISO 8 走廊)} \longrightarrow \text{Suite 114}$$
+- **Weekly EM Scope Invariance**: Because testing in BSC 1316 is located in Cleanroom 114B (Suite 114), its Weekly Active Air & Surface monitoring **MUST STRICTLY belong to Suite 114**. Never accept or insert records from Suite 115 or other suites, even if inadvertently provided in raw scans.
+
+### 2. EM Dual-Track Tracing Rule (EM 追溯“双轨制”法则：人跟人走，物跟物走)
+- **Personnel EM (人身绑定 / 人跟人走)**:
+  - Glove fingertip touch plates monitor the individual analyst's aseptic gowning and touch behavior.
+  - Must follow the specific analyst's personal schedule and shift history across days.
+  - *Example*: Aliquoting was performed by CCD on 08Sep26 in BSC 1798. His bracketing personnel plates must be traced to CCD's own shift history: Pre = 03Sep26 (CCD), Test = 08Sep26 (CCD), Post = 15Sep26 (CCD).
+- **Settling & Surface EM (设备与空间绑定 / 物跟物走)**:
+  - Settling plates and surface contact plates monitor the physical ISO 5 Critical Zone of the Biological Safety Cabinet.
+  - Must follow the continuous operational history of that specific BSC, regardless of who operated it.
+  - *Example*: For BSC 1798 bracketing: Pre = 07Sep26 (ALA), Test = 08Sep26 (CCD), Post = 09Sep26 (ALA).
+
+### 3. Raw Bench Records Precedence (穿透系统看板凳 / 原始纸质台账至上原则)
+- In cGMP compliance, the true analyst is the person who performs the bench-level aseptic manipulation, disinfects the hood, plates the samples, and signs the physical paper logbooks.
+- System users who merely change status, upload files, or enter electronic test results in EagleTrax / ZenQMS (e.g. `aalanis`) are Data Coordinators / Submissions Coordinators, NOT the Aliquoting Analyst.
+- Table 1 Aliquoting Analyst must be the physical bench operator (Cuong Du / CCD).
+
+### 4. Zero Hallucination & Sub-threshold Recovery Defense (ALCOA+ 零臆想与微量检出闭环防守)
+- **Zero Hallucination (不能臆想，实事求是)**: If a record is missing or not located in the scan, state clearly that it was not found. Never invent dates, analysts, or negative results.
+- **Sub-threshold Recovery Accountability**: If a weekly EM plate yields recovery (e.g., 1 CFU in ISO 8 Anteroom 114 on 04Sep26 under `ETX-260914-0487` by ISS, and 1 CFU on 10Sep26 under `ETX-260921-0520` by SMO), it MUST be accurately reported in the bracketing tables.
+- **Airtight Defense Triad (合规防守闭环三部曲)**:
+  1. *Physical Segregation & Pressure Differential*: The recovery occurred in the outermost ISO 8 Anteroom (114), which is physically segregated from the ISO 7 buffer/cleanrooms (114A/114B) and ISO 5 BSCs, maintained by positive pressure cascading inward-to-outward.
+  2. *Containment & Transport*: Samples and media are transferred in disinfected, lidded bins on carts without open atmospheric exposure to anteroom air.
+  3. *Zero Critical Zone Breach*: 100% absence of microbial recovery (0 CFU / No Growth) across all analyst glove touch plates, settling plates, and ISO 5 BSC work surfaces throughout testing and aliquoting stages.
+
+### 5. Defensive Post-Processing in Document Automation (自动化工程后置防御性校验)
+- Word templates may contain hardcoded static text in table cells (e.g., static `SMO` in weekly rows instead of Jinja2 tags).
+- Automation scripts must perform surgical run-level inspection and overwrites using `python-docx` to ensure the final delivered document matches ground truth data without breaking table formatting.
