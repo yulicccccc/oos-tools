@@ -29,8 +29,9 @@ p1 = (
 p2 = (
     "Upon arrival, the sample was stored in accordance with the Client’s instructions. "
     "Both the sample prepping analyst - Andrew Carrillo (AC) - and the processing analyst - "
-    "Gabrielle Surber (GS) - verified the sample's integrity throughout both the preparation and "
-    "processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+    "Gabrielle Surber (GS) - inspected the sample during preparation and processing. No leaks or visible "
+    "turbidity were observed during preparation or processing; no evidence of compromised container integrity "
+    "was identified during these observations."
 )
 
 p3 = (
@@ -81,20 +82,21 @@ p7 = (
 )
 
 p8 = (
-    "Following the reading, sample ETX-260828-0527 was found to yield positive readings in two of the 300mL FTM media jars "
-    "(jars #3 and #5). The average Relative Luminescence Units (RLU) from the duplicate reading tubes, originating from the "
-    "FTM sample jars, yielded 7190 RLU, which exceeded the negative control cutoff (FTM negative control = 985 RLU), "
-    "confirming a positive result. The TSB media jars tested negative with an RLU of 1500 (TSB cutoff = 2007 RLU, negative "
-    "control = 669 RLU). All other FTM and TSB sample bottles in the same batch tested negative. The %CV from the duplicate "
-    "reading tubes was within specification (< 30%). Additionally, all Daily Controls, including the Instrument Blank, "
-    "Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
+    "Celsis testing produced a positive result for FTM sample container ETX-260828-0527-3/5 in accordance with the predefined "
+    "decision criteria specified in MICRO-SOP-44. The FTM sample yielded 7190 RLU, which exceeded the method cutoff of 2955 RLU "
+    "(FTM negative control = 985 RLU). The corresponding TSB sample container (ETX-260828-0527-4/5) tested negative with 1500 RLU "
+    "(TSB cutoff = 2007 RLU, negative control = 669 RLU). Duplicate readings met the method-defined %CV criterion of < 30%. "
+    "Furthermore, the Daily Controls—including the Instrument Blank, Reagent Blank, and ATP Positive Control (Positive Cut-off RLU = 102383)—met "
+    "their respective predefined acceptance criteria with %CV below 30% as documented in the associated Celsis data packet."
 )
 
 p9 = (
-    "Following the OOS result, the positive FTM bottles for ETX-260828-0527 were submitted for Differential Staining and "
-    "Microbial Identification under ETX-260908-0593. No microbial growth was recovered from the subculture (0 CFU on plate, "
-    "see Table 1), and differential staining was inconclusive as no cell morphology could be visualized, indicating that the "
-    "microorganism present in the sample was potentially viable but not culturable."
+    "Following the OOS result, the positive FTM bottle for ETX-260828-0527 was submitted for Differential Staining and Microbial "
+    "Identification under ETX-260908-0593. No microbial growth was recovered by subculture (0 CFU on plate; see Table 1), and no "
+    "cellular morphology was visualized by differential staining. Therefore, no organism was recovered for identification or "
+    "further microbiological comparison. The lack of recovery on subculture does not invalidate the initial analytical Celsis result "
+    "and may be consistent with low-level, stressed, or otherwise non-recoverable microbial cells under the test conditions; however, "
+    "a specific microbial physiological state, including a viable but non-culturable (VBNC) state, could not be confirmed."
 )
 
 p10 = (
@@ -107,7 +109,7 @@ p11 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 "
     "cleanroom, and its containing ISO 5 Biosafety Cabinets for Cleanroom 114 was performed on 30 Aug 2026, as per "
     "MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). During cleaning, it was documented that all "
-    "H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom 114."
+    "H2O2 indicators passed and met the applicable acceptance criteria."
 )
 
 p12 = (
@@ -135,43 +137,35 @@ p14 = (
 )
 
 p15 = (
-    "Weekly active air sampling of Cleanroom Suite 114 was performed for both the week of processing (04Sep2026) and the "
-    "week of aliquoting (10Sep2026). On 04Sep2026 (performed by ISS), 1 CFU was recovered from the outermost ISO 8 anteroom "
-    "(114) under ETX-260914-0487 (characterized as Gram (+) coccobacilli and Gram (+) rods), while the intermediate ISO 7 buffer room "
-    "(114A) and innermost ISO 7 cleanroom (114B) showed no microbial recovery (0 CFU). Similarly, on 10Sep2026 (performed by SMO), "
-    "1 CFU was recovered from the outermost ISO 8 anteroom (114) under ETX-260921-0520 (identification pending), with 0 CFU in both "
-    "ISO 7 cleanrooms 114A and 114B. Weekly surface sampling across Suite 114 on both 04Sep2026 and 10Sep2026 demonstrated "
-    "no microbial recovery (0 CFU) across all evaluated locations (Table 114, Cart 114, Cart 114A, Floor 114A, Cart 114B, "
-    "Floor 114B).\n\n"
-    "All sample processing and aliquoting activities were performed within validated ISO 5 Biological Safety Cabinets (BSCs) "
-    "E001316 and E001798, located in ISO 7 cleanrooms 114B and 114A, respectively. Furthermore, the test samples and media do not "
-    "come into direct contact with the anteroom air or room surfaces at any stage of the testing process. Samples and media are "
-    "prepared and transferred in disinfected, lidded containers and transported on carts within the controlled environments. "
-    "Therefore, the single environmental monitoring recoveries from the outermost ISO 8 anteroom (114) originated from an area "
-    "that is physically segregated from the controlled ISO 5 environments where the test sample was handled and processed.\n\n"
-    "The complete absence of microbial recovery from analyst glove plates, settling plates, and ISO 5 critical work surfaces "
-    "throughout both processing and aliquoting indicates that no identifiable contamination transfer pathway existed between the "
-    "room environment and the ISO 5 processing areas. Furthermore, the subculture of positive sample ETX-260828-0527 under "
-    "ETX-260908-0593 yielded no microbial growth (0 CFU) with no cellular morphology visualized during differential staining. "
-    "Therefore, based on the absence of microbial recovery within the critical ISO 5 processing environments, satisfactory "
-    "environmental monitoring results for personnel and critical surfaces, and the controlled processing conditions maintained "
-    "throughout testing, the analyst or cleanroom environment is not considered a likely source of contamination for the sample."
+    "Personnel monitoring, ISO 5 BSC surface monitoring, and ISO 5 settling plates collected on the respective processing "
+    "(01Sep2026) and aliquoting (08Sep2026) dates showed no microbial recovery (0 CFU). Weekly active-air monitoring performed "
+    "for the corresponding weeks identified 1 CFU in the outermost ISO 8 anteroom (114) on 04Sep2026 (under ETX-260914-0487, "
+    "characterized as Gram (+) coccobacilli and Gram (+) rods) and 1 CFU in the same classified area on 10Sep2026 (under "
+    "ETX-260921-0520, identification currently in progress); no microbial recovery was observed from the ISO 7 cleanrooms "
+    "(114A and 114B) during either weekly active-air monitoring event. Weekly surface sampling across Suite 114 on both dates "
+    "likewise demonstrated no microbial recovery across all evaluated locations. These data did not identify microbial recovery "
+    "within the monitored ISO 5 critical processing areas or from the personnel monitoring associated with the testing activities.\n\n"
+    "All sample processing and aliquoting activities were performed within validated ISO 5 Biological Safety Cabinets (BSCs "
+    "E001316 and E001798), located in ISO 7 cleanrooms 114B and 114A. The sample containers and media remained enclosed and "
+    "protected during transfer through the ISO 8 anteroom and were not directly exposed to ISO 8 room air. Because no organism "
+    "was recovered from ETX-260828-0527 during subsequent subculture, a direct microbiological comparison between the OOS sample "
+    "and the ISO 8 environmental recoveries could not be performed. The ISO 8 findings therefore cannot be microbiologically "
+    "linked to, or definitively excluded as related to, the OOS result on the basis of organism identification. Nevertheless, "
+    "review of the enclosed material-transfer process, same-day ISO 5 and personnel monitoring (0 CFU), and facility airflow "
+    "segregation records did not identify evidence linking the OOS result to the monitored laboratory environment."
 )
 
 p16 = (
-    "All analysts confirmed full compliance with cleaning procedures as outlined in SOPs MICRO-SOP-9 (Cleaning and Disinfecting "
-    "Procedure for Microbiology) and MICRO-SOP-44 (Celsis Sterility Testing). A review of the available data confirms that the "
-    "cleanroom and equipment conditions remained within acceptable parameters. No deviations or obvious signs of laboratory "
-    "error during processing and aliquoting were noted from analysts."
+    "All interviewed analysts reported following cleaning and handling procedures in accordance with MICRO-SOP-9 and "
+    "MICRO-SOP-44. A review of the available records and facility monitoring data did not identify documented procedural "
+    "deviations or abnormal equipment parameters during the processing and aliquoting activities."
 )
 
 p17 = (
-    "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review "
-    "was conducted of all samples processed on the same day. ETX-260828-0527 was the 1st sample processed in the batch by "
-    "processing analyst - GS - on 01 Sep 2026. No other sample processed by GS on that date was found to be positive for microbial "
-    "growth. A review of all other samples processed, incubated, aliquoted, and read within the same testing batch demonstrated "
-    "no evidence of microbial growth. The absence of additional positive results within the batch confirms that cross-contamination "
-    "between samples is unlikely during both the processing and the aliquoting steps."
+    "ETX-260828-0527 was the first sample processed by analyst GS on 01 Sep 2026. A review of the remaining samples processed "
+    "by GS that day and of the other samples processed, incubated, aliquoted, and read within the associated testing batch "
+    "identified no additional positive Celsis results. Accordingly, the reviewed batch data did not identify a pattern "
+    "supporting sample-to-sample cross-contamination during processing or aliquoting."
 )
 
 p18 = (
@@ -186,9 +180,12 @@ p19 = (
 )
 
 p20 = (
-    "Based on the observations outlined above, there is no clear indication that the contamination originated from reagents, "
-    "supplies, the cleanroom environment, or the analyst. Therefore, the results are considered valid, and the likelihood of "
-    "laboratory error is minimal."
+    "Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, "
+    "reagents, supplies, or monitored laboratory environment. The initial Celsis OOS result therefore remains valid in accordance "
+    "with the applicable laboratory OOS procedure. Subsequent microbial identification testing did not recover an organism; "
+    "consequently, the organism identity and source of the positive result could not be determined within the laboratory "
+    "investigation. Further investigation and disposition, if required, should be performed in accordance with the applicable "
+    "OOS procedure and client quality requirements."
 )
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
@@ -211,7 +208,7 @@ table_context = {
     "analyst_name": "Gabrielle Surber",
     "aliquoting_name": "Cuong Du",
     "positive_id": "ETX-260908-0593",
-    "positive_media": "2 x 300mL FTM",
+    "positive_media": "1 x 300mL FTM",
     "positive_org": "No growth was obtained",
     
     # Processing Phase (01Sep26)
