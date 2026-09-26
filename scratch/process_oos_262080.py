@@ -53,7 +53,7 @@ p5 = (
     "initiating the testing by analyst Gabrielle Surber as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
     "Room Facility), and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). Similarly, for Celsis "
     "aliquoting, the ISO 7 cleanroom 114A and its ISO 5 BSC E001798 were thoroughly cleaned and prepared by analyst "
-    "America Alanis before initiating the testing as per MICRO-SOP-44 and MICRO-SOP-9. Both the BSCs, E001316 in 114B "
+    "Cuong Du before initiating the testing as per MICRO-SOP-44 and MICRO-SOP-9. Both the BSCs, E001316 in 114B "
     "and E001798 in 114A, were certified and approved by the Engineering and Quality Assurance teams prior to use."
 )
 
@@ -75,7 +75,7 @@ p7 = (
     "Upon completion of incubation on 08 Sep 2026, TSB & FTM bottles for ETX-260828-0527 were disinfected and transferred "
     "to the intermediate ISO 7 buffer room (114A) for the aliquoting step per MICRO-SOP-44 (Celsis Sterility Testing). "
     "In 114A, the media bottles were disinfected one more time before transferring them to the ISO 5 BSC E001798 located "
-    "in cleanroom 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst America Alanis. "
+    "in cleanroom 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst Cuong Du (CCD). "
     "After aliquoting, Celsis Sterility Reading was performed in accordance with MICRO-SOP-44 on Celsis instrument E002222 "
     "by analyst Cuong Du (CCD)."
 )
@@ -135,23 +135,26 @@ p14 = (
 )
 
 p15 = (
-    "Weekly active air sampling of the cleanrooms, performed on 10Sep2026, recovered 1 CFU from the outermost ISO 8 anteroom "
-    "(114) under ETX-260921-0520 (identification pending), while the intermediate ISO 7 buffer room (114A) and innermost "
-    "ISO 7 cleanroom (114B) showed no microbial recovery (0 CFU). Weekly surface sampling across Suite 114 likewise showed "
-    "no microbial recovery (0 CFU) across all locations (Table 114, Cart 114, Cart 114A, Floor 114A, Cart 114B, Floor 114B). "
+    "Weekly active air sampling of Cleanroom Suite 114 was performed for both the week of processing (04Sep2026) and the "
+    "week of aliquoting (10Sep2026). On 04Sep2026 (performed by ISS), 1 CFU was recovered from the outermost ISO 8 anteroom "
+    "(114) under ETX-260914-0487 (identification pending), while the intermediate ISO 7 buffer room (114A) and innermost "
+    "ISO 7 cleanroom (114B) showed no microbial recovery (0 CFU). Similarly, on 10Sep2026 (performed by SMO), 1 CFU was "
+    "recovered from the outermost ISO 8 anteroom (114) under ETX-260921-0520 (identification pending), with 0 CFU in both "
+    "ISO 7 cleanrooms 114A and 114B. Weekly surface sampling across Suite 114 on both 04Sep2026 and 10Sep2026 demonstrated "
+    "no microbial recovery (0 CFU) across all evaluated locations (Table 114, Cart 114, Cart 114A, Floor 114A, Cart 114B, "
+    "Floor 114B).\n\n"
     "All sample processing and aliquoting activities were performed within validated ISO 5 Biological Safety Cabinets (BSCs) "
-    "E001316 and E001798, located in ISO 7 cleanrooms 114B and 114A, respectively.\n\n"
-    "Furthermore, the test samples and media do not come into direct contact with the anteroom air or room surfaces at any stage "
-    "of the testing process. Samples and media are prepared and transferred in disinfected, lidded containers and transported on "
-    "carts within the controlled environments. Therefore, the single environmental monitoring recovery from the outermost ISO 8 "
-    "anteroom (114) originated from an area that is physically segregated from the controlled ISO 5 environments where the test "
-    "sample was handled and processed.\n\n"
+    "E001316 and E001798, located in ISO 7 cleanrooms 114B and 114A, respectively. Furthermore, the test samples and media do not "
+    "come into direct contact with the anteroom air or room surfaces at any stage of the testing process. Samples and media are "
+    "prepared and transferred in disinfected, lidded containers and transported on carts within the controlled environments. "
+    "Therefore, the single environmental monitoring recoveries from the outermost ISO 8 anteroom (114) originated from an area "
+    "that is physically segregated from the controlled ISO 5 environments where the test sample was handled and processed.\n\n"
     "The complete absence of microbial recovery from analyst glove plates, settling plates, and ISO 5 critical work surfaces "
-    "throughout both processing and aliquoting indicates that no identifiable contamination transfer pathway existed between "
-    "the room environment and the ISO 5 processing areas. Therefore, based on the absence of microbial recovery within the "
-    "critical ISO 5 processing environments, satisfactory environmental monitoring results for personnel and critical surfaces, "
-    "and the controlled processing conditions maintained throughout testing, the analyst or cleanroom environment is not "
-    "considered a likely source of contamination for the sample."
+    "throughout both processing and aliquoting indicates that no identifiable contamination transfer pathway existed between the "
+    "room environment and the ISO 5 processing areas. Therefore, based on the absence of microbial recovery within the critical "
+    "ISO 5 processing environments, satisfactory environmental monitoring results for personnel and critical surfaces, and the "
+    "controlled processing conditions maintained throughout testing, the analyst or cleanroom environment is not considered a "
+    "likely source of contamination for the sample."
 )
 
 p16 = (
@@ -205,7 +208,7 @@ print("\n--- [1/4] Rendering Word Documents ---")
 table_context = {
     "sample_id": "ETX-260828-0527",
     "analyst_name": "Gabrielle Surber",
-    "aliquoting_name": "America Alanis",
+    "aliquoting_name": "Cuong Du",
     "positive_id": "ETX-260908-0593",
     "positive_media": "2 x 300mL FTM",
     "positive_org": "No growth was obtained",
@@ -216,7 +219,7 @@ table_context = {
     "pro_before_test": "31Aug26",
     "pro_test_date": "01Sep26",
     "pro_after_test": "02Sep26",
-    "pro_date_of_weekly": "03Sep26",
+    "pro_date_of_weekly": "04Sep26",
     
     "pro_be_obs_pers_dur_pro": "No growth", "pro_be_etx_pers_dur_pro": "N/A", "pro_be_id_pers_dur_pro": "N/A",
     "pro_obs_pers_dur_pro": "No growth",    "pro_etx_pers_dur_pro": "N/A",    "pro_id_pers_dur_pro": "N/A",
@@ -230,8 +233,8 @@ table_context = {
     "pro_obs_sett_dur_pro": "No growth",    "pro_etx_sett_dur_pro": "N/A",    "pro_id_sett_dur_pro": "N/A",
     "pro_af_obs_sett_dur_pro": "No growth", "pro_af_etx_sett_dur_pro": "N/A", "pro_af_id_sett_dur_pro": "N/A",
     
-    "pro_obs_air_wk_of": "No growth",  "pro_etx_air_wk_of": "N/A",  "pro_id_air_wk_of": "N/A",
-    "pro_obs_room_wk_of": "No growth", "pro_etx_room_wk_of": "N/A", "pro_id_room_wk_of": "N/A",
+    "pro_obs_air_wk_of": "1 CFU (ISO 8 114)", "pro_etx_air_wk_of": "ETX-260914-0487", "pro_id_air_wk_of": "Pending",
+    "pro_obs_room_wk_of": "No growth",        "pro_etx_room_wk_of": "N/A",             "pro_id_room_wk_of": "N/A",
     
     # Aliquoting Phase (08Sep26)
     "alq_analyst_initial": "ALA/CCD",
@@ -276,6 +279,24 @@ def set_cell_text(cell, text):
     else:
         cell.text = text
 
+# Surgically update Table 2 (Processing Phase) to match ground truth Suite 114 weekly records
+t2 = doc_t_mod.tables[1]
+# Row 13: Active Air Sampling of Cleanrooms on 04Sep26 by ISS
+set_cell_text(t2.rows[13].cells[3], "04Sep26")
+set_cell_text(t2.rows[13].cells[4], "ISS")
+set_cell_text(t2.rows[13].cells[8], "1 CFU (ISO 8 114)")
+set_cell_text(t2.rows[13].cells[9], "ETX-260914-0487")
+set_cell_text(t2.rows[13].cells[10], "Pending")
+set_cell_text(t2.rows[13].cells[11], "Pending")
+
+# Row 15: Surface Sampling of Cleanrooms on 04Sep26 by ISS
+set_cell_text(t2.rows[15].cells[3], "04Sep26")
+set_cell_text(t2.rows[15].cells[4], "ISS")
+set_cell_text(t2.rows[15].cells[8], "No growth")
+set_cell_text(t2.rows[15].cells[9], "N/A")
+set_cell_text(t2.rows[15].cells[10], "N/A")
+set_cell_text(t2.rows[15].cells[11], "N/A")
+
 # Surgically update Table 3 (Aliquoting Phase) to match ground truth PDF records
 # Personnel follows CCD (03Sep26, 08Sep26, 15Sep26)
 # Surface & Settling in BSC 1798 follows ALA (07Sep26), CCD (08Sep26), ALA (09Sep26)
@@ -297,6 +318,20 @@ for r_idx, (d_val, a_val) in table3_updates.items():
     set_cell_text(row.cells[4], a_val)
     set_cell_text(row.cells[5], a_val)
 
+set_cell_text(t3.rows[13].cells[3], "10Sep26")
+set_cell_text(t3.rows[13].cells[4], "SMO")
+set_cell_text(t3.rows[13].cells[8], "1 CFU (ISO 8 114)")
+set_cell_text(t3.rows[13].cells[9], "ETX-260921-0520")
+set_cell_text(t3.rows[13].cells[10], "Pending")
+set_cell_text(t3.rows[13].cells[11], "Pending")
+
+set_cell_text(t3.rows[15].cells[3], "10Sep26")
+set_cell_text(t3.rows[15].cells[4], "SMO")
+set_cell_text(t3.rows[15].cells[8], "No growth")
+set_cell_text(t3.rows[15].cells[9], "N/A")
+set_cell_text(t3.rows[15].cells[10], "N/A")
+set_cell_text(t3.rows[15].cells[11], "N/A")
+
 doc_t_mod.save(tables_docx_scratch)
 try:
     doc_t_mod.save(tables_docx_path)
@@ -308,7 +343,7 @@ except PermissionError:
 personnel_block = (
     "Prepper: \nAndrew Carrillo (AC)\n\n"
     "Processor:\nGabrielle Surber (GS)\n\n"
-    "Aliquoting Analyst:\nAmerica Alanis (ALA)\n\n"
+    "Aliquoting Analyst:\nCuong Du (CCD)\n\n"
     "Reading Analyst:\nCuong Du (CCD)"
 )
 
@@ -326,8 +361,8 @@ word_context = {
     "prepper_initial": "AC",
     "analyst_name": "Gabrielle Surber",
     "analyst_initial": "GS",
-    "aliquoting_name": "America Alanis",
-    "aliquoting_initial": "ALA",
+    "aliquoting_name": "Cuong Du",
+    "aliquoting_initial": "CCD",
     "reading_name": "Cuong Du",
     "reading_initial": "CCD",
     "reader_name": "Cuong Du",
@@ -386,12 +421,12 @@ for w in page1.widgets():
     elif fn == 'Text Field1': w.field_value = 'Celsis Sterility Test'
     elif fn == 'Text Field2': w.field_value = 'ETX-260828-0527'
     elif fn == 'Text Field3':
-        w.text_fontsize = 7.0
+        w.text_fontsize = 6.2
         w.field_value = (
-            "Andrew Carrillo (AC)\r(Celsis Sterility Prepper)\r \r"
-            "Gabrielle Surber (GS)\r(Celsis Sterility Processor)\r \r"
-            "America Alanis (ALA)\r(Celsis Sterility Aliquoting Analyst)\r \r"
-            "Cuong Du (CCD)\r(Celsis Sterility Reading Analyst)"
+            "Andrew Carrillo (AC)\r(Celsis Sterility Prepper)\r"
+            "Gabrielle Surber (GS)\r(Celsis Sterility Processor)\r"
+            "Cuong Du (CCD)\r(Celsis Sterility Aliquoting & Reading Analyst)\r"
+            "America Alanis (ALA)\r(Sample Coordination & Data Entry)"
         )
     elif fn == 'Text Field4': w.field_value = 'MOTs-C 10 MG/ML (5 ML) Injection\r \r \r \r'
     elif fn == 'Text Field5': w.field_value = 'Injection'
