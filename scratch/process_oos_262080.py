@@ -77,7 +77,7 @@ p7 = (
     "In 114A, the media bottles were disinfected one more time before transferring them to the ISO 5 BSC E001798 located "
     "in cleanroom 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst Cuong Du (CCD). "
     "After aliquoting, Celsis Sterility Reading was performed in accordance with MICRO-SOP-44 on Celsis instrument E002222 "
-    "by analyst Cuong Du (CCD)."
+    "by analyst America Alanis (ALA)."
 )
 
 p8 = (
@@ -137,9 +137,9 @@ p14 = (
 p15 = (
     "Weekly active air sampling of Cleanroom Suite 114 was performed for both the week of processing (04Sep2026) and the "
     "week of aliquoting (10Sep2026). On 04Sep2026 (performed by ISS), 1 CFU was recovered from the outermost ISO 8 anteroom "
-    "(114) under ETX-260914-0487 (identification pending), while the intermediate ISO 7 buffer room (114A) and innermost "
-    "ISO 7 cleanroom (114B) showed no microbial recovery (0 CFU). Similarly, on 10Sep2026 (performed by SMO), 1 CFU was "
-    "recovered from the outermost ISO 8 anteroom (114) under ETX-260921-0520 (identification pending), with 0 CFU in both "
+    "(114) under ETX-260914-0487 (characterized as Gram (+) coccobacilli and Gram (+) rods), while the intermediate ISO 7 buffer room "
+    "(114A) and innermost ISO 7 cleanroom (114B) showed no microbial recovery (0 CFU). Similarly, on 10Sep2026 (performed by SMO), "
+    "1 CFU was recovered from the outermost ISO 8 anteroom (114) under ETX-260921-0520 (identification pending), with 0 CFU in both "
     "ISO 7 cleanrooms 114A and 114B. Weekly surface sampling across Suite 114 on both 04Sep2026 and 10Sep2026 demonstrated "
     "no microbial recovery (0 CFU) across all evaluated locations (Table 114, Cart 114, Cart 114A, Floor 114A, Cart 114B, "
     "Floor 114B).\n\n"
@@ -151,10 +151,11 @@ p15 = (
     "that is physically segregated from the controlled ISO 5 environments where the test sample was handled and processed.\n\n"
     "The complete absence of microbial recovery from analyst glove plates, settling plates, and ISO 5 critical work surfaces "
     "throughout both processing and aliquoting indicates that no identifiable contamination transfer pathway existed between the "
-    "room environment and the ISO 5 processing areas. Therefore, based on the absence of microbial recovery within the critical "
-    "ISO 5 processing environments, satisfactory environmental monitoring results for personnel and critical surfaces, and the "
-    "controlled processing conditions maintained throughout testing, the analyst or cleanroom environment is not considered a "
-    "likely source of contamination for the sample."
+    "room environment and the ISO 5 processing areas. Furthermore, the subculture of positive sample ETX-260828-0527 under "
+    "ETX-260908-0593 yielded no microbial growth (0 CFU) with no cellular morphology visualized during differential staining. "
+    "Therefore, based on the absence of microbial recovery within the critical ISO 5 processing environments, satisfactory "
+    "environmental monitoring results for personnel and critical surfaces, and the controlled processing conditions maintained "
+    "throughout testing, the analyst or cleanroom environment is not considered a likely source of contamination for the sample."
 )
 
 p16 = (
@@ -233,7 +234,7 @@ table_context = {
     "pro_obs_sett_dur_pro": "No growth",    "pro_etx_sett_dur_pro": "N/A",    "pro_id_sett_dur_pro": "N/A",
     "pro_af_obs_sett_dur_pro": "No growth", "pro_af_etx_sett_dur_pro": "N/A", "pro_af_id_sett_dur_pro": "N/A",
     
-    "pro_obs_air_wk_of": "1 CFU (ISO 8 114)", "pro_etx_air_wk_of": "ETX-260914-0487", "pro_id_air_wk_of": "Pending",
+    "pro_obs_air_wk_of": "1 CFU (ISO 8 114)", "pro_etx_air_wk_of": "ETX-260914-0487", "pro_id_air_wk_of": "Gram (+) coccobacilli & Gram (+) rods",
     "pro_obs_room_wk_of": "No growth",        "pro_etx_room_wk_of": "N/A",             "pro_id_room_wk_of": "N/A",
     
     # Aliquoting Phase (08Sep26)
@@ -286,8 +287,8 @@ set_cell_text(t2.rows[13].cells[3], "04Sep26")
 set_cell_text(t2.rows[13].cells[4], "ISS")
 set_cell_text(t2.rows[13].cells[8], "1 CFU (ISO 8 114)")
 set_cell_text(t2.rows[13].cells[9], "ETX-260914-0487")
-set_cell_text(t2.rows[13].cells[10], "Pending")
-set_cell_text(t2.rows[13].cells[11], "Pending")
+set_cell_text(t2.rows[13].cells[10], "Gram (+) coccobacilli & Gram (+) rods")
+set_cell_text(t2.rows[13].cells[11], "Gram (+) coccobacilli & Gram (+) rods")
 
 # Row 15: Surface Sampling of Cleanrooms on 04Sep26 by ISS
 set_cell_text(t2.rows[15].cells[3], "04Sep26")
@@ -344,7 +345,7 @@ personnel_block = (
     "Prepper: \nAndrew Carrillo (AC)\n\n"
     "Processor:\nGabrielle Surber (GS)\n\n"
     "Aliquoting Analyst:\nCuong Du (CCD)\n\n"
-    "Reading Analyst:\nCuong Du (CCD)"
+    "Reading Analyst:\nAmerica Alanis (ALA)"
 )
 
 word_context = {
@@ -363,9 +364,9 @@ word_context = {
     "analyst_initial": "GS",
     "aliquoting_name": "Cuong Du",
     "aliquoting_initial": "CCD",
-    "reading_name": "Cuong Du",
-    "reading_initial": "CCD",
-    "reader_name": "Cuong Du",
+    "reading_name": "America Alanis",
+    "reading_initial": "ALA",
+    "reader_name": "America Alanis",
     "bsc_id": "1316",
     "cr_suit": "114",
     "smart_cr_id": "E001736 (114)",
@@ -381,7 +382,7 @@ word_context = {
     "smart_comment_records": "N/A",
     "smart_comment_storage": "Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under ETX-260828-0527",
     "report_header": "ETX-260828-0527\n\nOptimal Balance Pharmacy (E19193)",
-    "analyst_signature": "Gabrielle Surber (Written by: Qiyue Chen)",
+    "analyst_signature": "America Alanis (Written by: Qiyue Chen)",
     "smart_phase1_summary": smart_phase1_full,
     "smart_phase1_continued": "",
     "event_number": "",
@@ -414,7 +415,7 @@ page1 = doc_pdf[0]
 for w in page1.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
-    elif fn == 'Text Field0': w.field_value = 'Cuong Du (Written by Qiyue Chen)'
+    elif fn == 'Text Field0': w.field_value = 'America Alanis (Written by Qiyue Chen)'
     elif fn == 'Date Field0': w.field_value = '01-Sep-2026'
     elif fn == 'Date Field1': w.field_value = '08-Sep-2026'
     elif fn == 'Date Field2': w.field_value = '08-Sep-2026'
@@ -425,8 +426,8 @@ for w in page1.widgets():
         w.field_value = (
             "Andrew Carrillo (AC)\r(Celsis Sterility Prepper)\r"
             "Gabrielle Surber (GS)\r(Celsis Sterility Processor)\r"
-            "Cuong Du (CCD)\r(Celsis Sterility Aliquoting & Reading Analyst)\r"
-            "America Alanis (ALA)\r(Sample Coordination & Data Entry)"
+            "Cuong Du (CCD)\r(Celsis Sterility Aliquoting Analyst)\r"
+            "America Alanis (ALA)\r(Celsis Sterility Reading Analyst)"
         )
     elif fn == 'Text Field4': w.field_value = 'MOTs-C 10 MG/ML (5 ML) Injection\r \r \r \r'
     elif fn == 'Text Field5': w.field_value = 'Injection'
