@@ -92,8 +92,9 @@ p8 = (
 
 p9 = (
     "Following the OOS result, the positive FTM bottles for ETX-260828-0527 were submitted for Differential Staining and "
-    "Microbial Identification under ETX-260908-0593. Differential staining and definitive microbial identification are "
-    "currently pending (Gram stain ongoing) (see Table 1)."
+    "Microbial Identification under ETX-260908-0593. No microbial growth was recovered from the subculture (0 CFU on plate, "
+    "see Table 1), and differential staining was inconclusive as no cell morphology could be visualized, indicating that the "
+    "microorganism present in the sample was potentially viable but not culturable."
 )
 
 p10 = (
@@ -205,7 +206,7 @@ table_context = {
     "aliquoting_name": "America Alanis",
     "positive_id": "ETX-260908-0593",
     "positive_media": "2 x 300mL FTM",
-    "positive_org": "Pending (Gram stain ongoing)",
+    "positive_org": "No growth was obtained",
     
     # Processing Phase (01Sep26)
     "process_date": "01Sep26",
@@ -315,7 +316,7 @@ word_context = {
     "smart_phase1_continued": "",
     "event_number": "",
     "confirm_number": "",
-    "organism_morphology": "Pending",
+    "organism_morphology": "No growth was obtained",
     "oos1_analyst_name": "N/A",
     "oos1_sample_id": "N/A",
     "oos1_sample_name": "N/A",
