@@ -209,7 +209,7 @@ def build_standalone_tables_doc():
         format_cell(cell, title_text, bold=True, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT, fill_hex="E8E8E8")
         return row
 
-    def add_data_row(table, site, freq, date_str, analyst, day_week, obs, etx_num, micro_id, notes):
+    def add_data_row(table, site, freq, date_str, analyst, day_week, obs, etx_num, micro_id, notes, etx_url=None):
         row = table.add_row()
         format_cell(row.cells[0], site, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
         format_cell(row.cells[1], freq, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -217,7 +217,19 @@ def build_standalone_tables_doc():
         format_cell(row.cells[3], analyst, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[4], day_week, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[5], obs, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-        format_cell(row.cells[6], etx_num, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+        
+        if etx_url:
+            c = row.cells[6]
+            c.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+            set_cell_margins(c)
+            p = c.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.space_after = Pt(0)
+            add_hyperlink(p, etx_url, etx_num, font_size=Pt(7))
+        else:
+            format_cell(row.cells[6], etx_num, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+            
         format_cell(row.cells[7], micro_id, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[8], notes, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         return row
@@ -236,11 +248,11 @@ def build_standalone_tables_doc():
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, f"Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for {TEST_DATE}")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "5 CFU\n(ISO 8 142)", "ETX-260908-0584", "Pending", "None")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "5 CFU\n(ISO 8 142)", "ETX-260908-0584", "Gram (+) rods,\nGram (+) cocci", "None", etx_url="https://etrax.eagleanalytical.com/SubmissionTest/Details/sPDE26htF1Ujkzz%2433Fmdw__")
 
     # --- Section 4: Weekly Surface ---
     add_section_divider(t2, f"Weekly Surface Sampling of CR 145 (E001979) with Processing BSC for {TEST_DATE}")
-    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "1 CFU\n(ISO 8 143)", "ETX-260908-0580", "Pending", "None")
+    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "1 CFU\n(ISO 8 143)", "ETX-260908-0580", "Gram (+) rods", "None", etx_url="https://etrax.eagleanalytical.com/SubmissionTest/Details/9sbaVz3diyMXByV5bAGJ5A__")
 
     for row in t2.rows:
         if len(row.cells) == 9:
@@ -321,10 +333,10 @@ p7 = (
 
 p8 = (
     "Weekly surface monitoring of the cleanroom suite conducted on 28Aug26 demonstrated no microbial recovery in the ISO 7 cleanroom (145) or "
-    "ISO 7 buffer room (144); however, 1 CFU (ETX-260908-0580) was recovered from Table 1 with Scan Unit in the ISO 8 anteroom (143). "
+    "ISO 7 buffer room (144); however, 1 CFU (ETX-260908-0580, Gram (+) rods) was recovered from Table 1 with Scan Unit in the ISO 8 anteroom (143). "
     "Weekly active air monitoring conducted on 28Aug26 demonstrated no microbial recovery in ISO 7 cleanroom 145, ISO 7 buffer room 144, or "
-    "ISO 8 anteroom 143; however, 5 CFUs (ETX-260908-0584) were recovered from the outermost ISO 8 room (142). It is important to note that "
-    "all sample processing activities were performed strictly within the validated ISO 5 BSC E001319 located in the innermost ISO 7 cleanroom (145). "
+    "ISO 8 anteroom 143; however, 5 CFUs (ETX-260908-0584, Gram (+) rods and Gram (+) cocci) were recovered from the outermost ISO 8 room (142). "
+    "It is important to note that all sample processing activities were performed strictly within the validated ISO 5 BSC E001319 located in the innermost ISO 7 cleanroom (145). "
     "The test samples do not come into contact with ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers "
     "on carts through the layered cleanroom suites. Furthermore, the recoveries occurred in the lower-classified ISO 8 anteroom and outer room environments, "
     "which are physically segregated from the ISO 5 processing zone by closed doors and an outward-cascading positive air pressure gradient."
@@ -426,11 +438,11 @@ def generate_master_word_report(tables_docx_path):
         'note_sett_chg': 'None',
         'obs_air_wk_of': '5 CFU (ISO 8 142)',
         'etx_air_wk_of': 'ETX-260908-0584',
-        'id_air_wk_of': 'Pending',
+        'id_air_wk_of': 'Gram (+) rods, Gram (+) cocci',
         'note_air': 'None',
         'obs_room_wk_of': '1 CFU (ISO 8 143)',
         'etx_room_wk_of': 'ETX-260908-0580',
-        'id_room_wk_of': 'Pending',
+        'id_room_wk_of': 'Gram (+) rods',
         'note_room': 'None',
         'smart_phase1_summary': smart_phase1_full,
         'smart_phase1_continued': '',
@@ -637,9 +649,14 @@ def generate_7page_pdf(tables_pdf_path):
     out_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
 
-    doc_pdf.save(out_pdf_desktop)
+    temp_pdf = os.path.join(SCRIPT_DIR, "temp_tables_export.pdf")
     doc_pdf.save(out_pdf_docs)
-    print(f"Generated Complete 7-Page PDF Package:\n  {out_pdf_desktop}\n  {out_pdf_docs}")
+    print(f"Saved Documents PDF: {out_pdf_docs}")
+    try:
+        doc_pdf.save(out_pdf_desktop)
+        print(f"Saved Desktop PDF: {out_pdf_desktop}")
+    except Exception as e:
+        print(f"Desktop 7-page PDF locked/open: {e}")
 
     # Render preview images of pages 1 to 7 for verification
     preview_dir = os.path.join(SCRIPT_DIR, "preview_oos_261967")
@@ -651,7 +668,7 @@ def generate_7page_pdf(tables_pdf_path):
 
     doc_pdf.close()
     tbl_doc.close()
-    return out_pdf_desktop
+    return out_pdf_docs
 
 
 if __name__ == "__main__":
@@ -663,16 +680,29 @@ if __name__ == "__main__":
     tables_docx_docs = os.path.join(DOCUMENTS_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
     tables_pdf_docs = os.path.join(DOCUMENTS_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
 
-    tables_doc.save(tables_docx_desktop)
-    tables_doc.save(tables_docx_docs)
-    export_docx_to_pdf(tables_docx_desktop, tables_pdf_desktop)
-    shutil.copy2(tables_pdf_desktop, tables_pdf_docs)
-    print("Tables DOCX and PDF successfully saved to Desktop and Documents.")
+    try:
+        tables_doc.save(tables_docx_desktop)
+    except Exception as e:
+        print(f"Desktop DOCX lock: {e}")
+    try:
+        tables_doc.save(tables_docx_docs)
+    except Exception as e:
+        print(f"Documents DOCX lock: {e}")
+
+    temp_tbl_pdf = os.path.join(SCRIPT_DIR, "temp_tables_export.pdf")
+    export_docx_to_pdf(tables_docx_docs, temp_tbl_pdf)
+    shutil.copy2(temp_tbl_pdf, tables_pdf_docs)
+    try:
+        shutil.copy2(temp_tbl_pdf, tables_pdf_desktop)
+        print("Tables PDF copied to Desktop.")
+    except Exception as e:
+        print(f"Desktop Tables PDF locked/open: {e}")
+    print("Tables DOCX and PDF successfully processed.")
 
     print("\n=== [Step 2] Building Master Investigation Word Report ===")
-    generate_master_word_report(tables_docx_desktop)
+    generate_master_word_report(tables_docx_docs)
 
     print("\n=== [Step 3] Building Complete 7-Page AcroForm PDF Package ===")
-    generate_7page_pdf(tables_pdf_desktop)
+    generate_7page_pdf(temp_tbl_pdf)
 
     print("\n=== All OOS-261967 Deliverables Generated Successfully! ===")

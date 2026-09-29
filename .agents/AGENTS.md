@@ -144,3 +144,10 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 - **Word-to-PDF Interactive Preservation**: When converted via Word COM, the interactive link is compiled into the native PDF Annotation tree, ensuring QA reviewers and management can open the live EagleTrax sample page with a single click directly from any PDF reader.
 - **Mandatory Execution**: Never render the Sample ID as plain unlinked text if the submission URL or ETX ID is known.
 
+### 8. Automated EagleTrax Authentication & Differential Staining Protocol (EagleTrax 自动化查询与 EM 超链接规范)
+- **Persistent SSO Session Re-use**: The AI leverages the persistent Playwright profile at `LOCALAPPDATA/pastdue_playwright_session` to bypass repetitive interactive logins.
+- **Direct Live Extraction**: When an EM plate has microbial recovery, the AI autonomously navigates to its EagleTrax `#TestDetails` tab, scrapes the Differential Staining results (e.g. `Gram (+) rods`, `Gram (+) cocci`), captures screenshot evidence, and feeds the findings directly into the report.
+- **EM Plate Hyperlink Invariance**: In Table 2, all positive EM Plate ETX numbers (e.g. `ETX-260908-0584` and `ETX-260908-0580`) **MUST ALWAYS** be embedded with clickable hyperlinks directly to their test details URL.
+- **Defensive Temporary File Export**: Always compile through intermediate files (`temp_tables_export.pdf`) so desktop file locks (Acrobat/Edge) do not crash generation.
+
+

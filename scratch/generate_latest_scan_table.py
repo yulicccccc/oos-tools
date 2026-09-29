@@ -188,7 +188,7 @@ def build_tables():
         format_cell(cell, title_text, bold=True, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT, fill_hex="E8E8E8")
         return row
 
-    def add_data_row(table, site, freq, date_str, analyst, day_week, obs, etx_num, micro_id, notes):
+    def add_data_row(table, site, freq, date_str, analyst, day_week, obs, etx_num, micro_id, notes, etx_url=None):
         row = table.add_row()
         format_cell(row.cells[0], site, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
         format_cell(row.cells[1], freq, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -196,7 +196,19 @@ def build_tables():
         format_cell(row.cells[3], analyst, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[4], day_week, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[5], obs, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-        format_cell(row.cells[6], etx_num, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+        
+        if etx_url:
+            c = row.cells[6]
+            c.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+            set_cell_margins(c)
+            p = c.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.space_after = Pt(0)
+            add_hyperlink(p, etx_url, etx_num, font_size=Pt(7))
+        else:
+            format_cell(row.cells[6], etx_num, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+            
         format_cell(row.cells[7], micro_id, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         format_cell(row.cells[8], notes, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         return row
@@ -215,11 +227,11 @@ def build_tables():
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, "Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for 25Aug26")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "5 CFU\n(ISO 8 142)", "ETX-260908-0584", "Pending", "None")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "5 CFU\n(ISO 8 142)", "ETX-260908-0584", "Gram (+) rods,\nGram (+) cocci", "None", etx_url="https://etrax.eagleanalytical.com/SubmissionTest/Details/sPDE26htF1Ujkzz%2433Fmdw__")
 
     # --- Section 4: Weekly Surface ---
     add_section_divider(t2, "Weekly Surface Sampling of CR 145 (E001979) with Processing BSC for 25Aug26")
-    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "1 CFU\n(ISO 8 143)", "ETX-260908-0580", "Pending", "None")
+    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "1 CFU\n(ISO 8 143)", "ETX-260908-0580", "Gram (+) rods", "None", etx_url="https://etrax.eagleanalytical.com/SubmissionTest/Details/9sbaVz3diyMXByV5bAGJ5A__")
 
     # Set column widths across all rows
     for row in t2.rows:
@@ -249,18 +261,38 @@ if __name__ == "__main__":
     out_docx_docs = os.path.join(DOCUMENTS_DIR, "Tables OOS-261967 TAM Pharmacy (E74685) - ScanRDI.docx")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, "Tables OOS-261967 TAM Pharmacy (E74685) - ScanRDI.pdf")
 
-    doc.save(out_docx_desktop)
-    print(f"Saved DOCX: {out_docx_desktop}")
-    export_to_pdf(out_docx_desktop, out_pdf_desktop)
+    temp_pdf = os.path.join(SCRATCH_DIR, "temp_tables_export.pdf")
 
-    doc.save(out_docx_docs)
-    print(f"Saved DOCX: {out_docx_docs}")
+    try:
+        doc.save(out_docx_desktop)
+        print(f"Saved DOCX: {out_docx_desktop}")
+    except Exception as e:
+        print(f"Desktop DOCX write note: {e}")
+
+    try:
+        doc.save(out_docx_docs)
+        print(f"Saved DOCX: {out_docx_docs}")
+    except Exception as e:
+        print(f"Documents DOCX write note: {e}")
+
+    # Export to temp PDF first
+    export_to_pdf(out_docx_docs, temp_pdf)
+
     import shutil
-    shutil.copy2(out_pdf_desktop, out_pdf_docs)
-    print(f"Saved PDF: {out_pdf_docs}")
+    try:
+        shutil.copy2(temp_pdf, out_pdf_docs)
+        print(f"Saved PDF: {out_pdf_docs}")
+    except Exception as e:
+        print(f"Documents PDF note: {e}")
+
+    try:
+        shutil.copy2(temp_pdf, out_pdf_desktop)
+        print(f"Saved PDF: {out_pdf_desktop}")
+    except Exception as e:
+        print(f"Desktop PDF is currently open/locked: {e}")
 
     # Render preview image
-    doc_fitz = fitz.open(out_pdf_desktop)
+    doc_fitz = fitz.open(temp_pdf)
     pix = doc_fitz[0].get_pixmap(dpi=150)
     preview_img = os.path.join(SCRATCH_DIR, "latest_tables_preview.png")
     pix.save(preview_img)
