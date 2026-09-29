@@ -338,8 +338,8 @@ except PermissionError:
 
 # B. Main Word Report
 personnel_block = (
-    "Prepper: \nAndrew Carrillo (AC)\n\n"
-    "Processor:\nGabrielle Surber (GS)\n\n"
+    "Prepping Analyst:\nAndrew Carrillo (AC)\n\n"
+    "Processing Analyst:\nGabrielle Surber (GS)\n\n"
     "Aliquoting Analyst:\nCuong Du (CCD)\n\n"
     "Reading Analyst:\nAmerica Alanis (ALA)"
 )
@@ -415,15 +415,21 @@ for w in page1.widgets():
     elif fn == 'Date Field0': w.field_value = '01-Sep-2026'
     elif fn == 'Date Field1': w.field_value = '08-Sep-2026'
     elif fn == 'Date Field2': w.field_value = '08-Sep-2026'
-    elif fn == 'Text Field1': w.field_value = 'Celsis Sterility Test'
+    elif fn == 'Text Field1':
+        w.text_fontsize = 8.5
+        w.field_value = 'Celsis Sterility Test'
     elif fn == 'Text Field2': w.field_value = 'ETX-260828-0527'
     elif fn == 'Text Field3':
-        w.text_fontsize = 6.2
+        w.text_fontsize = 7.0
         w.field_value = (
-            "Andrew Carrillo (AC)\r(Celsis Sterility Prepper)\r"
-            "Gabrielle Surber (GS)\r(Celsis Sterility Processor)\r"
-            "Cuong Du (CCD)\r(Celsis Sterility Aliquoting Analyst)\r"
-            "America Alanis (ALA)\r(Celsis Sterility Reading Analyst)"
+            "Prepping Analyst:\r"
+            "Andrew Carrillo (AC)\r \r"
+            "Processing Analyst:\r"
+            "Gabrielle Surber (GS)\r \r"
+            "Aliquoting Analyst:\r"
+            "Cuong Du (CCD)\r \r"
+            "Reading Analyst:\r"
+            "America Alanis (ALA)"
         )
     elif fn == 'Text Field4': w.field_value = 'MOTs-C 10 MG/ML (5 ML) Injection\r \r \r \r'
     elif fn == 'Text Field5': w.field_value = 'Injection'
@@ -439,14 +445,18 @@ for w in page1.widgets():
     elif fn == 'Text Field12': w.field_value = 'Kathan Parikh'
     elif fn == 'Date Field3': w.field_value = '08-Sep-2026'
     elif fn == 'Text Field13':
-        w.text_fontsize = 6.8
+        w.text_fontsize = 6.2
         w.field_value = 'Yes, analysts Andrew Carrillo, Gabrielle Surber, America Alanis & Cuong Du were comprehensively interviewed.'
     elif fn == 'Text Field14': w.field_value = 'Yes, Sample ID: ETX-260828-0527'
     elif fn in ['Text Field15', 'Text Field16']: w.field_value = 'Yes, as per MICRO-SOP-44'
-    elif fn == 'Text Field17': w.field_value = 'Yes, Information is available in Eagle Trax under ETX-260828-0527'
+    elif fn == 'Text Field17':
+        w.text_fontsize = 6.5
+        w.field_value = 'Yes, Information is available in EagleTrax under ETX-260828-0527'
     elif fn == 'Text Field18': w.field_value = 'Yes, all analysts are trained and qualified by the quality department to perform the test'
     elif fn in ['Text Field19', 'Text Field20']: w.field_value = 'Not Applicable'
-    elif fn == 'Text Field21': w.field_value = "Yes, the samples were stored refrigerated as per client's instructions"
+    elif fn == 'Text Field21':
+        w.text_fontsize = 6.5
+        w.field_value = "Yes, the samples were stored refrigerated as per client's instructions"
     elif fn in ['Check Box4', 'Check Box7', 'Check Box10', 'Check Box13', 'Check Box16', 'Check Box19',
                 'Check Box24', 'Check Box27', 'Check Box28', 'Check Box32', 'Check Box36', 'Check Box38']:
         w.field_value = 'Yes'
@@ -458,13 +468,11 @@ reagents_lots = (
     "Materials and Reagents\r"
     "TSB: 06242026-1\r"
     "FTM: 06162026-2\r"
-    "PBS (Phosphate Buffered Saline): 35725002\r"
-    "Bovine Serum Albumin (BSA): 245862\r \r"
-    "Celsis AmpiScreen Reagents:\r"
-    "Celsis Daily Wash & Rinse Kit:\r"
-    "Celsis ATP Positive Control:\r"
-    "Please refer to the data packet attached.\r \r \r"
-    "TSA and Surface Plates: Please refer to the Environmental Logs uploaded under the submission on EagleTrax\r \r"
+    "PBS: 35725002\r"
+    "BSA: 245862\r \r"
+    "Celsis Reagents & Kits:\r"
+    "Please refer to attached packet\r \r"
+    "TSA / Surface Plates: See EM logs\r \r"
     "Monthly Cleaning:\r"
     "H2O2 strips: 250409\r"
     "IPA: 01600581"
@@ -475,63 +483,63 @@ reagents_exp = (
     "TSB: 22 Sep 2026\r"
     "FTM: 14 Sep 2026\r"
     "PBS: 31 Dec 2027\r"
-    "Bovine Serum Albumin (BSA): 23 Jan 2028\r \r"
-    "Celsis AmpiScreen Reagents:\r"
-    "Celsis Daily Wash & Rinse Kit:\r"
-    "Celsis ATP Positive Control:\r"
-    "Please refer to the data packet attached.\r \r"
-    "TSA and Surface Plates: Please refer to the Environmental Logs uploaded under the submission on EagleTrax\r \r"
+    "BSA: 23 Jan 2028\r \r"
+    "Celsis Reagents & Kits:\r"
+    "Please refer to attached packet\r \r"
+    "TSA / Surface Plates: See EM logs\r \r"
     "Monthly Cleaning:\r"
     "H2O2 strips: Apr 2027\r"
     "IPA: Sep 2027"
 )
 
 incubator_list = (
-    "Incubator E001356\r"
-    "(Monitored by\r"
-    "Sensor E001450)\r \r"
-    "Incubator E001357\r"
-    "(Monitored by\r"
-    "Sensor E001449)\r \r"
-    "Incubator E001034\r"
-    "(Monitored by\r"
-    "Sensor E001501)\r \r \r"
-    "Incubator E001031\r"
-    "(Monitored by\r"
-    "Sensor E001505)"
+    "Incubator E001356 (Sensor E001450)\r"
+    "Incubator E001357 (Sensor E001449)\r"
+    "Incubator E001034 (Sensor E001501)\r"
+    "Incubator E001031 (Sensor E001505)"
 )
 
 incubator_cal = (
-    "Jan 2027\r"
-    "Feb 2027\r \r"
-    "Jan 2027\r"
-    "Feb 2027\r \r"
-    "Aug 2027\r"
-    "Feb 2027\r \r \r"
-    "Aug 2027\r"
-    "Feb 2027"
+    "Jan 2027 / Feb 2027\r"
+    "Jan 2027 / Feb 2027\r"
+    "Aug 2027 / Feb 2027\r"
+    "Aug 2027 / Feb 2027"
 )
 
 for w in page2.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn in ['Check Box42', 'Check Box43']: w.field_value = 'Yes'
-    elif fn == 'Text Field22': w.field_value = reagents_lots
-    elif fn == 'Text Field23': w.field_value = reagents_exp
+    elif fn == 'Text Field22':
+        w.text_fontsize = 5.8
+        w.field_value = reagents_lots
+    elif fn == 'Text Field23':
+        w.text_fontsize = 5.8
+        w.field_value = reagents_exp
     elif fn == 'Text Field24': w.field_value = 'Celsis ATP Positive Control\r \r'
     elif fn == 'Text Field25': w.field_value = '022601-1483'
     elif fn == 'Text Field26': w.field_value = '31 Jan 2027'
     elif fn in ['Text Field27', 'Text Field28', 'Text Field29']: w.field_value = 'Not Applicable '
     elif fn == 'Text Field30': w.field_value = 'E002222'
     elif fn == 'Text Field31': w.field_value = 'Sep 2026'
-    elif fn == 'Text Field32': w.field_value = 'E001736 (114), BSC E001316 \rE001736 (114), BSC E001798'
-    elif fn == 'Text Field33': w.field_value = 'Dec 2026, Jun 2027\rDec 2026, Jun 2027'
+    elif fn == 'Text Field32':
+        w.text_fontsize = 6.2
+        w.field_value = 'E001736 (114), BSC E001316\rE001736 (114), BSC E001798'
+    elif fn == 'Text Field33':
+        w.text_fontsize = 6.2
+        w.field_value = 'Dec 2026, Jun 2027\rDec 2026, Jun 2027'
     elif fn == 'Text Field34': w.field_value = 'E002222'
     elif fn == 'Text Field35': w.field_value = 'Sep 2026'
     elif fn in ['Text Field36', 'Text Field37', 'Text Field38', 'Text Field39']: w.field_value = 'Not Applicable'
-    elif fn in ['Text Field40', 'Text Field41', 'Text Field42', 'Text Field45']: w.field_value = 'See Phase I Summary'
-    elif fn == 'Text Field43': w.field_value = incubator_list
-    elif fn == 'Text Field44': w.field_value = incubator_cal
+    elif fn in ['Text Field40', 'Text Field41', 'Text Field42', 'Text Field45']:
+        w.text_fontsize = 8.0
+        w.field_value = 'See Phase I Summary'
+    elif fn == 'Text Field43':
+        w.text_fontsize = 6.2
+        w.field_value = incubator_list
+    elif fn == 'Text Field44':
+        w.text_fontsize = 6.2
+        w.field_value = incubator_cal
     elif fn in ['Check Box48', 'Check Box51', 'Check Box52', 'Check Box55', 'Check Box58',
                 'Check Box63', 'Check Box66', 'Check Box67', 'Check Box70', 'Check Box73']:
         w.field_value = 'Yes'
@@ -546,7 +554,7 @@ for w in page3.widgets():
     elif fn in ['Text Field46', 'Text Field47']: w.field_value = 'Not Applicable '
     elif fn == 'Text Field48': w.field_value = 'N/A QYC 08Sep2026'
     elif fn == 'Text Field49':
-        w.field_value = text_field_49.replace('\n', '\r')
+        w.field_value = text_field_49.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
 # Fill Page 4
@@ -556,7 +564,7 @@ for w in page4.widgets():
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field50':
         w.text_fontsize = 7.5
-        w.field_value = text_field_50.replace('\n', '\r').replace('₂', '2')
+        w.field_value = text_field_50.replace('₂', '2').replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
 # Fill Page 5
@@ -565,8 +573,8 @@ for w in page5.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field51':
-        w.text_fontsize = 7.0
-        w.field_value = text_field_51.replace('\n', '\r')
+        w.text_fontsize = 6.5
+        w.field_value = text_field_51.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
 # Fill Page 6
