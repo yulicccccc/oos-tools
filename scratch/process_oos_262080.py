@@ -184,8 +184,7 @@ p20 = (
     "reagents, supplies, or monitored laboratory environment. The initial Celsis OOS result therefore remains valid in accordance "
     "with the applicable laboratory OOS procedure. Subsequent microbial identification testing did not recover an organism; "
     "consequently, the organism identity and source of the positive result could not be determined within the laboratory "
-    "investigation. Further investigation and disposition, if required, should be performed in accordance with the applicable "
-    "OOS procedure and client quality requirements."
+    "investigation."
 )
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
