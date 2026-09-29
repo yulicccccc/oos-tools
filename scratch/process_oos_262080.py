@@ -141,7 +141,7 @@ p15 = (
     "(01Sep2026) and aliquoting (08Sep2026) dates showed no microbial recovery (0 CFU). Weekly active-air monitoring performed "
     "for the corresponding weeks identified 1 CFU in the outermost ISO 8 anteroom (114) on 04Sep2026 (under ETX-260914-0487, "
     "characterized as Gram (+) coccobacilli and Gram (+) rods) and 1 CFU in the same classified area on 10Sep2026 (under "
-    "ETX-260921-0520, identification currently in progress); no microbial recovery was observed from the ISO 7 cleanrooms "
+    "ETX-260921-0520, characterized as Gram (+) cocci); no microbial recovery was observed from the ISO 7 cleanrooms "
     "(114A and 114B) during either weekly active-air monitoring event. Weekly surface sampling across Suite 114 on both dates "
     "likewise demonstrated no microbial recovery across all evaluated locations. These data did not identify microbial recovery "
     "within the monitored ISO 5 critical processing areas or from the personnel monitoring associated with the testing activities.\n\n"
@@ -253,7 +253,7 @@ table_context = {
     "alq_obs_sett_dur_pro": "No growth",    "alq_etx_sett_dur_pro": "N/A",    "alq_id_sett_dur_pro": "N/A",
     "alq_af_obs_sett_dur_pro": "No growth", "alq_af_etx_sett_dur_pro": "N/A", "alq_af_id_sett_dur_pro": "N/A",
     
-    "alq_obs_air_wk_of": "1 CFU (ISO 8 114)", "alq_etx_air_wk_of": "ETX-260921-0520", "alq_id_air_wk_of": "Pending",
+    "alq_obs_air_wk_of": "1 CFU (ISO 8 114)", "alq_etx_air_wk_of": "ETX-260921-0520", "alq_id_air_wk_of": "Gram (+) cocci",
     "alq_obs_room_wk_of": "No growth",        "alq_etx_room_wk_of": "N/A",             "alq_id_room_wk_of": "N/A",
 }
 
@@ -320,8 +320,8 @@ set_cell_text(t3.rows[13].cells[3], "10Sep26")
 set_cell_text(t3.rows[13].cells[4], "SMO")
 set_cell_text(t3.rows[13].cells[8], "1 CFU (ISO 8 114)")
 set_cell_text(t3.rows[13].cells[9], "ETX-260921-0520")
-set_cell_text(t3.rows[13].cells[10], "Pending")
-set_cell_text(t3.rows[13].cells[11], "Pending")
+set_cell_text(t3.rows[13].cells[10], "Gram (+) cocci")
+set_cell_text(t3.rows[13].cells[11], "Gram (+) cocci")
 
 set_cell_text(t3.rows[15].cells[3], "10Sep26")
 set_cell_text(t3.rows[15].cells[4], "SMO")
