@@ -215,11 +215,11 @@ def build_tables():
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, "Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for 25Aug26")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "[Pending]", "[Pending]", "Week of Testing", "In Progress", "[Pending]", "Not Applicable", "None")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "5 CFU\n(ISO 8 142)", "ETX-260908-0584", "Pending", "None")
 
     # --- Section 4: Weekly Surface ---
     add_section_divider(t2, "Weekly Surface Sampling of CR 145 (E001979) with Processing BSC for 25Aug26")
-    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "[Pending]", "[Pending]", "Week of Testing", "In Progress", "[Pending]", "Not Applicable", "None")
+    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "28Aug26", "SMO", "Week of Testing", "1 CFU\n(ISO 8 143)", "ETX-260908-0580", "Pending", "None")
 
     # Set column widths across all rows
     for row in t2.rows:
