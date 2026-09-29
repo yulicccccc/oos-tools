@@ -138,3 +138,9 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 - **Strict Anti-Extrapolation Mandate (F02 ≠ F01)**: Having `F02` (Surface) does NOT mean `F01` (Settling) exists or is negative. NEVER extrapolate across logbooks. If `3.600.002.F01` (Settling) is absent from the provided PDF scan, the AI MUST NOT assume "No Growth" or extrapolate from surface plates. It MUST explicitly flag the missing document and mark it as `[Pending]` in all draft tables and narratives until physical scans are provided.
 - **Pre-Response Verification Gate**: When asked "还缺什么吗？" (Is anything missing?), systematically verify every page's header block against the 6-document checklist before answering.
 
+### 7. Universal Table 1 Clickable Hyperlink Standard (Table 1 原生交互超链接常态化规范)
+- Across ALL OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `EM`), whenever Table 1 is generated (in standalone table documents or master report Page 7/8 attachments), the Sample ID (`ETX-XXXXXX-XXXX`) **MUST ALWAYS** be embedded with an active, clickable external hyperlink directly pointing to its EagleTrax test details URL (`https://etrax.eagleanalytical.com/SubmissionTest/Details/...` or `/Submission/Details/...`).
+- **OpenXML Native Hyperlink Injection**: In `python-docx`, construct an XML relationship `<w:hyperlink r:id="...">` with `w:rStyle="Hyperlink"` and blue underline formatting (`#0000FF`).
+- **Word-to-PDF Interactive Preservation**: When converted via Word COM, the interactive link is compiled into the native PDF Annotation tree, ensuring QA reviewers and management can open the live EagleTrax sample page with a single click directly from any PDF reader.
+- **Mandatory Execution**: Never render the Sample ID as plain unlinked text if the submission URL or ETX ID is known.
+
