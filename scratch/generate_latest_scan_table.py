@@ -210,8 +210,8 @@ def build_tables():
     add_section_divider(t2, "Biological Safety Cabinet (BSC) EM for BSC E001319 for 25Aug26")
     add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "[Pending]", "[Pending]", "Not Applicable", "Pending scan")
+    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "[Pending]", "[Pending]", "Not Applicable", "Pending scan")
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, "Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for 25Aug26")
