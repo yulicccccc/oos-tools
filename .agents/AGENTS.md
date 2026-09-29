@@ -126,3 +126,15 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 ### 5. Defensive Post-Processing in Document Automation (自动化工程后置防御性校验)
 - Word templates may contain hardcoded static text in table cells (e.g., static `SMO` in weekly rows instead of Jinja2 tags).
 - Automation scripts must perform surgical run-level inspection and overwrites using `python-docx` to ensure the final delivered document matches ground truth data without breaking table formatting.
+
+### 6. Mandatory EM Logbook Census Protocol & Anti-Extrapolation Rule (台账严谨清点与零外推防陷阱法则)
+- **The 6-Document Complete EM Census Checklist**: Whenever an EM scan PDF is received, the AI MUST systematically verify the presence of all 6 standard microbiology logbooks before declaring any EM investigation dataset complete:
+  1. `3.600.002.F01` (Settling Sampling Logbook): Passive microbial settling in ISO 5 Critical Zone (BSC/LAFW).
+  2. `3.600.002.F02` (Surface Sampling Logbook): Contact plates 1–4 on ISO 5 BSC interior surfaces.
+  3. `3.600.002.F03` (Personnel Sampling Logbook): Operator left and right fingertip touch plates.
+  4. `3.600.002.F04` (Anteroom/Buffer Room Surface Sampling Logbook): ISO 7 buffer and ISO 8 anteroom contact plates.
+  5. `3.600.002.F05` (Active Air Sampling Logbook): Cleanroom volumetric active air monitoring plates.
+  6. `3.600.018.F05` (BSC Cleaning & Disinfection Logbook): Daily disinfection and contact time verification.
+- **Strict Anti-Extrapolation Mandate (F02 ≠ F01)**: Having `F02` (Surface) does NOT mean `F01` (Settling) exists or is negative. NEVER extrapolate across logbooks. If `3.600.002.F01` (Settling) is absent from the provided PDF scan, the AI MUST NOT assume "No Growth" or extrapolate from surface plates. It MUST explicitly flag the missing document and mark it as `[Pending]` in all draft tables and narratives until physical scans are provided.
+- **Pre-Response Verification Gate**: When asked "还缺什么吗？" (Is anything missing?), systematically verify every page's header block against the 6-document checklist before answering.
+

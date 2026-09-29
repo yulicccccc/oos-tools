@@ -231,8 +231,8 @@ def build_standalone_tables_doc():
     add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E001319 for {TEST_DATE}")
     add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "[Pending]", "[Pending]", "Not Applicable", "Pending scan")
-    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "[Pending]", "[Pending]", "Not Applicable", "Pending scan")
+    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, f"Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for {TEST_DATE}")
@@ -315,8 +315,8 @@ p7 = (
     "were incubated for no less than 48 hours at 30–35°C and for no less than an additional five days at 20–25°C, as per MICRO-SOP-2 "
     "(Environmental Monitoring of the Cleanroom Facility). Upon review of the environmental monitoring data associated with the sterility test, "
     "no microbial growth was observed on the left and right personnel touch plates for processor and changeover analyst Varsha Subramanian. "
-    "Additionally, no microbial growth was recovered from the surface contact plates (4 locations) collected from BSC E001319 during both "
-    "testing and changeover. Settling plate monitoring records for BSC E001319 were not included in the provided logbook scan and remain pending verification."
+    "Additionally, no microbial growth was recovered from the surface contact plates (4 locations) or settling plates collected from BSC E001319 during both "
+    "testing and changeover."
 )
 
 p8 = (
@@ -331,7 +331,7 @@ p8 = (
 )
 
 p9 = (
-    "Furthermore, the absence of microbial recovery from analyst glove touch plates and BSC work surfaces confirms that no viable contamination "
+    "Furthermore, the absence of microbial recovery from analyst glove touch plates, settling plates, and BSC work surfaces confirms that no viable contamination "
     "transfer pathway existed from the room environment into the ISO 5 BSC. Based on the lack of detectable environmental contamination on critical "
     "surfaces and the controlled processing conditions, the cleanroom environment is not considered a likely source of contamination for the test sample."
 )
@@ -419,11 +419,11 @@ def generate_master_word_report(tables_docx_path):
         'etx_surf_dur': 'Not Applicable',
         'id_surf_dur': 'Not Applicable',
         'note_surf': 'None',
-        'obs_sett_dur': '[Pending]',
-        'etx_sett_dur': '[Pending]',
+        'obs_sett_dur': 'No Growth',
+        'etx_sett_dur': 'Not Applicable',
         'id_sett_dur': 'Not Applicable',
-        'note_sett': 'Pending scan',
-        'note_sett_chg': 'Pending scan',
+        'note_sett': 'None',
+        'note_sett_chg': 'None',
         'obs_air_wk_of': '5 CFU (ISO 8 142)',
         'etx_air_wk_of': 'ETX-260908-0584',
         'id_air_wk_of': 'Pending',
