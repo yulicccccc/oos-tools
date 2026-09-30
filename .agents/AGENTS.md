@@ -232,32 +232,34 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 #### 4. Universal Invariance (全模块一律适用)
 - This schedule and prior bracketing rule apply universally across **ALL OOS modules** (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring (EM)`).
 
-### 13. Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范)
+### 13. Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范 - 🚨 重大错误警示与永久铁律)
 **CRITICAL**: In any laboratory OOS investigation (under FDA Phase I & Eagle OOS SOP requirements across `ScanRDI`, `Celsis`, `USP <71>`), an analysis of the client's past 6-month historical sample and testing performance is a mandatory regulatory component of the investigation report narrative (e.g., Page 5 `Text Field51` or Word report narrative):
 `"An analysis of the six-month sample history for [Client Name] ([Client ID]) indicates that Eagle Analytical processed [N] samples for [Test Method] with [no / X] prior occurrences of an out-of-specification or positive result for this analyte during this period."`
 
-#### 1. Strict Prohibition of Hallucinating 6-Month History (严禁私自脑补与伪造 6 个月历史)
-- **ZERO HALLUCINATION (绝对禁止凭空捏造)**:
-  - The AI is **strictly forbidden** from assuming or writing "no prior occurrences", "0 prior failures", or omitting the total sample count without actual historical query data from EagleTrax / LIMS!
-  - Blindly claiming "processed samples with no prior occurrences" without verifying the true data is a fatal cGMP compliance failure. If the client actually had prior failing lots, false reporting in an FDA investigation document constitutes severe regulatory falsification.
+#### 1. 🚨 血的教训与致命错误警示 (Lesson Learned & Permanent Ban)
+- **ZERO HALLUCINATION & FATAL MISTAKE (曾经发生的重大失误，绝不再犯！)**:
+  - 曾经在起草 OOS 报告时，漏问客户 6 个月送检历史，或直接使用没有确凿数据支撑的模糊空话（如 "processed samples with no prior occurrences"）。
+  - 在 cGMP / FDA 审计标准下，任何未经验证的历史陈述均属严重合规漏洞！如果客户实际存在历史不合格批次，调查报告中随意定论将构成严重的合规造假隐患！
+  - **现已永久固化为全模块铁律：严禁在未穿透核实真实数据前私自草拟或定论客户历史记录！**
 
 #### 2. Mandatory 3 Core Data Elements (必须明确的 3 大要素)
 Whenever writing or populating the 6-month historical review narrative, the AI MUST obtain the following 3 verified data points:
-1. **Total Samples Processed in Last 6 Months (过去 6 个月送检总样本数)**:
+1. **Total Samples Processed in Last 6 Months (分母：过去 6 个月送检总样本数)**:
    - Must be an exact number (e.g., `210 samples`, `660 samples`, `1,292 samples`).
    - Never write a vague phrase like `"processed samples"` without the exact numerical count.
-2. **Prior Failing / Positive Occurrence Count (历史不合格 / 阳性发生次数)**:
+2. **Prior Failing / Positive Occurrence Count (分子：历史不合格 / 阳性发生次数)**:
    - Must be verified: `0` (no prior occurrences) OR `N` occurrences ($N \ge 1$).
 3. **Prior Incident Breakdown (如有历史阳性，必须提供完整清单)**:
    - If $N \ge 1$: Must provide OOS #, Sample ID (ETX), Submission Date, Analyte / Product Name, and Microbial Identification (Gram stain / morphology).
    - If $N > 3$: Must evaluate triggering Table 3 (Trend Table).
 
-#### 3. Pre-Flight Census Gate (调查前置必问门禁)
-- At the start of drafting any OOS report, if the user has not provided the 6-month client historical sample data, the AI **MUST PROACTIVELY ASK** the user:
+#### 3. Pre-Flight 2-Step Census Gate (前置必查与主动询问门禁)
+At the start of drafting any OOS report, the AI must strictly execute this 2-step verification protocol:
+- **Step 1 (查分子)**: 自动通过企业 SSO 访问 SharePoint 中央台账 `Sterile Lab - OOS Tracking Log.xlsx`，穿透检索对应的测试 Sheet（`Celsis Sterility OOS`、`Scan RDI OOS`、`<71> OOS`、`EM OOS` 等），提取确切先前 OOS 记录数及详细清单；
+- **Step 2 (问分母)**: 若分母未在输入中提供，AI **必须主动向用户询问**该客户过去 6 个月的送检总数，获取核实后方可合流入报告，杜绝任何臆想！
   1. 过去 6 个月该客户在 Eagle 共送检了多少批次/样本进行该项检测？
   2. 过去 6 个月该客户/该产品是否有任何阳性或 OOS 历史记录？
   3. 若有历史阳性，具体的 OOS 编号、ETX 编号、日期及微生物鉴定结果是什么？
-- Under no circumstances may the AI silently guess or default to 0 without user confirmation!
 
 #### 4. Central Sterile Lab OOS Tracking Log Integration (SharePoint 中央 OOS 台账自动查验规范)
 - **Authoritative Data Source**: The central live tracking workbook for the Sterile Microbiology Lab is hosted on SharePoint:

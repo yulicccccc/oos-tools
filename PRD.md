@@ -77,10 +77,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - November 2026: November 15, 2026 & November 29, 2026
             - December 2026: December 13, 2026 & December 27, 2026
         *   **Prior Bracketing Logic & Anti-Post-Event Invariance:** When generating investigation narratives, the cleaning date is strictly resolved to the most recent cleaning event occurring **BEFORE** the sample processing/testing date ($\text{cleaning\_date} < \text{event\_date}$). **Strictly forbids citing cleaning dates that occurred AFTER processing** (no forward-looking post-hoc validation; eliminates month-name cognitive trap).
-    17. *Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范):*
-        *   **Strict Anti-Hallucination Mandate:** The AI is strictly forbidden from writing "no prior occurrences" or omitting total sample counts without verified EagleTrax / LIMS historical query data.
-        *   **3 Core Required Elements:** (1) Total samples processed for client under the method in past 6 months; (2) Exact count of prior failures/positives (0 or N); (3) If $N \ge 1$, detailed list of OOS #, ETX #, Dates, Analytes, and Organisms (triggering Table 3 if $N > 3$).
-        *   **Pre-Flight Proactive Prompt Gate:** If 6-month historical data is missing from user input, the AI must proactively request it before drafting narrative sections.
+    17. *Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范 - 🚨 重大错误警示与永久铁律):*
+        *   **🚨 血的教训与致命错误警示 (Lesson Learned & Permanent Ban):** 曾发生重大失误（起草 OOS 报告时未向用户核实客户 6 个月历史送检记录，或使用无真实数据支撑的套话 "processed samples with no prior occurrences"）。在 cGMP / FDA 审计标准下，任何未经验证的历史陈述均属严重合规漏洞！现已永久固化进 PRD：**严禁在未穿透核实真实数据前私自草拟或定论客户历史记录！**
+        *   **3 Core Required Elements (必须获取的 3 大要素):**
+            1. 分母：过去 6 个月送检总样本数（Total Samples Processed，精确数字，如 `120 samples`，严禁写模糊的 "samples"）；
+            2. 分子：先前 OOS / 阳性发生次数（Prior Occurrences Count，0 或 N）；
+            3. 清单：若 $N \ge 1$，必须附带完整 OOS #、ETX #、检测日期、产品名称与微生物鉴定结果（若 $N > 3$ 必须触发趋势表 Table 3）。
+        *   **Pre-Flight Proactive Prompt Gate (前置必查与主动询问门禁):** 调查启动前，AI 必须主动执行两步核验：
+            1. **Step 1 (查分子)**：通过企业 SSO 自动访问并审计 SharePoint 中央台账 `Sterile Lab - OOS Tracking Log.xlsx`，穿透检索对应的测试 Sheet（`Celsis Sterility OOS`、`Scan RDI OOS`、`<71> OOS`、`EM OOS` 等），提取确切先前 OOS 记录数及详细清单；
+            2. **Step 2 (问分母)**：若分母未提供，AI 必须主动向用户询问该客户过去 6 个月的送检总数，获取核实后方可合流入报告，杜绝任何臆想！
     18. *Central Sterile Lab OOS Tracking Log Protocol (SharePoint 中央 OOS 台账自动查验规范):*
         *   **Authoritative SharePoint Source:** The central tracking workbook for the Sterile Microbiology Lab is hosted on SharePoint: `Sterile Lab - OOS Tracking Log.xlsx`. Tabs include: `Celsis Sterility OOS`, `Scan RDI OOS`, `<71> OOS`, `EM OOS`, `USP <85> OOS`, `Particulate OOS`, `Media Fill OOS`, `OOS info for Priority Clients`, etc.
         *   **SSO Autonomous Access:** The AI programmatically accesses SharePoint via Playwright using persistent corporate SSO session (`LOCALAPPDATA/pastdue_playwright_session`) to export/download the latest workbook and run automated multi-sheet audits.
