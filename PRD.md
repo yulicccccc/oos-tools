@@ -97,6 +97,13 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - **DO NOT** tack on: `"Subsequent microbial identification testing did not recover an organism; consequently, the organism identity and source of the positive result could not be determined within the laboratory investigation."` (already stated in the subculture section; adding it here sounds robotic and "unlike human writing").
             - **DO NOT** tack on: `"Further investigation and disposition, if required, should be performed in accordance with the applicable OOS procedure and client quality requirements."` (supervisors like Robin Seymour perform routine review and disposition routing).
             - Keep the conclusion natural, concise, and 100% human-like.
+    20. *Human-Centric Typography, Punctuation & Method Designation Rule (极致拟人化标点与检测记录规范):*
+        *   **Elimination of Robotic Punctuation in Narrative Prose (杜绝机械符号，尽量用自然完整句子):**
+            - **Strict Ban on Semicolons (`;`):** Human laboratory analysts rarely use semicolons in OOS narrative summaries. Split ideas into separate, complete, and fluent sentences.
+            - **Strict Ban on Dashes (`--` or `—`):** Replace parenthetical dashes with natural prepositional phrases or appositives (e.g. change `"analysts – AC, GS – were interviewed"` to `"analysts involved in prepping and processing were interviewed, including Andrew Carrillo and Gabrielle Surber"`).
+            - **Strict Ban on Colons (`:`) in Continuous Narrative:** Do not use colons like `Processing:` or `lot: LG342010349` in continuous narrative paragraphs. Use natural phrasing like `lot LG342010349` or `For Celsis processing, ...`.
+            - **Minimal/Zero Parentheses in Narrative Prose:** Avoid excessive bracketed insertions like `(AC)`, `(114)`, `(01Sep2026)`, `(FTM cutoff = 2955 RLU)`, or `(Environmental Monitoring...)`. Embed these naturally into the grammatical flow of the sentence.
+        *   **Clarity on Method & Suitability Reference Numbers:** Whenever citing internal method or suitability numbers (e.g. `2601120497`), always qualify with descriptive nouns such as `"suitability method record 2601120497"` or `"suitability test record 2601120497"` so any external auditor, client, or QA reviewer immediately understands the document context.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

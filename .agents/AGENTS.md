@@ -285,6 +285,18 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 3. **Ergonomic & Natural Space Utilization**:
    Removing these redundant clauses ensures that Page 5 text flows naturally without overflowing the box, eliminating bottom voids and keeping the report 100% human-looking.
 
+### 15. Human-Centric Typography, Punctuation & Method Designation Rule (极致拟人化标点与检测记录规范)
+**CRITICAL**: Across all OOS investigation narratives (`ScanRDI`, `Celsis`, `USP <71>`, `Environmental Monitoring (EM)`):
+1. **Elimination of Robotic Punctuation in Narrative Prose (杜绝机械符号，尽量用自然完整句子)**:
+   - **Strict Ban on Semicolons (`;`)**: Human laboratory analysts rarely use semicolons in OOS narrative summaries. Split multi-clause ideas into separate, complete, and fluent sentences.
+   - **Strict Ban on Dashes (`--` or `—`)**: Replace parenthetical dashes with natural prepositional phrases or appositives (e.g. change `"analysts – AC, GS – were interviewed"` to `"analysts involved in prepping and processing were interviewed, including Andrew Carrillo and Gabrielle Surber"`).
+   - **Strict Ban on Colons (`:`) in Continuous Narrative**: Do not use colons like `Processing:` or `lot: LG342010349` in continuous narrative paragraphs. Use natural phrasing like `lot LG342010349` or `For Celsis processing, ...`.
+   - **Minimal/Zero Parentheses in Narrative Prose**: Avoid excessive bracketed insertions like `(AC)`, `(114)`, `(01Sep2026)`, `(FTM cutoff = 2955 RLU)`, or `(Environmental Monitoring...)`. Embed these naturally into the grammatical flow of the sentence.
+2. **Clarity on Method & Suitability Reference Numbers**:
+   - Whenever citing internal method or suitability numbers (e.g. `2601120497`), always qualify with descriptive nouns such as `"suitability method record 2601120497"` or `"suitability test record 2601120497"` so any external auditor, client, or QA reviewer immediately understands what the number designates.
+3. **Sentence-Driven Flow (尽量用完整句子)**:
+   - Express thoughts in complete, professional, flowing sentences rather than fragmented clauses or bracketed shorthand.
+
 
 
 
