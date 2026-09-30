@@ -437,7 +437,6 @@ for w in page1.widgets():
     elif fn == 'Text Field7':
         w.text_fontsize = 7.5
         w.field_value = 'On 08 Sep 2026, sample ETX-260828-0527 was found to be positive for growth after Celsis Sterility Testing\r \r'
-    elif fn in ['Check Box0', 'Check Box1', 'Check Box2']: w.field_value = 'Yes'
     elif fn == 'Text Field8': w.field_value = 'MICRO-SOP-44'
     elif fn == 'Text Field9': w.field_value = '03-Jan-2025'
     elif fn == 'Text Field10': w.field_value = '01'
@@ -457,9 +456,14 @@ for w in page1.widgets():
     elif fn == 'Text Field21':
         w.text_fontsize = 6.5
         w.field_value = "Yes, the samples were stored refrigerated as per client's instructions"
-    elif fn in ['Check Box4', 'Check Box7', 'Check Box10', 'Check Box13', 'Check Box16', 'Check Box19',
-                'Check Box24', 'Check Box27', 'Check Box28', 'Check Box32', 'Check Box36', 'Check Box38']:
-        w.field_value = 'Yes'
+    elif fn.startswith('Check Box'):
+        page1_yes_boxes = {
+            'Check Box0', 'Check Box1', 'Check Box2',
+            'Check Box4', 'Check Box7', 'Check Box10', 'Check Box13',
+            'Check Box16', 'Check Box19', 'Check Box24', 'Check Box27',
+            'Check Box28', 'Check Box32', 'Check Box34', 'Check Box38'
+        }
+        w.field_value = 'Yes' if fn in page1_yes_boxes else 'Off'
     w.update()
 
 # Fill Page 2
@@ -509,7 +513,6 @@ incubator_cal = (
 for w in page2.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
-    elif fn in ['Check Box42', 'Check Box43']: w.field_value = 'Yes'
     elif fn == 'Text Field22':
         w.text_fontsize = 5.8
         w.field_value = reagents_lots
@@ -540,9 +543,13 @@ for w in page2.widgets():
     elif fn == 'Text Field44':
         w.text_fontsize = 6.2
         w.field_value = incubator_cal
-    elif fn in ['Check Box48', 'Check Box51', 'Check Box52', 'Check Box55', 'Check Box58',
-                'Check Box63', 'Check Box66', 'Check Box67', 'Check Box70', 'Check Box73']:
-        w.field_value = 'Yes'
+    elif fn.startswith('Check Box'):
+        page2_yes_boxes = {
+            'Check Box42', 'Check Box43', 'Check Box48', 'Check Box51',
+            'Check Box52', 'Check Box55', 'Check Box58', 'Check Box63',
+            'Check Box66', 'Check Box67', 'Check Box70', 'Check Box73'
+        }
+        w.field_value = 'Yes' if fn in page2_yes_boxes else 'Off'
     w.update()
 
 # Fill Page 3
@@ -550,7 +557,8 @@ page3 = doc_pdf[2]
 for w in page3.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
-    elif fn in ['Check Box78', 'Check Box79']: w.field_value = 'Yes'
+    elif fn.startswith('Check Box'):
+        w.field_value = 'Yes' if fn in {'Check Box78', 'Check Box79'} else 'Off'
     elif fn in ['Text Field46', 'Text Field47']: w.field_value = 'Not Applicable '
     elif fn == 'Text Field48': w.field_value = 'N/A QYC 08Sep2026'
     elif fn == 'Text Field49':
@@ -582,7 +590,8 @@ page6 = doc_pdf[5]
 for w in page6.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
-    elif fn == 'Check Box88': w.field_value = 'Yes'
+    elif fn.startswith('Check Box'):
+        w.field_value = 'Yes' if fn == 'Check Box88' else 'Off'
     elif fn == 'Text Field53': w.field_value = 'Qiyue Chen'
     elif fn == 'Text Field54': w.field_value = 'Robin Seymour'
     w.update()
