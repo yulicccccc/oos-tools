@@ -232,6 +232,34 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 #### 4. Universal Invariance (全模块一律适用)
 - This schedule and prior bracketing rule apply universally across **ALL OOS modules** (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring (EM)`).
 
+### 13. Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范)
+**CRITICAL**: In any laboratory OOS investigation (under FDA Phase I & Eagle OOS SOP requirements across `ScanRDI`, `Celsis`, `USP <71>`), an analysis of the client's past 6-month historical sample and testing performance is a mandatory regulatory component of the investigation report narrative (e.g., Page 5 `Text Field51` or Word report narrative):
+`"An analysis of the six-month sample history for [Client Name] ([Client ID]) indicates that Eagle Analytical processed [N] samples for [Test Method] with [no / X] prior occurrences of an out-of-specification or positive result for this analyte during this period."`
+
+#### 1. Strict Prohibition of Hallucinating 6-Month History (严禁私自脑补与伪造 6 个月历史)
+- **ZERO HALLUCINATION (绝对禁止凭空捏造)**:
+  - The AI is **strictly forbidden** from assuming or writing "no prior occurrences", "0 prior failures", or omitting the total sample count without actual historical query data from EagleTrax / LIMS!
+  - Blindly claiming "processed samples with no prior occurrences" without verifying the true data is a fatal cGMP compliance failure. If the client actually had prior failing lots, false reporting in an FDA investigation document constitutes severe regulatory falsification.
+
+#### 2. Mandatory 3 Core Data Elements (必须明确的 3 大要素)
+Whenever writing or populating the 6-month historical review narrative, the AI MUST obtain the following 3 verified data points:
+1. **Total Samples Processed in Last 6 Months (过去 6 个月送检总样本数)**:
+   - Must be an exact number (e.g., `210 samples`, `660 samples`, `1,292 samples`).
+   - Never write a vague phrase like `"processed samples"` without the exact numerical count.
+2. **Prior Failing / Positive Occurrence Count (历史不合格 / 阳性发生次数)**:
+   - Must be verified: `0` (no prior occurrences) OR `N` occurrences ($N \ge 1$).
+3. **Prior Incident Breakdown (如有历史阳性，必须提供完整清单)**:
+   - If $N \ge 1$: Must provide OOS #, Sample ID (ETX), Submission Date, Analyte / Product Name, and Microbial Identification (Gram stain / morphology).
+   - If $N > 3$: Must evaluate triggering Table 3 (Trend Table).
+
+#### 3. Pre-Flight Census Gate (调查前置必问门禁)
+- At the start of drafting any OOS report, if the user has not provided the 6-month client historical sample data, the AI **MUST PROACTIVELY ASK** the user:
+  1. 过去 6 个月该客户在 Eagle 共送检了多少批次/样本进行该项检测？
+  2. 过去 6 个月该客户/该产品是否有任何阳性或 OOS 历史记录？
+  3. 若有历史阳性，具体的 OOS 编号、ETX 编号、日期及微生物鉴定结果是什么？
+- Under no circumstances may the AI silently guess or default to 0 without user confirmation!
+
+
 
 
 

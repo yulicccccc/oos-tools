@@ -77,6 +77,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - November 2026: November 15, 2026 & November 29, 2026
             - December 2026: December 13, 2026 & December 27, 2026
         *   **Prior Bracketing Logic & Anti-Post-Event Invariance:** When generating investigation narratives, the cleaning date is strictly resolved to the most recent cleaning event occurring **BEFORE** the sample processing/testing date ($\text{cleaning\_date} < \text{event\_date}$). **Strictly forbids citing cleaning dates that occurred AFTER processing** (no forward-looking post-hoc validation; eliminates month-name cognitive trap).
+    17. *Mandatory 6-Month Client Sample History Census Protocol (客户 6 个月历史记录严谨审查与防臆想门禁规范):*
+        *   **Strict Anti-Hallucination Mandate:** The AI is strictly forbidden from writing "no prior occurrences" or omitting total sample counts without verified EagleTrax / LIMS historical query data.
+        *   **3 Core Required Elements:** (1) Total samples processed for client under the method in past 6 months; (2) Exact count of prior failures/positives (0 or N); (3) If $N \ge 1$, detailed list of OOS #, ETX #, Dates, Analytes, and Organisms (triggering Table 3 if $N > 3$).
+        *   **Pre-Flight Proactive Prompt Gate:** If 6-month historical data is missing from user input, the AI must proactively request it before drafting narrative sections.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
