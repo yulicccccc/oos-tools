@@ -259,6 +259,16 @@ Whenever writing or populating the 6-month historical review narrative, the AI M
   3. 若有历史阳性，具体的 OOS 编号、ETX 编号、日期及微生物鉴定结果是什么？
 - Under no circumstances may the AI silently guess or default to 0 without user confirmation!
 
+#### 4. Central Sterile Lab OOS Tracking Log Integration (SharePoint 中央 OOS 台账自动查验规范)
+- **Authoritative Data Source**: The central live tracking workbook for the Sterile Microbiology Lab is hosted on SharePoint:
+  `Sterile Lab - OOS Tracking Log.xlsx`
+  Tabs include: `Celsis Sterility OOS`, `Scan RDI OOS`, `<71> OOS`, `EM OOS`, `USP <85> OOS`, `Particulate OOS`, `Media Fill OOS`, `OOS info for Priority Clients`, etc.
+- **SSO Autonomous Access**: The AI can programmatically access SharePoint via Playwright using the persistent corporate SSO session (`LOCALAPPDATA/pastdue_playwright_session`) to export/download the latest workbook and run automated audits.
+- **Role Differentiation (分子 vs 分母)**:
+  - **Numerator (先前 OOS 记录数 $N$)**: Derived directly and strictly from the tracking log sheets by matching Client Name / Client ID / Method within the 6-month window ($T - 6\text{ months}$ to $T$).
+  - **Denominator (送检总样本数 $Total$)**: Because the tracking log tracks OOS events, the overall sample count ($Total$) must be retrieved from LIMS / EagleTrax or confirmed with the user.
+
+
 
 
 

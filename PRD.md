@@ -81,6 +81,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Strict Anti-Hallucination Mandate:** The AI is strictly forbidden from writing "no prior occurrences" or omitting total sample counts without verified EagleTrax / LIMS historical query data.
         *   **3 Core Required Elements:** (1) Total samples processed for client under the method in past 6 months; (2) Exact count of prior failures/positives (0 or N); (3) If $N \ge 1$, detailed list of OOS #, ETX #, Dates, Analytes, and Organisms (triggering Table 3 if $N > 3$).
         *   **Pre-Flight Proactive Prompt Gate:** If 6-month historical data is missing from user input, the AI must proactively request it before drafting narrative sections.
+    18. *Central Sterile Lab OOS Tracking Log Protocol (SharePoint 中央 OOS 台账自动查验规范):*
+        *   **Authoritative SharePoint Source:** The central tracking workbook for the Sterile Microbiology Lab is hosted on SharePoint: `Sterile Lab - OOS Tracking Log.xlsx`. Tabs include: `Celsis Sterility OOS`, `Scan RDI OOS`, `<71> OOS`, `EM OOS`, `USP <85> OOS`, `Particulate OOS`, `Media Fill OOS`, `OOS info for Priority Clients`, etc.
+        *   **SSO Autonomous Access:** The AI programmatically accesses SharePoint via Playwright using persistent corporate SSO session (`LOCALAPPDATA/pastdue_playwright_session`) to export/download the latest workbook and run automated multi-sheet audits.
+        *   **Numerator vs. Denominator Protocol:** Prior OOS count ($N$) is extracted directly and verified against the log. Denominator (total samples processed in 6 months) is obtained from EagleTrax/LIMS or confirmed with the user.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
