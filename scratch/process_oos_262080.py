@@ -497,16 +497,16 @@ reagents_exp = (
 )
 
 incubator_list = (
-    "Incubator E001356 (Sensor E001450)\r"
-    "Incubator E001357 (Sensor E001449)\r"
-    "Incubator E001034 (Sensor E001501)\r"
-    "Incubator E001031 (Sensor E001505)"
+    "Incubator E001356 (Sensor\rE001450)\r \r"
+    "Incubator E001357 (Sensor\rE001449)\r \r"
+    "Incubator E001034 (Sensor\rE001501)\r \r"
+    "Incubator E001031 (Sensor\rE001505)"
 )
 
 incubator_cal = (
-    "Jan 2027 / Feb 2027\r"
-    "Jan 2027 / Feb 2027\r"
-    "Aug 2027 / Feb 2027\r"
+    "Jan 2027 / Feb 2027\r \r \r"
+    "Jan 2027 / Feb 2027\r \r \r"
+    "Aug 2027 / Feb 2027\r \r \r"
     "Aug 2027 / Feb 2027"
 )
 
@@ -538,10 +538,10 @@ for w in page2.widgets():
         w.text_fontsize = 8.0
         w.field_value = 'See Phase I Summary'
     elif fn == 'Text Field43':
-        w.text_fontsize = 6.2
+        w.text_fontsize = 6.0
         w.field_value = incubator_list
     elif fn == 'Text Field44':
-        w.text_fontsize = 6.2
+        w.text_fontsize = 6.0
         w.field_value = incubator_cal
     elif fn.startswith('Check Box'):
         page2_yes_boxes = {

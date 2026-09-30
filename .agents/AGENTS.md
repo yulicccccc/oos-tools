@@ -150,4 +150,31 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 - **EM Plate Hyperlink Invariance**: In Table 2, all positive EM Plate ETX numbers (e.g. `ETX-260908-0584` and `ETX-260908-0580`) **MUST ALWAYS** be embedded with clickable hyperlinks directly to their test details URL.
 - **Defensive Temporary File Export**: Always compile through intermediate files (`temp_tables_export.pdf`) so desktop file locks (Acrobat/Edge) do not crash generation.
 
+### 9. Page 2 Incubator & Equipment Blank Line Standard (Page 2 培养箱与设备空行对齐规范)
+- In Page 2 `Text Field43` (Equipment ID) and `Text Field44` (Calibration Due Date), each individual incubator entry **MUST ALWAYS** be separated by an empty line (`\r \r`).
+- The Sensor ID sits on the second line under the Incubator ID (e.g., `Incubator E001356 (Sensor\rE001450)`).
+- The corresponding Calibration Due Dates in `Text Field44` **MUST** maintain identical line spacing / empty lines (`\r \r \r`) so that every date block aligns horizontally with its respective incubator block.
+- Standard pattern:
+  - Left column (`Text Field43`):
+    ```text
+    Incubator E001356 (Sensor\rE001450)\r \r
+    Incubator E001357 (Sensor\rE001449)\r \r
+    Incubator E001034 (Sensor\rE001501)\r \r
+    Incubator E001031 (Sensor\rE001505)
+    ```
+  - Right column (`Text Field44`):
+    ```text
+    Jan 2027 / Feb 2027\r \r \r
+    Jan 2027 / Feb 2027\r \r \r
+    Aug 2027 / Feb 2027\r \r \r
+    Aug 2027 / Feb 2027
+    ```
+  - Recommended font size: `6.0 pt`.
+
+### 10. AcroForm PDF Checkbox Strict Whitelist & Exclusivity Rule (PDF 表单复选框严格白名单排他互斥规范)
+- In PDF AcroForms, never rely on default/blank states in underlying templates.
+- For every checkbox row (e.g. Yes / No / N/A), explicitly set the target selection to `'Yes'` and **ALL alternative options in that row to `'Off'`**.
+- Never allow multiple check boxes in the same question row to be active simultaneously. Validate programmatically after compilation that each question row has exactly 1 box checked.
+
+
 
