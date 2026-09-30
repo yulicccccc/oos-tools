@@ -90,6 +90,13 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Authoritative SharePoint Source:** The central tracking workbook for the Sterile Microbiology Lab is hosted on SharePoint: `Sterile Lab - OOS Tracking Log.xlsx`. Tabs include: `Celsis Sterility OOS`, `Scan RDI OOS`, `<71> OOS`, `EM OOS`, `USP <85> OOS`, `Particulate OOS`, `Media Fill OOS`, `OOS info for Priority Clients`, etc.
         *   **SSO Autonomous Access:** The AI programmatically accesses SharePoint via Playwright using persistent corporate SSO session (`LOCALAPPDATA/pastdue_playwright_session`) to export/download the latest workbook and run automated multi-sheet audits.
         *   **Numerator vs. Denominator Protocol:** Prior OOS count ($N$) is extracted directly and verified against the log. Denominator (total samples processed in 6 months) is obtained from EagleTrax/LIMS or confirmed with the user.
+    19. *Phase 1 Standard Closing Sentence Rule (Phase 1 纯一阶段标准人类结语规范):*
+        *   **Classic Human Template Closing Only:** For Phase 1 investigations, the concluding narrative paragraph must strictly end with the concise, authentic human template sentence:
+            `"Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, reagents, supplies, or monitored laboratory environment. The initial [Test Method] OOS result therefore remains valid in accordance with the applicable laboratory OOS procedure."`
+        *   **Strict Ban on Redundant AI-Sounding Additions (严禁画蛇添足加长句):**
+            - **DO NOT** tack on: `"Subsequent microbial identification testing did not recover an organism; consequently, the organism identity and source of the positive result could not be determined within the laboratory investigation."` (already stated in the subculture section; adding it here sounds robotic and "unlike human writing").
+            - **DO NOT** tack on: `"Further investigation and disposition, if required, should be performed in accordance with the applicable OOS procedure and client quality requirements."` (supervisors like Robin Seymour perform routine review and disposition routing).
+            - Keep the conclusion natural, concise, and 100% human-like.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

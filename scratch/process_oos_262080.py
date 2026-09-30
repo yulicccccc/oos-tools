@@ -183,9 +183,7 @@ p19 = (
 p20 = (
     "Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, "
     "reagents, supplies, or monitored laboratory environment. The initial Celsis OOS result therefore remains valid in accordance "
-    "with the applicable laboratory OOS procedure. Subsequent microbial identification testing did not recover an organism; "
-    "consequently, the organism identity and source of the positive result could not be determined within the laboratory "
-    "investigation."
+    "with the applicable laboratory OOS procedure."
 )
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])

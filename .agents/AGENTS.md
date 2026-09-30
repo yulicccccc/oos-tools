@@ -270,6 +270,21 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
   - **Numerator (先前 OOS 记录数 $N$)**: Derived directly and strictly from the tracking log sheets by matching Client Name / Client ID / Method within the 6-month window ($T - 6\text{ months}$ to $T$).
   - **Denominator (送检总样本数 $Total$)**: Because the tracking log tracks OOS events, the overall sample count ($Total$) must be retrieved from LIMS / EagleTrax or confirmed with the user.
 
+### 14. Phase 1 Standard Closing Sentence Rule (Phase 1 纯一阶段标准人类结语规范)
+**CRITICAL**: When generating or reviewing Phase 1 OOS investigation reports:
+1. **Classic Human Template Closing Only (只保留经典人类模板结语)**:
+   The concluding paragraph (e.g., Page 5 `Text Field51` or Word report narrative conclusion) must strictly conclude with the standard, concise human sentence:
+   `"Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, reagents, supplies, or monitored laboratory environment. The initial [Test Method] OOS result therefore remains valid in accordance with the applicable laboratory OOS procedure."`
+2. **Strict Ban on Redundant AI-Sounding Additions (严禁画蛇添足加长句)**:
+   - **DO NOT** tack on redundant statements such as:
+     `"Subsequent microbial identification testing did not recover an organism; consequently, the organism identity and source of the positive result could not be determined within the laboratory investigation."`
+     (Microbial identification and subculture findings are already thoroughly documented in earlier sections/Paragraph 9; repeating them at the very end in a philosophical tone makes the report sound robotic and "unlike human writing").
+   - **DO NOT** tack on:
+     `"Further investigation and disposition, if required, should be performed in accordance with the applicable OOS procedure and client quality requirements."`
+     (Standard workflow: Quality Assurance supervisors like Robin Seymour will review and route the document as standard procedure).
+3. **Ergonomic & Natural Space Utilization**:
+   Removing these redundant clauses ensures that Page 5 text flows naturally without overflowing the box, eliminating bottom voids and keeping the report 100% human-looking.
+
 
 
 
