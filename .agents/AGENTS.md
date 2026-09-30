@@ -189,6 +189,38 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 4. **Universal Invariance (全模块一律适用)**:
    - This rule is permanent and universally locked for all existing and future OOS automation workflows. No script or agent may deviate from it.
 
+### 12. Cleanroom Facility Monthly Cleaning Schedule & Prior Bracketing Standard (洁净室月度深度清洁排班与最近追溯规范)
+**CRITICAL**: In microbiology cleanroom facility operations and OOS investigation reporting (under `MICRO-SOP-9`: Cleaning and Disinfecting Procedure for Microbiology), cleanroom monthly cleaning and disinfection (using $H_2O_2$ vapor / chemical indicators across ISO 8 Anteroom, ISO 7 Buffer, ISO 7 Cleanroom, and ISO 5 BSCs) is conducted on an official bi-weekly Sunday schedule: **Mid-Month Sunday (月中周日)** and **Last Sunday (月末周日)**.
+
+#### 1. Official 2026 Facility Monthly Cleaning Schedule (2026 官方排班表)
+| Month (月份) | Mid-Month Sunday (月中周日) | Last Sunday (月末周日) |
+| :--- | :--- | :--- |
+| **August 2026** | August 16, 2026 (`16 Aug 2026`) | August 30, 2026 (`30 Aug 2026`) |
+| **September 2026** | September 13, 2026 (`13 Sep 2026`) | September 27, 2026 (`27 Sep 2026`) |
+| **October 2026** | October 11, 2026 (`11 Oct 2026`) | October 25, 2026 (`25 Oct 2026`) |
+| **November 2026** | November 15, 2026 (`15 Nov 2026`) | November 29, 2026 (`29 Nov 2026`) |
+| **December 2026** | December 13, 2026 (`13 Dec 2026`) | December 27, 2026 (`27 Dec 2026`) |
+
+#### 2. Prior Bracketing Date Selection Rule (最近回溯与就近判定铁律)
+- When drafting the narrative for any OOS investigation (e.g., Page 4 `Text Field50` / Page 5 `Text Field51` or Word report narrative):
+  `"Monthly cleaning and disinfection of the outermost ISO 8 Anteroom... was performed on [DATE], as per MICRO-SOP-9..."`
+- The `[DATE]` **MUST ALWAYS** be the single most recent monthly cleaning date that has already occurred strictly prior to or on the processing/testing date ($\text{cleaning\_date} \le \text{test\_or\_process\_date}$).
+- **Both Mid-Month Sunday and Last Sunday must be evaluated**:
+  - If processing/testing date is before the Mid-Month Sunday of month $M$, trace back to the **Last Sunday of month $M-1$**.
+  - If processing/testing date is on or after Mid-Month Sunday but before Last Sunday of month $M$, trace back to the **Mid-Month Sunday of month $M$**.
+  - If processing/testing date is on or after Last Sunday of month $M$, trace back to the **Last Sunday of month $M$**.
+- *Concrete Examples*:
+  - Processed on `01Sep26` $\to$ Most recent cleaning was `30 Aug 2026` (Last Sunday of Aug).
+  - Processed on `08Sep26` $\to$ Most recent cleaning was `30 Aug 2026` (Last Sunday of Aug; Sep 13 had not yet occurred).
+  - Processed on `14Sep26` $\to$ Most recent cleaning was `13 Sep 2026` (Mid-Month Sunday of Sep).
+  - Processed on `28Sep26` $\to$ Most recent cleaning was `27 Sep 2026` (Last Sunday of Sep).
+  - Processed on `15Oct26` $\to$ Most recent cleaning was `11 Oct 2026` (Mid-Month Sunday of Oct).
+  - Processed on `26Oct26` $\to$ Most recent cleaning was `25 Oct 2026` (Last Sunday of Oct).
+
+#### 3. Universal Invariance (全模块一律适用)
+- This schedule and prior bracketing rule apply universally across **ALL OOS modules** (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring (EM)`).
+
+
 
 
 

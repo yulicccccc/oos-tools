@@ -106,40 +106,79 @@ def clean_analyst_name(name):
         return "Gabrielle Surber"
     return n
 
-def get_monthly_cleaning_date(process_date_str):
-    """根据接种日期计算最邻近且已发生（<= process_date）的当月或上月最后一个星期天"""
+# Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
+# Bi-weekly Sunday cleaning: Mid-Month Sunday and Last Sunday
+OFFICIAL_MONTHLY_CLEANING_SCHEDULE = [
+    # 2026 H1 Known Schedule
+    datetime(2026, 1, 25),
+    datetime(2026, 2, 22),
+    datetime(2026, 3, 29),
+    datetime(2026, 4, 12),
+    datetime(2026, 4, 26),
+    datetime(2026, 5, 17),
+    datetime(2026, 5, 31),
+    datetime(2026, 6, 14),
+    datetime(2026, 6, 28),
+    datetime(2026, 7, 12),
+    datetime(2026, 7, 26),
+    # 2026 H2 Official Facility Schedule (Locked)
+    datetime(2026, 8, 16),
+    datetime(2026, 8, 30),
+    datetime(2026, 9, 13),
+    datetime(2026, 9, 27),
+    datetime(2026, 10, 11),
+    datetime(2026, 10, 25),
+    datetime(2026, 11, 15),
+    datetime(2026, 11, 29),
+    datetime(2026, 12, 13),
+    datetime(2026, 12, 27),
+]
+
+def get_monthly_cleaning_date(process_date_str, format_style="%d %b %Y"):
+    """
+    根据接种/测试日期，自动追溯最邻近且已发生 (<= process_date) 的洁净室月度深度清洁日期。
+    严格基于 Eagle 官方月度清洁排班表 (MICRO-SOP-9: 月中周日 Mid-Month Sunday 与 月末周日 Last Sunday 双轨排班)。
+    """
     if not process_date_str:
         return ""
-    try:
-        process_date_str = str(process_date_str).strip()
-        fmt = "%d%b%y" if len(process_date_str) <= 7 else "%d%b%Y"
-        p_date = datetime.strptime(process_date_str, fmt)
-    except Exception:
+    p_date = None
+    process_date_str = str(process_date_str).strip()
+    for fmt in ["%d%b%y", "%d%b%Y", "%d %b %Y", "%d-%b-%Y", "%d-%b-%y", "%Y-%m-%d"]:
+        try:
+            p_date = datetime.strptime(process_date_str, fmt)
+            break
+        except Exception:
+            pass
+    if not p_date:
         return ""
 
-    def last_sunday_of_month(year, month):
-        import calendar
-        last_day = calendar.monthrange(year, month)[1]
-        dt = datetime(year, month, last_day)
-        # Python weekday: 0=Monday, 6=Sunday
-        offset = (dt.weekday() - 6) % 7
-        return dt - timedelta(days=offset)
-
-    # 1. 检查当月最后一个星期天是否已发生
-    s_current = last_sunday_of_month(p_date.year, p_date.month)
-    if s_current <= p_date:
-        res_date = s_current
+    # 1. 优先从官方既定排班表匹配 <= p_date 的最近日期
+    valid_dates = [d for d in OFFICIAL_MONTHLY_CLEANING_SCHEDULE if d <= p_date]
+    if valid_dates:
+        res_date = valid_dates[-1]
     else:
-        # 2. 如果未发生，则取上个月最后一个星期天
-        if p_date.month == 1:
-            prev_year = p_date.year - 1
-            prev_month = 12
-        else:
-            prev_year = p_date.year
-            prev_month = p_date.month - 1
-        res_date = last_sunday_of_month(prev_year, prev_month)
+        # 2. 动态通用推导算法 (针对排班表范围之外的日期)
+        def get_month_sundays(year, month):
+            import calendar
+            num_days = calendar.monthrange(year, month)[1]
+            sundays = [datetime(year, month, day) for day in range(1, num_days + 1) if datetime(year, month, day).weekday() == 6]
+            if not sundays:
+                return []
+            mid_sun = min(sundays, key=lambda d: abs(d.day - 15))
+            last_sun = sundays[-1]
+            return sorted(list(set([mid_sun, last_sun])))
 
-    return res_date.strftime("%d%b%y")
+        cur_sundays = get_month_sundays(p_date.year, p_date.month)
+        cur_valid = [d for d in cur_sundays if d <= p_date]
+        if cur_valid:
+            res_date = cur_valid[-1]
+        else:
+            prev_y = p_date.year - 1 if p_date.month == 1 else p_date.year
+            prev_m = 12 if p_date.month == 1 else p_date.month - 1
+            prev_sundays = get_month_sundays(prev_y, prev_m)
+            res_date = prev_sundays[-1] if prev_sundays else p_date
+
+    return res_date.strftime(format_style)
 
 def get_room_logic(bsc_id):
     """根据 BSC ID 自动推断洁净室及房间信息"""

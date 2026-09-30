@@ -68,6 +68,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Zero Artificial Padding:** Under no circumstances may scripts append trailing carriage returns or blank lines (`\r \r \r \r`) to create artificial bottom spacing or shifts. Text must end cleanly and naturally.
         *   **Incubator Spacing Invariance:** In Page 2 `Text Field43` and `Text Field44`, sensor names remain on the same line as the incubator (`Incubator E001356 (Sensor E001450)`), each incubator entry is separated by a single empty line (`\r \r`), aligning 1-to-1 with calibration dates (`Jan 2027 / Feb 2027\r \r`).
         *   **Universal Applicability:** Permanently locked for all current and future OOS automation workflows.
+    16. *Cleanroom Facility Monthly Cleaning Schedule & Prior Bracketing Standard (MICRO-SOP-9):*
+        *   **Bi-Weekly Sunday Cleaning Cadence:** Facility monthly cleaning and disinfection (utilizing $H_2O_2$ vapor / chemical indicators across cleanroom suites and BSCs) operates on an official dual-Sunday schedule per month: **Mid-Month Sunday** and **Last Sunday**.
+        *   **Authoritative 2026 Facility Schedule:**
+            - August 2026: August 16, 2026 & August 30, 2026
+            - September 2026: September 13, 2026 & September 27, 2026
+            - October 2026: October 11, 2026 & October 25, 2026
+            - November 2026: November 15, 2026 & November 29, 2026
+            - December 2026: December 13, 2026 & December 27, 2026
+        *   **Prior Bracketing Logic:** When generating investigation narratives, the cleaning date is strictly resolved to the most recent cleaning event occurring on or prior to the sample processing/testing date ($\text{cleaning\_date} \le \text{event\_date}$). Evaluates both Mid-Month Sunday and Last Sunday.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
