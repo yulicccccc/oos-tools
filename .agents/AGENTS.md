@@ -152,29 +152,43 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 
 ### 9. Page 2 Incubator & Equipment Blank Line Standard (Page 2 培养箱与设备空行对齐规范)
 - In Page 2 `Text Field43` (Equipment ID) and `Text Field44` (Calibration Due Date), each individual incubator entry **MUST ALWAYS** be separated by an empty line (`\r \r`).
-- The Sensor ID sits on the second line under the Incubator ID (e.g., `Incubator E001356 (Sensor\rE001450)`).
-- The corresponding Calibration Due Dates in `Text Field44` **MUST** maintain identical line spacing / empty lines (`\r \r \r`) so that every date block aligns horizontally with its respective incubator block.
+- The Sensor ID sits on the same line as the Incubator ID (e.g., `Incubator E001356 (Sensor E001450)`).
+- The corresponding Calibration Due Dates in `Text Field44` **MUST** maintain identical 1-to-1 line spacing / empty lines (`\r \r`) so that every date block aligns horizontally with its respective incubator block.
 - Standard pattern:
   - Left column (`Text Field43`):
     ```text
-    Incubator E001356 (Sensor\rE001450)\r \r
-    Incubator E001357 (Sensor\rE001449)\r \r
-    Incubator E001034 (Sensor\rE001501)\r \r
-    Incubator E001031 (Sensor\rE001505)
+    Incubator E001356 (Sensor E001450)\r \r
+    Incubator E001357 (Sensor E001449)\r \r
+    Incubator E001034 (Sensor E001501)\r \r
+    Incubator E001031 (Sensor E001505)
     ```
   - Right column (`Text Field44`):
     ```text
-    Jan 2027 / Feb 2027\r \r \r
-    Jan 2027 / Feb 2027\r \r \r
-    Aug 2027 / Feb 2027\r \r \r
+    Jan 2027 / Feb 2027\r \r
+    Jan 2027 / Feb 2027\r \r
+    Aug 2027 / Feb 2027\r \r
     Aug 2027 / Feb 2027
     ```
-  - Recommended font size: `6.0 pt`.
 
 ### 10. AcroForm PDF Checkbox Strict Whitelist & Exclusivity Rule (PDF 表单复选框严格白名单排他互斥规范)
 - In PDF AcroForms, never rely on default/blank states in underlying templates.
 - For every checkbox row (e.g. Yes / No / N/A), explicitly set the target selection to `'Yes'` and **ALL alternative options in that row to `'Off'`**.
 - Never allow multiple check boxes in the same question row to be active simultaneously. Validate programmatically after compilation that each question row has exactly 1 box checked.
+
+### 11. Natural Human Typography & Zero Artificial Padding Standard (原生手打字号与杜绝人为缩放留白常态化规范)
+**CRITICAL**: Across **ALL Eagle PDF documents and templates** (`ScanRDI`, `Celsis`, `USP <71>`, `Environmental Monitoring (EM)`, etc.), generated PDFs must look 100% like natural human manual input into Adobe Acrobat:
+1. **Strict Prohibition of Manual `text_fontsize` Overrides (严禁手动强行覆盖 `text_fontsize`)**:
+   - **NEVER** set arbitrary fractional or shrunken font sizes (e.g., `w.text_fontsize = 5.8`, `6.0`, `6.2`, `6.5`, `7.5`, `8.5`, etc.) in any PDF form field.
+   - Text fields must strictly retain the PDF template's native default font settings (`size = 0.0` / template `/DA` appearance).
+   - In Adobe Acrobat, human analysts type directly into form fields at default sizes (~9-10pt). Forcing artificial small sizes makes text unnaturally tiny, creates bizarre bottom voids ("下面留白"), and looks synthetic/robotic.
+2. **Zero Artificial Bottom Padding & Trailing Line Breaks (杜绝人为底部留白与尾部空行)**:
+   - **NEVER** append trailing carriage returns or blank lines to form field strings (e.g. `'Sample Name\r \r \r \r'`, `'Celsis ATP Positive Control\r \r'`, or trailing returns in text summaries).
+   - Form field strings must end naturally and cleanly without artificial trailing spacing.
+3. **Natural Text Flow in Narrative Sections (叙述段落自然延展)**:
+   - For multi-paragraph narratives (Page 4 `Text Field50` and Page 5 `Text Field51`), maintain template native Auto font size (`0.0`). The text should fill the available box space naturally like human typing, without artificial downsizing that leaves empty gaps at the bottom of the page.
+4. **Universal Invariance (全模块一律适用)**:
+   - This rule is permanent and universally locked for all existing and future OOS automation workflows. No script or agent may deviate from it.
+
 
 
 

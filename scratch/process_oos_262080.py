@@ -415,12 +415,9 @@ for w in page1.widgets():
     elif fn == 'Date Field0': w.field_value = '01-Sep-2026'
     elif fn == 'Date Field1': w.field_value = '08-Sep-2026'
     elif fn == 'Date Field2': w.field_value = '08-Sep-2026'
-    elif fn == 'Text Field1':
-        w.text_fontsize = 8.5
-        w.field_value = 'Celsis Sterility Test'
+    elif fn == 'Text Field1': w.field_value = 'Celsis Sterility Test'
     elif fn == 'Text Field2': w.field_value = 'ETX-260828-0527'
     elif fn == 'Text Field3':
-        w.text_fontsize = 7.0
         w.field_value = (
             "Prepping Analyst:\r"
             "Andrew Carrillo (AC)\r \r"
@@ -431,12 +428,11 @@ for w in page1.widgets():
             "Reading Analyst:\r"
             "America Alanis (ALA)"
         )
-    elif fn == 'Text Field4': w.field_value = 'MOTs-C 10 MG/ML (5 ML) Injection\r \r \r \r'
+    elif fn == 'Text Field4': w.field_value = 'MOTs-C 10 MG/ML (5 ML) Injection'
     elif fn == 'Text Field5': w.field_value = 'Injection'
     elif fn == 'Text Field6': w.field_value = 'LG342010349'
     elif fn == 'Text Field7':
-        w.text_fontsize = 7.5
-        w.field_value = 'On 08 Sep 2026, sample ETX-260828-0527 was found to be positive for growth after Celsis Sterility Testing\r \r'
+        w.field_value = 'On 08 Sep 2026, sample ETX-260828-0527 was found to be positive for growth after Celsis Sterility Testing'
     elif fn == 'Text Field8': w.field_value = 'MICRO-SOP-44'
     elif fn == 'Text Field9': w.field_value = '03-Jan-2025'
     elif fn == 'Text Field10': w.field_value = '01'
@@ -444,17 +440,14 @@ for w in page1.widgets():
     elif fn == 'Text Field12': w.field_value = 'Kathan Parikh'
     elif fn == 'Date Field3': w.field_value = '08-Sep-2026'
     elif fn == 'Text Field13':
-        w.text_fontsize = 6.2
         w.field_value = 'Yes, analysts Andrew Carrillo, Gabrielle Surber, America Alanis & Cuong Du were comprehensively interviewed.'
     elif fn == 'Text Field14': w.field_value = 'Yes, Sample ID: ETX-260828-0527'
     elif fn in ['Text Field15', 'Text Field16']: w.field_value = 'Yes, as per MICRO-SOP-44'
     elif fn == 'Text Field17':
-        w.text_fontsize = 6.5
         w.field_value = 'Yes, Information is available in EagleTrax under ETX-260828-0527'
     elif fn == 'Text Field18': w.field_value = 'Yes, all analysts are trained and qualified by the quality department to perform the test'
     elif fn in ['Text Field19', 'Text Field20']: w.field_value = 'Not Applicable'
     elif fn == 'Text Field21':
-        w.text_fontsize = 6.5
         w.field_value = "Yes, the samples were stored refrigerated as per client's instructions"
     elif fn.startswith('Check Box'):
         page1_yes_boxes = {
@@ -497,16 +490,16 @@ reagents_exp = (
 )
 
 incubator_list = (
-    "Incubator E001356 (Sensor\rE001450)\r \r"
-    "Incubator E001357 (Sensor\rE001449)\r \r"
-    "Incubator E001034 (Sensor\rE001501)\r \r"
-    "Incubator E001031 (Sensor\rE001505)"
+    "Incubator E001356 (Sensor E001450)\r \r"
+    "Incubator E001357 (Sensor E001449)\r \r"
+    "Incubator E001034 (Sensor E001501)\r \r"
+    "Incubator E001031 (Sensor E001505)"
 )
 
 incubator_cal = (
-    "Jan 2027 / Feb 2027\r \r \r"
-    "Jan 2027 / Feb 2027\r \r \r"
-    "Aug 2027 / Feb 2027\r \r \r"
+    "Jan 2027 / Feb 2027\r \r"
+    "Jan 2027 / Feb 2027\r \r"
+    "Aug 2027 / Feb 2027\r \r"
     "Aug 2027 / Feb 2027"
 )
 
@@ -514,34 +507,27 @@ for w in page2.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field22':
-        w.text_fontsize = 5.8
         w.field_value = reagents_lots
     elif fn == 'Text Field23':
-        w.text_fontsize = 5.8
         w.field_value = reagents_exp
-    elif fn == 'Text Field24': w.field_value = 'Celsis ATP Positive Control\r \r'
+    elif fn == 'Text Field24': w.field_value = 'Celsis ATP Positive Control'
     elif fn == 'Text Field25': w.field_value = '022601-1483'
     elif fn == 'Text Field26': w.field_value = '31 Jan 2027'
     elif fn in ['Text Field27', 'Text Field28', 'Text Field29']: w.field_value = 'Not Applicable '
     elif fn == 'Text Field30': w.field_value = 'E002222'
     elif fn == 'Text Field31': w.field_value = 'Sep 2026'
     elif fn == 'Text Field32':
-        w.text_fontsize = 6.2
         w.field_value = 'E001736 (114), BSC E001316\rE001736 (114), BSC E001798'
     elif fn == 'Text Field33':
-        w.text_fontsize = 6.2
         w.field_value = 'Dec 2026, Jun 2027\rDec 2026, Jun 2027'
     elif fn == 'Text Field34': w.field_value = 'E002222'
     elif fn == 'Text Field35': w.field_value = 'Sep 2026'
     elif fn in ['Text Field36', 'Text Field37', 'Text Field38', 'Text Field39']: w.field_value = 'Not Applicable'
     elif fn in ['Text Field40', 'Text Field41', 'Text Field42', 'Text Field45']:
-        w.text_fontsize = 8.0
         w.field_value = 'See Phase I Summary'
     elif fn == 'Text Field43':
-        w.text_fontsize = 6.0
         w.field_value = incubator_list
     elif fn == 'Text Field44':
-        w.text_fontsize = 6.0
         w.field_value = incubator_cal
     elif fn.startswith('Check Box'):
         page2_yes_boxes = {
@@ -571,7 +557,6 @@ for w in page4.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field50':
-        w.text_fontsize = 7.5
         w.field_value = text_field_50.replace('₂', '2').replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
@@ -581,7 +566,6 @@ for w in page5.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field51':
-        w.text_fontsize = 6.5
         w.field_value = text_field_51.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
