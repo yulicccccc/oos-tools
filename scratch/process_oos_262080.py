@@ -168,9 +168,10 @@ p17 = (
     "supporting sample-to-sample cross-contamination during processing or aliquoting."
 )
 
+TOTAL_6MO_SAMPLES = "[X]"  # Confirmed via census: 0 prior occurrences in Sterile Lab - OOS Tracking Log.xlsx
 p18 = (
-    "An analysis of the six-month sample history for Optimal Balance Pharmacy (E19193) indicates that Eagle Analytical processed "
-    "samples for Celsis Sterility testing with no prior occurrences of an out-of-specification or positive result for this analyte "
+    f"An analysis of the six-month sample history for Optimal Balance Pharmacy (E19193) indicates that Eagle Analytical processed "
+    f"{TOTAL_6MO_SAMPLES} samples for Celsis Sterility testing with no prior occurrences of an out-of-specification or positive result for this analyte "
     "during this period."
 )
 
