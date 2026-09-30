@@ -76,7 +76,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - October 2026: October 11, 2026 & October 25, 2026
             - November 2026: November 15, 2026 & November 29, 2026
             - December 2026: December 13, 2026 & December 27, 2026
-        *   **Prior Bracketing Logic:** When generating investigation narratives, the cleaning date is strictly resolved to the most recent cleaning event occurring on or prior to the sample processing/testing date ($\text{cleaning\_date} \le \text{event\_date}$). Evaluates both Mid-Month Sunday and Last Sunday.
+        *   **Prior Bracketing Logic & Anti-Post-Event Invariance:** When generating investigation narratives, the cleaning date is strictly resolved to the most recent cleaning event occurring **BEFORE** the sample processing/testing date ($\text{cleaning\_date} < \text{event\_date}$). **Strictly forbids citing cleaning dates that occurred AFTER processing** (no forward-looking post-hoc validation; eliminates month-name cognitive trap).
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

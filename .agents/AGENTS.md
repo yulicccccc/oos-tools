@@ -217,7 +217,19 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
   - Processed on `15Oct26` $\to$ Most recent cleaning was `11 Oct 2026` (Mid-Month Sunday of Oct).
   - Processed on `26Oct26` $\to$ Most recent cleaning was `25 Oct 2026` (Last Sunday of Oct).
 
-#### 3. Universal Invariance (全模块一律适用)
+#### 3. Strict Pre-Processing Invariance & Anti-Post-Event Rule (绝对前置因果与严禁后置追溯铁律)
+- **绝对禁止使用 Process 之后发生的清洁**：
+  - 洁净室月度深度清洁是实验开展前的**准入前置保障条件 (Baseline Prerequisite Condition)**。
+  - 样本在接种（Process）时所处的洁净室环境状态，只能由**接种时刻之前已经发生并确认合格**的深度清洁来保障。
+  - 接种之后发生的清洁属于“未来事件 (Future Event)”，在时间线与因果律上与该样本当时的处理过程完全脱节，绝对禁止作为调查依据！
+- **杜绝“月份字面直觉陷阱” (Avoid Month-Name Cognitive Trap)**：
+  - **常见致命错误**：样本于 9 月初（如 `01Sep26` 或 `08Sep26`）接种处理，粗心的分析员或 AI 往往习惯性去翻看 9 月份的清洁记录（`13 Sep 2026` 或 `27 Sep 2026`），并误将 9 月中/末的日期写入报告。
+  - **铁律判定**：在 9 月 1 日或 9 月 8 日当天，9 月 13 日和 27 日**根本尚未发生**！必须毫不犹豫地回溯到严格早于处理日的最近一次清洁——即 **`30 Aug 2026`**！
+- **杜绝“前后括弧外推陷阱” (No Post-Cleaning Bracketing)**：
+  - 虽然 ISO 5 关键区的人身手套和沉降碟采用“实验前、实验中、实验后”三点括弧式追踪（Pre, Test, Post）；
+  - 但月度深度清洁**绝不存在“后置（Subsequent）月度清洁”这种论证用法**！报告中必须 100% 且唯一引用**处理前最近**的那一次已完成清洁。
+
+#### 4. Universal Invariance (全模块一律适用)
 - This schedule and prior bracketing rule apply universally across **ALL OOS modules** (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring (EM)`).
 
 
