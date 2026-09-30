@@ -297,6 +297,37 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 3. **Sentence-Driven Flow (尽量用完整句子)**:
    - Express thoughts in complete, professional, flowing sentences rather than fragmented clauses or bracketed shorthand.
 
+### 16. Robin Seymour (QA Director) Sterility OOS Review Standards & Harmonization Rules (Robin 官方复核标准与合规八项铁律)
+**CRITICAL**: Whenever drafting, reviewing, or compiling sterility OOS investigations (`Celsis`, `ScanRDI`, `USP <71>`):
+1. **Point 1 — Investigation Procedure SOP Reference (首段强制引用 OOS 调查 SOP)**:
+   - Paragraph 1 of Phase 1 narrative MUST explicitly include:
+     `"This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-Specification (OOS) Investigation Procedure."`
+   - Robin Seymour QA mandate: *"As there is an SOP for this, @Qiyue Chen @Olugbenga Ajayi let's start to make sure this information is added in future OOSs. Take note of this too."*
+2. **Point 2 — Sample Storage Assessment (样本储存评价与人员资质严格剥离)**:
+   - Page 1 `Text Field21` ("Was the sample stored appropriately?") and the narrative P2 must strictly state the sample was stored refrigerated (or specified temperature) per client instructions (e.g., `"Yes, the sample was stored refrigerated as per client's instructions"`).
+   - Never conflate sample storage with analyst qualifications (`Text Field18`).
+3. **Point 3 — Standard Used (Page 2 阳性对照与批号严禁重复堆叠)**:
+   - In Page 2 `Text Field24`, write the reagent name: `Celsis ATP Positive Control`.
+   - In `Text Field25` (Lot #), enter ONLY the lot number (e.g., `022601-1483`), NEVER repeating the reagent name in the lot section.
+4. **Point 4 — Processing Cleanroom Suite Terminology (接种洁净室标准术语)**:
+   - Standardize narrative description to: `"cleanroom suite used for processing procedures (CR115)"` (or `CR114` for Cleanroom Suite 114) rather than informal phrasing like `"cleanroom used for processing procedures (Suite 115)"`.
+5. **Point 5 — Aliquoting Cleanroom Suite Terminology (分装洁净室标准术语)**:
+   - Standardize narrative description to: `"cleanroom suite used for aliquoting procedures (CR114)"` rather than plain `"Suite 114"`.
+   - Page 2 `Text Field32` (Equipment ID) must standardize cleanroom sensor designations to `E001736 (CR 114)` / `E001737 (CR 115)`.
+6. **Point 6 — Total Floor Recovery Omission (彻底剔除分装与日常 EM 地面讨论)**:
+   - Completely remove cleanroom floor recovery discussions from aliquoting and processing EM evaluations. Focus strictly on ISO 5 critical work surfaces, settling plates, operator glove touch plates, and active air monitoring.
+7. **Point 7 — Weekly EM Assessment & Pre-Aliquoting Turbidity Rule (周检评价与分装前浑浊豁免准则)**:
+   - If visible turbidity or microbial growth was already detected in the media bottle prior to the aliquoting step (e.g., recorded under an NCR), weekly EM for aliquoting is excluded from evaluation, with the explicit footnote/statement:
+     `"Weekly environmental monitoring was not used in the evaluation of this OOS investigation given turbidity of media bottle from microbial growth was detected prior to aliquoting."`
+   - If no turbidity was observed and the sample remained clear until Celsis analytical readout, weekly EM across the testing timeframe is evaluated, demonstrating that ISO 7 cleanrooms remained in control.
+8. **Point 8 — Consolidated Environmental Monitoring Evaluation (环境监测统筹一体化防守闭环)**:
+   - Consolidate processing and aliquoting EM discussions into a unified, airtight evaluation block:
+     1. *Physical ISO 5 Containment*: Samples processed within validated ISO 5 BSCs during both processing and aliquoting.
+     2. *Background Recovery Localization*: Any active air recovery in the outermost ISO 8 anteroom did not breach the ISO 7 buffer/cleanrooms or the ISO 5 critical zones.
+     3. *Zero Pathway Proof*: 100% absence of microbial recovery across analyst glove plates, ISO 5 BSC surfaces, and settling plates proves that NO viable contamination transfer pathway existed.
+     4. *Closed Transport*: Materials transported in disinfected, lidded bins on carts.
+     5. *Analyst Compliance*: Strict adherence to MICRO-SOP-9 and MICRO-SOP-44 with zero deviations.
+
 
 
 

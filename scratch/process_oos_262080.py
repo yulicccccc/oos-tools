@@ -21,14 +21,15 @@ DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of Am
 
 # 1. NARRATIVE TEXT
 p1 = (
-    "All analysts involved in the preparation, processing, aliquoting, and reading of the samples were "
-    "interviewed comprehensively, including Andrew Carrillo, Gabrielle Surber, America Alanis, and Cuong Du. "
-    "Their responses are documented throughout this report."
+    "All analysts involved in the preparation, processing, aliquoting, and reading of the samples, "
+    "Andrew Carrillo, Gabrielle Surber, America Alanis, and Cuong Du, were interviewed comprehensively. "
+    "Their responses are documented throughout this report. "
+    "This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-Specification (OOS) Investigation Procedure."
 )
 
 p2 = (
-    "Upon arrival, the sample was stored in accordance with the client instructions. Both sample prepping "
-    "analyst Andrew Carrillo and processing analyst Gabrielle Surber inspected the sample during preparation "
+    "Upon arrival, the sample was stored refrigerated in accordance with the client instructions. Both sample "
+    "prepping analyst Andrew Carrillo and processing analyst Gabrielle Surber inspected the sample during preparation "
     "and processing. No leaks or visible turbidity were observed, and no evidence of compromised container "
     "integrity was identified."
 )
@@ -41,27 +42,34 @@ p3 = (
 )
 
 p4 = (
-    "The sample was processed within ISO 5 Biological Safety Cabinet E001316, situated in innermost cleanroom "
-    "114B, which connects to intermediate ISO 7 buffer room 114A. This buffer room leads to outermost ISO 8 "
-    "anteroom 114. Furthermore, a positive air pressure cascade is maintained, ensuring airflow from cleanroom "
-    "114B to buffer room 114A and finally to anteroom 114."
+    "The cleanroom suite used for processing procedures (CR114) comprises three interconnected sections: "
+    "the innermost ISO 7 cleanroom (114B), which connects to the middle ISO 7 buffer room (114A), and then "
+    "to the outermost ISO 8 anteroom (114). A positive air pressure system is maintained throughout the suite "
+    "to ensure controlled, unidirectional airflow from 114B through 114A and into 114."
 )
 
 p5 = (
-    "The innermost ISO 7 cleanroom 114B and Biosafety Cabinet E001316 were thoroughly cleaned and prepared before "
-    "testing by analyst Gabrielle Surber as per MICRO-SOP-2 and MICRO-SOP-9. Similarly, for Celsis aliquoting, "
-    "ISO 7 cleanroom 114A and Biosafety Cabinet E001798 were thoroughly cleaned and prepared by analyst Cuong Du "
-    "before testing as per MICRO-SOP-44 and MICRO-SOP-9. Both Biosafety Cabinets were certified and approved by "
-    "the Engineering and Quality Assurance teams prior to use."
+    "Similarly, the cleanroom suite used for aliquoting procedures (CR114) comprises the same interconnected "
+    "architectural layout, where aliquoting was conducted within intermediate ISO 7 buffer room (114A). The innermost "
+    "ISO 7 cleanroom 114B and its ISO 5 Biological Safety Cabinet (BSC) E001316 were thoroughly cleaned and prepared "
+    "before initiating testing by analyst Gabrielle Surber as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
+    "Room Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology)."
+)
+
+p5b = (
+    "Similarly, for Celsis aliquoting, intermediate ISO 7 buffer room 114A and its ISO 5 BSC E001798 were thoroughly "
+    "cleaned and prepared by analyst Cuong Du before initiating testing as per MICRO-SOP-44 and MICRO-SOP-9. Both BSCs, "
+    "E001316 in 114B and E001798 in 114A, were certified and approved by the Engineering and Quality Assurance teams "
+    "prior to use."
 )
 
 p6 = (
     "On 01 Sep 2026, the sample vials for ETX-260828-0527 were received from the Sample Submissions team and brought "
     "into the Sterile Microbiology lab. Upon arrival, each vial was sprayed with an acidified bleach disinfectant, "
     "placed into pre-disinfected bins, and allowed a 10-minute contact time. Secondary disinfection was performed in "
-    "ISO 8 anteroom 114, where the vials were again treated with acidified bleach with a 10-minute contact time before "
-    "transfer into cleanroom 114B. Inside 114B, processing analyst Gabrielle Surber performed a final disinfection step "
-    "with a 10-minute contact time. Once fully disinfected, the vials were transferred into Biosafety Cabinet E001316, "
+    "the ISO 8 anteroom (114), where the vials were again treated with acidified bleach with a 10-minute contact time "
+    "before transfer into cleanroom 114B. Inside 114B, processing analyst Gabrielle Surber performed a final disinfection "
+    "step with a 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E001316, "
     "placed on the disinfected work surface, aseptically opened, and tested in accordance with MICRO-SOP-44. Direct "
     "inoculation was performed by adding 25 mL of sample per media container, using five 300 mL FTM jars and five 300 mL "
     "TSB jars. In accordance with suitability method record 2601120497, one gram of Bovine Serum Albumin was prepared in "
@@ -71,28 +79,30 @@ p6 = (
 
 p7 = (
     "Upon completion of incubation on 08 Sep 2026, the media bottles for ETX-260828-0527 were disinfected and transferred "
-    "to intermediate ISO 7 buffer room 114A for the aliquoting step per MICRO-SOP-44. In 114A, the media bottles were "
-    "disinfected again before transfer into Biosafety Cabinet E001798. The sample was aliquoted into assay cuvettes by "
-    "analyst Cuong Du. Following aliquoting, Celsis sterility reading was performed in accordance with MICRO-SOP-44 on "
-    "Celsis instrument E002222 by analyst America Alanis."
+    "to the middle ISO 7 buffer room (114A) for the aliquoting step per MICRO-SOP-44 (Celsis Sterility Testing). In "
+    "cleanroom 114A, the media bottles were disinfected one more time before transfer into the ISO 5 BSC E001798 located "
+    "in cleanroom 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst Cuong Du. Following "
+    "aliquoting, Celsis Sterility Reading was performed in accordance with MICRO-SOP-44 by analyst America Alanis."
 )
 
 p8 = (
-    "Celsis testing produced a positive result for FTM sample container ETX-260828-0527-3/5 in accordance with the decision "
-    "criteria in MICRO-SOP-44. The FTM sample yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM "
-    "negative control was 985 RLU. The corresponding TSB sample container ETX-260828-0527-4/5 tested negative with 1,500 RLU, "
-    "below the TSB cutoff of 2,007 RLU and negative control of 669 RLU. Duplicate readings met the method criterion of percent "
-    "CV below 30 percent. In addition, daily controls including the instrument blank, reagent blank, and ATP positive control "
-    "met their respective acceptance criteria with percent CV below 30 percent as documented in the Celsis data packet."
+    "Following the reading, sample ETX-260828-0527 was found to yield a positive reading in one of the 300 mL FTM media jars "
+    "(ETX-260828-0527-3/5). The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from "
+    "the FTM sample bottle, yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM negative control "
+    "was 985 RLU. The corresponding TSB sample container ETX-260828-0527-4/5 tested negative with 1,500 RLU, below the TSB "
+    "cutoff of 2,007 RLU and negative control of 669 RLU. All other FTM and TSB sample bottles in the same batch tested "
+    "negative. The %CV from the duplicate reading tubes for the positive FTM bottles was well within the specification (< 30%). "
+    "Additionally, all Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the "
+    "defined specifications, each with a %CV below 30%."
 )
 
 p9 = (
-    "Following the OOS result, the positive FTM bottle for ETX-260828-0527 was submitted for differential staining and microbial "
-    "identification under sample ETX-260908-0593. No microbial growth was recovered by subculture, with zero CFU observed on the "
-    "plate as shown in Table 1, and no cellular morphology was visualized by differential staining. Therefore, no organism was "
-    "recovered for identification or further microbiological comparison. The lack of recovery on subculture does not invalidate "
-    "the initial analytical Celsis result and may be consistent with low-level or stressed microbial cells under the test conditions, "
-    "though a specific physiological state could not be confirmed."
+    "Following the OOS result, the positive FTM bottle for ETX-260828-0527 was submitted for Differential Staining and "
+    "Microbial Identification under ETX-260908-0593. No microbial growth was recovered by subculture, with zero CFU observed "
+    "on the plate as shown in Table 1, and no cellular morphology was visualized by differential staining. Therefore, no organism "
+    "was recovered for identification or further microbiological comparison. The lack of recovery on subculture does not "
+    "invalidate the initial analytical Celsis result and may be consistent with low-level or stressed microbial cells under the "
+    "test conditions, though a specific physiological state could not be confirmed."
 )
 
 p10 = (
@@ -102,63 +112,95 @@ p10 = (
 )
 
 p11 = (
-    "Monthly cleaning and disinfection of Cleanroom Suite 114 and its Biosafety Cabinets was performed on "
-    "30 Aug 2026 as per MICRO-SOP-9, and all hydrogen peroxide chemical indicators met applicable acceptance "
-    "criteria. Attached Tables 2 and 3 present the complete environmental monitoring results for the duration "
-    "of testing, incubated in accordance with MICRO-SOP-2."
+    "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 "
+    "cleanroom, and its containing ISO 5 Biosafety Cabinets for CR114 was performed on 30 Aug 2026, as per MICRO-SOP-9 "
+    "(Cleaning and Disinfecting Procedure for Microbiology). It was documented that all H2O2 indicators passed. This confirms "
+    "the efficient monthly cleaning of all three parts of Cleanroom 114."
 )
 
 p12 = (
-    "Review of daily environmental monitoring showed zero microbial recovery across all personnel touch plates, "
-    "settling plates, and Biosafety Cabinet work surfaces for processing on 01 Sep 2026 and aliquoting on 08 Sep 2026, "
-    "as well as on their respective preceding and subsequent bracketing dates. Weekly monitoring identified 1 CFU in "
-    "outermost ISO 8 anteroom 114 on 04 Sep 2026 under sample ETX-260914-0487, characterized as Gram-positive coccobacilli "
-    "and Gram-positive rods, and 1 CFU in the same area on 10 Sep 2026 under sample ETX-260921-0520, characterized as "
-    "Gram-positive cocci. No microbial recovery was observed from ISO 7 cleanrooms 114A or 114B, and weekly surface "
-    "sampling across Suite 114 showed no growth across all locations."
+    "Attached Tables 2 and 3 present the environmental monitoring results for the duration of testing. The environmental "
+    "monitoring (EM) plates were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at "
+    "20-25°C as per MICRO-SOP-2 (Environmental Monitoring of the Cleanroom Facility). Table 2 pertains to Environmental "
+    "Monitoring performed during Celsis Sterility Processing, and Table 3 pertains to Environmental Monitoring performed during "
+    "Celsis Sterility Aliquoting."
 )
 
 p13 = (
-    "All testing activities were performed within validated ISO 5 Biosafety Cabinets E001316 and E001798 located in "
-    "cleanrooms 114B and 114A. Sample containers and media remained enclosed during transfer through anteroom 114 "
-    "and were never exposed to ambient anteroom air. Because no organism was recovered from ETX-260828-0527 during "
-    "subculture, a direct microbiological comparison could not be performed. However, closed material transfer, "
-    "negative critical zone monitoring, and positive pressure airflow cascades confirmed that the positive result was "
-    "not linked to the laboratory environment."
+    "A review of the Environmental Monitoring (EM) results for the relevant Celsis Sterility processing period showed no "
+    "microbial growth on personnel monitoring plates, settling plates, or ISO 5 BSC E001316 surface sampling plates on the date "
+    "of testing (01Sep2026), the preceding sampling date (31Aug2026), or the subsequent sampling date (02Sep2026). Weekly active "
+    "air and surface sampling of the cleanroom suite associated with processing was performed on 04Sep2026. No microbial recovery "
+    "was observed from weekly surface sampling of the cleanroom suite. Active air sampling showed recovery of 1 CFU (ETX-260914-0487) "
+    "in the ISO 8 area, identified as Gram-positive coccobacilli and Gram-positive rods, with zero recovery observed in the ISO 7 "
+    "buffer or cleanrooms."
 )
 
 p14 = (
-    "All interviewed analysts followed cleaning and handling procedures per MICRO-SOP-9 and MICRO-SOP-44 with no "
-    "documented deviations. ETX-260828-0527 was the first sample processed by analyst Gabrielle Surber on 01 Sep 2026, "
-    "and all other samples processed, incubated, aliquoted, and read within the testing batch tested negative, confirming "
-    "no cross-contamination occurred."
+    "Similarly, after reviewing the Environmental Monitoring (EM) results for the relevant Celsis Sterility aliquoting period, "
+    "no microbial growth was observed on personnel monitoring plates, ISO 5 BSC E001798 surface sampling plates, or settling "
+    "plates on the date of aliquoting (08Sep2026), the preceding sampling date (07Sep2026), or the subsequent sampling date "
+    "(09Sep2026). Weekly active air sampling of the cleanroom suite performed on 10Sep2026 showed recovery of 1 CFU "
+    "(ETX-260921-0520) in the ISO 8 area, identified as Gram-positive cocci, with zero recovery in the ISO 7 buffer or cleanrooms, "
+    "and weekly surface sampling of the cleanroom suite showed no growth."
 )
 
-TOTAL_6MO_SAMPLES = "[X]"  # Confirmed via census: 0 prior occurrences in Sterile Lab - OOS Tracking Log.xlsx
 p15 = (
-    f"An analysis of the six-month sample history for Optimal Balance Pharmacy under account E19193 indicates that "
-    f"Eagle Analytical processed {TOTAL_6MO_SAMPLES} samples for Celsis Sterility testing with no prior occurrences of an "
-    "out-of-specification or positive result for this analyte during this period."
+    "Evaluation of Environmental Monitoring Results: It is important to note that, for both processing and aliquoting activities, "
+    "the samples are processed within validated ISO 5 BSCs (E001316 and E001798 respectively). Although microbial recovery was "
+    "observed from weekly active air monitoring in the outermost ISO 8 room 114 background environment in cleanroom suite "
+    "(CR114), these recoveries were not obtained from the ISO 5 processing environment or the ISO 7 cleanroom environment."
 )
 
 p16 = (
-    "A review of the lot history shows that there have been no additional submissions of sample lot LG342010349 for "
-    "retesting using Celsis Sterility Testing or any other sterility method."
+    "The absence of microbial recovery from both the processing and the aliquoting analyst glove plates, ISO 5 BSC surface "
+    "monitoring plates, and ISO 5 settling plates indicates that no identifiable contamination transfer pathway existed between "
+    "the monitored background cleanroom environment and the ISO 5 critical processing areas. Samples were also prepared and "
+    "transferred into disinfected, lidded containers and transported on carts within the controlled cleanroom environment. "
+    "Therefore, while the active air results demonstrate microbial recovery in the surrounding ISO 8 area, there is no evidence "
+    "that the recovery originated from, or affected, the ISO 5 BSC environment where the test sample was handled and processed."
 )
 
 p17 = (
-    "Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, "
-    "instrument, reagents, supplies, or monitored laboratory environment. The initial Celsis OOS result therefore "
-    "remains valid in accordance with the applicable laboratory OOS procedure."
+    "All analysts confirmed full compliance with cleaning procedures as outlined in MICRO-SOP-9 (Cleaning and Disinfecting "
+    "Procedure for Microbiology) and MICRO-SOP-44 (Celsis Sterility Testing). A review of the available data confirms that "
+    "the cleanroom and equipment conditions remained within acceptable parameters. No deviations or obvious signs of laboratory "
+    "error during processing and aliquoting were noted from analysts."
 )
 
-text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
+p18 = (
+    "No other sample processed by analyst Gabrielle Surber on 01 Sep 2026 and aliquoted by analyst Cuong Du on 08 Sep 2026, "
+    "failed Celsis Sterility testing that day. To assess the potential for sample-to-sample contamination contributing to the "
+    "positive results, a comprehensive review was conducted of all samples processed in the same batch. All other samples "
+    "processed by the same analyst on the day of testing were found to test negative for microbial growth. These findings "
+    "suggest that cross-contamination between samples is unlikely."
+)
+
+TOTAL_6MO_SAMPLES = "[X]"  # Confirmed via census: 0 prior occurrences in Sterile Lab - OOS Tracking Log.xlsx
+p19 = (
+    f"An analysis of the six-month sample history for Optimal Balance Pharmacy indicates that Eagle Analytical processed "
+    f"{TOTAL_6MO_SAMPLES} samples for Celsis Sterility testing with no prior occurrences of an out of specification or "
+    "positive result during this period."
+)
+
+p20 = (
+    "A review of the lot history shows that there have been no additional submissions of sample lot LG342010349 for retesting "
+    "using Celsis Sterility Testing or any other sterility method."
+)
+
+p21 = (
+    "Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, "
+    "reagents, supplies, or monitored laboratory environment. The initial Celsis OOS result therefore remains valid in "
+    "accordance with the applicable laboratory OOS procedure."
+)
+
+text_field_49 = "\n\n".join([p1, p2, p3, p4, p5, p5b])
 text_field_50 = "\n\n".join([p6, p7, p8, p9, p10])
-text_field_51 = "\n\n".join([p11, p12, p13, p14, p15, p16, p17])
+text_field_51 = "\n\n".join([p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21])
 
 smart_phase1_full = "\n\n".join([
-    p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
-    p11, p12, p13, p14, p15, p16, p17
+    p1, p2, p3, p4, p5, p5b, p6, p7, p8, p9, p10,
+    p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21
 ])
 
 # ==========================================
@@ -330,7 +372,7 @@ word_context = {
     "reader_name": "America Alanis",
     "bsc_id": "1316",
     "cr_suit": "114",
-    "smart_cr_id": "E001736 (114)",
+    "smart_cr_id": "E001736 (CR 114)",
     "smart_scan_id": "E002222",
     "control_positive": "Celsis ATP Positive Control",
     "control_lot": "022601-1483",
@@ -341,7 +383,7 @@ word_context = {
     "smart_comment_interview": "Yes, Andrew Carrillo, Gabrielle Surber, America Alanis, and Cuong Du were interviewed comprehensively.",
     "smart_comment_samples": "Yes, Sample ID ETX-260828-0527",
     "smart_comment_records": "Not Applicable",
-    "smart_comment_storage": "Yes, the sample was stored as per client instructions. Information is available in EagleTrax Sample Location History under ETX-260828-0527",
+    "smart_comment_storage": "Yes, the sample was stored refrigerated as per client instructions. Information is available in EagleTrax Sample Location History under ETX-260828-0527",
     "report_header": "ETX-260828-0527\n\nOptimal Balance Pharmacy (E19193)",
     "analyst_signature": "America Alanis (Written by: Qiyue Chen)",
     "smart_phase1_summary": smart_phase1_full,
@@ -413,7 +455,7 @@ for w in page1.widgets():
     elif fn == 'Text Field18': w.field_value = 'Yes, all analysts are trained and qualified by the quality department to perform the test'
     elif fn in ['Text Field19', 'Text Field20']: w.field_value = 'Not Applicable'
     elif fn == 'Text Field21':
-        w.field_value = "Yes, the samples were stored refrigerated as per client's instructions"
+        w.field_value = "Yes, the sample was stored refrigerated as per client's instructions"
     elif fn.startswith('Check Box'):
         page1_yes_boxes = {
             'Check Box0', 'Check Box1', 'Check Box2',
@@ -482,7 +524,7 @@ for w in page2.widgets():
     elif fn == 'Text Field30': w.field_value = 'E002222'
     elif fn == 'Text Field31': w.field_value = 'Sep 2026'
     elif fn == 'Text Field32':
-        w.field_value = 'E001736 (114), BSC E001316\rE001736 (114), BSC E001798'
+        w.field_value = 'E001736 (CR 114), BSC E001316\rE001736 (CR 114), BSC E001798'
     elif fn == 'Text Field33':
         w.field_value = 'Dec 2026, Jun 2027\rDec 2026, Jun 2027'
     elif fn == 'Text Field34': w.field_value = 'E002222'
@@ -531,6 +573,7 @@ for w in page5.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field51':
+        w.text_fontsize = 7.325
         w.field_value = text_field_51.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
