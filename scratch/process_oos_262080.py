@@ -84,11 +84,9 @@ p8 = (
     "Following the reading, sample ETX-260828-0527 was found to yield a positive reading in one of the 300 mL FTM media jars "
     "(ETX-260828-0527-3/5). The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from "
     "the FTM sample bottle, yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM negative control "
-    "was 985 RLU. The corresponding TSB sample container ETX-260828-0527-4/5 tested negative with 1,500 RLU, below the TSB "
-    "cutoff of 2,007 RLU and negative control of 669 RLU. All other FTM and TSB sample bottles in the same batch tested "
-    "negative. The %CV from the duplicate reading tubes for the positive FTM bottles was well within the specification (< 30%). "
-    "Additionally, all Daily Controls, including the Instrument Blank, Reagent Blank, and ATP Positive Control, were within the "
-    "defined specifications, each with a %CV below 30%."
+    "was 985 RLU. All other FTM and TSB sample bottles in the same batch tested negative. The %CV from the duplicate reading tubes "
+    "for the positive FTM bottles was well within the specification (< 30%). Additionally, all Daily Controls, including the "
+    "Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
 )
 
 p9 = (
@@ -171,16 +169,9 @@ p18 = (
     "suggest that cross-contamination between samples is unlikely."
 )
 
-TOTAL_6MO_SAMPLES = "[X]"  # Confirmed via census: 0 prior occurrences in Sterile Lab - OOS Tracking Log.xlsx
 p19 = (
-    f"An analysis of the six-month sample history for Optimal Balance Pharmacy indicates that Eagle Analytical processed "
-    f"{TOTAL_6MO_SAMPLES} samples for Celsis Sterility testing with no prior occurrences of an out of specification or "
-    "positive result during this period."
-)
-
-p20 = (
-    "A review of the lot history shows that there have been no additional submissions of sample lot LG342010349 for retesting "
-    "using Celsis Sterility Testing or any other sterility method."
+    'Analyzing a 6-month sample history for Optimal Balance Pharmacy indicates, this specific analyte "MOTs-C 10 MG/ML (5 ML) '
+    'Injection" has had no prior failures using the Celsis Sterility testing during this period.'
 )
 
 p21 = (
@@ -191,11 +182,11 @@ p21 = (
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
 text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11, p12])
-text_field_51 = "\n\n".join([p13, p14, p15, p16, p17, p18, p19, p20, p21])
+text_field_51 = "\n\n".join([p13, p14, p15, p16, p17, p18, p19, p21])
 
 smart_phase1_full = "\n\n".join([
     p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
-    p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21
+    p11, p12, p13, p14, p15, p16, p17, p18, p19, p21
 ])
 
 # ==========================================
@@ -559,7 +550,7 @@ for w in page4.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field50':
-        w.text_fontsize = 10.3
+        w.text_fontsize = 10.5
         w.field_value = text_field_50.replace('₂', '2').replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
@@ -569,7 +560,7 @@ for w in page5.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field51':
-        w.text_fontsize = 10.3
+        w.text_fontsize = 10.5
         w.field_value = text_field_51.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 

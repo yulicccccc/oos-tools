@@ -143,6 +143,17 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - Both Page 4 and Page 5 MUST be set to the identical, natural font size 10.3pt.
             - Both pages fill the available field box cleanly from top to bottom with ~27-29pt of natural bottom margin, completely eliminating bottom voids, preventing text truncation, and delivering a 100% natural, human-typed appearance.
 
+    23. *Celsis Narrative Precision & 6-Month Analyte History Standard (Celsis 叙述精简与特定分析物历史规范):*
+        *   **Omission of Negative TSB Numerical Cutoff Sentence (阴性管数值细节精简):**
+            - In Paragraph 8 (Celsis RLU reading summary), do NOT include detailed negative RLU and cutoff numbers for the negative TSB bottle (e.g. omit: "The corresponding TSB sample container ETX-XXXXXX-XXXX tested negative with X RLU, below the TSB cutoff of X RLU and negative control of X RLU.").
+            - Simply state: "All other FTM and TSB sample bottles in the same batch tested negative."
+        *   **Omission of Lot Retesting Submission Sentence (批号复检历史段落剔除):**
+            - Do NOT include generic statements regarding whether the lot was submitted for retesting (e.g. omit: "A review of the lot history shows that there have been no additional submissions of sample lot X for retesting..."). Omit this paragraph entirely.
+        *   **Locked Standard Phrasing for 6-Month Analyte History (6个月特定分析物历史标准句式):**
+            - Standard template syntax:
+              `Analyzing a 6-month sample history for [Client Name] indicates, this specific analyte "[Analyte / Sample Name]" has had no prior failures using the Celsis Sterility testing during this period.`
+            - Concrete example:
+              `Analyzing a 6-month sample history for Optimal Balance Pharmacy indicates, this specific analyte "MOTs-C 10 MG/ML (5 ML) Injection" has had no prior failures using the Celsis Sterility testing during this period.`
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.
