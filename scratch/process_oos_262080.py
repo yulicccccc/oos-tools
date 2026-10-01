@@ -195,8 +195,8 @@ p21 = (
 )
 
 text_field_49 = "\n\n".join([p1, p2, p3, p4, p5, p5b])
-text_field_50 = "\n\n".join([p6, p7, p8, p9, p10])
-text_field_51 = "\n\n".join([p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21])
+text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11, p12])
+text_field_51 = "\n\n".join([p13, p14, p15, p16, p17, p18, p19, p20, p21])
 
 smart_phase1_full = "\n\n".join([
     p1, p2, p3, p4, p5, p5b, p6, p7, p8, p9, p10,
@@ -564,6 +564,7 @@ for w in page4.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field50':
+        w.text_fontsize = 10.3
         w.field_value = text_field_50.replace('₂', '2').replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 
@@ -573,7 +574,7 @@ for w in page5.widgets():
     fn = w.field_name
     if fn == 'Text Field57': w.field_value = '262080'
     elif fn == 'Text Field51':
-        w.text_fontsize = 7.325
+        w.text_fontsize = 10.3
         w.field_value = text_field_51.replace('\n\n', '\r \r').replace('\n', '\r')
     w.update()
 

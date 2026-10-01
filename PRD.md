@@ -133,6 +133,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
               3. *Zero Pathway Proof*: 100% absence of microbial recovery across analyst glove plates, ISO 5 BSC surfaces, and settling plates proves that NO viable contamination transfer pathway existed.
               4. *Closed Transport*: Materials transported in disinfected, lidded bins on carts.
               5. *Analyst Compliance*: Strict adherence to MICRO-SOP-9 and MICRO-SOP-44 with zero deviations.
+    22. *Balanced Dual-Page Visual Layout & Font Harmonization Standard (多页叙述段落均衡分配与字号完全对齐规范):*
+        *   **The Multi-Page AcroForm Dilemma:** In PDF AcroForms, text boxes on separate pages (Text Field50 on Page 4 and Text Field51 on Page 5) cannot dynamically flow or bridge text across pages. Cramming 11 paragraphs (~5,260 characters) into Page 5 while leaving Page 4 with only 5 paragraphs (~2,800 characters) forces Page 5 to shrink drastically to 7.325pt while Page 4 inflates to 12.0pt with an unsightly bottom void, creating an unhuman, jarring appearance.
+        *   **The 50/50 Balanced Character Distribution Mandate:**
+            - Narrative paragraphs MUST be divided symmetrically by character volume (~4,500 characters on Page 4 and ~4,300 characters on Page 5).
+            - **Page 4 (Testing Operations & Facility Baseline):** Contains paragraphs p6..p12 (Sample receipt, direct inoculation in CR114B / BSC E001316, incubation & aliquoting in CR114A / BSC E001798, Celsis RLU readings, Subculture & Differential Staining 0 CFU, Media expiry & controls, Facility Monthly Cleaning of CR114 on 30 Aug 2026, and Introduction to Tables 2 & 3).
+            - **Page 5 (Environmental Investigation & Quality Defense):** Contains paragraphs p13..p21 (Processing EM review, Aliquoting EM review, Consolidated ISO 5 EM defense, Lack of contamination pathway, Analyst interview & cleaning compliance, Sample batch & cross-contamination review, Six-month client census, Lot history, and Final human conclusion).
+        *   **Harmonized Font Size (text_fontsize = 10.3pt):**
+            - Both Page 4 and Page 5 MUST be set to the identical, natural font size 10.3pt.
+            - Both pages fill the available field box cleanly from top to bottom with ~27-29pt of natural bottom margin, completely eliminating bottom voids, preventing text truncation, and delivering a 100% natural, human-typed appearance.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
