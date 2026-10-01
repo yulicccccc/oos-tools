@@ -49,18 +49,13 @@ p4 = (
 )
 
 p5 = (
-    "Similarly, the cleanroom suite used for aliquoting procedures (CR114) comprises the same interconnected "
-    "architectural layout, where aliquoting was conducted within intermediate ISO 7 buffer room (114A). The innermost "
-    "ISO 7 cleanroom 114B and its ISO 5 Biological Safety Cabinet (BSC) E001316 were thoroughly cleaned and prepared "
-    "before initiating testing by analyst Gabrielle Surber as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
-    "Room Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology)."
-)
-
-p5b = (
-    "Similarly, for Celsis aliquoting, intermediate ISO 7 buffer room 114A and its ISO 5 BSC E001798 were thoroughly "
-    "cleaned and prepared by analyst Cuong Du before initiating testing as per MICRO-SOP-44 and MICRO-SOP-9. Both BSCs, "
-    "E001316 in 114B and E001798 in 114A, were certified and approved by the Engineering and Quality Assurance teams "
-    "prior to use."
+    "The innermost ISO 7 cleanroom 114B and its ISO 5 BSC E001316 were thoroughly cleaned and prepared before "
+    "initiating testing by analyst Gabrielle Surber as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
+    "Room Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). For Celsis "
+    "aliquoting, intermediate ISO 7 buffer room 114A and its ISO 5 BSC E001798 were thoroughly cleaned and "
+    "prepared by analyst Cuong Du before initiating testing as per MICRO-SOP-44 and MICRO-SOP-9. Both BSCs, "
+    "E001316 in 114B and E001798 in 114A, were certified and approved by the Engineering and Quality Assurance "
+    "teams prior to use."
 )
 
 p6 = (
@@ -137,7 +132,7 @@ p13 = (
 )
 
 p14 = (
-    "Similarly, after reviewing the Environmental Monitoring (EM) results for the relevant Celsis Sterility aliquoting period, "
+    "After reviewing the Environmental Monitoring (EM) results for the relevant Celsis Sterility aliquoting period, "
     "no microbial growth was observed on personnel monitoring plates, ISO 5 BSC E001798 surface sampling plates, or settling "
     "plates on the date of aliquoting (08Sep2026), the preceding sampling date (07Sep2026), or the subsequent sampling date "
     "(09Sep2026). Weekly active air sampling of the cleanroom suite performed on 10Sep2026 showed recovery of 1 CFU "
@@ -194,12 +189,12 @@ p21 = (
     "accordance with the applicable laboratory OOS procedure."
 )
 
-text_field_49 = "\n\n".join([p1, p2, p3, p4, p5, p5b])
+text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
 text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11, p12])
 text_field_51 = "\n\n".join([p13, p14, p15, p16, p17, p18, p19, p20, p21])
 
 smart_phase1_full = "\n\n".join([
-    p1, p2, p3, p4, p5, p5b, p6, p7, p8, p9, p10,
+    p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
     p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21
 ])
 
