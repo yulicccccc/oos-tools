@@ -9,11 +9,15 @@ import shutil
 from datetime import datetime
 import fitz  # PyMuPDF
 from docxtpl import DocxTemplate
-import docx
+from docx.shared import Pt
+from docx.oxml import parse_xml
+from docx.opc.constants import RELATIONSHIP_TYPE
 import win32com.client
 import gc
 
 sys.stdout.reconfigure(encoding='utf-8')
+
+SAMPLE_URL = "https://etrax.eagleanalytical.com/SubmissionTest/Details/jzraMOOTFYUFD%24erkwgubw__"
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
@@ -269,6 +273,39 @@ def set_cell_text(cell, text):
     else:
         cell.text = text
 
+def set_cell_hyperlink(cell, url, text):
+    import docx
+    cell.text = ''
+    p = cell.paragraphs[0]
+    p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(0)
+    p.paragraph_format.line_spacing = 1.0
+    part = p.part
+    r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+    hyperlink_xml = (
+        f'<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+        f'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '
+        f'r:id="{r_id}" w:history="1">'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rStyle w:val="Hyperlink"/>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:color w:val="0000FF"/>'
+        f'<w:sz w:val="15"/>'
+        f'<w:szCs w:val="15"/>'
+        f'<w:u w:val="single"/>'
+        f'</w:rPr>'
+        f'<w:t>{text}</w:t>'
+        f'</w:r>'
+        f'</w:hyperlink>'
+    )
+    p._p.append(parse_xml(hyperlink_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+# Set clickable hyperlink on Table 1 (Table 0) Sample ID
+set_cell_hyperlink(doc_t_mod.tables[0].rows[1].cells[2], SAMPLE_URL, "ETX-260828-0527")
+
 # Surgically update Table 2 (Processing Phase) to match ground truth Suite 114 weekly records
 t2 = doc_t_mod.tables[1]
 # Row 13: Active Air Sampling of Cleanrooms on 04Sep26 by ISS
@@ -387,9 +424,16 @@ main_docx_path = os.path.join(DESKTOP_DIR, "OOS-262080 Optimal Balance Pharmacy 
 main_docx_scratch = os.path.join(SCRIPT_DIR, "OOS-262080 Optimal Balance Pharmacy (E19193) - Celsis.docx")
 tpl_main = DocxTemplate(os.path.join(ROOT_DIR, "Celsis OOS P1 template.docx"))
 tpl_main.render(word_context)
-tpl_main.save(main_docx_path)
 tpl_main.save(main_docx_scratch)
-print(f"Generated Main DOCX: {main_docx_path}")
+doc_main_mod = docx.Document(main_docx_scratch)
+if len(doc_main_mod.tables) > 1 and len(doc_main_mod.tables[1].rows) > 1:
+    set_cell_hyperlink(doc_main_mod.tables[1].rows[1].cells[2], SAMPLE_URL, "ETX-260828-0527")
+doc_main_mod.save(main_docx_scratch)
+try:
+    doc_main_mod.save(main_docx_path)
+    print(f"Generated Main DOCX with Table 1 Hyperlink: {main_docx_path}")
+except PermissionError:
+    print(f"Notice: {main_docx_path} is locked, saved to {main_docx_scratch}")
 
 # ==========================================
 # 3. FILL FILLABLE PDF FORM
@@ -628,7 +672,7 @@ doc_main = fitz.open(main_pdf_scratch if os.path.exists(main_pdf_scratch) else m
 source_tables_pdf = tables_pdf_scratch if os.path.exists(tables_pdf_scratch) else tables_pdf_path
 if os.path.exists(source_tables_pdf):
     doc_tables = fitz.open(source_tables_pdf)
-    doc_main.insert_pdf(doc_tables)
+    doc_main.insert_pdf(doc_tables, annots=True)
     doc_tables.close()
 
 doc_main.save(combined_pdf_scratch)
