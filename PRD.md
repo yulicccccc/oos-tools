@@ -163,6 +163,9 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - Pages 3, 4, 5: `Text Field49`, `Text Field50`, `Text Field51` (9.2pt, natural full-page flow).
         *   **Zero Artificial Spacing / Trailing Returns:** Trailing newlines (`\r \r \r`) and trailing spaces must be stripped from field values (`.rstrip(' \r\n')`) to prevent unnecessary line increments that trigger clipping.
         *   **Mandatory Bounding Box Inspection Gate:** Automation scripts must parse generated `/AP` streams and verify that cumulative baseline vertical coordinates satisfy `min_y >= 0` across all text fields, guaranteeing 100% text visibility and complete absence of the `+` button in Adobe Acrobat.
+    25. *Strict 1-to-1 Transcription Rule (纯复制粘贴转录原则：只搬运内容，不擅改字号与格式):*
+        *   **User Direct Mandate:** 在将草稿 PDF（如 `OOS-XXXXXX ... .pdf`）转录至正式官方表单（如 `CORP-FORM-21 ... .pdf`）时，**仅执行严格的内容与勾选状态 1:1 纯复制粘贴（Direct Copy-Paste）**。
+        *   **Strict Hands-off on Fonts & Formatting:** 严禁在转录脚本中主动去计算、改动、微调或覆盖字段的字号 (`text_fontsize`) 或格式。打多少字就直接赋什么值，保持表单原生默认状态，不进行任何额外的格式干预。
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.
