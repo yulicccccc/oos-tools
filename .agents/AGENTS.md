@@ -417,3 +417,27 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - In the analytical reading summary sentence, do NOT append sub-container tracking IDs (e.g. `(ETX-260828-0527-3/5)`) after naming the positive media jar.
    - Standard sentence: `"sample ETX-XXXXXX-XXXX was found to yield a positive reading in one of the 300 mL FTM media jars."`
    - Rationale: Redundant sub-container IDs clutter narrative flow and are already explicitly and cleanly itemized in Table 1.
+
+### 25. Sterility Positive Media Jar Count & Sequence Verification Gate (无菌检测阳性培养基瓶数与瓶序多重绝对校验铁律)
+**CRITICAL & ZERO TOLERANCE**: In cGMP sterility investigations (Celsis, USP <71>, Scan RDI), misstating the count of positive media containers (e.g. reporting 1 positive jar when the raw data explicitly records 2 positive jars) is a catastrophic ALCOA+ data integrity failure that misrepresents the severity of contamination to QA and regulatory authorities.
+
+1. **Raw Container Count Primacy (原始瓶数绝对守恒原则)**:
+   - When raw laboratory notification emails or batch sheets state `$N \times \text{[size]} \text{ [media]}$` (e.g., `2 x 300mL FTM`), the integer $N$ is the immutable ground truth.
+   - Table 1 Column `Media with microbial growth` MUST strictly match the exact count: `$N \times \text{[size]} \text{ [media]}$` (e.g., `2 x 300mL FTM`). NEVER reduce, abbreviate, or round down to `1 x`.
+
+2. **Absolute Ban on Fraction Misinterpretation (严禁将多瓶序号压缩为分数导致单瓶误判)**:
+   - Phrases indicating specific jar positions (e.g. `(3rd and 5th jars)` or `jars #3 and #5`) MUST NEVER be shorthand-compressed into notations like `3/5`.
+   - The AI and scripts MUST NEVER interpret `3/5` as "bottle 3 of 5" (which caused the catastrophic error of reporting 1 jar instead of 2). Multi-jar enumerations must be explicitly preserved as distinct positive containers.
+
+3. **Grammatical & Contextual Concordance Across All Narrative Sections (全篇前后文单复数严格一致性准则)**:
+   - **When $N \ge 2$**:
+     - Narrative Paragraph 8: MUST state `"sample [ETX] was found to yield positive readings in [word(N)] of the [size] [media] media jars ([explicit jars])"` (e.g., `"positive readings in two of the 300 mL FTM media jars (the 3rd and 5th jars)"`).
+     - Referenced containers: MUST use plural nouns (`positive FTM sample bottles`, `duplicate reading tubes`, `bottles were submitted`).
+   - **When $N = 1$**:
+     - Narrative Paragraph 8: MUST state `"positive reading in one of the [size] [media] media jars"`.
+
+4. **Pre-Delivery Raw Data Reconciliation Gate (交付前原始邮件与成品强制逐字穿透对账闸门)**:
+   - Before declaring completion of ANY OOS report, the AI MUST execute an automated cross-reconciliation check:
+     - Step 1: Scan user raw prompt/intake text for regex `\b(\d+)\s*x\s*\d+\s*mL\s*(FTM|TSB)`.
+     - Step 2: Compare captured count $N$ against Table 1 cell and Narrative Paragraph 8 text.
+     - Step 3: If any mismatch is detected ($N_{\text{raw}} \ne N_{\text{rendered}}$), execution MUST immediately abort and trigger self-correction before presenting results to the user.
