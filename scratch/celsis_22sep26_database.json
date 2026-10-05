@@ -1,0 +1,700 @@
+[
+  {
+    "Sample": "ETX-260017-0612",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 1875,
+    "Max CV%": "0%",
+    "Pages": [
+      11
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 11,
+        "media": "FTM",
+        "text": "[18 [ETx-260017-0612- (3 | 1866 | 1881] 1875 Negative] o/22/2020 | 751.20 PM| 0 3] |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260072-0092",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      4
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 4,
+        "media": "TSB",
+        "text": "[2 [ETx-260072-0092- (1 g722r2026 [T3139 PM] al |"
+      },
+      {
+        "page": 4,
+        "media": "TSB",
+        "text": "| 3 [ETx-260072-0092 (2 g7r2/a026 [T3T5BPM| Bl =|"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260074-0480",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      5
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "ETX-260074-0480- (2 g7z2/2026 | 1:36:09 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260074-0699",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      10
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 10,
+        "media": "TSB",
+        "text": "[8 [ETx-260074-0699-(7 | 875 | 876 | 876 [Negative] 9/22/2026 [74219 PM| _O| 6,"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260910-0779",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      4,
+      5
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 4,
+        "media": "TSB",
+        "text": "ETX-260910-0779-3/5 9/22/2026 | 1:32:38 PM"
+      },
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "ETX-260910-0779-3/5 9/22/2026 | 1:35:29PM[\u2014\u2014 8 |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260911-0251",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 5642,
+    "Max CV%": "N/A",
+    "Pages": [
+      8,
+      9
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 8,
+        "media": "TSB",
+        "text": "ETX-260911-0251-4/5 3142 | 3145 [3144 9/22/2026 | 1:38:59PM[ 0/4 |"
+      },
+      {
+        "page": 9,
+        "media": "FTM",
+        "text": "ETX-260911-0251-4/5 5043 | 6241 | 5642 | Negative| 9/22/2026 | 1:40:09 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260911-0407",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": 846,
+    "Max FTM RLU": null,
+    "Max CV%": "2%",
+    "Pages": [
+      10
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 10,
+        "media": "TSB",
+        "text": "ETX-260911-0407-(T|_930 | 962 | 846 | Negative| 6/22/2026 | F46:50 PM] 2] 6) |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260911-0487",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 5835,
+    "Max CV%": "N/A",
+    "Pages": [
+      8,
+      9
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 8,
+        "media": "TSB",
+        "text": "ETX-260911-0487-4/5 3398 | 3376 | 3387 9/22/2026 | 1:39:19PM[ OT 4]"
+      },
+      {
+        "page": 9,
+        "media": "FTM",
+        "text": "ETX-260911-0487-4/5 5770 | 5899 | 5835 | Negative| 9/22/2026 | 1:40:29 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260912-0004",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      17
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "[16 [ETx-260912-0004-3/5| 426 [415] 421 [Negative| i] 6 | 9/22/2026 | 12:44:31 PM |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260912-0091",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 607,
+    "Max CV%": "N/A",
+    "Pages": [
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 16 |ETx-260912-0091-3/5| 623] 591] 607|Negative] \u20143[ 5 | (9/22/2026 | 12:51:06 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260912-0092",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      5
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "ETX-260912-0092- (1 1048 9/22/2026 | 1:34:29PM| \u2014_10[ 4 |"
+      },
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "ETX-260912-0092- (2 | 1002 9/22/2026 | 1:3449PM] 9] |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260912-0093",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 665,
+    "Max CV%": "N/A",
+    "Pages": [
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 17 | ETX-260912-0093-1 | 699| 631] 665|Negative| | \u00ab6 |_ 9/22/2026 | 12:51:30 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260912-0094",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 900,
+    "Max CV%": "N/A",
+    "Pages": [
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 15 | ETX-260912-0094-3/6| 1044| 756| 900|Negative|  16[ \u20145| 9/22/2026 | 12:50:45 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0063",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      16
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 16,
+        "media": "FTM",
+        "text": "a Tetx-260014-0063 [6713 5386 [8550] Nosative| 36 | a\u201d207036_| 72:35:20 P| |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0075",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      16
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 16,
+        "media": "FTM",
+        "text": "7 [etx 260014-0075-95 | 8577 | 8550 [6564 [Negative] 0] 6 | o/2572006 | Ta3446 Pu |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0136",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      4,
+      5
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 4,
+        "media": "TSB",
+        "text": "ETX-260914-0136-3/5 9/22/2026 | 1:32:19PM[ 38"
+      },
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "ETX-260914-0136-3/5 9/22/2026 | 1:35:09 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0230",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      16
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 16,
+        "media": "FTM",
+        "text": "3 |ETx200014-0230-175 | 6627 | 6096 [5065 Negalve] 2] 7 sf2aR026 [123428 Pr"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0348",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      6
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 6,
+        "media": "TSB",
+        "text": "| 2 \u00ab| ETX-260914-0348-4/5 3246 | 3432 [3339 [Negative] 9/22/2026 | 1:37:19 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0364",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "0%",
+    "Pages": [
+      10
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 10,
+        "media": "TSB",
+        "text": "[7 [ETx-260014-0364-(7 | 706 | 703 | 705 [Negative] 9723/2026 | 1:42:60 PM] 0] 4"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0486",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      4,
+      5
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 4,
+        "media": "TSB",
+        "text": "[7 [ETX-260014-0486- (2 912212026 | 1:33:19 PM"
+      },
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "6 [ETx-260014-0486- (1 92272026 | 7:36:49 PM |"
+      },
+      {
+        "page": 5,
+        "media": "FTM",
+        "text": "| _8 _|ETX-260914-0486-(3 | 1064 1017 9/22/2026 | 1:36:29 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0488",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 916,
+    "Max CV%": "N/A",
+    "Pages": [
+      17,
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "| 13 [ETx-260014-0488-(2 | 405[ 403] 404 (Negative! 0] 7 | 9/22/2026 | 12:43:41 PM |"
+      },
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "[14 [ETx-260014-0488-(3 [441 | 413] 427 [Negative| 3 6 | 9/22/2026 | 12:44:09 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 12 [ETX-260914-0488-(1 | 982[ 870| 926[Negative] 6 | 5 | 9/22/2026 | 12:49:40 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 13 [ETX-260914-0488-(2 | 1077| 754] 916|Negative|  18{ 6 | \u20189/22/2026 | 12:50:03 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 14 | ETX-260914-0488-(3 9/22/2026 | 12:50:25 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0554",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": 2008,
+    "Max CV%": "N/A",
+    "Pages": [
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 7 | ETX-260914-0554-(1 | 2179 | 2138/2159 9/22/2026 | 12:48:00 PM |"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 8 __[ETX-260014-0554-(2 | 1996] 2020[2008| Negative) 1/6 | (9/22/2026 | 12:48:21 PM |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0571",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": 978,
+    "Max FTM RLU": 1801,
+    "Max CV%": "N/A",
+    "Pages": [
+      17,
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "| 70 [ETx-260014-0571-(2 [980 | 975] 978 |Negative| | 8| 9/22/2026 | 12:42:27 PM |"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 9  [Etx-260014-0571-(1 | 1771 | 1830|1801|Negative] \u20142[ \u00ab6 | 9/22/2026 | 12:48:40 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 10 | ETX-260914-0571-(2 | 1640 | 1580 | 1610 9/22/2026 | 12:48:59 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 11 [ETX-260914-0571-(3 | 1687 | 1667 [1677 9/22/2026 | 12:49:20 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0655",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": 978,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      17,
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "[2 [ETx-260914-0655-(1 | 930 | 947 | 939 [Negative] {5 | (9/22/2026 | 12:39:38 PM]"
+      },
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "[5 | ETx-260014-0655-(4 | 967|988| 978 Negative] 15] 9/22/2026 | 12:40:45 PM |"
+      },
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "| 6 __[ETX-260014-0655-(6 [971 [943| 957 [Negative] 1[ 7] 9/22/2026 | 12:41:07 PM |"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 2 [ETX-260914-0655-(1 | 1700| 1752[1726[Negative] 2/6 | 9/22/2026 | 12:46:20 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 3 _[ETX-260914-0655-(2 | 1832] 1895 | 1864 9/22/2026 | 12:46:39 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "[4 [ETX-260914-0655-(3 | 1477 | 1475[1476[Negative| 0] \u00ab4 | 9/22/2026 | 12:47:00 PM"
+      },
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 5 _ | ETX-260914-0655-(4 | 1541 | 1572 | 1557 9/22/2026 | 12:47:19 PM |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0671",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      17
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "P11 [ETX-260014-0671-(3 [937 | 941 | 939 [Negative| O| 6] 9/22/2026 | 12:42:49 PM |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260914-0864",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": 974,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      17
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "| 8 [ETX-260914-0864-(2 |_970[ 978 | 974|Negative| 0] 6 | 9/22/2026 | 12:41:49 PM |"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260917-0813",
+    "Instrument": "2222",
+    "Daily ATP": 103791,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "6%",
+    "Pages": [
+      10
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 10,
+        "media": "TSB",
+        "text": "[14 ETX-260917-0813-( | 929 | 922 | 028 [Negative] 22/2026 | 1:46:10 PM 6 4]"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-260944-0655",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      18
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 18,
+        "media": "FTM",
+        "text": "| 6 [| ETX-260944-0655-(6 | 1821] 1915 | 1868 9/22/2026 | 12:47:40 PM"
+      }
+    ]
+  },
+  {
+    "Sample": "ETX-280974-0665",
+    "Instrument": "2011",
+    "Daily ATP": 97310,
+    "Max TSB RLU": null,
+    "Max FTM RLU": null,
+    "Max CV%": "N/A",
+    "Pages": [
+      17
+    ],
+    "Status": "PASS",
+    "Notes": "100% Valid",
+    "Raw Rows": [
+      {
+        "page": 17,
+        "media": "TSB",
+        "text": "[4 [ETX-280974-0665-(3 | 952 | 959| 956 [Negative] 0] S| (9/22/2026 | 12:40:24 PM]"
+      }
+    ]
+  }
+]

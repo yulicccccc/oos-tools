@@ -1,0 +1,551 @@
+==================== PAGE 1 ====================
+EAGLE
+MIcRo-FORM-4Category: Form Microbioiogy
+v11.0
+Name:PersonnelSamplingLoghook
+Effective
+Location
+15-APR-2024
+Houston
+ETX ID
+Printed byetran@eagleagalytical.comfrom https://app.zenqms.comon 06-Aug-2026at10:02:19pM UTC
+3.600.002.F03
+Page 40 of 51
+EAGLE
+QUALITY SYSTEM
+FORM
+DOCUMENT #: 3.600.002.F03
+SCIENCE-BASED SOLUTIONS
+LEVEL: 3
+Effective Date: 04/15/2024
+TITLE:
+PERSONNEL SAMPLING LOGBOOK
+Revisian #: 11
+Page 40 of 50
+Alert level: 21 CFU/Plate
+Action level: >3 CFU/Plate
+NLT 48 hrs at 30-35°C
+BSC
+NLT 5 days at 20-25'C
+Process
+TSA Lot#& Exp.
+Performed
+Ineubator
+CFU(S)
+Read by/Date &
+Incubator
+E00XXXX
+By/Date & Time
+CFU(S)
+E00XXXX
+Read.
+Right
+Time
+Lefft
+Reviewed
+E0OXXXX
+Right
+Left
+t011ni0270
+by/ate
+By/Date
+smo
+1034
+19 :00-M
+18 :30
+biep26
+smo
+L AM
+sm
+trdy o
+1031
+18:3D
+0 1Se+ 26
+GA.
+1011872410
+1986
+25 Au5 26
+1031
+smo
+h20]
+14 : 37
+18 30
+01sem
+873
+scan
+Smo
+1317
+25A020
+101910270
+1031
+2AM620
+1034
+30Apr Z7
+15 :00.
+18:30
+O/Se 26
+02201b101
+Smo
+19.38
+smo
+101
+30Apr17
+O1Se 26
+lonaoo
+1937
+smo
+03]
+30Apran
+1039
+18 30.-
+Oisere
+EE. μSM 35Aug ap
+25A0GZ(
+
+
+==================== PAGE 2 ====================
+EAGLE
+MiCRO-FORM-3 |Category: Farm Microbiology
+v12.0
+Name: Surface Sampling Logbook
+EIXID
+Location
+3.600.002.F02
+Houston
+Page 40 of 51
+Printed by etran@eagleanalytical.com from https://app.zenqms.com on 06-Aug-2026 at 10:01:45 PM UTC
+EAGLE
+FORM
+QUALITY SYSTEM
+DOCUMENT #: 3.600.002.F02
+LEVEL: 3
+Revision #: 12
+Effective Date:
+APROVED
+SCIENCE-BASED SOLUTIONS
+Page 40 of 50
+TITLE:
+SURFACE SAMPLING LOGBOOK
+Action level: ≥ 1 CFU/Plate
+NLT 48 hrs at 30-35°C
+NLT 5 days at 20-25°C
+Surface
+Read
+acubator
+Read By/Date &
+Reviewed
+Incubator
+Performed
+BSC
+Sampling
+CFU($)
+Contact Plate Lot # &
+CFU($)
+By/Date
+EGOXXXX
+Tme
+By/Date
+Process
+Site (e-g*
+By/Date & Time
+E00XXXX
+E00XXXX
+Exp.
+1-4)
+CA
+smo
+1011993610
+107
+25A-J2L
+(0B9
+O/Sep 26
+163D
+14:26
+26 Dec 26
+smo
+smo
+1034
+0 1Sep26
+16:30
+Mo Dat M
+14:. 30
+smo
+sMo
+1o11 39 3b10
+OA-
+1034
+1031
+1830
+1n: 30
+Ose2e
+smo
+1011066680
+1031
+1034
+1317
+Scan
+25A0GZ0
+O1Sep 26
+10 DEC 26
+18:3D
+15:00
+OA-
+11aa3010
+1034
+1C 38
+(03)
+1-4
+hhs10
+1830
+o: 93
+smo
+sm
+1011qec080
+1937
+i-
+2SA
+103
+1034
+c10
+10: 93
+18 30
+
+
+==================== PAGE 3 ====================
+MICRO-FORM-5 | Category: Form Microbiology
+EAGLE
+Effective
+v12.0
+Name: Surface Sampting of Anteroom and Buffer Room Logbook
+10-DEC-2024
+Location
+EIX ID
+uoisnoh
+3.600.002.F04
+I Printed by ralteen@eagleanalytical.com from https://app.zengms.com on 26-Jun-2026 at 6:09:10 PM UTC
+Page 10 of 26
+EAGLE
+QUALITY SYSTEM
+FORM
+DOCUMENT #: 3.600.002.F04
+LEVEL:3
+Effective Date:10Dec2024
+SCIENCE-BASED SOLUTIONS
+Revision #: 12
+TITLE:
+SURFACE SAMPLING OF ANTEROOM AND BUFFER ROOM LOGBOOK
+Page 10 of 25
+Alert: >20CFU/plate
+Alert: >3CFU/plate
+Anteroom
+Buffer Room
+Action: >50CFU/plates
+Acfion: >5CFU/plates
+NLT 48 hrs at 30-35°C
+NLT $ days at 20-25°C
+Contact Plate Lot  & Exp.
+Performed
+Incubator
+Incubator
+Read By!
+CFU(S)
+Sampling Site
+CFU($)
+Revielved
+E00XXX
+Date & Time
+By/Date&Time
+E0OXXXY
+Date
+By/Date
+10110g3 10
+Dk
+Cart 1 in Room 145
+1039
+1031
+101 q3610
+SAS
+Cart 2 in Room 145
+1034
+2teDet210
+1336
+00:52
+SAS
+1034
+103!
+Cart 3 ia Room 145
+210Dec210
+1330
+Osr6
+10199 3010
+SAS
+Room 145 Floor near
+heo1
+DK
+103]
+Ro0m 144
+1336
+23:00
+101199z016
+SAS
+1034
+DK
+Cart 1 in Ra0m 144
+2oDer a
+:1330
+Ossepad
+smo
+101093 10
+SAS
+031
+Cart 2 in Room 144
+103]
+1330
+smo
+Room 144 Floor near
+1034
+Room 143
+21100
+101194300
+SA!
+Table I with Sean
+1031
+103
+Unit in Room 143
+13302
+23:00
+csserae
+Smo
+101g93010
+Table2with Scan
+103 1
+Unit in Ro0m 143
+lokgep 
+1330
+2 :00
+sspa
+10ftag3ot
+as
+Tabie 3 with Scall
+Dk
+1034
+1031
+Unit in Ro0m 143
+1350
+23 100
+1011c0130 10
+Smo
+1034
+Dk.
+Table 4 in Room 143
+1031
+1330
+43:00
+101093@10
+smo
+Sink Table in Room
+DK
+1031
+142
+132
+D 6Tx-200908
+OF. smo 2pu
+APPROVED
+
+
+==================== PAGE 4 ====================
+Effective
+1Q-DEC-2024
+MICRO-FORM-6
+I Category: Form Microbiotogy
+EAGLE
+v14.0
+Name: Active Air Sampling Logbook
+EIX ID
+Location
+*3.60Q.002.F05
+Houston
+Page 10 of 26
+Printed by ralteen@eagleanalytical.com from hitps://app.zengms.com on 26-Jun-2026 at 4:19:13 PM UTC
+EAGLE
+FORM
+QUALITY SYSTEM
+LEVEL: 3
+DOCUMIENT #: 3.600.002.F05
+Revision #: 14
+Effective Date:10Dec2024
+SCIENCE-BASED SOLUTIONS
+Page 10 of 25
+TITLE:
+ACTIVE AIR SAMPLING LOGBOOK
+Alert level: ≥8 CFU/Plate
+Action level:  10 CFU/Plate
+NLT 48 hrs at 30-35°C
+NLT 5 days at 20-25°C
+Read By!
+Iaenbator
+Reviewed
+Performed
+Incubator
+Read By!
+CFU($)
+BSC
++EU(s)
+Date
+EO0XXXX
+By/Date
+By/Mate&
+TSA Lot芸& Exp.
+FOOXXX
+Process
+E0OXXXY
+Room.
+Date & Timne
+Time
+DK
+smo
+10/1842410
+mc
+1034
+ns80
+103(
+145
+SectionI
+1330
+DK
+Qhitg!
+1034
+80
+145
+Section I
+1330
+23:00*
+Sas
+smo
+i bttg0
+103
+03(
+144
+NA
+Section I
+1330
+23:60
+Dk
+NIA
+034
+oXsupte
+(03
+144
+085epx
+SectionH
+1330
+SAS
+Qlbzt8 110i
+1034
+Tirvoll.
+143
+SectionT
+1332
+23:00
+Dk.
+1011872410
+1034
+sruuo
+143
+0826
+Section II
+1330
+22:00
+Sas
+Imc.
+smt
+Actve
+1531
+08sepac
+142
+1330
+23.00
+3zd80 0us: h$s0 -8 0b002- X14@
+
+
+==================== PAGE 5 ====================
+20-JAN-2023
+Effective.
+Page 50 of 51
+FORM
+LEVEL: 3
+Revision #: 06
+Page 50 of 50
+N/r% 25Amg24
+NA MS 2SAUe
+9 Boy s lo t0
+/NA SU 25 Au026
+Win f... Wveo.
+Comments
+3.600.018.F05
+ETX ID
+DOCUMENT #: 3.600.018.F05
+QUALITY'SYSTEM
+Guds n 1
+Effective Date: 01/20/2023
+BIOLOGICAL SAFETY CABINET CLEANING AND
+Name: Biological Safety Cabinet Cleaning and Disinfecting Logbook
+1313
+313
+. BSC
+8851
+ Aago [ (314
+t :20 ~ (1:30 |25 Ato 26 
+O850-0809:0 2sAu92c
+Performed by
+25 Aog 26 *
+2SAU020
+(aa/spur)
+SAu s6
+CEAGLE
+SGIENCE-BASED SOLUTIONS
+DISINFECTING LOGBOOK
+. 3000 us
+112: 10 ~12: 
+[08 :42~ 08: 52
+t$:90 ~th: 90
+3580 -Sh:80
+ Category: Form Microbiology.
+10 :35~ ko :45
+104 :34 ~04 :22)
+O:-00
+10 :23- 10: 33
+t:bo~7: b0
+07 : 37-07:97
+13 :23~ 1323
+82:a ~: ]
+Disinfection 'ine
+(not less than 10 min)
+28 5
+Location
+Houston
+Before !
+Before
+Before
+Before
+After
+After
+Before
+After
+After
+Before
+Before
+Before
+After
+Before
+After
+After
+Before
+After
+After
+TITLE:
+0'9A
+scan
+can
+
+

@@ -1,0 +1,1317 @@
+=== PAGE 1 ===
+OOS Number: OOS- 
+                                                 
+  Phase I 
+Section A – Test Details 
+Initiator: 
+ 
+Test Date: 
+ 
+Date 
+Initiated: 
+ 
+Date of Incident: 
+ 
+Test Name: 
+ 
+Sample 
+ID: 
+ 
+Name of Analyst 
+who Performed 
+the Test: 
+ 
+Sample /  
+Active Name 
+ 
+ 
+ 
+ 
+ 
+Lot #: 
+ 
+ 
+Dosage Form 
+ 
+Description of 
+Incident: 
+ 
+ Client Care notified of OOS 
+ 
+ Sterility and Endotoxin test related OOS; Client must be 
+notified within 24 hours of OOS 
+ 
+SOP / Test Method # 
+Effective Date: 
+SOP / Test Method Rev:  
+Limits/Specification: 
+Manager notified 
+Manager/designee name: 
+ 
+Date: 
+ 
+Quality Assurance Department 
+notified: 
+Yes   
+       No 
+ 
+Section B – Investigation and Root Cause Analysis 
+Personnel Discrepancy 
+Comments 
+Analyst interviewed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct samples analyzed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct SOP / Test Method used/followed? 
+Yes    
+ No   
+ N/A 
+ 
+Correct sample collection/technique? 
+Yes    
+ No   
+ N/A 
+ 
+Are the Test Result Records Attached & 
+Calculations Verified and Correct? 
+Yes    
+ No   
+ N/A 
+ 
+Is the analyst qualified to perform the test? 
+Yes    
+ No   
+ N/A 
+ 
+Is formula worksheet provided and verified? 
+Yes    
+ No   
+ N/A 
+ 
+Does the processing method/method set 
+conform to the required specification? 
+Yes    
+ No   
+ N/A 
+ 
+Was the sample stored appropriately?  
+Yes    
+ No   
+ N/A 
+ 
+Material Discrepancy 
+Lot Number 
+Expiry Date 
+Is the integrity of the sample(s) questionable? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Was the sample transported appropriately? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are the other test results from this run under 
+investigation? 
+Yes    
+ No   
+N/A 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 1 of 6
+Cuong Du (Written by Dhvanir Kansara)
+13-Aug-2026
+20-Aug-2026
+20-Aug-2026
+Celsis Sterility Test
+ETX-260812-0342
+Guanchen Li (GL)
+(Prepping & Processing Analyst)
+ 
+ 
+America Alanis (ALA)
+(Celsis Sterility Aliquoting Analyst)
+ 
+Cuong Du (CCD)
+(Celsis Sterility Reading Analyst)
+SEMAGLUTIDE/GLYCINE 
+ 
+4MG/5MG/ML SOLUTION FOR INJECTION
+ 
+ 
+ 
+ 
+ 
+Injectable
+227655
+On 20 Aug 2026, sample ETX-260812-0342 was found 
+to be positive for growth after Celsis Sterility Testing
+ 
+MICRO-SOP-44
+03-Jan-2025
+01
+Pass/Fail
+Kathan Parikh
+17-Aug-2026
+Yes, analysts Guanchen Li, America Alanis & Cuong Du were comprehensively 
+interviewed.
+Yes, Sample ID: ETX-260812-0342
+Yes, as per MICRO-SOP-44
+Yes, as per MICRO-SOP-44
+Yes, Information is available in Eagle Trax under ETX-260812-0342
+Yes, all analysts are trained and qualified by the quality department to perform the 
+test
+Not Applicable 
+Not Applicable 
+Yes, the sample was stored refrigerated as per client's instructions
+261932
+
+
+=== PAGE 2 ===
+OOS Number: OOS- 
+                                                 
+Appropriate/correct glassware used? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Are reagents stored in proper condition and not 
+expired? 
+Yes    
+ No   
+N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Standard Used 
+ 
+ 
+ 
+ 
+ 
+ 
+Solvent Used  
+ 
+ 
+ 
+ 
+ 
+ 
+Is the standard the source of the root cause? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Has the analyst been instructed to keep the 
+original test solution for possible retesting? 
+Yes    
+ No   
+N/A 
+ 
+ 
+Equipment Discrepancy 
+Equipment ID 
+Calibration Due Date 
+Was the instrument set up correctly? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is the clean room facility certified? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Performance Check (if applicable)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 2% (PDA)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+System Suitability RSD < 10% (QDA, CAD)? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the environmental monitoring results 
+conform to required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Do the controls (i.e., positive, negative, etc.) 
+conform to the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Is equipment/instrument functional and 
+calibrated/qualified/certified/PM? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 2 of 6
+Materials and Reagents
+TSB: 2548010
+FTM: 2549800
+Fluid D: 685561
+ 
+ 
+Celsis AmpiScreen Reagents: 
+Celsis Daily Wash & Rinse Kit:
+Celsis ATP Positive Control:
+Please refer to the data packet 
+attached.
+ 
+TSA and Surface Plates: Please refer 
+to the Environmental Logs uploaded 
+under the submission on EagleTrax
+ 
+Monthly Cleaning:
+H2O2 strips: 250409
+IPA: 06100753
+Materials and Reagents
+TSB: 04/19/2027
+FTM: 10/28/2026
+Fluid D: 10/31/2026
+ 
+ 
+Celsis AmpiScreen Reagents: 
+Celsis Daily Wash & Rinse Kit: 
+Celsis ATP Positive Control:
+Please refer to the data packet attched.
+ 
+TSA and Surface Plates: Please refer 
+to the Environmental Logs uploaded 
+under the submission on EagleTrax
+ 
+Monthly Cleaning:
+H2O2 strips: Apr 2027
+IPA: Feb 2028
+Celsis ATP Positive Control
+ 
+0226011483
+31 Jan 2027
+ 
+Not Applicable 
+Not Applicable 
+Not Applicable 
+E002011
+Dec 2026
+E001737 (CR 115), BSC E001314
+E001736 (CR 114), BSC E001798
+Dec 2026, Jun 2027
+Dec 2026, Jun 2027
+E002011
+Dec 2026
+Not Applicable 
+Not Applicable 
+Not Applicable 
+Not Applicable 
+See Phase I Summary See Phase I Summary
+See Phase I Summary
+Incubator E001356 
+(Monitored by
+Sensor E001450)
+ 
+Incubator E001357
+(Monitored by 
+Sensor E001449)
+ 
+Incubator E001034
+(Monitored by 
+Sensor E001501)
+ 
+ 
+Incubator E001031
+(Monitored by
+Sensor E001505)
+Jan 2027
+Feb 2027
+ 
+Jan 2027
+Feb 2027
+ 
+Aug 2027
+Feb 2027
+ 
+ 
+Aug 2027
+Feb 2027
+See Phase I Summary
+261932
+
+
+=== PAGE 3 ===
+OOS Number: OOS- 
+                                                 
+ 
+ 
+Are chromatogram/spectra/raw data correct? 
+Yes    
+ No   
+ N/A 
+ 
+ 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase I Summary 
+Phase I Summary:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 3 of 6
+Not Applicable 
+Not Applicable 
+N/A DK 31Aug2026
+All analysts involved in the prepping, processing, aliquoting, and reading of the samples – Guanchen Li (GL), 
+America Alanis (ALA) and Cuong Du (CCD) were interviewed comprehensively. Their answers are recorded 
+throughout this document. This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-
+Specification (OOS) Investigation Procedure.
+ 
+Upon arrival, the sample was stored in accordance with the Client’s instructions. Sample prepping and processing 
+analyst -Guanchen Li (GL)- verified the sample's integrity throughout both the preparation and processing stages. 
+No leaks or turbidity were observed at any point, verifying the integrity of the sample. 
+ 
+All reagents and supplies mentioned in the material section above were stored according to the suppliers’ 
+recommendations, and their integrity was visually verified before utilization. Moreover, all reagents and supplies 
+had valid expiration dates. The functionality of all equipment was confirmed by reviewing data generated by our 
+comprehensive in-house continuous monitoring system.
+ 
+The cleanroom suite used for processing procedures (CR115) comprises three interconnected sections: the 
+innermost ISO 7 cleanroom (115B), which connects to the middle ISO 7 buffer room (115A), and then to the 
+outermost ISO 8 anteroom (115). A positive air pressure system is maintained throughout the suite to ensure 
+controlled, unidirectional airflow from 115B through 115A and into 115.
+ 
+Similarly, the cleanroom suite used for aliquoting procedures (CR114) comprises three interconnected sections: the 
+innermost ISO 7 cleanroom (114B), which connects to the middle ISO 7 buffer room (114A), and then to the 
+outermost ISO 8 anteroom (114). A positive air pressure system is maintained throughout the suite to ensure 
+controlled, unidirectional airflow from 114B through 114A and into 114.
+ 
+The innermost ISO 7 cleanroom 115B and its ISO 5 Biological Safety Cabinet (BSC) E001314 were thoroughly 
+cleaned and prepared before initiating the testing by analyst Guanchen Li as per MICRO-SOP-2 (Environmental 
+Monitoring of the Clean Room Facility), and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). 
+ 
+Similarly, for Celsis aliquoting, the ISO 7 cleanroom 114A and its ISO 5 BSC E001798 were thoroughly cleaned 
+and prepared by analyst America Alanis before initiating the testing as per MICRO-SOP-44 and MICRO-SOP-9. 
+ 
+Both the BSCs, E001314 in 115B and E001798 in 114A, were certified and approved by the Engineering and 
+Quality Assurance teams prior to use.
+ 
+261932
+
+
+=== PAGE 4 ===
+OOS Number: OOS- 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 4 of 6
+On 13 Aug 2026, the sample vials for ETX-260812-0342 were received from the Sample 
+Submissions team and brought into the Sterile Microbiology lab. Upon arrival, each sample vial was 
+sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-
+minute contact time. The secondary disinfection happened in the ISO 8 anteroom (115), where the 
+vials were again treated with acidified bleach and provided a 10‑minute contact time before 
+processing. Subsequently, the vials were moved into the ISO 7 cleanroom (115B). Inside this 
+cleanroom, the processing analyst, Guanchen Li performed a final disinfection step, allowing an 
+additional 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 
+BSC E001314.
+ 
+Once transferred into the ISO 5 BSC, the vials were placed on the disinfected working surface of 
+the BSC E001314 and aseptically opened and tested in accordance with MICRO-SOP-44 (Celsis 
+Sterility Testing). Following testing, the media bottles were subsequently transferred into designated 
+incubators, E001356 and E001357, to initiate incubation. 
+ 
+Upon completion of incubation on 20 Aug 2026, both TSB & FTM bottles were disinfected and 
+transferred to the middle ISO 7 buffer room (114A) for aliquoting step per MICRO-SOP-44 (Celsis 
+Sterility Testing). In cleanroom 114A, the media bottles were disinfected one more time before 
+transferring them to the ISO 5 BSC E001798 located in cleanroom 114A. In ISO 5 BSC E001798, 
+the sample was aliquoted into assay cuvettes by analyst America Alanis. After aliquoting, Celsis 
+Sterility Reading was performed in accordance with MICRO-SOP-44 by analyst Cuong Du (CCD).
+ 
+Following the reading, sample ETX-260812-0342 was found to yield a positive reading in one of the 
+100mL FTM media bottles. The average Relative Luminescence Units (RLU) from the duplicate 
+reading tube, originating from the FTM sample bottle, exceeded the average RLU of the FTM 
+negative control, confirming a positive result. All other FTM and TSB sample bottles in same batch 
+tested negative. The %CV from the duplicate reading tubes for the positive FTM bottles was well 
+within the specification (< 30%). Additionally, all Daily Controls, including the Instrument Blank, 
+Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV 
+below 30%. 
+ 
+Following the OOS result, the positive FTM bottle for ETX-260812-0342 was submitted for 
+Differential Staining and Microbial Identification under ETX-260820-0454. Differential staining 
+confirmed as Gram variable rods as cell morphology, while definitive identification confirmed 
+Sporolactobacillus terrae. (see table 1).
+ 
+The culture media utilized were within their expiry period. The negative culture media bottles for the 
+membrane filtration method for the original culture were handled, processed, and incubated in a 
+manner identical to that of actual samples. No microbial growth was observed in the corresponding 
+negative control.
+261932
+
+
+=== PAGE 5 ===
+OOS Number: OOS- 
+ 
+                                                 
+Phase I Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 5 of 6
+Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing ISO 
+5 Biosafety Cabinets for CR115 and CR 114 was performed on 30 Jun 2026, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for 
+Microbiology). It was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanrooms 115 and 
+114. 
+ 
+Tables 2 & 3 (please see attached) present the environmental monitoring results for the duration of testing. The environmental monitoring (EM) plates 
+were incubated for no less than 48 hours at 30-35°C and no less than an additional five days at 20-25°C as per MICRO-SOP-2 (Environmental Monitoring 
+of the Cleanroom Facility). Table 2 pertains to Environmental Monitoring performed during Celsis Sterility Processing, and Table 3 pertains to 
+Environmental Monitoring performed during Celsis Sterility Aliquoting.
+ 
+Environmental Monitoring (EM) Results from Celsis Sterility Processing:
+ 
+A review of the Environmental Monitoring (EM) results for the relevant Celsis Sterility processing period showed no microbial growth on personnel 
+monitoring plates, settling plates, or ISO 5 BSC E001314 surface sampling plates on the date of testing (13Aug2026), the preceding sampling date 
+(12Aug2026), or the subsequent sampling date (14Aug2026). Weekly active air and surface sampling of the cleanroom suite associated with processing 
+was performed on 13Aug2026. No microbial recovery was observed from weekly surface sampling of the cleanroom. However, active air sampling 
+showed recovery of 11 CFUs (ETX-260824-0353) in the ISO 8 area and 2 CFUs (ETX-260824-0360) in ISO 7 room 115A. The microorganisms recovered 
+from active air sampling were identified as Nocardiopsis dassonvillei (Gram-positive filamentous rods), Micrococcus luteus (Gram-positive cocci), 
+Staphylococcus epidermidis (Gram-positive cocci), and Talaromyces sp. (branching hyphae). The ISO 7 cleanroom (115A) recovery was identified as 
+Micrococcus luteus (Gram-positive cocci).
+ 
+Environmental Monitoring (EM) Results from Celsis Sterility Aliquoting:
+ 
+After reviewing the Environmental Monitoring (EM) results for the relevant Celsis Sterility aliquoting period, no microbial growth was observed on 
+personnel monitoring plates, ISO 5 BSC E001798 surface sampling plates, or settling plates on the date of aliquoting (20Aug2026), the preceding 
+sampling date (19Aug2026), or the subsequent sampling date (21Aug2026). The Weekly environmental monitoring bracketing aliquoting date was not 
+used in the evaluation of this OOS investigation given turbidity of media bottle from microbial growth was detected prior to aliquoting (see details under 
+NCR N26436) .
+ 
+Evaluation of Environmental Monitoring Results:
+ 
+It is important to note that, for both processing and aliquoting activities, the samples are processed within validated ISO 5 BSCs (E001314 and E001798 
+respectively). Although microbial recovery was observed from weekly active-air monitoring of the ISO 8 room 115 and ISO 7 background environments in 
+the initial processing cleanroom suite (CR 115), these recoveries were not obtained from the ISO 5 processing environment. 
+ 
+The absence of microbial recovery from both the processing and the aliquoting analyst glove plates, ISO 5 BSC surface monitoring plates, and ISO 5 
+settling plates indicate that no identifiable contamination transfer pathway existed between the monitored background cleanroom environment and the 
+ISO 5 critical processing areas. Samples were also prepared and transferred into disinfected, lidded containers and transported on carts within the 
+controlled cleanroom environment. Therefore, while the active-air results demonstrate microbial recovery in the surrounding ISO 8 and ISO 7 areas, there 
+is no evidence that the recovery originated from, or affected, the ISO 5 BSC environment where the test sample was handled and processed.
+ 
+All analysts confirmed full compliance with cleaning procedures as outlined in SOPs MICRO-SOP-9 (Cleaning and Disinfecting Procedure for 
+Microbiology), and MICRO-SOP-44 (Celsis Sterility Testing). A review of the available data confirms that the cleanroom and equipment conditions 
+remained within acceptable parameters. No deviations or obvious signs of laboratory error during processing and aliquoting were noted from analysts.
+ 
+ 
+No other sample processed by analyst GL on 13 Aug 2026 and aliquoted by analyst ALA on 20 Aug 2026, failed Celsis Sterility testing that day.
+ 
+An analysis of the six-month sample history for Boudreaux's New Drug Store indicates that Eagle Analytical processed 406 samples for Celsis Sterility 
+testing with one prior occurrence of a positive result during this period (Table 4).
+ 
+A review of the lot history shows that there have been no additional submissions of sample lot: 227655 for retesting using Celsis Sterility Testing or any 
+other sterility method.
+ 
+To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples 
+processed on the same day. No other sample processed by the same analyst on day of testing were found to be positive for microbial growth. These 
+findings suggest that cross-contamination between samples is unlikely.
+ 
+Based on the observations outlined above, there is no clear indication that the contamination originated from reagents, supplies, the cleanroom 
+environment, or the analyst. Therefore, the results are considered valid, and the likelihood of laboratory error is minimal.
+ 
+261932
+
+
+=== PAGE 6 ===
+OOS Number: OOS- 
+                                                 
+Has root cause been identified as a possible laboratory error? 
+Note: Root cause must be conclusive, verifiable, and well-documented. 
+ Yes 
+ 
+ If retesting is required, complete Phase II of the OOS (initiate Form 3.100.019.F02). 
+ 
+ 
+ No, the OOS result is valid. 
+Reviewer comment(s): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by (Print): 
+ 
+ 
+Signature/Date:  
+Lab Manager/Designee (Print): 
+ 
+ 
+Signature/Date:  
+Section E – Quality Disposition 
+Can investigation be closed? 
+ Yes 
+ 
+ Original result is valid. 
+ 
+ No, initiate Form 3.100.019.F02. 
+Approved by QA Representative (Print):  
+ 
+ 
+Signature/Date:  
+ 
+ 
+CORP-FORM-21
+v11.1
+Category: Form Corporate
+Name: Laboratory OOS Investigation Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F01
+Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 20-Aug-2026 at 10:44:12 PM UTC
+Page 6 of 6
+Dhvanir Kansara
+Robin Seymour
+Digitally signed by Dhvanir Kansara
+DN: CN=Dhvanir Kansara, O=Eagle Analytical Services, OU=Project Microbiologist - 
+Microbiology, E=dkansara@eagleanalytical.com
+Reason: I am the author of this document
+Location: 
+Date: 2026.09.29 18:17:56-05'00'
+Foxit PDF Editor Version: 14.0.8
+Dhvanir Kansara
+Digitally signed by Robin Seymour
+DN: CN=Robin Seymour, O=Eagle Analytical Services, OU=Microbiology - Cleanroom Ops , 
+E=rseymour@eagleanalytical.com
+Reason: I have reviewed this document
+Location: 
+Date: 2026.09.29 18:31:34-05'00'
+Foxit PDF Editor Version: 14.0.8
+Robin Seymour
+SIGN
+261932
+
+
+=== PAGE 7 ===
+ 
+ 
+Table 1: Read Dates & Incubation Observation 
+ 
+Reading Analyst 
+Day of Incubation 
+Sample ID 
+Related Microbial ID 
+Submission 
+Media with 
+growth 
+Microbial ID 
+CCD 
+ 
+Day 7 
+ETX-260812-0342 
+ETX-260820-0454 
+1x100ml of FTM 
+Sporolactobacillus terrae 
+Gram varibale rods 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PAGE 8 ===
+ 
+ 
+ 
+Table 2: Environmental Monitoring from Celsis Processing Performed on 13Aug2026 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+Analyst 
+Day /Week(s) 
+Observation 
+EM Plate ETX 
+Number 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 10Aug2026 
+ 
+Personal (Left Touch 
+and Right Touch) 
+ 
+Daily 
+12Aug2026 
+GL 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+  
+13Aug2026 
+ 
+GL 
+Date of Testing 
+ No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+  
+14Aug2026 
+ 
+GL 
+Date After Testing 
+ No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Biological Safety Cabinet EM Bracketing E001314 for 13Aug2026 
+ 
+Surface Sampling of 
+ISO 5 BSC E001314 
+(4 Locations) 
+Daily 
+12Aug2026 
+AOD 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Surface Sampling of 
+ISO 5 BSC E001314 
+(4 Locations) 
+Daily 
+  
+13Aug2026 
+ 
+GL 
+Date of Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Surface Sampling of 
+ISO 5 BSC E001314 
+(4 Locations) 
+Daily 
+  
+14Aug2026 
+ 
+AOD 
+Date After Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001314 
+ 
+Daily 
+12Aug2026 
+AOD 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001314 
+ 
+Daily 
+  
+13Aug2026 
+ 
+GL 
+Date of Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001314 
+ 
+Daily 
+  
+14Aug2026 
+ 
+AOD 
+Date After Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Weekly Active Air and Surface Sampling of Cleanroom Suite 115 with Processing BSC For 13Aug2026 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+Analyst 
+Observation 
+EM Plate ETX 
+Number 
+Microbial ID 
+ 
+Notes 
+Active Air Sampling 
+of Cleanrooms 
+Weekly 
+ 
+13Aug2026 
+SMO 
+ 
+ 
+ 
+11 CFUs in ISO8 
+ 
+ 
+ 
+ 
+2 CFUs 
+(ISO 7 in 115A) 
+ 
+ 
+ 
+ETX-260824-0353 
+ 
+ 
+ 
+ 
+ 
+ETX-260824-0360 
+Nocardiopsis dassonvillei 
+Gram (+) filamentous rods 
+Micrococcus luteus 
+Gram (+) cocci 
+Staphylococcus epidermidis 
+Gram (+) cocci 
+Talaromyces sp 
+Branching hyphae 
+ 
+Micrococcus luteus 
+Gram (+) cocci 
+None 
+Surface Sampling of 
+Cleanrooms 
+Weekly 
+13Aug2026 
+SMO 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+
+
+=== PAGE 9 ===
+Table 3: Environmental Monitoring from Celsis Aliquoting Performed on 20Aug20261 
+ 
+1 Weekly environmental monitoring (EM) was not used in the evaluation of this OOS investigation given turbidity of media bottle from microbial growth was detected prior to 
+aliquoting. See details under NCR N26436 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Environmental 
+Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+Analyst 
+Day /Week(s) 
+Observation 
+EM Plate ETX 
+Number 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 20Aug2026 
+ 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+19Aug2026 
+ALA 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+  
+20Aug2026 
+ ALA 
+Date of Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Personal (Left Touch 
+and Right Touch) 
+Daily 
+  
+21Aug2026 
+ALA 
+Date After Testing 
+ No Growth 
+Not Applicable 
+Not Applicable 
+None 
+Biological Safety Cabinet EM Bracketing E001798 for 20Aug2026 
+ 
+Surface Sampling of 
+ISO 5 BSC E001798 
+(4 Locations) 
+Daily 
+19Aug2026 
+ALA 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Surface Sampling of 
+ISO 5 BSC E001798 
+(4 Locations)
+Daily 
+  
+20Aug2026 
+ 
+ ALA 
+Date of Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Surface Sampling of 
+ISO 5 BSC E001798 
+(4 Locations) 
+Daily 
+  
+21Aug2026 
+ 
+ALA 
+Date After Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001798 
+Daily 
+19Aug2026 
+ALA 
+Date Before Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001798 
+Daily 
+  
+20Aug2026 
+ 
+ ALA 
+Date of Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+ 
+Settling Sampling of 
+ISO 5 BSC E001798 
+Daily 
+  
+21Aug2026 
+ 
+ALA 
+Date After Testing 
+No Growth 
+Not Applicable 
+Not Applicable 
+None 
+
+
+=== PAGE 10 ===
+ 
+ 
+ 
+ 
+ 
+ 
+Table 4: Trend of Past OOS Results  
+ 
+OOS# 
+Celsis Sterility Processor 
+Celsis Sterility Aliquoting & 
+Reading Analyst 
+ETX-Submissions 
+Sample Name 
+Morphology Description 
+ 
+261824 
+ 
+Gabrielle Surber 
+ 
+ 
+America Alanis 
+ 
+ 
+ETX-260729-0660 
+ 
+Tesamorelin/Ipamorelin 3mg-0.3mg/mL 
+MDV (10mL) 
+ 
+Cutibacterium acnes 
+Gram (+) short rods 
+ 
+
+
