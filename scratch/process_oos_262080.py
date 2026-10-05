@@ -85,16 +85,16 @@ p7 = (
 )
 
 p8 = (
-    "Following the reading, sample ETX-260828-0527 was found to yield a positive reading in one of the 300 mL FTM media jars. "
-    "The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from "
-    "the FTM sample bottle, yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM negative control "
+    "Following the reading, sample ETX-260828-0527 was found to yield positive readings in two of the 300 mL FTM media jars "
+    "(the 3rd and 5th jars). The average Relative Luminescence Units (RLU) from the duplicate reading tubes, originating from "
+    "the positive FTM sample bottles, yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM negative control "
     "was 985 RLU. All other FTM and TSB sample bottles in the same batch tested negative. The %CV from the duplicate reading tubes "
     "for the positive FTM bottles was well within the specification (< 30%). Additionally, all Daily Controls, including the "
     "Instrument Blank, Reagent Blank, and ATP Positive Control, were within the defined specifications, each with a %CV below 30%."
 )
 
 p9 = (
-    "Following the OOS result, the positive FTM bottle for ETX-260828-0527 was submitted for Differential Staining and "
+    "Following the OOS result, the positive FTM bottles for ETX-260828-0527 were submitted for Differential Staining and "
     "Microbial Identification under ETX-260908-0593. No microbial growth was recovered by subculture, with zero CFU observed "
     "on the plate as shown in Table 1, and no cellular morphology was visualized by differential staining. Therefore, no organism "
     "was recovered for identification or further microbiological comparison. The lack of recovery on subculture does not "
@@ -168,9 +168,10 @@ p17 = (
 p18 = (
     "No other sample processed by analyst Gabrielle Surber on 01 Sep 2026 and aliquoted by analyst Cuong Du on 08 Sep 2026, "
     "failed Celsis Sterility testing that day. To assess the potential for sample-to-sample contamination contributing to the "
-    "positive results, a comprehensive review was conducted of all samples processed in the same batch. All other samples "
-    "processed by the same analyst on the day of testing were found to test negative for microbial growth. These findings "
-    "suggest that cross-contamination between samples is unlikely."
+    "positive results, a comprehensive review was conducted of all samples processed in the same batch. It was the 1st sample "
+    "processed from the batch of samples (with the 3rd and 5th jars found positive). All other samples processed by the same "
+    "analyst on the day of testing were found to test negative for microbial growth. These findings suggest that cross-contamination "
+    "between samples is unlikely."
 )
 
 p19 = (
@@ -204,7 +205,7 @@ table_context = {
     "analyst_name": "Gabrielle Surber",
     "aliquoting_name": "Cuong Du",
     "positive_id": "ETX-260908-0593",
-    "positive_media": "1 x 300mL FTM",
+    "positive_media": "2 x 300mL FTM",
     "positive_org": "No growth was obtained",
     
     # Processing Phase (01Sep26)
