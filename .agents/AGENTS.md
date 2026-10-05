@@ -399,3 +399,15 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - When multiple organisms are recovered from the same sampling site/plate (e.g., Colony 1 and Colony 2 on active air plate `ETX-260914-0487`), display each organism on its own line(s), separated by an empty blank line in between.
    - Do NOT concatenate with `&` or commas.
 
+### 23. Sterility Sample Inoculation Volume Phrasing Standard (`per media type` 培养基接种体积术语铁律)
+**CRITICAL**: In direct inoculation sterility testing (Celsis, USP <71>, Scan RDI), when the testing protocol divides the total sample volume across multiple containers/jars per media type (e.g., five 300 mL FTM jars and five 300 mL TSB jars):
+1. **Mandatory Wording (`per media type`)**:
+   - The narrative MUST strictly state:
+     `"Direct inoculation was performed by adding [X] mL of sample per media type, using [N] [size] [Medium 1] jars and [N] [size] [Medium 2] jars."`
+   - Example:
+     `"Direct inoculation was performed by adding 25 mL of sample per media type, using five 300 mL FTM jars and five 300 mL TSB jars."`
+2. **Strict Prohibition of `per media container`**:
+   - **NEVER** write `"per media container"`.
+   - Stating "per media container" erroneously implies that each individual jar received 25 mL (which would multiply the total sample volume tested to 250 mL, creating a serious factual contradiction against laboratory batch records and client submissions).
+
+

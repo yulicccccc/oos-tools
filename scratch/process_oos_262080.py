@@ -70,7 +70,7 @@ p6 = (
     "before transfer into cleanroom 114B. Inside 114B, processing analyst Gabrielle Surber performed a final disinfection "
     "step with a 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E001316, "
     "placed on the disinfected work surface, aseptically opened, and tested in accordance with MICRO-SOP-44. Direct "
-    "inoculation was performed by adding 25 mL of sample per media container, using five 300 mL FTM jars and five 300 mL "
+    "inoculation was performed by adding 25 mL of sample per media type, using five 300 mL FTM jars and five 300 mL "
     "TSB jars. In accordance with suitability method record 2601120497, one gram of Bovine Serum Albumin was prepared in "
     "100 mL of PBS, and 5 mL of this solution was added to each jar. Following testing, the media bottles were transferred "
     "into incubators E001356 and E001357 to initiate incubation."
