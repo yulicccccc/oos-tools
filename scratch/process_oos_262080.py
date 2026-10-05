@@ -71,7 +71,7 @@ p6 = (
     "step with a 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E001316, "
     "placed on the disinfected work surface, aseptically opened, and tested in accordance with MICRO-SOP-44. Direct "
     "inoculation was performed by adding 25 mL of sample per media type, using five 300 mL FTM jars and five 300 mL "
-    "TSB jars. In accordance with suitability method record 2601120497, one gram of Bovine Serum Albumin was prepared in "
+    "TSB jars. In accordance with suitability method record: 2601120497, one gram of Bovine Serum Albumin was prepared in "
     "100 mL of PBS, and 5 mL of this solution was added to each jar. Following testing, the media bottles were transferred "
     "into incubators E001356 and E001357 to initiate incubation."
 )
@@ -85,8 +85,8 @@ p7 = (
 )
 
 p8 = (
-    "Following the reading, sample ETX-260828-0527 was found to yield a positive reading in one of the 300 mL FTM media jars "
-    "(ETX-260828-0527-3/5). The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from "
+    "Following the reading, sample ETX-260828-0527 was found to yield a positive reading in one of the 300 mL FTM media jars. "
+    "The average Relative Luminescence Units (RLU) from the duplicate reading tube, originating from "
     "the FTM sample bottle, yielded 7,190 RLU, which exceeded the method cutoff of 2,955 RLU, where the FTM negative control "
     "was 985 RLU. All other FTM and TSB sample bottles in the same batch tested negative. The %CV from the duplicate reading tubes "
     "for the positive FTM bottles was well within the specification (< 30%). Additionally, all Daily Controls, including the "

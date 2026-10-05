@@ -410,4 +410,10 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - **NEVER** write `"per media container"`.
    - Stating "per media container" erroneously implies that each individual jar received 25 mL (which would multiply the total sample volume tested to 250 mL, creating a serious factual contradiction against laboratory batch records and client submissions).
 
-
+### 24. Suitability Method Record Notation & Positive Media Reading Conciseness Standard
+1. **Suitability Record Notation (记录编号冒号规范)**:
+   - When citing suitability method records in investigation narratives, always format with a colon after `record`: `"suitability method record: [RECORD_NUM]"` (e.g., `"suitability method record: 2601120497"`).
+2. **Positive Container Redundancy Elimination (剔除阳性瓶子编号冗余后缀)**:
+   - In the analytical reading summary sentence, do NOT append sub-container tracking IDs (e.g. `(ETX-260828-0527-3/5)`) after naming the positive media jar.
+   - Standard sentence: `"sample ETX-XXXXXX-XXXX was found to yield a positive reading in one of the 300 mL FTM media jars."`
+   - Rationale: Redundant sub-container IDs clutter narrative flow and are already explicitly and cleanly itemized in Table 1.
