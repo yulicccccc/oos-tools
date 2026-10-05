@@ -359,12 +359,43 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
      `Analyzing a 6-month sample history for Optimal Balance Pharmacy indicates, this specific analyte "MOTs-C 10 MG/ML (5 ML) Injection" has had no prior failures using the Celsis Sterility testing during this period.`
 
 
-### 19. Strict 1-to-1 Transcription Protocol (转录任务纯搬运原则：纯复制粘贴，严禁改动字号与格式)
-**CRITICAL**: When transcribing (转录) from an existing draft OOS PDF (e.g. `OOS-XXXXXX ... .pdf`) into the official ZenQMS investigation template (e.g. `CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf`):
-1. **Pure Copy-Paste Only (纯复制粘贴，不做任何格式加工)**:
+### 19. Strict 1-to-1 Transcription Protocol (转录任务纯搬运原则：纯复制粘贴，严禁改动字号与格式，顺其自然)
+**CRITICAL**: When transcribing (转录) from an existing draft OOS document/PDF into the official ZenQMS investigation template (e.g. `CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf`):
+1. **Pure Copy-Paste Only (纯复制粘贴，顺其自然，不做任何字号或留白干预)**:
    - Only copy `field_value` and checkbox states (`w.field_value`) 1-to-1 from the source document to the target document.
    - **DO NOT** attempt to calculate, override, or tamper with `text_fontsize` or text formatting.
+   - **DO NOT** worry about bottom white space ("不要管留不留白，字体大小什么的，顺其自然就行了").
    - Whatever text is in the source field, copy and paste it directly. Let the PDF viewer and official template render the fields naturally.
 2. **Zero Unauthorized Formatting Modifications**:
    - The user has explicitly mandated: "就转录（复制粘贴）过去就行，不要管什么字体大小格式的".
    - Treat the field contents as pure data transfer without adding manual typography styling or font overrides during transcription.
+
+### 20. Strict Prohibition of Ampersand `&` & Informal Symbols (严禁使用 `&` 等非正式特殊符号铁律)
+**CRITICAL**: In all cGMP formal reports, investigation forms (like `CORP-FORM-21`), comments, standalone tables, and narrative texts:
+1. **Never Use `&` (Ampersand)**:
+   - In formal regulatory documentation, `&` is considered an informal abbreviation that is strictly forbidden.
+   - Always spell out `, and ` or ` and ` in full English sentences.
+   - *Analyst Lists*: `"Yes, analysts Andrew Carrillo, Gabrielle Surber, America Alanis, and Cuong Du were comprehensively interviewed."` (NEVER `Alanis & Cuong Du`).
+   - *Section Headers & Reagents*: `"Celsis Reagents and Kits:"` (NEVER `Reagents & Kits`).
+2. **Zero Ampersand in Bacterial Tables**:
+   - When listing multiple organisms recovered on a single plate in Table 2 or Table 3, **DO NOT join them with `&`**.
+   - Separate the two organisms with a blank line between them.
+
+### 21. Hyperlink Line Spacing & Vertical Baseline Alignment Invariance (超链接段落行距与水平基线绝对对齐铁律)
+**CRITICAL**: Across all Word and PDF tables where external hyperlinks are injected:
+1. **Absolute Ban on `line="360"` (严禁注入额外行距破坏垂直居中)**:
+   - When injecting OpenXML `<w:hyperlink>` into table cells in Word/Docx, **NEVER inject `<w:spacing w:line="360" w:lineRule="auto"/>`**!
+   - Extra line spacing expands the single-line bounding box and causes Word's vertical alignment (`w:vAlign="center"`) to center an inflated box, misaligning the hyperlinked Sample ID relative to adjacent cells (`1 CFU`, `None`).
+2. **Preserve Native Cell Paragraph Properties**:
+   - Keep standard paragraph spacing (no extra line spacing), inherit cell paragraph properties `<w:jc w:val="center"/>`, exact 7pt font (`w:sz="14"`), blue color (`#0000FF`), and single underline (`<w:u w:val="single"/>`).
+   - In exported PDFs, the Sample ID hyperlinked text must match the exact vertical baseline (`y0`, `y1`) of adjacent cells down to 0.001pt precision.
+
+### 22. Microbiological Binomial Nomenclature Formatting Standard (微生物拉丁双名法全斜体与隔行规范)
+**CRITICAL**: In all OOS reports, investigation narratives, and tables:
+1. **Mandatory Italics for Species (*Genus species*)**:
+   - All bacterial genus and species names (*Corynebacterium ureicelerivorans*, *Mycobacterium grossiae*, *Micrococcus luteus*, *Staphylococcus epidermidis*, etc.) **MUST ALWAYS BE ITALICIZED** (`<w:i/>`, `<w:iCs/>` in Word; `<i>...</i>` or markdown `*...*` in docs).
+   - Higher taxa (Family, Order) and informal descriptive terms (e.g. "Gram-positive rods", "Gram-positive cocci") remain in standard non-italic font.
+2. **Multi-Organism Blank Line Separation**:
+   - When multiple organisms are recovered from the same sampling site/plate (e.g., Colony 1 and Colony 2 on active air plate `ETX-260914-0487`), display each organism on its own line(s), separated by an empty blank line in between.
+   - Do NOT concatenate with `&` or commas.
+
