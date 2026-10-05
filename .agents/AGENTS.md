@@ -175,17 +175,21 @@ Whenever drafting or reviewing an Environmental Monitoring (EM) OOS investigatio
 - For every checkbox row (e.g. Yes / No / N/A), explicitly set the target selection to `'Yes'` and **ALL alternative options in that row to `'Off'`**.
 - Never allow multiple check boxes in the same question row to be active simultaneously. Validate programmatically after compilation that each question row has exactly 1 box checked.
 
-### 11. Natural Human Typography & Zero Artificial Padding Standard (原生手打字号与杜绝人为缩放留白常态化规范)
+### 11. Natural Human Typography & Acrobat '+' Overflow Elimination Standard (原生手打字号与杜绝 '+' 截断留白规范)
 **CRITICAL**: Across **ALL Eagle PDF documents and templates** (`ScanRDI`, `Celsis`, `USP <71>`, `Environmental Monitoring (EM)`, etc.), generated PDFs must look 100% like natural human manual input into Adobe Acrobat:
-1. **Strict Prohibition of Manual `text_fontsize` Overrides (严禁手动强行覆盖 `text_fontsize`)**:
-   - **NEVER** set arbitrary fractional or shrunken font sizes (e.g., `w.text_fontsize = 5.8`, `6.0`, `6.2`, `6.5`, `7.5`, `8.5`, etc.) in any PDF form field.
-   - Text fields must strictly retain the PDF template's native default font settings (`size = 0.0` / template `/DA` appearance).
-   - In Adobe Acrobat, human analysts type directly into form fields at default sizes (~9-10pt). Forcing artificial small sizes makes text unnaturally tiny, creates bizarre bottom voids ("下面留白"), and looks synthetic/robotic.
+1. **Calibrated Auto-Fit Font Sizing vs. PyMuPDF 12pt Trap (针对紧凑表单字段设定适配字号，规避 PyMuPDF 12pt 陷阱)**:
+   - **Root Cause of Acrobat `+` Icon**: When a multiline field is set to `text_fontsize = 0.0` (Auto), PyMuPDF's `/AP` appearance stream generator defaults to `/Helv 12 Tf` (12pt font). In constrained table cells (e.g., Section B Comments with height 15.8pt), 12pt text pushes lines 2 and 3 outside the bounding box, forcing Adobe Acrobat to display a `+` symbol and clip visible text to line 1.
+   - **The Compliance Solution**: Multi-line fields in tight table cells MUST be assigned their calibrated auto-fit font sizes (matching Foxit/Acrobat auto-scale values from signed reference reports like `OOS-261877`):
+     - Section B Comments: `Text Field13` (4.825pt), `Text Field14` (8.5pt), `Text Field15/16` (9.0pt), `Text Field17` (6.725pt), `Text Field18` (4.825pt), `Text Field19/20` (9.0pt), `Text Field21` (5.85pt).
+     - Analyst Box (`Text Field3`): 6.225pt (all 4 analysts fit cleanly).
+     - Incident Description (`Text Field7`): 8.0pt (3 lines fit cleanly).
+     - Reagents & Facilities (Page 2): `Text Field22` (4.35pt), `Text Field23` (4.75pt), `Text Field32/33` (4.825pt), `Text Field43/44` (7.05pt).
+   - In Adobe Acrobat, these sizes fit 100% of the text inside the cell, completely eliminating the `+` button and showing all content cleanly.
 2. **Zero Artificial Bottom Padding & Trailing Line Breaks (杜绝人为底部留白与尾部空行)**:
    - **NEVER** append trailing carriage returns or blank lines to form field strings (e.g. `'Sample Name\r \r \r \r'`, `'Celsis ATP Positive Control\r \r'`, or trailing returns in text summaries).
    - Form field strings must end naturally and cleanly without artificial trailing spacing.
 3. **Natural Text Flow in Narrative Sections (叙述段落自然延展)**:
-   - For multi-paragraph narratives (Page 4 `Text Field50` and Page 5 `Text Field51`), maintain template native Auto font size (`0.0`). The text should fill the available box space naturally like human typing, without artificial downsizing that leaves empty gaps at the bottom of the page.
+   - For multi-paragraph narratives (Page 3 `Text Field49`, Page 4 `Text Field50`, and Page 5 `Text Field51`), maintain the golden calibrated font size `9.2pt` (or `10.3pt` in balanced layouts). The text fills the available box space naturally with ~20-30pt bottom margin, completely avoiding bottom voids or text truncation.
 4. **Universal Invariance (全模块一律适用)**:
    - This rule is permanent and universally locked for all existing and future OOS automation workflows. No script or agent may deviate from it.
 
