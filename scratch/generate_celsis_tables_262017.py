@@ -6,10 +6,10 @@ Purpose: Generate standalone Celsis tables document (DOCX and PDF) for OOS-26201
 
 import os
 import sys
+import shutil
 import docx
-from docx.shared import Pt, Inches, RGBColor
-from docx.oxml import parse_xml, OxmlElement
-from docx.oxml.ns import nsdecls, qn
+from docx.shared import Pt
+from docx.oxml import parse_xml
 from docx.opc.constants import RELATIONSHIP_TYPE
 from docxtpl import DocxTemplate
 import win32com.client
@@ -27,9 +27,9 @@ OUT_PDF_DESKTOP = os.path.join(DESKTOP_DIR, "Celsis table OOS-262017.pdf")
 OUT_DOCX_SCRATCH = os.path.join(SCRATCH_DIR, "Celsis table OOS-262017.docx")
 OUT_PDF_SCRATCH = os.path.join(SCRATCH_DIR, "Celsis table OOS-262017.pdf")
 
-# Data
+# Direct live EagleTrax links
 URL_SAMPLE = "https://etrax.eagleanalytical.com/Submission/Details/OIX27OGNKb64xLa70p0RRQ__"
-URL_MICRO = "https://etrax.eagleanalytical.com/Submission/Details/G5-Kx58aPO5xsBX-06R1Dw__"
+URL_MICRO = "https://etrax.eagleanalytical.com/SubmissionTest/Details/OCvPHc7TodycYzvim2KtjQ__"
 
 table_context = {
     # Table 1
@@ -38,7 +38,7 @@ table_context = {
     "sample_id": "ETX-260821-0259",
     "positive_id": "ETX-260831-0608",
     "positive_media": "2 x 300mL TSB",
-    "positive_org": "Pending (Gram stain ongoing)",
+    "positive_org": "Terribacillus goriensis\n(Gram (+) rods)",
     
     # Table 2: Processing Phase (24Aug26)
     "process_date": "24Aug26",
@@ -102,26 +102,29 @@ for p in doc.paragraphs:
 def add_hyperlink_to_cell(cell, url, text):
     """
     Safely adds a hyperlink to a cell without altering the original paragraph spacing,
-    table cell borders, or vertical alignment.
+    table cell borders, or vertical alignment. Avoids w:rStyle to eliminate line-spacing traps.
     """
-    # Clear text in existing runs
-    p = cell.paragraphs[0]
-    p.text = ''
-    # Ensure standard paragraph formatting matching original template
-    p.paragraph_format.space_before = Pt(0)
-    p.paragraph_format.space_after = Pt(0)
-    p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
-    
-    part = p.part
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+        
+    part = cell.part
     r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
     
-    hyperlink_xml = (
-        f'<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
-        f'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '
-        f'r:id="{r_id}" w:history="1">'
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+        f'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:hyperlink r:id="{r_id}" w:history="1">'
         f'<w:r>'
         f'<w:rPr>'
-        f'<w:rStyle w:val="Hyperlink"/>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
         f'<w:color w:val="0000FF"/>'
         f'<w:sz w:val="14"/>'
@@ -131,28 +134,74 @@ def add_hyperlink_to_cell(cell, url, text):
         f'<w:t>{text}</w:t>'
         f'</w:r>'
         f'</w:hyperlink>'
+        f'</w:p>'
     )
-    p._p.append(parse_xml(hyperlink_xml))
+    tc.append(parse_xml(p_xml))
     cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
 def set_cell_clean_text(cell, text):
     p = cell.paragraphs[0]
     p.text = text
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(0)
     p.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
     cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
     for run in p.runs:
         run.font.name = "Times New Roman"
         run.font.size = Pt(7)
 
-# Apply hyperlinks to Table 1 (doc.tables[0])
+def set_microbial_id_cell_xml(cell, genus_species, gram_stain):
+    """
+    Sets bacterial species name in italics and Gram stain in standard non-italic font,
+    separated by a clean line break without any ampersands.
+    """
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:i/>'
+        f'<w:iCs/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'<w:t>{genus_species}</w:t>'
+        f'<w:br/>'
+        f'</w:r>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'<w:t>{gram_stain}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    tc.append(parse_xml(p_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+# ----------------- TABLE 1 -----------------
 t1 = doc.tables[0]
+set_cell_clean_text(t1.rows[1].cells[0], "ES")
+set_cell_clean_text(t1.rows[1].cells[1], "America Alanis")
 add_hyperlink_to_cell(t1.rows[1].cells[2], URL_SAMPLE, "ETX-260821-0259")
 add_hyperlink_to_cell(t1.rows[1].cells[3], URL_MICRO, "ETX-260831-0608")
-
-# Ensure Col 4 is strictly 2 x 300mL TSB
 set_cell_clean_text(t1.rows[1].cells[4], "2 x 300mL TSB")
+set_microbial_id_cell_xml(t1.rows[1].cells[5], "Terribacillus goriensis", "(Gram (+) rods)")
 
-# Update Table 2 (doc.tables[1])
+# ----------------- TABLE 2 -----------------
 t2 = doc.tables[1]
 # Row 13: Weekly Active Air on 25Aug26 by SMO
 set_cell_clean_text(t2.rows[13].cells[3], "25Aug26")
@@ -170,7 +219,7 @@ set_cell_clean_text(t2.rows[15].cells[9], "N/A")
 set_cell_clean_text(t2.rows[15].cells[10], "N/A")
 set_cell_clean_text(t2.rows[15].cells[11], "N/A")
 
-# Update Table 3 (doc.tables[2])
+# ----------------- TABLE 3 -----------------
 t3 = doc.tables[2]
 # Weekly Surface on 04Sep26 by ISS
 set_cell_clean_text(t3.rows[15].cells[3], "04Sep26")
@@ -187,6 +236,17 @@ set_cell_clean_text(t3.rows[13].cells[8], "TBD")
 set_cell_clean_text(t3.rows[13].cells[9], "TBD")
 set_cell_clean_text(t3.rows[13].cells[10], "TBD")
 set_cell_clean_text(t3.rows[13].cells[11], "TBD")
+
+# Verify zero ampersands in entire document
+amp_count = 0
+for t_idx, t in enumerate(doc.tables):
+    for r_idx, r in enumerate(t.rows):
+        for c_idx, c in enumerate(r.cells):
+            if '&' in c.text:
+                print(f"ERROR: Table {t_idx+1} Row {r_idx} Cell {c_idx} has '&': {c.text}")
+                amp_count += 1
+assert amp_count == 0, f"Found {amp_count} ampersands in document!"
+print(">>> ZERO AMPERSANDS CONFIRMED! <<<")
 
 # Save DOCX
 doc.save(OUT_DOCX_SCRATCH)
@@ -206,8 +266,6 @@ try:
     wdoc.SaveAs2(OUT_PDF_SCRATCH, FileFormat=17)
     wdoc.Close()
     print(f"Exported scratch PDF: {OUT_PDF_SCRATCH}")
-    # Copy to Desktop
-    import shutil
     shutil.copy2(OUT_PDF_SCRATCH, OUT_PDF_DESKTOP)
     print(f"Copied to desktop PDF: {OUT_PDF_DESKTOP}")
 except Exception as e:
@@ -223,5 +281,13 @@ for i, page in enumerate(pdf_doc):
     png_path = os.path.join(SCRATCH_DIR, f"celsis_table_262017_p{i+1}.png")
     pix.save(png_path)
     print(f"Saved verification PNG: {png_path}")
+
+# Verify links in PDF
+for i, p in enumerate(pdf_doc):
+    links = p.get_links()
+    print(f"Page {i+1} link count: {len(links)}")
+    for lk in links:
+        print(f"  Page {i+1} link: {lk.get('uri')}")
+pdf_doc.close()
 
 print("ALL STEPS COMPLETED SUCCESSFULLY!")

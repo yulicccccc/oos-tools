@@ -1,0 +1,156 @@
+Eagle - Houston
+Submissions 
+Operations 
+Quality 
+Project Center 
+Reports
+Account Center 
+ Microbial Identification
+Return to Submission Test List
+Status: 
+Completed
+
+
+Switch to another Submission Test
+Differential Staining
+Incubation
+Microbial Identification
+Estimated Completion: 9/10/2026
+Submission: ETX-260831-0608
+Rush Service
+Analytes: Microbiological Growth (99999999CFU/mL)
+
+
+Worksheets
+Test Details
+Test Results
+ Total CFU Count on Plate
+ Number of Organisms Identified
+ Colony Description (Optional)
+ Microbial Identification (Optional)
+ Stain Results (Optional)
+ Colony Description - 2 (Optional)
+ Microbial Identification - 2 (Optional)
+ Stain Results - 2 (Optional)
+ Colony Description - 3 (Optional)
+ Microbial Identification - 3 (Optional)
+ Stain Results - 3 (Optional)
+ Colony Description - 4 (Optional)
+ Microbial Identification - 4 (Optional)
+ Stain Results - 4 (Optional)
+ Colony Description - 5 (Optional)
+ Microbial Identification - 5 (Optional)
+ Stain Results - 5 (Optional)
+ Colony Description - 6 (Optional)
+ Microbial Identification - 6 (Optional)
+ Stain Results - 6 (Optional)
+ Colony Description - 7 (Optional)
+ Microbial Identification - 7 (Optional)
+ Stain Results - 7 (Optional)
+ Colony Description - 8 (Optional)
+ Microbial Identification - 8 (Optional)
+ Stain Results - 8 (Optional)
+ Colony Description - 9 (Optional)
+ Microbial Identification - 9 (Optional)
+ Stain Results - 9 (Optional)
+ Colony Description - 10 (Optional)
+ Microbial Identification - 10 (Optional)
+ Stain Results - 10 (Optional)
+ Colony Description - 11 (Optional)
+ Microbial Identification - 11 (Optional)
+ Stain Results - 11 (Optional)
+ Colony Description - 12 (Optional)
+ Microbial Identification - 12 (Optional)
+ Stain Results - 12 (Optional)
+ Colony Description - 13 (Optional)
+ Microbial Identification - 13 (Optional)
+ Stain Results - 13 (Optional)
+ Colony Description - 14 (Optional)
+ Microbial Identification - 14 (Optional)
+ Stain Results - 14 (Optional)
+ Colony Description - 15 (Optional)
+ Microbial Identification - 15 (Optional)
+ Stain Results - 15 (Optional)
+ Colony Description - 16 (Optional)
+ Microbial Identification - 16 (Optional)
+ Stain Results - 16 (Optional)
+ Colony Description - 17 (Optional)
+ Microbial Identification - 17 (Optional)
+ Stain Results - 17 (Optional)
+ Colony Description - 18 (Optional)
+ Microbial Identification - 18 (Optional)
+ Stain Results - 18 (Optional)
+ Colony Description - 19 (Optional)
+ Microbial Identification - 19 (Optional)
+ Stain Results - 19 (Optional)
+ Colony Description - 20 (Optional)
+ Microbial Identification - 20 (Optional)
+ Stain Results - 20 (Optional)
+ Colony Description - 21 (Optional)
+ Microbial Identification - 21 (Optional)
+ Stain Results - 21 (Optional)
+ Colony Description - 22 (Optional)
+ Microbial Identification - 22 (Optional)
+ Stain Results - 22 (Optional)
+ Colony Description - 23 (Optional)
+ Microbial Identification - 23 (Optional)
+ Stain Results - 23 (Optional)
+ Colony Description - 24 (Optional)
+ Microbial Identification - 24 (Optional)
+ Stain Results - 24 (Optional)
+ Colony Description - 25 (Optional)
+ Microbial Identification - 25 (Optional)
+ Stain Results - 25 (Optional)
+ Notes (Optional)
+Submission Information
+ Price Acknowledgement
+ Colonies to be Identified
+Event History
+Raw Data Report
+Event	Date Performed	Performed By
+Status Changed - Completed	9/14/2026 4:53:46 PM	ACueva
+Status Changed - Approved	9/14/2026 4:53:46 PM	ACueva
+Status Changed - Data Review	9/14/2026 4:48:44 PM	PWaduge
+Modified Test Results - Sample Analysis - Time point entry	9/14/2026 11:09:30 AM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00200917, Item: \t Acetone-Alcohol, 1: 1, Decolorizer, Expiration: 01/31/2028, Lot: 16010722	9/10/2026 12:05:50 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00200917, Item: \t Acetone-Alcohol, 1: 1, Decolorizer, Expiration: 01/31/2028, Lot: 16010722	9/10/2026 12:05:50 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00219811, Item: Safranin-A, Expiration: 07/27/2027, Lot: 542753	9/10/2026 12:05:44 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00219811, Item: Safranin-A, Expiration: 07/27/2027, Lot: 542753	9/10/2026 12:05:41 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00194351, Item: Crystal Violet-C, Expiration: 03/29/2027, Lot: 532601	9/10/2026 12:05:30 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00219180, Item: Mordant for Previ Color Gram Iodine-B, Expiration: 06/08/2027, Lot: 536041	9/10/2026 12:05:22 PM	PWaduge
+Added Consumable - Sample Analysis - StockId: I00219180, Item: Mordant for Previ Color Gram Iodine-B, Expiration: 06/08/2027, Lot: 536041	9/10/2026 12:05:16 PM	PWaduge
+Entered Test Results - Sample Analysis	9/10/2026 11:30:26 AM	PWaduge
+Status Changed - Sample Analysis	9/10/2026 11:18:04 AM	PWaduge
+Status Changed - Pending	8/31/2026 2:38:45 PM	CDu
+Equipment
+Cal Due Date
+Cert Due Date
+Qual Due Date
+No Equipment have been found
+Consumables
+Acetone-Alcohol, 1:1, Decolorizer [I00200917]
+Lot #: 16010722 , Exp. Date: 01/31/2028
+Safranin-A [I00219811]
+Lot #: 542753 , Exp. Date: 07/27/2027
+Crystal Violet-C [I00194351]
+Lot #: 532601 , Exp. Date: 03/29/2027
+Mordant for Previ Color Gram Iodine-B [I00219180]
+Lot #: 536041 , Exp. Date: 06/08/2027
+Test Notes
+Add Note
+No Submission Test Notes have been found
+Documents
+Upload Document
+Filename	Description	Uploaded By	Date
+260831-0608-a reimage2.jpg	Gram stain A (reimage 2)	PWaduge	9/14/2026 4:48:37 PM
+260831-0608-a reimage.jpg	Gram stain A (reimage)	PWaduge	9/14/2026 4:48:29 PM
+snapshot - 2026-09-14t111149.578.svg	Graph B	PWaduge	9/14/2026 11:11:52 AM
+260831_0608_b.microbe-classification-report.tsv	Report B	PWaduge	9/14/2026 11:11:40 AM
+snapshot - 2026-09-14t111128.458.svg	Graph A	PWaduge	9/14/2026 11:11:30 AM
+260831_0608_a.microbe-classification-report.tsv	Report A	PWaduge	9/14/2026 11:11:21 AM
+260831-0608-b.jpg	Gram stain B	PWaduge	9/14/2026 11:11:08 AM
+260831-0608-a.jpg	Gram stain A	PWaduge	9/14/2026 11:11:00 AM
+
+© 2026 - EagleTrax
+
+*All times displayed are in Central Standard Time (CST)
