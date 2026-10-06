@@ -465,3 +465,22 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - Both Testing (VV in BSC E001319) and Changeover (KSM in BSC E001937) personnel touch plates, surface contact plates, and settling plates demonstrated 100% absence of microbial recovery (No Growth / 0 CFU).
    - Table 2 explicitly captures separate rows for Testing and Changeover (S/O) across Personnel, Surface, and Settling sites, accurately reflecting their respective operators (VV and KSM) and BSC equipment IDs (BSC E001319 and BSC E001937).
 
+### 28. Celsis Sterility Reviewer Standards & QA Golden Feedback (Robin Sharma / RS Review Feedback for OOS-262080)
+**CRITICAL**: Across all Celsis Sterility OOS investigation reports, standalone tables, and narrative texts:
+1. **Method Suitability Matching Negative Control Rule (适用性添加物负对照强制闭环准则)**:
+   - When suitability method requires additives or neutralizers (e.g., BSA in PBS, peptone, polysorbate, etc.):
+   - The narrative MUST explicitly state: `"Accordingly, a negative control with the same modifications was made."`
+   - *Rationale*: Proves that the additive solution and modified media system remained sterile and did not introduce the contamination.
+2. **Individual RLU Reporting for Multiple Positive Bottles (多瓶阳性独立 RLU 数值报告铁律)**:
+   - When multiple containers/bottles test positive, do NOT report only a single combined average RLU across all bottles.
+   - MUST report each positive bottle individually with its respective position and reading:
+     `"The confirmed average Relative Luminescence Units (RLU) from the duplicate reading tubes, originating from the positive FTM sample bottles, yielded 4,202 RLU (Bottle 3) and 7,190 RLU (Bottle 5), both exceeding the positive cutoff of 2,955 RLU, where the FTM negative control was 985 RLU."`
+3. **Colony Count Reconciliation in EM Active Air (活菌计数与菌种数量绝对统一准则)**:
+   - When an active air sample recovers multiple bacterial isolates (e.g., *Corynebacterium ureicelerivorans* and *Mycobacterium grossiae* on `ETX-260914-0487`), the total colony count must accurately reflect all isolates (`2 CFU (ISO 8 114)`, NEVER understated as 1 CFU).
+4. **Standard Subculture Negative Terminology ("Microbial growth could not be recovered")**:
+   - In Table 1 Column `Microbial ID`, when subculture yields no growth for a positive sterility reading:
+   - MUST write: `"Microbial growth could not be recovered"` (NEVER colloquial `"No growth was obtained"`).
+5. **Universal EM Weekly Column Header ("Week of Testing")**:
+   - In Tables 2 and 3, Column `Day /Week(s)` for weekly environmental monitoring rows MUST STRICTLY be:
+     `"Week of Testing"` (NEVER `"Week on Testing Date"` or `"Week on Testing Date."`).
+
