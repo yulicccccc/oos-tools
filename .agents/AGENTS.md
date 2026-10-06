@@ -441,3 +441,15 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
      - Step 1: Scan user raw prompt/intake text for regex `\b(\d+)\s*x\s*\d+\s*mL\s*(FTM|TSB)`.
      - Step 2: Compare captured count $N$ against Table 1 cell and Narrative Paragraph 8 text.
      - Step 3: If any mismatch is detected ($N_{\text{raw}} \ne N_{\text{rendered}}$), execution MUST immediately abort and trigger self-correction before presenting results to the user.
+
+### 26. Analyst Legal Full Name Precision & Two-Page Narrative Balance Standard (分析员真实法定全名与两页叙述平衡规范)
+**CRITICAL**: In cGMP laboratory documentation and OOS reporting:
+1. **Analyst Legal Name Accuracy (Mukyung Jang vs. Min Jang)**:
+   - For initials MJ in Scan RDI sample preparation, the full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated Min Jang).
+   - Page 1 Text Field3 must preserve the distinct role-analyst spacing:
+     `	ext
+     Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rVarsha Subramanian (VV)\r \rReading Analyst: \rSonal Uprety (SU)
+     `
+   - Global Concordance: The name Mukyung Jang must be strictly harmonized across Section B comments (Text Field13), Page 3 narrative (Text Field49), and master Word report blocks.
+2. **Two-Page Narrative Flow & Page 5 N/A Balance**:
+   - When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance and eliminate awkward bottom voids. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.

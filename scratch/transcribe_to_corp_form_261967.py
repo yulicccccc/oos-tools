@@ -1,6 +1,7 @@
 """
 Script: transcribe_to_corp_form_261967.py
 Purpose: Transcribe full OOS-261967 investigation report into freshly downloaded CORP-FORM-21 (v11.1),
+         incorporate user's manual layout updates (Mukyung Jang, 2-page narrative, N/A on Page 5, empty sig),
          apply calibrated font sizes, attach Table 1 & Table 2 with clickable hyperlinks as Page 7,
          and sync deliverables across Downloads, Desktop, and Documents.
 """
@@ -26,12 +27,13 @@ os.makedirs(HISTORY_DIR, exist_ok=True)
 os.makedirs(SCRATCH_DIR, exist_ok=True)
 
 TARGET_DOWNLOADS_PDF = os.path.join(DOWNLOADS_DIR, "CORP-FORM 21 - P1 - 25 Aug 2026.pdf")
-SOURCE_OOS_PDF = os.path.join(DOCUMENTS_DIR, "OOS-261967 TAM Pharmacy (E74685) - ScanRDI.pdf")
+SOURCE_OOS_PDF = os.path.join(DESKTOP_DIR, "OOS-261967 TAM Pharmacy (E74685) - ScanRDI - QYC.pdf")
 TABLES_PDF_PATH = os.path.join(SCRATCH_DIR, "temp_tables_export.pdf")
 if not os.path.exists(TABLES_PDF_PATH):
     TABLES_PDF_PATH = os.path.join(DOCUMENTS_DIR, "Tables OOS-261967 TAM Pharmacy (E74685) - ScanRDI.pdf")
 
 OUTPUT_DESKTOP_PDF = os.path.join(DESKTOP_DIR, "OOS-261967 TAM Pharmacy (E74685) - ScanRDI.pdf")
+OUTPUT_DESKTOP_QYC_PDF = os.path.join(DESKTOP_DIR, "OOS-261967 TAM Pharmacy (E74685) - ScanRDI - QYC.pdf")
 OUTPUT_DOCS_PDF = os.path.join(DOCUMENTS_DIR, "OOS-261967 TAM Pharmacy (E74685) - ScanRDI.pdf")
 
 print("=== [STEP 1] BACKUP ORIGINAL TARGET CORP-FORM-21 ===")
@@ -42,16 +44,24 @@ shutil.copy2(TARGET_DOWNLOADS_PDF, backup_path)
 print(f"Backed up original target to: {backup_path}")
 
 print("\n=== [STEP 2] LOAD SOURCE DATA & TARGET FORM ===")
-doc_src = fitz.open(SOURCE_OOS_PDF)
-doc_tgt = fitz.open(backup_path)
+# Use original blank / clean template from the earliest backup in .history if available
+earliest_backups = sorted([f for f in os.listdir(HISTORY_DIR) if f.startswith("CORP-FORM 21 - P1 - 25 Aug 2026_backup_")])
+if earliest_backups:
+    clean_tgt_template = os.path.join(HISTORY_DIR, earliest_backups[0])
+    print(f"Using clean target template from earliest backup: {clean_tgt_template}")
+else:
+    clean_tgt_template = backup_path
 
-# Extract source field values
+doc_src = fitz.open(SOURCE_OOS_PDF)
+doc_tgt = fitz.open(clean_tgt_template)
+
+# Extract source field values from user's edited PDF
 src_data = {}
 for p_no in range(6):
     for w in doc_src[p_no].widgets():
         src_data[w.field_name] = w.field_value
 
-print(f"Extracted {len(src_data)} fields from source OOS PDF.")
+print(f"Extracted {len(src_data)} fields from source QYC OOS PDF.")
 
 # Definitive Calibrated Font Size Map for CORP-FORM-21
 FONT_SIZE_MAP = {
@@ -75,7 +85,7 @@ FONT_SIZE_MAP = {
     'Date Field3': 9.5,    # Manager date (25-Aug-2026)
     
     # Page 1 Section B Comments
-    'Text Field13': 5.2,   # Interview comment
+    'Text Field13': 5.2,   # Interview comment (Mukyung Jang, Varsha Subramanian, Sonal Uprety)
     'Text Field14': 8.0,   # Sample ID comment
     'Text Field15': 8.0,   # SOP comment
     'Text Field16': 8.0,   # SOP comment
@@ -114,18 +124,18 @@ FONT_SIZE_MAP = {
     # Page 3
     'Text Field46': 9.0,   # NA
     'Text Field47': 9.0,   # NA
-    'Text Field48': 8.5,   # N/A QYC 29Sep26
-    'Text Field49': 8.75,  # Narrative Part 1
+    'Text Field48': 8.5,   # N/A QYC 06Oct26
+    'Text Field49': 8.75,  # Narrative Part 1 (Mukyung Jang, 3,542 chars)
     
     # Page 4
-    'Text Field50': 9.2,   # Narrative Part 2
+    'Text Field50': 9.2,   # Narrative Part 2 (3,375 chars)
     
     # Page 5
-    'Text Field51': 9.2,   # Narrative Part 3
+    'Text Field51': 8.5,   # N/A QYC 06Oct26
     
     # Page 6
     'Text Field53': 9.5,   # Prepared by (Qiyue Chen)
-    'Text Field54': 9.5,   # Lab Manager (Robin Seymour)
+    'Text Field54': 9.5,   # Lab Manager (Empty for signature)
     'Text Field57': 6.5,   # OOS Number in header (261967)
 }
 
@@ -133,20 +143,42 @@ print("\n=== [STEP 3] TRANSCRIBE INTO FRESH CORP-FORM-21 (PAGES 1-6) ===")
 for p_no in range(6):
     page = doc_tgt[p_no]
     for w in page.widgets():
+        if w.rect.is_empty or w.rect.width <= 0 or w.rect.height <= 0:
+            continue
         fn = w.field_name
         if fn in src_data:
             val = src_data[fn]
             
-            # Special formatting refinements
+            # Special formatting & corrections
             if fn == 'Text Field0':
                 w.field_flags |= fitz.PDF_TX_FIELD_IS_MULTILINE
                 w.field_value = "Varsha Subramanian\r(Written by: Qiyue Chen)"
+            elif fn == 'Text Field3':
+                w.field_value = (
+                    "Prepping Analyst: \rMukyung Jang (MJ)\r \r"
+                    "Processing Analyst: \rVarsha Subramanian (VV)\r \r"
+                    "Changeover Analyst: \rVarsha Subramanian (VV)\r \r"
+                    "Reading Analyst: \rSonal Uprety (SU)"
+                )
             elif fn == 'Text Field4':
-                w.field_value = "Semaglutide/Pyridoxine 2.5mg/10mg/mL"
+                w.field_value = "Semaglutide/Pyridoxine 2.5mg/10mg/mL\r \r \r"
+            elif fn == 'Text Field13':
+                w.field_value = "Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively."
             elif fn == 'Text Field43':
                 w.field_value = "Incubator E001034 (Sensor E001501)\r \rIncubator E001031 (Sensor E001505)"
             elif fn == 'Text Field44':
                 w.field_value = "Aug 2027 / Feb 2027\r \rAug 2027 / Feb 2027"
+            elif fn == 'Text Field48':
+                w.field_value = "N/A QYC 06Oct26"
+            elif fn == 'Text Field49':
+                # Replace Min Jang with Mukyung Jang
+                w.field_value = val.replace("Min Jang", "Mukyung Jang")
+            elif fn == 'Text Field50':
+                w.field_value = val
+            elif fn == 'Text Field51':
+                w.field_value = "N/A QYC 06Oct26"
+            elif fn == 'Text Field54':
+                w.field_value = ""  # Cleared for Lab Manager signature
             else:
                 w.field_value = val
                 
@@ -199,8 +231,14 @@ for page_idx, fn in [(2, 'Text Field49'), (3, 'Text Field50'), (4, 'Text Field51
     print(f"  Page {page_idx+1} ({fn}): rem={rem:.1f}pt, last_word='{last_word}'")
     assert rem > 0, f"Overflow detected on Page {page_idx+1} ({fn})!"
 
-doc_ver.close()
+# Verify absence of 'Min Jang' anywhere in the document
+for page_idx in range(len(doc_ver)):
+    for w in doc_ver[page_idx].widgets():
+        if w.field_value and 'Min Jang' in w.field_value:
+            raise AssertionError(f"Found 'Min Jang' on Page {page_idx+1} in {w.field_name}!")
+
 print("All verification assertions passed with 100% success!")
+doc_ver.close()
 
 print("\n=== [STEP 6] DEPLOY DELIVERABLES ===")
 # 1. Write directly to user's target in Downloads
@@ -220,6 +258,12 @@ try:
     print(f"SUCCESS: Desktop copy updated:\n  {OUTPUT_DESKTOP_PDF}")
 except Exception as e:
     print(f"Desktop copy note (file may be open): {e}")
+
+try:
+    shutil.copy2(scratch_output, OUTPUT_DESKTOP_QYC_PDF)
+    print(f"SUCCESS: Desktop QYC copy updated:\n  {OUTPUT_DESKTOP_QYC_PDF}")
+except Exception as e:
+    print(f"Desktop QYC copy note (file may be open): {e}")
 
 print("\n=== [STEP 7] RENDER FINAL HIGH-RES PREVIEW IMAGES ===")
 preview_dir = os.path.join(SCRATCH_DIR, "preview_corp_261967_final")

@@ -192,6 +192,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Absolute Ban on Fraction Misinterpretation (严禁将多瓶序号压缩为分数导致单瓶误判):** Phrases indicating specific jar positions (e.g. `(3rd and 5th jars)` or `jars #3 and #5`) MUST NEVER be shorthand-compressed into notations like `3/5`. The AI and scripts MUST NEVER interpret `3/5` as "bottle 3 of 5". Multi-jar enumerations must be explicitly preserved as distinct positive containers.
         *   **Grammatical & Contextual Concordance Across All Narrative Sections (全篇前后文单复数严格一致性准则):** When $N \ge 2$, Narrative Paragraph 8 MUST state `"sample [ETX] was found to yield positive readings in [word(N)] of the [size] [media] media jars ([explicit jars])"`, and all references to containers MUST use plural nouns (`positive FTM sample bottles`, `duplicate reading tubes`, `bottles were submitted`).
         *   **Pre-Delivery Raw Data Reconciliation Gate (交付前原始邮件与成品强制逐字穿透对账闸门):** Before declaring completion of ANY OOS report, the AI MUST execute an automated cross-reconciliation check between user raw prompt text and the generated tables/narratives. If any container count mismatch is detected, execution MUST immediately abort and trigger self-correction.
+    32. *Analyst Name Accuracy & ScanRDI Prepping Analyst Mapping (分析员真实法定全名与 ScanRDI 预处理分析员标准):*
+        *   **Legal / Full Name Precision (Mukyung Jang vs. Min Jang):** For initials MJ in Scan RDI sample preparation, the full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated Min Jang).
+        *   **Multi-Line Role Layout in Text Field 3:** Page 1 Text Field3 must preserve the distinct role-analyst spacing:
+            `	ext
+            Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rVarsha Subramanian (VV)\r \rReading Analyst: \rSonal Uprety (SU)
+            `
+        *   **Global Concordance:** When Mukyung Jang is updated, the name MUST be synchronized across Section B comments (Text Field13), Page 3 narrative (Text Field49), and master Word report blocks.
+        *   **Two-Page Narrative Flow & Page 5 N/A Invariance:** When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.
+
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.

@@ -278,19 +278,20 @@ def export_docx_to_pdf(docx_path, pdf_path):
 # ==========================================
 p1 = (
     "All analysts involved in the prepping, processing, changeover and reading of the sample – "
-    "Min Jang, Varsha Subramanian, and Sonal Uprety – were interviewed and their answers are recorded throughout this document."
+    "Mukyung Jang, Varsha Subramanian, and Sonal Uprety – were interviewed and their answers are recorded throughout this document. "
+    "This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-Specification (OOS) Investigation Procedure."
 )
 
 p2 = (
     "The sample was stored upon arrival according to the Client’s instructions. "
-    "Analysts Min Jang and Varsha Subramanian confirmed the integrity of the sample vials throughout both the preparation and "
+    "Analysts Mukyung Jang and Varsha Subramanian confirmed the integrity of the sample vials throughout both the preparation and "
     "processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
 )
 
 p3 = (
     "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, "
     "and their integrity was visually verified before utilization. Moreover, each reagent and supply had valid expiration dates. "
-    "During the preparation phase on 24Aug26, Min Jang disinfected the samples using acidified bleach and placed them into a "
+    "During the preparation phase on 24Aug26, Mukyung Jang disinfected the samples using acidified bleach and placed them into a "
     "pre-disinfected storage bin."
 )
 
@@ -318,7 +319,7 @@ p6 = (
     "was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the "
     "negative control (0 events) and positive control (Clostridium sporogenes, Lot 05282026-19404-CS) for analyst Varsha Subramanian yielded "
     "expected results. On 25Aug26, a rapid sterility test was performed on the sample using the ScanRDI method. The sample was initially prepared "
-    "by analyst Min Jang, processed by Varsha Subramanian and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed "
+    "by analyst Mukyung Jang, processed by Varsha Subramanian and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed "
     "microbial events exhibiting short rod-shaped morphology, see Table 1."
 )
 
@@ -402,9 +403,9 @@ def generate_master_word_report(tables_docx_path):
         'changeover_initial': 'VV',
         'report_header': f"{SAMPLE_ID}\n\n{CLIENT_NAME}",
         'analyst_signature': 'Varsha Subramanian (Written by: Qiyue Chen)',
-        'smart_personnel_block': 'Prepping Analyst: Min Jang (MJ)\nProcessing Analyst: Varsha Subramanian (VV)\nChangeover Analyst: Varsha Subramanian (VV)\nReading Analyst: Sonal Uprety (SU)',
+        'smart_personnel_block': 'Prepping Analyst: Mukyung Jang (MJ)\nProcessing Analyst: Varsha Subramanian (VV)\nChangeover Analyst: Varsha Subramanian (VV)\nReading Analyst: Sonal Uprety (SU)',
         'smart_incident_opening': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after ScanRDI testing.",
-        'smart_comment_interview': "Yes, analysts Min Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.",
+        'smart_comment_interview': "Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.",
         'smart_comment_samples': f"Yes, Sample ID: {SAMPLE_ID}",
         'smart_comment_records': "Yes, See 082526-1040-2 for more information.",
         'smart_comment_storage': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
@@ -519,14 +520,14 @@ def generate_7page_pdf(tables_pdf_path):
         elif fn == 'Text Field1': w.field_value = 'Scan RDI Sterility Test'
         elif fn == 'Text Field2': w.field_value = SAMPLE_ID
         elif fn == 'Text Field3':
-            w.text_fontsize = 6.2
+            w.text_fontsize = 6.0
             w.field_value = (
-                "Prepping Analyst: Min Jang (MJ)\r"
-                "Processing Analyst: Varsha Subramanian (VV)\r"
-                "Changeover Analyst: Varsha Subramanian (VV)\r"
-                "Reading Analyst: Sonal Uprety (SU)"
+                "Prepping Analyst: \rMukyung Jang (MJ)\r \r"
+                "Processing Analyst: \rVarsha Subramanian (VV)\r \r"
+                "Changeover Analyst: \rVarsha Subramanian (VV)\r \r"
+                "Reading Analyst: \rSonal Uprety (SU)"
             )
-        elif fn == 'Text Field4': w.field_value = f"{SAMPLE_NAME}\r \r \r \r"
+        elif fn == 'Text Field4': w.field_value = f"{SAMPLE_NAME}\r \r \r"
         elif fn == 'Text Field5': w.field_value = DOSAGE_FORM
         elif fn == 'Text Field6': w.field_value = LOT_NUMBER
         elif fn == 'Text Field7':
@@ -540,8 +541,8 @@ def generate_7page_pdf(tables_pdf_path):
         elif fn == 'Text Field12': w.field_value = 'Kathan Parikh'
         elif fn == 'Date Field3': w.field_value = TEST_DATE_LONG
         elif fn == 'Text Field13':
-            w.text_fontsize = 6.8
-            w.field_value = 'Yes, analysts Min Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.'
+            w.text_fontsize = 5.2
+            w.field_value = 'Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.'
         elif fn == 'Text Field14': w.field_value = f"Yes, Sample ID: {SAMPLE_ID}"
         elif fn in ['Text Field15', 'Text Field16']: w.field_value = 'Yes, as per MICRO-SOP-12, ENG-SOP-4'
         elif fn == 'Text Field17': w.field_value = 'Yes, See 082526-1040-2 for more information.'
@@ -583,13 +584,9 @@ def generate_7page_pdf(tables_pdf_path):
         elif fn in ['Text Field36', 'Text Field37', 'Text Field38', 'Text Field39']: w.field_value = 'Not Applicable'
         elif fn in ['Text Field40', 'Text Field41', 'Text Field42', 'Text Field45']: w.field_value = 'See Phase I Summary'
         elif fn == 'Text Field43':
-            w.field_value = (
-                "Incubator E001034 (Monitored by Sensor E001501)\r"
-                "Incubator E001031 (Monitored by Sensor E001505)\r"
-                "Incubators E001933, E001932 (30°C) & E001033 (33°C)"
-            )
+            w.field_value = "Incubator E001034 (Sensor E001501)\r \rIncubator E001031 (Sensor E001505)"
         elif fn == 'Text Field44':
-            w.field_value = "Aug 2027     Feb 2027      Aug 2027     Feb 2027"
+            w.field_value = "Aug 2027 / Feb 2027\r \rAug 2027 / Feb 2027"
         elif fn in ['Check Box42', 'Check Box43', 'Check Box48', 'Check Box51', 'Check Box52',
                     'Check Box55', 'Check Box58', 'Check Box63', 'Check Box66', 'Check Box67',
                     'Check Box70', 'Check Box73']:
@@ -605,10 +602,10 @@ def generate_7page_pdf(tables_pdf_path):
         if fn == 'Text Field57': w.field_value = OOS_ID
         elif fn in ['Check Box78', 'Check Box79']: w.field_value = 'Yes'
         elif fn in ['Text Field46', 'Text Field47']: w.field_value = 'Not Applicable'
-        elif fn == 'Text Field48': w.field_value = f"N/A QYC {datetime.now().strftime('%d%b%y')}"
+        elif fn == 'Text Field48': w.field_value = 'N/A QYC 06Oct26'
         elif fn == 'Text Field49':
-            w.text_fontsize = 6.8
-            w.field_value = smart_phase1_part1
+            w.text_fontsize = 8.75
+            w.field_value = "\r \r".join([p1, p2, p3, p4, p5, p6])
         w.update()
 
     # Page 4
@@ -617,8 +614,8 @@ def generate_7page_pdf(tables_pdf_path):
         fn = w.field_name
         if fn == 'Text Field57': w.field_value = OOS_ID
         elif fn == 'Text Field50':
-            w.text_fontsize = 6.8
-            w.field_value = smart_phase1_part2_page5
+            w.text_fontsize = 9.2
+            w.field_value = "\r \r".join([p7, p8, p9, p10, p11, p12])
         w.update()
 
     # Page 5
@@ -627,8 +624,8 @@ def generate_7page_pdf(tables_pdf_path):
         fn = w.field_name
         if fn == 'Text Field57': w.field_value = OOS_ID
         elif fn == 'Text Field51':
-            w.text_fontsize = 6.6
-            w.field_value = smart_phase1_part2_page6
+            w.text_fontsize = 8.5
+            w.field_value = 'N/A QYC 06Oct26'
         w.update()
 
     # Page 6
@@ -637,8 +634,9 @@ def generate_7page_pdf(tables_pdf_path):
         fn = w.field_name
         if fn == 'Text Field57': w.field_value = OOS_ID
         elif fn == 'Check Box88': w.field_value = 'Yes'
+        elif fn in ['Check Box87', 'Check Box89']: w.field_value = 'Off'
         elif fn == 'Text Field53': w.field_value = 'Qiyue Chen'
-        elif fn == 'Text Field54': w.field_value = 'Robin Seymour'
+        elif fn == 'Text Field54': w.field_value = ''
         w.update()
 
     # Append Page 7 (Standalone Tables PDF)
