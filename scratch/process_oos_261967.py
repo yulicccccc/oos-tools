@@ -333,13 +333,9 @@ p7 = (
 
 p8 = (
     "Weekly surface monitoring of the cleanroom suite conducted on 28Aug26 demonstrated no microbial recovery in the ISO 7 cleanroom (145) or "
-    "ISO 7 buffer room (144); however, 1 CFU (ETX-260908-0580, Gram (+) rods) was recovered from Table 1 with Scan Unit in the ISO 8 anteroom (143). "
+    "ISO 7 buffer room (144); however, 1 CFU (ETX-260908-0580, Gram (+) rods) was recovered from the ISO 8 anteroom (143). "
     "Weekly active air monitoring conducted on 28Aug26 demonstrated no microbial recovery in ISO 7 cleanroom 145, ISO 7 buffer room 144, or "
-    "ISO 8 anteroom 143; however, 5 CFUs (ETX-260908-0584, Gram (+) rods and Gram (+) cocci) were recovered from the outermost ISO 8 room (142). "
-    "It is important to note that all sample processing activities were performed strictly within the validated ISO 5 BSC E001319 located in the innermost ISO 7 cleanroom (145). "
-    "The test samples do not come into contact with ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers "
-    "on carts through the layered cleanroom suites. Furthermore, the recoveries occurred in the lower-classified ISO 8 anteroom and outer room environments, "
-    "which are physically segregated from the ISO 5 processing zone by closed doors and an outward-cascading positive air pressure gradient."
+    "ISO 8 anteroom 143; however, 5 CFUs (ETX-260908-0584, Gram (+) rods and Gram (+) cocci) were recovered from the outermost ISO 8 room (142)."
 )
 
 p9 = (
