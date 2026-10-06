@@ -173,7 +173,7 @@ p15 = (
 
 p16 = (
     f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using "
-    f"USP <71> / EP 2.6.1 Sterility Test during this period. This sample was submitted as a routine release testing sample for lot {data['lot_number']}."
+    f"USP <71> / EP 2.6.1 Sterility Test during this period."
 )
 
 p17 = (
@@ -192,7 +192,7 @@ text_field_50 = "\r \r".join([p10, p11, p12, p13, p14, p15, p16, p17, p18])
 
 # --- PAGE 5 (Text Field 51) ---
 writer_initial = "QYC"
-text_field_51 = f"N/A {writer_initial} 04Sep26"
+text_field_51 = f"N/A {writer_initial} 06Oct26"
 
 # Assemble Master Narrative for Word Template
 smart_phase1_full = f"{text_field_49}\n\n{text_field_50}"
@@ -256,7 +256,10 @@ tpl_report.save(out_doc_report)
 print("Saved Master Word Report to:", out_doc_report)
 
 # 4. Official PDF Form (6 Pages base + Page 7 Standalone Table)
-base_pdf = "USP71 OOS P1 template.pdf"
+base_pdf = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\CORP-FORM-21 - P1 04 SEP 2026.pdf"
+if not os.path.exists(base_pdf):
+    base_pdf = "USP71 OOS P1 template.pdf"
+print("Using base PDF form:", base_pdf)
 pdf_map = {
     'Text Field57': data['oos_id'],
     'Date Field0': "25-Aug-2026",
@@ -335,7 +338,7 @@ pdf_map = {
     'Text Field45': "See Phase I Summary",
     'Text Field46': "Not applicable",
     'Text Field47': "Not applicable",
-    'Text Field48': f"N/A {writer_initial} 04Sep26",
+    'Text Field48': f"N/A {writer_initial} 06Oct26",
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
