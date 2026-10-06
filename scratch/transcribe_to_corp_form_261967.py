@@ -167,6 +167,8 @@ for p_no in range(6):
                 w.field_value = "Semaglutide/Pyridoxine 2.5mg/10mg/mL\r \r \r"
             elif fn == 'Text Field13':
                 w.field_value = "Yes, analysts Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety were interviewed comprehensively."
+            elif fn in ['Text Field30', 'Text Field34']:
+                w.field_value = "E001040"
             elif fn == 'Text Field43':
                 w.field_value = "Incubator E001034 (Sensor E001501)\r \rIncubator E001031 (Sensor E001505)"
             elif fn == 'Text Field44':

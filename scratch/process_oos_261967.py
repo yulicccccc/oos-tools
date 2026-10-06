@@ -315,12 +315,11 @@ p5 = (
 p6 = (
     "Pre-labeling and filtration activities were performed by Varsha Subramanian on 25Aug26 within the ISO 5 biosafety cabinet (BSC E001319) "
     "located in the innermost ISO 7 cleanroom (145). The changeover procedure was subsequently performed by analyst Karla Silva on the same date "
-    "within the ISO 5 biosafety cabinet (BSC E001937). The reading analyst, Sonal Uprety, confirmed that the cytometer Cs2-105 (E001040) "
+    "within the ISO 5 biosafety cabinet (BSC E001937). The reading analyst, Sonal Uprety, confirmed that the ScanRDI instrument E001040 "
     "was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the "
-    "negative control (0 events) and positive control (Clostridium sporogenes, Lot 05282026-19404-CS) for analyst Varsha Subramanian yielded "
-    "expected results. On 25Aug26, a rapid sterility test was performed on the sample using the ScanRDI method. The sample was initially prepared "
-    "by analyst Mukyung Jang, processed by Varsha Subramanian, changeover performed by Karla Silva, and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed "
-    "microbial events exhibiting short rod-shaped morphology, see Table 1."
+    "negative control and positive control for analyst Varsha Subramanian yielded expected results. On 25Aug26, a rapid sterility test was performed on the sample "
+    "using the ScanRDI method. The sample was initially prepared by analyst Mukyung Jang, processed by Varsha Subramanian, changeover performed by Karla Silva, "
+    "and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed microbial events exhibiting short rod-shaped morphology, see Table 1."
 )
 
 p7 = (
@@ -413,7 +412,7 @@ def generate_master_word_report(tables_docx_path):
         'cr_id': '1979',
         'cr_suit': '145',
         'smart_cr_id': 'CR145 (E001979) in L-Suite',
-        'smart_scan_id': 'Cs2-105 (E001040)',
+        'smart_scan_id': 'E001040',
         'smart_bsc_bracketing_header': f"Biological Safety Cabinet (BSC) EM for BSC E001319 and BSC E001937 for {TEST_DATE}",
         'event_number': '31',
         'confirm_number': '4',
@@ -574,12 +573,10 @@ def generate_7page_pdf(tables_pdf_path):
         elif fn == 'Text Field25': w.field_value = '05282026-19404-CS\r \r \r'
         elif fn == 'Text Field26': w.field_value = '28 May 2028'
         elif fn in ['Text Field27', 'Text Field28', 'Text Field29']: w.field_value = 'Not Applicable'
-        elif fn == 'Text Field30': w.field_value = 'E001040 (Cs2-105)'
-        elif fn == 'Text Field31': w.field_value = 'Nov 2026'
+        elif fn in ['Text Field30', 'Text Field34']: w.field_value = 'E001040'
+        elif fn in ['Text Field31', 'Text Field35']: w.field_value = 'Nov 2026'
         elif fn == 'Text Field32': w.field_value = 'CR145 (E001979) in L-Suite'
         elif fn == 'Text Field33': w.field_value = 'Dec 2026'
-        elif fn == 'Text Field34': w.field_value = 'E001040 (Cs2-105)'
-        elif fn == 'Text Field35': w.field_value = 'Nov 2026'
         elif fn in ['Text Field36', 'Text Field37', 'Text Field38', 'Text Field39']: w.field_value = 'Not Applicable'
         elif fn in ['Text Field40', 'Text Field41', 'Text Field42', 'Text Field45']: w.field_value = 'See Phase I Summary'
         elif fn == 'Text Field43':
