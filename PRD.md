@@ -194,12 +194,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Pre-Delivery Raw Data Reconciliation Gate (交付前原始邮件与成品强制逐字穿透对账闸门):** Before declaring completion of ANY OOS report, the AI MUST execute an automated cross-reconciliation check between user raw prompt text and the generated tables/narratives. If any container count mismatch is detected, execution MUST immediately abort and trigger self-correction.
     32. *Analyst Name Accuracy & ScanRDI Prepping Analyst Mapping (分析员真实法定全名与 ScanRDI 预处理分析员标准):*
         *   **Legal / Full Name Precision (Mukyung Jang vs. Min Jang):** For initials MJ in Scan RDI sample preparation, the full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated Min Jang).
-        *   **Multi-Line Role Layout in Text Field 3:** Page 1 Text Field3 must preserve the distinct role-analyst spacing:
-            `	ext
-            Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rVarsha Subramanian (VV)\r \rReading Analyst: \rSonal Uprety (SU)
-            `
         *   **Global Concordance:** When Mukyung Jang is updated, the name MUST be synchronized across Section B comments (Text Field13), Page 3 narrative (Text Field49), and master Word report blocks.
         *   **Two-Page Narrative Flow & Page 5 N/A Invariance:** When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.
+    33. *Scan RDI Changeover (S/O) Bench Operator Precision & Clean EM Attribution Standard:*
+        *   **S/O Operator Primacy:** In Scan RDI OOS investigations, the Changeover Analyst is the actual operator who performed the changeover procedure in the biological safety cabinet as signed on the physical bench logbooks. For OOS-261967, bench records confirm Changeover was performed by **Karla Silva (KSM)** in BSC E001937, while Testing was performed by **Varsha Subramanian (VV)** in BSC E001319.
+        *   **Multi-Line Role Layout in Text Field 3:** Page 1 Text Field3 must format all 4 roles distinctly:
+            ```text
+            Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rKarla Silva (KSM)\r \rReading Analyst: \rSonal Uprety (SU)
+            ```
+        *   **Clean EM Attribution:** Both Testing (VV in BSC E001319) and Changeover (KSM in BSC E001937) personnel touch plates, surface contact plates, and settling plates demonstrated 100% absence of microbial recovery (No Growth / 0 CFU). Table 2 explicitly captures separate rows for Testing and Changeover (S/O) across Personnel, Surface, and Settling sites, accurately reflecting their respective operators (VV and KSM) and BSC equipment IDs (BSC E001319 and BSC E001937). Narrative texts reflect clean critical zones with no positive recovery during testing or changeover.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

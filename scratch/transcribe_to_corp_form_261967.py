@@ -17,6 +17,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+from process_oos_261967 import smart_phase1_part1, smart_phase1_part2
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOWNLOADS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Downloads"
@@ -157,13 +160,13 @@ for p_no in range(6):
                 w.field_value = (
                     "Prepping Analyst: \rMukyung Jang (MJ)\r \r"
                     "Processing Analyst: \rVarsha Subramanian (VV)\r \r"
-                    "Changeover Analyst: \rVarsha Subramanian (VV)\r \r"
+                    "Changeover Analyst: \rKarla Silva (KSM)\r \r"
                     "Reading Analyst: \rSonal Uprety (SU)"
                 )
             elif fn == 'Text Field4':
                 w.field_value = "Semaglutide/Pyridoxine 2.5mg/10mg/mL\r \r \r"
             elif fn == 'Text Field13':
-                w.field_value = "Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively."
+                w.field_value = "Yes, analysts Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety were interviewed comprehensively."
             elif fn == 'Text Field43':
                 w.field_value = "Incubator E001034 (Sensor E001501)\r \rIncubator E001031 (Sensor E001505)"
             elif fn == 'Text Field44':
@@ -171,10 +174,9 @@ for p_no in range(6):
             elif fn == 'Text Field48':
                 w.field_value = "N/A QYC 06Oct26"
             elif fn == 'Text Field49':
-                # Replace Min Jang with Mukyung Jang
-                w.field_value = val.replace("Min Jang", "Mukyung Jang")
+                w.field_value = smart_phase1_part1
             elif fn == 'Text Field50':
-                w.field_value = val
+                w.field_value = smart_phase1_part2
             elif fn == 'Text Field51':
                 w.field_value = "N/A QYC 06Oct26"
             elif fn == 'Text Field54':

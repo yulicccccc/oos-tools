@@ -446,10 +446,22 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 **CRITICAL**: In cGMP laboratory documentation and OOS reporting:
 1. **Analyst Legal Name Accuracy (Mukyung Jang vs. Min Jang)**:
    - For initials MJ in Scan RDI sample preparation, the full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated Min Jang).
-   - Page 1 Text Field3 must preserve the distinct role-analyst spacing:
-     `	ext
-     Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rVarsha Subramanian (VV)\r \rReading Analyst: \rSonal Uprety (SU)
-     `
    - Global Concordance: The name Mukyung Jang must be strictly harmonized across Section B comments (Text Field13), Page 3 narrative (Text Field49), and master Word report blocks.
 2. **Two-Page Narrative Flow & Page 5 N/A Balance**:
    - When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance and eliminate awkward bottom voids. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.
+
+### 27. Scan RDI Changeover (S/O) Bench Operator Precision & Clean EM Attribution Rule (Scan 换批操作员穿透与零微生物检出基线准则)
+**CRITICAL**: In Scan RDI OOS investigations:
+1. **S/O (Scan Changeover) Operator Primacy**:
+   - The Changeover Analyst is the actual operator who performed the changeover procedure in the biological safety cabinet as signed on the physical bench logbooks.
+   - For OOS-261967, bench records confirm Changeover was performed by **Karla Silva (KSM)** in BSC E001937, while Testing was performed by **Varsha Subramanian (VV)** in BSC E001319.
+   - Page 1 Text Field3 must format all 4 roles distinctly:
+     ```text
+     Prepping Analyst: \rMukyung Jang (MJ)\r \rProcessing Analyst: \rVarsha Subramanian (VV)\r \rChangeover Analyst: \rKarla Silva (KSM)\r \rReading Analyst: \rSonal Uprety (SU)
+     ```
+   - Section B Interview Comment (Text Field13):
+     `"Yes, analysts Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety were interviewed comprehensively."`
+2. **Clean Environmental Monitoring Attribution**:
+   - Both Testing (VV in BSC E001319) and Changeover (KSM in BSC E001937) personnel touch plates, surface contact plates, and settling plates demonstrated 100% absence of microbial recovery (No Growth / 0 CFU).
+   - Table 2 explicitly captures separate rows for Testing and Changeover (S/O) across Personnel, Surface, and Settling sites, accurately reflecting their respective operators (VV and KSM) and BSC equipment IDs (BSC E001319 and BSC E001937).
+

@@ -237,14 +237,14 @@ def build_standalone_tables_doc():
     # --- Section 1: Personnel EM ---
     add_section_divider(t2, f"Personnel EM for {TEST_DATE}")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", "25Aug26", "KSM", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
-    add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E001319 for {TEST_DATE}")
+    add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E001319 and BSC E001937 for {TEST_DATE}")
     add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001319\n(4 Locations)", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Surface Sampling of\nISO 5 BSC E001937\n(4 Locations)", "Daily", "25Aug26", "KSM", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001319", "Daily", "25Aug26", "VV", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Settling Sampling of\nISO 5 BSC E001937", "Daily", "25Aug26", "KSM", "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, f"Weekly Active Air Sampling of CR 145 (E001979) with Processing BSC for {TEST_DATE}")
@@ -277,8 +277,8 @@ def export_docx_to_pdf(docx_path, pdf_path):
 # 2. GENERATE COMPLETE INVESTIGATION NARRATIVE
 # ==========================================
 p1 = (
-    "All analysts involved in the prepping, processing, changeover and reading of the sample – "
-    "Mukyung Jang, Varsha Subramanian, and Sonal Uprety – were interviewed and their answers are recorded throughout this document. "
+    "All analysts involved in the prepping, processing, changeover and reading of the sample - "
+    "Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety - were interviewed and their answers are recorded throughout this document. "
     "This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-Specification (OOS) Investigation Procedure."
 )
 
@@ -307,28 +307,28 @@ p5 = (
     "which opens into the adjacent ISO 7 buffer cleanroom (144), followed by ISO 8 anteroom (143) and the outermost ISO 8 room (142). "
     "A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional airflow cascading outward from "
     "145 through 144 and 143 into 142. The ISO 5 BSC E001319, located in the innermost ISO 7 room (145), was used for both the pre-labelling "
-    "and filtration steps and for the changeover procedure. It was thoroughly cleaned and disinfected prior to procedures in accordance "
-    "with MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. Furthermore, the biosafety cabinet (BSC E001319) utilized "
-    "during testing was current in certification and had been approved for use by both the Engineering and Quality Assurance teams."
+    "and filtration steps and was thoroughly cleaned and disinfected prior to procedures in accordance with MICRO-SOP-9, Cleaning and Disinfecting "
+    "Procedure for Microbiology. Furthermore, the biosafety cabinets utilized during testing and changeover were current in certification and had "
+    "been approved for use by both the Engineering and Quality Assurance teams."
 )
 
 p6 = (
     "Pre-labeling and filtration activities were performed by Varsha Subramanian on 25Aug26 within the ISO 5 biosafety cabinet (BSC E001319) "
-    "located in the innermost ISO 7 cleanroom (145). The changeover procedure was subsequently performed by the same analyst on the same date "
-    "within the same ISO 5 biosafety cabinet (BSC E001319). The reading analyst, Sonal Uprety, confirmed that the cytometer Cs2-105 (E001040) "
+    "located in the innermost ISO 7 cleanroom (145). The changeover procedure was subsequently performed by analyst Karla Silva on the same date "
+    "within the ISO 5 biosafety cabinet (BSC E001937). The reading analyst, Sonal Uprety, confirmed that the cytometer Cs2-105 (E001040) "
     "was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality Check and Microscope Setup and Maintenance), and the "
     "negative control (0 events) and positive control (Clostridium sporogenes, Lot 05282026-19404-CS) for analyst Varsha Subramanian yielded "
     "expected results. On 25Aug26, a rapid sterility test was performed on the sample using the ScanRDI method. The sample was initially prepared "
-    "by analyst Mukyung Jang, processed by Varsha Subramanian and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed "
+    "by analyst Mukyung Jang, processed by Varsha Subramanian, changeover performed by Karla Silva, and subsequently read by Sonal Uprety. The test revealed 31 total events and 4 confirmed "
     "microbial events exhibiting short rod-shaped morphology, see Table 1."
 )
 
 p7 = (
     f"Table 2 (see attached tables) presents the environmental monitoring results for {SAMPLE_ID}. The environmental monitoring (EM) plates "
-    "were incubated for no less than 48 hours at 30–35°C and for no less than an additional five days at 20–25°C, as per MICRO-SOP-2 "
+    "were incubated for no less than 48 hours at 30-35°C and for no less than an additional five days at 20-25°C, as per MICRO-SOP-2 "
     "(Environmental Monitoring of the Cleanroom Facility). Upon review of the environmental monitoring data associated with the sterility test, "
-    "no microbial growth was observed on the left and right personnel touch plates for processor and changeover analyst Varsha Subramanian. "
-    "Additionally, no microbial growth was recovered from the surface contact plates (4 locations) or settling plates collected from BSC E001319 during both "
+    "no microbial growth was observed on the left and right personnel touch plates for processor Varsha Subramanian and changeover analyst Karla Silva. "
+    "Additionally, no microbial growth was recovered from the surface contact plates (4 locations) or settling plates collected from BSC E001319 and BSC E001937 during "
     "testing and changeover."
 )
 
@@ -345,7 +345,7 @@ p8 = (
 
 p9 = (
     "Furthermore, the absence of microbial recovery from analyst glove touch plates, settling plates, and BSC work surfaces confirms that no viable contamination "
-    "transfer pathway existed from the room environment into the ISO 5 BSC. Based on the lack of detectable environmental contamination on critical "
+    "transfer pathway existed from the room environment into the ISO 5 BSCs. Based on the lack of detectable environmental contamination on critical "
     "surfaces and the controlled processing conditions, the cleanroom environment is not considered a likely source of contamination for the test sample."
 )
 
@@ -371,12 +371,10 @@ p12 = (
     "Therefore, the original test result is deemed valid."
 )
 
-# Text Field 49 (Page 3/4)
-smart_phase1_part1 = "\r \r".join([p1, p2, p3, p4, p5])
-# Text Field 50 (Page 4/5)
-smart_phase1_part2_page5 = "\r \r".join([p6, p7, p8])
-# Text Field 51 (Page 5/6)
-smart_phase1_part2_page6 = "\r \r".join([p9, p10, p11, p12])
+# Text Field 49 (Page 3)
+smart_phase1_part1 = "\r \r".join([p1, p2, p3, p4, p5, p6])
+# Text Field 50 (Page 4)
+smart_phase1_part2 = "\r \r".join([p7, p8, p9, p10, p11, p12])
 
 # Complete Word narrative
 smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12])
@@ -400,22 +398,23 @@ def generate_master_word_report(tables_docx_path):
         'analyst_name': 'Varsha Subramanian',
         'analyst_initial': 'VV',
         'reader_name': 'Sonal Uprety',
-        'changeover_initial': 'VV',
+        'changeover_initial': 'KSM',
+        'changeover_name': 'Karla Silva',
         'report_header': f"{SAMPLE_ID}\n\n{CLIENT_NAME}",
         'analyst_signature': 'Varsha Subramanian (Written by: Qiyue Chen)',
-        'smart_personnel_block': 'Prepping Analyst: Mukyung Jang (MJ)\nProcessing Analyst: Varsha Subramanian (VV)\nChangeover Analyst: Varsha Subramanian (VV)\nReading Analyst: Sonal Uprety (SU)',
+        'smart_personnel_block': 'Prepping Analyst: Mukyung Jang (MJ)\nProcessing Analyst: Varsha Subramanian (VV)\nChangeover Analyst: Karla Silva (KSM)\nReading Analyst: Sonal Uprety (SU)',
         'smart_incident_opening': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after ScanRDI testing.",
-        'smart_comment_interview': "Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.",
+        'smart_comment_interview': "Yes, analysts Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety were interviewed comprehensively.",
         'smart_comment_samples': f"Yes, Sample ID: {SAMPLE_ID}",
         'smart_comment_records': "Yes, See 082526-1040-2 for more information.",
         'smart_comment_storage': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
         'bsc_id': '1319',
-        'chgbsc_id': '1319',
+        'chgbsc_id': '1937',
         'cr_id': '1979',
         'cr_suit': '145',
         'smart_cr_id': 'CR145 (E001979) in L-Suite',
         'smart_scan_id': 'Cs2-105 (E001040)',
-        'smart_bsc_bracketing_header': f"Biological Safety Cabinet (BSC) EM for BSC E001319 for {TEST_DATE}",
+        'smart_bsc_bracketing_header': f"Biological Safety Cabinet (BSC) EM for BSC E001319 and BSC E001937 for {TEST_DATE}",
         'event_number': '31',
         'confirm_number': '4',
         'organism_morphology': 'Short rod-shaped morphology',
@@ -524,7 +523,7 @@ def generate_7page_pdf(tables_pdf_path):
             w.field_value = (
                 "Prepping Analyst: \rMukyung Jang (MJ)\r \r"
                 "Processing Analyst: \rVarsha Subramanian (VV)\r \r"
-                "Changeover Analyst: \rVarsha Subramanian (VV)\r \r"
+                "Changeover Analyst: \rKarla Silva (KSM)\r \r"
                 "Reading Analyst: \rSonal Uprety (SU)"
             )
         elif fn == 'Text Field4': w.field_value = f"{SAMPLE_NAME}\r \r \r"
@@ -542,7 +541,7 @@ def generate_7page_pdf(tables_pdf_path):
         elif fn == 'Date Field3': w.field_value = TEST_DATE_LONG
         elif fn == 'Text Field13':
             w.text_fontsize = 5.2
-            w.field_value = 'Yes, analysts Mukyung Jang, Varsha Subramanian, and Sonal Uprety were interviewed comprehensively.'
+            w.field_value = 'Yes, analysts Mukyung Jang, Varsha Subramanian, Karla Silva, and Sonal Uprety were interviewed comprehensively.'
         elif fn == 'Text Field14': w.field_value = f"Yes, Sample ID: {SAMPLE_ID}"
         elif fn in ['Text Field15', 'Text Field16']: w.field_value = 'Yes, as per MICRO-SOP-12, ENG-SOP-4'
         elif fn == 'Text Field17': w.field_value = 'Yes, See 082526-1040-2 for more information.'
