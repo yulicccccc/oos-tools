@@ -98,12 +98,14 @@ def get_full_name(initial):
     return mapping.get(initial.strip().upper(), "")
 
 def clean_analyst_name(name):
-    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle"""
+    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle, Min Jang 自动纠正为 Mukyung Jang"""
     if not name:
         return ""
     n = str(name).strip()
     if n.lower() in ["gabbie surber", "gabbie"]:
         return "Gabrielle Surber"
+    if n.lower() in ["min jang", "min"]:
+        return "Mukyung Jang"
     return n
 
 # Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
