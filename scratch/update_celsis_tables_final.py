@@ -240,13 +240,48 @@ for r_idx in [2, 3, 4, 6, 7, 8, 9, 10, 11]:
     set_cell_clean_text(row.cells[10], "N/A")
     set_cell_clean_text(row.cells[11], "None")
 
+def set_cell_multiline_text(cell, lines, font_size_pt=6.5):
+    """Sets multi-line text with clean line breaks, Times New Roman, centered."""
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="220" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+    )
+    runs_xml = ""
+    for i, line in enumerate(lines):
+        if i > 0:
+            runs_xml += '<w:r><w:br/></w:r>'
+        runs_xml += (
+            f'<w:r>'
+            f'<w:rPr>'
+            f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+            f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+            f'</w:rPr>'
+            f'<w:t>{line}</w:t>'
+            f'</w:r>'
+        )
+    p_xml += runs_xml + '</w:p>'
+    tc.append(parse_xml(p_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
 # Row 13: Weekly Active Air on 25Aug26 by SMO
 set_cell_clean_text(t2.rows[13].cells[3], "25Aug26")
 set_cell_clean_text(t2.rows[13].cells[4], "SMO")
 set_cell_clean_text(t2.rows[13].cells[5], "Week of Testing")
 set_cell_clean_text(t2.rows[13].cells[8], "4 CFU (ISO 8 114)")
 set_cell_clean_text(t2.rows[13].cells[9], "ETX-260901-0112")
-set_cell_clean_text(t2.rows[13].cells[10], "Pending ID")
+set_cell_multiline_text(t2.rows[13].cells[10], ["3 Gram (+) cocci", "1 Hyphae"])
 set_cell_clean_text(t2.rows[13].cells[12], "None")
 
 # Row 15: Weekly Surface on 25Aug26 by SMO
