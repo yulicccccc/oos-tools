@@ -33,7 +33,7 @@ data = {
     "positive_id": "ETX-260910-0290",
     "positive_url": "https://etrax.eagleanalytical.com/Submission/Details?id=oZa2TD1UI-0eAJOFysBJ3A__",
     "positive_media": "1 x 100mL TSB bottle",
-    "positive_org": "Pending\n(Gram (-) rods)",
+    "positive_org": "Microbacterium sp. PM5\n(Gram (+) rods)",
 
     # Table 2 Dates & Analysts
     "process_date": "04Sep26",
