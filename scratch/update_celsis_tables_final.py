@@ -28,6 +28,7 @@ OUT_PDF_DESKTOP = os.path.join(DESKTOP_DIR, "Celsis table OOS-262017.pdf")
 URL_SAMPLE = "https://etrax.eagleanalytical.com/Submission/Details/OIX27OGNKb64xLa70p0RRQ__"
 URL_MICRO = "https://etrax.eagleanalytical.com/SubmissionTest/Details/OCvPHc7TodycYzvim2KtjQ__"
 URL_0487 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/fd3G2StZClcy1TP2ES6BLw__"
+URL_0112 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/NcOow%24YzQzS3BNKfJsb8Ug__#TestDetails"
 
 print("=== STEP 1: Load and Process Document ===")
 doc = docx.Document(SRC_DOCX)
@@ -280,7 +281,7 @@ set_cell_clean_text(t2.rows[13].cells[3], "25Aug26")
 set_cell_clean_text(t2.rows[13].cells[4], "SMO")
 set_cell_clean_text(t2.rows[13].cells[5], "Week of Testing")
 set_cell_clean_text(t2.rows[13].cells[8], "4 CFU (ISO 8 114)")
-set_cell_clean_text(t2.rows[13].cells[9], "ETX-260901-0112")
+add_hyperlink_to_cell(t2.rows[13].cells[9], URL_0112, "ETX-260901-0112")
 set_cell_multiline_text(t2.rows[13].cells[10], ["3 Gram (+) cocci", "1 Hyphae"])
 set_cell_clean_text(t2.rows[13].cells[12], "None")
 
@@ -353,12 +354,17 @@ print(">>> ZERO AMPERSANDS CONFIRMED! <<<")
 # Save DOCX
 doc.save(OUT_DOCX_SCRATCH)
 print(f"Saved scratch docx: {OUT_DOCX_SCRATCH}")
-doc.save(OUT_DOCX_DESKTOP)
-print(f"Saved desktop docx: {OUT_DOCX_DESKTOP}")
+try:
+    doc.save(OUT_DOCX_DESKTOP)
+    print(f"Saved desktop docx: {OUT_DOCX_DESKTOP}")
+except Exception as e:
+    print(f"Desktop docx open in Word (permission lock): {e}")
 
-# Also overwrite 'Celsis table OOS-262017 (Updated).docx' on Desktop to keep it synced
-doc.save(os.path.join(DESKTOP_DIR, "Celsis table OOS-262017 (Updated).docx"))
-print(f"Synced updated docx on desktop: Celsis table OOS-262017 (Updated).docx")
+try:
+    doc.save(os.path.join(DESKTOP_DIR, "Celsis table OOS-262017 (Updated).docx"))
+    print(f"Synced updated docx on desktop: Celsis table OOS-262017 (Updated).docx")
+except Exception as e:
+    print(f"Could not save updated docx: {e}")
 
 print("=== STEP 2: Convert to PDF via Word COM ===")
 word = win32com.client.DispatchEx("Word.Application")
