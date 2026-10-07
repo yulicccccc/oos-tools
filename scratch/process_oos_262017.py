@@ -112,9 +112,9 @@ p9 = (
 )
 
 p10 = (
-    "The culture media utilized were within their expiry period (TSB lot 07102026-1, Exp: 08Oct2026). The negative culture media bottles "
-    "for the direct inoculation method for the original culture were handled, processed, and incubated in a manner identical to that "
-    "of actual samples. No microbial growth was observed in the corresponding negative control."
+    "The culture media utilized were within their expiry period (TSB lot 07102026-1, Exp: 08Oct2026; FTM lot 06232026-5, Exp: 21Sep2026). "
+    "The negative culture media bottles for the direct inoculation method for the original culture were handled, processed, and incubated "
+    "in a manner identical to that of actual samples. No microbial growth was observed in the corresponding negative control."
 )
 
 p11 = (
@@ -375,7 +375,7 @@ page2 = doc_pdf[1]
 reagents_lots = (
     "Materials and Reagents\r"
     "TSB: 07102026-1\r"
-    "FTM: 07102026-2\r"
+    "FTM: 06232026-5\r"
     "Tween 80: 0000606420\r \r"
     "Celsis Reagents & Kits:\r"
     "Please refer to attached packet\r \r"
@@ -388,7 +388,7 @@ reagents_lots = (
 reagents_exp = (
     "Materials and Reagents\r"
     "TSB: 08 Oct 2026\r"
-    "FTM: 08 Oct 2026\r"
+    "FTM: 21 Sep 2026\r"
     "Tween 80: 01 Sep 2027\r \r"
     "Celsis Reagents & Kits:\r"
     "Please refer to attached packet\r \r"
