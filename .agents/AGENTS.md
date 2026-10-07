@@ -522,7 +522,28 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - 严禁在连贯叙述中插入像 `Evaluation of Environmental Monitoring Results:` 这样的突兀冒号。
    - 必须用自然的引导从句过渡：`Regarding the evaluation of environmental monitoring results, it is important to note that...`。
    - 引用适用性记录编号时，严禁加冒号：`suitability method record ETX-251218-0432`（严禁 `suitability method record: ...`）。
-4. **Degree Symbol Clean ASCII Encoding (`degrees C` 规范)**:
-   - 在 PDF AcroForm 文本域中使用 PyMuPDF Helvetica 字体时，非 ASCII 字符 `°` 会发生 WinAnsi 编码异常（显示为方框或乱码 ``）。必须写作 `30 to 35 degrees C`，既保证 100% 纯 ASCII 安全，又完全符合母语英语技术写作习惯。
+
+### 30. Scientific Units Preservation & Dual Date Format Standard (DDMMMYY 与 MMM YYYY 规范及科学专业单位守恒铁律 - 🚨 终极标准)
+**CRITICAL**: Across all OOS investigation reports, standalone tables, and narrative texts:
+1. **Professional Scientific Units Preservation (专业科学符号与单位绝对保留，严禁误伤硬改成英文单词)**:
+   - 专业符号与度量衡单位（如 `%`, `%CV`, `CV%`, `℃`, `CFU`, `CFUs`, `RLU`）属于 cGMP 实验室的标准学术表达，**绝对不能当作“特殊符号”被误伤硬改成英文单词**！
+   - `%` / `%CV` / `CV%`：必须保留符号（如 `2%`, `%CV < 30%`, `CV% of 3%`，严禁改成 `percent` 或 `percent CV`）。
+   - `℃`：保留摄氏度单位符号（如 `30 to 35 ℃`, `20 to 25 ℃`，严禁写成 `degrees Celsius` 或 `degrees C`）。
+   - `CFU` / `CFUs`：保留微生物菌落计数单位。
+   - `RLU`：保留荧光读数单位。
+   - “少用特殊符号”仅针对非正式文本符号（如 `&` 代替 `and`、段落中滥用伪小标题冒号 `:`、或把主谓宾数据丢进密集括号 `(...)`）。
+2. **Dual Date Format Standard in Narrative Prose (正文叙述日期双轨制铁律)**:
+   - **具体日期（有 DD）**：**必须使用 `DDMMMYY` 紧凑格式**（如 `21Aug26`, `24Aug26`, `31Aug26`, `12Jul26`, `16Aug26`, `25Aug26`, `28Aug26`, `01Sep26`, `04Sep26`）。中间严禁带空格，严禁写成 `24 Aug 2026`。
+   - **宽泛日期（无 DD，仅年月）**：**必须使用 `MMM YYYY` 格式**（如 `Jul 2026`, `Aug 2026`, `Sep 2026`, `Jan 2027`）。
+3. **Pruning & High-Level Narrative Standard (去粗取精与正文高级叙述原则)**:
+   - 耗材批号/效期（如 Tween 80 批号、TSB/FTM 批号）已在 Page 2 耗材栏详细列出，正文段落无需重复罗列其批号与效期。
+   - 仪器设备（如 Celsis 读数仪）正文中直接写作 `Celsis E002222`，无需长串修饰 `Advance 2, equipment ID E002222`。
+   - 历史记录（6个月记录）直奔主题，直接指明该特定分析物（Tesamorelin 12 mg per Vial）的历史阳性次数与 OOS 编号（OOS-261500 和 OOS-261878），剔除无意义的批号复测套话。
+   - 同批交叉污染段落精炼为明确的 3 句话，无需冗余罗列 6 个同批阴性 ETX 编号。
+4. **Logical 3-Page Flow (三页黄金结构)**:
+   - Page 3 (`Text Field49`): 实验前准备、洁净室、接种与分装（P1..P7）
+   - Page 4 (`Text Field50`): Celsis 读数结果、菌种确认、效期、月度清洁与表格引言（P8..P12）
+   - Page 5 (`Text Field51`): 环境监测调查、交叉污染排除、6个月历史审查与最终结论（P13..P21）
+
 
 

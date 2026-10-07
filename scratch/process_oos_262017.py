@@ -30,6 +30,7 @@ DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of Am
 # ==========================================
 # 1. NARRATIVE TEXT
 # ==========================================
+# Page 3 Paragraphs (p1 to p7)
 p1 = (
     "All analysts involved in the preparation, processing, aliquoting, and reading of the samples, "
     "specifically Elysse Nioupin, Alex Saravia, America Alanis, and Cuong Du, were interviewed comprehensively. "
@@ -38,7 +39,7 @@ p1 = (
 )
 
 p2 = (
-    "Upon arrival on 21 Aug 2026, the sample was stored refrigerated in accordance with the client instructions. Both sample "
+    "Upon arrival on 21Aug26, the sample was stored refrigerated in accordance with the client instructions. Both sample "
     "prepping analyst Elysse Nioupin and processing analyst Alex Saravia inspected the sample during preparation "
     "and processing. No leaks or visible turbidity were observed, and no evidence of compromised container "
     "integrity was identified."
@@ -70,7 +71,7 @@ p5 = (
 )
 
 p6 = (
-    "On 24 Aug 2026, the sample vials for ETX-260821-0259 were received from the Sample Submissions team and brought "
+    "On 24Aug26, the sample vials for ETX-260821-0259 were received from the Sample Submissions team and brought "
     "into the Sterile Microbiology laboratory. Upon arrival, each vial was sprayed with an acidified bleach disinfectant, "
     "placed into pre-disinfected bins, and allowed a 10-minute contact time. Secondary disinfection was performed in "
     "the ISO 8 anteroom 114, where the vials were again treated with acidified bleach with a 10-minute contact time "
@@ -79,70 +80,65 @@ p6 = (
     "ISO 5 BSC E001316, placed on the disinfected work surface, aseptically opened, and tested in accordance with "
     "MICRO-SOP-44. Direct inoculation was performed by adding a total of 84 mL of sample across 14 vials, with 6 mL "
     "added per vial, using nine 300 mL FTM jars and nine 300 mL TSB jars in accordance with suitability method record "
-    "ETX-251218-0432. Tween 80 from lot 0000606420 expiring on 01 Sep 2027 was incorporated into the test procedure "
-    "per suitability requirements. Accordingly, a matching negative control with the same modifications was prepared "
-    "and handled identically to actual samples. Following testing, the media bottles were transferred into incubators "
-    "E001356 and E001357 to initiate incubation."
+    "ETX-251218-0432. Tween 80 was incorporated into the test procedure per suitability requirements. Accordingly, a "
+    "matching negative control with the same modifications was prepared and handled identically to actual samples. Following "
+    "testing, the media bottles were transferred into incubators E001356 and E001357 to initiate incubation."
 )
 
 p7 = (
-    "Upon completion of incubation on 31 Aug 2026, the media bottles for ETX-260821-0259 were disinfected and transferred "
+    "Upon completion of incubation on 31Aug26, the media bottles for ETX-260821-0259 were disinfected and transferred "
     "to the middle ISO 7 buffer room 114A for the aliquoting step per MICRO-SOP-44 for Celsis Sterility Testing. In "
     "buffer room 114A, the media bottles were disinfected one more time before transfer into the ISO 5 BSC E001798 located "
     "in cleanroom 114A. In ISO 5 BSC E001798, the sample was aliquoted into assay cuvettes by analyst America Alanis. Following "
     "aliquoting, Celsis sterility reading was performed in accordance with MICRO-SOP-44 by analyst Cuong Du on instrument "
-    "Celsis Advance 2, equipment ID E002222."
+    "Celsis E002222."
 )
 
+# Page 4 Paragraphs (p8 to p12)
 p8 = (
     "Following the reading, sample ETX-260821-0259 was found to yield positive readings in two of the 300 mL TSB media jars, "
     "specifically Bottle 1 and Bottle 6. Bottle 1 yielded an instrument overload exceeding 9,999,999 RLU on both the initial "
     "read and confirmation re-read. Bottle 6 yielded an average of 1,275 RLU with duplicate tube readings of 1,301 RLU and "
-    "1,249 RLU and a percent CV of 2 percent on the initial read. Upon confirmation re-read, Bottle 6 yielded an average of "
-    "1,386 RLU with duplicate tube readings of 1,481 RLU and 1,291 RLU and a percent CV of 7 percent. Both readings exceeded "
-    "the method cutoffs of 1,197.0 RLU and 1,165.5 RLU respectively, where the corresponding TSB negative control yielded "
-    "399 RLU and 389 RLU. All other TSB bottles, including bottles 2, 3, 4, 5, 7, 8, and 9, as well as all nine FTM sample "
-    "bottles in the same batch, tested negative for microbial growth. The percent CV between duplicate reading tubes for "
-    "both positive TSB bottles was well within the acceptance criteria of less than 30 percent. In addition, all daily controls "
-    "met defined acceptance criteria, including the instrument blank at 8 RLU, the reagent blank at 77 RLU with a 1 percent CV, "
-    "and the ATP positive control at 103,864 RLU with a 3 percent CV."
+    "1,249 RLU and a CV% of 2% on the read. The CV% between duplicate reading tubes for both positive TSB bottles was well "
+    "within the acceptance criteria of less than 30%. In addition, all daily controls met defined acceptance criteria, "
+    "including the instrument blank at 8 RLU, the reagent blank at 77 RLU with a CV% of 1%, and the ATP positive control at "
+    "103,864 RLU with a CV% of 3%."
 )
 
 p9 = (
     "Following the OOS result, the positive TSB bottles for ETX-260821-0259 were submitted for Differential Staining and "
-    "Microbial Identification under ETX-260831-0608. Microbial growth was successfully recovered by subculture on solid growth media, "
-    "and differential staining visualized Gram-positive rods. Microbial identification confirmed the isolate as Terribacillus goriensis, "
+    "Microbial Identification under ETX-260831-0608. Microbial identification confirmed the isolate as Terribacillus goriensis, "
     "as presented in Table 1."
 )
 
 p10 = (
-    "The culture media utilized were within their approved expiration dates, with TSB lot 07102026-1 expiring on 08 Oct 2026 "
-    "and FTM lot 06232026-5 expiring on 21 Sep 2026. The negative culture media bottles for the direct inoculation method "
-    "were handled, processed, and incubated in a manner identical to that of the test samples. No microbial growth was observed "
-    "in the corresponding negative control bottles."
+    "The culture media utilized were within their approved expiration dates. The negative culture media bottles for the direct "
+    "inoculation method were handled, processed, and incubated in a manner identical to that of the test samples. No microbial "
+    "growth was observed in the corresponding negative control bottles."
 )
 
 p11 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 anteroom, the middle ISO 7 buffer room, the innermost ISO 7 "
-    "cleanroom, and the associated ISO 5 biosafety cabinets for cleanroom suite 114 was performed on 12 Jul 2026 and 16 Aug 2026, "
+    "cleanroom, and the associated ISO 5 biosafety cabinets for cleanroom suite 114 was performed on 12Jul26 and 16Aug26, "
     "as per MICRO-SOP-9 for Cleaning and Disinfecting Procedure for Microbiology. All chemical indicators confirmed successful "
     "hydrogen peroxide decontamination, verifying effective monthly cleaning across all sections of cleanroom suite 114 prior to testing."
 )
 
 p12 = (
     "Attached Tables 2 and 3 present the environmental monitoring results for the duration of testing. Environmental "
-    "monitoring plates were incubated for no less than 48 hours at 30 to 35 degrees C and no less than an additional five days at "
-    "20 to 25 degrees C as per MICRO-SOP-2 for Environmental Monitoring of the Cleanroom Facility. Table 2 summarizes environmental "
+    "monitoring plates were incubated for no less than 48 hours at 30 to 35 ℃ and no less than an additional five days at "
+    "20 to 25 ℃ as per MICRO-SOP-2 for Environmental Monitoring of the Cleanroom Facility. Table 2 summarizes environmental "
     "monitoring performed during Celsis sterility processing, and Table 3 summarizes environmental monitoring performed during "
     "Celsis sterility aliquoting."
 )
 
+# Page 5 Paragraphs (p13 to p21)
 p13 = (
     "A review of environmental monitoring results during the Celsis sterility processing period showed no "
     "microbial growth on personnel monitoring plates, settling plates, or ISO 5 BSC E001316 surface sampling plates on the date "
-    "of testing on 24 Aug 2026, the preceding sampling date on 21 Aug 2026, or the subsequent sampling date on 25 Aug 2026. Weekly "
-    "active air and surface sampling of cleanroom suite 114 was performed on 25 Aug 2026. Weekly surface sampling showed no "
-    "microbial recovery across the cleanroom suite. Active air sampling showed recovery of 4 CFU under test sample ETX-260901-0112 "
+    "of testing on 24Aug26, the preceding sampling date on 21Aug26, or the subsequent sampling date on 25Aug26. Weekly "
+    "active air and surface sampling of cleanroom suite 114 was performed on 25Aug26. Weekly surface sampling showed no "
+    "microbial recovery across the cleanroom suite. Active air sampling showed recovery of 4 CFUs under test sample ETX-260901-0112 "
     "in the outermost ISO 8 anteroom, identified as three Gram-positive cocci and one Hyphae, with zero recovery observed in the "
     "ISO 7 buffer room or innermost ISO 7 cleanroom."
 )
@@ -150,8 +146,8 @@ p13 = (
 p14 = (
     "A review of environmental monitoring results during the Celsis sterility aliquoting period showed no "
     "microbial growth on personnel monitoring plates, ISO 5 BSC E001798 surface sampling plates, or settling plates on the date "
-    "of aliquoting on 31 Aug 2026, the preceding sampling date on 28 Aug 2026, or the subsequent sampling date on 01 Sep 2026. "
-    "Weekly active air sampling of cleanroom suite 114 performed on 04 Sep 2026 showed recovery of 2 CFU under test sample "
+    "of aliquoting on 31Aug26, the preceding sampling date on 28Aug26, or the subsequent sampling date on 01Sep26. "
+    "Weekly active air sampling of cleanroom suite 114 performed on 04Sep26 showed recovery of 2 CFUs under test sample "
     "ETX-260914-0487 in the outermost ISO 8 anteroom, identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae, "
     "with zero recovery in the ISO 7 buffer room or innermost ISO 7 cleanroom. Weekly surface sampling of the cleanroom suite "
     "confirmed no microbial growth."
@@ -182,15 +178,14 @@ p17 = (
 )
 
 p18 = (
-    "No other sample processed by analyst Alex Saravia on 24 Aug 2026 and aliquoted by analyst America Alanis on 31 Aug 2026 "
-    "failed Celsis sterility testing. Furthermore, all other samples analyzed on Celsis Advance 2, equipment ID E002222, "
-    "on 31 Aug 2026 tested negative. These findings confirm that cross-contamination between samples did not occur."
+    "No other sample processed by analyst Alex Saravia on 24Aug26 and aliquoted by analyst America Alanis on 31Aug26 "
+    "failed Celsis sterility testing. Furthermore, all other samples analyzed on Celsis E002222 on 31Aug26 "
+    "tested negative. These findings confirm that cross-contamination between samples did not occur."
 )
 
 p19 = (
-    "Analyzing a six-month sample history for Revive Rx Pharmacy - PO Required indicates that Eagle Analytical processed "
-    "approximately 631 samples for Celsis sterility testing during this period. This specific analyte, Tesamorelin 12 mg per Vial, "
-    "has had two prior failures, documented under OOS-261500 for lot 16121196 and OOS-261878 for lot 16500635."
+    'Analyzing a six-month sample history for Revive Rx Pharmacy indicates the specific analyte "Tesamorelin 12 mg per Vial" '
+    'has had two prior failures, documented under OOS-261500 and OOS-261878.'
 )
 
 p21 = (
@@ -199,9 +194,9 @@ p21 = (
     "accordance with the applicable laboratory OOS procedure."
 )
 
-text_field_49 = "\n\n".join([p1, p2, p3, p4, p5])
-text_field_50 = "\n\n".join([p6, p7, p8, p9, p10, p11, p12])
-text_field_51 = "\n\n".join([p13, p14, p15, p16, p17, p18, p19, p21])
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7])
+text_field_50 = "\r \r".join([p8, p9, p10, p11, p12])
+text_field_51 = "\r \r".join([p13, p14, p15, p16, p17, p18, p19, p21])
 
 smart_phase1_full = "\n\n".join([
     p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
