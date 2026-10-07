@@ -213,6 +213,46 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Complete Bracketing Resolution:** Resolved all daily bracketing rows in Table 2 (Processing Phase, 24Aug26 by ES) and Table 3 (Aliquoting Phase, 31Aug26 by ALA) to `"No growth"` / `"N/A"` / `"None"` based on comprehensive EM census review.
         *   **Weekly EM Active Air Integration (04Sep26 under ETX-260914-0487):** In Table 3 Row 13 (Aliquoting Weekly Active Air), incorporated the ground truth recovery of `2 CFU (ISO 8 114)` sampled on `04Sep26` by analyst `ISS` under plate `ETX-260914-0487` (with active clickable hyperlink). Recovered isolates are formatted as *Corynebacterium ureicelerivorans* and *Mycobacterium grossiae* (both italicized, separated by empty blank line, 0 ampersands).
         *   **Visual Ergonomics & Zero Ampersands:** Enforced 100% cell centering, consistent 7pt Times New Roman, zero `&` symbols, active clickable hyperlinks across Table 1 and Table 3, clean page break before Table 3, and flawless Word COM PDF export.
+    36. *Anti-Robotic Human Narrative Standard & Zero Special Symbol Mandate (极致拟人化自然写作与全面清除机械符号永久铁律 - 🚨 终极合规规范):*
+        *   **🚨 机械化写作零容忍准则 (Zero Tolerance for Robotic Syntax):** 严禁任何具有机械 AI 感的符号、括号式数据堆砌、以及段落中的冒号小标题。调查报告必须呈现 100% 资深人类质量科学家（Senior QA Scientist / Microbiologist）的流利英语行文质感。
+        *   **1. Zero Ampersand (`&`) Everywhere (绝对零 `&` 铁律):**
+            - 在所有动态变量、分析员访谈文本、表单注释、耗材/设备栏目及正文段落中，**严禁使用 `&` 作为连词**。
+            - 必须全部拼写为 `, and ` 或 ` and `。
+            - 例：`America Alanis, and Cuong Du`（严禁 `Alanis & Cuong Du`）；`Celsis Reagents and Kits`（严禁 `Reagents & Kits`）。
+        *   **2. Complete Elimination of Bracketed Data Dumps (严禁括号式数据堆砌，全面转化为流利完整句子):**
+            - 人类调查员在书写正式报告时，从不把数据装在密集的括号 `()` 里面。所有技术参数、读数、批号、日期、样本号必须自然融入完整的英语主谓宾句子中。
+            - ❌ `positive readings in two of the 300 mL TSB media jars (Bottle 1 and Bottle 6)`
+              ➡️ ✔️ `positive readings in two of the 300 mL TSB media jars, specifically Bottle 1 and Bottle 6`
+            - ❌ `Bottle 1 yielded > 9,999,999 RLU (instrument overload)`
+              ➡️ ✔️ `Bottle 1 yielded an instrument overload exceeding 9,999,999 RLU on both the initial read and confirmation re-read`
+            - ❌ `Bottle 6 yielded 1,275 RLU (duplicate reading tubes 1,301 RLU and 1,249 RLU, %CV 2%)`
+              ➡️ ✔️ `Bottle 6 yielded an average of 1,275 RLU with duplicate tube readings of 1,301 RLU and 1,249 RLU and a percent CV of 2 percent on the initial read`
+            - ❌ `All other TSB bottles (Bottles 2, 3, 4, 5, 7, 8, 9)`
+              ➡️ ✔️ `All other TSB bottles, including bottles 2, 3, 4, 5, 7, 8, and 9`
+            - ❌ `(FTM cutoff 5,416.5 RLU, FTM negative control 1,806 RLU)`
+              ➡️ ✔️ `where the FTM cutoff was 5,416.5 RLU and the negative control was 1,806 RLU`
+            - ❌ `(< 30%)`
+              ➡️ ✔️ `well within the acceptance criteria of less than 30 percent`
+            - ❌ `Instrument Blank (8 RLU), Reagent Blank (77 RLU, %CV 1%), and ATP Positive Control (103,864 RLU, %CV 3%)`
+              ➡️ ✔️ `including the instrument blank at 8 RLU, the reagent blank at 77 RLU with a 1 percent CV, and the ATP positive control at 103,864 RLU with a 3 percent CV`
+            - ❌ `(TSB lot 07102026-1, Exp: 08Oct2026; FTM lot 06232026-5, Exp: 21Sep2026)`
+              ➡️ ✔️ `with TSB lot 07102026-1 expiring on 08 Oct 2026 and FTM lot 06232026-5 expiring on 21 Sep 2026`
+            - ❌ `on the date of testing (24Aug26), the preceding sampling date (21Aug26), or the subsequent sampling date (25Aug26)`
+              ➡️ ✔️ `on the date of testing on 24 Aug 2026, the preceding sampling date on 21 Aug 2026, or the subsequent sampling date on 25 Aug 2026`
+            - ❌ `recovery of 4 CFU (ETX-260901-0112) in the ISO 8 area, identified as 3 Gram (+) cocci and 1 Hyphae`
+              ➡️ ✔️ `recovery of 4 CFU under test sample ETX-260901-0112 in the outermost ISO 8 anteroom, identified as three Gram-positive cocci and one Hyphae`
+            - ❌ `cleanroom suite used for processing procedures (CR114)`
+              ➡️ ✔️ `cleanroom suite used for processing procedures, cleanroom suite 114`
+            - ❌ `(OOS-261500 and OOS-261878)`
+              ➡️ ✔️ `documented under OOS-261500 and OOS-261878`
+            - ❌ `(Tesamorelin 12 mg per Vial)`
+              ➡️ ✔️ `for Tesamorelin 12 mg per Vial`
+        *   **3. Zero Robotic Colons in Continuous Prose (段落中彻底剔除伪小标题冒号):**
+            - 严禁在连贯叙述中插入像 `Evaluation of Environmental Monitoring Results:` 这样的突兀冒号。
+            - 必须用自然的引导从句过渡：`Regarding the evaluation of environmental monitoring results, it is important to note that...`。
+            - 引用适用性记录编号时，严禁加冒号：`suitability method record ETX-251218-0432`（严禁 `suitability method record: ...`）。
+        *   **4. Degree Symbol Clean ASCII Encoding (`degrees C` 规范):**
+            - 在 PDF AcroForm 文本域中使用 PyMuPDF Helvetica 字体时，非 ASCII 字符 `°` 会发生 WinAnsi 编码异常（显示为方框或乱码 ``）。必须写作 `30 to 35 degrees C`，既保证 100% 纯 ASCII 安全，又完全符合母语英语技术写作习惯。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
