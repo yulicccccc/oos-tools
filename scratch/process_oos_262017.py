@@ -32,14 +32,14 @@ DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of Am
 # ==========================================
 p1 = (
     "All analysts involved in the preparation, processing, aliquoting, and reading of the samples, "
-    "Elysse Nioupin, Elizabeth Sanchez, America Alanis, and Cuong Du, were interviewed comprehensively. "
+    "Elysse Nioupin, Alex Saravia, America Alanis, and Cuong Du, were interviewed comprehensively. "
     "Their responses are documented throughout this report. "
     "This investigation was performed as per MICRO-SOP-53 Sterility Test Out-of-Specification (OOS) Investigation Procedure."
 )
 
 p2 = (
     "Upon arrival on 21 Aug 2026, the sample was stored refrigerated in accordance with the client instructions. Both sample "
-    "prepping analyst Elysse Nioupin and processing analyst Elizabeth Sanchez inspected the sample during preparation "
+    "prepping analyst Elysse Nioupin and processing analyst Alex Saravia inspected the sample during preparation "
     "and processing. No leaks or visible turbidity were observed, and no evidence of compromised container "
     "integrity was identified."
 )
@@ -60,7 +60,7 @@ p4 = (
 
 p5 = (
     "The innermost ISO 7 cleanroom 114B and its ISO 5 BSC E001316 were thoroughly cleaned and prepared before "
-    "initiating testing by analyst Elizabeth Sanchez as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
+    "initiating testing by analyst Alex Saravia as per MICRO-SOP-2 (Environmental Monitoring of the Clean "
     "Room Facility) and MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). For Celsis "
     "aliquoting, intermediate ISO 7 buffer room 114A and its ISO 5 BSC E001798 were thoroughly cleaned and "
     "prepared by analyst America Alanis before initiating testing as per MICRO-SOP-44 and MICRO-SOP-9. Both BSCs, "
@@ -73,7 +73,7 @@ p6 = (
     "into the Sterile Microbiology lab. Upon arrival, each vial was sprayed with an acidified bleach disinfectant, "
     "placed into pre-disinfected bins, and allowed a 10-minute contact time. Secondary disinfection was performed in "
     "the ISO 8 anteroom (114), where the vials were again treated with acidified bleach with a 10-minute contact time "
-    "before transfer into cleanroom 114B. Inside 114B, processing analyst Elizabeth Sanchez performed a final disinfection "
+    "before transfer into cleanroom 114B. Inside 114B, processing analyst Alex Saravia performed a final disinfection "
     "step with a 10-minute contact time. Once fully disinfected, the vials were transferred into the ISO 5 BSC E001316, "
     "placed on the disinfected work surface, aseptically opened, and tested in accordance with MICRO-SOP-44. Direct "
     "inoculation was performed by adding a total of 84 mL of sample across 14 vials (6 mL per vial), using nine 300 mL "
@@ -119,7 +119,7 @@ p10 = (
 
 p11 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 "
-    "cleanroom, and its containing ISO 5 Biosafety Cabinets for CR114 was performed on 16 Aug 2026, as per MICRO-SOP-9 "
+    "cleanroom, and its containing ISO 5 Biosafety Cabinets for CR114 was performed on 12 Jul 2026 (and 16 Aug 2026), as per MICRO-SOP-9 "
     "(Cleaning and Disinfecting Procedure for Microbiology). It was documented that all H2O2 indicators passed. This confirms "
     "the efficient monthly cleaning of all three parts of Cleanroom 114 prior to testing."
 )
@@ -174,17 +174,18 @@ p17 = (
 )
 
 p18 = (
-    "No other sample processed by analyst Elizabeth Sanchez on 24 Aug 2026 and aliquoted by analyst America Alanis on 31 Aug 2026, "
-    "failed Celsis Sterility testing that day. To assess the potential for sample-to-sample contamination contributing to the "
-    "positive results, a comprehensive review was conducted of all samples processed in the same batch. All other samples processed "
-    "by the same analyst on the day of testing were found to test negative for microbial growth. These findings suggest that "
-    "cross-contamination between samples is unlikely."
+    "No other sample processed by analyst Alex Saravia on 24 Aug 2026 (including ETX-260821-0474, ETX-260821-0451, ETX-260821-0541, "
+    "ETX-260821-0192, ETX-260821-0475, and ETX-260821-0476) and aliquoted by analyst America Alanis on 31 Aug 2026, failed Celsis "
+    "Sterility testing that day. All other samples processed by the same analyst on the day of testing, as well as all other samples "
+    "read on Celsis Advance 2 (E002222) on 31 Aug 2026, tested negative for microbial growth. These findings confirm that cross-contamination "
+    "between samples did not occur."
 )
 
 p19 = (
-    'Analyzing a 6-month sample history for Revive Rx Pharmacy - PO Required (E00927) indicates that this specific analyte '
-    '"Tesamorelin 12 mg per Vial" (Lot: 16590773) has had no prior failures using the Celsis Sterility testing during this period, '
-    'and review of lot history confirms no other submissions of this lot failed testing.'
+    'An analysis of the six-month sample history for Revive Rx Pharmacy - PO Required (E00927) indicates that Eagle Analytical '
+    'processed approximately 631+ samples for Celsis Sterility testing with two prior occurrences of positive results during this period '
+    '(OOS-261500 and OOS-261878). A review of the lot history confirms that there have been no prior failures or additional submissions '
+    'of this specific sample lot 16590773 (Tesamorelin 12 mg per Vial) for sterility testing.'
 )
 
 p21 = (
@@ -209,7 +210,7 @@ print("\n--- [1/3] Rendering Word Document ---")
 
 personnel_block = (
     "Prepping Analyst:\nElysse Nioupin (EN)\n\n"
-    "Processing Analyst:\nElizabeth Sanchez (ES)\n\n"
+    "Processing Analyst:\nAlex Saravia (ES)\n\n"
     "Aliquoting Analyst:\nAmerica Alanis (ALA)\n\n"
     "Reading Analyst:\nCuong Du (CCD)"
 )
@@ -226,7 +227,7 @@ word_context = {
     "received_data": "21Aug26",
     "prepper_name": "Elysse Nioupin",
     "prepper_initial": "EN",
-    "analyst_name": "Elizabeth Sanchez",
+    "analyst_name": "Alex Saravia",
     "analyst_initial": "ES",
     "aliquoting_name": "America Alanis",
     "aliquoting_initial": "ALA",
@@ -243,7 +244,7 @@ word_context = {
     "monthly_cleaning_date": "16 Aug 2026",
     "smart_personnel_block": personnel_block,
     "smart_incident_opening": "On 31Aug26, sample ETX-260821-0259 was found positive for viable microorganisms after Celsis sterility testing.",
-    "smart_comment_interview": "Yes, Elysse Nioupin, Elizabeth Sanchez, America Alanis, and Cuong Du were interviewed comprehensively.",
+    "smart_comment_interview": "Yes, Elysse Nioupin, Alex Saravia, America Alanis, and Cuong Du were interviewed comprehensively.",
     "smart_comment_samples": "Yes, Sample ID ETX-260821-0259",
     "smart_comment_records": "Not Applicable",
     "smart_comment_storage": "Yes, the sample was stored refrigerated as per client instructions. Information is available in EagleTrax Sample Location History under ETX-260821-0259",
@@ -333,7 +334,7 @@ for w in page1.widgets():
             "Prepping Analyst:\r"
             "Elysse Nioupin (EN)\r \r"
             "Processing Analyst:\r"
-            "Elizabeth Sanchez (ES)\r \r"
+            "Alex Saravia (ES)\r \r"
             "Aliquoting Analyst:\r"
             "America Alanis (ALA)\r \r"
             "Reading Analyst:\r"
@@ -351,7 +352,7 @@ for w in page1.widgets():
     elif fn == 'Text Field12': w.field_value = 'Kathan Parikh'
     elif fn == 'Date Field3': w.field_value = '31-Aug-2026'
     elif fn == 'Text Field13':
-        w.field_value = 'Yes, analysts Elysse Nioupin, Elizabeth Sanchez, America Alanis & Cuong Du were comprehensively interviewed.'
+        w.field_value = 'Yes, analysts Elysse Nioupin, Alex Saravia, America Alanis & Cuong Du were comprehensively interviewed.'
     elif fn == 'Text Field14': w.field_value = 'Yes, Sample ID ETX-260821-0259'
     elif fn in ['Text Field15', 'Text Field16']: w.field_value = 'Yes, as per MICRO-SOP-44'
     elif fn == 'Text Field17':
