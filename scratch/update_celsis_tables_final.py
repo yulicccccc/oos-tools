@@ -230,7 +230,9 @@ for r_idx in [2, 3, 4, 6, 7, 8, 9, 10, 11]:
         set_cell_clean_text(row.cells[6], "Date of Testing")
     elif r_idx in [4, 8, 11]:
         set_cell_clean_text(row.cells[3], "25Aug26")
-        set_cell_clean_text(row.cells[4], "ES")
+        # Dual-track EM tracing: Personnel follows ES (r_idx == 4), BSC hood follows GS (r_idx 8 and 11)
+        analyst_initial = "ES" if r_idx == 4 else "GS"
+        set_cell_clean_text(row.cells[4], analyst_initial)
         set_cell_clean_text(row.cells[6], "Date After Testing")
         
     set_cell_clean_text(row.cells[7], "No growth")
