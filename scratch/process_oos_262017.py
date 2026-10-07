@@ -183,18 +183,14 @@ p17 = (
 
 p18 = (
     "No other sample processed by analyst Alex Saravia on 24 Aug 2026 and aliquoted by analyst America Alanis on 31 Aug 2026 "
-    "failed Celsis sterility testing. Specifically, all other concurrent samples processed in the same testing batch by Alex "
-    "Saravia, including ETX-260821-0474, ETX-260821-0451, ETX-260821-0541, ETX-260821-0192, ETX-260821-0475, and ETX-260821-0476, "
-    "tested negative for microbial growth. Furthermore, all other samples analyzed on Celsis Advance 2, equipment ID E002222, "
+    "failed Celsis sterility testing. Furthermore, all other samples analyzed on Celsis Advance 2, equipment ID E002222, "
     "on 31 Aug 2026 tested negative. These findings confirm that cross-contamination between samples did not occur."
 )
 
 p19 = (
-    "An analysis of the six-month sample history for Revive Rx Pharmacy - PO Required, account E00927, indicates that Eagle "
-    "Analytical processed approximately 631 samples for Celsis sterility testing with two prior occurrences of positive results "
-    "during this period, documented under OOS-261500 and OOS-261878. A review of the lot history confirms that there have been "
-    "no prior failures or additional submissions of this specific sample lot 16590773 for Tesamorelin 12 mg per Vial for "
-    "sterility testing."
+    "Analyzing a six-month sample history for Revive Rx Pharmacy - PO Required indicates that Eagle Analytical processed "
+    "approximately 631 samples for Celsis sterility testing during this period. This specific analyte, Tesamorelin 12 mg per Vial, "
+    "has had two prior failures, documented under OOS-261500 for lot 16121196 and OOS-261878 for lot 16500635."
 )
 
 p21 = (
