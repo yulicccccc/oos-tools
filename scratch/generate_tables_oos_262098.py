@@ -80,6 +80,7 @@ doc_rendered = docx.Document(OUT_DOCX)
 
 URL_0487 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/fd3G2StZClcy1TP2ES6BLw__"
 URL_0520 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/qnwcLQO5BWeJhWCBG7jl8Q__#TestDetails"
+URL_0402 = "https://etrax.eagleanalytical.com/Submission/Details/3J8wved-0SjAQY6DZJtUaw__"
 URL_RETEST = "https://etrax.eagleanalytical.com/Submission/Details/18rFOYVWqrO0Afk1OwB2hg__"
 URL_RETEST_ID = "https://etrax.eagleanalytical.com/Submission/Details/7K%24JgQe6bduNBFY3pBa03w__"
 
@@ -215,6 +216,52 @@ def set_dual_microbial_id_cell(cell, org1, org2, font_size_pt=6.5):
     )
     tc.append(parse_xml(p_empty_xml))
     tc.append(parse_xml(p2_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+def set_multi_microbial_id_cell(cell, organisms, font_size_pt=5.5):
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    for i, org in enumerate(organisms):
+        p_xml = (
+            f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            f'<w:pPr>'
+            f'<w:jc w:val="center"/>'
+            f'<w:spacing w:before="0" w:after="0" w:line="180" w:lineRule="auto"/>'
+            f'<w:rPr>'
+            f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+            f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+            f'</w:rPr>'
+            f'</w:pPr>'
+            f'<w:r>'
+            f'<w:rPr>'
+            f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            f'<w:i/>'
+            f'<w:iCs/>'
+            f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+            f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+            f'</w:rPr>'
+            f'<w:t>{org}</w:t>'
+            f'</w:r>'
+            f'</w:p>'
+        )
+        tc.append(parse_xml(p_xml))
+        if i < len(organisms) - 1:
+            p_empty_xml = (
+                f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+                f'<w:pPr>'
+                f'<w:jc w:val="center"/>'
+                f'<w:spacing w:before="0" w:after="0" w:line="80" w:lineRule="auto"/>'
+                f'<w:rPr>'
+                f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+                f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+                f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+                f'</w:rPr>'
+                f'</w:pPr>'
+                f'</w:p>'
+            )
+            tc.append(parse_xml(p_empty_xml))
     cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
 def set_single_microbial_id_cell(cell, species, gram_stain=None, font_size_pt=6.5):
@@ -445,12 +492,20 @@ set_cell_clean_text(t3_rendered.rows[11].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[11], "None", font_size_pt=7)
 
-# 13: Weekly Active Air (15Sep26, Cleanroom Suite 115) - No growth
+# 13: Weekly Active Air (15Sep26, Cleanroom Suite 115) - 9 CFU (Suite 115) / ETX-260923-0402
 set_cell_clean_text(t3_rendered.rows[13].cells[3], "15Sep26", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[13].cells[4], "SMO", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[13].cells[8], "No growth", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[13].cells[9], "N/A", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[13].cells[10], "None", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[13].cells[8], "9 CFU (Suite 115)", font_size_pt=7)
+add_hyperlink_to_cell(t3_rendered.rows[13].cells[9], URL_0402, "ETX-260923-0402", font_size_pt=7)
+set_multi_microbial_id_cell(t3_rendered.rows[13].cells[10], [
+    "Kocuria indica",
+    "Brevibacterium sp. CS2",
+    "Corynebacterium sp",
+    "Micrococcus luteus",
+    "Paracoccus yeei",
+    "Staphylococcus hominis",
+    "Kocuria rhizophila"
+], font_size_pt=5.5)
 
 # 15: Weekly Surface (15Sep26, Cleanroom Suite 115) - No growth
 set_cell_clean_text(t3_rendered.rows[15].cells[3], "15Sep26", font_size_pt=7)
