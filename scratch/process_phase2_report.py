@@ -66,23 +66,30 @@ p24 = (
     "Media bottles were incubated in designated incubators E001356 and E001357. Negative controls were handled concurrently and remained sterile.\r \r"
     "On 21 Sep 2026 (Day 06 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Andrew Carrillo and confirmed "
     "by supervisor Robin Seymour. The positive bottle was submitted for Microbial Identification under ETX-260921-0498. Confirmatory identification "
-    "identified the isolate as Microbacterium sp. (Gram-positive rods), matching the exact species, morphology, media selection (TSB), and incubation "
-    "kinetics (Day 6) of the initial failure under ETX-260902-0505. All other samples processed in the batch on 15 Sep 2026 tested negative.\r \r"
-    "EVALUATION OF RETEST FINDINGS:\r"
+    "definitively identified the isolate as Microbacterium sp. PM5 (Gram-positive short rods), matching the identical species and strain designation (PM5), "
+    "morphology (white shiny lawn growth), media selection (TSB), and incubation kinetics (Day 6) of the initial failure under ETX-260902-0505 "
+    "(ETX-260910-0290). All other samples processed in the batch on 15 Sep 2026 tested negative.\r \r"
+    "EVALUATION OF RETEST FINDINGS & JUSTIFICATION OF PRIOR SCANRDI RESULT:\r"
     "The successful replication of microbial recovery in the independent retest—conducted by a different processing analyst (Abayomi Odugbesi) "
     "and a different prepping/reading analyst (Andrew Carrillo)—conclusively refutes the preliminary hypothesis of analyst handling error during reconstitution. "
-    "If the initial recovery had been an isolated artifact of analyst technique, the identical microorganism would not have been recovered on the identical "
-    "incubation day in the retest.\r \r"
-    "Furthermore, while the lot previously passed rapid ScanRDI testing under ETX-260807-0602, that test had no method suitability on file. "
-    "In low-bioburden or slow-growing presentations, compendial membrane filtration enrichment provides superior sensitivity. "
-    "Consequently, the retest confirms that the microbial recovery is inherent to product Lot 2608-216. The initial failing result for ETX-260902-0505 is "
-    "confirmed as valid, the retest result for ETX-260914-0470 is confirmed as failing, and Lot 2608-216 fails USP <71> sterility testing."
+    "If the initial recovery had been an isolated artifact of analyst technique, the identical microorganism (Microbacterium sp. PM5) would not have been "
+    "recovered on the identical incubation day in the retest.\r \r"
+    "Importantly, the investigation evaluated why the prior rapid ScanRDI sterility test conducted on this lot (ETX-260807-0602) yielded a passing result. "
+    "In compounded parenteral products, microbial contamination is typically characterized by a heterogeneous, non-uniform distribution of microorganisms "
+    "across individual containers, particularly when bioburden is present at very low concentrations. Under such low-level non-uniform contamination, random "
+    "unit sampling naturally results in some vials containing zero viable cells—as occurred with the vials sampled for ScanRDI under ETX-260807-0602—while other "
+    "vials from the same batch harbor low-level viable microorganisms. In addition, no method suitability was on file for ScanRDI with this specific formulation.\r \r"
+    "When low-level viable bioburden was introduced into the 14-day compendial USP <71> membrane filtration enrichment process, the microorganisms were "
+    "successfully enriched and recovered in TSB on Day 6 in both independent testing events (ETX-260902-0505 and ETX-260914-0470), yielding the identical "
+    "isolate (Microbacterium sp. PM5). Therefore, the passing ScanRDI result and the two failing USP <71> results are scientifically consistent with the non-uniform "
+    "distribution of low-concentration microbial bioburden within the compounded lot. Consequently, inherent product contamination in Lot 2608-216 is confirmed. "
+    "The initial failing result for ETX-260902-0505 is confirmed valid, the retest for ETX-260914-0470 is confirmed failing, and Lot 2608-216 fails USP <71> sterility requirements."
 )
 
 p25 = (
-    "The replication of microbial growth in the Phase II retest under ETX-260914-0470, with identical recovery kinetics (Day 6 in TSB) and confirmation "
-    "of the identical organism (Microbacterium sp.), definitively disproves laboratory handling error and confirms inherent product contamination "
-    "in Lot 2608-216. The original OOS result is confirmed valid, and the lot fails sterility requirements."
+    "Inherent product contamination in Lot 2608-216, confirmed by the replication of identical microbial recovery kinetics (Day 6 in TSB) and "
+    "the identical strain (Microbacterium sp. PM5) in retest ETX-260914-0470. The discrepancy with the passing ScanRDI result (ETX-260807-0602) "
+    "is scientifically attributed to non-uniform microbial distribution at low concentrations within the compounded batch. Original result confirmed valid."
 )
 
 pdf_map = {
@@ -215,10 +222,10 @@ font_sizes = {
     "Text Field23": 9.2,
     
     # Page 4
-    "Text Field24": 9.2,
+    "Text Field24": 8.2,  # Calibrated for comprehensive non-uniform distribution justification
     
     # Page 5
-    "Text Field25": 8.5,
+    "Text Field25": 7.5,
     "Text Field26": 8.5,
     "Text Field27": 7.5,
     "Text Field28": 7.0,
@@ -244,4 +251,10 @@ desktop_pdf = os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase I
 doc_pdf = os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
 shutil.copy2(out_p2_pdf, desktop_pdf)
 shutil.copy2(out_p2_pdf, doc_pdf)
-print("Synced to Desktop and Documents:", desktop_pdf)
+
+# Copy QYC PDF
+qyc_pdf = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf")
+shutil.copy2(out_p2_pdf, qyc_pdf)
+shutil.copy2(out_p2_pdf, os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
+shutil.copy2(out_p2_pdf, os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
+print("Synced to Desktop and Documents successfully!")

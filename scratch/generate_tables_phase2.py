@@ -121,7 +121,7 @@ set_cell_clean_text(cells_r2[1], "Andrew Carrillo", font_size_pt=7)
 set_cell_hyperlink(cells_r2[2], "ETX-260914-0470", URL_RETEST, font_size_pt=7)
 set_cell_hyperlink(cells_r2[3], "ETX-260921-0498", URL_RETEST_ID, font_size_pt=7)
 set_cell_clean_text(cells_r2[4], "1 x 100mL TSB bottle", font_size_pt=7)
-set_cell_clean_text(cells_r2[5], "Microbacterium sp.\n(Gram (+) rods)", font_size_pt=7, italic_match="Microbacterium")
+set_cell_clean_text(cells_r2[5], "Microbacterium sp. PM5\n(Gram (+) short rods)", font_size_pt=7, italic_match="Microbacterium")
 
 out_table_docx = os.path.join(OUTPUT_DIR, "Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx")
 out_table_pdf = os.path.join(OUTPUT_DIR, "Tables OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
@@ -138,3 +138,19 @@ try:
 finally:
     word.Quit()
 print("Saved Phase II Table pdf:", out_table_pdf)
+
+# Sync to Desktop and Documents
+for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+    dest_docx = os.path.join(dest_dir, os.path.basename(out_table_docx))
+    dest_pdf = os.path.join(dest_dir, os.path.basename(out_table_pdf))
+    try:
+        shutil.copy2(out_table_docx, dest_docx)
+        print("Synced Table DOCX to:", dest_docx)
+    except Exception as e:
+        print(f"Notice: {dest_docx} copy skipped ({e})")
+    try:
+        shutil.copy2(out_table_pdf, dest_pdf)
+        print("Synced Table PDF to:", dest_pdf)
+    except Exception as e:
+        print(f"Notice: {dest_pdf} copy skipped ({e})")
+
