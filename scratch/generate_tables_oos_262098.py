@@ -60,7 +60,7 @@ data = {
     "pro_af_obs_sett_dur_pro": "No growth", "pro_af_etx_sett_dur_pro": "N/A", "pro_af_id_sett_dur_pro": "N/A",
 
     # Weekly Active Air & Surface
-    "pro_obs_air_wk_of": "2 CFU (ISO 8 114)",
+    "pro_obs_air_wk_of": "2 CFUs (ISO 8 114)",
     "pro_etx_air_wk_of": "ETX-260914-0487",
     "pro_id_air_wk_of": "Corynebacterium ureicelerivorans\nMycobacterium grossiae",
     "pro_obs_room_wk_of": "No growth",
@@ -89,30 +89,32 @@ def set_cell_clean_text(cell, text, font_size_pt=7, bold=False):
     for p in tc.xpath('w:p'):
         tc.remove(p)
     b_tag = '<w:b/><w:bCs/>' if bold else ''
-    p_xml = (
-        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
-        f'<w:pPr>'
-        f'<w:jc w:val="center"/>'
-        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
-        f'<w:rPr>'
-        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
-        f'{b_tag}'
-        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
-        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
-        f'</w:rPr>'
-        f'</w:pPr>'
-        f'<w:r>'
-        f'<w:rPr>'
-        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
-        f'{b_tag}'
-        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
-        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
-        f'</w:rPr>'
-        f'<w:t>{text}</w:t>'
-        f'</w:r>'
-        f'</w:p>'
-    )
-    tc.append(parse_xml(p_xml))
+    lines = text.split('\n')
+    for line in lines:
+        p_xml = (
+            f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            f'<w:pPr>'
+            f'<w:jc w:val="center"/>'
+            f'<w:spacing w:before="0" w:after="0" w:line="220" w:lineRule="auto"/>'
+            f'<w:rPr>'
+            f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            f'{b_tag}'
+            f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+            f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+            f'</w:rPr>'
+            f'</w:pPr>'
+            f'<w:r>'
+            f'<w:rPr>'
+            f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            f'{b_tag}'
+            f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+            f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+            f'</w:rPr>'
+            f'<w:t>{line.strip()}</w:t>'
+            f'</w:r>'
+            f'</w:p>'
+        )
+        tc.append(parse_xml(p_xml))
     cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
 def add_hyperlink_to_cell(cell, url, text, font_size_pt=7):
@@ -370,7 +372,7 @@ set_cell_clean_text(t2_rendered.rows[14].cells[0], "Weekly Surface Sampling of C
 # Row 13: Weekly Active Air
 set_cell_clean_text(t2_rendered.rows[13].cells[3], "04Sep26", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[13].cells[4], "ISS", font_size_pt=7)
-set_cell_clean_text(t2_rendered.rows[13].cells[8], "2 CFU (ISO 8 114)", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[13].cells[8], "2 CFUs\n(ISO 8 114)", font_size_pt=7)
 add_hyperlink_to_cell(t2_rendered.rows[13].cells[9], URL_0487, "ETX-260914-0487", font_size_pt=7)
 set_dual_microbial_id_cell(t2_rendered.rows[13].cells[10], "Corynebacterium ureicelerivorans", "Mycobacterium grossiae", font_size_pt=6.5)
 
@@ -492,10 +494,10 @@ set_cell_clean_text(t3_rendered.rows[11].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[11], "None", font_size_pt=7)
 
-# 13: Weekly Active Air (15Sep26, Cleanroom Suite 115) - 9 CFU (Suite 115) / ETX-260923-0402
+# 13: Weekly Active Air (15Sep26, Cleanroom Suite 115) - 9 CFUs (ISO 8 115) / ETX-260923-0402
 set_cell_clean_text(t3_rendered.rows[13].cells[3], "15Sep26", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[13].cells[4], "SMO", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[13].cells[8], "9 CFU (Suite 115)", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[13].cells[8], "9 CFUs\n(ISO 8 115)", font_size_pt=7)
 add_hyperlink_to_cell(t3_rendered.rows[13].cells[9], URL_0402, "ETX-260923-0402", font_size_pt=7)
 set_multi_microbial_id_cell(t3_rendered.rows[13].cells[10], [
     "Kocuria indica",

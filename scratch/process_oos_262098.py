@@ -140,12 +140,13 @@ p11 = (
     "recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae; on 10 Sep 2026, "
     "1 CFU was recovered (ETX-260921-0520), identified as Micrococcus luteus. These environmental isolates differed distinctly in genus and morphology "
     "from the sample isolate (Microbacterium sp. PM5). For the retest processing on 15 Sep 2026 in Cleanroom Suite 115, weekly active surface sampling showed no growth; "
-    "weekly active air sampling recovered 9 CFUs (ETX-260923-0402), identified as Kocuria indica, Brevibacterium sp. CS2, Corynebacterium sp, Micrococcus luteus, "
-    "Paracoccus yeei, Staphylococcus hominis, and Kocuria rhizophila. 100% of these environmental isolates differed distinctly in genus and morphology from the product "
-    "contamination isolate (Microbacterium sp. PM5). All testing occurred within certified ISO 5 BSCs (E001316 in Suite 114 and E001314 in Suite 115) located in "
-    "ISO 7 cleanrooms separated by positive pressure cascades. Test containers were transferred in disinfected, lidded bins, and critical zone settling and contact plates "
-    "remained 100% sterile (0 CFU). Therefore, cleanroom air recoveries were unrelated to the sample contamination. (Refer to Table 1 for sample details, Table 2 for "
-    "environmental monitoring from processing performed on 04 Sep 2026, and Table 3 for environmental monitoring from processing performed on 15 Sep 2026)."
+    "weekly active air sampling in ISO 8 cleanroom 115 recovered 9 CFUs (ETX-260923-0402), identified as Kocuria indica, Brevibacterium sp. CS2, Corynebacterium sp, "
+    "Micrococcus luteus, Paracoccus yeei, Staphylococcus hominis, and Kocuria rhizophila. 100% of these environmental isolates differed distinctly in genus and morphology "
+    "from the product contamination isolate (Microbacterium sp. PM5). Both air recoveries were strictly confined to the outermost ISO 8 anterooms (ISO 8 114 and ISO 8 115). "
+    "All actual testing occurred within certified ISO 5 BSCs (E001316 in Suite 114 and E001314 in Suite 115) located in ISO 7 cleanrooms separated by positive pressure "
+    "cascades. Test containers were transferred in disinfected, lidded bins, and critical zone settling, surface contact, and analyst fingertip plates remained 100% sterile "
+    "(0 CFU). Therefore, cleanroom air recoveries were unrelated to the sample contamination. (Refer to Table 1 for sample details, Table 2 for environmental monitoring "
+    "from processing performed on 04 Sep 2026, and Table 3 for environmental monitoring from processing performed on 15 Sep 2026)."
 )
 
 p12 = (
