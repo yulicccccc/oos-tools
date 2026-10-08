@@ -136,11 +136,13 @@ p10 = (
 
 p11 = (
     "Cleanroom Environmental Monitoring Results Evaluation:\r"
-    "No microbial growth was recovered from weekly active surface sampling on 04 Sep 2026. Weekly active air sampling in ISO 8 cleanroom 114 "
-    "on 04 Sep 2026 recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae. These "
-    "environmental isolates differed distinctly in genus and morphology from the sample isolate (Microbacterium sp. PM5). All testing "
-    "occurred within certified ISO 5 BSCs (E001316 and E001314) located in ISO 7 cleanrooms separated by positive pressure cascades. "
-    "Test containers were transferred in disinfected, lidded bins. Therefore, the cleanroom air recovery was not related to the sample contamination."
+    "No microbial growth was recovered from weekly active surface sampling on 04 Sep 2026 or 10 Sep 2026. Weekly active air sampling in ISO 8 cleanroom 114 "
+    "on 04 Sep 2026 recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae; on 10 Sep 2026, "
+    "1 CFU was recovered (ETX-260921-0520), identified as Micrococcus luteus. These environmental isolates differed distinctly in genus and morphology "
+    "from the sample isolate (Microbacterium sp. PM5). All testing occurred within certified ISO 5 BSCs (E001316 and E001314) located in ISO 7 cleanrooms "
+    "separated by positive pressure cascades. Test containers were transferred in disinfected, lidded bins. Therefore, cleanroom air recoveries were "
+    "unrelated to the sample contamination. (Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing performed on "
+    "04 Sep 2026, and Table 3 for environmental monitoring from processing performed on 15 Sep 2026)."
 )
 
 p12 = (
@@ -232,12 +234,24 @@ if os.path.exists(standalone_docx):
         new_t2_elem = copy.deepcopy(doc_tables_src.tables[1]._element)
         p3_parent.insert(idx3, new_t2_elem)
 
+        if len(doc_tables_src.tables) >= 3:
+            p_t3_heading = parse_xml(
+                '<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+                '<w:pPr><w:spacing w:before="240" w:after="160"/>'
+                '<w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr>'
+                '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr>'
+                '<w:t>Table 3: Environmental Monitoring from Processing Performed on 15Sep26</w:t></w:r></w:p>'
+            )
+            new_t3_elem = copy.deepcopy(doc_tables_src.tables[2]._element)
+            p3_parent.insert(idx3 + 1, p_t3_heading)
+            p3_parent.insert(idx3 + 2, new_t3_elem)
+
 for p in tpl_report.docx.paragraphs:
     if "Table 1:" in p.text:
         p.text = f"Table 1: Information for {data['sample_id']} under investigation"
         p.runs[0].bold = True
     elif "Table 2:" in p.text:
-        p.text = f"Table 2: Environmental Monitoring from Processing Performed on {data['process_date']}"
+        p.text = "Table 2: Environmental Monitoring from Processing Performed on 04Sep26"
         p.runs[0].bold = True
 
 tpl_report.save(out_doc_report)
