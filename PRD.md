@@ -271,6 +271,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - Page 3 (`Text Field49`): 实验前准备、洁净室、接种与分装（P1..P7）
             - Page 4 (`Text Field50`): Celsis 读数结果、菌种确认、效期、月度清洁与表格引言（P8..P12）
             - Page 5 (`Text Field51`): 环境监测调查、交叉污染排除、6个月历史审查与最终结论（P13..P21）
+    38. *USP <71> OOS-262098 Master Production Package (Solyn LLC, E75000):*
+        *   **Full Production Pipeline:** Finalized and delivered full production package for sample `ETX-260902-0505` (`GLP3R/Cagrilinitide`, Lot: `2608-216`) including Standalone Tables DOCX/PDF, Master Word Report (`OOS-262098 Solyn LLC (E75000) - USP71.docx`), and Official 7-Page PDF Form (`OOS-262098 Solyn LLC (E75000) - USP71.pdf`).
+        *   **Lab Scheduling & Holiday Logic:** Corrected Friday (`04Sep26`) testing follow-up date to skip weekend (`05Sep26` Sat & `06Sep26` Sun) and Labor Day (`07Sep26` Mon) to Tuesday `08Sep26` (ES) for all Table 2 bracketing rows.
+        *   **Weekly Active Air & Ground Truth Hyperlink:** Integrated PRD ground truth for 04Sep26 active air under `ETX-260914-0487` (analyst `ISS`, `2 CFU (ISO 8 114)`, clickable URL to `fd3G2StZClcy1TP2ES6BLw__`, *Corynebacterium ureicelerivorans* & *Mycobacterium grossiae*).
+        *   **Confirmed Microbial Identification:** Reconciled preliminary broth Gram (-) reading with definitive molecular sequencing under `ETX-260910-0290` as *Microbacterium sp. PM5* (`Gram (+) rods`) from pure TSA & SDA subcultures.
+        *   **Official PDF Transcription:** Transcribed onto `CORP-FORM-21 - P1 04 SEP 2026.pdf` enforcing Rule 9 Incubator spacing (`\r \r` with sensor on same line), Rule 11 calibrated auto-fit font sizes, and appended Table 1 & 2 as Page 7.
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

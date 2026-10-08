@@ -42,6 +42,15 @@
   4. Appended 2-page standalone tables (`Celsis table OOS-262017.pdf`) with 4 native clickable hyperlinks to create the complete 8-page unified packet (`OOS-262017 ... (Complete).pdf` and `CORP-FORM-21 - P1 31 Aug 2026.pdf`).
   5. Synchronized all deliverables to Desktop and repository paths.
 
+- **USP <71> OOS-262098 Master Production Package (Solyn LLC, E75000):**
+  1. Completed standalone Table 1 and Table 2 (`Tables OOS-262098 Solyn LLC (E75000) - USP71.docx` / `.pdf`): strictly 1 page, Times New Roman 7.0pt, active clickable hyperlinks to EagleTrax submission URLs for `ETX-260902-0505`, `ETX-260910-0290`, and `ETX-260914-0487`.
+  2. Incorporated verified lab scheduling rule: skipped weekend (`05Sep26` Sat & `06Sep26` Sun) and Labor Day holiday (`07Sep26` Mon) to trace the following processing date to Tuesday `08Sep26` (ES).
+  3. Fully reconciled Weekly Active Air EM recovery on `04Sep26` from PRD: attributed to analyst `ISS`, colony count reported as `2 CFU (ISO 8 114)`, plate `ETX-260914-0487` (with active clickable link), and identified isolates formatted as *Corynebacterium ureicelerivorans* & *Mycobacterium grossiae* (both italicized, zero `&`).
+  4. Fully integrated definitive molecular identification results for positive TSB bottle under `ETX-260910-0290`: *Microbacterium sp. PM5* (`Gram (+) rods`) from both TSA and SDA subcultures (reconciling preliminary presumptive Gram (-) broth reading).
+  5. Generated full Master Word Report (`OOS-262098 Solyn LLC (E75000) - USP71.docx`) with embedded clean tables.
+  6. Transcribed complete dataset into official ZenQMS form `CORP-FORM-21 - P1 04 SEP 2026.pdf` (157 fields, 30 checkboxes, Page 2 Incubator blank line rule alignment, calibrated font sizes via PyMuPDF). Appended Standalone Tables as Page 7 to create the unified 7-page official OOS investigation PDF report (`OOS-262098 Solyn LLC (E75000) - USP71.pdf` and `... - QYC.pdf`).
+  7. Synchronized all deliverables across Desktop and Documents, and committed to GitHub.
+
 ### Current File Structure
 The codebase is actively operating in the clean context boundary:
 `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS`
