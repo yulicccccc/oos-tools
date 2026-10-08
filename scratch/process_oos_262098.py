@@ -54,7 +54,7 @@ data = {
     "positive_org": "Microbacterium sp. PM5",
     "prepper_initial": "ES, AC",
     "prepper_name": "Alex Saravia, Andrew Carrillo",
-    "analyst_initial": "ES, AO",
+    "analyst_initial": "ES, AOD",
     "analyst_name": "Alex Saravia, Abayomi Odugbesi",
     "reading_initial": "EN, AC",
     "reading_name": "Elysse Nioupin, Andrew Carrillo",
@@ -62,11 +62,11 @@ data = {
     "qa_manager": "Robin Seymour",
     "qa_notified": "Kathan Parikh",
     "bsc_id": "1316, 1314",
-    "cr_suit": "114",
+    "cr_suit": "114, 115",
     "cr_id": "1736",
-    "smart_cr_id": "CR 114 (E001736)",
+    "smart_cr_id": "CR 114 (E001736) and CR 115",
     "suit": "B",
-    "bsc_location": "innermost ISO 7 room (114B) and ISO 7 room (114)",
+    "bsc_location": "innermost ISO 7 room (114B) and ISO 7 room (Suite 115)",
     "monthly_cleaning_date": "30Aug26",
     "monthly_cleaning_date_full": "30 Aug 2026",
     "ftm_lot": "2567320",
@@ -99,9 +99,9 @@ p3 = (
 )
 
 p4 = (
-    "The cleanroom suite (CR 114) comprises three interconnected sections: the innermost ISO 7 cleanroom (114B), the middle ISO 7 "
-    "buffer room (114A), and the outermost ISO 8 anteroom (114). A positive air pressure cascade is maintained throughout the suite "
-    "to ensure controlled, unidirectional airflow outward from 114B through 114A and into 114."
+    "Initial testing was conducted in Cleanroom Suite 114 (comprising the innermost ISO 7 cleanroom 114B, middle ISO 7 buffer room 114A, "
+    "and outermost ISO 8 anteroom 114). Retest processing was conducted in Cleanroom Suite 115. Positive air pressure cascades are maintained "
+    "throughout both suites to ensure controlled, outward unidirectional airflow."
 )
 
 p5 = (
@@ -116,7 +116,7 @@ p5 = (
 
 p6 = (
     "Secondary sample ETX-260914-0470 was prepped on 14 Sep 2026 by Andrew Carrillo and processed on 15 Sep 2026 by Abayomi Odugbesi "
-    "in certified ISO 5 BSC E001314 in Cleanroom suite CR 114 as per MICRO-SOP-5 via membrane filtration (4 vials / 60 gm filtered). "
+    "in certified ISO 5 BSC E001314 in Cleanroom Suite 115 as per MICRO-SOP-5 via membrane filtration (4 vials / 60 gm filtered). "
     "Standard multi-barrier disinfection and strict aseptic techniques were maintained. Media bottles were incubated in incubators "
     "E001356 and E001357. On 21 Sep 2026 (Day 6 of incubation), turbidity was observed in 1 x 100mL TSB bottle by reading analyst "
     "Andrew Carrillo and confirmed by supervisor Robin Seymour. The positive bottle was submitted for Microbial Identification under "
@@ -131,24 +131,25 @@ p10 = (
     "ISO 5 BSC Environmental Monitoring Results Evaluation:\r"
     "After reviewing the Environmental Monitoring (EM) records for both testing dates (04 Sep 2026 and 15 Sep 2026), no microbial growth "
     "was detected on operator personnel fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates for either session, "
-    "nor on preceding or subsequent testing days."
+    "nor on preceding or subsequent testing days (including 03Sep26, 04Sep26, 08Sep26 for ES in BSC E001316, and 14Sep26, 15Sep26, 16Sep26 for AOD in BSC E001314)."
 )
 
 p11 = (
     "Cleanroom Environmental Monitoring Results Evaluation:\r"
-    "No microbial growth was recovered from weekly active surface sampling on 04 Sep 2026 or 10 Sep 2026. Weekly active air sampling in ISO 8 cleanroom 114 "
-    "on 04 Sep 2026 recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae; on 10 Sep 2026, "
+    "For the initial processing on 04 Sep 2026 in Suite 114, weekly active surface sampling showed no growth; weekly active air sampling in ISO 8 cleanroom 114 "
+    "recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae; on 10 Sep 2026, "
     "1 CFU was recovered (ETX-260921-0520), identified as Micrococcus luteus. These environmental isolates differed distinctly in genus and morphology "
-    "from the sample isolate (Microbacterium sp. PM5). All testing occurred within certified ISO 5 BSCs (E001316 and E001314) located in ISO 7 cleanrooms "
-    "separated by positive pressure cascades. Test containers were transferred in disinfected, lidded bins. Therefore, cleanroom air recoveries were "
-    "unrelated to the sample contamination. (Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing performed on "
+    "from the sample isolate (Microbacterium sp. PM5). For the retest processing on 15 Sep 2026 in Cleanroom Suite 115, 100% of weekly active air and surface "
+    "sampling conformed with zero growth (0 CFU). All testing occurred within certified ISO 5 BSCs (E001316 in Suite 114 and E001314 in Suite 115) located in "
+    "ISO 7 cleanrooms separated by positive pressure cascades. Test containers were transferred in disinfected, lidded bins. Therefore, cleanroom air recoveries "
+    "were unrelated to the sample contamination. (Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing performed on "
     "04 Sep 2026, and Table 3 for environmental monitoring from processing performed on 15 Sep 2026)."
 )
 
 p12 = (
     "The complete absence of contamination across all analyst glove touch plates, settling plates, and ISO 5 work surfaces across both processing "
     "sessions confirms that the ISO 5 critical zones remained in optimal control. Full compliance with MICRO-SOP-9 and MICRO-SOP-5 was verified. "
-    "Monthly cleaning and disinfection of Cleanroom suite CR114 was performed on 30 Aug 2026 as per MICRO-SOP-9, with all chemical H2O2 indicators passing."
+    "Monthly cleaning and disinfection of Cleanroom Suite 114 and Suite 115 was performed on 30 Aug 2026 as per MICRO-SOP-9, with all chemical H2O2 indicators passing."
 )
 
 p13 = (
@@ -165,8 +166,8 @@ p14 = (
     "method suitability was on file for ScanRDI with this formulation. When low-level viable organisms were introduced into the 14-day USP <71> "
     "membrane filtration enrichment process, the microorganisms were successfully enriched and recovered in TSB on Day 6 in both independent "
     "testing events (ETX-260902-0505 and ETX-260914-0470), yielding the identical strain (Microbacterium sp. PM5). The successful replication "
-    "across different processing analysts (Alex Saravia vs. Abayomi Odugbesi) and different BSCs (E001316 vs. E001314) conclusively refutes "
-    "the preliminary hypothesis of analyst handling error during reconstitution. The passing ScanRDI result and both failing USP <71> results "
+    "across different processing analysts (Alex Saravia vs. Abayomi Odugbesi), different BSCs (E001316 vs. E001314), and different cleanroom suites "
+    "(Suite 114 vs. Suite 115) conclusively refutes the preliminary hypothesis of analyst handling error during reconstitution. The passing ScanRDI result and both failing USP <71> results "
     "are scientifically consistent with non-uniform microbial distribution. Consequently, inherent product contamination in Lot 2608-216 is "
     "confirmed, and Lot 2608-216 fails USP <71> sterility requirements."
 )
@@ -193,7 +194,7 @@ data["smart_personnel_block"] = (
     "Prepping Analyst:\r"
     "Alex Saravia (ES), Andrew Carrillo (AC)\r \r"
     "Processing Analyst:\r"
-    "Alex Saravia (ES), Abayomi Odugbesi (AO)\r \r"
+    "Alex Saravia (ES), Abayomi Odugbesi (AOD)\r \r"
     "Reading Analyst:\r"
     "Elysse Nioupin (EN), Andrew Carrillo (AC)"
 )
@@ -402,7 +403,7 @@ if os.path.exists(standalone_pdf):
     table_reader = PdfReader(standalone_pdf)
     for table_page in table_reader.pages:
         writer.add_page(table_page)
-    print(f"Appended Tables PDF to form. Total pages: {len(writer.pages)} (Must be 7)")
+    print(f"Appended Tables PDF to form. Total pages: {len(writer.pages)} (Must be 8)")
 
 out_pdf_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
 with open(out_pdf_report, "wb") as f:

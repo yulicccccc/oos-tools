@@ -61,7 +61,7 @@ p24 = (
     "for retesting under submission ETX-260914-0470.\n\n"
     "The retest sample was prepared by Andrew Carrillo on 14 Sep 2026 and processed by Abayomi Odugbesi on 15 Sep 2026 in accordance with "
     "MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test) via membrane filtration (60 gm filtered across 4 vials). The retest was conducted in certified "
-    "ISO 5 BSC E001314 within cleanroom suite CR 114 following standard multi-barrier disinfection and strict aseptic technique. All culture media "
+    "ISO 5 BSC E001314 within Cleanroom Suite 115 following standard multi-barrier disinfection and strict aseptic technique. All culture media "
     "(FTM Lot 2567320, TSB Lot 2567280) and reagents (Fluid D Lot 687774, Bacteriostatic Water Lot NM7681) were within valid expiration dates. "
     "Media bottles were incubated in designated incubators E001356 and E001357. Negative controls were handled concurrently and remained sterile.\n\n"
     "On 21 Sep 2026 (Day 06 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Andrew Carrillo and confirmed "
@@ -70,17 +70,16 @@ p24 = (
     "morphology (white shiny lawn growth), media selection (TSB), and incubation kinetics (Day 6) of the initial failure under ETX-260902-0505 "
     "(ETX-260910-0290). All other samples processed in the batch on 15 Sep 2026 tested negative.\n\n"
     "Upon analyzing environmental monitoring results for the retest processing on 15 Sep 2026, no microbial growth was detected on operator personnel "
-    "fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates on the date of testing (15 Sep 2026), the date before (10 Sep 2026), "
-    "or the subsequent testing date (16 Sep 2026). Weekly active air monitoring of ISO 8 Room 114 on 10 Sep 2026 recovered 1 CFU (ETX-260921-0520, "
-    "identified as Micrococcus luteus), which differed distinctly in morphology and genus from the sample isolate and was physically isolated within "
-    "the outermost ISO 8 anteroom. Weekly surface monitoring showed no growth. The ISO 5 critical zones remained in optimal control throughout testing. "
-    "(Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing performed on 04 Sep 2026, and Table 3 for environmental "
-    "monitoring from processing performed on 15 Sep 2026).\n\n"
+    "fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates on the date of testing (15 Sep 2026), the preceding testing date (14 Sep 2026), "
+    "or the subsequent testing date (16 Sep 2026). Weekly active air and surface monitoring of Cleanroom Suite 115 for the week of 15 Sep 2026 showed zero "
+    "growth (0 CFU / No growth). The ISO 5 critical zones and cleanroom suite remained in optimal control throughout testing. (Refer to Table 1 for sample "
+    "details, Table 2 for environmental monitoring from processing performed on 04 Sep 2026, and Table 3 for environmental monitoring from processing "
+    "performed on 15 Sep 2026).\n\n"
     "EVALUATION OF RETEST FINDINGS & JUSTIFICATION OF PRIOR SCANRDI RESULT:\n"
     "The successful replication of microbial recovery in the independent retest—conducted by a different processing analyst (Abayomi Odugbesi) "
-    "and a different prepping/reading analyst (Andrew Carrillo)—conclusively refutes the preliminary hypothesis of analyst handling error during reconstitution. "
-    "If the initial recovery had been an isolated artifact of analyst technique, the identical microorganism (Microbacterium sp. PM5) would not have been "
-    "recovered on the identical incubation day in the retest.\n\n"
+    "in a different cleanroom suite (Cleanroom Suite 115 vs. Suite 114) and a different prepping/reading analyst (Andrew Carrillo)—conclusively "
+    "refutes the preliminary hypothesis of analyst handling error during reconstitution. If the initial recovery had been an isolated artifact "
+    "of analyst technique, the identical microorganism (Microbacterium sp. PM5) would not have been recovered on the identical incubation day in the retest.\n\n"
     "Importantly, the investigation evaluated why the prior rapid ScanRDI sterility test conducted on this lot (ETX-260807-0602) yielded a passing result. "
     "In compounded parenteral products, microbial contamination is typically characterized by a heterogeneous, non-uniform distribution of microorganisms "
     "across individual containers, particularly when bioburden is present at very low concentrations. Under such low-level non-uniform contamination, random "
@@ -107,14 +106,14 @@ data = {
         "Prepping Analyst:\n"
         "Alex Saravia (ES), Andrew Carrillo (AC)\n\n"
         "Processing Analyst:\n"
-        "Alex Saravia (ES), Abayomi Odugbesi (AO)\n\n"
+        "Alex Saravia (ES), Abayomi Odugbesi (AOD)\n\n"
         "Reading Analyst:\n"
         "Elysse Nioupin (EN), Andrew Carrillo (AC)"
     ),
     "smart_sample_id_block": "Original test:\nETX-260902-0505\n\nRetest:\nETX-260914-0470",
     "smart_retest_result_str": "Fail",
     "smart_retest_scan_id": "ISO 5 BSC E001316, ISO 5 BSC E001314",
-    "smart_retest_bsc_list": "CR 114 (E001736)",
+    "smart_retest_bsc_list": "CR 114 (E001736) and CR 115",
     "smart_retest_suite_list": "Incubator E001356, E001357, E001034, E001031",
     "smart_phase1_summary_block": f"{p22}\n\n{p23}",
     "smart_phase2_narrative_block": f"{p24}\n\n{p25}"
@@ -124,14 +123,14 @@ tpl_path = os.path.join(OOS_ROOT, "ScanRDI OOS P2 template.docx")
 doc_tpl = DocxTemplate(tpl_path)
 doc_tpl.render(data)
 
-# Embed Table 1 and Table 2 from Phase II Table docx
+# Embed Table 1, Table 2, and Table 3 with Headings from Phase II Table docx
 table_docx_path = os.path.join(OUTPUT_DIR, "Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx")
 if os.path.exists(table_docx_path):
     table_doc = docx.Document(table_docx_path)
-    for t in table_doc.tables:
-        p_space = doc_tpl.docx.add_paragraph()
-        new_tbl = copy.deepcopy(t._element)
-        doc_tpl.docx._body._element.append(new_tbl)
+    for element in table_doc._body._element:
+        tag = element.tag.split('}')[-1]
+        if tag in ['p', 'tbl']:
+            doc_tpl.docx._body._element.append(copy.deepcopy(element))
 
 out_doc_report = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.docx")
 doc_tpl.save(out_doc_report)

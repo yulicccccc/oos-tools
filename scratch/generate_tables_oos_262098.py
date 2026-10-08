@@ -83,10 +83,11 @@ URL_0520 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/qnwcLQO5BWe
 URL_RETEST = "https://etrax.eagleanalytical.com/Submission/Details/18rFOYVWqrO0Afk1OwB2hg__"
 URL_RETEST_ID = "https://etrax.eagleanalytical.com/Submission/Details/7K%24JgQe6bduNBFY3pBa03w__"
 
-def set_cell_clean_text(cell, text, font_size_pt=7):
+def set_cell_clean_text(cell, text, font_size_pt=7, bold=False):
     tc = cell._tc
     for p in tc.xpath('w:p'):
         tc.remove(p)
+    b_tag = '<w:b/><w:bCs/>' if bold else ''
     p_xml = (
         f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
         f'<w:pPr>'
@@ -94,6 +95,7 @@ def set_cell_clean_text(cell, text, font_size_pt=7):
         f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
         f'<w:rPr>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'{b_tag}'
         f'<w:sz w:val="{int(font_size_pt*2)}"/>'
         f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
         f'</w:rPr>'
@@ -101,6 +103,7 @@ def set_cell_clean_text(cell, text, font_size_pt=7):
         f'<w:r>'
         f'<w:rPr>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'{b_tag}'
         f'<w:sz w:val="{int(font_size_pt*2)}"/>'
         f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
         f'</w:rPr>'
@@ -313,6 +316,10 @@ set_table1_microbial_id_cell(cells_r2[5], "Microbacterium sp. PM5", "(Gram (+) s
 
 # 2. Finalize Table 2 (04Sep26 Processing)
 t2_rendered = doc_rendered.tables[1]
+set_cell_clean_text(t2_rendered.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing - ISO 5 BSC E001316 (Suite 114)", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[12].cells[0], "Weekly Active Air Sampling Bracketing (Suite 114)", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanrooms Bracketing (Suite 114)", font_size_pt=7, bold=True)
+
 # Row 13: Weekly Active Air
 set_cell_clean_text(t2_rendered.rows[13].cells[3], "04Sep26", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[13].cells[4], "ISS", font_size_pt=7)
@@ -369,81 +376,84 @@ p_t3._p.getparent().replace(p_t3._p, parse_xml(p_t3_xml))
 # Append Table 3
 doc_rendered._body._body.append(t3_tbl)
 t3_rendered = doc_rendered.tables[2]
+set_cell_clean_text(t3_rendered.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing - ISO 5 BSC E001314 (Suite 115)", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[12].cells[0], "Weekly Active Air Sampling Bracketing (Suite 115)", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanrooms Bracketing (Suite 115)", font_size_pt=7, bold=True)
 
-# Populate Table 3 for 15Sep26 processing by AO in BSC 1314
+# Populate Table 3 for 15Sep26 processing by AOD in BSC 1314 (Cleanroom Suite 115)
 # Rows:
-# 2: Personnel Pre (10Sep26, AO)
-set_cell_clean_text(t3_rendered.rows[2].cells[3], "10Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[2].cells[4], "AO", font_size_pt=7)
+# 2: Personnel Pre (14Sep26, AOD)
+set_cell_clean_text(t3_rendered.rows[2].cells[3], "14Sep26", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[2].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[2].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[2].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[2].cells[11], "None", font_size_pt=7)
 
-# 3: Personnel Test Date (15Sep26, AO)
+# 3: Personnel Test Date (15Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[3].cells[3], "15Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[3].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[3].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[3].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[3].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[3].cells[11], "None", font_size_pt=7)
 
-# 4: Personnel Post (16Sep26, AO)
+# 4: Personnel Post (16Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[4].cells[3], "16Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[4].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[4].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[4].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[4].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[4].cells[11], "None", font_size_pt=7)
 
-# 6: Surface Pre (10Sep26, AO)
-set_cell_clean_text(t3_rendered.rows[6].cells[3], "10Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[6].cells[4], "AO", font_size_pt=7)
+# 6: Surface Pre (14Sep26, AOD)
+set_cell_clean_text(t3_rendered.rows[6].cells[3], "14Sep26", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[6].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[6].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[6].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[6].cells[11], "None", font_size_pt=7)
 
-# 7: Surface Test Date (15Sep26, AO)
+# 7: Surface Test Date (15Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[7].cells[3], "15Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[7].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[7].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[7].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[7].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[7].cells[11], "None", font_size_pt=7)
 
-# 8: Surface Post (16Sep26, AO)
+# 8: Surface Post (16Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[8].cells[3], "16Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[8].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[8].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[8].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[8].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[8].cells[11], "None", font_size_pt=7)
 
-# 9: Settling Pre (10Sep26, AO)
-set_cell_clean_text(t3_rendered.rows[9].cells[3], "10Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[9].cells[4], "AO", font_size_pt=7)
+# 9: Settling Pre (14Sep26, AOD)
+set_cell_clean_text(t3_rendered.rows[9].cells[3], "14Sep26", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[9].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[9].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[9].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[9].cells[11], "None", font_size_pt=7)
 
-# 10: Settling Test Date (15Sep26, AO)
+# 10: Settling Test Date (15Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[10].cells[3], "15Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[10].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[10].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[10].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[10].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[10].cells[11], "None", font_size_pt=7)
 
-# 11: Settling Post (16Sep26, AO)
+# 11: Settling Post (16Sep26, AOD)
 set_cell_clean_text(t3_rendered.rows[11].cells[3], "16Sep26", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[11].cells[4], "AO", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[11].cells[4], "AOD", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[7], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[11].cells[11], "None", font_size_pt=7)
 
-# 13: Weekly Active Air (10Sep26, SMO) - Recovered 1 CFU in ISO 8 Anteroom 114
-set_cell_clean_text(t3_rendered.rows[13].cells[3], "10Sep26", font_size_pt=7)
+# 13: Weekly Active Air (15Sep26, Cleanroom Suite 115) - No growth
+set_cell_clean_text(t3_rendered.rows[13].cells[3], "15Sep26", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[13].cells[4], "SMO", font_size_pt=7)
-set_cell_clean_text(t3_rendered.rows[13].cells[8], "1 CFU (ISO 8 114)", font_size_pt=7)
-add_hyperlink_to_cell(t3_rendered.rows[13].cells[9], URL_0520, "ETX-260921-0520", font_size_pt=7)
-set_single_microbial_id_cell(t3_rendered.rows[13].cells[10], "Micrococcus luteus", "(Gram (+) cocci)", font_size_pt=6.5)
+set_cell_clean_text(t3_rendered.rows[13].cells[8], "No growth", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[13].cells[9], "N/A", font_size_pt=7)
+set_cell_clean_text(t3_rendered.rows[13].cells[10], "None", font_size_pt=7)
 
-# 15: Weekly Surface (10Sep26, SMO) - No growth
-set_cell_clean_text(t3_rendered.rows[15].cells[3], "10Sep26", font_size_pt=7)
+# 15: Weekly Surface (15Sep26, Cleanroom Suite 115) - No growth
+set_cell_clean_text(t3_rendered.rows[15].cells[3], "15Sep26", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[15].cells[4], "SMO", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[15].cells[8], "No growth", font_size_pt=7)
 set_cell_clean_text(t3_rendered.rows[15].cells[9], "N/A", font_size_pt=7)
