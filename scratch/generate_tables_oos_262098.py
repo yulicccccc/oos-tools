@@ -24,7 +24,8 @@ if not os.path.exists(TPL_BASE):
 data = {
     "oos_id": "262098",
     "client_name": "Solyn LLC (E75000)",
-    "sample_id": "ETX-260902-0505",
+    "sample_id": "ETX-260902-0505 and ETX-260914-0470",
+    "sample_id_1": "ETX-260902-0505",
     "sample_url": "https://etrax.eagleanalytical.com/Submission/Details/%247Ydn%24JOiYgmsnaKjbxn-g__",
     "sample_name": "GLP3R/Cagrilinitide",
     "lot_number": "2608-216",
@@ -59,9 +60,9 @@ data = {
     "pro_af_obs_sett_dur_pro": "No growth", "pro_af_etx_sett_dur_pro": "N/A", "pro_af_id_sett_dur_pro": "N/A",
 
     # Weekly Active Air & Surface
-    "pro_obs_air_wk_of": "1 CFU (ISO 8 114)",
+    "pro_obs_air_wk_of": "2 CFU (ISO 8 114)",
     "pro_etx_air_wk_of": "ETX-260914-0487",
-    "pro_id_air_wk_of": "Pending",
+    "pro_id_air_wk_of": "Corynebacterium ureicelerivorans\nMycobacterium grossiae",
     "pro_obs_room_wk_of": "No growth",
     "pro_etx_room_wk_of": "N/A",
     "pro_id_room_wk_of": "N/A"
@@ -77,7 +78,37 @@ tpl.save(OUT_DOCX)
 # Post-processing: Add Native Hyperlinks in Table 1 with strict Times New Roman
 doc_rendered = docx.Document(OUT_DOCX)
 
-def add_hyperlink_to_cell(cell, url, text):
+URL_0487 = "https://etrax.eagleanalytical.com/SubmissionTest/Details/fd3G2StZClcy1TP2ES6BLw__"
+
+def set_cell_clean_text(cell, text, font_size_pt=7):
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'<w:t>{text}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    tc.append(parse_xml(p_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+def add_hyperlink_to_cell(cell, url, text, font_size_pt=7):
     tc = cell._tc
     for p in tc.xpath('w:p'):
         tc.remove(p)
@@ -88,10 +119,11 @@ def add_hyperlink_to_cell(cell, url, text):
         f'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
         f'<w:pPr>'
         f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
         f'<w:rPr>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
-        f'<w:sz w:val="14"/>'
-        f'<w:szCs w:val="14"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
         f'</w:rPr>'
         f'</w:pPr>'
         f'<w:hyperlink r:id="{r_id}" w:history="1">'
@@ -99,8 +131,8 @@ def add_hyperlink_to_cell(cell, url, text):
         f'<w:rPr>'
         f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
         f'<w:color w:val="0000FF"/>'
-        f'<w:sz w:val="14"/>'
-        f'<w:szCs w:val="14"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
         f'<w:u w:val="single"/>'
         f'</w:rPr>'
         f'<w:t>{text}</w:t>'
@@ -111,9 +143,146 @@ def add_hyperlink_to_cell(cell, url, text):
     tc.append(parse_xml(p_xml))
     cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
+def set_dual_microbial_id_cell(cell, org1, org2, font_size_pt=6.5):
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:i/>'
+        f'<w:iCs/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'<w:t>{org1}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    p2_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:i/>'
+        f'<w:iCs/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'<w:t>{org2}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    tc.append(parse_xml(p_xml))
+    p_empty_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="120" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'</w:p>'
+    )
+    tc.append(parse_xml(p_empty_xml))
+    tc.append(parse_xml(p2_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+def set_table1_microbial_id_cell(cell, species, gram_stain, font_size_pt=7):
+    tc = cell._tc
+    for p in tc.xpath('w:p'):
+        tc.remove(p)
+    p_xml = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:i/>'
+        f'<w:iCs/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'<w:t>{species}</w:t>'
+        f'</w:r>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="{int(font_size_pt*2)}"/>'
+        f'<w:szCs w:val="{int(font_size_pt*2)}"/>'
+        f'</w:rPr>'
+        f'<w:br/>'
+        f'<w:t>{gram_stain}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    tc.append(parse_xml(p_xml))
+    cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
 t1_rendered = doc_rendered.tables[0]
-add_hyperlink_to_cell(t1_rendered.rows[1].cells[2], data["sample_url"], data["sample_id"])
-add_hyperlink_to_cell(t1_rendered.rows[1].cells[3], data["positive_url"], data["positive_id"])
+add_hyperlink_to_cell(t1_rendered.rows[1].cells[2], data["sample_url"], data["sample_id_1"], font_size_pt=7)
+add_hyperlink_to_cell(t1_rendered.rows[1].cells[3], data["positive_url"], data["positive_id"], font_size_pt=7)
+set_table1_microbial_id_cell(t1_rendered.rows[1].cells[5], "Microbacterium sp. PM5", "(Gram (+) rods)", font_size_pt=7)
+
+# Add Row 2 for ETX-260914-0470
+URL_RETEST = "https://etrax.eagleanalytical.com/Submission/Details/18rFOYVWqrO0Afk1OwB2hg__"
+URL_RETEST_ID = "https://etrax.eagleanalytical.com/Submission/Details/7K%24JgQe6bduNBFY3pBa03w__"
+
+r_new = t1_rendered.add_row()
+cells_r2 = r_new.cells
+set_cell_clean_text(cells_r2[0], "Abayomi Odugbesi", font_size_pt=7)
+set_cell_clean_text(cells_r2[1], "Andrew Carrillo", font_size_pt=7)
+add_hyperlink_to_cell(cells_r2[2], URL_RETEST, "ETX-260914-0470", font_size_pt=7)
+add_hyperlink_to_cell(cells_r2[3], URL_RETEST_ID, "ETX-260921-0498", font_size_pt=7)
+set_cell_clean_text(cells_r2[4], "1 x 100mL TSB bottle", font_size_pt=7)
+set_table1_microbial_id_cell(cells_r2[5], "Microbacterium sp. PM5", "(Gram (+) short rods)", font_size_pt=7)
+
+# Table 2 Overwrites
+t2_rendered = doc_rendered.tables[1]
+# Row 13: Weekly Active Air
+set_cell_clean_text(t2_rendered.rows[13].cells[3], "04Sep26", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[13].cells[4], "ISS", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[13].cells[8], "2 CFU (ISO 8 114)", font_size_pt=7)
+add_hyperlink_to_cell(t2_rendered.rows[13].cells[9], URL_0487, "ETX-260914-0487", font_size_pt=7)
+set_dual_microbial_id_cell(t2_rendered.rows[13].cells[10], "Corynebacterium ureicelerivorans", "Mycobacterium grossiae", font_size_pt=6.5)
+
+# Row 15: Weekly Surface
+set_cell_clean_text(t2_rendered.rows[15].cells[3], "04Sep26", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[15].cells[4], "ISS", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[15].cells[8], "No growth", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[15].cells[9], "N/A", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[15].cells[10], "N/A", font_size_pt=7)
 
 # Strict 100% Times New Roman Enforcement across all runs in all tables
 for t_idx, table in enumerate(doc_rendered.tables):
@@ -156,8 +325,15 @@ if os.path.exists(OUT_PDF):
     reader = PdfReader(OUT_PDF)
     print(f"Verified PDF Page Count: {len(reader.pages)} (Must be 1)")
 
+# Also produce Phase II tables with identical content
+OUT_P2_DOCX = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - Phase II.docx")
+OUT_P2_PDF = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - Phase II.pdf")
+shutil.copy2(OUT_DOCX, OUT_P2_DOCX)
+shutil.copy2(OUT_PDF, OUT_P2_PDF)
+
 # Sync to Desktop and Documents safely
 for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+    # USP71 tables
     dest_docx = os.path.join(dest_dir, os.path.basename(OUT_DOCX))
     dest_pdf = os.path.join(dest_dir, os.path.basename(OUT_PDF))
     try:
@@ -165,11 +341,39 @@ for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
         print("Synced DOCX to:", dest_docx)
     except Exception as e:
         print(f"Notice: {dest_docx} copy skipped ({e})")
+        # Save Revised copy if original is locked by user in Word
+        revised_docx = os.path.join(dest_dir, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71 - Revised.docx")
+        try:
+            shutil.copy2(OUT_DOCX, revised_docx)
+            print("Saved Revised DOCX fallback to:", revised_docx)
+        except Exception:
+            pass
+
     if os.path.exists(OUT_PDF):
         try:
             shutil.copy2(OUT_PDF, dest_pdf)
             print("Synced PDF to:", dest_pdf)
         except Exception as e:
             print(f"Notice: {dest_pdf} copy skipped ({e})")
+            revised_pdf = os.path.join(dest_dir, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71 - Revised.pdf")
+            try:
+                shutil.copy2(OUT_PDF, revised_pdf)
+                print("Saved Revised PDF fallback to:", revised_pdf)
+            except Exception:
+                pass
+
+    # Phase II tables
+    dest_p2_docx = os.path.join(dest_dir, os.path.basename(OUT_P2_DOCX))
+    dest_p2_pdf = os.path.join(dest_dir, os.path.basename(OUT_P2_PDF))
+    try:
+        shutil.copy2(OUT_P2_DOCX, dest_p2_docx)
+        print("Synced Phase II DOCX to:", dest_p2_docx)
+    except Exception as e:
+        print(f"Notice: {dest_p2_docx} copy skipped ({e})")
+    try:
+        shutil.copy2(OUT_P2_PDF, dest_p2_pdf)
+        print("Synced Phase II PDF to:", dest_p2_pdf)
+    except Exception as e:
+        print(f"Notice: {dest_p2_pdf} copy skipped ({e})")
 
 print("All standalone table files generated successfully.")

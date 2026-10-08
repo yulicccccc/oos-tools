@@ -96,7 +96,14 @@ data = {
     "sample_name": "GLP3R/Cagrilinitide",
     "retest_date": "15-Sep-2026",
     "smart_original_result_str": "Fail",
-    "smart_retest_personnel_block": "Prepping Analyst:\nAndrew Carrillo (AC)\n\nProcessing Analyst:\nAbayomi Odugbesi (AO)\n\nReading Analyst:\nAndrew Carrillo (AC)",
+    "smart_retest_personnel_block": (
+        "Prepping Analyst:\n"
+        "Alex Saravia (ES), Andrew Carrillo (AC)\n\n"
+        "Processing Analyst:\n"
+        "Alex Saravia (ES), Abayomi Odugbesi (AO)\n\n"
+        "Reading Analyst:\n"
+        "Elysse Nioupin (EN), Andrew Carrillo (AC)"
+    ),
     "smart_sample_id_block": "Original test:\nETX-260902-0505\n\nRetest:\nETX-260914-0470",
     "smart_retest_result_str": "Fail",
     "smart_retest_scan_id": "ISO 5 BSC E001316, ISO 5 BSC E001314",

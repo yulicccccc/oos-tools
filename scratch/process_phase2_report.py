@@ -96,7 +96,14 @@ pdf_map = {
     # Page 1
     "Text Field0": "GLP3R/Cagrilinitide",
     "Date Field0": "15-Sep-2026",
-    "Text Field1": "Prepping Analyst:\rAndrew Carrillo (AC)\r \rProcessing Analyst:\rAbayomi Odugbesi (AO)\r \rReading Analyst:\rAndrew Carrillo (AC)",
+    "Text Field1": (
+        "Prepping Analyst:\r"
+        "Alex Saravia (ES), Andrew Carrillo (AC)\r \r"
+        "Processing Analyst:\r"
+        "Alex Saravia (ES), Abayomi Odugbesi (AO)\r \r"
+        "Reading Analyst:\r"
+        "Elysse Nioupin (EN), Andrew Carrillo (AC)"
+    ),
     "Text Field2": "Original test:\rETX-260902-0505\r \rRetest:\rETX-260914-0470",
     "Text Field3": "Fail",
     "Text Field4": "Fail",
@@ -192,7 +199,7 @@ font_sizes = {
     # Page 1
     "Text Field0": 8.5,
     "Date Field0": 8.5,
-    "Text Field1": 6.225,
+    "Text Field1": 5.8,
     "Text Field2": 7.5,
     "Text Field3": 8.5,
     "Text Field4": 8.5,
@@ -249,12 +256,26 @@ print("Calibrated font sizes and finalized Phase II PDF!")
 # Sync to Desktop and Documents
 desktop_pdf = os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
 doc_pdf = os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
-shutil.copy2(out_p2_pdf, desktop_pdf)
-shutil.copy2(out_p2_pdf, doc_pdf)
+try:
+    shutil.copy2(out_p2_pdf, desktop_pdf)
+except Exception as e:
+    print(f"Notice: {desktop_pdf} locked or skipped ({e})")
+    shutil.copy2(out_p2_pdf, os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - Revised.pdf"))
+
+try:
+    shutil.copy2(out_p2_pdf, doc_pdf)
+except Exception:
+    pass
 
 # Copy QYC PDF
 qyc_pdf = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf")
 shutil.copy2(out_p2_pdf, qyc_pdf)
-shutil.copy2(out_p2_pdf, os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
-shutil.copy2(out_p2_pdf, os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
+try:
+    shutil.copy2(out_p2_pdf, os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
+except Exception:
+    pass
+try:
+    shutil.copy2(out_p2_pdf, os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
+except Exception:
+    pass
 print("Synced to Desktop and Documents successfully!")

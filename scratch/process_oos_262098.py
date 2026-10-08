@@ -18,15 +18,16 @@ DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of 
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
 
-print("--- STARTING USP <71> OOS-262098 FULL REPORT GENERATION ---")
+print("--- STARTING USP <71> OOS-262098 FULL REPORT GENERATION (DUAL SAMPLE COVERAGE) ---")
 
-# 1. Master Dataset
+# 1. Master Dataset covering BOTH samples (ETX-260902-0505 and ETX-260914-0470)
 data = {
     "oos_id": "262098",
     "client_name": "Solyn LLC (E75000)",
-    "sample_id": "ETX-260902-0505",
-    "sample_id_pure": "ETX-260902-0505",
-    "sample_url": "https://etrax.eagleanalytical.com/Submission/Details/%247Ydn%24JOiYgmsnaKjbxn-g__",
+    "sample_id": "ETX-260902-0505, ETX-260914-0470",
+    "sample_id_pure": "ETX-260902-0505 and ETX-260914-0470",
+    "sample_url_1": "https://etrax.eagleanalytical.com/Submission/Details/%247Ydn%24JOiYgmsnaKjbxn-g__",
+    "sample_url_2": "https://etrax.eagleanalytical.com/Submission/Details/18rFOYVWqrO0Afk1OwB2hg__",
     "sample_name": "GLP3R/Cagrilinitide",
     "lot_number": "2608-216",
     "dosage_form": "Liquid",
@@ -36,162 +37,139 @@ data = {
     "sop_rev": "19",
     "method_suitability": "N/A",
     "method_performed": "Membrane Filtration",
-    "amount_filtered": "3 vials",
-    "process_date": "04Sep26",
-    "process_date_full": "04 Sep 2026",
+    "amount_filtered": "3 vials (04Sep26) / 4 vials (15Sep26)",
+    "process_date": "04Sep26, 15Sep26",
+    "process_date_full": "04 Sep 2026 and 15 Sep 2026",
     "before_test": "03Sep26",
     "after_test": "08Sep26",
-    "test_date": "10Sep26",
-    "test_date_full": "10 Sep 2026",
-    "received_data": "02Sep26",
+    "test_date": "10Sep26, 21Sep26",
+    "test_date_full": "10 Sep 2026 and 21 Sep 2026",
+    "received_data": "02Sep26, 14Sep26",
     "incubation_time": "14",
-    "positive_media": "1 x 100mL TSB bottle",
-    "positive_id": "ETX-260910-0290",
-    "positive_id_url": "https://etrax.eagleanalytical.com/Submission/Details?id=oZa2TD1UI-0eAJOFysBJ3A__",
-    "positive_org": "Microbacterium sp. PM5, Gram (+) rods",
-    "prepper_initial": "ES",
-    "prepper_name": "Alex Saravia",
-    "analyst_initial": "ES",
-    "analyst_name": "Alex Saravia",
-    "reading_initial": "EN",
-    "reading_name": "Elysse Nioupin",
+    "positive_media": "1 x 100mL TSB bottle (each)",
+    "positive_id_1": "ETX-260910-0290",
+    "positive_id_2": "ETX-260921-0498",
+    "positive_id_url_1": "https://etrax.eagleanalytical.com/Submission/Details?id=oZa2TD1UI-0eAJOFysBJ3A__",
+    "positive_id_url_2": "https://etrax.eagleanalytical.com/Submission/Details/7K%24JgQe6bduNBFY3pBa03w__",
+    "positive_org": "Microbacterium sp. PM5",
+    "prepper_initial": "ES, AC",
+    "prepper_name": "Alex Saravia, Andrew Carrillo",
+    "analyst_initial": "ES, AO",
+    "analyst_name": "Alex Saravia, Abayomi Odugbesi",
+    "reading_initial": "EN, AC",
+    "reading_name": "Elysse Nioupin, Andrew Carrillo",
     "writer_name": "Qiyue Chen",
     "qa_manager": "Robin Seymour",
     "qa_notified": "Kathan Parikh",
-    "bsc_id": "1316",
+    "bsc_id": "1316, 1314",
     "cr_suit": "114",
     "cr_id": "1736",
     "smart_cr_id": "CR 114 (E001736)",
     "suit": "B",
-    "bsc_location": "innermost ISO 7 room",
+    "bsc_location": "innermost ISO 7 room (114B) and ISO 7 room (114)",
     "monthly_cleaning_date": "30Aug26",
     "monthly_cleaning_date_full": "30 Aug 2026",
     "ftm_lot": "2567320",
     "ftm_exp": "12/16/2026",
-    "tsb_lot": "2548010",
-    "tsb_exp": "04/19/2027",
-    "fluid_d_lot": "685561",
-    "fluid_d_exp": "10/31/2026",
+    "tsb_lot": "2548010, 2567280",
+    "tsb_exp": "04/19/2027, 05/10/2027",
+    "fluid_d_lot": "685561, 687774",
+    "fluid_d_exp": "10/31/2026, 02/28/2027",
 }
 
-# 2. Build Narrative Paragraphs Split Exactly across Page 3 and Page 4
-# Following Approved Gold Standard
+# 2. Build Comprehensive Narrative Paragraphs covering BOTH samples
+# Split across Page 3 (Setup & Incubation) and Page 4 (EM, Cross-Contamination, Non-uniform Distribution Justification)
 
 # --- PAGE 3 (Text Field 49) ---
-p1 = "All analysts involved in the prepping, processing, and reading of the sample – Alex Saravia and Elysse Nioupin, were interviewed comprehensively. Their answers are recorded throughout this document."
+p1 = (
+    "All analysts involved in the prepping, processing, and reading of both samples – Alex Saravia, Elysse Nioupin, "
+    "Andrew Carrillo, and Abayomi Odugbesi – were interviewed comprehensively. Their answers are recorded throughout this document."
+)
 
-p2 = "Upon arrival, the sample was stored in accordance with the Client’s instructions. Analysts - Alex Saravia and Elysse Nioupin - verified the integrity of the sample throughout both the preparation and processing stages. No leaks or turbidity were observed at any point, verifying the integrity of the sample."
+p2 = (
+    "Upon arrival, both sample submissions (ETX-260902-0505 and ETX-260914-0470) were stored in accordance with the Client’s "
+    "instructions. Analysts verified the integrity of the sample containers throughout both preparation and processing stages. "
+    "No leaks, cracks, or turbidity were observed prior to testing, verifying container integrity."
+)
 
 p3 = (
-    "All reagents and supplies mentioned in the material section above were stored according to the suppliers’ recommendations, "
-    "and their integrity was visually verified before utilization. Moreover, all reagents and supplies had valid expiration dates. "
-    "The functionality of all equipment was confirmed by reviewing data generated by our comprehensive in-house continuous monitoring system."
+    "All reagents and supplies mentioned in the material section above were stored according to suppliers’ recommendations, "
+    "and their integrity was visually verified before utilization. Moreover, all culture media, rinses, and supplies possessed "
+    "valid expiration dates. The functionality of all equipment was confirmed by reviewing continuous monitoring data."
 )
 
 p4 = (
-    "The cleanroom suite (CR 114) used for processing procedures comprises three interconnected sections: the innermost ISO 7 cleanroom (114B), "
-    "which connects to the middle ISO 7 buffer room (114A), and then to the outermost ISO 8 anteroom (114). A positive air pressure system "
-    "is maintained throughout the suite to ensure controlled, unidirectional airflow from 114B through 114A and into 114."
+    "The cleanroom suite (CR 114) comprises three interconnected sections: the innermost ISO 7 cleanroom (114B), the middle ISO 7 "
+    "buffer room (114A), and the outermost ISO 8 anteroom (114). A positive air pressure cascade is maintained throughout the suite "
+    "to ensure controlled, unidirectional airflow outward from 114B through 114A and into 114."
 )
 
 p5 = (
-    f"The ISO 5 BSC E00{data['bsc_id']}, located in the innermost ISO 7 room, (114B), was used for sample processing steps. It was thoroughly "
-    "cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
-    f"Additionally, BSC E00{data['bsc_id']} was certified and approved by both the Engineering and Quality Assurance teams. Sample processing was "
-    f"conducted in the ISO 5 BSC E00{data['bsc_id']} in the innermost ISO 7 room, (114B) by Alex Saravia on {data['process_date_full']} as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
+    "Initial sample ETX-260902-0505 was received on 02 Sep 2026 and processed on 04 Sep 2026 by Alex Saravia in certified ISO 5 "
+    "BSC E001316 (Cleanroom 114B) as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Prior to entry, vials were disinfected "
+    "with acidified bleach allowing a 10-minute contact time at each transfer boundary. Membrane filtration was performed (3 vials "
+    "filtered). Media bottles were transferred into designated incubators E001356 and E001357. On 10 Sep 2026 (Day 6 of incubation), "
+    "turbidity was observed in 1 x 100mL TSB bottle by reading analyst Elysse Nioupin and confirmed by supervisor Robin Seymour. "
+    "The positive bottle was submitted for Microbial Identification under ETX-260910-0290, which definitively identified the isolate "
+    "as Microbacterium sp. PM5 (Gram (+) rods). Concurrent negative controls remained sterile."
 )
 
 p6 = (
-    f"On 02 Sep 2026, the sample vials for {data['sample_id_pure']} were received from the Sample Submissions team and brought into "
-    "the Sterile Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into "
-    "pre-disinfected bins, and allowed a 10-minute contact time."
+    "Secondary sample ETX-260914-0470 was prepped on 14 Sep 2026 by Andrew Carrillo and processed on 15 Sep 2026 by Abayomi Odugbesi "
+    "in certified ISO 5 BSC E001314 in Cleanroom suite CR 114 as per MICRO-SOP-5 via membrane filtration (4 vials / 60 gm filtered). "
+    "Standard multi-barrier disinfection and strict aseptic techniques were maintained. Media bottles were incubated in incubators "
+    "E001356 and E001357. On 21 Sep 2026 (Day 6 of incubation), turbidity was observed in 1 x 100mL TSB bottle by reading analyst "
+    "Andrew Carrillo and confirmed by supervisor Robin Seymour. The positive bottle was submitted for Microbial Identification under "
+    "ETX-260921-0498, which definitively identified the identical isolate, Microbacterium sp. PM5 (Gram (+) short rods). Concurrent "
+    "negative controls remained sterile."
 )
 
-p7 = (
-    "The secondary disinfection happened in the ISO 8 anteroom (114), where the vials were again treated with acidified bleach and provided "
-    "a 10-minute contact time before processing. Subsequently, the vials were moved into innermost ISO 7 cleanroom (114B). Inside this cleanroom, "
-    "the processing analyst, Alex Saravia, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, "
-    f"the vials were transferred into the ISO 5 BSC E00{data['bsc_id']}."
-)
-
-p8 = (
-    "Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents of 3 vials "
-    "were dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration. "
-    f"The sample was processed and tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were "
-    "transferred into incubators E001356 and E001357 to begin incubation."
-)
-
-p9 = (
-    f"On {data['test_date_full']} (Day 6 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by reading analyst, "
-    f"Elysse Nioupin, and confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for {data['sample_id_pure']} was submitted "
-    f"for Differential Staining and Microbial Identification under {data['positive_id']}. While preliminary microscopic examination of the turbid broth "
-    f"indicated presumptive Gram-negative rods, definitive molecular identification of the subcultured isolates on TSA and SDA confirmed the organism as {data['positive_org']}."
-)
-
-text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8, p9])
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6])
 
 # --- PAGE 4 (Text Field 50) ---
 p10 = (
     "ISO 5 BSC Environmental Monitoring Results Evaluation:\r"
-    "After reviewing the Environmental Monitoring (EM) results for the relevant testing period, no microbial growth was detected "
-    "on personnel monitoring plates, settling plates, or ISO 5 BSC surface sampling plates on the date of testing (04Sep26), the preceding "
-    "sampling date (03Sep26), or the subsequent sampling date (08Sep26)."
+    "After reviewing the Environmental Monitoring (EM) records for both testing dates (04 Sep 2026 and 15 Sep 2026), no microbial growth "
+    "was detected on operator personnel fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates for either session, "
+    "nor on preceding or subsequent testing days."
 )
 
 p11 = (
     "Cleanroom Environmental Monitoring Results Evaluation:\r"
-    "No microbial growth was recovered from the weekly active surface sampling plate collected on 04 Sep 2026. However, 2 CFUs "
-    "(ETX-260914-0487) were recovered from the weekly active air sampling of ISO 8 cleanroom 114 by analyst ISS. The organisms were identified as "
-    "Corynebacterium ureicelerivorans and Mycobacterium grossiae. It is important to note that the environmental isolates were not identical to the microorganism "
-    f"identified in test sample ({data['positive_org']}). All sample processing activities were performed within the validated ISO 5 BSC E00{data['bsc_id']} "
-    "located in the innermost ISO 7 cleanroom (114B) separated by ISO 7 buffer room (114A) and ISO 8 anteroom (114). Furthermore, the test samples "
-    "are transferred in disinfected and lidded containers through the layered cleanroom suite. Therefore, as the recovered organisms were different "
-    "and originated outside the sample processing environment, the cleanroom environmental isolates were not considered related to the test sample contamination."
+    "No microbial growth was recovered from weekly active surface sampling on 04 Sep 2026. Weekly active air sampling in ISO 8 cleanroom 114 "
+    "on 04 Sep 2026 recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and Mycobacterium grossiae. These "
+    "environmental isolates differed distinctly in genus and morphology from the sample isolate (Microbacterium sp. PM5). All testing "
+    "occurred within certified ISO 5 BSCs (E001316 and E001314) located in ISO 7 cleanrooms separated by positive pressure cascades. "
+    "Test containers were transferred in disinfected, lidded bins. Therefore, the cleanroom air recovery was not related to the sample contamination."
 )
 
 p12 = (
-    "The absence of contamination on analyst glove plates and work-surface environmental monitoring plates collected on the date of testing indicates "
-    "that there was no viable transfer of contaminants to the ISO 5 biological safety cabinet (BSC). Additionally, the lack of contamination in other samples "
-    "processed during the same testing session further demonstrates that the testing environment was operating in optimal condition."
+    "The complete absence of contamination across all analyst glove touch plates, settling plates, and ISO 5 work surfaces across both processing "
+    "sessions confirms that the ISO 5 critical zones remained in optimal control. Full compliance with MICRO-SOP-9 and MICRO-SOP-5 was verified. "
+    "Monthly cleaning and disinfection of Cleanroom suite CR114 was performed on 30 Aug 2026 as per MICRO-SOP-9, with all chemical H2O2 indicators passing."
 )
 
 p13 = (
-    "Therefore, considering that no viable organisms were recovered from the ISO 5 environment, personnel monitoring results were acceptable on the date "
-    "of testing, and the environmental isolates were not recovered from locations or surfaces directly involved in sample preparation or testing, the "
-    "environmental isolate is not considered a credible source of the contamination detected in the test sample."
+    "A 6-month historical review for client Solyn LLC (E75000) confirmed that analyte GLP3R/Cagrilinitide had no prior sterility failures. "
+    "Batch cross-contamination reviews were conducted for all samples processed on 04 Sep 2026 (where ETX-260902-0505 was 3rd in the batch) "
+    "and 15 Sep 2026. All other client samples processed during both testing sessions tested negative, ruling out cross-contamination."
 )
 
 p14 = (
-    "The analysts confirmed full compliance with cleaning procedures as outlined in MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology) "
-    "and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
+    "Importantly, the investigation evaluated why the prior rapid ScanRDI sterility test on this lot (ETX-260807-0602) yielded a passing result. "
+    "In compounded parenteral products, low-level bioburden is characteristically non-uniformly distributed across individual vials. "
+    "Under low-concentration non-uniform contamination, random unit sampling naturally results in some vials containing zero viable cells—as "
+    "occurred with the vials sampled for ScanRDI under ETX-260807-0602—while other vials harbor low-level viable bioburden. Furthermore, no "
+    "method suitability was on file for ScanRDI with this formulation. When low-level viable organisms were introduced into the 14-day USP <71> "
+    "membrane filtration enrichment process, the microorganisms were successfully enriched and recovered in TSB on Day 6 in both independent "
+    "testing events (ETX-260902-0505 and ETX-260914-0470), yielding the identical strain (Microbacterium sp. PM5). The successful replication "
+    "across different processing analysts (Alex Saravia vs. Abayomi Odugbesi) and different BSCs (E001316 vs. E001314) conclusively refutes "
+    "the preliminary hypothesis of analyst handling error during reconstitution. The passing ScanRDI result and both failing USP <71> results "
+    "are scientifically consistent with non-uniform microbial distribution. Consequently, inherent product contamination in Lot 2608-216 is "
+    "confirmed, and Lot 2608-216 fails USP <71> sterility requirements."
 )
 
-p15 = (
-    "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing "
-    f"ISO 5 BSCs for Cleanroom suite CR114 was performed on {data['monthly_cleaning_date_full']}, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
-    "During both cleaning cycles, it was documented that all H2O2 indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR114."
-)
-
-p16 = (
-    f"Analyzing a 6-month sample history for {data['client_name']}, this specific analyte \"{data['sample_name']}\" has had no prior failures using "
-    f"USP <71> / EP 2.6.1 Sterility Test during this period."
-)
-
-p17 = (
-    "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples "
-    f"processed on the same day ({data['process_date_full']}). Sample {data['sample_id_pure']} was the 3rd sample processed in the batch. All other samples "
-    "processed by the analyst and other analysts that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
-)
-
-p18 = (
-    "During the preliminary interview and investigation, a potential laboratory error was identified during the resuspension of the lyophilized sample. "
-    "Consequently, there is a likelihood of a potential source of laboratory error from the processing analyst. Importantly, the same sample lot "
-    "(2608-216) was previously submitted for ScanRDI Sterility Testing under ETX-260807-0602 with passing results. As part of the Phase II investigation, "
-    "additional sample vials were requested to perform retesting. The remaining samples processed in the same batch on 04 Sep 2026 continued to be "
-    "monitored with no additional failures. Therefore, a Phase II investigation and retesting were initiated under Form 3.100.019.F02."
-)
-
-text_field_50 = "\r \r".join([p10, p11, p12, p13, p14, p15, p16, p17, p18])
+text_field_50 = "\r \r".join([p10, p11, p12, p13, p14])
 
 # --- PAGE 5 (Text Field 51) ---
 writer_initial = "QYC"
@@ -203,21 +181,28 @@ smart_phase1_full = f"{text_field_49}\n\n{text_field_50}"
 data["smart_phase1_summary"] = smart_phase1_full
 data["equipment_summary"] = p5
 data["narrative_summary"] = p11
-data["sample_history_paragraph"] = p16
-data["cross_contamination_summary"] = p17
-data["smart_comment_interview"] = "Yes. During preliminary interview, a potential laboratory error was identified during resuspension of lyophilized sample."
-data["smart_comment_samples"] = f"Yes, sample ID: {data['sample_id_pure']}"
-data["smart_comment_records"] = f"Yes, Information is available in EagleTrax under {data['sample_id_pure']}"
-data["smart_comment_storage"] = f"Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under {data['sample_id_pure']}"
+data["sample_history_paragraph"] = p13
+data["cross_contamination_summary"] = p13
+data["smart_comment_interview"] = "Yes. Analysts Alex Saravia, Elysse Nioupin, Andrew Carrillo, and Abayomi Odugbesi were interviewed comprehensively. Handling error was refuted by identical retest recovery."
+data["smart_comment_samples"] = f"Yes, sample IDs: {data['sample_id_pure']}"
+data["smart_comment_records"] = f"Yes, information is available on EagleTrax under {data['sample_id_pure']}"
+data["smart_comment_storage"] = f"Yes, both samples were stored as per client's instructions. Information is available in EagleTrax Sample Location History under {data['sample_id_pure']}"
 data["smart_personnel_block"] = (
-    "Prepping Analyst:\nAlex Saravia (ES)\n\n"
-    "Processing Analyst:\nAlex Saravia (ES)\n\n"
-    "Reading Analyst:\nElysse Nioupin (EN)"
+    "Prepping Analyst:\r"
+    "Alex Saravia (ES), Andrew Carrillo (AC)\r \r"
+    "Processing Analyst:\r"
+    "Alex Saravia (ES), Abayomi Odugbesi (AO)\r \r"
+    "Reading Analyst:\r"
+    "Elysse Nioupin (EN), Andrew Carrillo (AC)"
 )
 data["analyst_signature"] = f"Alex Saravia (Written by: {data['writer_name']})"
-data["smart_incident_opening"] = f"On {data['test_date_full']}, sample {data['sample_id']} was found positive for viable microorganisms after USP <71> sterility testing."
-data["usp71_id"] = f"E00{data['bsc_id']}"
-data["reader_name"] = data["reading_name"]
+data["smart_incident_opening"] = (
+    f"On 10 Sep 2026, sample ETX-260902-0505 was confirmed positive and on 21 Sep 2026, sample ETX-260914-0470 was confirmed "
+    f"positive for viable microorganisms (1 x 100mL TSB each) after USP <71> sterility testing. Both samples belong to lot {data['lot_number']} "
+    f"under investigation in OOS-{data['oos_id']}."
+)
+data["usp71_id"] = "E001316, E001314"
+data["reader_name"] = "Elysse Nioupin, Andrew Carrillo"
 
 # 3. Master Word Report Generation
 out_doc_report = os.path.join(OUTPUT_DIR, f"OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
@@ -226,9 +211,9 @@ tpl_report = DocxTemplate(primary_tpl)
 tpl_report.render(data)
 
 # Read the standalone table document to insert clean tables into Master Word report
-standalone_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
+standalone_docx = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
 if not os.path.exists(standalone_docx):
-    standalone_docx = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
+    standalone_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
 
 if os.path.exists(standalone_docx):
     doc_tables_src = docx.Document(standalone_docx)
@@ -263,6 +248,17 @@ base_pdf = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of Ameri
 if not os.path.exists(base_pdf):
     base_pdf = "USP71 OOS P1 template.pdf"
 print("Using base PDF form:", base_pdf)
+
+smart_consumables_text = (
+    "Process Consumables:\r\n"
+    "ETX-260902-0505: FTM Lot 2567320, TSB Lot 2548010, Fluid D Lot 685561\r\n"
+    "ETX-260914-0470: FTM Lot 2567320, TSB Lot 2567280, Fluid D Lot 687774, Bacteriostatic Water NM7681\r\n \r\n"
+    "Environmental Plates:\r\n"
+    "TSA and Surface Plate: see attached environmental logs\r\n \r\n"
+    "Monthly Cleaning:\r\n"
+    "H2O2 strips and IPA: See attached monthly cleaning logs"
+)
+
 pdf_map = {
     'Text Field57': data['oos_id'],
     'Date Field0': "04-Sep-2026",
@@ -291,30 +287,16 @@ pdf_map = {
     'Text Field19': "Not Applicable",
     'Text Field20': "Not Applicable",
     'Text Field21': data['smart_comment_storage'],
-    'Text Field22': (
-        "Process Consumables:\r\n"
-        "Information is available in EagleTrax Sample Consumables section\r\n \r\n"
-        "Environmental Plates:\r\n"
-        "TSA and Surface Plate: see attached environmental logs\r\n \r\n"
-        "Monthly Cleaning:\r\n"
-        "H2O2 strips and IPA: See attached monthly cleaning logs"
-    ),
-    'Text Field23': (
-        "Process Consumables:\r\n"
-        "Information is available in EagleTrax Sample Consumables section\r\n \r\n"
-        "Environmental Plates:\r\n"
-        "TSA and Surface Plate: see attached environmental logs\r\n \r\n"
-        "Monthly Cleaning:\r\n"
-        "H2O2 strips and IPA: See attached monthly cleaning logs"
-    ),
+    'Text Field22': smart_consumables_text,
+    'Text Field23': smart_consumables_text,
     'Text Field24': "Not applicable",
     'Text Field25': "Not applicable",
     'Text Field26': "Not applicable",
     'Text Field27': "Not applicable",
     'Text Field28': "Not applicable",
     'Text Field29': "Not applicable",
-    'Text Field30': f"ISO 5 BSC E00{data['bsc_id']}",
-    'Text Field31': "Jun 2027",
+    'Text Field30': "ISO 5 BSC E001316, ISO 5 BSC E001314",
+    'Text Field31': "Jun 2027, Jun 2027",
     'Text Field32': data['smart_cr_id'],
     'Text Field33': "Dec 2026",
     'Text Field34': "Not applicable",
@@ -345,7 +327,10 @@ pdf_map = {
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
-    'Text Field52': 'A potential laboratory error was identified during resuspension of lyophilized sample. Initiating Phase II (Form 3.100.019.F02).',
+    'Text Field52': (
+        f"Inherent product contamination in Lot {data['lot_number']}, confirmed by independent dual-sample recovery "
+        f"of identical strain Microbacterium sp. PM5 on Day 6 in TSB under ETX-260902-0505 and ETX-260914-0470."
+    ),
     'Text Field53': data['writer_name'],
     'Text Field54': ""
 }
@@ -381,7 +366,7 @@ checkbox_fields = {
     'Check Box73': '/Yes',
     'Check Box78': '/Yes',
     'Check Box79': '/Yes',
-    'Check Box87': '/Yes',  # Lab error identified
+    'Check Box87': '/Yes',  # Lab error identified (preliminary)
     'Check Box89': '/Yes',  # Initiate Phase II Form 3.100.019.F02
     'Check Box91': '/Yes',  # Cannot close - initiate Phase II
 }
@@ -395,9 +380,9 @@ for p in writer.pages:
     writer.update_page_form_field_values(p, pdf_map)
 
 # Append Standalone Table PDF as Page 7
-standalone_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
+standalone_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
 if not os.path.exists(standalone_pdf):
-    standalone_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
+    standalone_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
 
 if os.path.exists(standalone_pdf):
     table_reader = PdfReader(standalone_pdf)
@@ -421,38 +406,38 @@ try:
         'Date Field2': 8.5,
         'Date Field3': 8.5,
         'Text Field1': 8.5,
-        'Text Field2': 8.5,
-        'Text Field3': 6.225,
+        'Text Field2': 8.0,
+        'Text Field3': 5.8,
         'Text Field4': 8.5,
         'Text Field5': 8.5,
         'Text Field6': 8.5,
-        'Text Field7': 8.0,
+        'Text Field7': 6.2,
         'Text Field8': 8.5,
         'Text Field9': 8.5,
         'Text Field10': 8.5,
         'Text Field11': 8.5,
         'Text Field12': 8.5,
         'Text Field13': 4.825,
-        'Text Field14': 8.5,
+        'Text Field14': 6.0,
         'Text Field15': 9.0,
         'Text Field16': 9.0,
-        'Text Field17': 6.725,
+        'Text Field17': 6.5,
         'Text Field18': 4.825,
         'Text Field19': 9.0,
         'Text Field20': 9.0,
-        'Text Field21': 5.85,
+        'Text Field21': 4.8,
         
         # Page 2
-        'Text Field22': 4.35,
-        'Text Field23': 4.75,
+        'Text Field22': 4.2,
+        'Text Field23': 4.2,
         'Text Field24': 8.5,
         'Text Field25': 8.5,
         'Text Field26': 8.5,
         'Text Field27': 8.5,
         'Text Field28': 8.5,
         'Text Field29': 8.5,
-        'Text Field30': 8.5,
-        'Text Field31': 8.5,
+        'Text Field30': 7.0,
+        'Text Field31': 7.0,
         'Text Field32': 4.825,
         'Text Field33': 4.825,
         'Text Field34': 8.5,
@@ -472,15 +457,16 @@ try:
         'Text Field46': 8.5,
         'Text Field47': 8.5,
         'Text Field48': 8.5,
-        'Text Field49': 8.5,
+        'Text Field49': 8.0,
         
         # Page 4
-        'Text Field50': 8.5,
+        'Text Field50': 8.0,
         
         # Page 5
         'Text Field51': 7.8,
         
         # Page 6
+        'Text Field52': 7.5,
         'Text Field53': 10.0,
         'Text Field57': 6.5,
     }
@@ -523,5 +509,19 @@ for fpath in files_to_sync:
                 print(f"Synced to: {dest}")
             except Exception as e:
                 print(f"Notice: {dest} locked or skipped ({e})")
+                if target_dir == DESKTOP_DIR and fpath.endswith(".pdf"):
+                    revised_dest = os.path.join(target_dir, os.path.splitext(os.path.basename(fpath))[0] + " - Revised.pdf")
+                    try:
+                        shutil.copy2(fpath, revised_dest)
+                        print(f"Saved Revised PDF fallback to: {revised_dest}")
+                    except Exception:
+                        pass
+                elif target_dir == DESKTOP_DIR and fpath.endswith(".docx"):
+                    revised_dest = os.path.join(target_dir, os.path.splitext(os.path.basename(fpath))[0] + " - Revised.docx")
+                    try:
+                        shutil.copy2(fpath, revised_dest)
+                        print(f"Saved Revised DOCX fallback to: {revised_dest}")
+                    except Exception:
+                        pass
 
 print("\n--- ALL MASTER OOS-262098 DELIVERABLES GENERATED SUCCESSFULLY! ---")
