@@ -184,9 +184,11 @@ p17 = (
 )
 
 p18 = (
-    "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, "
-    "the process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original "
-    "result is deemed to be valid."
+    "During the preliminary interview and investigation, a potential laboratory error was identified during the resuspension of the lyophilized sample. "
+    "Consequently, there is a likelihood of a potential source of laboratory error from the processing analyst. Importantly, the same sample lot "
+    "(2608-216) was previously submitted for ScanRDI Sterility Testing under ETX-260807-0602 with passing results. As part of the Phase II investigation, "
+    "additional sample vials were requested to perform retesting. The remaining samples processed in the same batch on 04 Sep 2026 continued to be "
+    "monitored with no additional failures. Therefore, a Phase II investigation and retesting were initiated under Form 3.100.019.F02."
 )
 
 text_field_50 = "\r \r".join([p10, p11, p12, p13, p14, p15, p16, p17, p18])
@@ -203,7 +205,7 @@ data["equipment_summary"] = p5
 data["narrative_summary"] = p11
 data["sample_history_paragraph"] = p16
 data["cross_contamination_summary"] = p17
-data["smart_comment_interview"] = "Yes, analysts Alex Saravia and Elysse Nioupin were interviewed comprehensively."
+data["smart_comment_interview"] = "Yes. During preliminary interview, a potential laboratory error was identified during resuspension of lyophilized sample."
 data["smart_comment_samples"] = f"Yes, sample ID: {data['sample_id_pure']}"
 data["smart_comment_records"] = f"Yes, Information is available in EagleTrax under {data['sample_id_pure']}"
 data["smart_comment_storage"] = f"Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under {data['sample_id_pure']}"
@@ -343,6 +345,7 @@ pdf_map = {
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
+    'Text Field52': 'A potential laboratory error was identified during resuspension of lyophilized sample. Initiating Phase II (Form 3.100.019.F02).',
     'Text Field53': data['writer_name'],
     'Text Field54': ""
 }
@@ -378,7 +381,9 @@ checkbox_fields = {
     'Check Box73': '/Yes',
     'Check Box78': '/Yes',
     'Check Box79': '/Yes',
-    'Check Box88': '/Yes',  # No lab error - original result valid
+    'Check Box87': '/Yes',  # Lab error identified
+    'Check Box89': '/Yes',  # Initiate Phase II Form 3.100.019.F02
+    'Check Box91': '/Yes',  # Cannot close - initiate Phase II
 }
 pdf_map.update(checkbox_fields)
 
