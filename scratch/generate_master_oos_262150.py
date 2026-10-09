@@ -323,6 +323,7 @@ def generate_master_pdf_report():
         'Date Field1': TEST_DATE_FULL,
         'Date Field2': TEST_DATE_FULL,
         'Date Field3': TEST_DATE_FULL,
+        'Text Field1': "Scan RDI Sterility Test",
         'Text Field2': SAMPLE_ID,
         'Text Field6': LOT_NUMBER,
         'Text Field4': SAMPLE_NAME,
@@ -375,21 +376,7 @@ def generate_master_pdf_report():
         'Text Field49': text_field_49,
         'Text Field50': text_field_50,
         'Text Field51': text_field_51,
-        'Text Field52': (
-            "The investigation was reviewed.\n"
-            "The personnel involved in sample preparation, processing, changeover, and ScanRDI reading were "
-            "appropriately trained and qualified, and the applicable reagents, consumables, equipment, and controlled "
-            f"areas were documented as acceptable for use. ScanRDI testing of {SAMPLE_ID} detected {EVENTS_COUNT} events, "
-            f"of which {CONFIRMED_COUNT} were confirmed as microbial events with {MORPHOLOGY}. The associated positive and "
-            "negative controls yielded the expected results. Review of the contemporaneous environmental monitoring data "
-            "showed no microbial recovery from personnel monitoring, ISO 5 BSC work-surface monitoring, or settling plates "
-            "associated with sample processing and changeover.\n"
-            "Other samples processed on the same day were negative, and no evidence of sample-to-sample cross-contamination "
-            "was identified.\n"
-            "No specific analyst-related, procedural, equipment-related, material-related, or critical-environment-related "
-            "discrepancy was identified that could account for the OOS result. Based on the available investigation findings, "
-            "no assignable laboratory-related root cause was established, and the original OOS result is considered valid."
-        ),
+        'Text Field52': "",
         'Text Field53': "Qiyue Chen",
         'Text Field54': "",
         'Text Field55': "",
@@ -436,12 +423,13 @@ def generate_master_pdf_report():
         'Check Box83': 'Off', 'Check Box84': 'Off', 'Check Box85': 'Off', 'Check Box86': 'Off',
         # Page 6 Disposition Checkboxes
         'Check Box87': 'Off', 'Check Box88': 'Yes', 'Check Box89': 'Off',
-        'Check Box90': 'Yes', 'Check Box91': 'Off', 'Check Box92': 'Off',
+        'Check Box90': 'Off', 'Check Box91': 'Off', 'Check Box92': 'Off',
     }
 
     calibrated_fonts = {
         # Page 1 Header
         'Text Field0': 5.12,
+        'Text Field1': 7.5,
         'Text Field2': 9.65,
         'Text Field3': 6.0,
         'Text Field4': 8.5,
@@ -480,8 +468,8 @@ def generate_master_pdf_report():
         'Text Field29': 9.5,
         'Text Field30': 9.5,
         'Text Field31': 9.5,
-        'Text Field32': 4.825,
-        'Text Field33': 4.825,
+        'Text Field32': 4.4,
+        'Text Field33': 4.4,
         'Text Field34': 9.5,
         'Text Field35': 9.5,
         'Text Field36': 9.5,
