@@ -545,5 +545,45 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - Page 4 (`Text Field50`): Celsis 读数结果、菌种确认、效期、月度清洁与表格引言（P8..P12）
    - Page 5 (`Text Field51`): 环境监测调查、交叉污染排除、6个月历史审查与最终结论（P13..P21）
 
+### 31. Universal Mandatory Blank Line Separation for Multi-Item Table Cells (表格多菌种/多记录单元格绝对强制空行隔开永久铁律 - 🚨 终极防线)
+**CRITICAL**: Across all OOS modules (`Scan RDI`, `Celsis`, `USP <71>`, `Environmental Monitoring (EM)`), and across all table formats (Table 1, Table 2, Table 3, and Standalone Tables):
+1. **Zero Tolerance for Adjacent Unseparated Items (相邻条目未空行零容忍准则)**:
+   - When a table cell contains multiple items (such as multiple microbial isolates/species, multiple CFU counts, or multiple ETX plate numbers), **EVERY SINGLE ITEM MUST BE SEPARATED BY A DEDICATED EMPTY BLANK LINE (`\n\n` in text, or a blank spacing paragraph `<w:p>` in Word OpenXML)**.
+   - **NEVER group or place any two items together on adjacent lines without a blank line in between!**
+2. **Distinct Microbial Strains Separation (菌种鉴定栏目绝对空行)**:
+   - In `Microbial ID` / `Related Microbial ID` cells, every distinct isolate MUST be separated from adjacent isolates by a clear empty line:
+     *Kocuria indica*
+     [空行]
+     *Brevibacterium sp. CS2*
+     [空行]
+     *Corynebacterium sp*
+     [空行]
+     *Micrococcus luteus*
+     [空行]
+     *Paracoccus yeei*
+     [空行]
+     *Staphylococcus hominis*
+     [空行]
+     *Kocuria rhizophila*
+   - Strictly forbidden: Placing *Corynebacterium sp* and *Micrococcus luteus* on adjacent lines without a blank line.
+3. **Multi-Hit EM Observations & ETX Numbers (多点检出环境监测栏目横向对齐空行)**:
+   - In `Observation` cells with multiple hits (e.g. L-Suite active air):
+     `6 CFUs (ISO 8 143 Sec I)`
+     [空行]
+     `8 CFUs (ISO 8 143 Sec II)`
+     [空行]
+     `2 CFUs (ISO 8 142)`
+   - In `EM Plate ETX Number` cells, corresponding ETX plate numbers MUST also be separated by matching empty lines to maintain strict horizontal alignment:
+     `ETX-260929-0335`
+     [空行]
+     `ETX-260929-0341`
+     [空行]
+     `ETX-260929-0344`
+4. **Implementation & Pre-Delivery Audit Gate (底层代码与交付前自检闸门)**:
+   - In Python scripts, always join multi-item lists with `\n\n`, never `\n`.
+   - In Word OpenXML, append explicit empty spacing paragraphs `<w:p>` with proper line spacing.
+   - Always run pre-delivery cell line-spacing verification before finalizing documents.
+
+
 
 

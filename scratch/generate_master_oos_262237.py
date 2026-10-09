@@ -147,7 +147,7 @@ p11 = (
 p12 = (
     "Weekly active air monitoring of Cleanroom Suite 116 conducted on 24Sep26 demonstrated no microbial recovery in the "
     "ISO 7 cleanrooms; however, 3 CFUs (ETX-261005-0773, [Pending Differential Staining: Gram (+/-) ... / Pending Microbial ID]) "
-    "were recovered from the ISO 8 anteroom (115). Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no "
+    "were recovered from the ISO 8 anteroom (116). Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no "
     "microbial recovery in the ISO 7 cleanrooms (145 or 144); however, 6 CFUs (ETX-260929-0335, [Pending Differential Staining: "
     "Gram (+/-) ... / Pending Microbial ID]) and 8 CFUs (ETX-260929-0341, [Pending Differential Staining: Gram (+/-) ... / "
     "Pending Microbial ID]) were recovered from the ISO 8 anteroom (143 Section I and Section II, respectively), and 2 CFUs "

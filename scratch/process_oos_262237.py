@@ -286,7 +286,7 @@ def build_standalone_tables_doc(
 
     # --- Section 3: Weekly Active Air Suite 116 ---
     add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (115 ISO8)", "ETX-261005-0773", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (116 ISO8)", "ETX-261005-0773", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
 
     # --- Section 4: Weekly Active Air L-Suite ---
     add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")

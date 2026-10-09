@@ -282,6 +282,46 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Prior Passing ScanRDI Justification (Non-Uniform Microbial Distribution):** Rigorously justified why prior rapid ScanRDI testing (`ETX-260807-0602`) passed: compounded parenteral products with low bioburden exhibit heterogeneous, non-uniform spatial distribution across vials; sampled ScanRDI vials contained zero viable cells, while USP <71> vials contained low-level cells that were enriched over 14 days in TSB, turning turbid on Day 6 twice in a row.
         *   **Phase II Universal Pipeline:** Generated full Phase II deliverables including Standalone 1-Page Tables (`Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx`/`.pdf`), Master Word Report (`OOS-262098 Solyn LLC (E75000) - Phase II.docx`), and Official 6-Page PDF Form (`OOS-262098 Solyn LLC (E75000) - Phase II.pdf` & `... - QYC.pdf`).
         *   **Phase 1 & Phase 2 Form Alignment:** Updated Phase 1 Form 3.100.019.F01 Page 6 to check `Check Box87` (Yes, lab error investigated), `Check Box89` (Yes, initiate Form 3.100.019.F02), and `Check Box91` (Yes, cannot close, initiate F02). In Phase II Form 3.100.019.F02, checked `Check Box51` (Yes, root cause identified), `Check Box61` (External Phenomena - Product Bioburden), and confirmed original result valid (failing) and retest failing.
+    40. *Universal Mandatory Blank Line Separation for Multi-Item Table Cells (表格多菌种/多记录单元格绝对强制空行隔开永久铁律 - 🚨 终极防线):*
+        *   **🚨 终极合规背景与血的教训 (Zero Tolerance for Adjacent Unseparated Items):** 在所有 OOS 调查报告的表格中（包括 Table 1、Table 2、Table 3 以及独立表格附件），当单个单元格内存在多个条目（如多个不同菌种、多行活菌检出 Observation、多行平板 ETX 编号等）时，**每一个条目之间必须用严格且清晰的空行（Empty Blank Line / `\n\n` / 独立间距段落 `<w:p>`）隔开**！严禁将两个条目紧贴在相邻行上，任何相邻条目之间未留空行的输出均属严重交付事故！
+        *   **1. 菌种鉴定栏目空行铁律 (Distinct Microbial Strains Separation):**
+            - 在 `Microbial ID` / `Related Microbial ID` 单元格中，如果检出 2 个或 2 个以上的微生物菌株，**每一个菌株必须独立成行，且菌株与菌株之间必须严格插入一个独立空行**！
+            - ❌ **严重违规 (相邻紧贴)**：
+              *Corynebacterium sp*
+              *Micrococcus luteus*
+            - ✔️ **合规标准 (绝对空行)**：
+              *Kocuria indica*
+              [空行]
+              *Brevibacterium sp. CS2*
+              [空行]
+              *Corynebacterium sp*
+              [空行]
+              *Micrococcus luteus*
+              [空行]
+              *Paracoccus yeei*
+              [空行]
+              *Staphylococcus hominis*
+              [空行]
+              *Kocuria rhizophila*
+        *   **2. 多点检出环境监测栏目横向对齐空行铁律 (Multi-Hit EM Observations & ETX Numbers):**
+            - 当同一洁净区或同一监测行存在多处阳性检出时（例如 L-Suite 周检回溯出现 3 处检出）：
+              - `Observation` 列中，每一个地点的检出数据必须以空行相隔：
+                `6 CFUs (ISO 8 143 Sec I)`
+                [空行]
+                `8 CFUs (ISO 8 143 Sec II)`
+                [空行]
+                `2 CFUs (ISO 8 142)`
+              - `EM Plate ETX Number` 列中，对应的每一个平板编号必须同样以空行相隔，并与 Observation 保持绝对严格的横向基线 1:1 对齐：
+                `ETX-260929-0335`
+                [空行]
+                `ETX-260929-0341`
+                [空行]
+                `ETX-260929-0344`
+        *   **3. 底层代码实现与防塌缩技术标准 (OpenXML & String Formatting Standard):**
+            - 在纯文本/数据字典拼接时，多项条目一律使用 `\n\n`（双换行）连接，严禁使用单换行 `\n`。
+            - 在 `python-docx` / OpenXML 底层构建单元格时，不能仅依赖可能被 Word 渲染引擎折叠的微小行高（如 `line="80"`），必须插入带有合适行距的独立空白段落 `<w:p>`，确保在 Word 和 Adobe Acrobat 中视觉上清晰可见整行空白高度。
+        *   **4. 交付前自动审计闸门 (Pre-Delivery Table Line-Spacing Audit Gate):**
+            - 任何脚本在交付表格前，必须执行单元格行距自检：扫描所有文本包含多行的单元格，确认非空行之间必须存在空白行间隔，杜绝任何人眼找茬被抓现行。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
