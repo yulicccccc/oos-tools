@@ -290,9 +290,103 @@ def build_standalone_tables_doc(
 
     # --- Section 4: Weekly Active Air L-Suite ---
     add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "6 CFUs (ISO 8 143 Sec I)", "ETX-260929-0335", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/7WzH$G448Nqj9L-Q_7oXvg__")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "8 CFUs (ISO 8 143 Sec II)", "ETX-260929-0341", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/gKex8LPhpMsQyRuqi%24ua4g__")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "2 CFUs (ISO 8 142)", "ETX-260929-0344", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/iCnj0gFFyEtIFNZbfpq5qg__")
+    
+    row_l = t2.add_row()
+    format_cell(row_l.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
+    format_cell(row_l.cells[1], "Weekly", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(row_l.cells[2], "22Sep26", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(row_l.cells[3], "SMO", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(row_l.cells[4], "Week of Testing", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+
+    # Observation cell
+    c_obs = row_l.cells[5]
+    c_obs.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c_obs)
+    p0 = c_obs.paragraphs[0]
+    p0.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p0.paragraph_format.space_before = Pt(0)
+    p0.paragraph_format.space_after = Pt(0)
+    p0.paragraph_format.line_spacing = 1.0
+    r0 = p0.add_run("6 CFUs (ISO 8 143 Sec I)")
+    r0.font.name = 'Times New Roman'
+    r0.font.size = Pt(7)
+
+    p1 = c_obs.add_paragraph()
+    p1.paragraph_format.space_before = Pt(0)
+    p1.paragraph_format.space_after = Pt(0)
+
+    p2 = c_obs.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p2.paragraph_format.space_before = Pt(0)
+    p2.paragraph_format.space_after = Pt(0)
+    p2.paragraph_format.line_spacing = 1.0
+    r2 = p2.add_run("8 CFUs (ISO 8 143 Sec II)")
+    r2.font.name = 'Times New Roman'
+    r2.font.size = Pt(7)
+
+    p3 = c_obs.add_paragraph()
+    p3.paragraph_format.space_before = Pt(0)
+    p3.paragraph_format.space_after = Pt(0)
+
+    p4 = c_obs.add_paragraph()
+    p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p4.paragraph_format.space_before = Pt(0)
+    p4.paragraph_format.space_after = Pt(0)
+    p4.paragraph_format.line_spacing = 1.0
+    r4 = p4.add_run("2 CFUs (ISO 8 142)")
+    r4.font.name = 'Times New Roman'
+    r4.font.size = Pt(7)
+
+    # EM Plate ETX Number cell
+    c_etx = row_l.cells[6]
+    c_etx.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c_etx)
+    
+    # Matching vertical alignment with 2 empty paragraphs before first ETX
+    p_e0 = c_etx.paragraphs[0]
+    p_e0.paragraph_format.space_before = Pt(0)
+    p_e0.paragraph_format.space_after = Pt(0)
+    
+    p_e1 = c_etx.add_paragraph()
+    p_e1.paragraph_format.space_before = Pt(0)
+    p_e1.paragraph_format.space_after = Pt(0)
+    
+    p_e2 = c_etx.add_paragraph()
+    p_e2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_e2.paragraph_format.space_before = Pt(0)
+    p_e2.paragraph_format.space_after = Pt(0)
+    add_hyperlink(p_e2, "https://etrax.eagleanalytical.com/Submission/Details/QchKBV1D2VrN7y3VezYRkg__", "ETX-260929-0335", font_size=Pt(7))
+    
+    p_e3 = c_etx.add_paragraph()
+    p_e3.paragraph_format.space_before = Pt(0)
+    p_e3.paragraph_format.space_after = Pt(0)
+    
+    p_e4 = c_etx.add_paragraph()
+    p_e4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_e4.paragraph_format.space_before = Pt(0)
+    p_e4.paragraph_format.space_after = Pt(0)
+    add_hyperlink(p_e4, "https://etrax.eagleanalytical.com/Submission/Details/gKex8LPhpMsQyRuqi%24ua4g__", "ETX-260929-0341", font_size=Pt(7))
+    
+    p_e5 = c_etx.add_paragraph()
+    p_e5.paragraph_format.space_before = Pt(0)
+    p_e5.paragraph_format.space_after = Pt(0)
+    
+    p_e6 = c_etx.add_paragraph()
+    p_e6.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_e6.paragraph_format.space_before = Pt(0)
+    p_e6.paragraph_format.space_after = Pt(0)
+    add_hyperlink(p_e6, "https://etrax.eagleanalytical.com/Submission/Details/iCnj0gFFyEtIFNZbfpq5qg__", "ETX-260929-0344", font_size=Pt(7))
+
+    p_e7 = c_etx.add_paragraph()
+    p_e7.paragraph_format.space_before = Pt(0)
+    p_e7.paragraph_format.space_after = Pt(0)
+
+    p_e8 = c_etx.add_paragraph()
+    p_e8.paragraph_format.space_before = Pt(0)
+    p_e8.paragraph_format.space_after = Pt(0)
+
+    format_cell(row_l.cells[7], "Pending", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(row_l.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     # --- Section 5: Weekly Surface Suite 116 ---
     add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
