@@ -341,6 +341,21 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - **系统审计底纹与原生页脚绝对保留:** 严禁破坏 ZenQMS 导出的官方审计底脚（如 `Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 16 Sep 2026 at 19:15 UTC`）。
             - **表单特定差异化字段精准适配:** 针对 ZenQMS 空白表单特有的可填文本框（如 Page 1 `Text Field1: Scan RDI Sterility Test`），必须精准补全；对易截断的紧凑单元格（如 Page 2 `Text Field32/33` 耗材批号效期），应用精准自适应字号（4.4pt），彻底杜绝 Acrobat `+` 号溢出截断。
             - **Page 7 台账表格无缝缝合:** 将已生成并通过严谨审计的单页独立表格（Table 1 & Table 2）高保真转换为 PDF，并自动作为 Page 7 无缝缝合至 6 页官方主表之后，形成合规完备的 7 页调查卷宗，随时供用户上传至 ZenQMS。
+    43. *Sterility Investigation Phase 1 vs. Phase 2 Scope Separation Architecture (无菌检测 Phase 1 与 Phase 2 调查范围绝对解耦架构 - 🚨 黄金标杆规范):*
+        *   **🚨 终极架构原则与标杆对照 (Reference: OOS-261987 Uriel Pharmacy P1 & P2 Signed by OA-RS):** 当一起无菌检测 OOS 事件涉及初始测试（Original Test）与复测（Retest）两个阶段时（如 `OOS-262098` / `OOS-261987`），调查案卷必须遵循严格的范围解耦架构：
+        *   **1. 独立表格附件 (Master Tables DOCX/PDF):**
+            - 维持对两阶段测试的**统筹全量呈现**：Table 1 必须同时列出初始样品与复测样品信息（双样品横向对齐）；Table 2 呈现初始测试环境监测；Table 3 呈现复测环境监测。用户定论：“table是对的，是需要2个tests （origianl和retest的信息）”。
+        *   **2. Phase 1 官方调查报告 (CORP-FORM-21 / 3.100.019.F01):**
+            - **仅针对初始测试（Original Test ONLY）！**
+            - Page 1：样品 ID 仅填初始样品（如 `ETX-260902-0505`）；测试日期仅填初始测试日期（如 `04-Sep-2026`）；分析员仅填初始人员（Prepper / Processor: Alex Saravia, Reader: Elysse Nioupin）；事件描述仅描述初始阳性；Section B 仅针对初始测试记录。
+            - Page 2：设备与洁净室仅记录初始测试使用的 BSC（如 `ISO 5 BSC E001316`）与洁净区（`CR114`）。
+            - Page 3..Page 5 叙述正文：**严禁提前提及复测、严禁出现复测分析员与复测样品号！** 严格遵循 `OOS-261987 P1` 叙述范式，仅针对初始测试的实验操作、培养读数、菌株初步鉴定、初始环境监测防守闭环进行调查，最终判定初始阶段未发现实验室人为/环境偏差，初始阳性有效（Page 6 勾选 `Check Box88` "No, the OOS result is valid"）。
+        *   **3. Phase 2 官方调查报告 (CORP-FORM-22 / 3.100.019.F02):**
+            - **承接并详尽展开复测调查（Retest Investigation）！**
+            - Page 1：标明初始样品与复测样品号、复测日期（`15-Sep-2026`）、复测分析员（`Abayomi Odugbesi`）、复测结果（`Fail`）。
+            - Page 3：概括性回顾初始测试调查历程（Recap of Original Investigation）。
+            - Page 4：以清晰小标题 **`RETEST UNDER SUBMISSION ETX-XXXXXXXX-XXXX.`** 正式展开复测的完整叙述（复测操作人员、Suite 115 / BSC E001314 环境、培养第6天浑浊重现、测序同源菌株 *Microbacterium sp. PM5* 确证、前期 ScanRDI 合格原因技术论证等）。
+            - Page 5：归结根本原因（产品固有污染 / 外部因素 External Phenomena）并签署关闭。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

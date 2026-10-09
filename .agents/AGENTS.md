@@ -584,6 +584,24 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - In Word OpenXML, append explicit empty spacing paragraphs `<w:p>` with proper line spacing.
    - Always run pre-delivery cell line-spacing verification before finalizing documents.
 
+### 32. Sterility Investigation Phase 1 vs. Phase 2 Scope Separation Architecture (无菌检测 Phase 1 与 Phase 2 调查范围绝对解耦架构 - 🚨 黄金标杆规范)
+**CRITICAL**: When an OOS sterility investigation involves both an initial test (Original Test) and a retest (Retest) (Reference: `OOS-261987 Uriel Pharmacy P1 & P2 Signed by OA-RS`):
+1. **Master Table Document (`Tables ... DOCX/PDF`)**:
+   - Contains BOTH tests: Table 1 lists both original and retest samples; Table 2 lists original EM; Table 3 lists retest EM. The table contract preserves full transparency across both stages.
+2. **Phase 1 Official Investigation Report (`CORP-FORM-21 / 3.100.019.F01`)**:
+   - **MUST STRICTLY INVESTIGATE THE ORIGINAL TEST ONLY!**
+   - Page 1: Sample ID is ONLY the original test (e.g. `ETX-260902-0505`), test date is ONLY the original test date (`04-Sep-2026`), analysts are ONLY the original analysts (`Alex Saravia` / `Elysse Nioupin`), description of incident covers only initial failure.
+   - Page 2: Equipment is ONLY the original BSC (`ISO 5 BSC E001316`) and Cleanroom (`CR114`).
+   - Page 3..Page 5: Narrative focuses strictly on the initial test operations, reading, preliminary organism identification, initial EM bracketing defense, and ruling out Phase 1 lab error. **NEVER mention retest, retest analyst, or retest sample ID in Phase 1!**
+   - Page 6: Concludes initial test is valid (`Check Box88` = Yes).
+3. **Phase 2 Official Investigation Report (`CORP-FORM-22 / 3.100.019.F02`)**:
+   - Dedicated to the **Retest Investigation**.
+   - Page 1: Records both Original and Retest IDs, Retest Date, Retest Analyst, and Retest Result.
+   - Page 3: Recaps the initial test investigation.
+   - Page 4: Detailed retest narrative under `RETEST UNDER SUBMISSION ETX-XXXXXXXX-XXXX`, comparing kinetics and organism sequencing.
+   - Page 5: Identifies root cause (Product Contamination / External Phenomena) and closes investigation.
+
+
 
 
 
