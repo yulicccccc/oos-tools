@@ -11,12 +11,12 @@ DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of 
 
 # Narrative blocks
 p22 = (
-    "All the analysts involved in the testing - the initial processing analyst (Alex Saravia), the processing analyst who "
-    "performed the retest (Abayomi Odugbesi), the reading analyst who confirmed the initial positive result (Elysse Nioupin), "
-    "and the analyst who prepped and read the retest (Andrew Carrillo) - were interviewed comprehensively. Their answers are "
+    "All the analysts involved in the testing - the initial prepping analyst (Ishita Sharma), the initial processing analyst "
+    "(Alex Saravia), the initial reading analyst (Elysse Nioupin), the retest prepping and reading analyst (Andrew Carrillo), "
+    "and the retest processing analyst (Abayomi Odugbesi) - were interviewed comprehensively. Their answers are "
     "recorded throughout this document.\n\n"
     "INITIAL TEST UNDER SUBMISSION ETX-260902-0505:\n"
-    "All analysts involved in the prepping, processing, and reading of the initial sample – Alex Saravia and Elysse Nioupin – "
+    "All analysts involved in the prepping, processing, and reading of the initial sample – Ishita Sharma, Alex Saravia, and Elysse Nioupin – "
     "were interviewed comprehensively. Upon arrival, the sample was stored in accordance with the Client’s instructions. "
     "Analysts verified the integrity of the sample throughout both preparation and processing stages. No leaks or turbidity were "
     "observed at any point, verifying sample integrity. All reagents and supplies mentioned in the material section above were "
@@ -36,12 +36,12 @@ p22 = (
 p23 = (
     "On 04 Sep 2026, the sample vials for ETX-260902-0505 were received from Sample Submissions and brought into the Sterile "
     "Microbiology lab following multi-stage disinfection with acidified bleach (minimum 10-minute contact time at each transfer "
-    "boundary). In ISO 5 BSC E001316, the containers were aseptically opened, and membrane filtration was performed (3 vials filtered) "
-    "as per MICRO-SOP-5. Media bottles were transferred into designated incubators E001356 and E001357. On 10 Sep 2026 (Day 6 of incubation), "
-    "microbial growth was observed in 1 x 100mL TSB media bottle by analyst Elysse Nioupin and confirmed by supervisor Robin Seymour. "
-    "The positive TSB bottle was submitted for Differential Staining and Microbial Identification under ETX-260910-0290, which definitively "
-    "identified the isolate as Microbacterium sp. PM5 (Gram-positive rods). All concurrent negative controls for the membrane filtration "
-    "method remained sterile (no growth).\n\n"
+    "boundary). In ISO 5 BSC E001316, the containers were aseptically opened, and membrane filtration was performed (45 gm filtered "
+    "per media across 3 vials) as per MICRO-SOP-5. Media bottles were transferred into designated incubators E001356 and E001357. On "
+    "10 Sep 2026 (Day 6 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Elysse Nioupin and confirmed "
+    "by supervisor Robin Seymour. The positive TSB bottle was submitted for Differential Staining and Microbial Identification under "
+    "ETX-260910-0290, which definitively identified the isolate as Microbacterium sp. PM5 (Gram-positive rods). All concurrent negative "
+    "controls for the membrane filtration method remained sterile (no growth).\n\n"
     "Upon analyzing environmental monitoring results, no microbial growth was detected on operator personnel fingertip touch plates, "
     "settling plates, or ISO 5 BSC surface contact plates on the date of testing (04 Sep 2026), the date before (03 Sep 2026), or the "
     "subsequent testing date (08 Sep 2026). Weekly active air monitoring of ISO 8 Room 114 recovered 2 CFUs (ETX-260914-0487, identified as "
@@ -106,9 +106,9 @@ data = {
     "smart_original_result_str": "Fail",
     "smart_retest_personnel_block": (
         "Prepping Analyst:\n"
-        "Alex Saravia (ES), Andrew Carrillo (AC)\n\n"
+        "Ishita Sharma (IS), Andrew Carrillo (AC)\n\n"
         "Processing Analyst:\n"
-        "Alex Saravia (ES), Abayomi Odugbesi (AOD)\n\n"
+        "Alex Saravia (AS), Abayomi Odugbesi (AOD)\n\n"
         "Reading Analyst:\n"
         "Elysse Nioupin (EN), Andrew Carrillo (AC)"
     ),

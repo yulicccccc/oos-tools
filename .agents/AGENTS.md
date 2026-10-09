@@ -601,6 +601,20 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - Page 4: Detailed retest narrative under `RETEST UNDER SUBMISSION ETX-XXXXXXXX-XXXX`, comparing kinetics and organism sequencing.
    - Page 5: Identifies root cause (Product Contamination / External Phenomena) and closes investigation.
 
+### 33. EagleTrax Benchmark Extraction & Raw Bench Operator Ground Truth Rule (EagleTrax 原始凭证穿透与实验台账真实操作人校准规范 - 🚨 永久铁律)
+**CRITICAL**: In sterility OOS investigations (such as `OOS-262098` / `ETX-260902-0505`):
+1. **Raw Bench Operator Penetration (前置台账真实人员穿透提取)**:
+   - Always extract exact bench operators and timestamps from EagleTrax `#EventHistory` and logbooks.
+   - For `ETX-260902-0505`: Prepping Analyst is `isharma` (**Ishita Sharma, IS**) on 03Sep26 20:48; Processing Analyst is `asaravia` (**Alex Saravia, AS**) on 04Sep26 22:33; Reading Analysts are `enioupin` (**Elysse Nioupin, EN**) and `acarrillo` (**Andrew Carrillo, AC**).
+   - In Form 1 (`CORP-FORM-21`), Section A, narratives, and interviews, always specify:
+     - `Prepping Analyst: Ishita Sharma (IS)`
+     - `Processing Analyst: Alex Saravia (AS)`
+     - `Reading Analyst: Elysse Nioupin (EN)`
+2. **Sample Filtration Quantity Calibration (样品过滤量真实规格校准)**:
+   - Extract exact filtration volume from Worksheets: `45 gm added per media` across `3 vials` (each container 30 mL/gm, 90 gm total batch, 45 gm filtered into FTM, 45 gm filtered into TSB). State this explicitly in narrative paragraph 8.
+3. **Consumables Traceability (耗材系统批号无缝闭环)**:
+   - Accurately map FTM Lot `2567320` (Exp `12/16/2026`), TSB Lot `2548010` (Exp `04/19/2027`), and Fluid D Lot `685561` (Exp `10/31/2026`).
+
 
 
 

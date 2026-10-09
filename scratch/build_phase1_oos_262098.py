@@ -30,10 +30,10 @@ ORIG_PROCESS_DATE_SHORT = "04Sep26"
 ORIG_READ_DATE = "10-Sep-2026"
 ORIG_READ_DATE_SHORT = "10Sep26"
 
-ORIG_PREPPER = "Alex Saravia"
-ORIG_PREPPER_INIT = "ES"
+ORIG_PREPPER = "Ishita Sharma"
+ORIG_PREPPER_INIT = "IS"
 ORIG_PROCESSOR = "Alex Saravia"
-ORIG_PROCESSOR_INIT = "ES"
+ORIG_PROCESSOR_INIT = "AS"
 ORIG_READER = "Elysse Nioupin"
 ORIG_READER_INIT = "EN"
 
@@ -49,12 +49,12 @@ CR_CAL_DUE = "Jan 2027"
 
 # --- PAGE 3 (Text Field 49) ---
 p1 = (
-    "All analysts involved in the prepping, processing, and reading of the sample – Alex Saravia and Elysse Nioupin – "
+    "All analysts involved in the prepping, processing, and reading of the sample – Ishita Sharma, Alex Saravia, and Elysse Nioupin – "
     "were interviewed comprehensively. Their answers are recorded throughout this document."
 )
 
 p2 = (
-    "Upon arrival, the sample was stored in accordance with the Client’s instructions. Analyst Alex Saravia verified the "
+    "Upon arrival, the sample was stored in accordance with the Client’s instructions. Analysts verified the "
     "integrity of the sample throughout both the preparation and processing stages. No leaks or turbidity were observed at "
     "any point, verifying the integrity of the sample."
 )
@@ -95,8 +95,8 @@ p7 = (
 
 p8 = (
     "Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then dispensed "
-    "directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration. The sample was processed and tested "
-    "as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation."
+    "directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration (45 gm filtered per media across 3 vials). "
+    "The sample was processed and tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation."
 )
 
 p9 = (
@@ -199,7 +199,7 @@ def build_master_word_doc():
         "sop_rev": "19",
         "method_suitability": "N/A",
         "method_performed": "Membrane Filtration",
-        "amount_filtered": "3 vials",
+        "amount_filtered": "45 gm added per media (3 vials)",
         "process_date": ORIG_PROCESS_DATE_SHORT,
         "process_date_full": ORIG_PROCESS_DATE,
         "before_test": "03Sep26",
@@ -215,6 +215,8 @@ def build_master_word_doc():
         "prepper_name": ORIG_PREPPER,
         "analyst_initial": ORIG_PROCESSOR_INIT,
         "analyst_name": ORIG_PROCESSOR,
+        "subculture_name": "",
+        "subculture_initial": "",
         "reading_initial": ORIG_READER_INIT,
         "reading_name": ORIG_READER,
         "writer_name": "Qiyue Chen",
@@ -229,7 +231,7 @@ def build_master_word_doc():
         "monthly_cleaning_date": "30Aug26",
         "monthly_cleaning_date_full": "30 Aug 2026",
         "smart_phase1_summary": smart_full,
-        "smart_comment_interview": f"Yes, analysts {ORIG_PROCESSOR} and {ORIG_READER} were comprehensively interviewed.",
+        "smart_comment_interview": f"Yes, analysts {ORIG_PREPPER}, {ORIG_PROCESSOR}, and {ORIG_READER} were comprehensively interviewed.",
         "smart_comment_samples": f"Yes, sample ID: {ORIG_SAMPLE_ID}",
         "smart_comment_records": f"Yes, information is available on EagleTrax under {ORIG_SAMPLE_ID}",
         "smart_comment_storage": f"Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under {ORIG_SAMPLE_ID}",
@@ -246,6 +248,47 @@ def build_master_word_doc():
     
     tpl.render(data_docx)
     
+    # Clean up static artifacts in rendered Table 0
+    t0 = tpl.docx.tables[0]
+    def set_clean_cell_text(cell, text, font_size_pt=9):
+        cell.text = text
+        for p in cell.paragraphs:
+            for r in p.runs:
+                r.font.name = "Times New Roman"
+                r.font.size = Pt(font_size_pt)
+
+    for row in t0.rows:
+        for cell in row.cells:
+            if "Subculture Processor:" in cell.text:
+                set_clean_cell_text(
+                    cell,
+                    f"Prepper: \n{ORIG_PREPPER} ({ORIG_PREPPER_INIT})\n\n"
+                    f"Processor:\n{ORIG_PROCESSOR} ({ORIG_PROCESSOR_INIT})\n\n"
+                    f"Reading Analyst:\n{ORIG_READER} ({ORIG_READER_INIT})",
+                    font_size_pt=8
+                )
+            if "were interviewed comprehensively" in cell.text and ", ," in cell.text:
+                set_clean_cell_text(cell, f"Yes, analysts {ORIG_PREPPER}, {ORIG_PROCESSOR}, and {ORIG_READER} were interviewed comprehensively.", font_size_pt=8)
+
+    set_clean_cell_text(t0.rows[29].cells[11], "Dec 2026", font_size_pt=9)
+    set_clean_cell_text(t0.rows[30].cells[11], "Jan 2027", font_size_pt=9)
+    set_clean_cell_text(
+        t0.rows[36].cells[6],
+        "Incubator E001356 (Sensor E001450)\n\n"
+        "Incubator E001357 (Sensor E001449)\n\n"
+        "Incubator E001034 (Sensor E001501)\n\n"
+        "Incubator E001031 (Sensor E001505)",
+        font_size_pt=8
+    )
+    set_clean_cell_text(
+        t0.rows[36].cells[11],
+        "Jan 2027 / Feb 2027\n\n"
+        "Jan 2027 / Feb 2027\n\n"
+        "Aug 2027 / Feb 2027\n\n"
+        "Aug 2027 / Feb 2027",
+        font_size_pt=8
+    )
+
     # Insert clean tables from master standalone tables document
     standalone_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
     if os.path.exists(standalone_docx):
@@ -322,7 +365,7 @@ def build_official_pdf_form():
         'Text Field11': "Pass/Fail",
         'Text Field12': "Kathan Parikh",
         'Date Field3': ORIG_READ_DATE,
-        'Text Field13': f"Yes, analysts {ORIG_PROCESSOR} and {ORIG_READER} were comprehensively interviewed.",
+        'Text Field13': f"Yes, analysts {ORIG_PREPPER}, {ORIG_PROCESSOR}, and {ORIG_READER} were comprehensively interviewed.",
         'Text Field14': f"Yes, sample ID: {ORIG_SAMPLE_ID}",
         'Text Field15': "Yes, as per MICRO-SOP-5",
         'Text Field16': "Yes, as per MICRO-SOP-5",

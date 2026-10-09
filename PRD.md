@@ -356,6 +356,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - Page 3：概括性回顾初始测试调查历程（Recap of Original Investigation）。
             - Page 4：以清晰小标题 **`RETEST UNDER SUBMISSION ETX-XXXXXXXX-XXXX.`** 正式展开复测的完整叙述（复测操作人员、Suite 115 / BSC E001314 环境、培养第6天浑浊重现、测序同源菌株 *Microbacterium sp. PM5* 确证、前期 ScanRDI 合格原因技术论证等）。
             - Page 5：归结根本原因（产品固有污染 / 外部因素 External Phenomena）并签署关闭。
+    44. *EagleTrax Benchmark Extraction & Bench Operator Ground Truth Alignment (EagleTrax 原始凭证穿透与实验台账真实操作人校准规范 - 🚨 永久铁律):*
+        *   **1. 实验台账真实操作人穿透提取 (Raw Bench Operator Penetration):**
+            - 在无菌检测调查中，前置准备（Sample Prep）、过滤接种（Sample Analysis / Processing）与培养读数（Daily Reads）往往由不同人员分工操作。
+            - 必须严格穿透 EagleTrax `#EventHistory` 与台账记录核查真实人员与时间戳：如 `ETX-260902-0505` 中，前置准备由 `isharma`（**Ishita Sharma, IS**）于 03Sep26 20:48 完成，主处理由 `asaravia`（**Alex Saravia, AS**）于 04Sep26 22:33 完成，读数由 `enioupin`（**Elysse Nioupin, EN**）与 `acarrillo`（**Andrew Carrillo, AC**）执行。
+            - 严禁将处理分析员（Alex Saravia）盲目套用为前置准备人。在表单与叙述中必须完整体现：Prepping Analyst: Ishita Sharma (IS)；Processing Analyst: Alex Saravia (AS)；Reading Analyst: Elysse Nioupin (EN)。
+        *   **2. 样品取样量与过滤介质真实规格校准 (Sample Quantity & Membrane Filtration Alignment):**
+            - 严格穿透 Worksheets 提取过滤总量与容器规格：如 `45 gm added per media` across `3 vials`（每瓶 30 mL/gm，共 3 瓶 90 gm，分别过滤 45 gm 至 FTM 与 45 gm 至 TSB），必须在 Section A、叙述第 8 段及材料说明中精准表述，杜绝笼统或模糊数字。
+        *   **3. 耗材批号与系统附件无缝闭环 (Consumables & System Documents Audit):**
+            - 真实耗材（FTM Lot 2567320 Exp 12/16/2026, TSB Lot 2548010 Exp 04/19/2027, Fluid D Lot 685561 Exp 10/31/2026）必须在 EagleTrax 耗材系统与调查卷宗中保持绝对一致。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
