@@ -50,10 +50,9 @@ CHANGEOVER_ANALYST = "Muralidhar Bythatagari"
 CHANGEOVER_INITIAL = "MRB"
 CHANGEOVER_BSC = "1937"
 
-# Default placeholders to be updated upon user confirmation
-READING_ANALYST = "[Pending]"
-EVENT_COUNT = "[Pending]"
-CONFIRMED_COUNT = "[Pending]"
+READING_ANALYST = "Muralidhar Bythatagari"
+EVENT_COUNT = "362"
+CONFIRMED_COUNT = "90"
 MORPHOLOGY = "Curved rod-shaped morphology"
 
 # -------------------------------------------------------------
@@ -127,11 +126,13 @@ def build_standalone_tables_doc(
     surf_obs="No Growth",
     sett_obs="No Growth",
     air_date="25Sep26",
+    air_analyst="SMO",
     air_obs="No Growth",
     air_etx="Not Applicable",
     air_id="Not Applicable",
     air_url=None,
-    room_date="25Sep26",
+    room_date="22Sep26",
+    room_analyst="SMO",
     room_obs="No Growth",
     room_etx="Not Applicable",
     room_id="Not Applicable",
@@ -285,11 +286,11 @@ def build_standalone_tables_doc(
 
     # --- Section 3: Weekly Active Air ---
     add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", air_date, "[TBD]", "Week of Testing", air_obs, air_etx, air_id, "None", etx_url=air_url)
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", air_date, air_analyst, "Week of Testing", air_obs, air_etx, air_id, "None", etx_url=air_url)
 
     # --- Section 4: Weekly Surface ---
     add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
-    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", room_date, "[TBD]", "Week of Testing", room_obs, room_etx, room_id, "None", etx_url=room_url)
+    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", room_date, room_analyst, "Week of Testing", room_obs, room_etx, room_id, "None", etx_url=room_url)
 
     for row in t2.rows:
         if len(row.cells) == 9:
