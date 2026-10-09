@@ -288,16 +288,18 @@ def build_standalone_tables_doc(
     add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
     add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (115 ISO8)", "ETX-261005-0773", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
 
-    # --- Section 4: Weekly Active Air L-Suite (CR144) ---
-    add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom 144 - CR1978 (L-Suite) with Changeover BSC for {TEST_DATE}")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    # --- Section 4: Weekly Active Air L-Suite ---
+    add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "6 CFUs (ISO 8 143 Sec I)", "ETX-260929-0335", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/7WzH$G448Nqj9L-Q_7oXvg__")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "8 CFUs (ISO 8 143 Sec II)", "ETX-260929-0341", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/gKex8LPhpMsQyRuqi%24ua4g__")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "2 CFUs (ISO 8 142)", "ETX-260929-0344", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/iCnj0gFFyEtIFNZbfpq5qg__")
 
     # --- Section 5: Weekly Surface Suite 116 ---
     add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
     add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
-    # --- Section 6: Weekly Surface L-Suite (CR144) ---
-    add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom 144 - CR1978 (L-Suite) with Changeover BSC for {TEST_DATE}")
+    # --- Section 6: Weekly Surface L-Suite ---
+    add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")
     add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     for row in t2.rows:
