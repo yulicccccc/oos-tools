@@ -322,6 +322,13 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 在 `python-docx` / OpenXML 底层构建单元格时，不能仅依赖可能被 Word 渲染引擎折叠的微小行高（如 `line="80"`），必须插入带有合适行距的独立空白段落 `<w:p>`，确保在 Word 和 Adobe Acrobat 中视觉上清晰可见整行空白高度。
         *   **4. 交付前自动审计闸门 (Pre-Delivery Table Line-Spacing Audit Gate):**
             - 任何脚本在交付表格前，必须执行单元格行距自检：扫描所有文本包含多行的单元格，确认非空行之间必须存在空白行间隔，杜绝任何人眼找茬被抓现行。
+    41. *Universal Microbial Binomial Nomenclature Italicization Standard & End-to-End Autonomous Table 1 & 2 Generation Across All OOS Modules (全 OOS 模块微生物拉丁学名绝对强制斜体与全流程台账表格生成规范 - 🚨 永久铁律):*
+        *   **1. 拉丁双名法微生物名称绝对强制斜体 (Mandatory Binomial Italicization):**
+            - 在所有 OOS 调查报告的表格（Table 1, Table 2, Table 3）及正文叙述中，凡出现微生物属名和种名（如 *Micrococcus luteus*、*Staphylococcus capitis*、*Corynebacterium ureicelerivorans*、*Moraxella osloensis*、*Kocuria rhizophila*、*Curvularia sorghina*、*Staphylococcus hominis*、*Staphylococcus saprophyticus*、*Scolecobasidium mirabile* 等），**必须严格设置为斜体 (`italic = True` / `*Genus species*`)**！
+            - 染色描述与形态学分类词（如 `Gram (+) short rods`、`Gram (+) cocci`、`Gram (-) coccobacilli`、`Hyphae`、`sp.`、`ATCC 6931` 等）保持正体。
+        *   **2. 全模块端到端独立 Table 1 & Table 2 自动化生成生态 (Universal Standalone Tables Capability):**
+            - 覆盖所有 OOS 模块（`ScanRDI`、`Celsis`、`USP <71>`、`EM`），AI 具备穿透 EagleTrax 自动化查询、清点 6 大纸质台账扫描件、提取活菌染色与鉴定、并直接生成完美适配**单页（Page 1 of 1）**独立 Word (`.docx`) 及 PDF 表格交付物的完整闭环能力。
+            - 洁净室周检多点检出（如 L-Suite 3 处检出）严格遵循单行合并单元格规范，通过精准 `space_before` 调优，实现检出点、原生交互超链接与斜体菌株列表在横向基线上的绝对 1:1 对齐。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
