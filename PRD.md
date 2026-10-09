@@ -365,6 +365,19 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 严格穿透 Worksheets 提取过滤总量与容器规格：如 `45 gm added per media` across `3 vials`（每瓶 30 mL/gm，共 3 瓶 90 gm，分别过滤 45 gm 至 FTM 与 45 gm 至 TSB），必须在 Section A、叙述第 8 段及材料说明中精准表述，杜绝笼统或模糊数字。
         *   **3. 耗材批号与系统附件无缝闭环 (Consumables & System Documents Audit):**
             - 真实耗材（FTM Lot 2567320 Exp 12/16/2026, TSB Lot 2548010 Exp 04/19/2027, Fluid D Lot 685561 Exp 10/31/2026）必须在 EagleTrax 耗材系统与调查卷宗中保持绝对一致。
+    45. *Rapid ScanRDI Negative vs. Multi-Vial USP <71> Positive Discrepancy Reconciliation Standard (ScanRDI 快速检测阴性与 USP <71> 双重阳性矛盾之科学归因与合规抗辩规范 - 🚨 终极质保规范):*
+        *   **🚨 现象本质与科学常识 (Microbiological Ground Truth):** 在无菌制剂批次检验中，看似“离谱”的矛盾（同批次前期 ScanRDI 判定 Pass，而后续送检的初始 USP <71> 与复测 USP <71> 双双判 Fail），在微生物学与 cGMP 调查中具有完全自洽的科学解释：这是无菌药品批次中**低浓度、非均匀分布微生物污染（Heterogeneous, Low-Concentration Bioburden / Discrete Contamination Pockets）**的典型特征！
+        *   **三大合规抗辩支柱 (Three Evidentiary Pillars in Investigation Narrative):**
+            1. **严重抽样不对称性 ($n = 1$ vs $n = 7$ 瓶取样量悬殊):** 
+               - 穿透 EagleTrax 原始凭证（`3.pdf`）：ScanRDI 检测（`ETX-260807-0602`）送检及测试的小瓶数仅为 **1 瓶（`Number of Items in Batch: 1`）**。在极微量非均匀污染的批次中，单瓶抽样有极高概率恰好抽中未受污染的阴性小瓶（0 CFU 活菌事件），因此 Scan 读数 `14/0` 正常判定为合格。
+               - 相比之下，USP <71> 初始测试（`ETX-260902-0505`）抽检了 **3 瓶（90 g）**，复测（`ETX-260914-0470`）抽检了 **4 瓶（120 g）**，两次合计测试了 **7 瓶（210 g）**，极大地提高了捕获小概率污染小瓶的统计学检测灵敏度与样品代表性。
+            2. **方法适用性档案缺失 (`No Method Suitability on file`):**
+               - `3.pdf` 系统明确标注 `Method Suitability: No Method Suitability on file`。ScanRDI FIFU 荧光法未对该复方多肽制剂（Cagrilinitide 5mg/vial, Retatrutide 25mg/vial）进行基质相容性、滤膜洗脱效率与活菌荧光标记回收率的正式验证。
+            3. **瞬时细胞计数 vs. 14 天肉汤指数级增殖放大机理差异:**
+               - ScanRDI 依赖滤膜上细胞微小酶活性的即时荧光检测，对代谢极度迟缓或损伤的微量菌体可能存在检出限阈值。
+               - USP <71> 是 14 天长周期 100 mL 营养肉汤培养（TSB/FTM），即使样品中仅含有 1 个具有活力的休眠态菌体，在连续恒温培养下也会呈对数期几何级数增殖，最终在第 6 天爆发宏观肉眼浑浊。更关键的是，两次独立的 USP <71> 培养物经过 Microgen / 16S rRNA 测序均精准锁定了**完全相同的污染菌种 *Microbacterium sp. PM5***。
+        *   **调查结论合流与反证效应:**
+            - 这一前期 ScanRDI 阴性结果不仅不削弱 OOS 调查，反而提供了关键反证：强有力地证明了批次污染并非高浓度全批次弥散，而是离散低载量分布；同时也排除了生产和取样过程中的宏观灾难性污染，与后续两次独立实验室人员/洁净室测试高度复现的 *Microbacterium sp. PM5* 形成闭环，最终确证根本原因为制剂产品本身的低水平非均匀固有污染。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

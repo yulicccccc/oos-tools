@@ -82,16 +82,18 @@ p24 = (
     "in a different cleanroom suite (Cleanroom Suite 115 vs. Suite 114) and a different prepping/reading analyst (Andrew Carrillo)—conclusively "
     "refutes the preliminary hypothesis of analyst handling error during reconstitution. If the initial recovery had been an isolated artifact "
     "of analyst technique, the identical microorganism (Microbacterium sp. PM5) would not have been recovered on the identical incubation day in the retest.\r \r"
-    "Importantly, the investigation evaluated why the prior rapid ScanRDI sterility test conducted on this lot (ETX-260807-0602) yielded a passing result. "
-    "In compounded parenteral products, microbial contamination is typically characterized by a heterogeneous, non-uniform distribution of microorganisms "
-    "across individual containers, particularly when bioburden is present at very low concentrations. Under such low-level non-uniform contamination, random "
-    "unit sampling naturally results in some vials containing zero viable cells—as occurred with the vials sampled for ScanRDI under ETX-260807-0602—while other "
-    "vials from the same batch harbor low-level viable microorganisms. In addition, no method suitability was on file for ScanRDI with this specific formulation.\r \r"
-    "When low-level viable bioburden was introduced into the 14-day compendial USP <71> membrane filtration enrichment process, the microorganisms were "
-    "successfully enriched and recovered in TSB on Day 6 in both independent testing events (ETX-260902-0505 and ETX-260914-0470), yielding the identical "
-    "isolate (Microbacterium sp. PM5). Therefore, the passing ScanRDI result and the two failing USP <71> results are scientifically consistent with the non-uniform "
-    "distribution of low-concentration microbial bioburden within the compounded lot. Consequently, inherent product contamination in Lot 2608-216 is confirmed. "
-    "The initial failing result for ETX-260902-0505 is confirmed valid, the retest for ETX-260914-0470 is confirmed failing, and Lot 2608-216 fails USP <71> sterility requirements."
+    "Importantly, the investigation evaluated why the prior rapid ScanRDI sterility test conducted on this lot (submission ETX-260807-0602, test record 081326-2017-2) "
+    "yielded a passing result (Count 14/0, Pass). First, per EagleTrax records for ETX-260807-0602, only 1 single container (Number of Items in Batch: 1, 30 mL/gm) "
+    "was submitted and tested via ScanRDI, whereas USP <71> compendial testing analyzed 3 vials (45 gm filtered per media) for initial test ETX-260902-0505 and 4 vials "
+    "for retest ETX-260914-0470. Second, official records confirm that 'No Method Suitability on file' exists for ScanRDI with this specific peptide analyte formulation "
+    "(Cagrilinitide / Retatrutide). Third, in compounded parenteral formulations, microbial contamination at low bioburden levels is well recognized to exhibit a non-uniform, "
+    "heterogeneous distribution across individual batch containers. Under single-vial sampling (n = 1), random chance naturally selects a container devoid of viable cells—as "
+    "occurred with the single vial tested under ETX-260807-0602—whereas multi-container sampling captures vials harboring viable cells. When viable cells were introduced into "
+    "14-day compendial broth enrichment (USP <71> membrane filtration), the organisms were successfully enriched and recovered in TSB on Day 6 in both independent testing events "
+    "(ETX-260902-0505 and ETX-260914-0470), yielding the identical strain (Microbacterium sp. PM5). Therefore, the passing ScanRDI result and the two failing USP <71> compendial "
+    "results are scientifically consistent and attributable to non-uniform distribution of low-concentration microbial bioburden within the compounded lot. Consequently, "
+    "inherent product contamination in Lot 2608-216 is confirmed, the initial failing result for ETX-260902-0505 is valid, retest ETX-260914-0470 is confirmed failing, "
+    "and Lot 2608-216 fails sterility requirements."
 )
 
 p25 = (
@@ -237,7 +239,7 @@ font_sizes = {
     "Text Field23": 9.2,
     
     # Page 4
-    "Text Field24": 8.2,  # Calibrated for comprehensive non-uniform distribution justification
+    "Text Field24": 7.7,  # Calibrated for enriched non-uniform distribution justification
     
     # Page 5
     "Text Field25": 7.5,
