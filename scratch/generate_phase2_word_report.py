@@ -49,15 +49,18 @@ p23 = (
     "physically isolated within the outermost ISO 8 anteroom. Monthly cleaning and disinfection of Suite CR114 was performed on 30 Aug 2026 "
     "per MICRO-SOP-9 with all H2O2 indicators passing. All other samples processed in the same testing session tested negative, ruling out "
     "cross-contamination.\n\n"
-    "During preliminary interview, the processing analyst noted a potential handling discrepancy during the resuspension of the lyophilized "
-    "vials. In addition, the same sample lot (2608-216) had previously been submitted and passed sterility testing via ScanRDI under ETX-260807-0602. "
-    "Based on these initial findings and to investigate whether the positive recovery was attributable to an inadvertent analyst handling error "
-    "during resuspension, a Phase II investigation was initiated, and additional sample vials from the same lot were requested from the client for retesting."
+    "During the initial Phase I investigation, the laboratory conducted an internal review of historical testing for this lot and identified "
+    "that the identical compounded lot (Lot 2608-216) had previously passed rapid sterility testing via ScanRDI under ETX-260807-0602 "
+    "(Test Record 081326-2017-2, Count: 14/0). Additionally, during the analyst interview, the processing analyst noted a potential "
+    "handling discrepancy during the resuspension of the lyophilized vials. Based on the laboratory's discovery of this conflicting prior "
+    "passing ScanRDI result and the potential handling discrepancy, the laboratory initiated a Phase II investigation and requested "
+    "additional sample vials from the client for retesting to evaluate whether the initial positive was an isolated handling artifact.\n\n"
 )
 
 p24 = (
     "PHASE II RETEST UNDER SUBMISSION ETX-260914-0470:\n"
-    "In accordance with Phase II investigation procedures under Form 3.100.019.F02, additional sample vials from lot 2608-216 were submitted "
+    "In accordance with Phase II investigation procedures under Form 3.100.019.F02, following the laboratory's internal identification of the prior "
+    "passing ScanRDI result and initiation of Phase II, additional sample vials from lot 2608-216 were requested from the client and submitted "
     "for retesting under submission ETX-260914-0470.\n\n"
     "The retest sample was prepared by Andrew Carrillo on 14 Sep 2026 and processed by Abayomi Odugbesi on 15 Sep 2026 in accordance with "
     "MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test) via membrane filtration (60 gm filtered across 4 vials). The retest was conducted in certified "
