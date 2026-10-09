@@ -329,6 +329,18 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **2. 全模块端到端独立 Table 1 & Table 2 自动化生成生态 (Universal Standalone Tables Capability):**
             - 覆盖所有 OOS 模块（`ScanRDI`、`Celsis`、`USP <71>`、`EM`），AI 具备穿透 EagleTrax 自动化查询、清点 6 大纸质台账扫描件、提取活菌染色与鉴定、并直接生成完美适配**单页（Page 1 of 1）**独立 Word (`.docx`) 及 PDF 表格交付物的完整闭环能力。
             - 洁净室周检多点检出（如 L-Suite 3 处检出）严格遵循单行合并单元格规范，通过精准 `space_before` 调优，实现检出点、原生交互超链接与斜体菌株列表在横向基线上的绝对 1:1 对齐。
+    42. *OOS Investigation Lifecycle Role Separation & Drafting vs. Review Phase Boundary Standard (调查生命周期角色分离规范：撰写阶段绝对严禁越权填写 Reviewer / Closure 区域 - 🚨 永久铁律):*
+        *   **🚨 角色权限红线背景 (Drafter vs. Reviewer Strict Boundary):** 在 cGMP 质量体系与 ZenQMS 官方调查表单（如 CORP-FORM-21 / 3.100.019.F01）流转中，AI 与调查员在草拟阶段的身份仅为 **“调查撰写人 / 调查员 (Drafter / Investigator)”**，绝对不是审核人或批准人（“我们只是写的人，并没有人 review 了哦”）。严禁越权代填后续审批流专用的审核意见与结案签字！
+        *   **1. 表单第 6 页（Page 6）草拟阶段严格留白规范 (Mandatory Page 6 Blank Fields for Drafting Mode):**
+            - **审核评语栏留白 (`Text Field52: Reviewer comment(s)`):** **必须绝对留空 (`""`)**！严禁预填任何总结性审核评语（如 “The investigation was reviewed and found complete...”），该栏目必须由质保审核人（QA Reviewer / Lab Manager）在正式审批时手填或电子签署。
+            - **质量处置与结案勾选留白 (`Section E Quality Disposition`):** `Check Box90`（Phase I Investigation Closed）、`Check Box91`（Phase I Investigation Not Closed）、`Check Box92`（Phase II Not Required）**必须全部保持未勾选 (`Off`)**！结案处置判定属于管理层审批职权，草拟阶段严禁擅自提前关闭。
+            - **审批签字人打印栏留白 (`Text Field54` & `Text Field55`):** `Prepared by (Print)` (`Text Field53`) 填写实际撰写人（如 `Qiyue Chen`）；而 `Lab Manager/Designee (Print)` (`Text Field54`) 和 `Approved by QA Representative (Print)` (`Text Field55`) **必须严格留空 (`""`)**。
+            - **调查员调查结论勾选 (`Section D`):** 调查员正常勾选 `No, the OOS result is valid.` (`Check Box88: Yes`, `Check Box87: Off`, `Check Box89: Off`)，确认未发现实验失误，原始阳性结果有效。
+        *   **2. ZenQMS 官方下载表单（CORP-FORM-21）转录保护与无缝缝合规范 (Official ZenQMS Transcription Standard):**
+            - **强制版本备份优先原则:** 对用户提供的任何来自 ZenQMS 的官方下载模板（如桌面 `CORP-FORM-21 - P1 - 16 Sep 2026.pdf`），在执行自动化填充前，必须首先在 `.history/` 目录下生成带时间戳的安全副本备份（如 `.history/CORP-FORM-21 - P1 - 16 Sep 2026_backup_YYYYMMDD_HHMMSS.pdf`），严禁直接裸写原文件。
+            - **系统审计底纹与原生页脚绝对保留:** 严禁破坏 ZenQMS 导出的官方审计底脚（如 `Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on 16 Sep 2026 at 19:15 UTC`）。
+            - **表单特定差异化字段精准适配:** 针对 ZenQMS 空白表单特有的可填文本框（如 Page 1 `Text Field1: Scan RDI Sterility Test`），必须精准补全；对易截断的紧凑单元格（如 Page 2 `Text Field32/33` 耗材批号效期），应用精准自适应字号（4.4pt），彻底杜绝 Acrobat `+` 号溢出截断。
+            - **Page 7 台账表格无缝缝合:** 将已生成并通过严谨审计的单页独立表格（Table 1 & Table 2）高保真转换为 PDF，并自动作为 Page 7 无缝缝合至 6 页官方主表之后，形成合规完备的 7 页调查卷宗，随时供用户上传至 ZenQMS。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
