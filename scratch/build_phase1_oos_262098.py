@@ -50,11 +50,12 @@ CR_CAL_DUE = "Jan 2027"
 # --- PAGE 3 (Text Field 49) ---
 p1 = (
     "All analysts involved in the prepping, processing, and reading of the sample – Ishita Sharma, Alex Saravia, and Elysse Nioupin – "
-    "were interviewed comprehensively. Their answers are recorded throughout this document."
+    "were interviewed comprehensively. Their answers are recorded throughout this document. This investigation was performed in accordance "
+    "with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure."
 )
 
 p2 = (
-    "Upon arrival, the sample was stored in accordance with the Client’s instructions. Analysts verified the "
+    "Upon arrival, the sample was stored refrigerated in accordance with the Client’s instructions. Analysts verified the "
     "integrity of the sample throughout both the preparation and processing stages. No leaks or turbidity were observed at "
     "any point, verifying the integrity of the sample."
 )
@@ -75,11 +76,11 @@ p5 = (
     "The ISO 5 Biological Safety Cabinet (BSC) E001316, located in the innermost ISO 7 room (114B), was used for sample processing steps. "
     "It was thoroughly cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
     "Additionally, BSC E001316 was certified and approved by both the Engineering and Quality Assurance teams. Sample processing was conducted "
-    "in the ISO 5 BSC E001316 in the innermost ISO 7 room (114B) by Alex Saravia on 04 Sep 2026 as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
+    "in the ISO 5 BSC E001316 in the innermost ISO 7 room (114B) by Alex Saravia on 04Sep26 as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
 p6 = (
-    "On 04 Sep 2026, the sample vials for ETX-260902-0505 were received from the Sample Submissions team and brought into the Sterile Microbiology lab. "
+    "On 04Sep26, the sample vials for ETX-260902-0505 were received from the Sample Submissions team and brought into the Sterile Microbiology lab. "
     "Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time."
 )
 
@@ -100,7 +101,7 @@ p8 = (
 )
 
 p9 = (
-    "On 10 Sep 2026 (Day 6 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by analyst, Elysse Nioupin, "
+    "On 10Sep26 (Day 6 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by analyst, Elysse Nioupin, "
     "and confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for ETX-260902-0505 was submitted for Differential Staining "
     "and Microbial Identification under ETX-260910-0290. Differential staining indicated the presence of Gram-positive rods. Definitive identification "
     "identified the isolate as Microbacterium sp. PM5 (Gram-positive rods)."
@@ -152,7 +153,7 @@ p16 = (
 
 p17 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing "
-    "ISO 5 BSCs for Cleanroom suite CR114 was performed on 30 Aug 2026, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
+    "ISO 5 BSCs for Cleanroom suite CR114 was performed on 30Aug26, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
     "During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR114."
 )
 
@@ -426,7 +427,8 @@ def build_official_pdf_form():
         # Page 6
         'Text Field52': "",
         'Text Field53': "Qiyue Chen",
-        'Text Field54': "Robin Seymour"
+        'Text Field54': "",
+        'Text Field55': ""
     }
     
     # Checkbox state matching OOS-261987 P1
@@ -525,12 +527,18 @@ def build_official_pdf_form():
         writer.write(f)
     print("Master PDF saved to Documents:", out_pdf_docs)
     
-    try:
-        with open(out_pdf_desktop, "wb") as f:
-            writer.write(f)
-        print("Master PDF saved to Desktop:", out_pdf_desktop)
-    except Exception as e:
-        print("Desktop PDF copy note:", e)
+    for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+        dest_pdf = os.path.join(dest_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
+        try:
+            shutil.copy2(out_pdf_docs, dest_pdf)
+            print("Master PDF saved to:", dest_pdf)
+        except Exception as e:
+            print("Desktop PDF copy note:", e)
+        for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf"]:
+            try:
+                shutil.copy2(out_pdf_docs, os.path.join(dest_dir, alias))
+            except Exception:
+                pass
 
 if __name__ == "__main__":
     print("=== Building Corrected Phase 1 Deliverables for OOS-262098 (Original Test Only) ===")

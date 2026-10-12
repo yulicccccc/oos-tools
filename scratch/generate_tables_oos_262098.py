@@ -365,13 +365,15 @@ set_table1_microbial_id_cell(cells_r2[5], "Microbacterium sp. PM5", "(Gram (+) s
 
 # 2. Finalize Table 2 (04Sep26 Processing)
 t2_rendered = doc_rendered.tables[1]
-set_cell_clean_text(t2_rendered.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing - ISO 5 BSC E001316 (Suite 114)", font_size_pt=7, bold=True)
-set_cell_clean_text(t2_rendered.rows[12].cells[0], "Weekly Active Air Sampling Bracketing (Suite 114)", font_size_pt=7, bold=True)
-set_cell_clean_text(t2_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanrooms Bracketing (Suite 114)", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[1].cells[0], "Personnel EM", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[5].cells[0], "Biological Safety Cabinet EM for E001316", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[12].cells[0], "Weekly Active Air Sampling of Cleanroom Suite 114 (E001736) with Processing BSC", font_size_pt=7, bold=True)
+set_cell_clean_text(t2_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanroom Suite 114 (E001736) with Processing BSC", font_size_pt=7, bold=True)
 
 # Row 13: Weekly Active Air
 set_cell_clean_text(t2_rendered.rows[13].cells[3], "04Sep26", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[13].cells[4], "ISS", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[13].cells[6], "Week of Testing", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[13].cells[8], "2 CFUs\n(ISO 8 114)", font_size_pt=7)
 add_hyperlink_to_cell(t2_rendered.rows[13].cells[9], URL_0487, "ETX-260914-0487", font_size_pt=7)
 set_dual_microbial_id_cell(t2_rendered.rows[13].cells[10], "Corynebacterium ureicelerivorans", "Mycobacterium grossiae", font_size_pt=6.5)
@@ -379,6 +381,7 @@ set_dual_microbial_id_cell(t2_rendered.rows[13].cells[10], "Corynebacterium urei
 # Row 15: Weekly Surface
 set_cell_clean_text(t2_rendered.rows[15].cells[3], "04Sep26", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[15].cells[4], "ISS", font_size_pt=7)
+set_cell_clean_text(t2_rendered.rows[15].cells[6], "Week of Testing", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[15].cells[8], "No growth", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[15].cells[9], "N/A", font_size_pt=7)
 set_cell_clean_text(t2_rendered.rows[15].cells[10], "N/A", font_size_pt=7)
@@ -425,9 +428,10 @@ p_t3._p.getparent().replace(p_t3._p, parse_xml(p_t3_xml))
 # Append Table 3
 doc_rendered._body._body.append(t3_tbl)
 t3_rendered = doc_rendered.tables[2]
-set_cell_clean_text(t3_rendered.rows[5].cells[0], "Biological Safety Cabinet EM Bracketing - ISO 5 BSC E001314 (Suite 115)", font_size_pt=7, bold=True)
-set_cell_clean_text(t3_rendered.rows[12].cells[0], "Weekly Active Air Sampling Bracketing (Suite 115)", font_size_pt=7, bold=True)
-set_cell_clean_text(t3_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanrooms Bracketing (Suite 115)", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[1].cells[0], "Personnel EM", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[5].cells[0], "Biological Safety Cabinet EM for E001314", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[12].cells[0], "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC", font_size_pt=7, bold=True)
+set_cell_clean_text(t3_rendered.rows[14].cells[0], "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC", font_size_pt=7, bold=True)
 
 # Populate Table 3 for 15Sep26 processing by AOD in BSC 1314 (Cleanroom Suite 115)
 # Rows:

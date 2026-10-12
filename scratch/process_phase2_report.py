@@ -14,10 +14,11 @@ p22 = (
     "All the analysts involved in the testing - the initial prepping analyst (Ishita Sharma), the initial processing analyst "
     "(Alex Saravia), the initial reading analyst (Elysse Nioupin), the retest prepping and reading analyst (Andrew Carrillo), "
     "and the retest processing analyst (Abayomi Odugbesi) - were interviewed comprehensively. Their answers are recorded "
-    "throughout this document.\r \r"
+    "throughout this document. This investigation was performed in accordance with MICRO-SOP-53, Sterility Test "
+    "Out-of-Specification Investigation Procedure.\r \r"
     "INITIAL TEST UNDER SUBMISSION ETX-260902-0505:\r"
     "All analysts involved in the prepping, processing, and reading of the initial sample – Ishita Sharma, Alex Saravia, and Elysse Nioupin – "
-    "were interviewed comprehensively. Upon arrival, the sample was stored in accordance with the Client’s instructions. "
+    "were interviewed comprehensively. Upon arrival, the sample was stored refrigerated in accordance with the Client’s instructions. "
     "Analysts verified the integrity of the sample throughout both preparation and processing stages. No leaks or turbidity were "
     "observed at any point, verifying sample integrity. All reagents and supplies mentioned in the material section above were "
     "stored according to the suppliers’ recommendations, and their integrity was visually verified before utilization. Moreover, "
@@ -30,23 +31,23 @@ p22 = (
     "thoroughly cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 (Cleaning and Disinfecting Procedure "
     "for Microbiology). Additionally, BSC E001316 was certified and approved by both the Engineering and Quality Assurance teams. "
     "Initial sample processing was conducted in the ISO 5 BSC E001316 in the innermost ISO 7 room, (114B) by Alex Saravia on "
-    "04 Sep 2026 as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
+    "04Sep26 as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
 p23 = (
-    "On 04 Sep 2026, the sample vials for ETX-260902-0505 were received from Sample Submissions and brought into the Sterile "
+    "On 04Sep26, the sample vials for ETX-260902-0505 were received from Sample Submissions and brought into the Sterile "
     "Microbiology lab following multi-stage disinfection with acidified bleach (minimum 10-minute contact time at each transfer "
     "boundary). In ISO 5 BSC E001316, the containers were aseptically opened, and membrane filtration was performed (45 gm filtered "
     "per media across 3 vials) as per MICRO-SOP-5. Media bottles were transferred into designated incubators E001356 and E001357. On "
-    "10 Sep 2026 (Day 6 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Elysse Nioupin and confirmed "
+    "10Sep26 (Day 6 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Elysse Nioupin and confirmed "
     "by supervisor Robin Seymour. The positive TSB bottle was submitted for Differential Staining and Microbial Identification under "
     "ETX-260910-0290, which definitively identified the isolate as Microbacterium sp. PM5 (Gram-positive rods). All concurrent negative "
     "controls for the membrane filtration method remained sterile (no growth).\r \r"
     "Upon analyzing environmental monitoring results, no microbial growth was detected on operator personnel fingertip touch plates, "
-    "settling plates, or ISO 5 BSC surface contact plates on the date of testing (04 Sep 2026), the date before (03 Sep 2026), or the "
-    "subsequent testing date (08 Sep 2026). Weekly active air monitoring of ISO 8 Room 114 recovered 2 CFUs (ETX-260914-0487, identified as "
+    "settling plates, or ISO 5 BSC surface contact plates on the date of testing (04Sep26), the date before (03Sep26), or the "
+    "subsequent testing date (08Sep26). Weekly active air monitoring of ISO 8 Room 114 recovered 2 CFUs (ETX-260914-0487, identified as "
     "Corynebacterium ureicelerivorans and Mycobacterium grossiae), which differed in morphology and genus from the sample isolate and was "
-    "physically isolated within the outermost ISO 8 anteroom. Monthly cleaning and disinfection of Suite CR114 was performed on 30 Aug 2026 "
+    "physically isolated within the outermost ISO 8 anteroom. Monthly cleaning and disinfection of Suite CR114 was performed on 30Aug26 "
     "per MICRO-SOP-9 with all H2O2 indicators passing. All other samples processed in the same testing session tested negative, ruling out "
     "cross-contamination.\r \r"
     "During the initial Phase I investigation, the laboratory conducted an internal review of historical testing for this lot and identified "
@@ -54,7 +55,7 @@ p23 = (
     "(Test Record 081326-2017-2, Count: 14/0). Additionally, during the analyst interview, the processing analyst noted a potential "
     "handling discrepancy during the resuspension of the lyophilized vials. Based on the laboratory's discovery of this conflicting prior "
     "passing ScanRDI result and the potential handling discrepancy, the laboratory initiated a Phase II investigation and requested "
-    "additional sample vials from the client for retesting to evaluate whether the initial positive was an isolated handling artifact.\r \r"
+    "additional sample vials from the client for retesting to evaluate whether the initial positive was an isolated handling artifact."
 )
 
 p24 = (
@@ -62,24 +63,24 @@ p24 = (
     "In accordance with Phase II investigation procedures under Form 3.100.019.F02, following the laboratory's internal identification of the prior "
     "passing ScanRDI result and initiation of Phase II, additional sample vials from lot 2608-216 were requested from the client and submitted "
     "for retesting under submission ETX-260914-0470.\r \r"
-    "The retest sample was prepared by Andrew Carrillo on 14 Sep 2026 and processed by Abayomi Odugbesi on 15 Sep 2026 in accordance with "
+    "The retest sample was prepared by Andrew Carrillo on 14Sep26 and processed by Abayomi Odugbesi on 15Sep26 in accordance with "
     "MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test) via membrane filtration (60 gm filtered across 4 vials). The retest was conducted in certified "
     "ISO 5 BSC E001314 within Cleanroom Suite 115 following standard multi-barrier disinfection and strict aseptic technique. All culture media "
     "(FTM Lot 2567320, TSB Lot 2567280) and reagents (Fluid D Lot 687774, Bacteriostatic Water Lot NM7681) were within valid expiration dates. "
     "Media bottles were incubated in designated incubators E001356 and E001357. Negative controls were handled concurrently and remained sterile.\r \r"
-    "On 21 Sep 2026 (Day 06 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Andrew Carrillo and confirmed "
+    "On 21Sep26 (Day 06 of incubation), microbial growth was observed in 1 x 100mL TSB media bottle by analyst Andrew Carrillo and confirmed "
     "by supervisor Robin Seymour. The positive bottle was submitted for Microbial Identification under ETX-260921-0498. Confirmatory identification "
     "definitively identified the isolate as Microbacterium sp. PM5 (Gram-positive short rods), matching the identical species and strain designation (PM5), "
     "morphology (white shiny lawn growth), media selection (TSB), and incubation kinetics (Day 6) of the initial failure under ETX-260902-0505 "
-    "(ETX-260910-0290). All other samples processed in the batch on 15 Sep 2026 tested negative.\r \r"
-    "Upon analyzing environmental monitoring results for the retest processing on 15 Sep 2026, no microbial growth was detected on operator personnel "
-    "fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates on the date of testing (15 Sep 2026), the preceding testing date (14 Sep 2026), "
-    "or the subsequent testing date (16 Sep 2026). Weekly active surface monitoring of Cleanroom Suite 115 showed no growth; weekly active air sampling in "
+    "(ETX-260910-0290). All other samples processed in the batch on 15Sep26 tested negative.\r \r"
+    "Upon analyzing environmental monitoring results for the retest processing on 15Sep26, no microbial growth was detected on operator personnel "
+    "fingertip touch plates, settling plates, or ISO 5 BSC surface contact plates on the date of testing (15Sep26), the preceding testing date (14Sep26), "
+    "or the subsequent testing date (16Sep26). Weekly active surface monitoring of Cleanroom Suite 115 showed no growth; weekly active air sampling in "
     "the outermost ISO 8 cleanroom 115 recovered 9 CFUs (ETX-260923-0402), identified as Kocuria indica, Brevibacterium sp. CS2, Corynebacterium sp, Micrococcus luteus, "
     "Paracoccus yeei, Staphylococcus hominis, and Kocuria rhizophila. 100% of these environmental isolates differed distinctly in genus and morphology from the product "
     "contamination isolate (Microbacterium sp. PM5). The ISO 5 critical zones in BSC E001314 remained completely sterile (0 CFU) and in optimal control throughout testing, "
     "with positive pressure cascades preventing anteroom air ingress. (Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing "
-    "performed on 04 Sep 2026, and Table 3 for environmental monitoring from processing performed on 15 Sep 2026).\r \r"
+    "performed on 04Sep26, and Table 3 for environmental monitoring from processing performed on 15Sep26).\r \r"
     "EVALUATION OF RETEST FINDINGS & JUSTIFICATION OF PRIOR SCANRDI RESULT:\r"
     "The successful replication of microbial recovery in the independent retest—conducted by a different processing analyst (Abayomi Odugbesi) "
     "in a different cleanroom suite (Cleanroom Suite 115 vs. Suite 114) and a different prepping/reading analyst (Andrew Carrillo)—conclusively "
@@ -159,12 +160,12 @@ pdf_map = {
     "Text Field30": "262098",
     
     # Page 2
-    "Check Box32": "/Yes",
-    "Check Box35": "/Yes",
-    "Check Box38": "/Yes",  # N/A for processing method set per Tahsin guidance
-    "Check Box41": "/Yes",  # N/A for same vial
-    "Check Box42": "/Yes",  # formula worksheet
-    "Check Box50": "/Yes",  # Section C Other
+    "Check Box32": "/Yes", "Check Box33": "/Off",
+    "Check Box34": "/Yes", "Check Box35": "/Off",
+    "Check Box36": "/Yes", "Check Box37": "/Off",
+    "Check Box38": "/Off", "Check Box39": "/Yes", "Check Box40": "/Off",
+    "Check Box41": "/Yes", "Check Box42": "/Off",
+    "Check Box43": "/Off", "Check Box50": "/Yes",
     "Text Field21": "Retest of additional vials from same lot",
     "Text Field22": p22,
     
@@ -254,11 +255,48 @@ font_sizes = {
     "Text Field30": 8.5,
 }
 
+cb_states = {
+    # Page 1
+    "Check Box0": "Yes", "Check Box1": "Off",
+    "Check Box2": "Yes", "Check Box3": "Off",
+    "Check Box4": "Yes", "Check Box5": "Off",
+    "Check Box6": "Yes", "Check Box7": "Off",
+    "Check Box8": "Yes", "Check Box9": "Off",
+    "Check Box10": "Yes", "Check Box11": "Off",
+    "Check Box12": "Yes", "Check Box13": "Off",
+    "Check Box14": "Yes", "Check Box15": "Off", "Check Box16": "Off",
+    "Check Box17": "Yes", "Check Box18": "Off", "Check Box19": "Off",
+    "Check Box20": "Yes", "Check Box21": "Off", "Check Box22": "Off", "Check Box23": "Off", "Check Box24": "Off",
+    "Check Box25": "Yes", "Check Box26": "Off", "Check Box27": "Off",
+    "Check Box28": "Yes", "Check Box29": "Off", "Check Box30": "Off",
+    "Check Box31": "Yes",
+    
+    # Page 2
+    "Check Box32": "Yes", "Check Box33": "Off",
+    "Check Box34": "Yes", "Check Box35": "Off",
+    "Check Box36": "Yes", "Check Box37": "Off",
+    "Check Box38": "Off", "Check Box39": "Yes", "Check Box40": "Off",
+    "Check Box41": "Yes", "Check Box42": "Off",
+    "Check Box43": "Off", "Check Box44": "Off", "Check Box45": "Off", "Check Box46": "Off",
+    "Check Box47": "Off", "Check Box48": "Off", "Check Box49": "Off", "Check Box50": "Yes",
+    
+    # Page 5
+    "Check Box51": "Yes", "Check Box52": "Off",
+    "Check Box53": "Yes", "Check Box54": "Off",
+    "Check Box55": "Off", "Check Box56": "Off", "Check Box57": "Off", "Check Box58": "Off", "Check Box59": "Off", "Check Box60": "Off",
+    "Check Box61": "Yes", "Check Box62": "Off",
+    "Check Box63": "Yes", "Check Box64": "Off",
+    "Check Box65": "Yes", "Check Box66": "Off"
+}
+
 for page in doc_fitz:
     for w in page.widgets():
         if w.field_name in font_sizes:
             w.text_fontsize = font_sizes[w.field_name]
             w.text_font = "Helv"
+            w.update()
+        elif w.field_name in cb_states:
+            w.field_value = cb_states[w.field_name]
             w.update()
 
 out_tuned = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II_tuned.pdf")
