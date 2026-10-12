@@ -1,5 +1,41 @@
 # Project-Scoped Rules for Eagle Analytical OOS Tools
 
+## 🚨🚨 RULE 0A (TOP PRIORITY): Mandatory Analyst Identity Roster, Anti-Hallucination & Ask-First Firewall
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials.
+1. **The EagleTrax Root Cause (根本病灶)**: EagleTrax logins use `[First Initial of First Name] + [Last Name]` (e.g., `ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). **NEVER expand the first initial by guessing a common first name!** There is **NO Elizabeth Bennett**, **NO Eniola Nioupin**, and **NO Min Jang** in the laboratory!
+2. **Official Ground Truth Roster (权威法定花名册 - 必须 100% 严格对应)**:
+   - `ebennett` / `elbennett` / `ELB` $\to$ **Ellen Bennett (ELB)** (🚨 严禁写成 Elizabeth Bennett!)
+   - `enioupin` / `EN` $\to$ **Elysse Nioupin (EN)** (🚨 严禁写成 Eniola 或 ENI!)
+   - `isharma` / `ISS` $\to$ **Ishita Sharma (ISS)** (🚨 官方缩写必须是 ISS，严禁写成 IS!)
+   - `acarrillo` / `ANC` $\to$ **Andrew Carrillo (ANC)** (🚨 官方缩写必须是 ANC，严禁写成 AC!)
+   - `aodugbesi` / `AOD` $\to$ **Abayomi Odugbesi (AOD)** (🚨 官方缩写必须是 AOD，严禁写成 AO 或 Ayomide!)
+   - `qchen` / `QYC` $\to$ **Qiyue Chen (QYC)** (🚨 官方缩写必须是 QYC，严禁写成 QC 或 KC!)
+   - `mjang` / `MJ` $\to$ **Mukyung Jang (MJ)** (🚨 严禁写成 Min Jang!)
+   - `gsurber` / `GS` $\to$ **Gabrielle Surber (GS)** (🚨 严禁写成 Gabbie 或混淆为 GA!)
+   - `ganyangwe` / `GA` $\to$ **Gerald Anyangwe (GA)** (🚨 与 GS 严格区分!)
+   - `dkansara` / `DK` $\to$ **Dhvanir Kansara (DK)** (🚨 严禁写成 David Karangwa!)
+   - `jochoa` / `JOC` $\to$ **Jorge Ochoa (JOC)** (🚨 严禁写成 Jose Ocando!)
+   - `isunesara` / `INS` $\to$ **Inaara Sunesara (INS)** | `mbythatagari` / `MRB` $\to$ **Muralidhar Reddy Bythatagari (MRB)**
+   - `suprety` / `SU` $\to$ **Sonal Uprety (SU)** | `asaravia` / `AS` $\to$ **Alex Saravia (AS)** | `cdu` / `CCD` $\to$ **Cuong Du (CCD)**
+   - `aalanis` / `ALA` $\to$ **America Alanis (ALA)** | `gli` / `GL` $\to$ **Guanchen Li (GL)** | `smohammad` / `SMO` $\to$ **Simin Mohammad (SMO)**
+   - `ssantamaria` / `SAS` $\to$ **Sophia Santamaria (SAS)** | `restrada` / `RE` $\to$ **Rey Estrada (RE)** | `vsubramanian` / `VV` $\to$ **Varsha Subramanian (VV)**
+   - `ksilva` / `KSM` $\to$ **Karla Silva (KSM)** | `tduong` / `TD` $\to$ **Thinh Duong (TD)** | `rseymour` / `RS` $\to$ **Robin Seymour (RS)**
+   - `cgarza` / `CGS` $\to$ **Clea S. Garza (CGS)** | `dtassew` / `DT` $\to$ **Debrework Tassew (DT)** | `hsmith` / `HS` $\to$ **Halaina Smith (HS)**
+   - `tkotisso` / `TK` $\to$ **Tamiru Kotisso (TK)** | `mchukwumerije` / `MC` $\to$ **Maraya Chukwumerije (MC)** | `pgary` / `PG` $\to$ **Pagan Gary (PG)**
+   - `karuta` / `KA` $\to$ **Kathleen Aruta (KA)** | `dharrison` / `DH` $\to$ **Domiasha Harrison (DH)** | `dshah` / `DS` $\to$ **Devanshi Shah (DS)**
+   - `jesqueda` / `JE` $\to$ **Jacqueline Esqueda (JE)** | `jmehta` / `JM` $\to$ **Jinal Mehta (JM)** | `oajayi` / `OA` $\to$ **Olugbenga Ajayi (OA)**
+3. **Mandatory Code Firewall**: Always use `resolve_analyst_identity()` and `assert_no_hallucinations()` from `utils.py`.
+4. **🚨 严禁自作聪明 · 不懂必问铁律 (Mandatory Ask-First Rule)**: Whenever encountering an unknown EagleTrax username, missing EM logbook, or any uncertain detail, **NEVER guess or extrapolate — STOP immediately and ask the user!**
+
+## 🚨🚨 RULE 0B (TOP PRIORITY): Robin Seymour (RS) Table 2 Section Divider Golden Standard
+In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly follow Robin Seymour's exact wording (NO trailing dates like `for 16Sep26`):
+1. **`Personnel EM`** (NO date suffix!)
+2. **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix!)
+3. **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers `145, 144, 143, 142` for L-Suite, or `Suite 116 (E001738)`, NO date suffix!)
+4. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix!)
+
+---
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 Whenever the user initiates the creation of a new OOS module (e.g., adding a new test like USP71), follow this strict Human-AI collaborative SOP for the **Template Handoff (Step 1)**.

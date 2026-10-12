@@ -1,5 +1,15 @@
 # Product Requirements Document: OOS Tools
 
+## 🚨🚨 TOP-PRIORITY LOCKED MANDATES (RULE 0A & 0B — READ FIRST)
+1. **RULE 0A — Analyst Identity Roster, Zero Hallucination & Mandatory Ask-First Firewall**:
+   - **Root Cause**: EagleTrax usernames are `[First Initial] + [Last Name]` (`ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). **NEVER expand the first initial by guessing a common first name!** There is **NO Elizabeth Bennett**, **NO Eniola Nioupin**, and **NO Min Jang** in the laboratory!
+   - **Mandatory Roster**: `ebennett`/`ELB` = **Ellen Bennett (ELB)** | `enioupin`/`EN` = **Elysse Nioupin (EN)** | `isharma`/`ISS` = **Ishita Sharma (ISS)** | `acarrillo`/`ANC` = **Andrew Carrillo (ANC)** | `aodugbesi`/`AOD` = **Abayomi Odugbesi (AOD)** | `qchen`/`QYC` = **Qiyue Chen (QYC)** | `mjang`/`MJ` = **Mukyung Jang (MJ)** | `gsurber`/`GS` = **Gabrielle Surber (GS)** | `ganyangwe`/`GA` = **Gerald Anyangwe (GA)** | `dkansara`/`DK` = **Dhvanir Kansara (DK)** | `jochoa`/`JOC` = **Jorge Ochoa (JOC)** | `isunesara`/`INS` = **Inaara Sunesara (INS)**. (See full 37-analyst table in Rule 46 & `utils.py`).
+   - **Mandatory Ask-First Rule (严禁自作聪明·不懂必问)**: Whenever encountering an unknown username, missing logbook, or uncertain detail, **STOP immediately and ask the user** — NEVER guess!
+2. **RULE 0B — Robin Seymour (RS) Table 2 Section Divider Standard**:
+   - Banner 1: **`Personnel EM`** (NO date suffix!)
+   - Banner 2: **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix!)
+   - Banner 3 & 4: **`Weekly Active Air / Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers, NO date suffix!)
+
 ## Overview
 This project contains automated reporting tools for Eagle Analytical's Out-of-Specification (OOS) investigations, specifically focusing on Sterility Testing. The core functionality generates the "Phase I Summary" narratives and extracts data to populate PDF/Word OOS reports.
 
