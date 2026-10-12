@@ -433,7 +433,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `pages/ScanRDI.py`、`pages/Celsis.py`、`pages/USP71.py` 及后台脚本必须统一从 `utils.py` 引用，严禁私自硬编码。
             - 在 `clean_analyst_name()` 与解析器中设置强制拦截钩子：任何包含 `eniola` 的字符串强制自动纠正为 `Elysse Nioupin`，任何 `gabbie` 强制纠正为 `Gabrielle Surber`，任何 `min jang` 强制纠正为 `Mukyung Jang`，任何 `elizabeth bennett` / `elizabeth` 强制纠正为 `Ellen Bennett`，从底层代码构筑无法击穿的技术防火墙。
         *   **4. 全文一致性校验与交付前门禁 (Universal Consistency & Pre-Delivery Audit Gate):**
-            - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，交付前脚本自动审计，发现未授权名称直接阻断生成！
+            - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，交付前通过 `assert_no_hallucinations()` 自动审计，发现未授权名称直接阻断生成！
+        *   **5. 🚨 绝对严禁自作聪明 · 不懂必问铁律 (Mandatory Ask-First Rule on Any Ambiguity / Unknowns - 终极行为准则):**
+            - **零脑补 (Zero Guessing)**: 严禁自作聪明！无论是分析员名字、缩写、耗材批号、设备编号、培养箱校准日期、还是洁净室房间拓扑，遇到任何在权威字典和台账中查不到、模糊或不确定的信息，**绝对严禁自己猜或用大模型补全**！
+            - **立即停步请示 (Stop & Ask Immediately)**: 只要遇到未知账号或缺失信息，必须**立即停步，直接向用户提问确认**。宁可多问一句，绝不乱写一字！
     47. **Robin Seymour (RS) 官方附表灰色分段横幅标准 (Table 2 Section Divider Golden Standard - 🚨 终极锁定):**
         *   **背景来源**: QA Reviewer Robin Seymour (RS) 在审阅并签署的官方标杆报告（如 `OOS-262194`）中，明确规范了 Table 2 中灰色分段横幅（Section Divider Band）的固定措辞，严禁随意拼接多余后缀或遗漏房间号。
         *   **分段横幅四大标准语法 (严格逐字执行)**:

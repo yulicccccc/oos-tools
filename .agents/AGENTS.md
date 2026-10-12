@@ -645,6 +645,12 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - `INS` / `isunesara` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
 2. **Codebase Single Source of Truth & Interceptor Firewall (底层代码强制拦截防火墙)**:
    - `utils.py` 中的 `clean_analyst_name()` 和 `resolve_analyst_identity()` 会自动将 `elizabeth bennett` / `elizabeth` 强制拦截纠正为 `Ellen Bennett`。
+   - `utils.py` 中的 `assert_no_hallucinations()` 门禁会在文件输出前全面扫描，一旦检测到任何历史臆想人名立即抛出致命异常阻断程序。
+
+3. **🚨 绝对严禁自作聪明 · 不懂必问铁律 (Mandatory Ask-First Rule on Any Ambiguity / Unknowns - 终极原则)**:
+   - **零脑补 (Zero Guessing)**: 严禁自作聪明！无论是在分析员姓名、缩写、耗材批号、设备编号、培养箱校准日期、还是洁净室房间拓扑上，如果遇到任何不确定、模糊、或者在权威字典和台账中找不到对应关系的信息，**绝对严禁自行臆测填写**！
+   - **立即停步请示 (Stop & Ask Immediately)**: 只要遇到花名册未收录的 EagleTrax 账号、未见记录的台账、或不确定的调查细节，必须**立刻停下手中工作，在对话框中直接向用户提问请示**！
+   - **宁可多问一句，绝不乱写一字**: 在 cGMP 合规审计与 OOS 调查中，多问一句是专业严谨，乱猜一字是致命事故。用户的指示永远是唯一依据，严禁任何自作聪明！
 
 ### 35. Robin Seymour (RS) Official OOS Table Divider Golden Standard (Table 2 灰色分段横幅终极标杆 - 🚨 终极锁定)
 **CRITICAL**: In all microbiology OOS investigations (such as `OOS-262194` and `OOS-262150`), Table 2 section divider rows (gray banners) MUST strictly adhere to QA Reviewer Robin Seymour's official verified syntax:
