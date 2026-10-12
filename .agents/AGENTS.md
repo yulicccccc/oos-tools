@@ -442,11 +442,13 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
      - Step 2: Compare captured count $N$ against Table 1 cell and Narrative Paragraph 8 text.
      - Step 3: If any mismatch is detected ($N_{\text{raw}} \ne N_{\text{rendered}}$), execution MUST immediately abort and trigger self-correction before presenting results to the user.
 
-### 26. Analyst Legal Full Name Precision & Two-Page Narrative Balance Standard (分析员真实法定全名与两页叙述平衡规范)
-**CRITICAL**: In cGMP laboratory documentation and OOS reporting:
-1. **Analyst Legal Name Accuracy (Mukyung Jang vs. Min Jang)**:
-   - For initials MJ in Scan RDI sample preparation, the full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated Min Jang).
-   - Global Concordance: The name Mukyung Jang must be strictly harmonized across Section B comments (Text Field13), Page 3 narrative (Text Field49), and master Word report blocks.
+### 26. Analyst Legal Full Name Precision & Universal Tri-Module Ground Truth Standard (全部 3 种 OOS 模块分析员法定全名与官方缩写守恒铁律)
+**CRITICAL**: Across ALL 3 sterility OOS modules (`ScanRDI`, `Celsis`, `USP <71>`) and EM investigations:
+1. **Analyst Legal Name Accuracy (Zero Tolerance for Hallucination)**:
+   - For EagleTrax username `enioupin`: The legal system name is **Elysse Nioupin (EN)** (🚨 **ABSOLUTE RED LINE**: NEVER hallucinate "Eniola Nioupin" or invent "ENI"!).
+   - For initials `MJ` in sample prep: The full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated "Min Jang").
+   - For initials `GA` / `GS`: The full legal name is **Gabrielle Surber (GA)** (NEVER "Gabbie Surber").
+   - Global Concordance: Analyst full names and initials must be strictly harmonized across Section B comments (Text Field13), Page 1 personnel box (Text Field3), Page 3-5 narratives (Text Field49/50/51), and master Word/PDF report tables.
 2. **Two-Page Narrative Flow & Page 5 N/A Balance**:
    - When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance and eliminate awkward bottom voids. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.
 

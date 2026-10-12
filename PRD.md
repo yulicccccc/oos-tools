@@ -378,10 +378,18 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
                - USP <71> 是 14 天长周期 100 mL 营养肉汤培养（TSB/FTM），即使样品中仅含有 1 个具有活力的休眠态菌体，在连续恒温培养下也会呈对数期几何级数增殖，最终在第 6 天爆发宏观肉眼浑浊。更关键的是，两次独立的 USP <71> 培养物经过 Microgen / 16S rRNA 测序均精准锁定了**完全相同的污染菌种 *Microbacterium sp. PM5***。
         *   **调查结论合流与反证效应:**
             - 这一前期 ScanRDI 阴性结果不仅不削弱 OOS 调查，反而提供了关键反证：强有力地证明了批次污染并非高浓度全批次弥散，而是离散低载量分布；同时也排除了生产和取样过程中的宏观灾难性污染，与后续两次独立实验室人员/洁净室测试高度复现的 *Microbacterium sp. PM5* 形成闭环，最终确证根本原因为制剂产品本身的低水平非均匀固有污染。
-    46. *Microbiology Analyst Ground Truth Identity & Strict Acronym Mapping Dictionary (分析员真实法定姓名与官方缩写绝对守恒词典 - 严禁姓名臆想与乱造 - 🚨 终极铁律):*
-        *   **🚨 终极合规背景与血的教训 (Zero Hallucination on Analyst Names):** 分析员法定全名与代码缩写是 cGMP 审计追踪与签字责任认定的核心凭证。**绝对严禁**凭主观臆测篡改分析员英文名或发明缩写！
-        *   **1. 官方权威映射表 (Official Ground Truth Mapping):**
-            - `enioupin` -> **Elysse Nioupin (EN)**（🚨 **绝对铁律：严禁写成 "Eniola" 或发明 "ENI" 缩写！官方系统与签名全名必须是 Elysse Nioupin，缩写必须是 EN**）
+    46. *Microbiology Analyst Ground Truth Identity & Tri-Module Anti-Hallucination Standard (全部 3 种无菌 OOS 模块 [ScanRDI, Celsis, USP <71>] 分析员真实法定姓名与官方缩写绝对守恒铁律 - 🚨 终极防线):*
+        *   **🚨 终极合规背景与血的教训 (Zero Tolerance for Analyst Name Hallucination):** 
+            - 分析员法定全名与代码缩写是 cGMP 审计追踪、合规调查与官方责任认定的最高红线。
+            - 过去系统中此类基础信息从未出错，但在本次处理中，AI Agent 擅自凭空臆测将系统账号 `enioupin` 脑补为荒谬的 `Eniola Nioupin (ENI)`，被用户严厉痛批（*“你怎么一通乱写！！以前都不会这样的！！”*）。
+            - **全项目所有 Agent 必须深刻反省并以此为戒：严禁以任何理由、在任何模块中凭空猜测或自造任何分析员英文名与缩写！所有人员全名与代码必须绝对、无条件穿透本 PRD 词典与官方系统档案提取！**
+        *   **1. 全部 3 大无菌 OOS 模块（ScanRDI, Celsis, USP <71>）统一适用架构 (Tri-Module Universal Invariance):**
+            - **全模块覆盖**: 无论当前调查属于 **ScanRDI**（快速激光荧光法）、**Celsis**（ATP 生物发光法）还是 **USP <71>**（经典薄膜过滤与直接接种培养法），人员解析引擎与命名规范必须 100% 保持完全一致，绝不允许因测试类型不同而出现割裂或单模块私自实现。
+            - **全环节穿透**: 样品前置准备人（Prepping Analyst）、过滤接种处理人（Processing Analyst）、换台换机人（Changeover Analyst）、培养读数人（Reading Analyst）及转接人（Subculture Analyst）必须全量经由官方权威词典解析。
+        *   **2. 官方权威身份与缩写映射表 (Official Ground Truth Mapping):**
+            - `enioupin` -> **Elysse Nioupin (EN)**（🚨 **全模块终极铁律：严禁写成 "Eniola" 或发明 "ENI" 缩写！官方系统与签名全名必须是 Elysse Nioupin，缩写必须是 EN！**）
+            - `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
+            - `gsurber` -> **Gabrielle Surber (GA / GS)**（🚨 **严禁写成 "Gabbie Surber"！官方全名必须是 Gabrielle Surber！**）
             - `elbennett` -> **Elizabeth Bennett (ELB)**
             - `suprety` -> **Sonal Uprety (SU)**
             - `asaravia` -> **Alex Saravia (AS)**
@@ -391,18 +399,22 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `aalanis` -> **America Alanis (ALA)**
             - `gli` -> **Guanchen Li (GL)**
             - `smohammad` -> **Simin Mohammad (SMO)**
-            - `mjang` -> **Mukyung Jang (MJ)**（🚨 严禁写成 "Min Jang"！）
             - `aodugbesi` -> **Abayomi Odugbesi (AO / AOD)**
             - `restrada` -> **Rey Estrada (RE)**
             - `vsubramanian` -> **Varsha Subramanian (VV)**
-            - `gsurber` -> **Gabrielle Surber (GA)**
             - `ksilva` -> **Karla Silva (KSM)**
             - `mbythatagari` -> **Muralidhar Bythatagari (MRB)**
             - `dkarangwa` -> **David Karangwa (DK)**
             - `tduong` -> **Thinh Duong (TD)**
             - `jocando` -> **Jose Ocando (JOC)**
-        *   **2. 全文一致性校验铁律 (Universal Consistency Rule):**
-            - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，杜绝任何前后矛盾或别字。
+            - `kc` / `qchen` -> **Qiyue Chen (QC)**
+            - `rseymour` -> **Robin Seymour (RS)**
+        *   **3. 底层代码工程强制防御与自动拦截机制 (Codebase Single Source of Truth & Interceptor):**
+            - 在 `utils.py` 中建立全项目唯一的权威映射中枢（`get_full_name`, `clean_analyst_name`, `resolve_analyst_identity`）。
+            - `pages/ScanRDI.py`、`pages/Celsis.py`、`pages/USP71.py` 及后台脚本必须统一从 `utils.py` 引用，严禁私自硬编码。
+            - 在 `clean_analyst_name()` 与解析器中设置强制拦截钩子：任何包含 `eniola` 的字符串强制自动纠正为 `Elysse Nioupin`，任何 `gabbie` 强制纠正为 `Gabrielle Surber`，任何 `min jang` 强制纠正为 `Mukyung Jang`，从底层代码构筑无法击穿的技术防火墙。
+        *   **4. 全文一致性校验与交付前门禁 (Universal Consistency & Pre-Delivery Audit Gate):**
+            - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，交付前脚本自动审计，发现未授权名称直接阻断生成！
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

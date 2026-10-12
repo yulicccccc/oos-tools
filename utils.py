@@ -83,30 +83,92 @@ def get_full_name(initial):
     if not initial: 
         return ""
     mapping = {
-        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen (David) Li", "DS": "Devanshi Shah",
+        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
         "QC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
         "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "KSM": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
         "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
-        "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
-        "AC": "Andrew Carrillo", "KC": "Kira C", "MC": "Maraya Chukwumerije",
+        "RE": "Rey Estrada", "AOD": "Abayomi Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
+        "AC": "Andrew Carrillo", "ANC": "Andrew Carrillo", "KC": "Qiyue Chen", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
         "SMO": "Simin Mohammad", # EM 表格全名
-        "SAS": "Sophia Santamaria" # EM 读板分析员
+        "SAS": "Sophia Santamaria", # EM 读板分析员
+        "ELB": "Elizabeth Bennett", # ScanRDI 主力
+        "IS": "Ishita Sharma",
+        "DK": "David Karangwa",
+        "TD": "Thinh Duong",
+        "JOC": "Jose Ocando",
     }
     return mapping.get(initial.strip().upper(), "")
 
 def clean_analyst_name(name):
-    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle, Min Jang 自动纠正为 Mukyung Jang"""
+    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle, Min Jang 自动纠正为 Mukyung Jang, Eniola 自动纠正为 Elysse Nioupin"""
     if not name:
         return ""
     n = str(name).strip()
-    if n.lower() in ["gabbie surber", "gabbie"]:
+    low = n.lower()
+    if low in ["gabbie surber", "gabbie"]:
         return "Gabrielle Surber"
-    if n.lower() in ["min jang", "min"]:
+    if low in ["min jang", "min"]:
         return "Mukyung Jang"
+    if low in ["eniola nioupin", "eniola", "eni"]:
+        return "Elysse Nioupin"
     return n
+
+def resolve_analyst_identity(query):
+    """
+    全项目统一分析员解析中枢 (涵盖全部 3 种 OOS: ScanRDI, Celsis, USP <71>).
+    支持 EagleTrax 用户名、代码缩写、全名及手滑错别字拦截，统一返回: (Full Name, Initial)
+    """
+    if not query:
+        return "", ""
+    q = str(query).strip()
+    low = q.lower()
+    
+    # 官方用户名与手滑别名强纠错字典
+    alias_map = {
+        "enioupin": ("Elysse Nioupin", "EN"),
+        "eniola": ("Elysse Nioupin", "EN"),
+        "eniola nioupin": ("Elysse Nioupin", "EN"),
+        "eni": ("Elysse Nioupin", "EN"),
+        "mjang": ("Mukyung Jang", "MJ"),
+        "min jang": ("Mukyung Jang", "MJ"),
+        "min": ("Mukyung Jang", "MJ"),
+        "gsurber": ("Gabrielle Surber", "GA"),
+        "gabbie surber": ("Gabrielle Surber", "GA"),
+        "gabbie": ("Gabrielle Surber", "GA"),
+        "elbennett": ("Elizabeth Bennett", "ELB"),
+        "suprety": ("Sonal Uprety", "SU"),
+        "asaravia": ("Alex Saravia", "AS"),
+        "isharma": ("Ishita Sharma", "IS"),
+        "acarrillo": ("Andrew Carrillo", "AC"),
+        "cdu": ("Cuong Du", "CCD"),
+        "aalanis": ("America Alanis", "ALA"),
+        "gli": ("Guanchen Li", "GL"),
+        "smohammad": ("Simin Mohammad", "SMO"),
+        "aodugbesi": ("Abayomi Odugbesi", "AOD"),
+        "restrada": ("Rey Estrada", "RE"),
+        "vsubramanian": ("Varsha Subramanian", "VV"),
+        "ksilva": ("Karla Silva", "KSM"),
+        "mbythatagari": ("Muralidhar Bythatagari", "MRB"),
+        "dkarangwa": ("David Karangwa", "DK"),
+        "tduong": ("Thinh Duong", "TD"),
+        "jocando": ("Jose Ocando", "JOC"),
+        "rseymour": ("Robin Seymour", "RS"),
+        "qchen": ("Qiyue Chen", "QC"),
+        "kc": ("Qiyue Chen", "QC"),
+    }
+    if low in alias_map:
+        return alias_map[low]
+        
+    up = q.upper()
+    full = get_full_name(up)
+    if full:
+        return full, up
+        
+    cleaned = clean_analyst_name(q)
+    return cleaned, ""
 
 # Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
 # Bi-weekly Sunday cleaning: Mid-Month Sunday and Last Sunday

@@ -10,12 +10,18 @@ from datetime import datetime, timedelta
 
 # --- SAFE UTILS IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_monthly_cleaning_date, get_cleanroom_narrative
+    from utils import (
+        apply_eagle_style, get_room_logic, get_monthly_cleaning_date, get_cleanroom_narrative,
+        get_full_name, clean_analyst_name, resolve_analyst_identity
+    )
 except ImportError:
     def apply_eagle_style(): pass
     def get_room_logic(i): return "Unknown", "000", "", "Unknown"
     def get_monthly_cleaning_date(d): return ""
     def get_cleanroom_narrative(s, r=None, a="", v=""): return ""
+    def get_full_name(i): return ""
+    def clean_analyst_name(n): return n
+    def resolve_analyst_identity(q): return q, ""
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="ScanRDI Investigation", layout="wide")
@@ -49,27 +55,13 @@ def ensure_dependencies():
             st.rerun()
         except Exception as e: placeholder.error(f"Install failed: {e}")
 
-# --- HELPER: INITIAL TO FULL NAME MAPPING ---
-def get_full_name(initial):
-    """Auto-converts initials to full names based on lab personnel."""
-    if not initial: return ""
-    mapping = {
-        "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
-        "QC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
-        "CSG": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
-        "KS": "Karla Silva", "KSM": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
-        "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
-        "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", "AC": "Andrew Carrillo"
-    }
-    return mapping.get(initial.strip().upper(), "") 
-
 # --- HELPER: AUTO-FILL LOGIC ---
 def auto_fill_name(initial_key, name_key):
     """Checks if initial changed and updates name if empty."""
     initial = st.session_state.get(initial_key, "")
     current_name = st.session_state.get(name_key, "")
     if initial:
-        calculated_name = get_full_name(initial)
+        calculated_name = clean_analyst_name(get_full_name(initial))
         if calculated_name and not current_name:
             st.session_state[name_key] = calculated_name
             st.rerun()
