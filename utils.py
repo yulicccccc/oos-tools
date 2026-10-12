@@ -78,8 +78,8 @@ def apply_eagle_style():
 
 # --- 2. 业务逻辑工具函数 ---
 
-def get_full_name(initial):
-    """(终极版) 缩写转全名翻译器 - 官方权威法定姓名映射中枢"""
+def get_full_name(initial, _from_resolve=False):
+    """(终极版) 缩写与 EagleTrax 账号转全名翻译器 - 官方权威法定姓名映射中枢"""
     if not initial: 
         return ""
     mapping = {
@@ -103,7 +103,13 @@ def get_full_name(initial):
         "JE": "Jacqueline Esqueda",
         "JM": "Jinal Mehta",
     }
-    return mapping.get(initial.strip().upper(), "")
+    res = mapping.get(initial.strip().upper(), "")
+    if res:
+        return res
+    if not _from_resolve:
+        resolved_full, _ = resolve_analyst_identity(initial)
+        return resolved_full
+    return ""
 
 def clean_analyst_name(name):
     """(终极版) 名字拼写纠错器 - 强制拦截所有历史臆想名与口语别名"""
@@ -277,7 +283,7 @@ def resolve_analyst_identity(query):
         return alias_map[low]
         
     up = q.upper()
-    full = get_full_name(up)
+    full = get_full_name(up, _from_resolve=True)
     canonical_initial_map = {
         "Ishita Sharma": "ISS",
         "Andrew Carrillo": "ANC",
@@ -324,6 +330,32 @@ def resolve_analyst_identity(query):
     if cleaned in canonical_initial_map:
         return cleaned, canonical_initial_map[cleaned]
     return cleaned, ""
+
+FORBIDDEN_HALLUCINATED_NAMES = {
+    "elizabeth bennett": "Ellen Bennett (ELB)",
+    "eniola nioupin": "Elysse Nioupin (EN)",
+    "eniola": "Elysse Nioupin (EN)",
+    "min jang": "Mukyung Jang (MJ)",
+    "gabbie surber": "Gabrielle Surber (GS)",
+    "david karangwa": "Dhvanir Kansara (DK)",
+    "jose ocando": "Jorge Ochoa (JOC)",
+    "ayomide odugbesi": "Abayomi Odugbesi (AOD)",
+}
+
+def assert_no_hallucinations(text_or_obj):
+    """
+    终极合规审计门禁：对生成的文本、字典或文件路径进行强制扫描。
+    一旦发现任何因 EagleTrax 首字母账号脑补出来的虚假人名，立即抛出异常阻断输出！
+    """
+    text_str = str(text_or_obj).lower()
+    for bad_name, real_person in FORBIDDEN_HALLUCINATED_NAMES.items():
+        if bad_name in text_str:
+            raise ValueError(
+                f"🚨 [CRITICAL COMPLIANCE BLOCK] 检测到绝对禁用的虚构幻觉人名 '{bad_name}'！"
+                f"实验室根本没有这个人，唯一真实员工为 '{real_person}'！生成已被强制阻断！"
+            )
+    return True
+
 
 # Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
 # Bi-weekly Sunday cleaning: Mid-Month Sunday and Last Sunday
