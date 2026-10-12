@@ -158,13 +158,13 @@ def resolve_analyst_identity(query):
         # Gerald Anyangwe (GA)
         "ganyangwe": ("Gerald Anyangwe", "GA"),
         "ga": ("Gerald Anyangwe", "GA"),
-        # Ellen Bennett (ELB)
+        # Ellen Bennett (ELB) - EagleTrax: ebennett (e + bennett). 绝无 Elizabeth Bennett!
         "ebennett": ("Ellen Bennett", "ELB"),
         "elbennett": ("Ellen Bennett", "ELB"),
         "ellen bennett": ("Ellen Bennett", "ELB"),
         "ellen": ("Ellen Bennett", "ELB"),
-        "elizabeth bennett": ("Ellen Bennett", "ELB"),
-        "elizabeth": ("Ellen Bennett", "ELB"),
+        "elizabeth bennett": ("Ellen Bennett", "ELB"), # 强拦截历史臆想名
+        "elizabeth": ("Ellen Bennett", "ELB"),         # 强拦截历史臆想名
         "elb": ("Ellen Bennett", "ELB"),
         # Sonal Uprety (SU)
         "suprety": ("Sonal Uprety", "SU"),
@@ -292,7 +292,6 @@ def resolve_analyst_identity(query):
         "Mukyung Jang": "MJ",
         "Muralidhar Reddy Bythatagari": "MRB",
         "Ellen Bennett": "ELB",
-        "Elizabeth Bennett": "ELB",
         "Sonal Uprety": "SU",
         "Guanchen Li": "GL",
         "Cuong Du": "CCD",

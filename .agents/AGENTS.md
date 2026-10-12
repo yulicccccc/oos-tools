@@ -627,7 +627,9 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - Accurately map FTM Lot `2567320` (Exp `12/16/2026`), TSB Lot `2548010` (Exp `04/19/2027`), and Fluid D Lot `685561` (Exp `10/31/2026`).
 
 ### 34. Mandatory Standard Analyst Name & Initials Roster & Reverse Mapping Architecture Firewall (全项目统一分析员全名与缩写权威词典与技术防火墙 - 🚨 终极铁律)
-**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials. All references MUST strictly adhere to the central mapping in `utils.py`:
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials.
+- **Root Cause of Past Hallucinations (根本病灶)**: EagleTrax system logins follow the format `[First Initial of First Name] + [Last Name]` (e.g., `ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). Previously, agents saw the single initial `e-` or `m-` and hallucinated common first names (`Elizabeth`, `Eniola`, `Min`, `David`, `Jose`, `Ayomide`). **There is NO Elizabeth Bennett, NO Eniola Nioupin, NO Min Jang in the laboratory!**
+- **Absolute Rule**: NEVER expand an EagleTrax username by guessing the first name! Always query `utils.py` (`resolve_analyst_identity()`). If an unknown username appears, STOP and ask the user.
 1. **Critical High-Risk Corrections (高危易错人员绝对锁定)**:
    - `ELB` / `ebennett` / `elbennett` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
    - `EN` / `enioupin` -> **Elysse Nioupin (EN)**（🚨 **严禁写成 "Eniola"！官方全名必须是 Elysse Nioupin！**）

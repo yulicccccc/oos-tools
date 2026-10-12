@@ -379,10 +379,14 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **调查结论合流与反证效应:**
             - 这一前期 ScanRDI 阴性结果不仅不削弱 OOS 调查，反而提供了关键反证：强有力地证明了批次污染并非高浓度全批次弥散，而是离散低载量分布；同时也排除了生产和取样过程中的宏观灾难性污染，与后续两次独立实验室人员/洁净室测试高度复现的 *Microbacterium sp. PM5* 形成闭环，最终确证根本原因为制剂产品本身的低水平非均匀固有污染。
     46. *Microbiology Analyst Ground Truth Identity & Tri-Module Anti-Hallucination Standard (全部 3 种无菌 OOS 模块 [ScanRDI, Celsis, USP <71>] 分析员真实法定姓名与官方缩写绝对守恒铁律 - 🚨 终极防线):*
-        *   **🚨 终极合规背景与血的教训 (Zero Tolerance for Analyst Name Hallucination):** 
-            - 分析员法定全名与代码缩写是 cGMP 审计追踪、合规调查与官方责任认定的最高红线。
-            - 过去系统中此类基础信息从未出错，但在本次处理中，AI Agent 擅自凭空臆测将系统账号 `enioupin` 脑补为荒谬的 `Eniola Nioupin (ENI)`，被用户严厉痛批（*“你怎么一通乱写！！以前都不会这样的！！”*）。
-            - **全项目所有 Agent 必须深刻反省并以此为戒：严禁以任何理由、在任何模块中凭空猜测或自造任何分析员英文名与缩写！所有人员全名与代码必须绝对、无条件穿透本 PRD 词典与官方系统档案提取！**
+        *   **🚨 终极合规背景与幻觉根本病灶剖析 (The EagleTrax Root Cause & Zero Tolerance):** 
+            - **根本病灶剖析 (The Root Cause)**: 在 EagleTrax 网页系统中，所有分析员账号格式均为统一的 **`[名字首字母 First Initial] + [法定姓氏 Last Name]`**（例如 `ebennett` = e + bennett, `enioupin` = e + nioupin, `mjang` = m + jang, `dkansara` = d + kansara, `jochoa` = j + ochoa, `aodugbesi` = a + odugbesi）。
+            - 过去 AI 之所以屡犯荒唐的幻觉（把 `ebennett` 臆想成 Elizabeth Bennett、把 `enioupin` 臆想成 Eniola Nioupin、把 `mjang` 臆想成 Min Jang），**其唯一祸根就是在读取到网页系统账号时，擅自用大模型臆测补全首字母，而没有绝对、严格地穿透唯一官方权威花名册查询！**
+            - **🚨 终极不可逾越铁律**:
+                1. 实验室**根本没有 Elizabeth Bennett，只有 Ellen Bennett (ELB)**！
+                2. 实验室**根本没有 Eniola Nioupin，只有 Elysse Nioupin (EN)**！
+                3. 实验室**根本没有 Min Jang，只有 Mukyung Jang (MJ)**！
+                4. **绝对严禁对任何 EagleTrax 账号的首字母进行“脑补展开”！所有账号必须 100% 查表映射，表中未收录者必须立即向用户停步请示，严禁私自猜测！**
         *   **1. 全部 3 大无菌 OOS 模块（ScanRDI, Celsis, USP <71>）统一适用架构 (Tri-Module Universal Invariance):**
             - **全模块覆盖**: 无论当前调查属于 **ScanRDI**（快速激光荧光法）、**Celsis**（ATP 生物发光法）还是 **USP <71>**（经典薄膜过滤与直接接种培养法），人员解析引擎与命名规范必须 100% 保持完全一致，绝不允许因测试类型不同而出现割裂或单模块私自实现。
             - **全环节穿透**: 样品前置准备人（Prepping Analyst）、过滤接种处理人（Processing Analyst）、换台换机人（Changeover Analyst）、培养读数人（Reading Analyst）及转接人（Subculture Analyst）必须全量经由官方权威词典解析。
