@@ -173,7 +173,14 @@ p20 = (
     "process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
 )
 
-text_field_51 = "\r \r".join([p12, p13, p14, p15, p16, p17, p18, p19, p20])
+p21 = (
+    "However, when investigating the sample history, it was discovered that the same lot (Lot 2608-216) had previously been submitted "
+    "for ScanRDI sterility testing under ETX-260807-0602 and yielded a passing result. Based on this conflicting passing ScanRDI result "
+    "for the same lot, the laboratory requested additional sample vials from the client for retesting and initiated a Phase II investigation "
+    "(Form 3.100.019.F02)."
+)
+
+text_field_51 = "\r \r".join([p12, p13, p14, p15, p16, p17, p18, p19, p20, p21])
 
 # -------------------------------------------------------------
 # 2. Build Master Word Document
