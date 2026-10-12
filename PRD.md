@@ -454,6 +454,11 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             2. **生物安全柜分段**: 严格命名为 **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`**（🚨 **严禁出现 "(BSC)"，严禁重复出现 "BSC"，严禁追加 "for [Date]"！** 例如：`Biological Safety Cabinet EM for E001938 and E001937`）
             3. **洁净室浮游菌分段**: 严格罗列该套间全部房间号与设备编号，格式为 **`Weekly Active Air Sampling of Cleanroom [房间号清单] ([设备编号], [套间名称]) with [Processing/Changeover] BSCs`**（🚨 **严禁追加 "for [Date]"！** 例如：`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs` 或 `Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC`）
             4. **洁净室表面分段**: 严格与浮游菌保持相同的套间房间号标准，命名为 **`Weekly Surface Sampling of Cleanroom [房间号清单] ([设备编号], [套间名称]) with [Processing/Changeover] BSCs`**。
+    48. **Phase I 结尾样品历史回溯与开启 Phase II 过渡段标准 (Phase I Sample History Discovery & Phase II Initiation Closing Standard - 🚨 终极锁定):**
+        *   **核心逻辑**: 当某个 OOS 案件包含 Phase I 和 Phase II 两份调查报告（例如初始 USP <71> 为阳性，但调查样品历史时发现同一批次此前提交的 ScanRDI 为阴性合格），**不仅要在 Phase II 中交代背景，更必须在 Phase I 第 5 页 (`Text Field51`) 的最末尾加上过渡收尾段**！
+        *   **Phase I 末尾标准句式**:
+            `"However, when investigating the sample history, it was discovered that the same lot (Lot [LOT_NUMBER]) had previously been submitted for ScanRDI sterility testing under [SCAN_ETX_ID] and yielded a passing result. Based on this conflicting passing ScanRDI result for the same lot, the laboratory requested additional sample vials from the client for retesting and initiated a Phase II investigation (Form 3.100.019.F02)."`
+        *   **前后衔接一致性**: Phase I 的最末尾与 Phase II 的开头必须形成 100% 因果闭环（系实验室内部在调查样品历史时主动发现同批次合格记录并主动向客户请求复检样品，严禁编造“客户主动指出”或无关操作失误）。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
