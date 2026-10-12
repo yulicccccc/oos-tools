@@ -430,6 +430,13 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 在 `clean_analyst_name()` 与解析器中设置强制拦截钩子：任何包含 `eniola` 的字符串强制自动纠正为 `Elysse Nioupin`，任何 `gabbie` 强制纠正为 `Gabrielle Surber`，任何 `min jang` 强制纠正为 `Mukyung Jang`，任何 `elizabeth bennett` / `elizabeth` 强制纠正为 `Ellen Bennett`，从底层代码构筑无法击穿的技术防火墙。
         *   **4. 全文一致性校验与交付前门禁 (Universal Consistency & Pre-Delivery Audit Gate):**
             - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，交付前脚本自动审计，发现未授权名称直接阻断生成！
+    47. **Robin Seymour (RS) 官方附表灰色分段横幅标准 (Table 2 Section Divider Golden Standard - 🚨 终极锁定):**
+        *   **背景来源**: QA Reviewer Robin Seymour (RS) 在审阅并签署的官方标杆报告（如 `OOS-262194`）中，明确规范了 Table 2 中灰色分段横幅（Section Divider Band）的固定措辞，严禁随意拼接多余后缀或遗漏房间号。
+        *   **分段横幅四大标准语法 (严格逐字执行)**:
+            1. **人员监测分段**: 严格命名为 **`Personnel EM`**（🚨 **严禁追加日期，严禁写成 "Personnel EM for 16Sep26"！**）
+            2. **生物安全柜分段**: 严格命名为 **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`**（🚨 **严禁出现 "(BSC)"，严禁重复出现 "BSC"，严禁追加 "for [Date]"！** 例如：`Biological Safety Cabinet EM for E001938 and E001937`）
+            3. **洁净室浮游菌分段**: 严格罗列该套间全部房间号与设备编号，格式为 **`Weekly Active Air Sampling of Cleanroom [房间号清单] ([设备编号], [套间名称]) with [Processing/Changeover] BSCs`**（🚨 **严禁追加 "for [Date]"！** 例如：`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs` 或 `Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC`）
+            4. **洁净室表面分段**: 严格与浮游菌保持相同的套间房间号标准，命名为 **`Weekly Surface Sampling of Cleanroom [房间号清单] ([设备编号], [套间名称]) with [Processing/Changeover] BSCs`**。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

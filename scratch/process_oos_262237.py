@@ -273,23 +273,23 @@ def build_standalone_tables_doc(
         return row
 
     # --- Section 1: Personnel EM ---
-    add_section_divider(t2, f"Personnel EM for {TEST_DATE}")
+    add_section_divider(t2, "Personnel EM")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", pers_obs, "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", pers_obs, "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
-    add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E00{PROCESSING_BSC} and BSC E00{CHANGEOVER_BSC} for {TEST_DATE}")
+    add_section_divider(t2, f"Biological Safety Cabinet EM for E00{PROCESSING_BSC} and E00{CHANGEOVER_BSC}")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", surf_obs, "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", surf_obs, "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{PROCESSING_BSC}", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", sett_obs, "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", sett_obs, "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air Suite 116 ---
-    add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC")
     add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (116 ISO8)", "ETX-261005-0773", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
 
     # --- Section 4: Weekly Active Air L-Suite ---
-    add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Changeover BSC")
     
     row_l = t2.add_row()
     format_cell(row_l.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
@@ -389,11 +389,11 @@ def build_standalone_tables_doc(
     format_cell(row_l.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     # --- Section 5: Weekly Surface Suite 116 ---
-    add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom Suite 116 (E001738) with Processing BSC for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Surface Sampling of Cleanroom Suite 116 (E001738) with Processing BSC")
     add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 6: Weekly Surface L-Suite ---
-    add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom L-Suite with Changeover BSC for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Changeover BSC")
     add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "22Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     for row in t2.rows:

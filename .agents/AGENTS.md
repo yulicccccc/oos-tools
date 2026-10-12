@@ -644,6 +644,17 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 2. **Codebase Single Source of Truth & Interceptor Firewall (底层代码强制拦截防火墙)**:
    - `utils.py` 中的 `clean_analyst_name()` 和 `resolve_analyst_identity()` 会自动将 `elizabeth bennett` / `elizabeth` 强制拦截纠正为 `Ellen Bennett`。
 
+### 35. Robin Seymour (RS) Official OOS Table Divider Golden Standard (Table 2 灰色分段横幅终极标杆 - 🚨 终极锁定)
+**CRITICAL**: In all microbiology OOS investigations (such as `OOS-262194` and `OOS-262150`), Table 2 section divider rows (gray banners) MUST strictly adhere to QA Reviewer Robin Seymour's official verified syntax:
+1. **Personnel EM Divider**: Strictly **`Personnel EM`** (NO date suffix, NEVER write `Personnel EM for DDMMMYY`).
+2. **Biological Safety Cabinet Divider**: Strictly **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix).
+3. **Weekly Active Air Divider**:
+   - For L-Suite: Strictly **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (or `with Changeover BSC` / `with Processing and Changeover BSCs`). Must explicitly list all cleanroom rooms (`145, 144, 143, 142`), NO date suffix.
+   - For Cleanroom Suite 116: Strictly **`Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC`** (NO date suffix).
+4. **Weekly Surface Divider**:
+   - Strictly mirror the cleanroom room list from the active air section, e.g. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix).
+
+
 
 
 

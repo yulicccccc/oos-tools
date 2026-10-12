@@ -245,19 +245,19 @@ def build_tables_doc(output_docx_path):
         return row
 
     # --- Section 1: Personnel EM ---
-    add_section_divider(t2, f"Personnel EM for {TEST_DATE}")
+    add_section_divider(t2, "Personnel EM")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
-    add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E00{PROCESSING_BSC} and BSC E00{CHANGEOVER_BSC} for {TEST_DATE}")
+    add_section_divider(t2, f"Biological Safety Cabinet EM for E00{PROCESSING_BSC} and E00{CHANGEOVER_BSC}")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{PROCESSING_BSC}", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air Sampling L-Suite ---
-    add_section_divider(t2, f"Weekly Active Air Sampling of Cleanroom 145 (E001979, L-Suite) with Processing and Changeover BSCs for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs")
 
     row_l = t2.add_row()
     format_cell(row_l.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.LEFT, v_align=WD_ALIGN_VERTICAL.CENTER)
@@ -397,7 +397,7 @@ def build_tables_doc(output_docx_path):
     format_cell(row_l.cells[8], "None", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
 
     # --- Section 4: Weekly Surface Sampling L-Suite ---
-    add_section_divider(t2, f"Weekly Surface Sampling of Cleanroom 145 (E001979, L-Suite) with Processing and Changeover BSCs for {TEST_DATE}")
+    add_section_divider(t2, "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs")
     add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "15Sep26", "SMO", "Week of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # Set column widths
@@ -406,27 +406,44 @@ def build_tables_doc(output_docx_path):
             for j, w in enumerate(t2_widths):
                 row.cells[j].width = w
 
-    doc.save(output_docx_path)
-    print(f"Saved DOCX to: {output_docx_path}")
+    try:
+        doc.save(output_docx_path)
+        print(f"Saved DOCX to: {output_docx_path}")
+        return output_docx_path
+    except Exception as e:
+        print("Desktop docx is locked by Word:", e)
+        alt_path = os.path.join(DESKTOP_DIR, "Tables OOS-262150 BelieveRX Pharmacy (E74120) - ScanRDI (Updated).docx")
+        doc.save(alt_path)
+        print(f"Saved to alternative DOCX: {alt_path}")
+        return alt_path
 
 def convert_docx_to_pdf(docx_path, pdf_path):
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
     try:
         doc = word.Documents.Open(os.path.abspath(docx_path))
-        doc.SaveAs(os.path.abspath(pdf_path), FileFormat=17) # 17 = wdFormatPDF
+        try:
+            doc.SaveAs(os.path.abspath(pdf_path), FileFormat=17) # 17 = wdFormatPDF
+            print(f"Saved PDF to: {pdf_path}")
+            target_pdf = pdf_path
+        except Exception as e:
+            print("Desktop pdf is locked:", e)
+            alt_pdf = os.path.join(DESKTOP_DIR, "Tables OOS-262150 BelieveRX Pharmacy (E74120) - ScanRDI (Updated).pdf")
+            doc.SaveAs(os.path.abspath(alt_pdf), FileFormat=17)
+            print(f"Saved to alternative PDF: {alt_pdf}")
+            target_pdf = alt_pdf
         doc.Close()
-        print(f"Saved PDF to: {pdf_path}")
+        return target_pdf
     finally:
         word.Quit()
 
 if __name__ == "__main__":
     out_docx = os.path.join(DESKTOP_DIR, "Tables OOS-262150 BelieveRX Pharmacy (E74120) - ScanRDI.docx")
     out_pdf = os.path.join(DESKTOP_DIR, "Tables OOS-262150 BelieveRX Pharmacy (E74120) - ScanRDI.pdf")
-    build_tables_doc(out_docx)
-    convert_docx_to_pdf(out_docx, out_pdf)
+    actual_docx = build_tables_doc(out_docx)
+    actual_pdf = convert_docx_to_pdf(actual_docx, out_pdf)
 
-    doc_fitz = fitz.open(out_pdf)
+    doc_fitz = fitz.open(actual_pdf)
     print(f"Generated PDF Page Count: {len(doc_fitz)}")
     for i, p in enumerate(doc_fitz):
         pix = p.get_pixmap(dpi=150)
