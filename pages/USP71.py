@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 # --- 1. SAFE UTILS & LOGIC IMPORT ---
 try:
-    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name, get_monthly_cleaning_date, get_cleanroom_narrative
+    from utils import apply_eagle_style, get_room_logic, get_full_name, get_business_day_back, clean_analyst_name, get_monthly_cleaning_date, get_cleanroom_narrative, resolve_analyst_identity
     import usp71_logic as ul
 except ImportError as e:
     st.error(f"Import Error: {e}")
@@ -21,6 +21,7 @@ except ImportError as e:
     def clean_analyst_name(n): return n
     def get_monthly_cleaning_date(d): return ""
     def get_cleanroom_narrative(s, r=None, a="", v=""): return ""
+    def resolve_analyst_identity(q): return q, ""
 
 # --- 2. PAGE CONFIG & STYLING ---
 st.set_page_config(page_title="USP 71 Investigation", layout="wide")
@@ -95,19 +96,10 @@ if not st.session_state.get("testing_method"):
 def username_to_initials(username):
     if not username:
         return ""
+    name, init = resolve_analyst_identity(username)
+    if init:
+        return init
     username = username.strip()
-    known = {
-        "gsurber": "GS", "GSurber": "GS",
-        "enioupin": "EN", "ENioupin": "EN",
-        "acarrillo": "AC", "ACarrillo": "AC",
-        "rseymour": "RS", "RSeymour": "RS",
-        "jowens": "JO", "JOwens": "JO"
-    }
-    if username in known:
-        return known[username]
-    if username.lower() in known:
-        return known[username.lower()]
-        
     uppers = "".join([c for c in username if c.isupper()])
     if len(uppers) >= 2:
         return uppers[:3]
@@ -245,9 +237,9 @@ def parse_combined_text(text):
                     prepper_user = parts[2].strip()
                     break
         if prepper_user:
-            initial = username_to_initials(prepper_user)
+            name, initial = resolve_analyst_identity(prepper_user)
             parsed["prepper_initial"] = initial
-            parsed["prepper_name"] = clean_analyst_name(get_full_name(initial))
+            parsed["prepper_name"] = name
         else:
             parsed["prepper_initial"] = ""
             parsed["prepper_name"] = ""
@@ -263,9 +255,9 @@ def parse_combined_text(text):
             processor_user = prepper_user
 
         if processor_user:
-            initial = username_to_initials(processor_user)
+            name, initial = resolve_analyst_identity(processor_user)
             parsed["analyst_initial"] = initial
-            parsed["analyst_name"] = clean_analyst_name(get_full_name(initial))
+            parsed["analyst_name"] = name
 
         reader_user = None
         inc_days_event = None
@@ -281,9 +273,9 @@ def parse_combined_text(text):
                     break
         
         if reader_user:
-            initial = username_to_initials(reader_user)
+            name, initial = resolve_analyst_identity(reader_user)
             parsed["reading_initial"] = initial
-            parsed["reading_name"] = clean_analyst_name(get_full_name(initial))
+            parsed["reading_name"] = name
 
         subculture_user = None
         has_inconclusive = "inconclusive" in text.lower()
@@ -303,9 +295,9 @@ def parse_combined_text(text):
                             break
         
         if has_inconclusive and subculture_user:
-            initial = username_to_initials(subculture_user)
+            name, initial = resolve_analyst_identity(subculture_user)
             parsed["subculture_initial"] = initial
-            parsed["subculture_name"] = clean_analyst_name(get_full_name(initial))
+            parsed["subculture_name"] = name
         else:
             parsed["subculture_initial"] = ""
             parsed["subculture_name"] = ""

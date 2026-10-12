@@ -388,27 +388,42 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - **全环节穿透**: 样品前置准备人（Prepping Analyst）、过滤接种处理人（Processing Analyst）、换台换机人（Changeover Analyst）、培养读数人（Reading Analyst）及转接人（Subculture Analyst）必须全量经由官方权威词典解析。
         *   **2. 官方权威身份与缩写映射表 (Official Ground Truth Mapping):**
             - `enioupin` -> **Elysse Nioupin (EN)**（🚨 **全模块终极铁律：严禁写成 "Eniola" 或发明 "ENI" 缩写！官方系统与签名全名必须是 Elysse Nioupin，缩写必须是 EN！**）
+            - `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方法定缩写必须是 ISS，严禁写成 "IS"！**）
+            - `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方法定缩写必须是 ANC，严禁写成 "AC"！**）
+            - `aodugbesi` -> **Abayomi Odugbesi (AOD)**（🚨 **官方法定缩写必须是 AOD，严禁写成 "AO" 或 "Ayomide"！**）
+            - `qchen` / `kc` -> **Qiyue Chen (QYC)**（🚨 **官方法定缩写必须是 QYC，严禁写成 "QC" 或 "KC"！**）
             - `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
-            - `gsurber` -> **Gabrielle Surber (GA / GS)**（🚨 **严禁写成 "Gabbie Surber"！官方全名必须是 Gabrielle Surber！**）
+            - `gsurber` -> **Gabrielle Surber (GS)**（🚨 **严禁写成 "Gabbie Surber" 或混淆为 "GA"！官方缩写必须是 GS！**）
+            - `ganyangwe` / `ga` -> **Gerald Anyangwe (GA)**（🚨 **官方缩写必须是 GA，与 GS 严格隔离！**）
+            - `dkansara` / `dk` -> **Dhvanir Kansara (DK)**（🚨 **严禁脑补为 "David Karangwa"！官方全名必须是 Dhvanir Kansara！**）
+            - `jochoa` / `joc` -> **Jorge Ochoa (JOC)**（🚨 **严禁脑补为 "Jose Ocando"！官方全名必须是 Jorge Ochoa！**）
+            - `isunesara` / `ins` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
+            - `mbythatagari` / `mrb` -> **Muralidhar Reddy Bythatagari (MRB)**
             - `elbennett` -> **Elizabeth Bennett (ELB)**
             - `suprety` -> **Sonal Uprety (SU)**
             - `asaravia` -> **Alex Saravia (AS)**
-            - `isharma` -> **Ishita Sharma (IS)**
-            - `acarrillo` -> **Andrew Carrillo (AC / ANC)**
             - `cdu` -> **Cuong Du (CCD)**
             - `aalanis` -> **America Alanis (ALA)**
             - `gli` -> **Guanchen Li (GL)**
             - `smohammad` -> **Simin Mohammad (SMO)**
-            - `aodugbesi` -> **Abayomi Odugbesi (AO / AOD)**
+            - `ssantamaria` -> **Sophia Santamaria (SAS)**
             - `restrada` -> **Rey Estrada (RE)**
             - `vsubramanian` -> **Varsha Subramanian (VV)**
             - `ksilva` -> **Karla Silva (KSM)**
-            - `mbythatagari` -> **Muralidhar Bythatagari (MRB)**
-            - `dkarangwa` -> **David Karangwa (DK)**
+            - `cgarza` -> **Clea S. Garza (CGS)**
+            - `dtassew` -> **Debrework Tassew (DT)**
+            - `hsmith` -> **Halaina Smith (HS)**
+            - `tkotisso` -> **Tamiru Kotisso (TK)**
             - `tduong` -> **Thinh Duong (TD)**
-            - `jocando` -> **Jose Ocando (JOC)**
-            - `kc` / `qchen` -> **Qiyue Chen (QC)**
             - `rseymour` -> **Robin Seymour (RS)**
+            - `mchukwumerije` -> **Maraya Chukwumerije (MC)**
+            - `pgary` -> **Pagan Gary (PG)**
+            - `karuta` -> **Kathleen Aruta (KA)**
+            - `dharrison` -> **Domiasha Harrison (DH)**
+            - `dshah` -> **Devanshi Shah (DS)**
+            - `jesqueda` -> **Jacqueline Esqueda (JE)**
+            - `jmehta` -> **Jinal Mehta (JM)**
+            - `oajayi` -> **Olugbenga Ajayi (OA)**
         *   **3. 底层代码工程强制防御与自动拦截机制 (Codebase Single Source of Truth & Interceptor):**
             - 在 `utils.py` 中建立全项目唯一的权威映射中枢（`get_full_name`, `clean_analyst_name`, `resolve_analyst_identity`）。
             - `pages/ScanRDI.py`、`pages/Celsis.py`、`pages/USP71.py` 及后台脚本必须统一从 `utils.py` 引用，严禁私自硬编码。

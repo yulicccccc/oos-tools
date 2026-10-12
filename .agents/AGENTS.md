@@ -444,10 +444,19 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 ### 26. Analyst Legal Full Name Precision & Universal Tri-Module Ground Truth Standard (全部 3 种 OOS 模块分析员法定全名与官方缩写守恒铁律)
 **CRITICAL**: Across ALL 3 sterility OOS modules (`ScanRDI`, `Celsis`, `USP <71>`) and EM investigations:
-1. **Analyst Legal Name Accuracy (Zero Tolerance for Hallucination)**:
+1. **Analyst Legal Name Accuracy (Zero Tolerance for Hallucination & Initials Precision)**:
    - For EagleTrax username `enioupin`: The legal system name is **Elysse Nioupin (EN)** (🚨 **ABSOLUTE RED LINE**: NEVER hallucinate "Eniola Nioupin" or invent "ENI"!).
+   - For EagleTrax username `isharma`: The legal initials are strictly **ISS** (**Ishita Sharma (ISS)**, NEVER "IS"!).
+   - For EagleTrax username `acarrillo`: The legal initials are strictly **ANC** (**Andrew Carrillo (ANC)**, NEVER "AC"!).
+   - For EagleTrax username `aodugbesi`: The legal initials are strictly **AOD** (**Abayomi Odugbesi (AOD)**, NEVER "AO" or "Ayomide"!).
+   - For EagleTrax username `qchen`: The legal initials are strictly **QYC** (**Qiyue Chen (QYC)**, NEVER "QC" or "KC"!).
    - For initials `MJ` in sample prep: The full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated "Min Jang").
-   - For initials `GA` / `GS`: The full legal name is **Gabrielle Surber (GA)** (NEVER "Gabbie Surber").
+   - For initials `GS` / `gsurber`: The full legal name is **Gabrielle Surber (GS)** (NEVER "Gabbie Surber", NEVER confused with "GA").
+   - For initials `GA` / `ganyangwe`: The full legal name is **Gerald Anyangwe (GA)** (NEVER confused with Gabrielle Surber).
+   - For initials `DK` / `dkansara`: The full legal name is **Dhvanir Kansara (DK)** (🚨 NEVER hallucinate "David Karangwa"!).
+   - For initials `JOC` / `jochoa`: The full legal name is **Jorge Ochoa (JOC)** (🚨 NEVER hallucinate "Jose Ocando"!).
+   - For initials `INS` / `isunesara`: The full legal name is **Inaara Sunesara (INS)**.
+   - For initials `MRB` / `mbythatagari`: The full legal name is **Muralidhar Reddy Bythatagari (MRB)**.
    - Global Concordance: Analyst full names and initials must be strictly harmonized across Section B comments (Text Field13), Page 1 personnel box (Text Field3), Page 3-5 narratives (Text Field49/50/51), and master Word/PDF report tables.
 2. **Two-Page Narrative Flow & Page 5 N/A Balance**:
    - When narrative content fits symmetrically across Page 3 (Text Field49, fs=8.75pt, ~3,540 chars) and Page 4 (Text Field50, fs=9.2pt, ~3,375 chars), Page 5 Text Field51 is marked as 'N/A QYC [Date]' to maintain clean visual balance and eliminate awkward bottom voids. Page 6 Text Field54 (Lab Manager) remains empty ('') for supervisor review.

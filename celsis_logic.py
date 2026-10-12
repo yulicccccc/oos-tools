@@ -1,7 +1,7 @@
 # filename: celsis_logic.py
 import streamlit as st
 import re
-from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative
+from utils import get_room_logic as u_grl, get_full_name, ordinal, num_to_words, get_cleanroom_narrative, resolve_analyst_identity, clean_analyst_name
 
 # --- 1. CONFIG & KEYS (前后端数据契约) ---
 FIELD_KEYS = [
@@ -30,10 +30,14 @@ for i in range(20):
 
 # --- 2. HELPER FUNCTIONS ---
 def auto_fill_name(initial_key, name_key):
-    initial = st.session_state.get(initial_key, "")
+    val = st.session_state.get(initial_key, "")
     current_name = st.session_state.get(name_key, "")
-    if initial:
-        calculated_name = get_full_name(initial)
+    if val:
+        calculated_name, canonical_init = resolve_analyst_identity(val)
+        if not calculated_name:
+            calculated_name = clean_analyst_name(get_full_name(val))
+        if canonical_init and canonical_init != val.strip().upper():
+            st.session_state[initial_key] = canonical_init
         if calculated_name and not current_name:
             st.session_state[name_key] = calculated_name
             st.rerun()

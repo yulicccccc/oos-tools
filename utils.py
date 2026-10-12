@@ -79,31 +79,34 @@ def apply_eagle_style():
 # --- 2. 业务逻辑工具函数 ---
 
 def get_full_name(initial):
-    """(终极版) 缩写转全名翻译器 - 已包含 Celsis 人员"""
+    """(终极版) 缩写转全名翻译器 - 官方权威法定姓名映射中枢"""
     if not initial: 
         return ""
     mapping = {
         "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
-        "QC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
+        "QYC": "Qiyue Chen", "QC": "Qiyue Chen", "KC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
         "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "KSM": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
-        "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
-        "RE": "Rey Estrada", "AOD": "Abayomi Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
-        "AC": "Andrew Carrillo", "ANC": "Andrew Carrillo", "KC": "Qiyue Chen", "MC": "Maraya Chukwumerije",
+        "GA": "Gerald Anyangwe", "MRB": "Muralidhar Reddy Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
+        "RE": "Rey Estrada", "AOD": "Abayomi Odugbesi", "AO": "Abayomi Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
+        "ANC": "Andrew Carrillo", "AC": "Andrew Carrillo", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
         "SMO": "Simin Mohammad", # EM 表格全名
         "SAS": "Sophia Santamaria", # EM 读板分析员
         "ELB": "Elizabeth Bennett", # ScanRDI 主力
-        "IS": "Ishita Sharma",
-        "DK": "David Karangwa",
+        "ISS": "Ishita Sharma", "IS": "Ishita Sharma",
+        "DK": "Dhvanir Kansara",
         "TD": "Thinh Duong",
-        "JOC": "Jose Ocando",
+        "JOC": "Jorge Ochoa",
+        "INS": "Inaara Sunesara",
+        "JE": "Jacqueline Esqueda",
+        "JM": "Jinal Mehta",
     }
     return mapping.get(initial.strip().upper(), "")
 
 def clean_analyst_name(name):
-    """(终极版) 名字拼写纠错器 - 确保 Gabbie 自动纠正为 Gabrielle, Min Jang 自动纠正为 Mukyung Jang, Eniola 自动纠正为 Elysse Nioupin"""
+    """(终极版) 名字拼写纠错器 - 强制拦截所有历史臆想名与口语别名"""
     if not name:
         return ""
     n = str(name).strip()
@@ -114,6 +117,12 @@ def clean_analyst_name(name):
         return "Mukyung Jang"
     if low in ["eniola nioupin", "eniola", "eni"]:
         return "Elysse Nioupin"
+    if low in ["david karangwa"]:
+        return "Dhvanir Kansara"
+    if low in ["jose ocando"]:
+        return "Jorge Ochoa"
+    if low in ["ayomide odugbesi"]:
+        return "Abayomi Odugbesi"
     return n
 
 def resolve_analyst_identity(query):
@@ -126,48 +135,187 @@ def resolve_analyst_identity(query):
     q = str(query).strip()
     low = q.lower()
     
-    # 官方用户名与手滑别名强纠错字典
+    # 官方用户名与手滑别名强纠错权威词典 (全量锁定)
     alias_map = {
+        # Elysse Nioupin (EN)
         "enioupin": ("Elysse Nioupin", "EN"),
         "eniola": ("Elysse Nioupin", "EN"),
         "eniola nioupin": ("Elysse Nioupin", "EN"),
         "eni": ("Elysse Nioupin", "EN"),
+        "en": ("Elysse Nioupin", "EN"),
+        # Mukyung Jang (MJ)
         "mjang": ("Mukyung Jang", "MJ"),
         "min jang": ("Mukyung Jang", "MJ"),
         "min": ("Mukyung Jang", "MJ"),
-        "gsurber": ("Gabrielle Surber", "GA"),
-        "gabbie surber": ("Gabrielle Surber", "GA"),
-        "gabbie": ("Gabrielle Surber", "GA"),
+        "mj": ("Mukyung Jang", "MJ"),
+        # Gabrielle Surber (GS)
+        "gsurber": ("Gabrielle Surber", "GS"),
+        "gabbie surber": ("Gabrielle Surber", "GS"),
+        "gabbie": ("Gabrielle Surber", "GS"),
+        "gs": ("Gabrielle Surber", "GS"),
+        # Gerald Anyangwe (GA)
+        "ganyangwe": ("Gerald Anyangwe", "GA"),
+        "ga": ("Gerald Anyangwe", "GA"),
+        # Elizabeth Bennett (ELB)
         "elbennett": ("Elizabeth Bennett", "ELB"),
+        "elb": ("Elizabeth Bennett", "ELB"),
+        # Sonal Uprety (SU)
         "suprety": ("Sonal Uprety", "SU"),
+        "su": ("Sonal Uprety", "SU"),
+        # Alex Saravia (AS)
         "asaravia": ("Alex Saravia", "AS"),
-        "isharma": ("Ishita Sharma", "IS"),
-        "acarrillo": ("Andrew Carrillo", "AC"),
+        "as": ("Alex Saravia", "AS"),
+        # Ishita Sharma (ISS)
+        "isharma": ("Ishita Sharma", "ISS"),
+        "iss": ("Ishita Sharma", "ISS"),
+        "is": ("Ishita Sharma", "ISS"),
+        # Andrew Carrillo (ANC)
+        "acarrillo": ("Andrew Carrillo", "ANC"),
+        "anc": ("Andrew Carrillo", "ANC"),
+        "ac": ("Andrew Carrillo", "ANC"),
+        # Cuong Du (CCD)
         "cdu": ("Cuong Du", "CCD"),
+        "ccd": ("Cuong Du", "CCD"),
+        # America Alanis (ALA)
         "aalanis": ("America Alanis", "ALA"),
+        "ala": ("America Alanis", "ALA"),
+        "aa": ("America Alanis", "ALA"),
+        # Guanchen Li (GL)
         "gli": ("Guanchen Li", "GL"),
+        "gl": ("Guanchen Li", "GL"),
+        # Simin Mohammad (SMO)
         "smohammad": ("Simin Mohammad", "SMO"),
+        "smo": ("Simin Mohammad", "SMO"),
+        # Abayomi Odugbesi (AOD)
         "aodugbesi": ("Abayomi Odugbesi", "AOD"),
+        "aod": ("Abayomi Odugbesi", "AOD"),
+        "ao": ("Abayomi Odugbesi", "AOD"),
+        # Rey Estrada (RE)
         "restrada": ("Rey Estrada", "RE"),
+        "re": ("Rey Estrada", "RE"),
+        # Varsha Subramanian (VV)
         "vsubramanian": ("Varsha Subramanian", "VV"),
+        "vv": ("Varsha Subramanian", "VV"),
+        # Karla Silva (KSM)
         "ksilva": ("Karla Silva", "KSM"),
-        "mbythatagari": ("Muralidhar Bythatagari", "MRB"),
-        "dkarangwa": ("David Karangwa", "DK"),
+        "ksm": ("Karla Silva", "KSM"),
+        "ks": ("Karla Silva", "KSM"),
+        # Muralidhar Reddy Bythatagari (MRB)
+        "mbythatagari": ("Muralidhar Reddy Bythatagari", "MRB"),
+        "mrb": ("Muralidhar Reddy Bythatagari", "MRB"),
+        # Dhvanir Kansara (DK)
+        "dkansara": ("Dhvanir Kansara", "DK"),
+        "dkarangwa": ("Dhvanir Kansara", "DK"),
+        "dk": ("Dhvanir Kansara", "DK"),
+        # Thinh Duong (TD)
         "tduong": ("Thinh Duong", "TD"),
-        "jocando": ("Jose Ocando", "JOC"),
+        "td": ("Thinh Duong", "TD"),
+        # Jorge Ochoa (JOC)
+        "jochoa": ("Jorge Ochoa", "JOC"),
+        "jocando": ("Jorge Ochoa", "JOC"),
+        "joc": ("Jorge Ochoa", "JOC"),
+        # Inaara Sunesara (INS)
+        "isunesara": ("Inaara Sunesara", "INS"),
+        "ins": ("Inaara Sunesara", "INS"),
+        # Robin Seymour (RS)
         "rseymour": ("Robin Seymour", "RS"),
-        "qchen": ("Qiyue Chen", "QC"),
-        "kc": ("Qiyue Chen", "QC"),
+        "rs": ("Robin Seymour", "RS"),
+        # Qiyue Chen (QYC)
+        "qchen": ("Qiyue Chen", "QYC"),
+        "qyc": ("Qiyue Chen", "QYC"),
+        "qc": ("Qiyue Chen", "QYC"),
+        "kc": ("Qiyue Chen", "QYC"),
+        # Sophia Santamaria (SAS)
+        "ssantamaria": ("Sophia Santamaria", "SAS"),
+        "sas": ("Sophia Santamaria", "SAS"),
+        # Clea S. Garza (CGS)
+        "cgarza": ("Clea S. Garza", "CGS"),
+        "cgs": ("Clea S. Garza", "CGS"),
+        "csg": ("Clea S. Garza", "CGS"),
+        # Debrework Tassew (DT)
+        "dtassew": ("Debrework Tassew", "DT"),
+        "dt": ("Debrework Tassew", "DT"),
+        # Halaina Smith (HS)
+        "hsmith": ("Halaina Smith", "HS"),
+        "hs": ("Halaina Smith", "HS"),
+        # Tamiru Kotisso (TK)
+        "tkotisso": ("Tamiru Kotisso", "TK"),
+        "tk": ("Tamiru Kotisso", "TK"),
+        # Maraya Chukwumerije (MC)
+        "mchukwumerije": ("Maraya Chukwumerije", "MC"),
+        "mc": ("Maraya Chukwumerije", "MC"),
+        # Pagan Gary (PG)
+        "pgary": ("Pagan Gary", "PG"),
+        "pg": ("Pagan Gary", "PG"),
+        # Kathleen Aruta (KA)
+        "karuta": ("Kathleen Aruta", "KA"),
+        "ka": ("Kathleen Aruta", "KA"),
+        # Domiasha Harrison (DH)
+        "dharrison": ("Domiasha Harrison", "DH"),
+        "dh": ("Domiasha Harrison", "DH"),
+        # Devanshi Shah (DS)
+        "dshah": ("Devanshi Shah", "DS"),
+        "ds": ("Devanshi Shah", "DS"),
+        # Jacqueline Esqueda (JE)
+        "jesqueda": ("Jacqueline Esqueda", "JE"),
+        "je": ("Jacqueline Esqueda", "JE"),
+        # Jinal Mehta (JM)
+        "jmehta": ("Jinal Mehta", "JM"),
+        "jm": ("Jinal Mehta", "JM"),
+        # Olugbenga Ajayi (OA)
+        "oajayi": ("Olugbenga Ajayi", "OA"),
+        "oa": ("Olugbenga Ajayi", "OA"),
     }
     if low in alias_map:
         return alias_map[low]
         
     up = q.upper()
     full = get_full_name(up)
+    canonical_initial_map = {
+        "Ishita Sharma": "ISS",
+        "Andrew Carrillo": "ANC",
+        "Abayomi Odugbesi": "AOD",
+        "Qiyue Chen": "QYC",
+        "Gabrielle Surber": "GS",
+        "Gerald Anyangwe": "GA",
+        "Elysse Nioupin": "EN",
+        "Dhvanir Kansara": "DK",
+        "Jorge Ochoa": "JOC",
+        "Inaara Sunesara": "INS",
+        "Mukyung Jang": "MJ",
+        "Muralidhar Reddy Bythatagari": "MRB",
+        "Elizabeth Bennett": "ELB",
+        "Sonal Uprety": "SU",
+        "Guanchen Li": "GL",
+        "Cuong Du": "CCD",
+        "America Alanis": "ALA",
+        "Simin Mohammad": "SMO",
+        "Sophia Santamaria": "SAS",
+        "Varsha Subramanian": "VV",
+        "Karla Silva": "KSM",
+        "Clea S. Garza": "CGS",
+        "Debrework Tassew": "DT",
+        "Halaina Smith": "HS",
+        "Tamiru Kotisso": "TK",
+        "Thinh Duong": "TD",
+        "Rey Estrada": "RE",
+        "Robin Seymour": "RS",
+        "Maraya Chukwumerije": "MC",
+        "Pagan Gary": "PG",
+        "Alex Saravia": "AS",
+        "Kathleen Aruta": "KA",
+        "Domiasha Harrison": "DH",
+        "Devanshi Shah": "DS",
+        "Jacqueline Esqueda": "JE",
+        "Jinal Mehta": "JM",
+        "Olugbenga Ajayi": "OA",
+    }
     if full:
-        return full, up
+        return full, canonical_initial_map.get(full, up)
         
     cleaned = clean_analyst_name(q)
+    if cleaned in canonical_initial_map:
+        return cleaned, canonical_initial_map[cleaned]
     return cleaned, ""
 
 # Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
