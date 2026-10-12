@@ -84,9 +84,6 @@ p6 = (
     "Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 10-minute contact time."
 )
 
-text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6])
-
-# --- PAGE 4 (Text Field 50) ---
 p7 = (
     "The secondary disinfection happened in the ISO 8 anteroom (114), where the vials were again treated with acidified bleach and "
     "provided a 10-minute contact time before processing. Subsequently, the vials were moved into innermost ISO 7 cleanroom (114B). "
@@ -100,6 +97,9 @@ p8 = (
     "The sample was processed and tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation."
 )
 
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8])
+
+# --- PAGE 4 (Text Field 50) ---
 p9 = (
     "On 10Sep26 (Day 6 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by analyst, Elysse Nioupin, "
     "and confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for ETX-260902-0505 was submitted for Differential Staining "
@@ -120,9 +120,6 @@ p11 = (
     "and Mycobacterium grossiae."
 )
 
-text_field_50 = "\r \r".join([p7, p8, p9, p10, p11])
-
-# --- PAGE 5 (Text Field 51) ---
 p12 = (
     "It is important to note that the colony morphology of the microorganisms recovered from the cleanroom environment differed from that of the "
     "microorganism isolated from the test sample. This morphological distinction indicates that the environmental monitoring recovery and the test "
@@ -162,6 +159,9 @@ p18 = (
     "EP 2.6.1 Sterility Test during this period."
 )
 
+text_field_50 = "\r \r".join([p9, p10, p11, p12, p13, p14, p15, p16, p17, p18])
+
+# --- PAGE 5 (Text Field 51) ---
 p19 = (
     "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples "
     "processed on the same day. All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that "
@@ -174,13 +174,13 @@ p20 = (
 )
 
 p21 = (
-    "However, when investigating the sample history, it was discovered that the same lot (Lot 2608-216) had previously been submitted "
+    "However, when investigating the lot history, it was discovered that the same lot (Lot 2608-216) had previously been submitted "
     "for ScanRDI sterility testing under ETX-260807-0602 and yielded a passing result. Based on this conflicting passing ScanRDI result "
-    "for the same lot, the laboratory requested additional sample vials from the client for retesting and initiated a Phase II investigation "
+    "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
     "(Form 3.100.019.F02)."
 )
 
-text_field_51 = "\r \r".join([p12, p13, p14, p15, p16, p17, p18, p19, p20, p21])
+text_field_51 = "\r \r".join([p19, p20, p21])
 
 # -------------------------------------------------------------
 # 2. Build Master Word Document
@@ -422,7 +422,7 @@ def build_official_pdf_form():
         # Page 3
         'Text Field46': "Not applicable",
         'Text Field47': "Not applicable",
-        'Text Field48': "N/A QYC 08Oct26",
+        'Text Field48': "N/A QYC 12Oct26",
         'Text Field49': text_field_49,
         
         # Page 4
@@ -494,7 +494,10 @@ def build_official_pdf_form():
             elif fn in pdf_values:
                 w.field_value = pdf_values[fn]
                 # Golden calibrated auto-fit font sizes
-                if fn in ['Text Field49', 'Text Field50', 'Text Field51']:
+                if fn == 'Text Field49':
+                    w.text_fontsize = 8.65
+                    w.text_font = "Helv"
+                elif fn in ['Text Field50', 'Text Field51']:
                     w.text_fontsize = 9.2
                     w.text_font = "Helv"
                 elif fn == 'Text Field3':
@@ -536,11 +539,12 @@ def build_official_pdf_form():
     
     for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
         dest_pdf = os.path.join(dest_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-        try:
-            shutil.copy2(out_pdf_docs, dest_pdf)
-            print("Master PDF saved to:", dest_pdf)
-        except Exception as e:
-            print("Desktop PDF copy note:", e)
+        if os.path.abspath(dest_pdf) != os.path.abspath(out_pdf_docs):
+            try:
+                shutil.copy2(out_pdf_docs, dest_pdf)
+                print("Master PDF saved to:", dest_pdf)
+            except Exception as e:
+                print("Desktop PDF copy note:", e)
         for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf"]:
             try:
                 shutil.copy2(out_pdf_docs, os.path.join(dest_dir, alias))

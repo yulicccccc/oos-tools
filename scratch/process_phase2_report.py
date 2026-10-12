@@ -50,10 +50,10 @@ p23 = (
     "physically isolated within the outermost ISO 8 anteroom. Monthly cleaning and disinfection of Suite CR114 was performed on 30Aug26 "
     "per MICRO-SOP-9 with all H2O2 indicators passing. All other samples processed in the same testing session tested negative, ruling out "
     "cross-contamination.\r \r"
-    "However, when investigating the sample history during the Phase I investigation, the laboratory discovered "
+    "However, when investigating the lot history during the Phase I investigation, the laboratory discovered "
     "that the same lot (Lot 2608-216) had previously been submitted for ScanRDI sterility testing under ETX-260807-0602 "
     "(Test Record 081326-2017-2) and yielded a passing result (Count: 14/0, Pass). Based on this conflicting passing ScanRDI result "
-    "for the same lot, the laboratory requested additional sample vials from the client for retesting and initiated a Phase II investigation "
+    "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
     "(Form 3.100.019.F02)."
 )
 
