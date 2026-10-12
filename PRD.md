@@ -399,7 +399,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `jochoa` / `joc` -> **Jorge Ochoa (JOC)**（🚨 **严禁脑补为 "Jose Ocando"！官方全名必须是 Jorge Ochoa！**）
             - `isunesara` / `ins` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
             - `mbythatagari` / `mrb` -> **Muralidhar Reddy Bythatagari (MRB)**
-            - `elbennett` / `elb` -> **Ellen Bennett (ELB)**（🚨 **严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
+            - `ebennett` / `elbennett` / `elb` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
             - `suprety` -> **Sonal Uprety (SU)**
             - `asaravia` -> **Alex Saravia (AS)**
             - `cdu` -> **Cuong Du (CCD)**

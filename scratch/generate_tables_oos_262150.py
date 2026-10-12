@@ -6,9 +6,9 @@ Sample ID: ETX-260914-0306
 Sample Name: Tirzepatide 5mg, Glycine 0.5mg/mL
 Lot: 091126-66A
 Test Date: 16Sep26
-Processing Analyst: Elizabeth Bennett (ELB) (47th sample processed)
+Processing Analyst: Ellen Bennett (ELB) (47th sample processed)
 Processing BSC: BSC E001938 (Cleanroom 145 / L-Suite)
-Changeover Analyst: Elizabeth Bennett (ELB)
+Changeover Analyst: Ellen Bennett (ELB)
 Changeover BSC: BSC E001937 (Buffer Room 144 / L-Suite)
 Reading Analyst: Sonal Uprety (SU)
 """

@@ -629,7 +629,7 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 ### 34. Mandatory Standard Analyst Name & Initials Roster & Reverse Mapping Architecture Firewall (全项目统一分析员全名与缩写权威词典与技术防火墙 - 🚨 终极铁律)
 **CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials. All references MUST strictly adhere to the central mapping in `utils.py`:
 1. **Critical High-Risk Corrections (高危易错人员绝对锁定)**:
-   - `ELB` / `elbennett` -> **Ellen Bennett (ELB)**（🚨 **严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
+   - `ELB` / `ebennett` / `elbennett` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
    - `EN` / `enioupin` -> **Elysse Nioupin (EN)**（🚨 **严禁写成 "Eniola"！官方全名必须是 Elysse Nioupin！**）
    - `ISS` / `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方缩写必须是 ISS！**）
    - `ANC` / `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方缩写必须是 ANC！**）

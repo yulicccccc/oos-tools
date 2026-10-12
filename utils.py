@@ -159,6 +159,7 @@ def resolve_analyst_identity(query):
         "ganyangwe": ("Gerald Anyangwe", "GA"),
         "ga": ("Gerald Anyangwe", "GA"),
         # Ellen Bennett (ELB)
+        "ebennett": ("Ellen Bennett", "ELB"),
         "elbennett": ("Ellen Bennett", "ELB"),
         "ellen bennett": ("Ellen Bennett", "ELB"),
         "ellen": ("Ellen Bennett", "ELB"),
