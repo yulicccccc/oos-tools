@@ -111,11 +111,11 @@ pdf_map = {
     "Date Field0": "15-Sep-2026",
     "Text Field1": (
         "Prepping Analyst:\r"
-        "Ishita Sharma (IS), Andrew Carrillo (AC)\r \r"
+        "Ishita Sharma (ISS), Andrew Carrillo (ANC)\r \r"
         "Processing Analyst:\r"
         "Alex Saravia (AS), Abayomi Odugbesi (AOD)\r \r"
         "Reading Analyst:\r"
-        "Elysse Nioupin (EN), Andrew Carrillo (AC)"
+        "Elysse Nioupin (EN), Andrew Carrillo (ANC)"
     ),
     "Text Field2": "Original test:\rETX-260902-0505\r \rRetest:\rETX-260914-0470",
     "Text Field3": "Fail",

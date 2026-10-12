@@ -41,7 +41,7 @@ data = {
     "pro_before_test": "03Sep26",
     "pro_test_date": "04Sep26",
     "pro_after_test": "08Sep26",
-    "pro_analyst_initial": "ES",
+    "pro_analyst_initial": "AS",
     "pro_date_of_weekly": "04Sep26",
 
     # Personnel EM

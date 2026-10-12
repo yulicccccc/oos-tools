@@ -111,11 +111,11 @@ data = {
     "smart_original_result_str": "Fail",
     "smart_retest_personnel_block": (
         "Prepping Analyst:\n"
-        "Ishita Sharma (IS), Andrew Carrillo (AC)\n\n"
+        "Ishita Sharma (ISS), Andrew Carrillo (ANC)\n\n"
         "Processing Analyst:\n"
         "Alex Saravia (AS), Abayomi Odugbesi (AOD)\n\n"
         "Reading Analyst:\n"
-        "Elysse Nioupin (EN), Andrew Carrillo (AC)"
+        "Elysse Nioupin (EN), Andrew Carrillo (ANC)"
     ),
     "smart_sample_id_block": "Original test:\nETX-260902-0505\n\nRetest:\nETX-260914-0470",
     "smart_retest_result_str": "Fail",
