@@ -399,7 +399,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `jochoa` / `joc` -> **Jorge Ochoa (JOC)**（🚨 **严禁脑补为 "Jose Ocando"！官方全名必须是 Jorge Ochoa！**）
             - `isunesara` / `ins` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
             - `mbythatagari` / `mrb` -> **Muralidhar Reddy Bythatagari (MRB)**
-            - `elbennett` -> **Elizabeth Bennett (ELB)**
+            - `elbennett` / `elb` -> **Ellen Bennett (ELB)**（🚨 **严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
             - `suprety` -> **Sonal Uprety (SU)**
             - `asaravia` -> **Alex Saravia (AS)**
             - `cdu` -> **Cuong Du (CCD)**
@@ -427,7 +427,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **3. 底层代码工程强制防御与自动拦截机制 (Codebase Single Source of Truth & Interceptor):**
             - 在 `utils.py` 中建立全项目唯一的权威映射中枢（`get_full_name`, `clean_analyst_name`, `resolve_analyst_identity`）。
             - `pages/ScanRDI.py`、`pages/Celsis.py`、`pages/USP71.py` 及后台脚本必须统一从 `utils.py` 引用，严禁私自硬编码。
-            - 在 `clean_analyst_name()` 与解析器中设置强制拦截钩子：任何包含 `eniola` 的字符串强制自动纠正为 `Elysse Nioupin`，任何 `gabbie` 强制纠正为 `Gabrielle Surber`，任何 `min jang` 强制纠正为 `Mukyung Jang`，从底层代码构筑无法击穿的技术防火墙。
+            - 在 `clean_analyst_name()` 与解析器中设置强制拦截钩子：任何包含 `eniola` 的字符串强制自动纠正为 `Elysse Nioupin`，任何 `gabbie` 强制纠正为 `Gabrielle Surber`，任何 `min jang` 强制纠正为 `Mukyung Jang`，任何 `elizabeth bennett` / `elizabeth` 强制纠正为 `Ellen Bennett`，从底层代码构筑无法击穿的技术防火墙。
         *   **4. 全文一致性校验与交付前门禁 (Universal Consistency & Pre-Delivery Audit Gate):**
             - 在 Page 1 分析员栏 (`Text Field3`)、访谈记录 (`Text Field13`)、正文各段落（Page 3/4/5）及独立台账表格中，分析员全名与缩写必须 100% 保持完全统一，交付前脚本自动审计，发现未授权名称直接阻断生成！
 

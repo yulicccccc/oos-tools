@@ -40,9 +40,9 @@ TEST_RECORD = "091626-2132-2"
 
 PREPPER_NAME = "Elysse Nioupin"
 PREPPER_INIT = "EN"
-PROCESSOR_NAME = "Elizabeth Bennett"
+PROCESSOR_NAME = "Ellen Bennett"
 PROCESSOR_INIT = "ELB"
-CHANGEOVER_NAME = "Elizabeth Bennett"
+CHANGEOVER_NAME = "Ellen Bennett"
 CHANGEOVER_INIT = "ELB"
 READER_NAME = "Sonal Uprety"
 READER_INIT = "SU"
@@ -377,7 +377,7 @@ def generate_master_pdf_report():
         'Text Field50': text_field_50,
         'Text Field51': text_field_51,
         'Text Field52': "",
-        'Text Field53': "Qiyue Chen",
+        'Text Field53': f"{PROCESSOR_NAME} (Written by: Qiyue Chen)",
         'Text Field54': "",
         'Text Field55': "",
     }
@@ -537,6 +537,10 @@ def generate_master_pdf_report():
         print("Master PDF saved to Desktop:", out_pdf_desktop)
     except Exception as e:
         print("Desktop PDF lock note:", e)
+        out_pdf_desktop_updated = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI (Updated).pdf")
+        with open(out_pdf_desktop_updated, "wb") as f:
+            writer.write(f)
+        print("Saved to Updated Master PDF on Desktop:", out_pdf_desktop_updated)
 
 if __name__ == "__main__":
     print(f"=== Generating Master Word Report and Master PDF Report for OOS-{OOS_ID} ===")

@@ -94,7 +94,7 @@ def get_full_name(initial):
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
         "SMO": "Simin Mohammad", # EM 表格全名
         "SAS": "Sophia Santamaria", # EM 读板分析员
-        "ELB": "Elizabeth Bennett", # ScanRDI 主力
+        "ELB": "Ellen Bennett", # ScanRDI 主力
         "ISS": "Ishita Sharma", "IS": "Ishita Sharma",
         "DK": "Dhvanir Kansara",
         "TD": "Thinh Duong",
@@ -123,6 +123,8 @@ def clean_analyst_name(name):
         return "Jorge Ochoa"
     if low in ["ayomide odugbesi"]:
         return "Abayomi Odugbesi"
+    if low in ["elizabeth bennett", "elizabeth"]:
+        return "Ellen Bennett"
     return n
 
 def resolve_analyst_identity(query):
@@ -156,9 +158,13 @@ def resolve_analyst_identity(query):
         # Gerald Anyangwe (GA)
         "ganyangwe": ("Gerald Anyangwe", "GA"),
         "ga": ("Gerald Anyangwe", "GA"),
-        # Elizabeth Bennett (ELB)
-        "elbennett": ("Elizabeth Bennett", "ELB"),
-        "elb": ("Elizabeth Bennett", "ELB"),
+        # Ellen Bennett (ELB)
+        "elbennett": ("Ellen Bennett", "ELB"),
+        "ellen bennett": ("Ellen Bennett", "ELB"),
+        "ellen": ("Ellen Bennett", "ELB"),
+        "elizabeth bennett": ("Ellen Bennett", "ELB"),
+        "elizabeth": ("Ellen Bennett", "ELB"),
+        "elb": ("Ellen Bennett", "ELB"),
         # Sonal Uprety (SU)
         "suprety": ("Sonal Uprety", "SU"),
         "su": ("Sonal Uprety", "SU"),
@@ -284,6 +290,7 @@ def resolve_analyst_identity(query):
         "Inaara Sunesara": "INS",
         "Mukyung Jang": "MJ",
         "Muralidhar Reddy Bythatagari": "MRB",
+        "Ellen Bennett": "ELB",
         "Elizabeth Bennett": "ELB",
         "Sonal Uprety": "SU",
         "Guanchen Li": "GL",

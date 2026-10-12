@@ -626,6 +626,25 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 3. **Consumables Traceability (耗材系统批号无缝闭环)**:
    - Accurately map FTM Lot `2567320` (Exp `12/16/2026`), TSB Lot `2548010` (Exp `04/19/2027`), and Fluid D Lot `685561` (Exp `10/31/2026`).
 
+### 34. Mandatory Standard Analyst Name & Initials Roster & Reverse Mapping Architecture Firewall (全项目统一分析员全名与缩写权威词典与技术防火墙 - 🚨 终极铁律)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials. All references MUST strictly adhere to the central mapping in `utils.py`:
+1. **Critical High-Risk Corrections (高危易错人员绝对锁定)**:
+   - `ELB` / `elbennett` -> **Ellen Bennett (ELB)**（🚨 **严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
+   - `EN` / `enioupin` -> **Elysse Nioupin (EN)**（🚨 **严禁写成 "Eniola"！官方全名必须是 Elysse Nioupin！**）
+   - `ISS` / `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方缩写必须是 ISS！**）
+   - `ANC` / `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方缩写必须是 ANC！**）
+   - `AOD` / `aodugbesi` -> **Abayomi Odugbesi (AOD)**（🚨 **官方缩写必须是 AOD！**）
+   - `QYC` / `qchen` -> **Qiyue Chen (QYC)**（🚨 **官方缩写必须是 QYC！**）
+   - `MJ` / `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
+   - `GS` / `gsurber` -> **Gabrielle Surber (GS)**（🚨 **严禁混淆为 "GA" 或 "Gabbie"！官方缩写必须是 GS！**）
+   - `GA` / `ganyangwe` -> **Gerald Anyangwe (GA)**（🚨 **官方缩写必须是 GA，与 GS 严格隔离！**）
+   - `DK` / `dkansara` -> **Dhvanir Kansara (DK)**（🚨 **严禁脑补为 "David Karangwa"！官方全名必须是 Dhvanir Kansara！**）
+   - `JOC` / `jochoa` -> **Jorge Ochoa (JOC)**（🚨 **严禁脑补为 "Jose Ocando"！官方全名必须是 Jorge Ochoa！**）
+   - `INS` / `isunesara` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
+2. **Codebase Single Source of Truth & Interceptor Firewall (底层代码强制拦截防火墙)**:
+   - `utils.py` 中的 `clean_analyst_name()` 和 `resolve_analyst_identity()` 会自动将 `elizabeth bennett` / `elizabeth` 强制拦截纠正为 `Ellen Bennett`。
+
+
 
 
 
