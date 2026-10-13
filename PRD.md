@@ -567,7 +567,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
                 - ISO 5 与人员评估：严格去除 "100%" 绝对化用语，标准表述为 `absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing`。
                 - 洁净室环境评估：周检浮游菌语法修正为 `in the ISO 7 cleanrooms (145 and 144)`，外围 ISO 8 检出与待测样形态对照排查及压差屏障防守。
                 - 月度清洁：明确核实并记录为 `30Aug26`，所有化学指示卡合格。
-                - 6 个月客户批次历史真实审计：确证存在 1 起先前失败事件 `OOS-262106`（检验日期 10Sep26，样品 ETX-260908-0694，批号 19622，GL/MRB，Parallel suite 117，117 events，第 22 支样品，复检 ETX-260916-0726）。**关键形态学对照**：OOS-262106 确证菌落形态为 `circular-shaped (clusters) morphology`，与本次待测样品的 `curved rod-shaped morphology` 具有根本形态学差异，证实为完全不同且孤立的微生物事件。
+                - 6 个月客户批次历史真实审计：确证存在 1 起先前失败事件 `OOS-262106`（检验日期 10Sep26，样品 ETX-260908-0694，批号 19622，GL/MRB）。采用极简精准官方句式：`Analyzing a 6-month sample history for GoGoMeds Select (E10747), this specific analyte "Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%" has had one prior failure, documented under OOS-262106 for submission ETX-260908-0694, tested on 10Sep26.`，精简聚焦，消除多余冗长文字。
                 - 交叉污染排查与结论：第 27 支样品，全天其余样品全阴性，无实验室可归属原因，初检 OOS 判定有效。
               - Page 5 (`Text Field51`, 11.0pt): 严格遵循标杆仅填写 **`N/A QYC 13Oct2026`**，避免跨页断行与底部多余留白。
             - **Page 6 签字栏**: Section D 复选框选择 `Check Box88`（'No, the OOS result is valid.'），调查人 `Text Field53` 规范填写 `Qiyue Chen`（7.5pt）。

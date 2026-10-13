@@ -175,9 +175,7 @@ p14 = (
 
 p15 = (
     f"Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte \"{SAMPLE_NAME}\" has had one prior failure, "
-    "documented under OOS-262106 (tested on 10Sep26 under ETX-260908-0694, Lot 19622). Notably, the confirmed microbial events in "
-    "OOS-262106 exhibited circular-shaped (clusters) morphology, which differs from the curved rod-shaped morphology observed "
-    "in the current test sample."
+    "documented under OOS-262106 for submission ETX-260908-0694, tested on 10Sep26."
 )
 
 p16 = (
