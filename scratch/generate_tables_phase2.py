@@ -116,7 +116,7 @@ def set_cell_hyperlink(cell, display_text, url, font_size_pt=7):
 
 # Populate Row 2 (Retest) in Table 1
 cells_r2 = r_new.cells
-set_cell_clean_text(cells_r2[0], "Abayomi Odugbesi", font_size_pt=7)
+set_cell_clean_text(cells_r2[0], "Ayomide Odugbesi", font_size_pt=7)
 set_cell_clean_text(cells_r2[1], "Andrew Carrillo", font_size_pt=7)
 set_cell_hyperlink(cells_r2[2], "ETX-260914-0470", URL_RETEST, font_size_pt=7)
 set_cell_hyperlink(cells_r2[3], "ETX-260921-0498", URL_RETEST_ID, font_size_pt=7)

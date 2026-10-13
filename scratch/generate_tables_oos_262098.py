@@ -41,7 +41,7 @@ data = {
     "pro_before_test": "03Sep26",
     "pro_test_date": "04Sep26",
     "pro_after_test": "08Sep26",
-    "pro_analyst_initial": "AS",
+    "pro_analyst_initial": "ES",
     "pro_date_of_weekly": "04Sep26",
 
     # Personnel EM
@@ -356,7 +356,7 @@ set_table1_microbial_id_cell(t1_rendered.rows[1].cells[5], "Microbacterium sp. P
 # Add Row 2 for ETX-260914-0470
 r_new = t1_rendered.add_row()
 cells_r2 = r_new.cells
-set_cell_clean_text(cells_r2[0], "Abayomi Odugbesi", font_size_pt=7)
+set_cell_clean_text(cells_r2[0], "Ayomide Odugbesi", font_size_pt=7)
 set_cell_clean_text(cells_r2[1], "Andrew Carrillo", font_size_pt=7)
 add_hyperlink_to_cell(cells_r2[2], URL_RETEST, "ETX-260914-0470", font_size_pt=7)
 add_hyperlink_to_cell(cells_r2[3], URL_RETEST_ID, "ETX-260921-0498", font_size_pt=7)

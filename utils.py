@@ -84,11 +84,11 @@ def get_full_name(initial, _from_resolve=False):
         return ""
     mapping = {
         "KA": "Kathleen Aruta", "DH": "Domiasha Harrison", "GL": "Guanchen Li", "DS": "Devanshi Shah",
-        "QYC": "Qiyue Chen", "QC": "Qiyue Chen", "KC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "AS": "Alex Saravia",
+        "QYC": "Qiyue Chen", "QC": "Qiyue Chen", "KC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "ES": "Alex Saravia", "AS": "Alex Saravia",
         "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "KSM": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
         "GA": "Gerald Anyangwe", "MRB": "Muralidhar Reddy Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
-        "RE": "Rey Estrada", "AOD": "Abayomi Odugbesi", "AO": "Abayomi Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
+        "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "AO": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
         "ANC": "Andrew Carrillo", "AC": "Andrew Carrillo", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
         "ALA": "America Alanis", # Celsis 主力 (新/全局)
@@ -127,8 +127,8 @@ def clean_analyst_name(name):
         return "Dhvanir Kansara"
     if low in ["jose ocando"]:
         return "Jorge Ochoa"
-    if low in ["ayomide odugbesi"]:
-        return "Abayomi Odugbesi"
+    if low in ["abayomi odugbesi", "abayomi"]:
+        return "Ayomide Odugbesi"
     if low in ["elizabeth bennett", "elizabeth"]:
         return "Ellen Bennett"
     return n
@@ -175,9 +175,10 @@ def resolve_analyst_identity(query):
         # Sonal Uprety (SU)
         "suprety": ("Sonal Uprety", "SU"),
         "su": ("Sonal Uprety", "SU"),
-        # Alex Saravia (AS)
-        "asaravia": ("Alex Saravia", "AS"),
-        "as": ("Alex Saravia", "AS"),
+        # Alex Saravia (ES)
+        "asaravia": ("Alex Saravia", "ES"),
+        "es": ("Alex Saravia", "ES"),
+        "as": ("Alex Saravia", "ES"),
         # Ishita Sharma (ISS)
         "isharma": ("Ishita Sharma", "ISS"),
         "iss": ("Ishita Sharma", "ISS"),
@@ -199,10 +200,12 @@ def resolve_analyst_identity(query):
         # Simin Mohammad (SMO)
         "smohammad": ("Simin Mohammad", "SMO"),
         "smo": ("Simin Mohammad", "SMO"),
-        # Abayomi Odugbesi (AOD)
-        "aodugbesi": ("Abayomi Odugbesi", "AOD"),
-        "aod": ("Abayomi Odugbesi", "AOD"),
-        "ao": ("Abayomi Odugbesi", "AOD"),
+        # Ayomide Odugbesi (AOD)
+        "aodugbesi": ("Ayomide Odugbesi", "AOD"),
+        "aod": ("Ayomide Odugbesi", "AOD"),
+        "ao": ("Ayomide Odugbesi", "AOD"),
+        "abayomi odugbesi": ("Ayomide Odugbesi", "AOD"),
+        "abayomi": ("Ayomide Odugbesi", "AOD"),
         # Rey Estrada (RE)
         "restrada": ("Rey Estrada", "RE"),
         "re": ("Rey Estrada", "RE"),
@@ -287,7 +290,7 @@ def resolve_analyst_identity(query):
     canonical_initial_map = {
         "Ishita Sharma": "ISS",
         "Andrew Carrillo": "ANC",
-        "Abayomi Odugbesi": "AOD",
+        "Ayomide Odugbesi": "AOD",
         "Qiyue Chen": "QYC",
         "Gabrielle Surber": "GS",
         "Gerald Anyangwe": "GA",
@@ -315,7 +318,7 @@ def resolve_analyst_identity(query):
         "Robin Seymour": "RS",
         "Maraya Chukwumerije": "MC",
         "Pagan Gary": "PG",
-        "Alex Saravia": "AS",
+        "Alex Saravia": "ES",
         "Kathleen Aruta": "KA",
         "Domiasha Harrison": "DH",
         "Devanshi Shah": "DS",
@@ -339,7 +342,8 @@ FORBIDDEN_HALLUCINATED_NAMES = {
     "gabbie surber": "Gabrielle Surber (GS)",
     "david karangwa": "Dhvanir Kansara (DK)",
     "jose ocando": "Jorge Ochoa (JOC)",
-    "ayomide odugbesi": "Abayomi Odugbesi (AOD)",
+    "abayomi odugbesi": "Ayomide Odugbesi (AOD)",
+    "abayomi": "Ayomide Odugbesi (AOD)",
 }
 
 def assert_no_hallucinations(text_or_obj):

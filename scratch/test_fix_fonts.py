@@ -69,8 +69,8 @@ print("Saved clean template to:", TPL_CLEAN)
 context = {
     # Table 1
     "sample_id": "ETX-260804-0335",
-    "analyst_name": "Pending",
-    "reading_name": "Qiyue Chen",
+    "analyst_name": "Gabrielle Surber",
+    "reading_name": "Elysse Nioupin",
     "positive_id": "ETX-260904-0331",
     "positive_media": "1 x 100mL TSB bottle",
     "positive_org": "Pending",
@@ -80,7 +80,7 @@ context = {
     "pro_before_test": "24Aug26",
     "pro_test_date": "25Aug26",
     "pro_after_test": "26Aug26",
-    "pro_analyst_initial": "Pending",
+    "pro_analyst_initial": "GS",
     "pro_date_of_weekly": "25Aug26",
 
     # Personnel
@@ -193,7 +193,16 @@ if os.path.exists(OUT_PDF):
 
 # 8. Sync to Desktop and Documents
 for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
-    shutil.copy2(OUT_DOCX, os.path.join(dest_dir, os.path.basename(OUT_DOCX)))
+    dest_docx = os.path.join(dest_dir, os.path.basename(OUT_DOCX))
+    dest_pdf = os.path.join(dest_dir, os.path.basename(OUT_PDF))
+    try:
+        shutil.copy2(OUT_DOCX, dest_docx)
+        print("Synced DOCX to:", dest_docx)
+    except Exception as e:
+        print(f"Notice DOCX: {dest_docx} is open, skipping overwrite.")
     if os.path.exists(OUT_PDF):
-        shutil.copy2(OUT_PDF, os.path.join(dest_dir, os.path.basename(OUT_PDF)))
-print("Synced files to Desktop and Documents successfully.")
+        try:
+            shutil.copy2(OUT_PDF, dest_pdf)
+            print("Synced PDF to:", dest_pdf)
+        except Exception as e:
+            print(f"Notice PDF: {dest_pdf} is open in Acrobat/reader, skipping overwrite.")

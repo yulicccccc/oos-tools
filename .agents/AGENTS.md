@@ -8,7 +8,7 @@
    - `enioupin` / `EN` $\to$ **Elysse Nioupin (EN)** (🚨 严禁写成 Eniola 或 ENI!)
    - `isharma` / `ISS` $\to$ **Ishita Sharma (ISS)** (🚨 官方缩写必须是 ISS，严禁写成 IS!)
    - `acarrillo` / `ANC` $\to$ **Andrew Carrillo (ANC)** (🚨 官方缩写必须是 ANC，严禁写成 AC!)
-   - `aodugbesi` / `AOD` $\to$ **Abayomi Odugbesi (AOD)** (🚨 官方缩写必须是 AOD，严禁写成 AO 或 Ayomide!)
+   - `aodugbesi` / `AOD` $\to$ **Ayomide Odugbesi (AOD)** (🚨 官方全名是 Ayomide Odugbesi，官方缩写是 AOD，严禁写成 Abayomi 或 AO!)
    - `qchen` / `QYC` $\to$ **Qiyue Chen (QYC)** (🚨 官方缩写必须是 QYC，严禁写成 QC 或 KC!)
    - `mjang` / `MJ` $\to$ **Mukyung Jang (MJ)** (🚨 严禁写成 Min Jang!)
    - `gsurber` / `GS` $\to$ **Gabrielle Surber (GS)** (🚨 严禁写成 Gabbie 或混淆为 GA!)
@@ -16,7 +16,7 @@
    - `dkansara` / `DK` $\to$ **Dhvanir Kansara (DK)** (🚨 严禁写成 David Karangwa!)
    - `jochoa` / `JOC` $\to$ **Jorge Ochoa (JOC)** (🚨 严禁写成 Jose Ocando!)
    - `isunesara` / `INS` $\to$ **Inaara Sunesara (INS)** | `mbythatagari` / `MRB` $\to$ **Muralidhar Reddy Bythatagari (MRB)**
-   - `suprety` / `SU` $\to$ **Sonal Uprety (SU)** | `asaravia` / `AS` $\to$ **Alex Saravia (AS)** | `cdu` / `CCD` $\to$ **Cuong Du (CCD)**
+   - `suprety` / `SU` $\to$ **Sonal Uprety (SU)** | `asaravia` / `ES` $\to$ **Alex Saravia (ES)** (🚨 官方缩写必须是 ES，严禁写成 AS!) | `cdu` / `CCD` $\to$ **Cuong Du (CCD)**
    - `aalanis` / `ALA` $\to$ **America Alanis (ALA)** | `gli` / `GL` $\to$ **Guanchen Li (GL)** | `smohammad` / `SMO` $\to$ **Simin Mohammad (SMO)**
    - `ssantamaria` / `SAS` $\to$ **Sophia Santamaria (SAS)** | `restrada` / `RE` $\to$ **Rey Estrada (RE)** | `vsubramanian` / `VV` $\to$ **Varsha Subramanian (VV)**
    - `ksilva` / `KSM` $\to$ **Karla Silva (KSM)** | `tduong` / `TD` $\to$ **Thinh Duong (TD)** | `rseymour` / `RS` $\to$ **Robin Seymour (RS)**
@@ -655,10 +655,10 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 **CRITICAL**: In sterility OOS investigations (such as `OOS-262098` / `ETX-260902-0505`):
 1. **Raw Bench Operator Penetration (前置台账真实人员穿透提取)**:
    - Always extract exact bench operators and timestamps from EagleTrax `#EventHistory` and logbooks.
-   - For `ETX-260902-0505`: Prepping Analyst is `isharma` (**Ishita Sharma, IS**) on 03Sep26 20:48; Processing Analyst is `asaravia` (**Alex Saravia, AS**) on 04Sep26 22:33; Reading Analysts are `enioupin` (**Elysse Nioupin, EN**) and `acarrillo` (**Andrew Carrillo, AC**).
+   - For `ETX-260902-0505`: Prepping Analyst is `isharma` (**Ishita Sharma, ISS**) on 03Sep26 20:48; Processing Analyst is `asaravia` (**Alex Saravia, ES**) on 04Sep26 22:33; Reading Analysts are `enioupin` (**Elysse Nioupin, EN**) and `acarrillo` (**Andrew Carrillo, AC**).
    - In Form 1 (`CORP-FORM-21`), Section A, narratives, and interviews, always specify:
-     - `Prepping Analyst: Ishita Sharma (IS)`
-     - `Processing Analyst: Alex Saravia (AS)`
+     - `Prepping Analyst: Ishita Sharma (ISS)`
+     - `Processing Analyst: Alex Saravia (ES)`
      - `Reading Analyst: Elysse Nioupin (EN)`
 2. **Sample Filtration Quantity Calibration (样品过滤量真实规格校准)**:
    - Extract exact filtration volume from Worksheets: `45 gm added per media` across `3 vials` (each container 30 mL/gm, 90 gm total batch, 45 gm filtered into FTM, 45 gm filtered into TSB). State this explicitly in narrative paragraph 8.
@@ -667,14 +667,15 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 ### 34. Mandatory Standard Analyst Name & Initials Roster & Reverse Mapping Architecture Firewall (全项目统一分析员全名与缩写权威词典与技术防火墙 - 🚨 终极铁律)
 **CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess or hallucinate analyst full names or initials.
-- **Root Cause of Past Hallucinations (根本病灶)**: EagleTrax system logins follow the format `[First Initial of First Name] + [Last Name]` (e.g., `ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). Previously, agents saw the single initial `e-` or `m-` and hallucinated common first names (`Elizabeth`, `Eniola`, `Min`, `David`, `Jose`, `Ayomide`). **There is NO Elizabeth Bennett, NO Eniola Nioupin, NO Min Jang in the laboratory!**
+- **Root Cause of Past Hallucinations (根本病灶)**: EagleTrax system logins follow the format `[First Initial of First Name] + [Last Name]` (e.g., `ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). Previously, agents saw the single initial `e-` or `m-` or `a-` and hallucinated common first names (`Elizabeth`, `Eniola`, `Min`, `David`, `Jose`, `Abayomi`). **There is NO Elizabeth Bennett, NO Eniola Nioupin, NO Min Jang, NO Abayomi Odugbesi in the laboratory!**
 - **Absolute Rule**: NEVER expand an EagleTrax username by guessing the first name! Always query `utils.py` (`resolve_analyst_identity()`). If an unknown username appears, STOP and ask the user.
 1. **Critical High-Risk Corrections (高危易错人员绝对锁定)**:
    - `ELB` / `ebennett` / `elbennett` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
    - `EN` / `enioupin` -> **Elysse Nioupin (EN)**（🚨 **严禁写成 "Eniola"！官方全名必须是 Elysse Nioupin！**）
    - `ISS` / `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方缩写必须是 ISS！**）
    - `ANC` / `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方缩写必须是 ANC！**）
-   - `AOD` / `aodugbesi` -> **Abayomi Odugbesi (AOD)**（🚨 **官方缩写必须是 AOD！**）
+   - `AOD` / `aodugbesi` -> **Ayomide Odugbesi (AOD)**（🚨 **官方全名必须是 Ayomide Odugbesi，官方缩写必须是 AOD，严禁写成 Abayomi！**）
+   - `ES` / `asaravia` -> **Alex Saravia (ES)**（🚨 **官方缩写必须是 ES，严禁写成 AS！**）
    - `QYC` / `qchen` -> **Qiyue Chen (QYC)**（🚨 **官方缩写必须是 QYC！**）
    - `MJ` / `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
    - `GS` / `gsurber` -> **Gabrielle Surber (GS)**（🚨 **严禁混淆为 "GA" 或 "Gabbie"！官方缩写必须是 GS！**）

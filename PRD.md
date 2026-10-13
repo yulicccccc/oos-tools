@@ -3,7 +3,7 @@
 ## 🚨🚨 TOP-PRIORITY LOCKED MANDATES (RULE 0A & 0B — READ FIRST)
 1. **RULE 0A — Analyst Identity Roster, Zero Hallucination & Mandatory Ask-First Firewall**:
    - **Root Cause**: EagleTrax usernames are `[First Initial] + [Last Name]` (`ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). **NEVER expand the first initial by guessing a common first name!** There is **NO Elizabeth Bennett**, **NO Eniola Nioupin**, and **NO Min Jang** in the laboratory!
-   - **Mandatory Roster**: `ebennett`/`ELB` = **Ellen Bennett (ELB)** | `enioupin`/`EN` = **Elysse Nioupin (EN)** | `isharma`/`ISS` = **Ishita Sharma (ISS)** | `acarrillo`/`ANC` = **Andrew Carrillo (ANC)** | `aodugbesi`/`AOD` = **Abayomi Odugbesi (AOD)** | `qchen`/`QYC` = **Qiyue Chen (QYC)** | `mjang`/`MJ` = **Mukyung Jang (MJ)** | `gsurber`/`GS` = **Gabrielle Surber (GS)** | `ganyangwe`/`GA` = **Gerald Anyangwe (GA)** | `dkansara`/`DK` = **Dhvanir Kansara (DK)** | `jochoa`/`JOC` = **Jorge Ochoa (JOC)** | `isunesara`/`INS` = **Inaara Sunesara (INS)**. (See full 37-analyst table in Rule 46 & `utils.py`).
+   - **Mandatory Roster**: `ebennett`/`ELB` = **Ellen Bennett (ELB)** | `enioupin`/`EN` = **Elysse Nioupin (EN)** | `isharma`/`ISS` = **Ishita Sharma (ISS)** | `acarrillo`/`ANC` = **Andrew Carrillo (ANC)** | `aodugbesi`/`AOD` = **Ayomide Odugbesi (AOD)** | `qchen`/`QYC` = **Qiyue Chen (QYC)** | `mjang`/`MJ` = **Mukyung Jang (MJ)** | `gsurber`/`GS` = **Gabrielle Surber (GS)** | `ganyangwe`/`GA` = **Gerald Anyangwe (GA)** | `dkansara`/`DK` = **Dhvanir Kansara (DK)** | `jochoa`/`JOC` = **Jorge Ochoa (JOC)** | `isunesara`/`INS` = **Inaara Sunesara (INS)**. (See full 37-analyst table in Rule 46 & `utils.py`).
    - **Mandatory Ask-First Rule (严禁自作聪明·不懂必问)**: Whenever encountering an unknown username, missing logbook, or uncertain detail, **STOP immediately and ask the user** — NEVER guess!
 2. **RULE 0B — Robin Seymour (RS) Table 2 Section Divider Standard**:
    - Banner 1: **`Personnel EM`** (Canonical: NO date suffix! In single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
@@ -288,7 +288,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Confirmed Microbial Identification:** Reconciled preliminary broth Gram (-) reading with definitive molecular sequencing under `ETX-260910-0290` as *Microbacterium sp. PM5* (`Gram (+) rods`) from pure TSA & SDA subcultures.
         *   **Official PDF Transcription:** Transcribed onto `CORP-FORM-21 - P1 04 SEP 2026.pdf` enforcing Rule 9 Incubator spacing (`\r \r` with sensor on same line), Rule 11 calibrated auto-fit font sizes, and appended Table 1 & 2 as Page 7.
     39. *USP <71> OOS-262098 Phase II Full Investigation Package (Solyn LLC, E75000):*
-        *   **Product Contamination Root Cause Conclusive Confirmation:** Initial test under `ETX-260902-0505` failed on Day 6 in TSB (*Microbacterium sp. PM5*, `ETX-260910-0290`, Gram (+) rods, Plate A TSA & Plate B SDA). Retest under `ETX-260914-0470` (prepped by Andrew Carrillo, processed by Abayomi Odugbesi) replicated the exact failure kinetics, turning turbid positive on Day 6 in TSB, with sequencing under `ETX-260921-0498` confirming the identical strain: ***Microbacterium sp. PM5*** (`Gram (+) short rods`, Plate C TSA & Plate D SDA). Definitively refuted preliminary analyst handling error hypothesis during reconstitution and confirmed inherent batch contamination (Lot `2608-216`).
+        *   **Product Contamination Root Cause Conclusive Confirmation:** Initial test under `ETX-260902-0505` failed on Day 6 in TSB (*Microbacterium sp. PM5*, `ETX-260910-0290`, Gram (+) rods, Plate A TSA & Plate B SDA). Retest under `ETX-260914-0470` (prepped by Andrew Carrillo, processed by Ayomide Odugbesi) replicated the exact failure kinetics, turning turbid positive on Day 6 in TSB, with sequencing under `ETX-260921-0498` confirming the identical strain: ***Microbacterium sp. PM5*** (`Gram (+) short rods`, Plate C TSA & Plate D SDA). Definitively refuted preliminary analyst handling error hypothesis during reconstitution and confirmed inherent batch contamination (Lot `2608-216`).
         *   **Prior Passing ScanRDI Justification (Non-Uniform Microbial Distribution):** Rigorously justified why prior rapid ScanRDI testing (`ETX-260807-0602`) passed: compounded parenteral products with low bioburden exhibit heterogeneous, non-uniform spatial distribution across vials; sampled ScanRDI vials contained zero viable cells, while USP <71> vials contained low-level cells that were enriched over 14 days in TSB, turning turbid on Day 6 twice in a row.
         *   **Phase II Universal Pipeline:** Generated full Phase II deliverables including Standalone 1-Page Tables (`Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx`/`.pdf`), Master Word Report (`OOS-262098 Solyn LLC (E75000) - Phase II.docx`), and Official 6-Page PDF Form (`OOS-262098 Solyn LLC (E75000) - Phase II.pdf` & `... - QYC.pdf`).
         *   **Phase 1 & Phase 2 Form Alignment:** Updated Phase 1 Form 3.100.019.F01 Page 6 to check `Check Box87` (Yes, lab error investigated), `Check Box89` (Yes, initiate Form 3.100.019.F02), and `Check Box91` (Yes, cannot close, initiate F02). In Phase II Form 3.100.019.F02, checked `Check Box51` (Yes, root cause identified), `Check Box61` (External Phenomena - Product Bioburden), and confirmed original result valid (failing) and retest failing.
@@ -366,15 +366,15 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - Page 3..Page 5 叙述正文：**严禁提前提及复测、严禁出现复测分析员与复测样品号！** 严格遵循 `OOS-261987 P1` 叙述范式，仅针对初始测试的实验操作、培养读数、菌株初步鉴定、初始环境监测防守闭环进行调查，最终判定初始阶段未发现实验室人为/环境偏差，初始阳性有效（Page 6 勾选 `Check Box88` "No, the OOS result is valid"）。
         *   **3. Phase 2 官方调查报告 (CORP-FORM-22 / 3.100.019.F02):**
             - **承接并详尽展开复测调查（Retest Investigation）！**
-            - Page 1：标明初始样品与复测样品号、复测日期（`15-Sep-2026`）、复测分析员（`Abayomi Odugbesi`）、复测结果（`Fail`）。
+            - Page 1：标明初始样品与复测样品号、复测日期（`15-Sep-2026`）、复测分析员（`Ayomide Odugbesi`）、复测结果（`Fail`）。
             - Page 3：概括性回顾初始测试调查历程（Recap of Original Investigation）。
             - Page 4：以清晰小标题 **`RETEST UNDER SUBMISSION ETX-XXXXXXXX-XXXX.`** 正式展开复测的完整叙述（复测操作人员、Suite 115 / BSC E001314 环境、培养第6天浑浊重现、测序同源菌株 *Microbacterium sp. PM5* 确证、前期 ScanRDI 合格原因技术论证等）。
             - Page 5：归结根本原因（产品固有污染 / 外部因素 External Phenomena）并签署关闭。
     44. *EagleTrax Benchmark Extraction & Bench Operator Ground Truth Alignment (EagleTrax 原始凭证穿透与实验台账真实操作人校准规范 - 🚨 永久铁律):*
         *   **1. 实验台账真实操作人穿透提取 (Raw Bench Operator Penetration):**
             - 在无菌检测调查中，前置准备（Sample Prep）、过滤接种（Sample Analysis / Processing）与培养读数（Daily Reads）往往由不同人员分工操作。
-            - 必须严格穿透 EagleTrax `#EventHistory` 与台账记录核查真实人员与时间戳：如 `ETX-260902-0505` 中，前置准备由 `isharma`（**Ishita Sharma, IS**）于 03Sep26 20:48 完成，主处理由 `asaravia`（**Alex Saravia, AS**）于 04Sep26 22:33 完成，读数由 `enioupin`（**Elysse Nioupin, EN**）与 `acarrillo`（**Andrew Carrillo, AC**）执行。
-            - 严禁将处理分析员（Alex Saravia）盲目套用为前置准备人。在表单与叙述中必须完整体现：Prepping Analyst: Ishita Sharma (IS)；Processing Analyst: Alex Saravia (AS)；Reading Analyst: Elysse Nioupin (EN)。
+            - 必须严格穿透 EagleTrax `#EventHistory` 与台账记录核查真实人员与时间戳：如 `ETX-260902-0505` 中，前置准备由 `isharma`（**Ishita Sharma, ISS**）于 03Sep26 20:48 完成，主处理由 `asaravia`（**Alex Saravia, ES**）于 04Sep26 22:33 完成，读数由 `enioupin`（**Elysse Nioupin, EN**）与 `acarrillo`（**Andrew Carrillo, AC**）执行。
+            - 严禁将处理分析员（Alex Saravia）盲目套用为前置准备人。在表单与叙述中必须完整体现：Prepping Analyst: Ishita Sharma (ISS)；Processing Analyst: Alex Saravia (ES)；Reading Analyst: Elysse Nioupin (EN)。
         *   **2. 样品取样量与过滤介质真实规格校准 (Sample Quantity & Membrane Filtration Alignment):**
             - 严格穿透 Worksheets 提取过滤总量与容器规格：如 `45 gm added per media` across `3 vials`（每瓶 30 mL/gm，共 3 瓶 90 gm，分别过滤 45 gm 至 FTM 与 45 gm 至 TSB），必须在 Section A、叙述第 8 段及材料说明中精准表述，杜绝笼统或模糊数字。
         *   **3. 耗材批号与系统附件无缝闭环 (Consumables & System Documents Audit):**
@@ -408,7 +408,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `enioupin` -> **Elysse Nioupin (EN)**（🚨 **全模块终极铁律：严禁写成 "Eniola" 或发明 "ENI" 缩写！官方系统与签名全名必须是 Elysse Nioupin，缩写必须是 EN！**）
             - `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方法定缩写必须是 ISS，严禁写成 "IS"！**）
             - `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方法定缩写必须是 ANC，严禁写成 "AC"！**）
-            - `aodugbesi` -> **Abayomi Odugbesi (AOD)**（🚨 **官方法定缩写必须是 AOD，严禁写成 "AO" 或 "Ayomide"！**）
+            - `aodugbesi` -> **Ayomide Odugbesi (AOD)**（🚨 **官方全名必须是 Ayomide Odugbesi，缩写必须是 AOD，严禁写成 Abayomi！**）
             - `qchen` / `kc` -> **Qiyue Chen (QYC)**（🚨 **官方法定缩写必须是 QYC，严禁写成 "QC" 或 "KC"！**）
             - `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
             - `gsurber` -> **Gabrielle Surber (GS)**（🚨 **严禁写成 "Gabbie Surber" 或混淆为 "GA"！官方缩写必须是 GS！**）
@@ -419,7 +419,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - `mbythatagari` / `mrb` -> **Muralidhar Reddy Bythatagari (MRB)**
             - `ebennett` / `elbennett` / `elb` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
             - `suprety` -> **Sonal Uprety (SU)**
-            - `asaravia` -> **Alex Saravia (AS)**
+            - `asaravia` -> **Alex Saravia (ES)**（🚨 **官方缩写必须是 ES，严禁写成 AS！**）
             - `cdu` -> **Cuong Du (CCD)**
             - `aalanis` -> **America Alanis (ALA)**
             - `gli` -> **Guanchen Li (GL)**

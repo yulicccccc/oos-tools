@@ -1,0 +1,794 @@
+=== P2 Ref Page 1 ===
+OOS Number: OOS- 
+                           
+  Phase II 
+Section A – Sample Detail 
+Sample Name:  
+ 
+Re-Test Date: 
+ 
+Original Result: 
+ 
+Name of Analyst 
+who Performed 
+Re-Test: 
+ 
+Sample ID: 
+ 
+Re-Test Result: 
+ 
+ 
+Section B – Investigation and Root Cause 
+Investigation 
+Is the test conducted in 
+accordance with the same 
+method /process? 
+Yes    
+ No 
+SOP#: 
+If the answer is NO to 
+any of the investigation 
+item(s), mark the item(s) 
+with sequential number 
+starting with one (1) and 
+comment here: 
+Is reagents (reference 
+standards, solvent, etc.) stored 
+in proper condition and not 
+expired?  
+Yes    
+ No 
+Lot #: 
+ 
+ 
+ 
+ 
+ 
+Exp. Date: 
+ 
+ 
+ 
+ 
+ 
+Equipment/Instruments Used: 
+Are they functional and 
+calibrated/PM? 
+Calibration / PM 
+due date 
+ 
+Yes    
+ No 
+ 
+ 
+Yes    
+ No 
+ 
+ 
+Yes    
+ No 
+ 
+ 
+Yes    
+ No 
+ 
+ 
+Yes    
+ No 
+ 
+Is the clean room facility 
+certified? 
+Yes    
+ No   
+ N/A 
+Certified due date: 
+ 
+Do the controls (i.e. positive, 
+negative, C3, etc.,) conform to 
+the required standards? 
+Yes    
+ No   
+ N/A 
+ 
+Do the environmental 
+monitoring results conform to 
+required standards? 
+Yes    
+ No   
+ N/A 
+SOP#: 
+System Performance Check (if 
+applicable) 
+Yes    
+ No   
+ N/A 
+System Suitability RSD < 2% 
+(PDA) 
+Yes    
+ No   
+ N/A 
+System Suitability RSD <10 % 
+(QDA,CAD) 
+Yes    
+ No   
+ N/A 
+CORP-FORM-22
+v9.1
+Category: Form Corporate
+Name: Out-of-Specification (OOS) Re-Test Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F02
+Printed by oajayi@eagleanalytical.com from https://app.zenqms.com on 14-Sep-2026 at 9:08:05 PM UTC
+Page 1 of 5
+Viscum Album 20mg
+04-Sep-2026
+Prepping Analyst
+Mukyung Jang (MJ)
+ 
+Processing Analyst:
+Gabrielle Surber (GS)
+ 
+Reading Analyst:
+Elysse Nioupin (EN)
+Original test: 
+ETX-260811-0261
+ 
+Retest: 
+ETX-260831-0275
+Pass
+Fail
+MICRO-SOP-5
+TSB: Please see Consumables section under the 
+submission on EagleTrax
+ 
+FTM: Please see Consumables section under the 
+submission on EagleTrax
+ 
+Fluid D: Please see Consumables section under 
+the submission on EagleTrax
+ 
+TSA and Surface Plates: Please see 
+Environmental Logs uploaded under the 
+submission on EagleTrax
+TSB: Please see Consumables section under 
+the submission on EagleTrax
+ 
+FTM: Please see Consumables section under 
+the submission on EagleTrax
+ 
+Fluid D: Please see Consumables section under 
+the submission on EagleTrax
+ 
+TSA and Surface Plates: Please see 
+Environmental Logs uploaded under the 
+submission on EagleTrax
+ISO 5 BSC E001314, ISO 5 BSC E001316
+CR E001737
+Incubator E001356  (Monitored by Sensor E001450)
+Incubator E001357 (Monitored by  Sensor E001449)
+Incubator E001034 (Monitored by Sensor E001501)
+Incubator E001031 (Monitored by Sensor E001505)
+Dec 2026
+Jun 2027, Jun 2027
+Jan 2027, Feb 2027
+Jan 2027, Feb 2027
+Aug 2027, Feb 2027
+Aug 2027, Feb 2027
+Not Applicable
+See Phase II 
+Summary
+31-Dec-2026
+See Phase II 
+Summary
+261987
+
+=== P2 Ref Page 2 ===
+OOS Number: OOS- 
+                           
+Is the analyst trained to perform 
+the test? 
+Yes    
+ No 
+Are the Test Result Records 
+Attached & Calculations 
+Verified and Correct? 
+Yes    
+ No 
+Does the processing method/ 
+method set conform to the 
+required specification? 
+Yes    
+ No 
+Re-Testing from the same vial? 
+Yes    
+ No   
+ N/A 
+Is formula worksheet provided 
+and verified? 
+Yes    
+ No 
+Section C – Evaluation of Laboratory Testing/Hypothesis Testing (if applicable) 
+ N/A 
+ Re-vialing of original working sample solution 
+ Re-injection of sample vial 
+ Re-dilution of a working sample solution from the original stock 
+ Re-injection of original standard vial 
+ Re-dilution of a working standard solution from the original stock standard 
+ Re-vialing of original working standard solution 
+ Other: _________________________________ 
+Section D – Phase II Summary 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-22
+v9.1
+Category: Form Corporate
+Name: Out-of-Specification (OOS) Re-Test Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F02
+Printed by oajayi@eagleanalytical.com from https://app.zenqms.com on 14-Sep-2026 at 9:08:05 PM UTC
+Page 2 of 5
+Retest of different vials from same lot 
+All the analysts involved in the testing - the initial processing analyst (Guanchen Li), the processing analyst who 
+performed the retest (Gabrielle Surber), the reading analyst who confirmed both the original positive result and the retest 
+result (Elysse Nioupin) - were interviewed comprehensively. Their answers are recorded throughout this document.
+ 
+INITIAL TEST UNDER SUBMISSION ETX-260811-0261
+All analysts involved in the prepping, processing, and reading of the sample – Andrew Carrillo, Guanchen Li and Elysse 
+Nioupin - were interviewed comprehensively. Their answers are recorded throughout this document.
+ 
+Upon arrival, the sample was stored in accordance with the Client’s instructions. Analysts - Andrew Carrillo and 
+Guanchen Li - verified the integrity of the sample throughout both the preparation and processing stages. No leaks or 
+turbidity were observed at any point, verifying the integrity of the sample.
+ 
+All reagents and supplies mentioned in the material section above were stored according to the suppliers’ 
+recommendations, and their integrity was visually verified before utilization. Moreover, all reagents and supplies had 
+valid expiration dates. The functionality of all equipment was confirmed by reviewing data generated by our 
+comprehensive in-house continuous monitoring system.
+ 
+The cleanroom suite (CR 115) used for processing procedures comprises three interconnected sections: the innermost 
+ISO 7 cleanroom (115B), which connects to the middle ISO 7 buffer room (115A), and then to the outermost ISO 8 
+anteroom (115). A positive air pressure system is maintained throughout the suite to ensure controlled, unidirectional 
+airflow from 115B through 115A and into 115.
+ 
+The ISO 5 Biological Safety Cabinet (BSC) E001314, located in the innermost ISO 7 room, (115B), was used for sample 
+processing steps. It was thoroughly cleaned and disinfected prior to each procedure in accordance with MICRO SOP-9 
+(Cleaning and Disinfecting Procedure for Microbiology). Additionally, BSC E001314 was certified and approved by both 
+the Engineering and Quality Assurance teams. Sample processing was conducted in the ISO 5 BSC E001314 in the 
+innermost ISO 7 room, (115B) by Guanchen Li on 20 Aug 2026 as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility 
+Test).
+261987
+
+=== P2 Ref Page 3 ===
+OOS Number: OOS- 
+                           
+Phase II Summary (continued): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-22
+v9.1
+Category: Form Corporate
+Name: Out-of-Specification (OOS) Re-Test Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F02
+Printed by oajayi@eagleanalytical.com from https://app.zenqms.com on 14-Sep-2026 at 9:08:05 PM UTC
+Page 3 of 5
+On 20 Aug 2026, the sample vials for ETX-260811-0261 were received from the Sample Submissions team and brought into the Sterile 
+Microbiology lab. Upon arrival, each sample vial was sprayed with an acidified bleach disinfectant, placed into pre-disinfected bins, and allowed a 
+10-minute contact time.
+The secondary disinfection happened in the ISO 8 anteroom (115), where the vials were again treated with acidified bleach and provided a 10‑ 
+minutes contact time before processing. Subsequently, the vials were moved into innermost ISO 7 cleanroom (115B). Inside this cleanroom, the 
+processing analyst, Guanchen Li, performed a final disinfection step, allowing an additional 10-minute contact time. Once fully disinfected, the vials 
+were transferred into the ISO 5 BSC E001314.
+ 
+Inside the BSC, each container was aseptically opened, ensuring minimal exposure to the environment. The contents were then dispensed directly 
+from the container into sterile canisters placed on a vacuum manifold for membrane filtration. The sample was processed and tested as per 
+MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Media bottles were transferred into incubators E001356 and E001357 to begin incubation.
+On 27 Aug 2026 (Day 7 of incubation), microbial growth was observed in one TSB (Tryptic Soy Broth) media bottle by analyst, Elysse Nioupin, and 
+confirmed by Microbiology Lab Supervisor, Robin Seymour. The positive TSB bottle for ETX-260811-0261 was submitted for Differential Staining 
+and Microbial Identification under ETX-260827-0547. Differential staining indicated the presence of Gram-positive rods. Definitive identification 
+identified the isolate as Bacillus velezensis (Gram-positive rods).
+ 
+The culture media utilized were within their expiry period. Negative control media bottles for the membrane filtration method were handled, 
+processed, and incubated in the same manner as the test samples. No microbial growth was observed in the corresponding negative controls.
+Upon analyzing the environmental monitoring results, no microbial growth was detected on personnel monitoring plates, settling plates, or ISO 5 
+BSC surface sampling plates on the date of testing, the preceding testing date, or the subsequent testing date. Additionally, no microbial growth 
+was recovered from the weekly surface sampling plate collected on 20 Aug 2026. However, weekly active air monitoring of ISO 8 Room 115 (CR 
+115) recovered 9 CFUs (ETX-260831-0366). Differential staining confirmed the organisms to be Gram-positive cocci.
+ 
+It is important to note that the colony morphology of the microorganisms recovered from the cleanroom environment differed from that of the 
+microorganism isolated from the test sample. This morphological distinction indicates that the environmental monitoring recovery and the test 
+sample contamination were isolated and unrelated events.
+ 
+In addition, considering the facility's layered disinfection program, controlled unidirectional airflow, and cleanroom design, it is unlikely that the 
+microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (Suite 
+115B).
+ 
+The absence of contamination on analyst glove plates and work-surface environmental monitoring plates collected on the date of testing indicates 
+that there were no viable transfer of contaminants to the ISO 5 biological safety cabinet (BSC). Additionally, the lack of contamination in other 
+samples processed during the same testing session further demonstrates that the testing environment was operating in optimal condition.
+ 
+Therefore, considering that no viable organisms were recovered from the ISO 5 environment, personnel monitoring results were acceptable on the 
+date of testing, and the environmental isolates were not recovered from locations or surfaces directly involved in sample preparation or testing, the 
+environmental isolates are not considered a credible source of the contamination detected in the test sample.
+ 
+The analysts confirmed full compliance with cleaning procedures as outlined in MICRO SOP-9 (Cleaning and Disinfecting Procedure for 
+Microbiology) and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test).
+ 
+Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its 
+containing ISO 5 BSCs for Cleanroom suite CR115 was performed on 30 Jun 2026, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure 
+for Microbiology). During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of 
+all three parts of Cleanroom suite CR115.
+ 
+Analyzing a 6-month sample history for Uriel Pharmacy (E02836), this specific analyte " Viscum Album 20mg " has had no prior failures using USP 
+<71> / EP 2.6.1 Sterility Test during this period.
+ 
+To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all 
+samples processed on the same day. All other samples processed by the analyst and other analysts that day tested negative. These findings 
+suggest that cross-contamination between samples is highly unlikely.
+ 
+Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the 
+process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is 
+deemed to be valid.
+261987
+
+=== P2 Ref Page 4 ===
+OOS Number: OOS- 
+                           
+Phase II Summary (continued):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CORP-FORM-22
+v9.1
+Category: Form Corporate
+Name: Out-of-Specification (OOS) Re-Test Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F02
+Printed by oajayi@eagleanalytical.com from https://app.zenqms.com on 14-Sep-2026 at 9:08:05 PM UTC
+Page 4 of 5
+RETEST UNDER SUBMISSION ETX-260831-0275.
+A retest was performed under ETX-260831-0275, as the client submitted additional sample 
+vials from  the same lot for retesting, at their discretion, without prior notification or 
+authorization from the laboratory.
+ 
+Analogous to the original testing, the analysts involved in processing and reading the retest 
+sample under ETX-260831-0275, Gabrielle Surber and Elysse Nioupin, confirmed no 
+deviations from standard procedures.
+ 
+Like the original testing under ETX-260811-0261, the retest sample under ETX-260831-
+0275 was processed following comparable disinfection procedures, the cleanroom 
+environment, the ISO 5 BSC utilized (E001316), and employing consistent aseptic 
+techniques. All reagents and supplies used for the retest sample under ETX-260831-0275 
+were stored according to the suppliers’ recommendations, and their integrity was visually 
+verified before utilization. Moreover, each reagent and supply had a valid expiration date.
+ 
+For the retest sample, the culture media used were within their expiry period. During the 
+testing for the membrane filtration method, the negative control media bottles were handled, 
+processed, and incubated under the same conditions as the test samples. No microbial 
+growth was observed in the corresponding negative controls, confirming the integrity of the 
+test procedure.
+ 
+Additionally, the retest sample was cleaned, transferred to the Clean Room, processed, and 
+tested as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test) on 04 Sep 2026. The 
+media bottles were subsequently transferred into designated incubators, E001356 and 
+E001357, to initiate incubation identical to the original testing under ETX-260811-0261. 
+ETX-260831-0275 passed the sterility test after 14 days of incubation.
+ 
+No laboratory-related errors were identified during the investigation of the passing results 
+reported under ETX-260831-0275 or the failing results reported under ETX-260811-0261. 
+Therefore, both the original failing result associated with ETX-260811-0261 and the passing 
+retest result associated with ETX-260831-0275 are considered valid. Final lot disposition 
+remains at the discretion of the client.
+261987
+
+=== P2 Ref Page 5 ===
+OOS Number: OOS- 
+                           
+Has root cause 
+been identified? 
+ 
+ Yes   
+ No 
+The most probable cause is: 
+ 
+ 
+Client Care notified: 
+Yes
+     No
+ 
+Section E – Corrective and Preventive Action 
+Corrective Action(s):  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OOS cause (select all) 
+ Equipment Error 
+ Procedure 
+ Analyst 
+ Training 
+ System 
+ External Phenomena 
+ Other: ____________ 
+Preventive Action(s) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CAPA required: 
+ 
+ Yes, CAPA # _________    
+ 
+ No 
+FOLLOW-UP REQUIRED:  
+ Yes   
+ No 
+FOLLLOW-UP DATE:  
+Section F – Acknowledgement and Closure 
+Prepared by:  
+Print Name: 
+ 
+ 
+Date: 
+Reviewed by:  
+Print Name: 
+ 
+ 
+Date: 
+Approved by (QA):  
+Print Name: 
+ 
+ 
+Date: 
+ 
+CORP-FORM-22
+v9.1
+Category: Form Corporate
+Name: Out-of-Specification (OOS) Re-Test Form
+Effective
+10-JUL-2026
+Location
+Houston (Corporate)
+ETX ID
+3.100.019.F02
+Printed by oajayi@eagleanalytical.com from https://app.zenqms.com on 14-Sep-2026 at 9:08:05 PM UTC
+Page 5 of 5
+The discrepancy between the original and retest results may be 
+attributed to non-uniform microbial distribution, particularly when 
+microorganisms are present at low concentrations within the batch. 
+N/A 0A 10 Sep 
+2026
+N/A
+N/A
+N/A 0A 10 Sep 
+2026
+Digitally signed by Olugbenga Ajayi
+DN: OU=Microbiology, O=Eagle Analytical Services, CN=Olugbenga Ajayi, E=
+oajayi@eagleanalytical.com
+Reason: I am the author of this document
+Location: 
+Date: 2026.09.20 16:31:04-05'00'
+Foxit PDF Editor Version: 13.2.6
+Olugbenga Ajayi
+Digitally signed by Robin Seymour
+DN: CN=Robin Seymour, O=Eagle Analytical Services, OU=Microbiology - Cleanroom 
+Ops , E=rseymour@eagleanalytical.com
+Reason: I have reviewed this document
+Location: 
+Date: 2026.09.20 16:42:01-05'00'
+Foxit PDF Editor Version: 14.0.6
+Robin Seymour
+SIGN
+20-Sep-2026
+20-Sep-2026
+261987
+
+=== P2 Ref Page 6 ===
+Table 1: Information for ETX-260811-0261 under investigation 
+ 
+Table 2: Environmental Monitoring for Analyst & Cleanroom 
+Environmental Monitoring (EM) 
+Sampling Site 
+Frequency 
+Date 
+(DDMM 
+YYYY) 
+Analyst 
+(Initials) 
+Day /Week(s) 
+Observation 
+Environmental 
+Monitoring Plate ETX 
+ID 
+Microbial ID 
+Notes 
+Personnel EM Bracketing 20Aug2026 
+Personal (Left Touch and Right 
+Touch) 
+Daily 
+19Aug2026 
+GL 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and Right 
+Touch) 
+Daily 
+20Aug2026 
+GL 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Personal (Left Touch and Right 
+Touch) 
+Daily 
+21Aug2026 
+GL 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E001314 
+Surface Sampling of ISO 5 (4 
+locations) 
+Daily 
+19Aug2026 
+GL 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 
+(4 locations) 
+Daily 
+20Aug2026 
+GL 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Surface Sampling of ISO 5 (4 
+locations) 
+Daily 
+21Aug2026 
+AOD 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 (2 
+locations) 
+Daily 
+19Aug2026 
+GL 
+Date Before Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 (2 
+locations) 
+Daily 
+20Aug2026 
+GL 
+Date of Testing 
+No growth 
+N/A 
+N/A 
+None 
+Settling Sampling of ISO 5 (2 
+locations) 
+Daily 
+21Aug2026 
+AOD 
+Date After Testing 
+No growth 
+N/A 
+N/A 
+None 
+Weekly Active Air Sampling of CR 115 (E001737) 
+ 
+Active Air Sampling of 
+Cleanrooms 
+ 
+Weekly 
+20Aug2026 
+SMO 
+Week of Testing  
+9 CFUs 
+(ISO 8 115) 
+ETX-260831-0366 
+Gram (+) cocci 
+None 
+Surface Sampling of Anteroom and Cleanroom of CR 115 (E001737) 
+ 
+Surface Sampling of Cleanrooms 
+ 
+Weekly 
+25Aug2026 
+SMO 
+Week of Testing  
+No growth 
+N/A 
+N/A 
+None 
+ 
+ 
+Processing Analyst 
+ 
+Reading Analyst 
+ 
+Sample ID 
+ 
+Related Microbial ID 
+ 
+Media with Microbial growth 
+ 
+Morphology Description 
+ 
+Guanchen Li 
+ 
+Elysse Nioupin 
+ 
+ETX-260811-0261 
+ 
+ETX-260827-0547 
+ 
+1 X 100mL TSB 
+ 
+Bacillus velezensis 
+(Gram (+) rods) 
+ 
+

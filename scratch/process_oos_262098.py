@@ -55,7 +55,7 @@ data = {
     "prepper_initial": "ES, AC",
     "prepper_name": "Alex Saravia, Andrew Carrillo",
     "analyst_initial": "ES, AOD",
-    "analyst_name": "Alex Saravia, Abayomi Odugbesi",
+    "analyst_name": "Alex Saravia, Ayomide Odugbesi",
     "reading_initial": "EN, AC",
     "reading_name": "Elysse Nioupin, Andrew Carrillo",
     "writer_name": "Qiyue Chen",
@@ -83,7 +83,7 @@ data = {
 # --- PAGE 3 (Text Field 49) ---
 p1 = (
     "All analysts involved in the prepping, processing, and reading of both samples – Alex Saravia, Elysse Nioupin, "
-    "Andrew Carrillo, and Abayomi Odugbesi – were interviewed comprehensively. Their answers are recorded throughout this document."
+    "Andrew Carrillo, and Ayomide Odugbesi – were interviewed comprehensively. Their answers are recorded throughout this document."
 )
 
 p2 = (
@@ -115,7 +115,7 @@ p5 = (
 )
 
 p6 = (
-    "Secondary sample ETX-260914-0470 was prepped on 14 Sep 2026 by Andrew Carrillo and processed on 15 Sep 2026 by Abayomi Odugbesi "
+    "Secondary sample ETX-260914-0470 was prepped on 14 Sep 2026 by Andrew Carrillo and processed on 15 Sep 2026 by Ayomide Odugbesi "
     "in certified ISO 5 BSC E001314 in Cleanroom Suite 115 as per MICRO-SOP-5 via membrane filtration (4 vials / 60 gm filtered). "
     "Standard multi-barrier disinfection and strict aseptic techniques were maintained. Media bottles were incubated in incubators "
     "E001356 and E001357. On 21 Sep 2026 (Day 6 of incubation), turbidity was observed in 1 x 100mL TSB bottle by reading analyst "
@@ -169,7 +169,7 @@ p14 = (
     "method suitability was on file for ScanRDI with this formulation. When low-level viable organisms were introduced into the 14-day USP <71> "
     "membrane filtration enrichment process, the microorganisms were successfully enriched and recovered in TSB on Day 6 in both independent "
     "testing events (ETX-260902-0505 and ETX-260914-0470), yielding the identical strain (Microbacterium sp. PM5). The successful replication "
-    "across different processing analysts (Alex Saravia vs. Abayomi Odugbesi), different BSCs (E001316 vs. E001314), and different cleanroom suites "
+    "across different processing analysts (Alex Saravia vs. Ayomide Odugbesi), different BSCs (E001316 vs. E001314), and different cleanroom suites "
     "(Suite 114 vs. Suite 115) conclusively refutes the preliminary hypothesis of analyst handling error during reconstitution. The passing ScanRDI result and both failing USP <71> results "
     "are scientifically consistent with non-uniform microbial distribution. Consequently, inherent product contamination in Lot 2608-216 is "
     "confirmed, and Lot 2608-216 fails USP <71> sterility requirements."
@@ -189,7 +189,7 @@ data["equipment_summary"] = p5
 data["narrative_summary"] = p11
 data["sample_history_paragraph"] = p13
 data["cross_contamination_summary"] = p13
-data["smart_comment_interview"] = "Yes. Analysts Alex Saravia, Elysse Nioupin, Andrew Carrillo, and Abayomi Odugbesi were interviewed comprehensively. Handling error was refuted by identical retest recovery."
+data["smart_comment_interview"] = "Yes. Analysts Alex Saravia, Elysse Nioupin, Andrew Carrillo, and Ayomide Odugbesi were interviewed comprehensively. Handling error was refuted by identical retest recovery."
 data["smart_comment_samples"] = f"Yes, sample IDs: {data['sample_id_pure']}"
 data["smart_comment_records"] = f"Yes, information is available on EagleTrax under {data['sample_id_pure']}"
 data["smart_comment_storage"] = f"Yes, both samples were stored as per client's instructions. Information is available in EagleTrax Sample Location History under {data['sample_id_pure']}"
@@ -197,7 +197,7 @@ data["smart_personnel_block"] = (
     "Prepping Analyst:\r"
     "Alex Saravia (ES), Andrew Carrillo (AC)\r \r"
     "Processing Analyst:\r"
-    "Alex Saravia (ES), Abayomi Odugbesi (AOD)\r \r"
+    "Alex Saravia (ES), Ayomide Odugbesi (AOD)\r \r"
     "Reading Analyst:\r"
     "Elysse Nioupin (EN), Andrew Carrillo (AC)"
 )
