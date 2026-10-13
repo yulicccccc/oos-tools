@@ -54,6 +54,25 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 1. **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (Suite 116)`，第二行 `E001978 (L-Suite)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
 2. **正文与标题规范**: 在段落叙述和分段横幅标题中，一律使用标准英文单词 **`and`**（如 `BSC E001312 and E001937`），绝不使用 `&`。杜绝给人以非正式、粗糙或排版怪异的印象。
 
+## 🚨🚨 RULE 0F (TOP PRIORITY): Strict Prohibition of Absolute Claims ("100%") in Narrative (严禁在调查报告中使用 "100%" 绝对化用语)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER use absolute statements like "100% absence of microbial recovery" or "100% sterile" in narrative text.
+1. **cGMP 质保铁律**: 质保（QA/Robin Seymour）审核明确指出此类表述过于绝对。
+2. **法定标准用语**: 必须统一规范写作：
+   `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
+
+## 🚨🚨 RULE 0G (TOP PRIORITY): Concise Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史精炼规范与逗号断句法则)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), when documenting prior failures in a client's 6-month sample history:
+1. **精炼实用原则 (杜绝过度延伸)**: 保持聚焦简洁，直接陈述关键案卷编号、送检单号与检验日期，**无需自行添加冗长繁复的形态学对比或次序铺陈**（除非质保或用户明确特别要求）。
+2. **法定句式模板**:
+   `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
+3. **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`），确保符合英文技术写作的高级语感与非限制性状语修饰规范。
+4. **零臆想铁律**: 绝不允许在未核查 EagleTrax 或未向用户确认的情况下，默认断言 "no prior failures"！若不确定，必须先查系统或主动询问用户。
+
+## 🚨🚨 RULE 0H (TOP PRIORITY): Cleanroom Plural Conjunction Standard (同级多洁净室并列使用 "and" 连词铁律)
+**CRITICAL**: When describing weekly active air or surface monitoring across multiple cleanrooms of the same classification:
+1. **连词规范**: 必须使用英文连词 **`and`**，严禁使用 `or`（例如：必须写成 `in the ISO 7 cleanrooms (145 and 144)`，绝不可写成 `(145 or 144)`）。
+2. **质保依据**: 准确反映所有对应房间均实施了监测且均无微生物生长，杜绝逻辑歧义。
+
 ---
 
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)

@@ -29,6 +29,18 @@
 5. **RULE 0E — Strict Prohibition of "&" in Official Report Forms & Dividers (严禁在正式报告表单与标题中使用 "&" 连接符)**:
    - **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (Suite 116)`，第二行 `E001978 (L-Suite)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
    - **正文与标题规范**: 在段落叙述和分段横幅标题中，一律使用标准英文单词 **`and`**（如 `BSC E001312 and E001937`），绝不使用 `&`。杜绝给人以非正式、粗糙或排版怪异的印象。
+6. **RULE 0F — Strict Prohibition of Absolute Claims ("100%") in Narrative (严禁在调查报告中使用 "100%" 绝对化用语)**:
+   - **cGMP 质保铁律**: 在无菌检验与环境监测 OOS 调查报告叙述中，**严禁使用 "100% absence of microbial recovery" 或 "100% sterile" 等绝对化词汇**。质保（QA/Robin Seymour）审核认为此类表述过于绝对。
+   - **法定标准用语**: 必须统一规范写作：
+     `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
+7. **RULE 0G — Concise Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史精炼规范与逗号断句法则)**:
+   - **精炼实用原则 (杜绝过度延伸)**: 当客户 6 个月历史中存在先前失败（Prior Failure）时，报告叙述应保持精简聚焦，直接陈述关键案卷编号、送检单号与检验日期，**无需自行添加冗长繁复的形态学对比或次序铺陈**（除非质保或用户明确特别要求）。
+   - **法定句式模板**:
+     `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
+   - **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`），确保符合英文技术写作的高级语感与非限制性状语修饰规范。
+   - **零臆想铁律**: 绝不允许在未核查 EagleTrax 或未向用户确认的情况下，默认断言 "no prior failures"！若不确定，必须先查系统或主动询问用户。
+8. **RULE 0H — Cleanroom Plural Conjunction Standard (同级多洁净室并列使用 "and" 连词铁律)**:
+   - 在描述周检浮游菌或表面监测时，并列的多间同级别洁净室必须使用连词 **`and`**，严禁使用 `or`（例如：必须写成 `in the ISO 7 cleanrooms (145 and 144)`，绝不可写成 `(145 or 144)`），以准确反映所有对应房间均实施了采样且均无微生物生长。
 
 ## Overview
 This project contains automated reporting tools for Eagle Analytical's Out-of-Specification (OOS) investigations, specifically focusing on Sterility Testing. The core functionality generates the "Phase I Summary" narratives and extracts data to populate PDF/Word OOS reports.
