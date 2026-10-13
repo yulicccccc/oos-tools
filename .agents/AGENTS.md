@@ -15,15 +15,21 @@
    - `ganyangwe` / `GA` $\to$ **Gerald Anyangwe (GA)** (🚨 与 GS 严格区分!)
    - `dkansara` / `DK` $\to$ **Dhvanir Kansara (DK)** (🚨 严禁写成 David Karangwa!)
    - `jochoa` / `JOC` $\to$ **Jorge Ochoa (JOC)** (🚨 严禁写成 Jose Ocando!)
-   - `isunesara` / `INS` $\to$ **Inaara Sunesara (INS)** | `mbythatagari` / `MRB` $\to$ **Muralidhar Reddy Bythatagari (MRB)**
+   - `mbythatagari` / `MRB` $\to$ **Muralidhar Bythatagari (MRB)** (🚨 严禁带中间名 Reddy!)
+   - `ksilva` / `KSM` $\to$ **Karla Silva (KSM)** (🚨 严禁写成 Karla Silva Machuca!)
+   - `gli` / `GL` $\to$ **Guanchen Li (GL)** (🚨 严禁写成 David Li!)
+   - `mnaeem` / `MN` $\to$ **Maryam Naeem (MN)** (🚨 官方确认缩写为 MN!)
+   - `ntrinh` / `NT` $\to$ **Nicholas Trinh (NT)** (🚨 官方确认缩写为 NT，Technician 无班次!)
+   - `sallen` / `SA` $\to$ **Sasha Allen (SA)** (🚨 官方确认缩写为 SA，Technician 无班次!)
    - `suprety` / `SU` $\to$ **Sonal Uprety (SU)** | `asaravia` / `ES` $\to$ **Alex Saravia (ES)** (🚨 官方缩写必须是 ES，严禁写成 AS!) | `cdu` / `CCD` $\to$ **Cuong Du (CCD)**
-   - `aalanis` / `ALA` $\to$ **America Alanis (ALA)** | `gli` / `GL` $\to$ **Guanchen Li (GL)** | `smohammad` / `SMO` $\to$ **Simin Mohammad (SMO)**
+   - `aalanis` / `ALA` $\to$ **America Alanis (ALA)** | `smohammad` / `SMO` $\to$ **Simin Mohammad (SMO)**
    - `ssantamaria` / `SAS` $\to$ **Sophia Santamaria (SAS)** | `restrada` / `RE` $\to$ **Rey Estrada (RE)** | `vsubramanian` / `VV` $\to$ **Varsha Subramanian (VV)**
-   - `ksilva` / `KSM` $\to$ **Karla Silva (KSM)** | `tduong` / `TD` $\to$ **Thinh Duong (TD)** | `rseymour` / `RS` $\to$ **Robin Seymour (RS)**
+   - `tduong` / `TD` $\to$ **Thinh Duong (TD)** | `rseymour` / `RS` $\to$ **Robin Seymour (RS)** | `nhulyalkar` / `NH` $\to$ **Neha Hulyalkar (NH)**
    - `cgarza` / `CGS` $\to$ **Clea S. Garza (CGS)** | `dtassew` / `DT` $\to$ **Debrework Tassew (DT)** | `hsmith` / `HS` $\to$ **Halaina Smith (HS)**
    - `tkotisso` / `TK` $\to$ **Tamiru Kotisso (TK)** | `mchukwumerije` / `MC` $\to$ **Maraya Chukwumerije (MC)** | `pgary` / `PG` $\to$ **Pagan Gary (PG)**
    - `karuta` / `KA` $\to$ **Kathleen Aruta (KA)** | `dharrison` / `DH` $\to$ **Domiasha Harrison (DH)** | `dshah` / `DS` $\to$ **Devanshi Shah (DS)**
    - `jesqueda` / `JE` $\to$ **Jacqueline Esqueda (JE)** | `jmehta` / `JM` $\to$ **Jinal Mehta (JM)** | `oajayi` / `OA` $\to$ **Olugbenga Ajayi (OA)**
+   - 🚨 **Soniyah Reed 绝对排除**：用户核实其从未在无菌实验室出现过，严禁收录入分析员花名册！
 3. **Mandatory Code Firewall**: Always use `resolve_analyst_identity()` and `assert_no_hallucinations()` from `utils.py`.
 4. **🚨 严禁自作聪明 · 不懂必问铁律 (Mandatory Ask-First Rule)**: Whenever encountering an unknown EagleTrax username, missing EM logbook, or any uncertain detail, **NEVER guess or extrapolate — STOP immediately and ask the user!**
 

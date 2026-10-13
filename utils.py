@@ -87,7 +87,7 @@ def get_full_name(initial, _from_resolve=False):
         "QYC": "Qiyue Chen", "QC": "Qiyue Chen", "KC": "Qiyue Chen", "HS": "Halaina Smith", "MJ": "Mukyung Jang", "ES": "Alex Saravia", "AS": "Alex Saravia",
         "CSG": "Clea S. Garza", "CGS": "Clea S. Garza", "RS": "Robin Seymour", "CCD": "Cuong Du", "VV": "Varsha Subramanian",
         "KS": "Karla Silva", "KSM": "Karla Silva", "GS": "Gabrielle Surber", "PG": "Pagan Gary", "DT": "Debrework Tassew",
-        "GA": "Gerald Anyangwe", "MRB": "Muralidhar Reddy Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
+        "GA": "Gerald Anyangwe", "MRB": "Muralidhar Bythatagari", "TK": "Tamiru Kotisso", "OA": "Olugbenga Ajayi",
         "RE": "Rey Estrada", "AOD": "Ayomide Odugbesi", "AO": "Ayomide Odugbesi", "EN": "Elysse Nioupin", "SU": "Sonal Uprety", 
         "ANC": "Andrew Carrillo", "AC": "Andrew Carrillo", "MC": "Maraya Chukwumerije",
         "AA": "America Alanis",  # Celsis 主力
@@ -102,6 +102,10 @@ def get_full_name(initial, _from_resolve=False):
         "INS": "Inaara Sunesara",
         "JE": "Jacqueline Esqueda",
         "JM": "Jinal Mehta",
+        "MN": "Maryam Naeem",
+        "NT": "Nicholas Trinh",
+        "SA": "Sasha Allen",
+        "NH": "Neha Hulyalkar",
     }
     res = mapping.get(initial.strip().upper(), "")
     if res:
@@ -117,6 +121,12 @@ def clean_analyst_name(name):
         return ""
     n = str(name).strip()
     low = n.lower()
+    if low in ["david li", "david"]:
+        return "Guanchen Li"
+    if low in ["karla silva machuca", "karla machuca"]:
+        return "Karla Silva"
+    if low in ["muralidhar reddy bythatagari", "muralidhar reddy"]:
+        return "Muralidhar Bythatagari"
     if low in ["gabbie surber", "gabbie"]:
         return "Gabrielle Surber"
     if low in ["min jang", "min"]:
@@ -216,9 +226,26 @@ def resolve_analyst_identity(query):
         "ksilva": ("Karla Silva", "KSM"),
         "ksm": ("Karla Silva", "KSM"),
         "ks": ("Karla Silva", "KSM"),
-        # Muralidhar Reddy Bythatagari (MRB)
-        "mbythatagari": ("Muralidhar Reddy Bythatagari", "MRB"),
-        "mrb": ("Muralidhar Reddy Bythatagari", "MRB"),
+        # Muralidhar Bythatagari (MRB)
+        "mbythatagari": ("Muralidhar Bythatagari", "MRB"),
+        "mrb": ("Muralidhar Bythatagari", "MRB"),
+        # Maryam Naeem (MN)
+        "mnaeem": ("Maryam Naeem", "MN"),
+        "mn": ("Maryam Naeem", "MN"),
+        # Nicholas Trinh (NT)
+        "ntrinh": ("Nicholas Trinh", "NT"),
+        "nt": ("Nicholas Trinh", "NT"),
+        # Sasha Allen (SA)
+        "sallen": ("Sasha Allen", "SA"),
+        "sa": ("Sasha Allen", "SA"),
+        # Neha Hulyalkar (NH)
+        "nhulyalkar": ("Neha Hulyalkar", "NH"),
+        "nh": ("Neha Hulyalkar", "NH"),
+        # Guanchen Li (GL) - 强拦截 David Li
+        "david li": ("Guanchen Li", "GL"),
+        "david": ("Guanchen Li", "GL"),
+        # Karla Silva (KSM) - 强拦截 Machuca
+        "karla silva machuca": ("Karla Silva", "KSM"),
         # Dhvanir Kansara (DK)
         "dkansara": ("Dhvanir Kansara", "DK"),
         "dkarangwa": ("Dhvanir Kansara", "DK"),
@@ -299,7 +326,7 @@ def resolve_analyst_identity(query):
         "Jorge Ochoa": "JOC",
         "Inaara Sunesara": "INS",
         "Mukyung Jang": "MJ",
-        "Muralidhar Reddy Bythatagari": "MRB",
+        "Muralidhar Bythatagari": "MRB",
         "Ellen Bennett": "ELB",
         "Sonal Uprety": "SU",
         "Guanchen Li": "GL",
@@ -325,6 +352,10 @@ def resolve_analyst_identity(query):
         "Jacqueline Esqueda": "JE",
         "Jinal Mehta": "JM",
         "Olugbenga Ajayi": "OA",
+        "Maryam Naeem": "MN",
+        "Nicholas Trinh": "NT",
+        "Sasha Allen": "SA",
+        "Neha Hulyalkar": "NH",
     }
     if full:
         return full, canonical_initial_map.get(full, up)
@@ -345,6 +376,9 @@ FORBIDDEN_HALLUCINATED_NAMES = {
     "abayomi odugbesi": "Ayomide Odugbesi (AOD)",
     "abayomi": "Ayomide Odugbesi (AOD)",
     "alex saravia (as)": "Alex Saravia (ES)",
+    "david li": "Guanchen Li (GL)",
+    "karla silva machuca": "Karla Silva (KSM)",
+    "soniyah reed": "[BLOCKED: Soniyah Reed never appeared in lab]",
 }
 
 def assert_no_hallucinations(text_or_obj):

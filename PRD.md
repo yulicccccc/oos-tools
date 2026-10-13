@@ -3,7 +3,18 @@
 ## 🚨🚨 TOP-PRIORITY LOCKED MANDATES (RULE 0A & 0B — READ FIRST)
 1. **RULE 0A — Analyst Identity Roster, Zero Hallucination & Mandatory Ask-First Firewall**:
    - **Root Cause**: EagleTrax usernames are `[First Initial] + [Last Name]` (`ebennett`, `enioupin`, `mjang`, `dkansara`, `jochoa`, `aodugbesi`). **NEVER expand the first initial by guessing a common first name!** There is **NO Elizabeth Bennett**, **NO Eniola Nioupin**, and **NO Min Jang** in the laboratory!
-   - **Mandatory Roster**: `ebennett`/`ELB` = **Ellen Bennett (ELB)** | `enioupin`/`EN` = **Elysse Nioupin (EN)** | `isharma`/`ISS` = **Ishita Sharma (ISS)** | `acarrillo`/`ANC` = **Andrew Carrillo (ANC)** | `aodugbesi`/`AOD` = **Ayomide Odugbesi (AOD)** | `qchen`/`QYC` = **Qiyue Chen (QYC)** | `mjang`/`MJ` = **Mukyung Jang (MJ)** | `gsurber`/`GS` = **Gabrielle Surber (GS)** | `ganyangwe`/`GA` = **Gerald Anyangwe (GA)** | `dkansara`/`DK` = **Dhvanir Kansara (DK)** | `jochoa`/`JOC` = **Jorge Ochoa (JOC)** | `isunesara`/`INS` = **Inaara Sunesara (INS)**. (See full 37-analyst table in Rule 46 & `utils.py`).
+   - **Mandatory Roster**: 严格收录 33 位在册无菌实验室分析员与历史分析员唯一法定身份（详见 Rule 46 权威总表与 `utils.py`）。
+     - 🚨 **核心姓名合规绝对锁定**：
+       - `GL` / `gli` $\to$ **Guanchen Li (GL)**（严禁使用口语化昵称 "David Li"！）
+       - `KSM` / `ksilva` $\to$ **Karla Silva (KSM)**（严格使用 Karla Silva，严禁使用母姓 "Karla Silva Machuca"！）
+       - `MRB` / `mbythatagari` $\to$ **Muralidhar Bythatagari (MRB)**（严格使用 Muralidhar Bythatagari，严禁带中间名 "Reddy"！）
+       - `MN` / `mnaeem` $\to$ **Maryam Naeem (MN)**（官方确认 2 位缩写为 MN！）
+       - `NT` / `ntrinh` $\to$ **Nicholas Trinh (NT)**（官方确认 2 位缩写为 NT，Technician 无班次）
+       - `SA` / `sallen` $\to$ **Sasha Allen (SA)**（官方确认 2 位缩写为 SA，Technician 无班次）
+       - `ebennett` / `ELB` $\to$ **Ellen Bennett (ELB)**（严禁脑补为 "Elizabeth Bennett"！）
+       - `enioupin` / `EN` $\to$ **Elysse Nioupin (EN)**（严禁写成 "Eniola" 或发明 "ENI" 缩写！）
+       - `mjang` / `MJ` $\to$ **Mukyung Jang (MJ)**（严禁写成 "Min Jang"！）
+       - 🚨 **Soniyah Reed 从未出现在本实验室，坚决不予收录！**
    - **Mandatory Ask-First Rule (严禁自作聪明·不懂必问)**: Whenever encountering an unknown username, missing logbook, or uncertain detail, **STOP immediately and ask the user** — NEVER guess!
 2. **RULE 0B — Robin Seymour (RS) Table 2 Section Divider Standard**:
    - Banner 1: **`Personnel EM`** (Canonical: NO date suffix! In single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
@@ -404,44 +415,59 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **1. 全部 3 大无菌 OOS 模块（ScanRDI, Celsis, USP <71>）统一适用架构 (Tri-Module Universal Invariance):**
             - **全模块覆盖**: 无论当前调查属于 **ScanRDI**（快速激光荧光法）、**Celsis**（ATP 生物发光法）还是 **USP <71>**（经典薄膜过滤与直接接种培养法），人员解析引擎与命名规范必须 100% 保持完全一致，绝不允许因测试类型不同而出现割裂或单模块私自实现。
             - **全环节穿透**: 样品前置准备人（Prepping Analyst）、过滤接种处理人（Processing Analyst）、换台换机人（Changeover Analyst）、培养读数人（Reading Analyst）及转接人（Subculture Analyst）必须全量经由官方权威词典解析。
-        *   **2. 官方权威身份与缩写映射表 (Official Ground Truth Mapping):**
-            - `enioupin` -> **Elysse Nioupin (EN)**（🚨 **全模块终极铁律：严禁写成 "Eniola" 或发明 "ENI" 缩写！官方系统与签名全名必须是 Elysse Nioupin，缩写必须是 EN！**）
-            - `isharma` -> **Ishita Sharma (ISS)**（🚨 **官方法定缩写必须是 ISS，严禁写成 "IS"！**）
-            - `acarrillo` -> **Andrew Carrillo (ANC)**（🚨 **官方法定缩写必须是 ANC，严禁写成 "AC"！**）
-            - `aodugbesi` -> **Ayomide Odugbesi (AOD)**（🚨 **官方全名必须是 Ayomide Odugbesi，缩写必须是 AOD，严禁写成 Abayomi！**）
-            - `qchen` / `kc` -> **Qiyue Chen (QYC)**（🚨 **官方法定缩写必须是 QYC，严禁写成 "QC" 或 "KC"！**）
-            - `mjang` -> **Mukyung Jang (MJ)**（🚨 **严禁写成 "Min Jang"！官方全名必须是 Mukyung Jang！**）
-            - `gsurber` -> **Gabrielle Surber (GS)**（🚨 **严禁写成 "Gabbie Surber" 或混淆为 "GA"！官方缩写必须是 GS！**）
-            - `ganyangwe` / `ga` -> **Gerald Anyangwe (GA)**（🚨 **官方缩写必须是 GA，与 GS 严格隔离！**）
-            - `dkansara` / `dk` -> **Dhvanir Kansara (DK)**（🚨 **严禁脑补为 "David Karangwa"！官方全名必须是 Dhvanir Kansara！**）
-            - `jochoa` / `joc` -> **Jorge Ochoa (JOC)**（🚨 **严禁脑补为 "Jose Ocando"！官方全名必须是 Jorge Ochoa！**）
-            - `isunesara` / `ins` -> **Inaara Sunesara (INS)**（🚨 **官方缩写必须是 INS！**）
-            - `mbythatagari` / `mrb` -> **Muralidhar Reddy Bythatagari (MRB)**
-            - `ebennett` / `elbennett` / `elb` -> **Ellen Bennett (ELB)**（🚨 **EagleTrax 账号是 ebennett，严禁脑补为 "Elizabeth Bennett"！官方全名必须是 Ellen Bennett！**）
-            - `suprety` -> **Sonal Uprety (SU)**
-            - `asaravia` -> **Alex Saravia (ES)**（🚨 **官方缩写必须是 ES，严禁写成 AS！**）
-            - `cdu` -> **Cuong Du (CCD)**
-            - `aalanis` -> **America Alanis (ALA)**
-            - `gli` -> **Guanchen Li (GL)**
-            - `smohammad` -> **Simin Mohammad (SMO)**
-            - `ssantamaria` -> **Sophia Santamaria (SAS)**
-            - `restrada` -> **Rey Estrada (RE)**
-            - `vsubramanian` -> **Varsha Subramanian (VV)**
-            - `ksilva` -> **Karla Silva (KSM)**
-            - `cgarza` -> **Clea S. Garza (CGS)**
-            - `dtassew` -> **Debrework Tassew (DT)**
-            - `hsmith` -> **Halaina Smith (HS)**
-            - `tkotisso` -> **Tamiru Kotisso (TK)**
-            - `tduong` -> **Thinh Duong (TD)**
-            - `rseymour` -> **Robin Seymour (RS)**
-            - `mchukwumerije` -> **Maraya Chukwumerije (MC)**
-            - `pgary` -> **Pagan Gary (PG)**
-            - `karuta` -> **Kathleen Aruta (KA)**
-            - `dharrison` -> **Domiasha Harrison (DH)**
-            - `dshah` -> **Devanshi Shah (DS)**
-            - `jesqueda` -> **Jacqueline Esqueda (JE)**
-            - `jmehta` -> **Jinal Mehta (JM)**
-            - `oajayi` -> **Olugbenga Ajayi (OA)**
+        *   **2. 官方权威身份、缩写与班次权威总表 (Official Ground Truth Roster & Shift Mapping):**
+            - 🚨 **三大铁律法则**：
+              1. **唯一法定真名铁律**：所有人名必须 100% 遵照 EagleTrax/cGMP 系统的官方真实全名！
+                 - `GL` 必须且仅能写作 **`Guanchen Li`**（🚨 绝对严禁写成口语化昵称 "David Li"！）。
+                 - `KSM` 遵照用户明确指示，严格写作 **`Karla Silva`**（🚨 严禁使用带母姓的 "Karla Silva Machuca"！）。
+                 - `MRB` 遵照用户明确指示，严格写作 **`Muralidhar Bythatagari`**（🚨 严禁带中间名 "Reddy"！）。
+                 - `CGS` 严格写作 **`Clea S. Garza`**（系统真名，严禁使用 "Santos"）。
+                 - `GS` 严格写作 **`Gabrielle Surber`**（系统真名，严禁使用 "Gabby"）。
+              2. **一人一码**：每位分析员有且仅有一个法定唯一 Initials，绝对不存在任何“备用”或“兼容”缩写！
+              3. **班次规则**：Technician **无班次（统一标注 N/A）**；Microbiologist I/II 严格对应 10 月官方排班表（1st: 5am-2pm / 2nd: 9am-6pm / 3rd: 1pm-10pm）。
+              4. 🚨 **Soniyah Reed 绝对排除**：用户校对核实其从未在无菌实验室出现过，严禁收录入分析员花名册！
+
+            | # | 唯一法定 Initials | 英文全名 (Full Name - 法定真名) | EagleTrax 账号 | 角色 / 岗位 (Role) | 班次 (Shift - 10月官方排班) |
+            | :---: | :---: | :--- | :--- | :--- | :---: |
+            | 1 | **ALA** | America Alanis | `aalanis` | Microbiologist I | **1st Shift** (5am-2pm) |
+            | 2 | **ANC** | Andrew Carrillo | `acarrillo` | Microbiology Technician | **N/A (无班次)** |
+            | 3 | **AOD** | Ayomide Odugbesi | `aodugbesi` | Microbiologist II | **2nd Shift** (9am-6pm) |
+            | 4 | **CCD** | Cuong Du | `cdu` | Microbiologist I | **1st Shift** (5am-2pm) |
+            | 5 | **CGS** | Clea S. Garza | `cgarza` | Microbiologist II | **1st Shift** (FMLA请假至11/11) |
+            | 6 | **DT** | Debrework Tassew | `dtassew` | Microbiologist I | **1st Shift** (5am-2pm) |
+            | 7 | **DK** | Dhvanir Kansara | `dkansara` | Project Microbiologist | **3rd Shift** (周末排班轮值) |
+            | 8 | **ELB** | Ellen Bennett | `ebennett` | Microbiologist I | **2nd Shift** |
+            | 9 | **EN** | Elysse Nioupin | `enioupin` | Microbiology Technician | **N/A (无班次)** |
+            | 10 | **ES** | Alex Saravia | `asaravia` | Microbiologist I | **3rd Shift** (1pm-10pm) |
+            | 11 | **GA** | Gerald Anyangwe | `ganyangwe` | Microbiologist I | **2nd Shift** (9am-6pm) |
+            | 12 | **GL** | Guanchen Li | `gli` | Microbiologist II | **3rd Shift** (1pm-10pm, 严禁 David Li) |
+            | 13 | **GS** | Gabrielle Surber | `gsurber` | Microbiologist II | **1st Shift** (5am-2pm) |
+            | 14 | **HS** | Halaina Smith | `hsmith` | Microbiologist I | **1st Shift** (5am-2pm) |
+            | 15 | **INS** | Inaara Sunesara | `isunesara` | Microbiologist I | **3rd Shift** (1pm-10pm) |
+            | 16 | **ISS** | Ishita Sharma | `isharma` | Microbiology Technician | **N/A (无班次)** |
+            | 17 | **JOC** | Jorge Ochoa | `jochoa` | Microbiologist I | **3rd Shift** (1pm-10pm) |
+            | 18 | **KSM** | Karla Silva | `ksilva` | Microbiologist I | **2nd Shift** (7am-4pm, 严禁 Machuca) |
+            | 19 | **MN** | Maryam Naeem | `mnaeem` | Microbiologist II | **1st Shift** (5am-2pm, 确认MN) |
+            | 20 | **MJ** | Mukyung Jang | `mjang` | Microbiology Technician | **N/A (无班次, 严禁 Min Jang)** |
+            | 21 | **MRB** | Muralidhar Bythatagari | `mbythatagari` | Microbiologist II | **3rd Shift** (1pm-10pm, 严禁 Reddy) |
+            | 22 | **NH** | Neha Hulyalkar | `nhulyalkar` | Microbiology Supervisor | Supervisor |
+            | 23 | **NT** | Nicholas Trinh | `ntrinh` | Microbiology Technician | **N/A (无班次, 确认NT)** |
+            | 24 | **OA** | Olugbenga Ajayi | `oajayi` | Project Microbiologist | **1st Shift** (周末排班轮值) |
+            | 25 | **PG** | Pagan Gary | `pgary` | Microbiologist II | **1st Shift** (5am-2pm) |
+            | 26 | **QYC** | Qiyue Chen | `qchen` | Project Microbiologist | **1st Shift** (周末排班轮值) |
+            | 27 | **RE** | Rey Estrada | `restrada` | Microbiologist I | **1st Shift** |
+            | 28 | **RS** | Robin Seymour | `rseymour` | Microbiology Supervisor | Supervisor |
+            | 29 | **SA** | Sasha Allen | `sallen` | Microbiology Technician | **N/A (无班次, 确认SA)** |
+            | 30 | **SMO** | Simin Mohammad | `smohammad` | Microbiology Technician | **N/A (无班次)** |
+            | 31 | **SU** | Sonal Uprety | `suprety` | Microbiologist II | **2nd Shift** (9am-6pm) |
+            | 32 | **TK** | Tamiru Kotisso | `tkotisso` | Microbiologist I | **3rd Shift** (1pm-10pm) |
+            | 33 | **VV** | Varsha Subramanian | `vsubramanian` | Microbiologist II | **2nd Shift** (9am-6pm) |
+
+            - **历史在册/其他部门关联人员记录**:
+              - `KA` $\to$ Kathleen Aruta (`karuta`) | `DH` $\to$ Domiasha Harrison (`dharrison`) | `DS` $\to$ Devanshi Shah (`dshah`)
+              - `JE` $\to$ Jacqueline Esqueda (`jesqueda`) | `JM` $\to$ Jinal Mehta (`jmehta`) | `MC` $\to$ Maraya Chukwumerije (`mchukwumerije`)
+              - `SAS` $\to$ Sophia Santamaria (`ssantamaria`) | `TD` $\to$ Thinh Duong (`tduong`) | `DPP` $\to$ Preeti Purwaha (`ppurwaha`)
+              - `KSP` $\to$ Kathan Parikh (`kparikh`) | `RC` $\to$ Ross Caputo (`rcaputo`) | `JP` $\to$ Jay Patel (`jpatel`)
         *   **3. 底层代码工程强制防御与自动拦截机制 (Codebase Single Source of Truth & Interceptor):**
             - 在 `utils.py` 中建立全项目唯一的权威映射中枢（`get_full_name`, `clean_analyst_name`, `resolve_analyst_identity`）。
             - `pages/ScanRDI.py`、`pages/Celsis.py`、`pages/USP71.py` 及后台脚本必须统一从 `utils.py` 引用，严禁私自硬编码。
