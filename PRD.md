@@ -6,8 +6,8 @@
    - **Mandatory Roster**: `ebennett`/`ELB` = **Ellen Bennett (ELB)** | `enioupin`/`EN` = **Elysse Nioupin (EN)** | `isharma`/`ISS` = **Ishita Sharma (ISS)** | `acarrillo`/`ANC` = **Andrew Carrillo (ANC)** | `aodugbesi`/`AOD` = **Abayomi Odugbesi (AOD)** | `qchen`/`QYC` = **Qiyue Chen (QYC)** | `mjang`/`MJ` = **Mukyung Jang (MJ)** | `gsurber`/`GS` = **Gabrielle Surber (GS)** | `ganyangwe`/`GA` = **Gerald Anyangwe (GA)** | `dkansara`/`DK` = **Dhvanir Kansara (DK)** | `jochoa`/`JOC` = **Jorge Ochoa (JOC)** | `isunesara`/`INS` = **Inaara Sunesara (INS)**. (See full 37-analyst table in Rule 46 & `utils.py`).
    - **Mandatory Ask-First Rule (严禁自作聪明·不懂必问)**: Whenever encountering an unknown username, missing logbook, or uncertain detail, **STOP immediately and ask the user** — NEVER guess!
 2. **RULE 0B — Robin Seymour (RS) Table 2 Section Divider Standard**:
-   - Banner 1: **`Personnel EM`** (NO date suffix!)
-   - Banner 2: **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix!)
+   - Banner 1: **`Personnel EM`** (Canonical: NO date suffix! In single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
+   - Banner 2: **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO date suffix! In single-day bracketing, `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY` is accepted.)
    - Banner 3 & 4: **`Weekly Active Air / Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers, NO date suffix!)
 
 ## Overview
@@ -465,6 +465,39 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
     49. **Standard Microbiology SOP Designation Rule (官方规程编号规范 - MICRO-SOP-2 - 🚨 终极锁定):**
         *   **标准编号**: 洁净室环境监测培养与设施监控规程必须统一规范命名为 **`MICRO-SOP-2`**（`Environmental Monitoring of the Clean-room Facility`）。
         *   **严禁旧编号**: 在所有 OOS 调查报告（包括 ScanRDI、Celsis、USP <71>、EM）的正文叙述及表格说明中，**绝对严禁再写成旧编号 `SOP 2.600.002`**！必须统一写作 `MICRO-SOP-2`！
+
+    50. **Robin Seymour (RS) Benchmark Golden Standard Harmonization for OOS Reports (Robin 质保复核黄金标杆与全 OOS 模块通用八项铁律 - 🚨 终极锁定):**
+        *   **标杆基准与背景**: 以 QA Director Robin Seymour (RS) 官方复核并签署归档的最终版 OOS 调查报告（标杆如 `OOS-262150 BelieveRX Pharmacy Signed by QYC` 及 `OOS-262194`）为绝对依据，提炼并固化全 OOS 模块（ScanRDI, Celsis, USP <71>, EM）通用的高质量排版与行文规范：
+        *   **1. Page 4 处理与换台同人员合并句式 (Combined Processing & Changeover Phrasing):**
+            - 当同一位分析员同时执行了样品过滤处理（Processing）与换台步骤（Changeover）时，正文叙述严禁拆分成两句机械重复的话（如 `"processed by X, and changeover performed by X"`）。
+            - 必须使用 Robin 标准合并从句：`"processing and change over steps were performed by [Analyst] ([Nth] sample processed)"`（例如：`"processing and change over steps were performed by Ellen Bennett (4th sample processed)"`）。
+        *   **2. Page 3 容器完整性段落分析员连字符规范 (Analyst Name Hyphen Convention):**
+            - 在第 2 段（容器完整性与样品外观检查）中，分析员全名两侧必须添加空格连字符包裹：
+              `"Prepping analyst - [Name] - and processing analyst - [Name] - verified the physical integrity and packaging of the sample..."`
+              （例如：`"Prepping analyst - Mukyung Jang - and processing analyst - Ellen Bennett - verified..."`），严禁使用无连字符的直白裸名。
+        *   **3. Page 4 环境监测评估三大区块排版层次与原生回车标准 (EM Recoveries Review Block Hierarchy):**
+            - 在 AcroForm 多行文本框（`Text Field50`）中，环境监测评估部分必须清晰拆分为三大由 `\r \r` 严格隔开的独立区块，且小标题与正文之间使用单 `\r` 紧凑连接：
+              - 区块 1 (主标题独立成段): `"Environmental Monitoring (EM) Recoveries Review:"`
+              - 区块 2 (BSC 与人员评估): `"ISO 5 BSC and Personnel Evaluation:\r[body text]"`
+              - 区块 3 (洁净室评估): `"Cleanroom EM Evaluation:\r[body text]"`
+            - 小标题与正文之间使用单个 `\r` 换行，能确保小标题与段落紧密相随，同时杜绝在 Adobe Acrobat 中产生双重空行或行距漂移。
+        *   **4. Page 2 设备栏全量罗列生物安全柜及其校准期 (Page 2 Equipment Block Must Include BSCs):**
+            - 在 Page 2 `Text Field43`（Equipment ID）与 `Text Field44`（Calibration Due Date）中，除了培养箱与温度传感器之外，**必须完整列出处理所用的生物安全柜及换台生物安全柜**（例如：`BSC E001938` 与 `BSC E001937`），并在右侧严格对应其校准到期日（如 `Feb 2027` 与 `Feb 2027`）。
+            - 每一组设备块之间必须保持严格的 `\r \r` 空行隔开与横向 1:1 绝对对齐。
+        *   **5. Page 2 耗材批号/效期原生回车规范 (Text Field22 Reagent Formatting):**
+            - 耗材与试剂批号/效期栏目必须采用 Acrobat 原生回车换行符（同一组内使用 `\r`，培养基与耗材大类之间使用 `\r \r`），严禁混入裸 `\n`，杜绝因换行符解析不一致导致 Adobe Acrobat 行高塌缩或末尾截断。
+        *   **6. Page 6 调查撰写人栏目纯粹性 (Text Field53 Prepared By Print Standard):**
+            - `Text Field53`（Prepared by Print）必须纯粹填写调查报告撰写人/调查员姓名（如 `"Qiyue Chen"`），严禁与实验操作人员混搭拼接（严禁写成 `"Ellen Bennett (Written by: Qiyue Chen)"`）。
+        *   **7. Table 2 灰色分段横幅标准与日期后缀调和 (Section Divider Banners Standard):**
+            - 官方终极基准：
+              1. 人员监测: `Personnel EM`（无日期后缀为官方主基准；在单日追溯特定案卷中，若 QA 明确要求带日期，则精确呈现为 `Personnel EM for DDMMMYY`）。
+              2. 生物安全柜: `Biological Safety Cabinet EM for E00XXXX and E00YYYY`（或 `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY`）。
+              3. 洁净室浮游菌: `Weekly Active Air Sampling of Cleanroom [Rooms] ([Equipment], [Suite]) with Processing BSCs`（无日期后缀）。
+              4. 洁净室表面: `Weekly Surface Sampling of Cleanroom [Rooms] ([Equipment], [Suite]) with Processing BSCs`（无日期后缀）。
+        *   **8. Table 2 周检周期列纯净表头 (Day/Week Column Header Standard):**
+            - Table 2 周检行的 `Day /Week(s)` 列必须严格填写为 `"Week of Testing"`，严禁追加 `"\n(Scan)"` 或 `"Week on Testing Date"`。
+        *   **9. 客户 6 个月历史阳性次数严格真实审计 (Confirmed Prior OOS Numerator Audit):**
+            - 在核查客户 6 个月历史记录时，分子（先前 OOS 发生次数）仅能计入真实确认有效的无菌检验失败事件。对于被撤回（Canceled）、作废或判为无效的历史 OOS 事件，严禁计入分子虚增客户阳性率（例如 BelieveRX E74120 确证历史阳性事件为 3 起，而非 5 起）。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

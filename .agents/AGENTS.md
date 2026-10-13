@@ -28,9 +28,9 @@
 4. **🚨 严禁自作聪明 · 不懂必问铁律 (Mandatory Ask-First Rule)**: Whenever encountering an unknown EagleTrax username, missing EM logbook, or any uncertain detail, **NEVER guess or extrapolate — STOP immediately and ask the user!**
 
 ## 🚨🚨 RULE 0B (TOP PRIORITY): Robin Seymour (RS) Table 2 Section Divider Golden Standard
-In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly follow Robin Seymour's exact wording (NO trailing dates like `for 16Sep26`):
-1. **`Personnel EM`** (NO date suffix!)
-2. **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix!)
+In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly follow Robin Seymour's verified wording:
+1. **`Personnel EM`** (Canonical: NO date suffix! In specific single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
+2. **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO repetitive `BSC`, NO date suffix! In specific single-day bracketing, `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY` is accepted.)
 3. **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers `145, 144, 143, 142` for L-Suite, or `Suite 116 (E001738)`, NO date suffix!)
 4. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix!)
 
@@ -693,17 +693,45 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 ### 35. Robin Seymour (RS) Official OOS Table Divider Golden Standard (Table 2 灰色分段横幅终极标杆 - 🚨 终极锁定)
 **CRITICAL**: In all microbiology OOS investigations (such as `OOS-262194` and `OOS-262150`), Table 2 section divider rows (gray banners) MUST strictly adhere to QA Reviewer Robin Seymour's official verified syntax:
-1. **Personnel EM Divider**: Strictly **`Personnel EM`** (NO date suffix, NEVER write `Personnel EM for DDMMMYY`).
-2. **Biological Safety Cabinet Divider**: Strictly **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (NO `(BSC)`, NO repetitive `BSC`, NO date suffix).
+1. **Personnel EM Divider**: Strictly **`Personnel EM`** (Canonical: NO date suffix, NEVER write `Personnel EM for DDMMMYY` unless specific single-day QA mark is requested).
+2. **Biological Safety Cabinet Divider**: Strictly **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO repetitive `BSC`, NO date suffix).
 3. **Weekly Active Air Divider**:
    - For L-Suite: Strictly **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (or `with Changeover BSC` / `with Processing and Changeover BSCs`). Must explicitly list all cleanroom rooms (`145, 144, 143, 142`), NO date suffix.
    - For Cleanroom Suite 116: Strictly **`Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC`** (NO date suffix).
 4. **Weekly Surface Divider**:
    - Strictly mirror the cleanroom room list from the active air section, e.g. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix).
 
+### 36. Robin Seymour (RS) Golden Benchmark Harmonization Rules (Robin 质保复核黄金标杆与全局通用八项铁律 - 🚨 终极锁定)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), all generated investigation packages MUST strictly harmonize with QA Director Robin Seymour's signed benchmark standards (`OOS-262150 BelieveRX Pharmacy Signed by QYC`):
 
+1. **Page 4 Combined Processing & Changeover Phrasing (处理与换台同人员合并句式)**:
+   - When the same analyst performs both processing and changeover, DO NOT write repetitive separate clauses.
+   - Use Robin's combined clause: `"processing and change over steps were performed by [Analyst] ([Nth] sample processed)"` (e.g., `"processing and change over steps were performed by Ellen Bennett (4th sample processed)"`).
 
+2. **Page 3 Analyst Name Hyphen Wrapping in Container Integrity Paragraph (容器完整性段落分析员连字符规范)**:
+   - In narrative paragraph 2 (container integrity and physical inspection), analyst names must be wrapped in spaced hyphens:
+     `"Prepping analyst - [Name] - and processing analyst - [Name] - verified the physical integrity and packaging of the sample..."`
+     (e.g., `"Prepping analyst - Mukyung Jang - and processing analyst - Ellen Bennett - verified..."`). NEVER write bare unhyphenated names.
 
+3. **Page 4 EM Evaluation Block Hierarchy & Native Returns (`Text Field50` 环境监测三层区块排版与单 `\r` 子标题规范)**:
+   - In AcroForm multiline field `Text Field50`, split EM review narrative into 3 distinct `\r \r`-delimited blocks with single `\r` between sub-header and body text:
+     - Block 1 (Standalone Header): `"Environmental Monitoring (EM) Recoveries Review:"`
+     - Block 2 (ISO 5 BSC & Personnel): `"ISO 5 BSC and Personnel Evaluation:\r[body text]"`
+     - Block 3 (Cleanroom EM): `"Cleanroom EM Evaluation:\r[body text]"`
+   - Using a single `\r` between sub-header and body ensures sub-headers stay tightly coupled to their paragraph and prevents Adobe Acrobat double-newline rendering issues.
 
+4. **Page 2 Equipment Block Must Include BSCs (`Text Field43` & `Text Field44` 生物安全柜全量录入规范)**:
+   - In addition to incubators and sensors, `Text Field43` (Equipment ID) and `Text Field44` (Calibration Due Date) MUST ALWAYS include both the processing BSC and changeover BSC (e.g., `BSC E001938` / `BSC E001937`) along with their calibration due dates (`Feb 2027` / `Feb 2027`).
+   - Maintain 1-to-1 horizontal blank line alignment (`\r \r`) between equipment IDs and calibration due dates.
 
+5. **Page 2 Material Lot/Exp Field Formatting (`Text Field22` 原生回车换行规范)**:
+   - Reagent lot and expiration blocks must use native Acrobat line breaks (`\r` within each group and `\r \r` between different reagent/media groups), avoiding raw `\n` to prevent font shrinkage and baseline clipping.
 
+6. **Page 6 Prepared By Print Field (`Text Field53` 调查员纯粹性规范)**:
+   - `Text Field53` (Prepared by Print) must strictly be the report author / investigator's name alone (`"Qiyue Chen"`). NEVER concatenate or prefix with bench operators (NEVER write `"Ellen Bennett (Written by: Qiyue Chen)"`).
+
+7. **Table 2 Weekly EM Day/Week Column Standard (周检周期表头规范)**:
+   - Column `Day /Week(s)` must strictly be `"Week of Testing"`. NEVER append `"\n(Scan)"` or `"Week on Testing Date"`.
+
+8. **Client 6-Month Prior Failure Count Audit (客户先前真实阳性次数审计)**:
+   - In client 6-month historical reviews, only count genuine confirmed prior sterility test failures/OOS events. Any cancelled, voided, or invalidated historical records MUST NOT be counted in the numerator.
