@@ -20,6 +20,12 @@
    - Banner 1: **`Personnel EM`** (Canonical: NO date suffix! In single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
    - Banner 2: **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO date suffix! In single-day bracketing, `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY` is accepted.)
    - Banner 3 & 4: **`Weekly Active Air / Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers, NO date suffix!)
+3. **RULE 0C — Standard Microbiology SOP Designations (MICRO-SOP-2)**:
+   - In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring plate incubation and facility monitoring MUST strictly cite **`MICRO-SOP-2`** (`Environmental Monitoring of the Clean-room Facility`), NEVER `SOP 2.600.002`.
+4. **RULE 0D — Zero Guessing on Positive Controls, Reagent Lots & Test Bench Data (阳性对照与核心实验台账零脑补·不明必问铁律)**:
+   - **cGMP 法定证据链铁律**: 阳性对照菌株（Standard / Positive Control Organism）、批号（Lot #）、效期（Expiration Date）属于质保（QA/Robin Seymour）审核与合规归档的法定关键数据。**严禁从旧案卷拷贝，严禁使用模板默认占位符，严禁擅自脑补！**
+   - **强制停步提问门禁**: 凡在 EagleTrax 系统电子记录或现场纸质扫描件中未查明阳性对照菌种及批号效期时，**必须立即停步，向用户主动提问获取**（例如直接向用户询问：“请提供本次检验的阳性对照菌种、Lot 批号与效期”），绝不允许擅自填入虚假或猜测数据导致用户被质保批评！
+   - **关键实验参数零脑补延伸**: 包含生物安全柜日常消毒记录批号、双氧水指示卡/IPA 批号、培养基批号效期、设备运行 Session/Record 编号等，凡无法 100% 确认真实性的，一律先向用户确认，宁可多问一句，绝不乱写一字！
 
 ## Overview
 This project contains automated reporting tools for Eagle Analytical's Out-of-Specification (OOS) investigations, specifically focusing on Sterility Testing. The core functionality generates the "Phase I Summary" narratives and extracts data to populate PDF/Word OOS reports.

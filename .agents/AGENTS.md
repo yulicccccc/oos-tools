@@ -43,6 +43,12 @@ In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly f
 ## 🚨🚨 RULE 0C (TOP PRIORITY): Standard Microbiology SOP Designations (MICRO-SOP-2)
 In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring plate incubation and facility monitoring MUST strictly cite **`MICRO-SOP-2`** (`Environmental Monitoring of the Clean-room Facility`), NEVER `SOP 2.600.002`.
 
+## 🚨🚨 RULE 0D (TOP PRIORITY): Zero Guessing on Positive Controls, Reagent Lots & Test Bench Data (阳性对照与核心实验台账零脑补·不明必问铁律)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER guess, extrapolate, or use dummy template values for Positive Controls or reagent batch data.
+1. **cGMP 法定证据链铁律 (Positive Control Legal Ground Truth)**: 阳性对照菌株（Standard / Positive Control Organism，如 `C. albicans`, `S. aureus`, `A. brasiliensis` 等）、批号（Lot #）、效期（Expiration Date）属于质保（QA/Robin Seymour）审核与合规归档的法定关键数据。**严禁从旧案卷拷贝，严禁使用模板默认占位符，严禁擅自脑补！**
+2. **强制停步提问门禁 (Mandatory Stop & Ask Gate)**: 凡在 EagleTrax 系统电子记录或现场纸质扫描件中未查明阳性对照菌种及批号效期时，**必须立即停步，向用户主动提问获取**（例如直接向用户询问：“请提供本次检验的阳性对照菌种、Lot 批号与效期”），绝不允许擅自填入虚假或猜测数据导致用户被质保批评！
+3. **关键实验参数零脑补延伸**: 包含生物安全柜日常消毒记录批号、双氧水指示卡/IPA 批号、培养基批号效期、设备运行 Session/Record 编号等，凡无法 100% 确认真实性的，一律先向用户确认，宁可多问一句，绝不乱写一字！
+
 ---
 
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)

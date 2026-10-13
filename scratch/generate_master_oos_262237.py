@@ -51,6 +51,11 @@ EVENTS_COUNT = "362"
 CONFIRMED_COUNT = "90"
 MORPHOLOGY = "curved rod-shaped morphology"
 
+# Positive Control (Ground truth from bench session 092426-2225-3, GL 30)
+CONTROL_POSITIVE = "C. albicans"
+CONTROL_LOT = "06122026-10231-CA"
+CONTROL_EXP = "11Jun28"  # Bench log: 11Jun2028 / user entered: 11Jun28
+
 # -------------------------------------------------------------
 # 1. Narrative Text Blocks
 # -------------------------------------------------------------
@@ -269,9 +274,9 @@ def generate_master_word_doc():
         "cr_suit": "116",
         "smart_cr_id": "CR116 (E001738) & L-Suite (CR1978)",
         "smart_bsc_bracketing_header": f"Biological Safety Cabinet EM for E00{BSC_PROC} and E00{BSC_CHG}",
-        "control_positive": "A. brasiliensis",
-        "control_lot": "24MAY28-01",
-        "control_data": "24May28",
+        "control_positive": CONTROL_POSITIVE,
+        "control_lot": CONTROL_LOT,
+        "control_data": CONTROL_EXP,
         "event_number": EVENTS_COUNT,
         "confirm_number": CONFIRMED_COUNT,
         "organism_morphology": "Curved rod",
@@ -375,9 +380,9 @@ def generate_master_pdf_report():
         'Text Field21': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
         'Text Field22': tf22_materials,
         'Text Field23': tf22_materials,
-        'Text Field24': "A. brasiliensis",
-        'Text Field25': "24MAY28-01",
-        'Text Field26': "24May28",
+        'Text Field24': CONTROL_POSITIVE,
+        'Text Field25': CONTROL_LOT,
+        'Text Field26': CONTROL_EXP,
         'Text Field27': "Not Applicable",
         'Text Field28': "Not Applicable",
         'Text Field29': "Not Applicable",
