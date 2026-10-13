@@ -352,6 +352,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - **表单特定差异化字段精准适配:** 针对 ZenQMS 空白表单特有的可填文本框（如 Page 1 `Text Field1: Scan RDI Sterility Test`），必须精准补全；对易截断的紧凑单元格（如 Page 2 `Text Field32/33` 耗材批号效期），应用精准自适应字号（4.4pt），彻底杜绝 Acrobat `+` 号溢出截断。
             - **Page 7 台账表格无缝缝合:** 将已生成并通过严谨审计的单页独立表格（Table 1 & Table 2）高保真转换为 PDF，并自动作为 Page 7 无缝缝合至 6 页官方主表之后，形成合规完备的 7 页调查卷宗，随时供用户上传至 ZenQMS。
     43. *Sterility Investigation Phase 1 vs. Phase 2 Scope Separation Architecture (无菌检测 Phase 1 与 Phase 2 调查范围绝对解耦架构 - 🚨 黄金标杆规范):*
+        *   **🚨 核心业务逻辑与样本数区分机制 (Only Phase I vs. With Phase II Distinction - 根治混淆终极铁律):**
+            - **为什么有的 OOS 报告 Table 1 只有 1 个样本？** 因为那些案子（如日常常规 OOS 或实验室原因关闭的案子）**只有 Phase I**，根本没有发生复测（No Retest / No Phase II），所以物理上只存在 1 个样本！
+            - **为什么有 Phase II 的案子 Table 1 必须包含 2 个样本？** 凡是一起 OOS 调查开启并存在 Phase II（即发生了 Retest 复测，如 `OOS-262098` 与 `OOS-261987`），其调查母表（Master Tables）**必须始终统筹呈现两阶段的两个测试样本**（Row 1: 初始测试样本；Row 2: 复测测试样本）！
+            - **严禁混淆：** 绝不能看到“其他只有 Phase I 的案子表格只有 1 个样本”，就盲目将“有 Phase II 的案子”的 Phase I 附件表格强行删减成单样本！两类案子的业务场景截然不同！
         *   **🚨 终极架构原则与标杆对照 (Reference: OOS-261987 Uriel Pharmacy P1 & P2 Signed by OA-RS):** 当一起无菌检测 OOS 事件涉及初始测试（Original Test）与复测（Retest）两个阶段时（如 `OOS-262098` / `OOS-261987`），调查案卷必须遵循严格的范围解耦架构：
         *   **1. 独立表格附件 (Master Tables DOCX/PDF):**
             - 维持对两阶段测试的**统筹全量呈现**：Table 1 必须同时列出初始样品与复测样品信息（双样品横向对齐）；Table 2 呈现初始测试环境监测；Table 3 呈现复测环境监测。用户定论：“table是对的，是需要2个tests （origianl和retest的信息）”。

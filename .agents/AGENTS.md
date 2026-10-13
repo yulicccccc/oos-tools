@@ -735,3 +735,12 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 8. **Client 6-Month Prior Failure Count Audit (客户先前真实阳性次数审计)**:
    - In client 6-month historical reviews, only count genuine confirmed prior sterility test failures/OOS events. Any cancelled, voided, or invalidated historical records MUST NOT be counted in the numerator.
+
+### 37. Sterility Investigation Architecture: Only-Phase-I vs. Phase-II Master Tables Distinction (仅有 Phase I 与包含 Phase II 案卷表格根本性区分规范 - 🚨 终极锁定)
+1. **为什么有的案子表格 Table 1 只有 1 个样本？**
+   - 因为那些案子（如常规日常 OOS、调查判定为实验室错误直接结案、或客户未要求复测的案子）**只有 Phase I**，物理上根本没有发生复测（No Retest / No Phase II）！所以 Table 1 自然只有 1 个样本！
+2. **为什么包含 Phase II 的案子 Table 1 必须呈现 2 个样本？**
+   - 凡是一起无菌检验 OOS 开启并存在 Phase II（即发生了 Retest 复测，如 `OOS-262098` 与 `OOS-261987`），调查母表（Master Tables）**必须始终统筹呈现两阶段的两个测试样本**（Row 1: 初始测试样本；Row 2: 复测测试样本）！
+   - 无论是在 Phase I 报告后附带的表格，还是 Phase II 报告后附带的表格，表格附件均为统一的 Master Tables 完整母表（Table 1 双样本 + Table 2 初始环境 + Table 3 复测环境）！
+3. **严禁混淆与机械类比：**
+   - 绝不能看到“其他只有 Phase I 的案子表格只有 1 个样本”，就盲目将“有 Phase II 的案子”的 Phase I 附件表格强行裁剪成单样本！两类案子的业务场景截然不同！对于存在 Phase II 的 OOS 案卷，Table 1 必须全量统筹双样本呈现。
