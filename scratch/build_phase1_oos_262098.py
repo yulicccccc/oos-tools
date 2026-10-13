@@ -299,10 +299,12 @@ def build_master_word_doc():
         font_size_pt=8
     )
 
-    # Insert clean Phase 1 tables (Table 1 single row + Table 2 only)
-    p1_tables_docx = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.docx")
-    if os.path.exists(p1_tables_docx):
-        doc_tables_src = docx.Document(p1_tables_docx)
+    # Insert clean tables from master standalone tables document (containing both samples)
+    standalone_docx = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
+    if not os.path.exists(standalone_docx):
+        standalone_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
+    if os.path.exists(standalone_docx):
+        doc_tables_src = docx.Document(standalone_docx)
         if len(tpl.docx.tables) >= 3 and len(doc_tables_src.tables) >= 2:
             t2_elem = tpl.docx.tables[1]._element
             p2_parent = t2_elem.getparent()
@@ -317,6 +319,18 @@ def build_master_word_doc():
             p3_parent.remove(t3_elem)
             new_t2_elem = copy.deepcopy(doc_tables_src.tables[1]._element)
             p3_parent.insert(idx3, new_t2_elem)
+
+            if len(doc_tables_src.tables) >= 3:
+                p_t3_heading = parse_xml(
+                    '<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+                    '<w:pPr><w:spacing w:before="240" w:after="160"/>'
+                    '<w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr>'
+                    '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr>'
+                    '<w:t>Table 3: Environmental Monitoring from Processing Performed on 15Sep26</w:t></w:r></w:p>'
+                )
+                new_t3_elem = copy.deepcopy(doc_tables_src.tables[2]._element)
+                p3_parent.insert(idx3 + 1, p_t3_heading)
+                p3_parent.insert(idx3 + 2, new_t3_elem)
 
     out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
     out_docx_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
@@ -521,15 +535,17 @@ def build_official_pdf_form():
     doc.close()
     print("Filled 6-page Phase 1 form:", temp_form_pdf)
     
-    # Append Phase I Tables PDF (EXACTLY 1 PAGE -> Total 7 Pages)
-    tables_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf")
+    # Append Master Tables PDF (Pages 7 & 8, containing both samples)
+    tables_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
+    if not os.path.exists(tables_pdf):
+        tables_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
         
     writer = PdfWriter(clone_from=temp_form_pdf)
     if os.path.exists(tables_pdf):
         t_reader = PdfReader(tables_pdf)
         for p in t_reader.pages:
             writer.add_page(p)
-        print("Appended Phase I Master Tables. Total pages:", len(writer.pages))
+        print("Appended Master Tables. Total pages:", len(writer.pages))
         
     out_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")

@@ -57,15 +57,15 @@
   3. Generated Standalone 1-Page Tables (`Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx`/`.pdf`), Master Word Report (`OOS-262098 Solyn LLC (E75000) - Phase II.docx`), and Official 6-Page PDF Form (`OOS-262098 Solyn LLC (E75000) - Phase II.pdf` & `... - QYC.pdf`).
   4. Aligned Phase 1 (Form 3.100.019.F01) Page 6 and Phase II (Form 3.100.019.F02) dispositions and synced to Desktop and Documents.
 
-- **Harmonization of OOS-262098 (Solyn LLC, E75000) with Robin Seymour QA Golden Standards (PRD Rule 50 & AGENTS.md Section 36):**
-  1. **Phase I Scope Decoupling (Strict 7 Pages Total):**
-     - Form 3.100.019.F01 (CORP-FORM-21) strictly covers the Original Test ONLY (`ETX-260902-0505`). Zero retest records or Table 3 in Phase I.
-     - Standalone Table document (`Tables OOS-262098 Solyn LLC (E75000) - Phase I.docx` / `.pdf`) generated with single-row Table 1 and Table 2 (04Sep26 EM with verified RS dividers), merged as Page 7.
-     - Page 2 Equipment: `Text Field30` assigned calibrated font size `8.5pt` so `ISO 5 BSC E001316` is 100% visible. `Text Field43` and `Text Field44` incorporate `BSC E001316` (`Dec 2026`) with 1:1 horizontal line alignment across all 4 incubators, 4 sensors, and the BSC.
-     - Page 3: Applied Rule 50.2 analyst hyphen-wrapping (`- Ishita Sharma -` and `- Alex Saravia -`).
-     - Page 4: Formatted `Text Field50` into Robin's 3-block EM recoveries review hierarchy (`Environmental Monitoring (EM) Recoveries Review:`, `ISO 5 BSC and Personnel Evaluation:\r...`, `Cleanroom EM Evaluation:\r...`).
-     - Page 5: Included transition to Phase II narrative citing prior passing ScanRDI lot history (`ETX-260807-0602`) and client sample request for retest `ETX-260914-0470`.
-     - Output: `OOS-262098 Solyn LLC (E75000) - USP71.pdf` (7 pages) & `OOS-262098 Solyn LLC (E75000) - P1_Report.docx`.
+- **Harmonization of OOS-262098 (Solyn LLC, E75000) with Robin Seymour QA Golden Standards (PRD Rule 43, Rule 50 & AGENTS.md Section 36):**
+  1. **Phase I Form Narrative Decoupling & Master Tables Dual-Sample Integration:**
+     - Form 3.100.019.F01 (CORP-FORM-21) strictly investigates the Original Test ONLY (`ETX-260902-0505`) with calibrated layout:
+       - Page 2: `Text Field30` assigned calibrated font size `8.5pt` so `ISO 5 BSC E001316` is 100% visible. `Text Field43` and `Text Field44` incorporate `BSC E001316` (`Dec 2026`) with 1:1 horizontal line alignment across all 4 incubators, 4 sensors, and the BSC.
+       - Page 3: Applied Rule 50.2 analyst hyphen-wrapping (`- Ishita Sharma -` and `- Alex Saravia -`).
+       - Page 4: Formatted `Text Field50` into Robin's 3-block EM recoveries review hierarchy (`Environmental Monitoring (EM) Recoveries Review:`, `ISO 5 BSC and Personnel Evaluation:\r...`, `Cleanroom EM Evaluation:\r...`).
+       - Page 5: Included transition to Phase II narrative citing prior passing ScanRDI lot history (`ETX-260807-0602`) and client sample request for retest `ETX-260914-0470`.
+     - **Master Tables Attachment (PRD Rule 43 终极定论):** 维持对两阶段测试的统筹全量呈现，Table 1 同时列出初始样品 (`ETX-260902-0505`) 与复测样品 (`ETX-260914-0470`)，并附带 Table 2 (04Sep26) 与 Table 3 (15Sep26)，共 2 页（总页数 8 页）。
+     - Output: `OOS-262098 Solyn LLC (E75000) - USP71.pdf` (8 pages) & `OOS-262098 Solyn LLC (E75000) - P1_Report.docx`.
   2. **Phase II Full Harmonization (Strict 7 Pages Total):**
      - Page 1 `Text Field1` strictly lists retest personnel (`Prepping: Andrew Carrillo (ANC)`, `Processing: Abayomi Odugbesi (AOD)`, `Reading: Andrew Carrillo (ANC)`) at calibrated font size `6.2pt` with zero clipping.
      - Page 1 Equipment and Calibration dates aligned 1:1 horizontally: BSCs (`Dec 2026, Jun 2027`), Cleanrooms (`Jan 2027, Dec 2026`), Incubators & Sensors.
