@@ -48,7 +48,7 @@ CHANGEOVER_BSC = "1937"
 
 READING_ANALYST = "Sonal Uprety"
 EVENT_COUNT = "56"
-CONFIRMED_COUNT = "5"
+CONFIRMED_COUNT = "3"
 MORPHOLOGY = "Cocci shaped morphology"
 
 # XML Helper Functions
@@ -245,26 +245,26 @@ def build_tables_doc(output_docx_path):
         return row
 
     # --- Section 1: Personnel EM ---
-    add_section_divider(t2, "Personnel EM")
+    add_section_divider(t2, f"Personnel EM for {TEST_DATE}")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
-    add_section_divider(t2, f"Biological Safety Cabinet EM for E00{PROCESSING_BSC} and E00{CHANGEOVER_BSC}")
+    add_section_divider(t2, f"Biological Safety Cabinet (BSC) EM for BSC E00{PROCESSING_BSC} and BSC E00{CHANGEOVER_BSC} for {TEST_DATE}")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{PROCESSING_BSC}", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air Sampling L-Suite ---
-    add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs")
+    add_section_divider(t2, "Weekly Active Air Sampling of Cleanrooms 145, 144, 143, 142 (L-Suite)")
 
     row_l = t2.add_row()
     format_cell(row_l.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.LEFT, v_align=WD_ALIGN_VERTICAL.CENTER)
     format_cell(row_l.cells[1], "Weekly", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
     format_cell(row_l.cells[2], "15Sep26", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
     format_cell(row_l.cells[3], "SMO", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
-    format_cell(row_l.cells[4], "Week of Testing\n(Scan)", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
+    format_cell(row_l.cells[4], "Week of Testing", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
 
     # We set top alignment for columns 5, 6, 7 so that each observation, ETX, and organism block align horizontally
     c_obs = row_l.cells[5]
@@ -397,8 +397,8 @@ def build_tables_doc(output_docx_path):
     format_cell(row_l.cells[8], "None", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER, v_align=WD_ALIGN_VERTICAL.CENTER)
 
     # --- Section 4: Weekly Surface Sampling L-Suite ---
-    add_section_divider(t2, "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs")
-    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "15Sep26", "SMO", "Week of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_section_divider(t2, "Weekly Surface Sampling of Cleanrooms 145, 144, 143, 142 (L-Suite)")
+    add_data_row(t2, "Surface Sampling of\nCleanrooms", "Weekly", "15Sep26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # Set column widths
     for row in t2.rows:

@@ -54,7 +54,7 @@ MONTHLY_CLEANING_DATE = "30Aug26"
 MONTHLY_CLEANING_FULL = "30 Aug 2026"
 
 EVENTS_COUNT = "56"
-CONFIRMED_COUNT = "5"
+CONFIRMED_COUNT = "3"
 MORPHOLOGY = "cocci shaped morphology"
 
 # -------------------------------------------------------------
@@ -70,7 +70,7 @@ p1 = (
 
 p2 = (
     "Upon arrival, the sample was stored refrigerated in accordance with the Client's instructions. "
-    f"Prepping analyst {PREPPER_NAME} and processing analyst {PROCESSOR_NAME} verified the integrity "
+    f"Prepping analyst - {PREPPER_NAME} - and processing analyst - {PROCESSOR_NAME} - verified the integrity "
     "of the containers throughout both the preparation and processing stages. No leaks, cracks, or "
     "visible turbidity were observed prior to testing, verifying container integrity."
 )
@@ -115,11 +115,11 @@ p7 = (
     "yielded expected results."
 )
 
-# Page 4 Paragraphs (p8 to p17)
+# Page 4 Paragraphs (p8 to p16)
 p8 = (
     f"On 16Sep26, a rapid sterility test was performed on the sample using the ScanRDI method under test record {TEST_RECORD}. "
-    f"The sample was initially prepared by analyst {PREPPER_NAME}, processed by {PROCESSOR_NAME} (47th sample processed), "
-    f"changeover performed by {CHANGEOVER_NAME}, and subsequently read by {READER_NAME}. The test revealed "
+    f"The sample was initially prepared by analyst {PREPPER_NAME}, processing and change over steps were performed by {PROCESSOR_NAME} (47th sample processed), "
+    f"and subsequently read by {READER_NAME}. The test revealed "
     f"{EVENTS_COUNT} total events and {CONFIRMED_COUNT} confirmed microbial events exhibiting {MORPHOLOGY}, see Table 1."
 )
 
@@ -137,9 +137,10 @@ p10 = (
     f"within BSC E00{BSC_PROC} and BSC E00{BSC_CHG}."
 )
 
-p11 = (
-    "Environmental Monitoring (EM) Recoveries Review:\n\n"
-    "ISO 5 BSC and Personnel Evaluation:\n"
+p11_header = "Environmental Monitoring (EM) Recoveries Review:"
+
+p11_sub1 = (
+    "ISO 5 BSC and Personnel Evaluation:\r"
     f"Personnel monitoring was performed on 16Sep26 for analyst {PROCESSOR_NAME}. No microbial growth was recovered from the "
     f"left- or right-hand touch plates for processing or changeover activities. Therefore, personnel monitoring did not identify "
     f"a potential operator-borne source of the {MORPHOLOGY} observed in test sample {SAMPLE_ID}. The absence of microbial "
@@ -149,8 +150,8 @@ p11 = (
     f"processing, or the changeover BSC as a source of the microorganisms observed in {SAMPLE_ID}."
 )
 
-p12 = (
-    "Cleanroom EM Evaluation:\n"
+p12_sub2 = (
+    "Cleanroom EM Evaluation:\r"
     "Routine weekly active-air monitoring of the L-Suite was performed on 15Sep26, during the week of testing. Microbial recoveries "
     "were detected only in lower-classified ISO 8 background areas: CR143, section I (6 CFUs); CR143, section II (21 CFUs); and "
     "CR142 (9 CFUs). Weekly surface sampling of Cleanroom L-Suite, performed on 15Sep26, demonstrated no microbial growth across all "
@@ -189,10 +190,10 @@ p16 = (
 
 # Text Field partitions for PDF
 text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7])
-text_field_50 = "\r \r".join([p8, p9, p10, p11, p12, p13, p14, p15, p16])
+text_field_50 = "\r \r".join([p8, p9, p10, p11_header, p11_sub1, p12_sub2, p13, p14, p15, p16])
 text_field_51 = f"N/A QYC {datetime.now().strftime('%d%b%Y')}"
 
-smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16])
+smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, f"{p11_header}\n\n{p11_sub1}", p12_sub2, p13, p14, p15, p16])
 
 print("Narrative text blocks prepared successfully.")
 
@@ -346,7 +347,7 @@ def generate_master_pdf_report():
         'Text Field19': "Not Applicable",
         'Text Field20': "Not Applicable",
         'Text Field21': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
-        'Text Field22': "Scan Consumables:\nSee the attached data packet\n\nEnvironmental Plates:\nTSA and Surface Plate: see attached environmental logs\n\nMonthly Cleaning:\nH2O2 strips and IPA: See attached monthly cleaning logs",
+        'Text Field22': "Scan Consumables:\rSee the attached data packet\r \rEnvironmental Plates:\rTSA and Surface Plate: see attached environmental logs\r \rMonthly Cleaning:\rH2O2 strips and IPA: See attached monthly cleaning logs",
         'Text Field23': "Scan Consumables:\nSee the attached data packet\n\nEnvironmental Plates:\nTSA and Surface Plate: see attached environmental logs\n\nMonthly Cleaning:\nH2O2 strips and IPA: See attached monthly cleaning logs",
         'Text Field24': "S.aureus",
         'Text Field25': "04232026-6538-SA",
@@ -367,8 +368,8 @@ def generate_master_pdf_report():
         'Text Field40': "See Phase I Summary",
         'Text Field41': "See Phase I Summary",
         'Text Field42': "See Phase I Summary",
-        'Text Field43': "Incubator E001034\r \r(Sensor E001501)\r \rIncubator E001031\r \r(Sensor E001505)",
-        'Text Field44': "Aug 2027\r \rFeb 2027\r \rAug 2027\r \rFeb 2027",
+        'Text Field43': "Incubator E001034\r \r(Sensor E001501)\r \rIncubator E001031\r \r(Sensor E001505)\r \rBSC E001937\r \rBSC E001938",
+        'Text Field44': "Aug 2027\r \rFeb 2027\r \rAug 2027\r \rFeb 2027\r \rJul 2027\r \rJul 2027",
         'Text Field45': "See Phase I Summary",
         'Text Field46': "Not Applicable",
         'Text Field47': "Not Applicable",
@@ -377,8 +378,8 @@ def generate_master_pdf_report():
         'Text Field50': text_field_50,
         'Text Field51': text_field_51,
         'Text Field52': "",
-        'Text Field53': f"{PROCESSOR_NAME} (Written by: Qiyue Chen)",
-        'Text Field54': "",
+        'Text Field53': "Qiyue Chen",
+        'Text Field54': "Robin Seymour",
         'Text Field55': "",
     }
 
