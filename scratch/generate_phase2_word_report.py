@@ -111,16 +111,16 @@ data = {
     "smart_original_result_str": "Fail",
     "smart_retest_personnel_block": (
         "Prepping Analyst:\n"
-        "Ishita Sharma (ISS), Andrew Carrillo (ANC)\n\n"
+        "Andrew Carrillo (ANC)\n\n"
         "Processing Analyst:\n"
-        "Alex Saravia (AS), Abayomi Odugbesi (AOD)\n\n"
+        "Abayomi Odugbesi (AOD)\n\n"
         "Reading Analyst:\n"
-        "Elysse Nioupin (EN), Andrew Carrillo (ANC)"
+        "Andrew Carrillo (ANC)"
     ),
     "smart_sample_id_block": "Original test:\nETX-260902-0505\n\nRetest:\nETX-260914-0470",
     "smart_retest_result_str": "Fail",
     "smart_retest_scan_id": "ISO 5 BSC E001316, ISO 5 BSC E001314",
-    "smart_retest_bsc_list": "CR 114 (E001736) and CR 115",
+    "smart_retest_bsc_list": "CR 114 (E001736) and CR 115 (E001737)",
     "smart_retest_suite_list": "Incubator E001356, E001357, E001034, E001031",
     "smart_phase1_summary_block": f"{p22}\n\n{p23}",
     "smart_phase2_narrative_block": f"{p24}\n\n{p25}"

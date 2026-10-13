@@ -2,7 +2,7 @@
 Script: build_phase1_oos_262098.py
 Purpose: Regenerate Phase 1 Word and PDF deliverables for OOS-262098 (Solyn LLC, GLP3R/Cagrilinitide, Lot 2608-216),
          strictly containing the ORIGINAL test (ETX-260902-0505) only, following the exact structure and template
-         of reference OOS-261987 P1 (Signed by OA-RS).
+         of reference OOS-261987 P1 (Signed by OA-RS) and harmonized with Rule 50 / Section 36 standards.
 """
 
 import os, sys, copy, shutil
@@ -44,7 +44,7 @@ BSC_CAL_DUE = "Dec 2026"
 CR_CAL_DUE = "Jan 2027"
 
 # -------------------------------------------------------------
-# 1. Master Narrative Blocks for Phase 1 (Matching OOS-261987 P1)
+# 1. Master Narrative Blocks for Phase 1 (Harmonized with Rule 50 & OOS-261987 P1)
 # -------------------------------------------------------------
 
 # --- PAGE 3 (Text Field 49) ---
@@ -54,10 +54,12 @@ p1 = (
     "with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure."
 )
 
+# Rule 50.2 / Section 36.2: Hyphen-wrapped analyst names
 p2 = (
-    "Upon arrival, the sample was stored refrigerated in accordance with the Client’s instructions. Analysts verified the "
-    "integrity of the sample throughout both the preparation and processing stages. No leaks or turbidity were observed at "
-    "any point, verifying the integrity of the sample."
+    "Upon arrival, the sample was stored refrigerated in accordance with the Client’s instructions. "
+    f"Prepping analyst - {ORIG_PREPPER} - and processing analyst - {ORIG_PROCESSOR} - verified the physical integrity and packaging "
+    "of the sample throughout both the preparation and processing stages. No leaks, cracks, or visible turbidity were observed at "
+    "any point, verifying container integrity."
 )
 
 p3 = (
@@ -112,75 +114,73 @@ p10 = (
     "processed, and incubated in the same manner as the test samples. No microbial growth was observed in the corresponding negative controls."
 )
 
-p11 = (
-    "Upon analyzing the environmental monitoring results, no microbial growth was detected on personnel monitoring plates, settling plates, "
-    "or ISO 5 BSC surface sampling plates on the date of testing (04Sep26), the preceding testing date (03Sep26), or the subsequent testing date (08Sep26). "
-    "Additionally, no microbial growth was recovered from the weekly surface sampling plate collected on 04Sep26. However, weekly active air monitoring "
-    "of ISO 8 Room 114 (CR 114) recovered 2 CFUs (ETX-260914-0487). Definitive identification confirmed the organisms to be Corynebacterium ureicelerivorans "
-    "and Mycobacterium grossiae."
+# Rule 50.3 / Section 36.3: EM Recoveries Review 3-Block Hierarchy
+p11_header = "Environmental Monitoring (EM) Recoveries Review:"
+
+p11_sub1 = (
+    "ISO 5 BSC and Personnel Evaluation:\r"
+    "Upon reviewing the environmental monitoring data associated with the sterility test, no microbial growth was detected "
+    "on personnel monitoring plates (left- and right-hand touch plates for analyst Alex Saravia), settling plates, or "
+    "ISO 5 BSC surface sampling plates within BSC E001316 on the date of testing (04Sep26), the preceding testing date (03Sep26), "
+    "or the subsequent testing date (08Sep26). Therefore, the contemporaneous personnel and ISO 5 environmental monitoring results "
+    "do not support processing personnel or the ISO 5 BSC as a potential source of the Microbacterium sp. PM5 detected in test sample ETX-260902-0505."
 )
 
-p12 = (
-    "It is important to note that the colony morphology of the microorganisms recovered from the cleanroom environment differed from that of the "
-    "microorganism isolated from the test sample. This morphological distinction indicates that the environmental monitoring recovery and the test "
-    "sample contamination were isolated and unrelated events."
+p12_sub2 = (
+    "Cleanroom EM Evaluation:\r"
+    "Routine weekly surface sampling of Cleanroom Suite 114 performed on 04Sep26 demonstrated no microbial growth. Weekly active-air monitoring "
+    "of the outermost ISO 8 Room 114 (CR 114) recovered 2 CFUs (ETX-260914-0487), identified as Corynebacterium ureicelerivorans and "
+    "Mycobacterium grossiae. 100% of these cleanroom environmental isolates differed distinctly in genus and morphology from the product "
+    "contamination isolate (Microbacterium sp. PM5). Considering the facility's layered disinfection program, controlled unidirectional "
+    "airflow, physical segregation of the ISO 8 anteroom, and complete absence of contamination in the ISO 5 critical zone, these recoveries "
+    "represent an isolated background event and are not considered a credible source of contamination for the test sample."
 )
 
 p13 = (
-    "In addition, considering the facility's layered disinfection program, controlled unidirectional airflow, and cleanroom design, it is unlikely "
-    "that the microbial contaminant detected in the ISO 8 environment impacted on the sample processed within the ISO 5 area of the ISO 7 cleanroom (114B)."
-)
-
-p14 = (
     "The absence of contamination on analyst glove plates and work-surface environmental monitoring plates collected on the date of testing indicates "
-    "that there were no viable transfer of contaminants to the ISO 5 BSC. Additionally, the lack of contamination in other samples processed during "
+    "that there was no viable transfer of contaminants to the ISO 5 BSC. Additionally, the lack of contamination in other samples processed during "
     "the same testing session further demonstrates that the testing environment was operating in optimal condition."
 )
 
-p15 = (
-    "Therefore, considering that no viable organisms were recovered from the ISO 5 environment, personnel monitoring results were acceptable on the date "
-    "of testing, and the environmental isolates were not recovered from locations or surfaces directly involved in sample preparation or testing, the "
-    "environmental isolates are not considered a credible source of the contamination detected in the test sample."
-)
-
-p16 = (
+p14 = (
     "The analysts confirmed full compliance with cleaning procedures as outlined in MICRO SOP-9 (Cleaning and Disinfecting Procedure for Microbiology) "
     "and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test)."
 )
 
-p17 = (
+p15 = (
     "Monthly cleaning and disinfection of the outermost ISO 8 Anteroom, the middle ISO 7 Buffer room, the innermost ISO 7 cleanroom, and its containing "
     "ISO 5 BSCs for Cleanroom suite CR114 was performed on 30Aug26, as per MICRO-SOP-9 (Cleaning and Disinfecting Procedure for Microbiology). "
     "During both cleaning cycles, it was documented that all H₂O₂ indicators passed. This confirms the efficient monthly cleaning of all three parts of Cleanroom suite CR114."
 )
 
-p18 = (
+p16 = (
     "Analyzing a 6-month sample history for Solyn LLC (E75000), this specific analyte \"GLP3R/Cagrilinitide\" has had no prior failures using USP <71> / "
     "EP 2.6.1 Sterility Test during this period."
 )
 
-text_field_50 = "\r \r".join([p9, p10, p11, p12, p13, p14, p15, p16, p17, p18])
+text_field_50 = "\r \r".join([p9, p10, p11_header, p11_sub1, p12_sub2, p13, p14, p15, p16])
 
 # --- PAGE 5 (Text Field 51) ---
-p19 = (
+p17 = (
     "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples "
     "processed on the same day. All other samples processed by the analyst and other analysts that day tested negative. These findings suggest that "
     "cross-contamination between samples is highly unlikely."
 )
 
-p20 = (
+p18 = (
     "Based on the observations outlined above, it is unlikely that the failing results were due to reagents, supplies, the cleanroom environment, the "
     "process, or analyst involvement. Consequently, the possibility of laboratory error contributing to this failure is minimal and the original result is deemed to be valid."
 )
 
-p21 = (
+# Rule 48: Transition to Phase II with Retest ETX-260914-0470
+p19 = (
     "However, when investigating the lot history, it was discovered that the same lot (Lot 2608-216) had previously been submitted "
     "for ScanRDI sterility testing under ETX-260807-0602 and yielded a passing result. Based on this conflicting passing ScanRDI result "
     "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
     "(Form 3.100.019.F02)."
 )
 
-text_field_51 = "\r \r".join([p19, p20, p21])
+text_field_51 = "\r \r".join([p17, p18, p19])
 
 # -------------------------------------------------------------
 # 2. Build Master Word Document
@@ -282,25 +282,27 @@ def build_master_word_doc():
     set_clean_cell_text(t0.rows[30].cells[11], "Jan 2027", font_size_pt=9)
     set_clean_cell_text(
         t0.rows[36].cells[6],
-        "Incubator E001356 (Sensor E001450)\n\n"
-        "Incubator E001357 (Sensor E001449)\n\n"
-        "Incubator E001034 (Sensor E001501)\n\n"
-        "Incubator E001031 (Sensor E001505)",
+        "Incubator E001356\n(Sensor E001450)\n\n"
+        "Incubator E001357\n(Sensor E001449)\n\n"
+        "Incubator E001034\n(Sensor E001501)\n\n"
+        "Incubator E001031\n(Sensor E001505)\n\n"
+        "BSC E001316",
         font_size_pt=8
     )
     set_clean_cell_text(
         t0.rows[36].cells[11],
-        "Jan 2027 / Feb 2027\n\n"
-        "Jan 2027 / Feb 2027\n\n"
-        "Aug 2027 / Feb 2027\n\n"
-        "Aug 2027 / Feb 2027",
+        "Jan 2027\nFeb 2027\n\n"
+        "Jan 2027\nFeb 2027\n\n"
+        "Aug 2027\nFeb 2027\n\n"
+        "Aug 2027\nFeb 2027\n\n"
+        "Dec 2026",
         font_size_pt=8
     )
 
-    # Insert clean tables from master standalone tables document
-    standalone_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
-    if os.path.exists(standalone_docx):
-        doc_tables_src = docx.Document(standalone_docx)
+    # Insert clean Phase 1 tables (Table 1 single row + Table 2 only)
+    p1_tables_docx = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.docx")
+    if os.path.exists(p1_tables_docx):
+        doc_tables_src = docx.Document(p1_tables_docx)
         if len(tpl.docx.tables) >= 3 and len(doc_tables_src.tables) >= 2:
             t2_elem = tpl.docx.tables[1]._element
             p2_parent = t2_elem.getparent()
@@ -316,22 +318,11 @@ def build_master_word_doc():
             new_t2_elem = copy.deepcopy(doc_tables_src.tables[1]._element)
             p3_parent.insert(idx3, new_t2_elem)
 
-            if len(doc_tables_src.tables) >= 3:
-                p_t3_heading = parse_xml(
-                    '<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
-                    '<w:pPr><w:spacing w:before="240" w:after="160"/>'
-                    '<w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr>'
-                    '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:u w:val="single"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr>'
-                    '<w:t>Table 3: Environmental Monitoring from Processing Performed on 15Sep26</w:t></w:r></w:p>'
-                )
-                new_t3_elem = copy.deepcopy(doc_tables_src.tables[2]._element)
-                p3_parent.insert(idx3 + 1, p_t3_heading)
-                p3_parent.insert(idx3 + 2, new_t3_elem)
-
-    out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
-    out_docx_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx")
+    out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
+    out_docx_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
     tpl.save(out_docx_desktop)
     tpl.save(out_docx_docs)
+    tpl.save(os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx"))
     print("Master Word Report saved to Desktop & Documents:", out_docx_desktop)
 
 # -------------------------------------------------------------
@@ -405,17 +396,20 @@ def build_official_pdf_form():
         'Text Field40': "See Phase I Summary",
         'Text Field41': "See Phase I Summary",
         'Text Field42': "See Phase I Summary",
+        # Rule 50.4: Include BSC in Text Field43 and Text Field44 with 1:1 horizontal alignment
         'Text Field43': (
-            "Incubator E001356 (Sensor E001450)\r \r"
-            "Incubator E001357 (Sensor E001449)\r \r"
-            "Incubator E001034 (Sensor E001501)\r \r"
-            "Incubator E001031 (Sensor E001505)"
+            "Incubator E001356\r(Sensor E001450)\r \r"
+            "Incubator E001357\r(Sensor E001449)\r \r"
+            "Incubator E001034\r(Sensor E001501)\r \r"
+            "Incubator E001031\r(Sensor E001505)\r \r"
+            "BSC E001316"
         ),
         'Text Field44': (
-            "Jan 2027 / Feb 2027\r \r"
-            "Jan 2027 / Feb 2027\r \r"
-            "Aug 2027 / Feb 2027\r \r"
-            "Aug 2027 / Feb 2027"
+            "Jan 2027\rFeb 2027\r \r"
+            "Jan 2027\rFeb 2027\r \r"
+            "Aug 2027\rFeb 2027\r \r"
+            "Aug 2027\rFeb 2027\r \r"
+            "Dec 2026"
         ),
         'Text Field45': "See Phase I Summary",
         
@@ -498,7 +492,7 @@ def build_official_pdf_form():
                     w.text_fontsize = 8.65
                     w.text_font = "Helv"
                 elif fn in ['Text Field50', 'Text Field51']:
-                    w.text_fontsize = 9.2
+                    w.text_fontsize = 8.8
                     w.text_font = "Helv"
                 elif fn == 'Text Field3':
                     w.text_fontsize = 6.5
@@ -508,6 +502,15 @@ def build_official_pdf_form():
                     w.text_fontsize = 7.5
                 elif fn in ['Text Field22', 'Text Field23']:
                     w.text_fontsize = 5.5
+                elif fn in ['Text Field30', 'Text Field32']:
+                    w.text_fontsize = 8.5
+                    w.text_font = "Helv"
+                elif fn in ['Text Field31', 'Text Field33']:
+                    w.text_fontsize = 9.5
+                    w.text_font = "Helv"
+                elif fn in ['Text Field43', 'Text Field44']:
+                    w.text_fontsize = 6.5
+                    w.text_font = "Helv"
                 w.update()
             elif fn in cb_values:
                 w.field_value = cb_values[fn]
@@ -518,17 +521,15 @@ def build_official_pdf_form():
     doc.close()
     print("Filled 6-page Phase 1 form:", temp_form_pdf)
     
-    # Append Master Tables PDF (Pages 7 & 8)
-    tables_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-    if not os.path.exists(tables_pdf):
-        tables_pdf = os.path.join(DOCUMENTS_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
+    # Append Phase I Tables PDF (EXACTLY 1 PAGE -> Total 7 Pages)
+    tables_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf")
         
     writer = PdfWriter(clone_from=temp_form_pdf)
     if os.path.exists(tables_pdf):
         t_reader = PdfReader(tables_pdf)
         for p in t_reader.pages:
             writer.add_page(p)
-        print("Appended Master Tables. Total pages:", len(writer.pages))
+        print("Appended Phase I Master Tables. Total pages:", len(writer.pages))
         
     out_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
@@ -545,7 +546,7 @@ def build_official_pdf_form():
                 print("Master PDF saved to:", dest_pdf)
             except Exception as e:
                 print("Desktop PDF copy note:", e)
-        for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf"]:
+        for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.pdf"]:
             try:
                 shutil.copy2(out_pdf_docs, os.path.join(dest_dir, alias))
             except Exception:

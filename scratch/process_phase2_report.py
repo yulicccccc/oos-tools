@@ -110,12 +110,9 @@ pdf_map = {
     "Text Field0": "GLP3R/Cagrilinitide",
     "Date Field0": "15-Sep-2026",
     "Text Field1": (
-        "Prepping Analyst:\r"
-        "Ishita Sharma (ISS), Andrew Carrillo (ANC)\r \r"
-        "Processing Analyst:\r"
-        "Alex Saravia (AS), Abayomi Odugbesi (AOD)\r \r"
-        "Reading Analyst:\r"
-        "Elysse Nioupin (EN), Andrew Carrillo (ANC)"
+        "Prepping: Andrew Carrillo (ANC)\r"
+        "Processing: Abayomi Odugbesi (AOD)\r"
+        "Reading: Andrew Carrillo (ANC)"
     ),
     "Text Field2": "Original test:\rETX-260902-0505\r \rRetest:\rETX-260914-0470",
     "Text Field3": "Fail",
@@ -135,12 +132,12 @@ pdf_map = {
     
     # Page 1 Equipment
     "Text Field8": "ISO 5 BSC E001316, ISO 5 BSC E001314",
-    "Text Field9": "CR 114 (E001736), CR 115",
+    "Text Field9": "CR 114 (E001736), CR 115 (E001737)",
     "Text Field10": "Incubator E001356 (Sensor E001450)\rIncubator E001357 (Sensor E001449)",
     "Text Field11": "Incubator E001034 (Sensor E001501)",
     "Text Field12": "Incubator E001031 (Sensor E001505)",
-    "Text Field13": "Dec 2026",
-    "Text Field14": "Jun 2027, Jun 2027",
+    "Text Field13": "Jan 2027, Dec 2026",
+    "Text Field14": "Dec 2026, Jun 2027",
     "Text Field15": "Jan 2027, Feb 2027\rJan 2027, Feb 2027",
     "Text Field16": "Aug 2027, Feb 2027",
     "Text Field17": "Aug 2027, Feb 2027",
@@ -212,7 +209,7 @@ font_sizes = {
     # Page 1
     "Text Field0": 8.5,
     "Date Field0": 8.5,
-    "Text Field1": 5.8,
+    "Text Field1": 6.2,
     "Text Field2": 7.5,
     "Text Field3": 8.5,
     "Text Field4": 8.5,
