@@ -529,6 +529,31 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **9. 客户 6 个月历史阳性次数严格真实审计 (Confirmed Prior OOS Numerator Audit):**
             - 在核查客户 6 个月历史记录时，分子（先前 OOS 发生次数）仅能计入真实确认有效的无菌检验失败事件。对于被撤回（Canceled）、作废或判为无效的历史 OOS 事件，严禁计入分子虚增客户阳性率（例如 BelieveRX E74120 确证历史阳性事件为 3 起，而非 5 起）。
 
+    51. **Scan RDI OOS-262237 (GoGoMeds Select E10747) 现场数据更新与 Robin Seymour 标杆完全对齐 (Scan RDI OOS-262237 Finalization & Benchmark Alignment - 🚨 终极锁定):**
+        *   **案卷基本信息**:
+            - OOS 编号: `OOS-262237`
+            - 客户: `GoGoMeds Select (E10747)`
+            - 样品编号: `ETX-260921-0148` (Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%, Lot: 20066, Injectable)
+            - 检验日期: `24-Sep-2026`，检验记录: `092426-2132-3`
+            - 结果: 362 total events, 90 confirmed microbial events (curved rod-shaped morphology)
+            - 核心人员: Prepper = Elysse Nioupin (EN), Processor = Guanchen Li (GL, 第 27 支样品), Changeover & Reader = Muralidhar Bythatagari (MRB)
+            - 设备: Scan RDI E002132 (Oct 2026), BSC E001312 (Jun 2027, CR116B), BSC E001937 (Jul 2027, CR144)
+        *   **EagleTrax 现场 EM 数据自主穿透查询与确证**:
+            - 浮游菌 `ETX-261005-0773` (Suite 116 Anteroom, 3 CFUs): 3 菌落均为 **`Gram (+) cocci`**
+            - 浮游菌 `ETX-260929-0335` (L-Suite ISO 8 143 Sec I, 6 CFUs): 5 菌落 **`Gram (+) cocci`**，1 菌落 **`Gram (-) coccobacilli`**
+            - 浮游菌 `ETX-260929-0341` (L-Suite ISO 8 143 Sec II, 8 CFUs): 6 菌落 **`Gram (+) cocci`**，2 菌落 **`Gram (+) short rods`**
+            - 浮游菌 `ETX-260929-0344` (L-Suite ISO 8 142, 2 CFUs): 2 菌落均为 **`Gram (+) cocci`**
+            - 关键防守逻辑：背景 ISO 8 检出的球菌、球杆菌与短杆菌形态与待测品中检出的 **弯曲杆菌 (curved rod-shaped morphology)** 具有鲜明形态学差异，且关键 ISO 5 工作面及操作员手套 100% 无菌生长，彻底切断外围污染转移路径。
+        *   **Robin Seymour (RS) 标杆全要素对齐 (`OOS-262150 BelieveRX Signed by QYC` 标准)**:
+            - **Page 1 字段精细化**: `Text Field0` 格式化为 `Muralidhar Bythatagari (Written by: Qiyue Chen)`（字号 5.12pt），Section B 问卷评语全量填入并应用基准字号。
+            - **Page 2 培养箱与设备空行绝对对齐**: `Text Field43` 培养箱与传感器分行（`Incubator E001034\r \r(Sensor E001501)\r \r...`），`Text Field44` 校准期分行（`Aug 2027\r \rFeb 2027\r \r...`），右侧追加 BSC E001312 (`Jun 2027`) 与 BSC E001937 (`Jul 2027`)，字号严格设为 `8.5pt`，实现 1:1 绝对横向基准线对齐。`Text Field22` 与 `Text Field23` 耗材栏字号设为 `6.0pt`。
+            - **Page 3 / 4 / 5 正文紧凑版面流转**:
+              - Page 3 (`Text Field49`, 9.2pt): 样品前处理、双重漂白水消毒、套间压差、BSC 认证及过滤前设置（p1 至 p7）。
+              - Page 4 (`Text Field50`, 8.1pt): 检验结果、Table 2 引用（规范使用 `MICRO-SOP-2`）、环境监测评估（ISO 5 关键区及人员 0 菌落，外围 ISO 8 检出与待测样形态对照排查）、月度清洁（13Sep26, passed）、6 个月客户批次历史、批内样品间交叉污染排查（第 27 支样品，全天其余样品全阴性）及有效性结论（p8 至 p17）。
+              - Page 5 (`Text Field51`, 11.0pt): 严格遵循标杆仅填写 **`N/A QYC 13Oct2026`**，避免跨页断行与底部多余留白。
+            - **Page 6 签字栏**: Section D 复选框选择 `Check Box88`（'No, the OOS result is valid.'），调查人 `Text Field53` 规范填写 `Qiyue Chen`（7.5pt）。
+            - **Page 7 附表集成**: Standalone Table 1 & Table 2 完美整合为第 7 页，内嵌 Sample ID 与全部阳性 EM 培养皿的 live 原生可点击超链接，总页数严格锁定为 7 页。
+
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.

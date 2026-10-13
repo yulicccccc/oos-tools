@@ -1,7 +1,6 @@
 """
 Script: process_oos_262237.py
-Purpose: Complete generation of Standalone Tables (Word & PDF) and investigation pipeline
-         for Scan RDI OOS-262237.
+Purpose: Complete generation of Standalone Tables (Word & PDF) for Scan RDI OOS-262237.
 Client: GoGoMeds Select (E10747)
 Sample ID: ETX-260921-0148
 Sample Name: Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%
@@ -11,19 +10,19 @@ Processing Analyst: Guanchen Li (GL) (27th sample processed)
 Processing BSC: BSC E001312 (Room 116B / Suite 116)
 Changeover Analyst: Muralidhar Bythatagari (MRB)
 Changeover BSC: BSC E001937 (L-Suite / CR144)
+Reading Analyst: Muralidhar Bythatagari (MRB)
 """
 
 import os
 import sys
 import shutil
-from datetime import datetime
-import fitz  # PyMuPDF
+import fitz
 import docx
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL, WD_CELL_VERTICAL_ALIGNMENT
-from docx.oxml import parse_xml, OxmlElement
-from docx.oxml.ns import nsdecls, qn
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
 import win32com.client
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -39,9 +38,7 @@ SAMPLE_ID = "ETX-260921-0148"
 SAMPLE_URL = "https://etrax.eagleanalytical.com/Submission/Details/08VuIoFsBaXGehnOxJ3PMQ__"
 SAMPLE_NAME = "Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%"
 LOT_NUMBER = "20066"
-DOSAGE_FORM = "Injectable"
 TEST_DATE = "24Sep26"
-TEST_DATE_LONG = "24-Sep-2026"
 
 PROCESSING_ANALYST = "Guanchen Li"
 PROCESSING_INITIAL = "GL"
@@ -49,8 +46,8 @@ PROCESSING_BSC = "1312"
 CHANGEOVER_ANALYST = "Muralidhar Bythatagari"
 CHANGEOVER_INITIAL = "MRB"
 CHANGEOVER_BSC = "1937"
-
 READING_ANALYST = "Muralidhar Bythatagari"
+
 EVENT_COUNT = "362"
 CONFIRMED_COUNT = "90"
 MORPHOLOGY = "Curved rod-shaped morphology"
@@ -63,7 +60,7 @@ def set_cell_background(cell, fill_hex):
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{fill_hex}"/>')
     tcPr.append(shd)
 
-def set_cell_margins(cell, top=50, bottom=50, left=60, right=60):
+def set_cell_margins(cell, top=40, bottom=40, left=50, right=50):
     tcPr = cell._tc.get_or_add_tcPr()
     tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="{top}" w:type="dxa"/><w:bottom w:w="{bottom}" w:type="dxa"/><w:left w:w="{left}" w:type="dxa"/><w:right w:w="{right}" w:type="dxa"/></w:tcMar>')
     tcPr.append(tcMar)
@@ -82,7 +79,7 @@ def set_table_borders(table):
     ''')
     tblPr.append(borders)
 
-def add_hyperlink(paragraph, url, text, font_size=Pt(7), color_rgb="2980B9"):
+def add_hyperlink(paragraph, url, text, font_size=Pt(7), color_rgb="0000FF"):
     part = paragraph.part
     r_id = part.relate_to(url, docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
     hyperlink = parse_xml(f'<w:hyperlink {nsdecls("w")} r:id="{r_id}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>')
@@ -118,39 +115,20 @@ def format_cell(cell, text, bold=False, italic=False, font_size=Pt(7), align=WD_
 # -------------------------------------------------------------
 # Build Standalone Tables Word Document
 # -------------------------------------------------------------
-def build_standalone_tables_doc(
-    reading_analyst=READING_ANALYST,
-    event_count=EVENT_COUNT,
-    confirmed_count=CONFIRMED_COUNT,
-    pers_obs="No Growth",
-    surf_obs="No Growth",
-    sett_obs="No Growth",
-    air_date="25Sep26",
-    air_analyst="SMO",
-    air_obs="No Growth",
-    air_etx="Not Applicable",
-    air_id="Not Applicable",
-    air_url=None,
-    room_date="22Sep26",
-    room_analyst="SMO",
-    room_obs="No Growth",
-    room_etx="Not Applicable",
-    room_id="Not Applicable",
-    room_url=None
-):
+def build_standalone_tables_doc():
     doc = docx.Document()
     for section in doc.sections:
         section.page_width = Inches(8.5)
         section.page_height = Inches(11.0)
-        section.top_margin = Inches(0.5)
-        section.bottom_margin = Inches(0.5)
+        section.top_margin = Inches(0.4)
+        section.bottom_margin = Inches(0.4)
         section.left_margin = Inches(0.5)
         section.right_margin = Inches(0.5)
 
     # ---------------- Table 1 ----------------
     p_t1 = doc.add_paragraph()
     p_t1.paragraph_format.space_before = Pt(0)
-    p_t1.paragraph_format.space_after = Pt(4)
+    p_t1.paragraph_format.space_after = Pt(3)
     r_t1 = p_t1.add_run(f"Table 1: Information for {SAMPLE_ID} under investigation")
     r_t1.font.name = "Times New Roman"
     r_t1.font.size = Pt(9)
@@ -171,11 +149,10 @@ def build_standalone_tables_doc(
     t1_widths = [Inches(1.25), Inches(1.25), Inches(1.1), Inches(0.7), Inches(1.2), Inches(2.0)]
 
     for j, h in enumerate(t1_headers):
-        cell = t1.cell(0, j)
-        format_cell(cell, h, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+        format_cell(t1.cell(0, j), h, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     format_cell(t1.cell(1, 0), PROCESSING_ANALYST, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(t1.cell(1, 1), reading_analyst, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(t1.cell(1, 1), READING_ANALYST, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
     
     c_sid = t1.cell(1, 2)
     c_sid.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
@@ -186,8 +163,8 @@ def build_standalone_tables_doc(
     p_sid.paragraph_format.space_after = Pt(0)
     add_hyperlink(p_sid, SAMPLE_URL, SAMPLE_ID, font_size=Pt(7))
 
-    format_cell(t1.cell(1, 3), str(event_count), bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(t1.cell(1, 4), str(confirmed_count), bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(t1.cell(1, 3), EVENT_COUNT, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(t1.cell(1, 4), CONFIRMED_COUNT, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
     format_cell(t1.cell(1, 5), MORPHOLOGY, bold=True, italic=True, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     for row in t1.rows:
@@ -196,13 +173,13 @@ def build_standalone_tables_doc(
 
     # Spacing between tables
     p_space = doc.add_paragraph()
-    p_space.paragraph_format.space_before = Pt(12)
+    p_space.paragraph_format.space_before = Pt(8)
     p_space.paragraph_format.space_after = Pt(0)
 
     # ---------------- Table 2 ----------------
     p_t2 = doc.add_paragraph()
     p_t2.paragraph_format.space_before = Pt(0)
-    p_t2.paragraph_format.space_after = Pt(4)
+    p_t2.paragraph_format.space_after = Pt(3)
     r_t2 = p_t2.add_run(f"Table 2: Environmental Monitoring from Testing Performed on {TEST_DATE}")
     r_t2.font.name = "Times New Roman"
     r_t2.font.size = Pt(9)
@@ -218,9 +195,9 @@ def build_standalone_tables_doc(
         Inches(0.70), # Date (DDMMMYY)
         Inches(0.55), # Analyst
         Inches(1.15), # Day / Week(s)
-        Inches(1.10), # Observation
+        Inches(1.15), # Observation
         Inches(0.85), # EM Plate ETX Number
-        Inches(0.85), # Microbial ID
+        Inches(0.80), # Microbial ID
         Inches(0.60)  # Notes
     ]
 
@@ -274,19 +251,19 @@ def build_standalone_tables_doc(
 
     # --- Section 1: Personnel EM ---
     add_section_divider(t2, "Personnel EM")
-    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", pers_obs, "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", pers_obs, "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
     add_section_divider(t2, f"Biological Safety Cabinet EM for E00{PROCESSING_BSC} and E00{CHANGEOVER_BSC}")
-    add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", surf_obs, "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", surf_obs, "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{PROCESSING_BSC}", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", sett_obs, "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", sett_obs, "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{PROCESSING_BSC}", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air Suite 116 ---
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom Suite 116 (E001738) with Processing BSC")
-    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (116 ISO8)", "ETX-261005-0773", "Pending", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
+    add_data_row(t2, "Active Air Sampling\nof Cleanrooms", "Weekly", "24Sep26", "SMO", "Week of Testing", "3 CFUs (116 ISO8)", "ETX-261005-0773", "Gram (+) cocci", "None", etx_url="https://etrax.eagleanalytical.com/Submission/Details/e-zI5w7ZUuRgQ9-SJ2n7DA__")
 
     # --- Section 4: Weekly Active Air L-Suite ---
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Changeover BSC")
@@ -302,90 +279,116 @@ def build_standalone_tables_doc(
     c_obs = row_l.cells[5]
     c_obs.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     set_cell_margins(c_obs)
-    p0 = c_obs.paragraphs[0]
-    p0.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p0.paragraph_format.space_before = Pt(0)
-    p0.paragraph_format.space_after = Pt(0)
-    p0.paragraph_format.line_spacing = 1.0
-    r0 = p0.add_run("6 CFUs (ISO 8 143 Sec I)")
-    r0.font.name = 'Times New Roman'
-    r0.font.size = Pt(7)
+    
+    p_o0 = c_obs.paragraphs[0]
+    p_o0.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o0.paragraph_format.space_before = Pt(0)
+    p_o0.paragraph_format.space_after = Pt(0)
+    p_o0.paragraph_format.line_spacing = 1.0
+    r_o0 = p_o0.add_run("6 CFUs\n(ISO 8 143 Sec I)")
+    r_o0.font.name = 'Times New Roman'
+    r_o0.font.size = Pt(6.5)
 
-    p1 = c_obs.add_paragraph()
-    p1.paragraph_format.space_before = Pt(0)
-    p1.paragraph_format.space_after = Pt(0)
+    p_o_sp1 = c_obs.add_paragraph()
+    p_o_sp1.paragraph_format.space_before = Pt(0)
+    p_o_sp1.paragraph_format.space_after = Pt(0)
 
-    p2 = c_obs.add_paragraph()
-    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p2.paragraph_format.space_before = Pt(0)
-    p2.paragraph_format.space_after = Pt(0)
-    p2.paragraph_format.line_spacing = 1.0
-    r2 = p2.add_run("8 CFUs (ISO 8 143 Sec II)")
-    r2.font.name = 'Times New Roman'
-    r2.font.size = Pt(7)
+    p_o1 = c_obs.add_paragraph()
+    p_o1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o1.paragraph_format.space_before = Pt(0)
+    p_o1.paragraph_format.space_after = Pt(0)
+    p_o1.paragraph_format.line_spacing = 1.0
+    r_o1 = p_o1.add_run("8 CFUs\n(ISO 8 143 Sec II)")
+    r_o1.font.name = 'Times New Roman'
+    r_o1.font.size = Pt(6.5)
 
-    p3 = c_obs.add_paragraph()
-    p3.paragraph_format.space_before = Pt(0)
-    p3.paragraph_format.space_after = Pt(0)
+    p_o_sp2 = c_obs.add_paragraph()
+    p_o_sp2.paragraph_format.space_before = Pt(0)
+    p_o_sp2.paragraph_format.space_after = Pt(0)
 
-    p4 = c_obs.add_paragraph()
-    p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p4.paragraph_format.space_before = Pt(0)
-    p4.paragraph_format.space_after = Pt(0)
-    p4.paragraph_format.line_spacing = 1.0
-    r4 = p4.add_run("2 CFUs (ISO 8 142)")
-    r4.font.name = 'Times New Roman'
-    r4.font.size = Pt(7)
+    p_o2 = c_obs.add_paragraph()
+    p_o2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o2.paragraph_format.space_before = Pt(0)
+    p_o2.paragraph_format.space_after = Pt(0)
+    p_o2.paragraph_format.line_spacing = 1.0
+    r_o2 = p_o2.add_run("2 CFUs\n(ISO 8 142)")
+    r_o2.font.name = 'Times New Roman'
+    r_o2.font.size = Pt(6.5)
 
     # EM Plate ETX Number cell
     c_etx = row_l.cells[6]
     c_etx.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     set_cell_margins(c_etx)
     
-    # Matching vertical alignment with 2 empty paragraphs before first ETX
     p_e0 = c_etx.paragraphs[0]
+    p_e0.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_e0.paragraph_format.space_before = Pt(0)
     p_e0.paragraph_format.space_after = Pt(0)
-    
+    p_e0.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_e0, "https://etrax.eagleanalytical.com/Submission/Details/QchKBV1D2VrN7y3VezYRkg__", "ETX-260929-0335", font_size=Pt(6.5))
+
+    p_e_sp1 = c_etx.add_paragraph()
+    p_e_sp1.paragraph_format.space_before = Pt(0)
+    p_e_sp1.paragraph_format.space_after = Pt(0)
+
     p_e1 = c_etx.add_paragraph()
+    p_e1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_e1.paragraph_format.space_before = Pt(0)
     p_e1.paragraph_format.space_after = Pt(0)
-    
+    p_e1.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_e1, "https://etrax.eagleanalytical.com/Submission/Details/gKex8LPhpMsQyRuqi%24ua4g__", "ETX-260929-0341", font_size=Pt(6.5))
+
+    p_e_sp2 = c_etx.add_paragraph()
+    p_e_sp2.paragraph_format.space_before = Pt(0)
+    p_e_sp2.paragraph_format.space_after = Pt(0)
+
     p_e2 = c_etx.add_paragraph()
     p_e2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_e2.paragraph_format.space_before = Pt(0)
     p_e2.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e2, "https://etrax.eagleanalytical.com/Submission/Details/QchKBV1D2VrN7y3VezYRkg__", "ETX-260929-0335", font_size=Pt(7))
-    
-    p_e3 = c_etx.add_paragraph()
-    p_e3.paragraph_format.space_before = Pt(0)
-    p_e3.paragraph_format.space_after = Pt(0)
-    
-    p_e4 = c_etx.add_paragraph()
-    p_e4.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_e4.paragraph_format.space_before = Pt(0)
-    p_e4.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e4, "https://etrax.eagleanalytical.com/Submission/Details/gKex8LPhpMsQyRuqi%24ua4g__", "ETX-260929-0341", font_size=Pt(7))
-    
-    p_e5 = c_etx.add_paragraph()
-    p_e5.paragraph_format.space_before = Pt(0)
-    p_e5.paragraph_format.space_after = Pt(0)
-    
-    p_e6 = c_etx.add_paragraph()
-    p_e6.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_e6.paragraph_format.space_before = Pt(0)
-    p_e6.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e6, "https://etrax.eagleanalytical.com/Submission/Details/iCnj0gFFyEtIFNZbfpq5qg__", "ETX-260929-0344", font_size=Pt(7))
+    p_e2.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_e2, "https://etrax.eagleanalytical.com/Submission/Details/iCnj0gFFyEtIFNZbfpq5qg__", "ETX-260929-0344", font_size=Pt(6.5))
 
-    p_e7 = c_etx.add_paragraph()
-    p_e7.paragraph_format.space_before = Pt(0)
-    p_e7.paragraph_format.space_after = Pt(0)
+    # Microbial ID cell
+    c_id = row_l.cells[7]
+    c_id.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c_id)
+    
+    p_i0 = c_id.paragraphs[0]
+    p_i0.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_i0.paragraph_format.space_before = Pt(0)
+    p_i0.paragraph_format.space_after = Pt(0)
+    p_i0.paragraph_format.line_spacing = 1.0
+    r_i0 = p_i0.add_run("Gram (+) cocci\nGram (-) coccobacilli")
+    r_i0.font.name = 'Times New Roman'
+    r_i0.font.size = Pt(6.0)
 
-    p_e8 = c_etx.add_paragraph()
-    p_e8.paragraph_format.space_before = Pt(0)
-    p_e8.paragraph_format.space_after = Pt(0)
+    p_i_sp1 = c_id.add_paragraph()
+    p_i_sp1.paragraph_format.space_before = Pt(0)
+    p_i_sp1.paragraph_format.space_after = Pt(0)
 
-    format_cell(row_l.cells[7], "Pending", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    p_i1 = c_id.add_paragraph()
+    p_i1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_i1.paragraph_format.space_before = Pt(0)
+    p_i1.paragraph_format.space_after = Pt(0)
+    p_i1.paragraph_format.line_spacing = 1.0
+    r_i1 = p_i1.add_run("Gram (+) cocci\nGram (+) short rods")
+    r_i1.font.name = 'Times New Roman'
+    r_i1.font.size = Pt(6.0)
+
+    p_i_sp2 = c_id.add_paragraph()
+    p_i_sp2.paragraph_format.space_before = Pt(0)
+    p_i_sp2.paragraph_format.space_after = Pt(0)
+
+    p_i2 = c_id.add_paragraph()
+    p_i2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_i2.paragraph_format.space_before = Pt(0)
+    p_i2.paragraph_format.space_after = Pt(0)
+    p_i2.paragraph_format.line_spacing = 1.0
+    r_i2 = p_i2.add_run("Gram (+) cocci")
+    r_i2.font.name = 'Times New Roman'
+    r_i2.font.size = Pt(6.0)
+
     format_cell(row_l.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     # --- Section 5: Weekly Surface Suite 116 ---

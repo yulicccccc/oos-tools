@@ -6,16 +6,11 @@ Purpose: Complete generation of Master Word Document and 7-Page AcroForm PDF
 
 import os
 import sys
-import json
-import re
 import copy
 import shutil
-from datetime import datetime
 import fitz  # PyMuPDF
 import docx
 from docx.shared import Pt, Inches
-from docx.oxml import parse_xml
-from docx.opc.constants import RELATIONSHIP_TYPE
 from docxtpl import DocxTemplate
 from pypdf import PdfWriter, PdfReader
 import win32com.client
@@ -51,7 +46,6 @@ BSC_PROC = "1312"
 BSC_CHG = "1937"
 SCAN_ID = "2132"
 MONTHLY_CLEANING_DATE = "13Sep26"
-MONTHLY_CLEANING_FULL = "13 Sep 2026"
 
 EVENTS_COUNT = "362"
 CONFIRMED_COUNT = "90"
@@ -70,9 +64,9 @@ p1 = (
 
 p2 = (
     "Upon arrival, the sample was stored refrigerated in accordance with the Client's instructions. "
-    f"Prepping analyst {PREPPER_NAME} and processing analyst {PROCESSOR_NAME} verified the integrity "
-    "of the containers throughout both the preparation and processing stages. No leaks, cracks, or "
-    "visible turbidity were observed prior to testing, verifying container integrity."
+    f"Prepping analyst - {PREPPER_NAME} - and processing analyst - {PROCESSOR_NAME} - verified the "
+    "physical integrity and packaging of the sample throughout both the preparation and processing stages. "
+    "No leaks, cracks, or visible turbidity were observed prior to testing, verifying container integrity."
 )
 
 p3 = (
@@ -120,7 +114,7 @@ p7 = (
 # Page 4 / 5 Paragraphs (p8 to p17)
 p8 = (
     f"On 24Sep26, a rapid sterility test was performed on the sample using the ScanRDI method under test record {TEST_RECORD}. "
-    f"The sample was initially prepared by analyst {PREPPER_NAME}, processed by {PROCESSOR_NAME} (27th sample processed), "
+    f"The sample was prepared by analyst {PREPPER_NAME}, processed by {PROCESSOR_NAME} (27th sample processed), "
     f"changeover performed by {CHANGEOVER_NAME}, and subsequently read by {READER_NAME}. The test revealed "
     f"{EVENTS_COUNT} total events and {CONFIRMED_COUNT} confirmed microbial events exhibiting {MORPHOLOGY}, see Table 1."
 )
@@ -146,12 +140,14 @@ p11 = (
 
 p12 = (
     "Weekly active air monitoring of Cleanroom Suite 116 conducted on 24Sep26 demonstrated no microbial recovery in the "
-    "ISO 7 cleanrooms; however, 3 CFUs (ETX-261005-0773, Microbial ID: Pending) were recovered from the ISO 8 anteroom (116). "
-    "Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no microbial recovery in the "
-    "ISO 7 cleanrooms (145 or 144); however, 6 CFUs (ETX-260929-0335, Microbial ID: Pending) and 8 CFUs "
-    "(ETX-260929-0341, Microbial ID: Pending) were recovered from the ISO 8 anteroom (143 Section I and Section II, respectively), "
-    "and 2 CFUs (ETX-260929-0344, Microbial ID: Pending) were recovered from the outermost ISO 8 room (142). "
-    "Microbial identification for these lower-classified room recoveries is currently pending in accordance with laboratory protocols."
+    "ISO 7 cleanrooms; however, 3 CFUs under test sample ETX-261005-0773 were recovered from the ISO 8 anteroom (116), "
+    "identified as Gram-positive cocci. Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no "
+    "microbial recovery in the ISO 7 cleanrooms (145 or 144); however, 6 CFUs under test sample ETX-260929-0335 (identified as five "
+    "Gram-positive cocci and one Gram-negative coccobacilli) and 8 CFUs under test sample ETX-260929-0341 (identified as six "
+    "Gram-positive cocci and two Gram-positive short rods) were recovered from the ISO 8 anteroom (143 Section I and Section II, "
+    "respectively), and 2 CFUs under test sample ETX-260929-0344 were recovered from the outermost ISO 8 room (142), identified as "
+    "two Gram-positive cocci. The recovered organisms are common environmental isolates with morphology distinctly different from "
+    "the curved rod-shaped morphology observed in the failing test sample."
 )
 
 p13 = (
@@ -186,21 +182,48 @@ p16 = (
 )
 
 p17 = (
-    "Based on the comprehensive laboratory investigation, all media, reagents, consumables, and equipment met validated acceptance "
-    "criteria. Aseptic protocols were strictly adhered to with no documented deviations, and environmental controls in the critical "
-    "ISO 5 zones remained fully effective. No assignable laboratory error was identified. Consequently, the microbial recovery "
-    f"observed in sample {SAMPLE_ID} is considered an isolated occurrence within the sample itself, and the original failing test "
-    "result is deemed valid."
+    "Based on the laboratory investigation, no assignable laboratory cause was identified involving the analyst, instrument, "
+    "reagents, supplies, or monitored laboratory environment. The initial Scan RDI OOS result therefore remains valid in "
+    "accordance with the applicable laboratory OOS procedure."
 )
 
-# Text Field partitions for PDF
+# Text Field partitions for PDF according to Robin Seymour Golden Standard (Rule 50 / Section 36)
 text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7])
-text_field_50 = "\r \r".join([p8, p9, p10, p11, p12, p13])
-text_field_51 = "\r \r".join([p14, p15, p16, p17])
+
+p11_header = "Environmental Monitoring (EM) Recoveries Review:"
+p11_sub1 = f"ISO 5 BSC and Personnel Evaluation:\r{p10}"
+p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}\n\n{p12}\n\n{p13}"
+
+text_field_50 = "\r \r".join([p8, p9, p11_header, p11_sub1, p12_sub2, p14, p15, p16, p17])
+text_field_51 = "N/A QYC 13Oct2026"
 
 smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17])
 
-print("Narrative text blocks prepared successfully.")
+# Equipment block fields matching Rule 50 / Section 36
+tf43_equipment = (
+    "Incubator E001034\r \r"
+    "(Sensor E001501)\r \r"
+    "Incubator E001031\r \r"
+    "(Sensor E001505)\r \r"
+    f"BSC E00{BSC_PROC}\r \r"
+    f"BSC E00{BSC_CHG}"
+)
+tf44_cal_due = (
+    "Aug 2027\r \r"
+    "Feb 2027\r \r"
+    "Aug 2027\r \r"
+    "Feb 2027\r \r"
+    "Jun 2027\r \r"
+    "Jul 2027"
+)
+
+tf22_materials = (
+    "Scan Consumables:\rSee the attached data packet\r \r"
+    "Environmental Plates:\rTSA and Surface Plate: see attached environmental logs\r \r"
+    "Monthly Cleaning:\rH2O2 strips and IPA: See attached monthly cleaning logs"
+)
+
+print("Narrative text blocks and field values prepared successfully.")
 
 # -------------------------------------------------------------
 # 2. Render Master Word Document (ScanRDI OOS P1 template.docx)
@@ -219,8 +242,6 @@ def generate_master_word_doc():
         f"Reading Analyst:\n{READER_NAME} ({READER_INIT})"
     )
     
-    analyst_sig_text = f"{PROCESSOR_NAME} (Written by: Qiyue Chen)"
-    
     context = {
         "oos_id": OOS_ID,
         "client_name": CLIENT_NAME,
@@ -232,7 +253,7 @@ def generate_master_word_doc():
         "test_date": TEST_DATE,
         "test_record": TEST_RECORD,
         "report_header": f"{SAMPLE_ID}\n\n{CLIENT_NAME}",
-        "analyst_signature": analyst_sig_text,
+        "analyst_signature": "Qiyue Chen",
         "analyst_initial": PROCESSOR_INIT,
         "analyst_name": PROCESSOR_NAME,
         "changeover_initial": CHANGEOVER_INIT,
@@ -247,7 +268,7 @@ def generate_master_word_doc():
         "cr_id": "116B",
         "cr_suit": "116",
         "smart_cr_id": "CR116 (E001738) & L-Suite (CR1978)",
-        "smart_bsc_bracketing_header": f"Biological Safety Cabinet EM Bracketing Biological Safety Cabinet (BSC) E00{BSC_PROC} and E00{BSC_CHG}",
+        "smart_bsc_bracketing_header": f"Biological Safety Cabinet EM for E00{BSC_PROC} and E00{BSC_CHG}",
         "control_positive": "A. brasiliensis",
         "control_lot": "24MAY28-01",
         "control_data": "24May28",
@@ -268,10 +289,11 @@ def generate_master_word_doc():
     
     # Replace Table 1 & Table 2 with verified standalone tables
     tables_source_docx = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
+    if not os.path.exists(tables_source_docx):
+        tables_source_docx = os.path.join(DOCUMENTS_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
+        
     if os.path.exists(tables_source_docx):
         src_doc = docx.Document(tables_source_docx)
-        
-        # In tpl.docx: Table 0 is header info, Table 1 is sample info, Table 2 is EM table
         if len(tpl.docx.tables) >= 3 and len(src_doc.tables) >= 2:
             # Replace Table 1
             t1_elem = tpl.docx.tables[1]._element
@@ -316,7 +338,6 @@ def generate_master_pdf_report():
         
     doc = fitz.open(source_pdf)
     
-    analyst_sig_text = f"{PROCESSOR_NAME} (Written by: Qiyue Chen)"
     personnel_block = (
         f"Prepping Analyst:\n{PREPPER_NAME} ({PREPPER_INIT})\n\n"
         f"Processing Analyst:\n{PROCESSOR_NAME} ({PROCESSOR_INIT})\n\n"
@@ -339,27 +360,55 @@ def generate_master_pdf_report():
         'Text Field10': "Rev: 16\rRev: 05",
         'Text Field15': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
         'Text Field16': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
-        'Text Field0': READER_NAME,  # Initiator
+        'Text Field0': f"{READER_NAME} (Written by: Qiyue Chen)",  # Initiator
+        'Text Field1': "Scan RDI Sterility Test",
         'Text Field3': personnel_block,
         'Text Field7': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after Scan RDI sterility testing.",
+        'Text Field11': "<1 event",
+        'Text Field12': "Kathan Parikh",
         'Text Field13': f"Yes, analysts {PREPPER_NAME}, {PROCESSOR_NAME}, and {READER_NAME} were interviewed comprehensively.",
         'Text Field14': f"Yes, {SAMPLE_ID}",
         'Text Field17': f"Yes, See {TEST_RECORD} for more information.",
+        'Text Field18': "Yes, all analysts are trained and qualified by quality to perform the test.",
+        'Text Field19': "Not Applicable",
+        'Text Field20': "Not Applicable",
         'Text Field21': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
-        'Text Field30': f"E00{SCAN_ID}",
-        'Text Field32': f"E001738 (Suite 116) & E001978 (L-Suite)",
-        'Text Field34': f"E00{SCAN_ID}",
+        'Text Field22': tf22_materials,
+        'Text Field23': tf22_materials,
         'Text Field24': "A. brasiliensis",
         'Text Field25': "24MAY28-01",
         'Text Field26': "24May28",
-        'Text Field48': "N/A QYC 12Oct2026",
+        'Text Field27': "Not Applicable",
+        'Text Field28': "Not Applicable",
+        'Text Field29': "Not Applicable",
+        'Text Field30': f"E00{SCAN_ID}",
+        'Text Field31': "Oct 2026",
+        'Text Field32': f"E001738 (Suite 116) & E001978 (L-Suite)",
+        'Text Field33': "Dec 2026",
+        'Text Field34': f"E00{SCAN_ID}",
+        'Text Field35': "Oct 2026",
+        'Text Field36': "Not Applicable",
+        'Text Field37': "Not Applicable",
+        'Text Field38': "Not Applicable",
+        'Text Field39': "Not Applicable",
+        'Text Field40': "See Phase I Summary",
+        'Text Field41': "See Phase I Summary",
+        'Text Field42': "See Phase I Summary",
+        'Text Field43': tf43_equipment,
+        'Text Field44': tf44_cal_due,
+        'Text Field45': "See Phase I Summary",
+        'Text Field46': "Not Applicable",
+        'Text Field47': "Not Applicable",
+        'Text Field48': "N/A QYC 13Oct2026",
         'Text Field49': text_field_49,
         'Text Field50': text_field_50,
         'Text Field51': text_field_51,
-        'Text Field53': analyst_sig_text,
+        'Text Field53': "Qiyue Chen",
+        'Text Field54': "",
+        'Text Field55': "",
+        'Text Field52': "",
     }
     
-    # Strict Whitelist Checkbox configurations (Rule 10)
     cb_whitelists = {
         # Page 1 Header
         'Check Box0': 'Yes',
@@ -393,37 +442,63 @@ def generate_master_pdf_report():
         'Check Box67': 'Yes', 'Check Box68': 'Off', 'Check Box69': 'Off',
         'Check Box70': 'Yes', 'Check Box71': 'Off', 'Check Box72': 'Off',
         'Check Box73': 'Yes', 'Check Box74': 'Off', 'Check Box75': 'Off',
+        # Page 3 Checkboxes
+        'Check Box78': 'Yes',
+        'Check Box79': 'Yes',
+        # Page 6 Section D & E
+        'Check Box87': 'Off',
+        'Check Box88': 'Yes',
+        'Check Box89': 'Off',
+        'Check Box90': 'Off',
+        'Check Box91': 'Off',
+        'Check Box92': 'Off',
     }
     
-    # Apply field values and font sizes using PyMuPDF for natural appearance
+    robin_fonts = {
+        'Date Field0': 10.0, 'Date Field1': 10.0, 'Date Field2': 10.0, 'Date Field3': 10.0,
+        'Text Field0': 5.12, 'Text Field1': 7.5, 'Text Field2': 9.65, 'Text Field3': 6.0,
+        'Text Field4': 8.5, 'Text Field5': 9.5, 'Text Field6': 9.5, 'Text Field7': 7.5,
+        'Text Field8': 5.18, 'Text Field9': 5.18, 'Text Field10': 5.18, 'Text Field11': 9.5,
+        'Text Field12': 10.0, 'Text Field13': 4.825, 'Text Field14': 8.5, 'Text Field15': 9.0,
+        'Text Field16': 9.0, 'Text Field17': 6.725, 'Text Field18': 4.825, 'Text Field19': 9.0,
+        'Text Field20': 9.0, 'Text Field21': 4.825, 'Text Field22': 6.0, 'Text Field23': 6.0,
+        'Text Field24': 10.5, 'Text Field25': 8.0, 'Text Field26': 9.0, 'Text Field27': 9.5,
+        'Text Field28': 9.5, 'Text Field29': 9.5, 'Text Field30': 9.5, 'Text Field31': 9.5,
+        'Text Field32': 4.4, 'Text Field33': 4.4, 'Text Field34': 9.5, 'Text Field35': 9.5,
+        'Text Field36': 9.5, 'Text Field37': 9.5, 'Text Field38': 9.5, 'Text Field39': 9.5,
+        'Text Field40': 7.5, 'Text Field41': 7.5, 'Text Field42': 7.5, 'Text Field43': 8.5,
+        'Text Field44': 8.5, 'Text Field45': 7.5, 'Text Field46': 9.0, 'Text Field47': 9.0,
+        'Text Field48': 8.5, 'Text Field49': 9.2, 'Text Field50': 8.1, 'Text Field51': 11.0,
+        'Text Field52': 7.5, 'Text Field53': 7.5, 'Text Field54': 7.5, 'Text Field55': 7.5,
+        'Text Field57': 6.0,
+    }
+    
     for page in doc:
         for widget in page.widgets():
             fn = widget.field_name
             if fn in pdf_field_values:
                 widget.field_value = pdf_field_values[fn]
-                # Calibrated font sizing to prevent Acrobat + overflow
-                if fn in ['Text Field49', 'Text Field50', 'Text Field51']:
-                    widget.text_fontsize = 9.2
+                if fn in robin_fonts:
+                    widget.text_fontsize = robin_fonts[fn]
                     widget.text_font = "Helv"
-                elif fn == 'Text Field3':
-                    widget.text_fontsize = 6.5
-                elif fn == 'Text Field7':
-                    widget.text_fontsize = 8.0
-                elif fn in ['Text Field13', 'Text Field14', 'Text Field15', 'Text Field16', 'Text Field17', 'Text Field21']:
-                    widget.text_fontsize = 7.5
                 widget.update()
             elif fn in cb_whitelists:
                 widget.field_value = cb_whitelists[fn]
+                widget.update()
+            elif fn in robin_fonts:
+                widget.text_fontsize = robin_fonts[fn]
                 widget.update()
                 
     temp_filled_pdf = os.path.join(SCRIPT_DIR, "temp_filled_master_262237.pdf")
     doc.save(temp_filled_pdf)
     doc.close()
     
-    # Now append Standalone Tables PDF as Page 7
+    # Append Standalone Tables PDF as Page 7
     tables_pdf_desktop = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+    if not os.path.exists(tables_pdf_desktop):
+        tables_pdf_desktop = os.path.join(DOCUMENTS_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+        
     writer = PdfWriter(clone_from=temp_filled_pdf)
-    
     if os.path.exists(tables_pdf_desktop):
         t_reader = PdfReader(tables_pdf_desktop)
         for t_page in t_reader.pages:
