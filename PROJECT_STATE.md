@@ -67,7 +67,7 @@
      - **Master Tables Attachment (PRD Rule 43 终极定论):** 维持对两阶段测试的统筹全量呈现，Table 1 同时列出初始样品 (`ETX-260902-0505`) 与复测样品 (`ETX-260914-0470`)，并附带 Table 2 (04Sep26) 与 Table 3 (15Sep26)，共 2 页（总页数 8 页）。
      - Output: `OOS-262098 Solyn LLC (E75000) - USP71.pdf` (8 pages) & `OOS-262098 Solyn LLC (E75000) - P1_Report.docx`.
   2. **Phase II Full Harmonization (Strict 7 Pages Total):**
-     - Page 1 `Text Field1` strictly lists retest personnel (`Prepping: Andrew Carrillo (ANC)`, `Processing: Abayomi Odugbesi (AOD)`, `Reading: Andrew Carrillo (ANC)`) at calibrated font size `6.2pt` with zero clipping.
+     - Page 1 `Text Field1` strictly lists retest personnel (`Prepping: Andrew Carrillo (ANC)`, `Processing: Ayomide Odugbesi (AOD)`, `Reading: Andrew Carrillo (ANC)`) at calibrated font size `6.2pt` with zero clipping.
      - Page 1 Equipment and Calibration dates aligned 1:1 horizontally: BSCs (`Dec 2026, Jun 2027`), Cleanrooms (`Jan 2027, Dec 2026`), Incubators & Sensors.
      - Appended Phase II Master Tables (Table 1 two rows, Table 2, Table 3), locking total page count to exactly 7 pages.
      - Output: `OOS-262098 Solyn LLC (E75000) - Phase II.pdf` (7 pages) & `OOS-262098 Solyn LLC (E75000) - Phase II.docx`.

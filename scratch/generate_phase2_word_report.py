@@ -5,6 +5,9 @@ from docx.oxml import parse_xml
 from docxtpl import DocxTemplate
 
 OOS_ROOT = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS"
+sys.path.insert(0, OOS_ROOT)
+from utils import assert_no_hallucinations
+
 OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
@@ -128,6 +131,7 @@ data = {
 
 tpl_path = os.path.join(OOS_ROOT, "ScanRDI OOS P2 template.docx")
 doc_tpl = DocxTemplate(tpl_path)
+assert_no_hallucinations(data)
 doc_tpl.render(data)
 
 # Embed Table 1, Table 2, and Table 3 with Headings from Phase II Table docx

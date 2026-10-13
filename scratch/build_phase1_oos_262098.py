@@ -14,6 +14,9 @@ from docx.oxml import parse_xml
 from docxtpl import DocxTemplate
 
 OOS_ROOT = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS"
+sys.path.insert(0, OOS_ROOT)
+from utils import assert_no_hallucinations
+
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
@@ -254,6 +257,7 @@ def build_master_word_doc():
         "reader_name": ORIG_READER
     }
     
+    assert_no_hallucinations(data_docx)
     tpl.render(data_docx)
     
     # Clean up static artifacts in rendered Table 0
@@ -493,6 +497,8 @@ def build_official_pdf_form():
         'Check Box92': 'Off',
     }
     
+    assert_no_hallucinations(pdf_values)
+    
     for page in doc:
         for w in page.widgets():
             fn = w.field_name
@@ -554,14 +560,14 @@ def build_official_pdf_form():
         writer.write(f)
     print("Master PDF saved to Documents:", out_pdf_docs)
     
-    for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+    for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR, OUTPUT_DIR]:
         dest_pdf = os.path.join(dest_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
         if os.path.abspath(dest_pdf) != os.path.abspath(out_pdf_docs):
             try:
                 shutil.copy2(out_pdf_docs, dest_pdf)
                 print("Master PDF saved to:", dest_pdf)
             except Exception as e:
-                print("Desktop PDF copy note:", e)
+                print("PDF copy note:", e)
         for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.pdf"]:
             try:
                 shutil.copy2(out_pdf_docs, os.path.join(dest_dir, alias))

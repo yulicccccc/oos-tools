@@ -487,7 +487,7 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - For EagleTrax username `enioupin`: The legal system name is **Elysse Nioupin (EN)** (🚨 **ABSOLUTE RED LINE**: NEVER hallucinate "Eniola Nioupin" or invent "ENI"!).
    - For EagleTrax username `isharma`: The legal initials are strictly **ISS** (**Ishita Sharma (ISS)**, NEVER "IS"!).
    - For EagleTrax username `acarrillo`: The legal initials are strictly **ANC** (**Andrew Carrillo (ANC)**, NEVER "AC"!).
-   - For EagleTrax username `aodugbesi`: The legal initials are strictly **AOD** (**Abayomi Odugbesi (AOD)**, NEVER "AO" or "Ayomide"!).
+   - For EagleTrax username `aodugbesi`: The legal name is strictly **Ayomide Odugbesi (AOD)** (🚨 **ABSOLUTE RED LINE**: NEVER hallucinate "Abayomi Odugbesi" or invent "AO"!).
    - For EagleTrax username `qchen`: The legal initials are strictly **QYC** (**Qiyue Chen (QYC)**, NEVER "QC" or "KC"!).
    - For initials `MJ` in sample prep: The full legal system name is **Mukyung Jang (MJ)** (NEVER shorthand or truncated "Min Jang").
    - For initials `GS` / `gsurber`: The full legal name is **Gabrielle Surber (GS)** (NEVER "Gabbie Surber", NEVER confused with "GA").

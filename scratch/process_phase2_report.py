@@ -3,6 +3,9 @@ from pypdf import PdfWriter, PdfReader
 import fitz
 
 OOS_ROOT = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS"
+sys.path.insert(0, OOS_ROOT)
+from utils import assert_no_hallucinations
+
 OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
@@ -186,6 +189,7 @@ pdf_map = {
     "Date Field4": "08-Oct-2026",
 }
 
+assert_no_hallucinations(pdf_map)
 writer = PdfWriter(clone_from=base_pdf)
 for p in writer.pages:
     writer.update_page_form_field_values(p, pdf_map)

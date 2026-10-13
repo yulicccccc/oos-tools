@@ -344,6 +344,7 @@ FORBIDDEN_HALLUCINATED_NAMES = {
     "jose ocando": "Jorge Ochoa (JOC)",
     "abayomi odugbesi": "Ayomide Odugbesi (AOD)",
     "abayomi": "Ayomide Odugbesi (AOD)",
+    "alex saravia (as)": "Alex Saravia (ES)",
 }
 
 def assert_no_hallucinations(text_or_obj):

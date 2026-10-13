@@ -10,6 +10,7 @@ import fitz
 
 OOS_ROOT = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS"
 sys.path.insert(0, OOS_ROOT)
+from utils import assert_no_hallucinations
 os.chdir(OOS_ROOT)
 
 OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
@@ -71,6 +72,7 @@ data = {
 OUT_DOCX = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.docx")
 OUT_PDF = os.path.join(OUTPUT_DIR, f"Tables OOS-{data['oos_id']} {data['client_name']} - USP71.pdf")
 
+assert_no_hallucinations(data)
 tpl = DocxTemplate(TPL_BASE)
 tpl.render(data)
 tpl.save(OUT_DOCX)
