@@ -547,18 +547,28 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 结果: 362 total events, 90 confirmed microbial events (curved rod-shaped morphology)
             - 核心人员: Prepper = Elysse Nioupin (EN), Processor = Guanchen Li (GL, 第 27 支样品), Changeover & Reader = Muralidhar Bythatagari (MRB)
             - 设备: Scan RDI E002132 (Oct 2026), BSC E001312 (Jun 2027, CR116B), BSC E001937 (Jul 2027, CR144)
+            - 阳性对照法定台账: `C. albicans`, Lot: `06122026-10231-CA`, Exp: `11Jun28` (GL 30, Session: 092426-2225-3)
         *   **EagleTrax 现场 EM 数据自主穿透查询与确证**:
             - 浮游菌 `ETX-261005-0773` (Suite 116 Anteroom, 3 CFUs): 3 菌落均为 **`Gram (+) cocci`**
             - 浮游菌 `ETX-260929-0335` (L-Suite ISO 8 143 Sec I, 6 CFUs): 5 菌落 **`Gram (+) cocci`**，1 菌落 **`Gram (-) coccobacilli`**
             - 浮游菌 `ETX-260929-0341` (L-Suite ISO 8 143 Sec II, 8 CFUs): 6 菌落 **`Gram (+) cocci`**，2 菌落 **`Gram (+) short rods`**
             - 浮游菌 `ETX-260929-0344` (L-Suite ISO 8 142, 2 CFUs): 2 菌落均为 **`Gram (+) cocci`**
-            - 关键防守逻辑：背景 ISO 8 检出的球菌、球杆菌与短杆菌形态与待测品中检出的 **弯曲杆菌 (curved rod-shaped morphology)** 具有鲜明形态学差异，且关键 ISO 5 工作面及操作员手套 100% 无菌生长，彻底切断外围污染转移路径。
+            - 关键防守逻辑：背景 ISO 8 检出的球菌、球杆菌与短杆菌形态与待测品中检出的 **弯曲杆菌 (curved rod-shaped morphology)** 具有鲜明形态学差异，且关键 ISO 5 工作面及操作员手套无菌生长（absence of microbial recovery），彻底切断外围污染转移路径。
         *   **Robin Seymour (RS) 标杆全要素对齐 (`OOS-262150 BelieveRX Signed by QYC` 标准)**:
             - **Page 1 字段精细化**: `Text Field0` 格式化为 `Muralidhar Bythatagari (Written by: Qiyue Chen)`（字号 5.12pt），Section B 问卷评语全量填入并应用基准字号。
-            - **Page 2 培养箱与设备空行绝对对齐**: `Text Field43` 培养箱与传感器分行（`Incubator E001034\r \r(Sensor E001501)\r \r...`），`Text Field44` 校准期分行（`Aug 2027\r \rFeb 2027\r \r...`），右侧追加 BSC E001312 (`Jun 2027`) 与 BSC E001937 (`Jul 2027`)，字号严格设为 `8.5pt`，实现 1:1 绝对横向基准线对齐。`Text Field22` 与 `Text Field23` 耗材栏字号设为 `6.0pt`。
+            - **Page 2 培养箱、设备与洁净室规范**: 
+              - `Text Field43` 培养箱与传感器分行（`Incubator E001034\r \r(Sensor E001501)\r \r...`），`Text Field44` 校准期分行（`Aug 2027\r \rFeb 2027\r \r...`），右侧追加 BSC E001312 (`Jun 2027`) 与 BSC E001937 (`Jul 2027`)，字号严格设为 `8.5pt`，实现 1:1 绝对横向基准线对齐。
+              - `Text Field22` 与 `Text Field23` 耗材栏字号设为 `6.0pt`。
+              - `Text Field24`、`25`、`26` 严格填入官方确证阳性对照：`C. albicans`、`06122026-10231-CA`、`11Jun28`。
+              - `Text Field32`、`33` 洁净室认证多套间分行规范：`E001738 (Suite 116)\rE001978 (L-Suite)` 与 `Dec 2026\rDec 2026`（字号 4.4pt，**严禁使用 "&" 连接符**）。
             - **Page 3 / 4 / 5 正文紧凑版面流转**:
-              - Page 3 (`Text Field49`, 9.2pt): 样品前处理、双重漂白水消毒、套间压差、BSC 认证及过滤前设置（p1 至 p7）。
-              - Page 4 (`Text Field50`, 8.1pt): 检验结果、Table 2 引用（规范使用 `MICRO-SOP-2`）、环境监测评估（ISO 5 关键区及人员 0 菌落，外围 ISO 8 检出与待测样形态对照排查）、月度清洁（13Sep26, passed）、6 个月客户批次历史、批内样品间交叉污染排查（第 27 支样品，全天其余样品全阴性）及有效性结论（p8 至 p17）。
+              - Page 3 (`Text Field49`, 9.2pt): 样品前处理、双重漂白水消毒、套间压差、BSC 认证、过滤前设置、检验结果描述及 Table 2 引入（p1 至 p9，规范使用 `MICRO-SOP-2`）。
+              - Page 4 (`Text Field50`, 8.1pt): 严格以 `Environmental Monitoring (EM) Recoveries Review:` 起首（p10 至 p17）：
+                - ISO 5 与人员评估：严格去除 "100%" 绝对化用语，标准表述为 `absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing`。
+                - 洁净室环境评估：周检浮游菌语法修正为 `in the ISO 7 cleanrooms (145 and 144)`，外围 ISO 8 检出与待测样形态对照排查及压差屏障防守。
+                - 月度清洁：明确核实并记录为 `30Aug26`，所有化学指示卡合格。
+                - 6 个月客户批次历史真实审计：确证存在 1 起先前失败事件 `OOS-262106`（检验日期 10Sep26，样品 ETX-260908-0694，批号 19622，GL/MRB，Parallel suite 117，117 events，第 22 支样品，复检 ETX-260916-0726）。**关键形态学对照**：OOS-262106 确证菌落形态为 `circular-shaped (clusters) morphology`，与本次待测样品的 `curved rod-shaped morphology` 具有根本形态学差异，证实为完全不同且孤立的微生物事件。
+                - 交叉污染排查与结论：第 27 支样品，全天其余样品全阴性，无实验室可归属原因，初检 OOS 判定有效。
               - Page 5 (`Text Field51`, 11.0pt): 严格遵循标杆仅填写 **`N/A QYC 13Oct2026`**，避免跨页断行与底部多余留白。
             - **Page 6 签字栏**: Section D 复选框选择 `Check Box88`（'No, the OOS result is valid.'），调查人 `Text Field53` 规范填写 `Qiyue Chen`（7.5pt）。
             - **Page 7 附表集成**: Standalone Table 1 & Table 2 完美整合为第 7 页，内嵌 Sample ID 与全部阳性 EM 培养皿的 live 原生可点击超链接，总页数严格锁定为 7 页。

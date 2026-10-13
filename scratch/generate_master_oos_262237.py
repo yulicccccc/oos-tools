@@ -45,7 +45,7 @@ READER_INIT = "MRB"
 BSC_PROC = "1312"
 BSC_CHG = "1937"
 SCAN_ID = "2132"
-MONTHLY_CLEANING_DATE = "13Sep26"
+MONTHLY_CLEANING_DATE = "30Aug26"
 
 EVENTS_COUNT = "362"
 CONFIRMED_COUNT = "90"
@@ -131,7 +131,7 @@ p9 = (
 )
 
 p10 = (
-    "Upon review of the environmental monitoring data, 100% absence of microbial recovery (No Growth) was demonstrated "
+    "Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated "
     "across all critical ISO 5 zones and personnel monitoring on the date of testing. Daily personnel monitoring for "
     f"processing analyst {PROCESSOR_NAME} and changeover analyst {CHANGEOVER_NAME} yielded no microbial growth on left "
     f"and right fingertip touch plates. Daily surface sampling (4 locations) and settling plates within processing BSC E00{BSC_PROC} "
@@ -147,7 +147,7 @@ p12 = (
     "Weekly active air monitoring of Cleanroom Suite 116 conducted on 24Sep26 demonstrated no microbial recovery in the "
     "ISO 7 cleanrooms; however, 3 CFUs under test sample ETX-261005-0773 were recovered from the ISO 8 anteroom (116), "
     "identified as Gram-positive cocci. Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no "
-    "microbial recovery in the ISO 7 cleanrooms (145 or 144); however, 6 CFUs under test sample ETX-260929-0335 (identified as five "
+    "microbial recovery in the ISO 7 cleanrooms (145 and 144); however, 6 CFUs under test sample ETX-260929-0335 (identified as five "
     "Gram-positive cocci and one Gram-negative coccobacilli) and 8 CFUs under test sample ETX-260929-0341 (identified as six "
     "Gram-positive cocci and two Gram-positive short rods) were recovered from the ISO 8 anteroom (143 Section I and Section II, "
     "respectively), and 2 CFUs under test sample ETX-260929-0344 were recovered from the outermost ISO 8 room (142), identified as "
@@ -174,8 +174,10 @@ p14 = (
 )
 
 p15 = (
-    f"Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte \"{SAMPLE_NAME}\" has had no prior failures "
-    "using the Scan RDI method during this period."
+    f"Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte \"{SAMPLE_NAME}\" has had one prior failure, "
+    "documented under OOS-262106 (tested on 10Sep26 under ETX-260908-0694, Lot 19622). Notably, the confirmed microbial events in "
+    "OOS-262106 exhibited circular-shaped (clusters) morphology, which differs from the curved rod-shaped morphology observed "
+    "in the current test sample."
 )
 
 p16 = (
@@ -193,13 +195,13 @@ p17 = (
 )
 
 # Text Field partitions for PDF according to Robin Seymour Golden Standard (Rule 50 / Section 36)
-text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7])
+text_field_49 = "\r \r".join([p1, p2, p3, p4, p5, p6, p7, p8, p9])
 
 p11_header = "Environmental Monitoring (EM) Recoveries Review:"
 p11_sub1 = f"ISO 5 BSC and Personnel Evaluation:\r{p10}"
-p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}\n\n{p12}\n\n{p13}"
+p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}"
 
-text_field_50 = "\r \r".join([p8, p9, p11_header, p11_sub1, p12_sub2, p14, p15, p16, p17])
+text_field_50 = "\r \r".join([p11_header, p11_sub1, p12_sub2, p12, p13, p14, p15, p16, p17])
 text_field_51 = "N/A QYC 13Oct2026"
 
 smart_phase1_full = "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17])
