@@ -128,7 +128,7 @@ p8 = (
 p9 = (
     f"Table 2 presents the environmental monitoring results associated with testing performed on {TEST_DATE}. "
     "The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30–35°C and for no less than "
-    "an additional five days at 20–25°C, as per SOP 2.600.002, Environmental Monitoring of the Clean-room Facility."
+    "an additional five days at 20–25°C, as per MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility."
 )
 
 p10 = (
@@ -146,13 +146,12 @@ p11 = (
 
 p12 = (
     "Weekly active air monitoring of Cleanroom Suite 116 conducted on 24Sep26 demonstrated no microbial recovery in the "
-    "ISO 7 cleanrooms; however, 3 CFUs (ETX-261005-0773, [Pending Differential Staining: Gram (+/-) ... / Pending Microbial ID]) "
-    "were recovered from the ISO 8 anteroom (116). Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no "
-    "microbial recovery in the ISO 7 cleanrooms (145 or 144); however, 6 CFUs (ETX-260929-0335, [Pending Differential Staining: "
-    "Gram (+/-) ... / Pending Microbial ID]) and 8 CFUs (ETX-260929-0341, [Pending Differential Staining: Gram (+/-) ... / "
-    "Pending Microbial ID]) were recovered from the ISO 8 anteroom (143 Section I and Section II, respectively), and 2 CFUs "
-    "(ETX-260929-0344, [Pending Differential Staining: Gram (+/-) ... / Pending Microbial ID]) were recovered from the outermost "
-    "ISO 8 room (142)."
+    "ISO 7 cleanrooms; however, 3 CFUs (ETX-261005-0773, Microbial ID: Pending) were recovered from the ISO 8 anteroom (116). "
+    "Weekly active air monitoring of Cleanroom L-Suite conducted on 22Sep26 demonstrated no microbial recovery in the "
+    "ISO 7 cleanrooms (145 or 144); however, 6 CFUs (ETX-260929-0335, Microbial ID: Pending) and 8 CFUs "
+    "(ETX-260929-0341, Microbial ID: Pending) were recovered from the ISO 8 anteroom (143 Section I and Section II, respectively), "
+    "and 2 CFUs (ETX-260929-0344, Microbial ID: Pending) were recovered from the outermost ISO 8 room (142). "
+    "Microbial identification for these lower-classified room recoveries is currently pending in accordance with laboratory protocols."
 )
 
 p13 = (
@@ -353,7 +352,7 @@ def generate_master_pdf_report():
         'Text Field24': "A. brasiliensis",
         'Text Field25': "24MAY28-01",
         'Text Field26': "24May28",
-        'Text Field48': f"N/A QYC {datetime.now().strftime('%d%b%y')}",
+        'Text Field48': "N/A QYC 12Oct2026",
         'Text Field49': text_field_49,
         'Text Field50': text_field_50,
         'Text Field51': text_field_51,

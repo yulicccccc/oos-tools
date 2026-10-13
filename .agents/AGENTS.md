@@ -34,6 +34,9 @@ In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly f
 3. **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers `145, 144, 143, 142` for L-Suite, or `Suite 116 (E001738)`, NO date suffix!)
 4. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix!)
 
+## 🚨🚨 RULE 0C (TOP PRIORITY): Standard Microbiology SOP Designations (MICRO-SOP-2)
+In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring plate incubation and facility monitoring MUST strictly cite **`MICRO-SOP-2`** (`Environmental Monitoring of the Clean-room Facility`), NEVER `SOP 2.600.002`.
+
 ---
 
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)

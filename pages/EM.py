@@ -21,7 +21,7 @@ st.set_page_config(page_title="EM OOS Investigation", layout="wide")
 apply_eagle_style()
 
 st.title("🧫 Environmental Monitoring (EM) OOS Investigation")
-st.caption("Form 3.100.019.F01 (Rev 11) - SOP 2.600.002 Standard Automated Report & Table Generator")
+st.caption("Form 3.100.019.F01 (Rev 11) - MICRO-SOP-2 Standard Automated Report & Table Generator")
 
 # --- 3. SMART EMAIL & DOCX TABLE IMPORT ---
 st.markdown("### 📥 Smart Import: EM Table (.docx) or Email Text")

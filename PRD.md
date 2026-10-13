@@ -23,7 +23,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         4.  *Rule 4 (Macro-Environment Security):* If no other concurrently processed samples were positive, state that the testing environment was operating optimally and cross-contamination did not occur.
 3.  **Environmental Monitoring (EM) Module (`em_logic.py`, `pages/EM.py`):**
     *   **Goal:** Standalone investigation module for OOS results originating on EM plates (Surface, Settling, Personnel/Glove, Cleanroom Air).
-    *   **SOP Reference:** 2.600.002
+    *   **SOP Reference:** MICRO-SOP-2 (Environmental Monitoring of the Clean-room Facility)
     *   **Features:** Handles exceeded action/alert levels, organism identification, analyst interviews, and defensive transient contamination logic.
 
 4.  **Standardized SKU / Module Generator Workflow (`create_new_module.py`):**
@@ -461,6 +461,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **前后衔接一致性与紧凑排版防留白规范**:
             - Phase I 的最末尾与 Phase II 的开头必须形成 100% 因果闭环（系实验室内部在调查批号历史时主动发现同批次合格记录并主动向客户请求复检样品 `under [RETEST_ETX_ID]`，严禁编造“客户主动指出”或遗漏复检 ETX 号）。
             - **Page 3 / 4 / 5 紧凑排版防留白与防截断法则**: Page 3 (`Text Field49`) 排入 `p1..p8` 共 8 段（字号校准为 `8.65pt` 以确保第 8 段末尾 `"to begin incubation."` 100% 完整显示绝不截断），Page 4 (`Text Field50`) 排入 `p9..p18` 共 10 段（`9.2pt`），Page 5 (`Text Field51`) 排入 `p19..p21` 共 3 段（`9.2pt`），彻底消除页面底部多余留白。
+
+    49. **Standard Microbiology SOP Designation Rule (官方规程编号规范 - MICRO-SOP-2 - 🚨 终极锁定):**
+        *   **标准编号**: 洁净室环境监测培养与设施监控规程必须统一规范命名为 **`MICRO-SOP-2`**（`Environmental Monitoring of the Clean-room Facility`）。
+        *   **严禁旧编号**: 在所有 OOS 调查报告（包括 ScanRDI、Celsis、USP <71>、EM）的正文叙述及表格说明中，**绝对严禁再写成旧编号 `SOP 2.600.002`**！必须统一写作 `MICRO-SOP-2`！
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

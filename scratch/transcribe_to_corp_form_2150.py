@@ -116,7 +116,7 @@ p8 = (
 p9 = (
     f"Table 2 (see attached tables) presents the environmental monitoring results for {SAMPLE_ID}. "
     "The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30–35°C and for no less than "
-    "an additional five days at 20–25°C, as per SOP 2.600.002, Environmental Monitoring of the Clean-room Facility."
+    "an additional five days at 20–25°C, as per MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility."
 )
 
 p10 = (
@@ -421,5 +421,10 @@ if __name__ == "__main__":
     print("\n=== Also updating Desktop & Documents Master OOS PDFs ===")
     transcribe_to_pdf(backup_path, master_pdf_desktop, tables_pdf_desktop)
     transcribe_to_pdf(backup_path, master_pdf_docs, tables_pdf_desktop)
+    
+    qyc_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI - QYC.pdf")
+    updated_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI (Updated).pdf")
+    transcribe_to_pdf(backup_path, qyc_pdf_desktop, tables_pdf_desktop)
+    transcribe_to_pdf(backup_path, updated_pdf_desktop, tables_pdf_desktop)
     
     print("\nAll transcriptions completed successfully!")

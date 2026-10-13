@@ -126,7 +126,7 @@ p8 = (
 p9 = (
     f"Table 2 (see attached tables) presents the environmental monitoring results for {SAMPLE_ID}. "
     "The environmental monitoring (EM) plates were incubated for no less than 48 hours at 30–35°C and for no less than "
-    "an additional five days at 20–25°C, as per SOP 2.600.002, Environmental Monitoring of the Clean-room Facility."
+    "an additional five days at 20–25°C, as per MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility."
 )
 
 p10 = (
@@ -537,10 +537,22 @@ def generate_master_pdf_report():
         print("Master PDF saved to Desktop:", out_pdf_desktop)
     except Exception as e:
         print("Desktop PDF lock note:", e)
-        out_pdf_desktop_updated = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI (Updated).pdf")
+
+    out_pdf_qyc = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI - QYC.pdf")
+    try:
+        with open(out_pdf_qyc, "wb") as f:
+            writer.write(f)
+        print("Saved to QYC Master PDF on Desktop:", out_pdf_qyc)
+    except Exception as e:
+        print("Desktop QYC lock note:", e)
+
+    out_pdf_desktop_updated = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI (Updated).pdf")
+    try:
         with open(out_pdf_desktop_updated, "wb") as f:
             writer.write(f)
         print("Saved to Updated Master PDF on Desktop:", out_pdf_desktop_updated)
+    except Exception as e:
+        print("Desktop Updated lock note:", e)
 
 if __name__ == "__main__":
     print(f"=== Generating Master Word Report and Master PDF Report for OOS-{OOS_ID} ===")
