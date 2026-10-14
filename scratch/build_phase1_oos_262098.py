@@ -289,8 +289,7 @@ def build_master_word_doc():
         "Incubator E001356\n(Sensor E001450)\n\n"
         "Incubator E001357\n(Sensor E001449)\n\n"
         "Incubator E001034\n(Sensor E001501)\n\n"
-        "Incubator E001031\n(Sensor E001505)\n\n"
-        "BSC E001316",
+        "Incubator E001031\n(Sensor E001505)",
         font_size_pt=8
     )
     set_clean_cell_text(
@@ -298,8 +297,7 @@ def build_master_word_doc():
         "Jan 2027\nFeb 2027\n\n"
         "Jan 2027\nFeb 2027\n\n"
         "Aug 2027\nFeb 2027\n\n"
-        "Aug 2027\nFeb 2027\n\n"
-        "Dec 2026",
+        "Aug 2027\nFeb 2027",
         font_size_pt=8
     )
 
@@ -419,15 +417,13 @@ def build_official_pdf_form():
             "Incubator E001356\r(Sensor E001450)\r \r"
             "Incubator E001357\r(Sensor E001449)\r \r"
             "Incubator E001034\r(Sensor E001501)\r \r"
-            "Incubator E001031\r(Sensor E001505)\r \r"
-            "BSC E001316"
+            "Incubator E001031\r(Sensor E001505)"
         ),
         'Text Field44': (
             "Jan 2027\rFeb 2027\r \r"
             "Jan 2027\rFeb 2027\r \r"
             "Aug 2027\rFeb 2027\r \r"
-            "Aug 2027\rFeb 2027\r \r"
-            "Dec 2026"
+            "Aug 2027\rFeb 2027"
         ),
         'Text Field45': "See Phase I Summary",
         
