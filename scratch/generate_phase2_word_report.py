@@ -57,12 +57,12 @@ p23 = (
     "that the same lot (Lot 2608-216) had previously been submitted for ScanRDI sterility testing under ETX-260807-0602 "
     "(Test Record 081326-2017-2) and yielded a passing result (Count: 14/0, Pass). Based on this conflicting passing ScanRDI result "
     "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
-    "(Form 3.100.019.F02).\n\n"
+    "(CORP-FORM-22).\n\n"
 )
 
 p24 = (
     "PHASE II RETEST UNDER SUBMISSION ETX-260914-0470:\n"
-    "In accordance with Phase II investigation procedures under Form 3.100.019.F02, following the laboratory's discovery of the prior "
+    "In accordance with Phase II investigation procedures under CORP-FORM-22, following the laboratory's discovery of the prior "
     "passing ScanRDI result (ETX-260807-0602) during the sample history investigation, additional sample vials from lot 2608-216 were requested "
     "from the client and submitted for retesting under submission ETX-260914-0470.\n\n"
     "The retest sample was prepared by Andrew Carrillo on 14Sep26 and processed by Ayomide Odugbesi on 15Sep26 in accordance with "

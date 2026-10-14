@@ -180,7 +180,7 @@ p19 = (
     "However, when investigating the lot history, it was discovered that the same lot (Lot 2608-216) had previously been submitted "
     "for ScanRDI sterility testing under ETX-260807-0602 and yielded a passing result. Based on this conflicting passing ScanRDI result "
     "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
-    "(Form 3.100.019.F02)."
+    "(CORP-FORM-22)."
 )
 
 text_field_51 = "\r \r".join([p17, p18, p19])
@@ -345,7 +345,11 @@ def build_master_word_doc():
 # 3. Build Official PDF Form (CORP-FORM-21)
 # -------------------------------------------------------------
 def build_official_pdf_form():
-    base_pdf = os.path.join(OOS_ROOT, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf")
+    backup_base = os.path.join(OOS_ROOT, ".history", "CORP-FORM-21 - OOS-P1 - 10 Sep 2026_BLANK_BACKUP.pdf")
+    if os.path.exists(backup_base):
+        base_pdf = backup_base
+    else:
+        base_pdf = os.path.join(OOS_ROOT, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1).pdf")
     doc = fitz.open(base_pdf)
     
     smart_consumables_text = (
@@ -536,6 +540,15 @@ def build_official_pdf_form():
     doc.save(temp_form_pdf)
     doc.close()
     print("Filled 6-page Phase 1 form:", temp_form_pdf)
+    
+    # Transcribe pure filled form to official CORP-FORM-21 files requested by user
+    for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+        for c21_name in ["CORP-FORM-21 - OOS-P1 - 10 Sep 2026.pdf", f"CORP-FORM-21 - OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf"]:
+            try:
+                shutil.copy2(temp_form_pdf, os.path.join(dest_dir, c21_name))
+                print(f"Transcribed Phase I form to: {dest_dir}\\{c21_name}")
+            except Exception as e:
+                print(f"Note copying {c21_name}:", e)
     
     # Append Master Tables PDF (Pages 7 & 8, containing both samples)
     tables_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")

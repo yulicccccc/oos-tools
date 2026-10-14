@@ -10,7 +10,11 @@ OUTPUT_DIR = os.path.join(OOS_ROOT, "scratch")
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 
-base_pdf = os.path.join(OOS_ROOT, "ScanRDI OOS P2 template.pdf")
+backup_base_p2 = os.path.join(OOS_ROOT, ".history", "CORP-FORM-22 - OOS- P2 - 10 Sep 2026_BLANK_BACKUP.pdf")
+if os.path.exists(backup_base_p2):
+    base_pdf = backup_base_p2
+else:
+    base_pdf = os.path.join(OOS_ROOT, "ScanRDI OOS P2 template.pdf")
 
 # Narratives
 p22 = (
@@ -57,12 +61,12 @@ p23 = (
     "that the same lot (Lot 2608-216) had previously been submitted for ScanRDI sterility testing under ETX-260807-0602 "
     "(Test Record 081326-2017-2) and yielded a passing result (Count: 14/0, Pass). Based on this conflicting passing ScanRDI result "
     "for the same lot, the laboratory requested additional sample vials from the client for retesting under ETX-260914-0470 and initiated a Phase II investigation "
-    "(Form 3.100.019.F02)."
+    "(CORP-FORM-22)."
 )
 
 p24 = (
     "PHASE II RETEST UNDER SUBMISSION ETX-260914-0470:\r"
-    "In accordance with Phase II investigation procedures under Form 3.100.019.F02, following the laboratory's discovery of the prior "
+    "In accordance with Phase II investigation procedures under CORP-FORM-22, following the laboratory's discovery of the prior "
     "passing ScanRDI result (ETX-260807-0602) during the sample history investigation, additional sample vials from lot 2608-216 were requested "
     "from the client and submitted for retesting under submission ETX-260914-0470.\r \r"
     "The retest sample was prepared by Andrew Carrillo on 14Sep26 and processed by Ayomide Odugbesi on 15Sep26 in accordance with "
@@ -305,7 +309,24 @@ doc_fitz.close()
 shutil.copy2(out_tuned, out_p2_pdf)
 print("Calibrated font sizes and finalized Phase II PDF!")
 
-# Sync to Desktop and Documents
+# Extract and transcribe pure 5-page Phase II form to official CORP-FORM-22
+doc_p2_form = fitz.open(out_tuned)
+doc_p2_pure = fitz.open()
+doc_p2_pure.insert_pdf(doc_p2_form, from_page=0, to_page=4)
+pure_p2_path = os.path.join(OUTPUT_DIR, "CORP-FORM-22 - OOS-262098 - Phase II.pdf")
+doc_p2_pure.save(pure_p2_path)
+doc_p2_pure.close()
+doc_p2_form.close()
+
+for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR]:
+    for c22_name in ["CORP-FORM-22 - OOS- P2 - 10 Sep 2026.pdf", "CORP-FORM-22 - OOS-262098 Solyn LLC (E75000) - Phase II.pdf"]:
+        try:
+            shutil.copy2(pure_p2_path, os.path.join(dest_dir, c22_name))
+            print(f"Transcribed Phase II form to: {dest_dir}\\{c22_name}")
+        except Exception as e:
+            print(f"Notice copying {c22_name}:", e)
+
+# Sync full 7-page master PDF (with tables) to Desktop and Documents
 desktop_pdf = os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
 doc_pdf = os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
 try:
