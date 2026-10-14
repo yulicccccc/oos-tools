@@ -121,7 +121,7 @@ pdf_map = {
         "Processing: Ayomide Odugbesi (AOD)\r"
         "Reading: Andrew Carrillo (ANC)"
     ),
-    "Text Field2": "Original test:\rETX-260902-0505\r \rRetest:\rETX-260914-0470",
+    "Text Field2": "Original test:\rETX-260902-0505\rRetest:\rETX-260914-0470",
     "Text Field3": "Fail",
     "Text Field4": "Fail",
     "Text Field5": "MICRO-SOP-5",
@@ -218,20 +218,20 @@ font_sizes = {
     "Text Field0": 8.5,
     "Date Field0": 8.5,
     "Text Field1": 5.5,
-    "Text Field2": 7.5,
+    "Text Field2": 6.2,
     "Text Field3": 8.5,
     "Text Field4": 8.5,
     "Text Field5": 8.5,
     "Text Field6": 5.0,
     "Text Field7": 5.0,
-    "Text Field8": 7.05,
-    "Text Field9": 8.5,
-    "Text Field10": 7.05,
-    "Text Field11": 7.05,
-    "Text Field12": 7.05,
-    "Text Field13": 8.5,
-    "Text Field14": 8.5,
-    "Text Field15": 7.05,
+    "Text Field8": 6.0,
+    "Text Field9": 6.5,
+    "Text Field10": 4.5,
+    "Text Field11": 6.5,
+    "Text Field12": 6.5,
+    "Text Field13": 7.5,
+    "Text Field14": 7.5,
+    "Text Field15": 4.5,
     "Text Field16": 7.05,
     "Text Field17": 7.05,
     "Text Field18": 8.5,
@@ -240,7 +240,7 @@ font_sizes = {
     "Text Field20": 8.5,
     
     # Page 2
-    "Text Field21": 8.5,
+    "Text Field21": 8.0,
     "Text Field22": 9.2,
     
     # Page 3
@@ -251,7 +251,7 @@ font_sizes = {
     
     # Page 5
     "Text Field25": 7.5,
-    "Text Field26": 8.5,
+    "Text Field26": 5.0,
     "Text Field27": 7.5,
     "Text Field28": 7.0,
     "Date Field3": 8.5,

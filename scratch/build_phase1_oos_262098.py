@@ -392,7 +392,7 @@ def build_official_pdf_form():
         'Text Field18': "Yes, the analysts are trained and qualified by quality to perform the test",
         'Text Field19': "Not Applicable",
         'Text Field20': "Not Applicable",
-        'Text Field21': f"Yes, the sample was stored as per client's instructions. Information is available in EagleTrax Sample Location History under {ORIG_SAMPLE_ID}",
+        'Text Field21': "Yes, the sample was stored refrigerated as per client's instructions",
         
         # Page 2
         'Text Field22': smart_consumables_text,
@@ -502,7 +502,7 @@ def build_official_pdf_form():
     # Authentic human typography mapping (CORP-FORM-21 standard 8.5 pt default)
     field_font_sizes = {
         # Page 1
-        'Text Field0': 8.5,
+        'Text Field0': 5.6,   # Alex Saravia (written by: Qiyue Chen) (fits 100.5pt box cleanly with zero overflow)
         'Date Field0': 8.5,
         'Date Field1': 8.5,
         'Date Field2': 8.5,
@@ -527,7 +527,7 @@ def build_official_pdf_form():
         'Text Field18': 5.0,  # Training statement
         'Text Field19': 8.5,  # Not Applicable
         'Text Field20': 8.5,  # Not Applicable
-        'Text Field21': 6.0,  # Storage condition statement
+        'Text Field21': 5.85, # Storage condition statement (authentic size)
         
         # Page 2
         'Text Field22': 4.5,  # Consumables details
