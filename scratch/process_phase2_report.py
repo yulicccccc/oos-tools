@@ -217,7 +217,7 @@ font_sizes = {
     # Page 1
     "Text Field0": 8.5,
     "Date Field0": 8.5,
-    "Text Field1": 6.2,
+    "Text Field1": 5.5,
     "Text Field2": 7.5,
     "Text Field3": 8.5,
     "Text Field4": 8.5,

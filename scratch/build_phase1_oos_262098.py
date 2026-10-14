@@ -499,38 +499,93 @@ def build_official_pdf_form():
     
     assert_no_hallucinations(pdf_values)
     
+    # Authentic human typography mapping (CORP-FORM-21 standard 8.5 pt default)
+    field_font_sizes = {
+        # Page 1
+        'Text Field0': 8.5,
+        'Date Field0': 8.5,
+        'Date Field1': 8.5,
+        'Date Field2': 8.5,
+        'Text Field1': 7.5,   # USP <71> / EP 2.6.1 Sterility Test (2 lines fit cleanly without bottom clipping)
+        'Text Field2': 8.5,   # ETX-260902-0505
+        'Text Field3': 6.225, # 3-analyst block
+        'Text Field4': 8.5,   # GLP3R/Cagrilinitide
+        'Text Field5': 8.5,   # Liquid
+        'Text Field6': 8.5,   # 2608-216
+        'Text Field7': 8.0,   # Incident Description
+        'Text Field8': 8.5,   # MICRO-SOP-5
+        'Text Field9': 8.5,   # 24Jul2026
+        'Text Field10': 8.5,  # 19
+        'Text Field11': 8.5,  # Pass/Fail
+        'Text Field12': 8.5,  # Kathan Parikh
+        'Date Field3': 8.5,   # 10-Sep-2026
+        'Text Field13': 5.0,  # Interview statement
+        'Text Field14': 8.5,  # Sample ID
+        'Text Field15': 8.5,  # SOP reference
+        'Text Field16': 8.5,  # SOP reference
+        'Text Field17': 6.725,# EagleTrax reference
+        'Text Field18': 5.0,  # Training statement
+        'Text Field19': 8.5,  # Not Applicable
+        'Text Field20': 8.5,  # Not Applicable
+        'Text Field21': 6.0,  # Storage condition statement
+        
+        # Page 2
+        'Text Field22': 4.5,  # Consumables details
+        'Text Field23': 4.75, # Consumables expiration details
+        'Text Field24': 8.5,
+        'Text Field25': 8.5,
+        'Text Field26': 8.5,
+        'Text Field27': 8.5,
+        'Text Field28': 8.5,
+        'Text Field29': 8.5,
+        'Text Field30': 8.5,  # ISO 5 BSC E001316
+        'Text Field31': 8.5,  # Dec 2026
+        'Text Field32': 4.825,# Cleanroom certification
+        'Text Field33': 4.825,# Calibration dates
+        'Text Field34': 8.5,
+        'Text Field35': 8.5,
+        'Text Field36': 8.5,
+        'Text Field37': 8.5,
+        'Text Field38': 8.5,
+        'Text Field39': 8.5,
+        'Text Field40': 8.5,
+        'Text Field41': 8.5,
+        'Text Field42': 8.5,
+        'Text Field43': 7.05, # Incubator
+        'Text Field44': 7.05, # Incubator dates
+        'Text Field45': 8.5,
+        
+        # Page 3
+        'Text Field46': 8.5,
+        'Text Field47': 8.5,
+        'Text Field48': 8.5,
+        'Text Field49': 8.35, # Summary Part 1
+        
+        # Page 4
+        'Text Field50': 8.5,  # Summary Part 2
+        
+        # Page 5
+        'Text Field51': 8.5,  # Summary Part 3
+        
+        # Page 6
+        'Text Field53': 8.5,  # Qiyue Chen
+        
+        # All pages header
+        'Text Field57': 8.5,  # OOS Number 262098
+    }
+
     for page in doc:
         for w in page.widgets():
             fn = w.field_name
             if fn == 'Text Field57':
                 w.field_value = OOS_ID
+                w.text_font = "Helv"
+                w.text_fontsize = 8.5
                 w.update()
             elif fn in pdf_values:
                 w.field_value = pdf_values[fn]
-                # Golden calibrated auto-fit font sizes
-                if fn == 'Text Field49':
-                    w.text_fontsize = 8.65
-                    w.text_font = "Helv"
-                elif fn in ['Text Field50', 'Text Field51']:
-                    w.text_fontsize = 8.8
-                    w.text_font = "Helv"
-                elif fn == 'Text Field3':
-                    w.text_fontsize = 6.5
-                elif fn == 'Text Field7':
-                    w.text_fontsize = 8.0
-                elif fn in ['Text Field13', 'Text Field14', 'Text Field15', 'Text Field16', 'Text Field17', 'Text Field21']:
-                    w.text_fontsize = 7.5
-                elif fn in ['Text Field22', 'Text Field23']:
-                    w.text_fontsize = 5.5
-                elif fn in ['Text Field30', 'Text Field32']:
-                    w.text_fontsize = 8.5
-                    w.text_font = "Helv"
-                elif fn in ['Text Field31', 'Text Field33']:
-                    w.text_fontsize = 9.5
-                    w.text_font = "Helv"
-                elif fn in ['Text Field43', 'Text Field44']:
-                    w.text_fontsize = 6.5
-                    w.text_font = "Helv"
+                w.text_font = "Helv"
+                w.text_fontsize = field_font_sizes.get(fn, 8.5)
                 w.update()
             elif fn in cb_values:
                 w.field_value = cb_values[fn]
