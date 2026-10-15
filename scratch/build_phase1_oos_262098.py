@@ -251,7 +251,7 @@ def build_master_word_doc():
             f"Processing Analyst:\r{ORIG_PROCESSOR} ({ORIG_PROCESSOR_INIT})\r \r"
             f"Reading Analyst:\r{ORIG_READER} ({ORIG_READER_INIT})"
         ),
-        "analyst_signature": f"{ORIG_PROCESSOR} (Written by: Qiyue Chen)",
+        "analyst_signature": f"{ORIG_PROCESSOR} (Written by Qiyue Chen)",
         "smart_incident_opening": f"On {ORIG_READ_DATE}, sample {ORIG_SAMPLE_ID} was found positive for viable microorganisms after USP <71> sterility testing.",
         "usp71_id": "E001316",
         "reader_name": ORIG_READER
@@ -363,7 +363,7 @@ def build_official_pdf_form():
     
     pdf_values = {
         # Page 1
-        'Text Field0': f"{ORIG_PROCESSOR} (written by: Qiyue Chen)",
+        'Text Field0': f"{ORIG_PROCESSOR} (Written by Qiyue Chen)",
         'Date Field0': ORIG_PROCESS_DATE,
         'Date Field1': ORIG_READ_DATE,
         'Date Field2': ORIG_READ_DATE,
@@ -502,7 +502,7 @@ def build_official_pdf_form():
     # Authentic human typography mapping (CORP-FORM-21 standard 8.5 pt default)
     field_font_sizes = {
         # Page 1
-        'Text Field0': 5.6,   # Alex Saravia (written by: Qiyue Chen) (fits 100.5pt box cleanly with zero overflow)
+        'Text Field0': 0.0,   # Alex Saravia (Written by Qiyue Chen) (auto-fit 0.0 eliminates Acrobat [+] overflow badge)
         'Date Field0': 8.5,
         'Date Field1': 8.5,
         'Date Field2': 8.5,
