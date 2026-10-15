@@ -334,8 +334,8 @@ def build_master_word_doc():
                 p3_parent.insert(idx3 + 1, p_t3_heading)
                 p3_parent.insert(idx3 + 2, new_t3_elem)
 
-    out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
-    out_docx_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.docx")
+    out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - Phase I.docx")
+    out_docx_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - Phase I.docx")
     tpl.save(out_docx_desktop)
     tpl.save(out_docx_docs)
     tpl.save(os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.docx"))
@@ -605,7 +605,35 @@ def build_official_pdf_form():
             except Exception as e:
                 print(f"Note copying {c21_name}:", e)
     
-    # Append Master Tables PDF (Pages 7 & 8, containing both samples)
+    # 1. Assemble Phase I official report (6-page Phase 1 Form + 1-page Phase I Standalone Tables = 7 pages)
+    tables_p1_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf")
+    if not os.path.exists(tables_p1_pdf):
+        tables_p1_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf")
+
+    writer_p1 = PdfWriter(clone_from=temp_form_pdf)
+    if os.path.exists(tables_p1_pdf):
+        p1_reader = PdfReader(tables_p1_pdf)
+        for p in p1_reader.pages:
+            writer_p1.add_page(p)
+        print("Appended Phase I Standalone Tables. Total pages:", len(writer_p1.pages))
+
+    out_p1_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - Phase I - QYC.pdf")
+    with open(out_p1_docs, "wb") as f:
+        writer_p1.write(f)
+    print("Official Phase I PDF saved to Documents:", out_p1_docs)
+
+    for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR, OUTPUT_DIR]:
+        for alias in [
+            f"OOS-{OOS_ID} {CLIENT_NAME} - Phase I - QYC.pdf",
+            f"OOS-{OOS_ID} {CLIENT_NAME} - Phase I.pdf",
+            f"OOS-{OOS_ID} - {CLIENT_NAME} - {ORIG_SAMPLE_ID} - P1 - Signed by QYC.pdf"
+        ]:
+            try:
+                shutil.copy2(out_p1_docs, os.path.join(dest_dir, alias))
+            except Exception as e:
+                print(f"Note copying {alias}:", e)
+
+    # 2. Append Master Tables PDF (Pages 7 & 8, containing both samples) for Full Compendial USP <71> Master Report
     tables_pdf = os.path.join(OUTPUT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
     if not os.path.exists(tables_pdf):
         tables_pdf = os.path.join(DESKTOP_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
@@ -617,26 +645,16 @@ def build_official_pdf_form():
             writer.add_page(p)
         print("Appended Master Tables. Total pages:", len(writer.pages))
         
-    out_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-    
     with open(out_pdf_docs, "wb") as f:
         writer.write(f)
-    print("Master PDF saved to Documents:", out_pdf_docs)
     
     for dest_dir in [DESKTOP_DIR, DOCUMENTS_DIR, OUTPUT_DIR]:
-        dest_pdf = os.path.join(dest_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-        if os.path.abspath(dest_pdf) != os.path.abspath(out_pdf_docs):
-            try:
-                shutil.copy2(out_pdf_docs, dest_pdf)
-                print("Master PDF saved to:", dest_pdf)
-            except Exception as e:
-                print("PDF copy note:", e)
-        for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - Revised.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - P1_Report.pdf"]:
+        for alias in [f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf", f"OOS-{OOS_ID} {CLIENT_NAME} - USP71 - QYC.pdf"]:
             try:
                 shutil.copy2(out_pdf_docs, os.path.join(dest_dir, alias))
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Note copying {alias}:", e)
 
 if __name__ == "__main__":
     print("=== Building Corrected Phase 1 Deliverables for OOS-262098 (Original Test Only) ===")
