@@ -195,6 +195,7 @@ pdf_map = {
 
 assert_no_hallucinations(pdf_map)
 writer = PdfWriter(clone_from=base_pdf)
+writer.set_need_appearances_writer(True)
 for p in writer.pages:
     writer.update_page_form_field_values(p, pdf_map)
 
@@ -209,56 +210,10 @@ if os.path.exists(table_pdf_path):
 out_p2_pdf = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II.pdf")
 with open(out_p2_pdf, "wb") as f:
     writer.write(f)
-print("Saved Phase II PDF:", out_p2_pdf)
+print("Saved Phase II PDF with Auto Font Size:", out_p2_pdf)
 
-# Calibrate font sizes with PyMuPDF
+# Ensure checkboxes are crisp while keeping all text fields in 100% native AUTO font size
 doc_fitz = fitz.open(out_p2_pdf)
-font_sizes = {
-    # Page 1
-    "Text Field0": 8.5,
-    "Date Field0": 8.5,
-    "Text Field1": 5.5,
-    "Text Field2": 5.8,
-    "Text Field3": 8.5,
-    "Text Field4": 8.5,
-    "Text Field5": 8.5,
-    "Text Field6": 5.0,
-    "Text Field7": 5.0,
-    "Text Field8": 6.0,
-    "Text Field9": 6.5,
-    "Text Field10": 3.8,
-    "Text Field11": 6.5,
-    "Text Field12": 6.5,
-    "Text Field13": 7.5,
-    "Text Field14": 7.5,
-    "Text Field15": 3.8,
-    "Text Field16": 7.05,
-    "Text Field17": 7.05,
-    "Text Field18": 8.5,
-    "Date Field1": 8.5,
-    "Text Field19": 8.5,
-    "Text Field20": 8.5,
-    
-    # Page 2
-    "Text Field21": 8.0,
-    "Text Field22": 9.2,
-    
-    # Page 3
-    "Text Field23": 9.2,
-    
-    # Page 4
-    "Text Field24": 7.7,  # Calibrated for enriched non-uniform distribution justification
-    
-    # Page 5
-    "Text Field25": 6.8,
-    "Text Field26": 5.0,
-    "Text Field27": 7.5,
-    "Text Field28": 7.0,
-    "Date Field3": 8.5,
-    "Date Field4": 8.5,
-    "Text Field30": 8.5,
-}
-
 cb_states = {
     # Page 1
     "Check Box0": "Yes", "Check Box1": "Off",
@@ -295,19 +250,20 @@ cb_states = {
 
 for page in doc_fitz:
     for w in page.widgets():
-        if w.field_name in font_sizes:
-            w.text_fontsize = font_sizes[w.field_name]
-            w.text_font = "Helv"
-            w.update()
-        elif w.field_name in cb_states:
+        if w.field_type_string == 'CheckBox' and w.field_name in cb_states:
             w.field_value = cb_states[w.field_name]
+            w.update()
+        elif w.field_type_string == 'Text':
+            # Strictly preserve AUTO font size (0.0 pt) so user can add blank lines and font scales dynamically
+            w.text_fontsize = 0
+            w.text_font = "Helv"
             w.update()
 
 out_tuned = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II_tuned.pdf")
 doc_fitz.save(out_tuned)
 doc_fitz.close()
 shutil.copy2(out_tuned, out_p2_pdf)
-print("Calibrated font sizes and finalized Phase II PDF!")
+print("Saved 100% Auto-Font Size Phase II PDF!")
 
 # Extract and transcribe pure 5-page Phase II form to official CORP-FORM-22
 doc_p2_form = fitz.open(out_tuned)
