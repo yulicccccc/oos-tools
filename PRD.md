@@ -587,15 +587,20 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
               - `Text Field43` 培养箱与传感器分行（`Incubator E001034\r \r(Sensor E001501)\r \r...`），`Text Field44` 校准期分行（`Aug 2027\r \rFeb 2027\r \r...`），右侧追加 BSC E001312 (`Jun 2027`) 与 BSC E001937 (`Jul 2027`)，字号严格设为 `8.5pt`，实现 1:1 绝对横向基准线对齐。
               - `Text Field22` 与 `Text Field23` 耗材栏字号设为 `6.0pt`。
               - `Text Field24`、`25`、`26` 严格填入官方确证阳性对照：`C. albicans`、`06122026-10231-CA`、`11Jun28`。
-              - `Text Field32`、`33` 洁净室认证多套间分行规范：`E001738 (Suite 116)\rE001978 (L-Suite)` 与 `Dec 2026\rDec 2026`（字号 4.4pt，**严禁使用 "&" 连接符**）。
+              - `Text Field32`、`33` 洁净室认证多套间分行规范：`E001738 (CR116)\rE001978 (CR144)` 与 `Dec 2026\rDec 2026`（字号 4.4pt，具体到房间代号，**严禁使用 "&" 连接符**）。
             - **Page 3 / 4 / 5 正文紧凑版面流转**:
               - Page 3 (`Text Field49`, 9.2pt): 样品前处理、双重漂白水消毒、套间压差、BSC 认证、过滤前设置、检验结果描述及 Table 2 引入（p1 至 p9，规范使用 `MICRO-SOP-2`）。
               - Page 4 (`Text Field50`, 8.1pt): 严格以 `Environmental Monitoring (EM) Recoveries Review:` 起首（p10 至 p17）：
                 - ISO 5 与人员评估：严格去除 "100%" 绝对化用语，标准表述为 `absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing`。
-                - 洁净室环境评估：周检浮游菌语法修正为 `in the ISO 7 cleanrooms (145 and 144)`，外围 ISO 8 检出与待测样形态对照排查及压差屏障防守。
-                - 月度清洁：明确核实并记录为 `30Aug26`，所有化学指示卡合格。
-                - 6 个月客户批次历史真实审计：确证存在 1 起先前失败事件 `OOS-262106`（检验日期 10Sep26，样品 ETX-260908-0694，批号 19622，GL/MRB）。采用极简精准官方句式：`Analyzing a 6-month sample history for GoGoMeds Select (E10747), this specific analyte "Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%" has had one prior failure, documented under OOS-262106 for submission ETX-260908-0694, tested on 10Sep26.`，精简聚焦，消除多余冗长文字。
-                - 交叉污染排查与结论：第 27 支样品，全天其余样品全阴性，无实验室可归属原因，初检 OOS 判定有效。
+                - 洁净室环境评估：周检浮游菌语法修正为 `in the ISO 7 cleanrooms (145 and 144)`，外围 ISO 8 检出与待测样形态对照排查及压差屏障防守；ISO 8 暴露技术防守用语统一规范为 `"There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites."`（绝不可写成绝对化的 "does not come into contact with ambient ISO 8 air"）。
+                - 月度清洁：明确核实并精确拆分记录为 `16Aug26 for CR116 and 30Aug26 for L-Suite`，所有化学指示卡合格。
+                - 6 个月客户批次历史真实审计与三步曲闭环：确证存在 1 起先前失败事件 `OOS-262106`（检验日期 10Sep26，样品 ETX-260908-0694，批号 19622，GL/MRB）。严格执行 Robin Seymour 审核通过的三步曲闭环规范：
+                  1. 基础案卷陈述句（加逗号隔开）：`Analyzing a 6-month sample history for GoGoMeds Select (E10747), this specific analyte "Semaglutide R 2.5mg/ml Benzyl Alcohol 0.9%" has had one prior failure, documented under OOS-262106 for submission ETX-260908-0694, tested on 10Sep26.`
+                  2. 形态学差异对比句：`The microorganism detected in the previous investigation exhibited circular-shaped (clusters) morphology, which differs from the curved rod-shaped morphology observed in the current test sample.`
+                  3. 前案回顾闭环评价句：`The previous failure investigation was reviewed and no laboratory error or assignable laboratory cause was identified.`
+                - 交叉污染排查与结论：
+                  - 交叉污染开篇句统一规范为：`"All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination."`
+                  - 第 27 支样品，全天其余样品全阴性，最终结论法定句统一为：`"Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid."`
               - Page 5 (`Text Field51`, 11.0pt): 严格遵循标杆仅填写 **`N/A QYC 13Oct2026`**，避免跨页断行与底部多余留白。
             - **Page 6 签字栏**: Section D 复选框选择 `Check Box88`（'No, the OOS result is valid.'），调查人 `Text Field53` 规范填写 `Qiyue Chen`（7.5pt）。
             - **Page 7 附表集成**: Standalone Table 1 & Table 2 完美整合为第 7 页，内嵌 Sample ID 与全部阳性 EM 培养皿的 live 原生可点击超链接，总页数严格锁定为 7 页。
