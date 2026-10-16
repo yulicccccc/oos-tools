@@ -767,7 +767,8 @@ if st.session_state.report_generated:
             'Text Field50': smart_phase1_part2
         }
         if os.path.exists("ScanRDI OOS template.pdf"):
-            writer = PdfWriter(clone_from="ScanRDI OOS template.pdf"); 
+            writer = PdfWriter(clone_from="ScanRDI OOS template.pdf")
+            writer.set_need_appearances_writer(True)
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
             pdf_form_buf = io.BytesIO(); writer.write(pdf_form_buf); pdf_form_buf.seek(0)
     except Exception as e: st.error(f"PDF Form Error: {e}")
@@ -874,6 +875,7 @@ def generate_p2_docs():
                 "Text Field9": smart_bsc_list, "Text Field10": smart_suite_list, "Text Field22": smart_p1_block, "Text Field23": smart_p2_narrative
             }
             writer = PdfWriter(clone_from="ScanRDI OOS P2 template.pdf")
+            writer.set_need_appearances_writer(True)
             for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
             p2_pdf_buf = io.BytesIO(); writer.write(p2_pdf_buf); p2_pdf_buf.seek(0)
         except Exception as e: st.error(f"P2 PDF Error: {e}")

@@ -739,7 +739,8 @@ if st.session_state.report_generated:
         if os.path.exists("Celsis OOS P1 template.pdf"):
             try:
                 from pypdf import PdfWriter
-                writer = PdfWriter(clone_from="Celsis OOS P1 template.pdf") 
+                writer = PdfWriter(clone_from="Celsis OOS P1 template.pdf")
+                writer.set_need_appearances_writer(True)
                 for p in writer.pages: writer.update_page_form_field_values(p, pdf_map)
                 pdf_form_buf = io.BytesIO(); writer.write(pdf_form_buf); pdf_form_buf.seek(0)
             except Exception as e: st.error(f"PDF Form Error: {e}")

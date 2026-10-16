@@ -1144,6 +1144,7 @@ def generate_em_reports():
 
             # Fill Form 1-6
             writer = PdfWriter(clone_from=target_pdf)
+            writer.set_need_appearances_writer(True)
             while len(writer.pages) > 6:
                 del writer.pages[-1]
             for page in writer.pages:
