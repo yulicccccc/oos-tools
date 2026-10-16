@@ -19,7 +19,7 @@
 2. **RULE 0B — Robin Seymour (RS) Table 2 Section Divider Standard**:
    - Banner 1: **`Personnel EM`** (Canonical: NO date suffix! In single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
    - Banner 2: **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO date suffix! In single-day bracketing, `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY` is accepted.)
-   - Banner 3 & 4: **`Weekly Active Air / Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers, NO date suffix!)
+   - Banner 3 & 4: **`Weekly Active Air / Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`** (Must list all room numbers, NO date suffix! Robin Seymour streamlined `(E001979, L-Suite)` to simply `(L-Suite)`.)
 3. **RULE 0C — Standard Microbiology SOP Designations (MICRO-SOP-2)**:
    - In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring plate incubation and facility monitoring MUST strictly cite **`MICRO-SOP-2`** (`Environmental Monitoring of the Clean-room Facility`), NEVER `SOP 2.600.002`.
 4. **RULE 0D — Zero Guessing on Positive Controls, Reagent Lots & Test Bench Data (阳性对照与核心实验台账零脑补·不明必问铁律)**:
@@ -27,20 +27,35 @@
    - **强制停步提问门禁**: 凡在 EagleTrax 系统电子记录或现场纸质扫描件中未查明阳性对照菌种及批号效期时，**必须立即停步，向用户主动提问获取**（例如直接向用户询问：“请提供本次检验的阳性对照菌种、Lot 批号与效期”），绝不允许擅自填入虚假或猜测数据导致用户被质保批评！
    - **关键实验参数零脑补延伸**: 包含生物安全柜日常消毒记录批号、双氧水指示卡/IPA 批号、培养基批号效期、设备运行 Session/Record 编号等，凡无法 100% 确认真实性的，一律先向用户确认，宁可多问一句，绝不乱写一字！
 5. **RULE 0E — Strict Prohibition of "&" in Official Report Forms & Dividers (严禁在正式报告表单与标题中使用 "&" 连接符)**:
-   - **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (Suite 116)`，第二行 `E001978 (L-Suite)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
+   - **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (CR116)`，第二行 `E001978 (CR144)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
    - **正文与标题规范**: 在段落叙述和分段横幅标题中，一律使用标准英文单词 **`and`**（如 `BSC E001312 and E001937`），绝不使用 `&`。杜绝给人以非正式、粗糙或排版怪异的印象。
 6. **RULE 0F — Strict Prohibition of Absolute Claims ("100%") in Narrative (严禁在调查报告中使用 "100%" 绝对化用语)**:
    - **cGMP 质保铁律**: 在无菌检验与环境监测 OOS 调查报告叙述中，**严禁使用 "100% absence of microbial recovery" 或 "100% sterile" 等绝对化词汇**。质保（QA/Robin Seymour）审核认为此类表述过于绝对。
    - **法定标准用语**: 必须统一规范写作：
      `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
-7. **RULE 0G — Concise Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史精炼规范与逗号断句法则)**:
-   - **精炼实用原则 (杜绝过度延伸)**: 当客户 6 个月历史中存在先前失败（Prior Failure）时，报告叙述应保持精简聚焦，直接陈述关键案卷编号、送检单号与检验日期，**无需自行添加冗长繁复的形态学对比或次序铺陈**（除非质保或用户明确特别要求）。
-   - **法定句式模板**:
-     `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
-   - **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`），确保符合英文技术写作的高级语感与非限制性状语修饰规范。
+7. **RULE 0G — Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史、形态学对比与调查评估铁律)**:
+   - **法定三步曲句式结构 (Robin Seymour 审核金标准)**:
+     - **基础陈述句**: `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
+     - **形态学差异对比句**: `The microorganism detected in the previous investigation exhibited [clustered circular-shaped / previous morphology] morphology, which differs from the [current morphology] observed in the current investigation.`
+     - **前案调查回顾与闭环评价句**: `The previous failure investigation was reviewed and no laboratory error or assignable laboratory cause was identified.`
+   - **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`）。
    - **零臆想铁律**: 绝不允许在未核查 EagleTrax 或未向用户确认的情况下，默认断言 "no prior failures"！若不确定，必须先查系统或主动询问用户。
 8. **RULE 0H — Cleanroom Plural Conjunction Standard (同级多洁净室并列使用 "and" 连词铁律)**:
    - 在描述周检浮游菌或表面监测时，并列的多间同级别洁净室必须使用连词 **`and`**，严禁使用 `or`（例如：必须写成 `in the ISO 7 cleanrooms (145 and 144)`，绝不可写成 `(145 or 144)`），以准确反映所有对应房间均实施了采样且均无微生物生长。
+9. **RULE 0I — ISO 8 Ambient Exposure Technical Defensibility (ISO 8 暴露技术防守用语规范)**:
+   - 严禁在叙述中使用绝对化无接触表述（如 "The test sample does not come into contact with ambient ISO 8 air"）。
+   - 统一使用质保认可的防御性用语：
+     `"There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites."`
+10. **RULE 0J — Multi-Suite Monthly Cleaning Historical Granularity (多套间月度清洁日期精确拆分法则)**:
+    - 涉及多套间（如 Processing 在 CR116，Changeover 在 L-Suite）时，严禁合并为单一日期，必须分别列出各自套间的真实清洁日期：
+      `"Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on the [DDMMMYY] for CR116 and [DDMMMYY] for L-Suite, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented that all chemical indicators passed, verifying that environmental sanitization remained validated and in control prior to testing."`
+11. **RULE 0K — Equipment Description Room Specificity (设备与洁净室编号精准度规范)**:
+    - 在 Page 2 设备信息栏 (`Text Field32`/`33`) 与 Word 模板 `smart_cr_id` 中，统一使用具体房间代号：
+      - 第一行：`E001738 (CR116)`
+      - 第二行：`E001978 (CR144)`
+12. **RULE 0L — Cross-Contamination Opening & Concluding Standard Phrasing (交叉污染与结论质保法定用语)**:
+    - 交叉污染段落标准起始句：`"All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination."`
+    - 调查结论标准句：`"Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid."`
 
 ## Overview
 This project contains automated reporting tools for Eagle Analytical's Out-of-Specification (OOS) investigations, specifically focusing on Sterility Testing. The core functionality generates the "Phase I Summary" narratives and extracts data to populate PDF/Word OOS reports.

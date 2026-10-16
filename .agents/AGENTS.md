@@ -37,8 +37,8 @@
 In all OOS Table 2 documents, the 4 gray section divider banners MUST strictly follow Robin Seymour's verified wording:
 1. **`Personnel EM`** (Canonical: NO date suffix! In specific single-day bracketing where QA requested, `Personnel EM for DDMMMYY` is accepted.)
 2. **`Biological Safety Cabinet EM for E00XXXX and E00YYYY`** (Canonical: NO `(BSC)`, NO repetitive `BSC`, NO date suffix! In specific single-day bracketing, `(BSC) Biological Safety Cabinet EM for BSC E00XXXX and BSC E00YYYY` is accepted.)
-3. **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (Must list all room numbers `145, 144, 143, 142` for L-Suite, or `Suite 116 (E001738)`, NO date suffix!)
-4. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (E001979, L-Suite) with Processing BSCs`** (NO date suffix!)
+3. **`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`** (Must list all room numbers `145, 144, 143, 142` for L-Suite, or `Suite 116 (E001738)`, NO date suffix! Robin Seymour streamlined `(E001979, L-Suite)` to simply `(L-Suite)`.)
+4. **`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`** (NO date suffix!)
 
 ## 🚨🚨 RULE 0C (TOP PRIORITY): Standard Microbiology SOP Designations (MICRO-SOP-2)
 In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring plate incubation and facility monitoring MUST strictly cite **`MICRO-SOP-2`** (`Environmental Monitoring of the Clean-room Facility`), NEVER `SOP 2.600.002`.
@@ -51,7 +51,7 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 ## 🚨🚨 RULE 0E (TOP PRIORITY): Strict Prohibition of "&" in Official Report Forms & Dividers (严禁在正式报告表单与标题中使用 "&" 连接符)
 **CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER use the informal ampersand `&` in official forms, equipment lists, section headers, or narrative text.
-1. **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (Suite 116)`，第二行 `E001978 (L-Suite)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
+1. **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (CR116)`，第二行 `E001978 (CR144)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
 2. **正文与标题规范**: 在段落叙述和分段横幅标题中，一律使用标准英文单词 **`and`**（如 `BSC E001312 and E001937`），绝不使用 `&`。杜绝给人以非正式、粗糙或排版怪异的印象。
 
 ## 🚨🚨 RULE 0F (TOP PRIORITY): Strict Prohibition of Absolute Claims ("100%") in Narrative (严禁在调查报告中使用 "100%" 绝对化用语)
@@ -60,18 +60,46 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 2. **法定标准用语**: 必须统一规范写作：
    `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
 
-## 🚨🚨 RULE 0G (TOP PRIORITY): Concise Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史精炼规范与逗号断句法则)
+## 🚨🚨 RULE 0G (TOP PRIORITY): Standard Phrasing for 6-Month Analyte History with Prior Failures (6 个月特定分析物历史、形态学对比与调查评估铁律)
 **CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), when documenting prior failures in a client's 6-month sample history:
-1. **精炼实用原则 (杜绝过度延伸)**: 保持聚焦简洁，直接陈述关键案卷编号、送检单号与检验日期，**无需自行添加冗长繁复的形态学对比或次序铺陈**（除非质保或用户明确特别要求）。
-2. **法定句式模板**:
-   `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
-3. **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`），确保符合英文技术写作的高级语感与非限制性状语修饰规范。
-4. **零臆想铁律**: 绝不允许在未核查 EagleTrax 或未向用户确认的情况下，默认断言 "no prior failures"！若不确定，必须先查系统或主动询问用户。
+1. **法定三步曲句式结构 (Robin Seymour 审核金标准)**:
+   - **基础陈述句**: `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
+   - **形态学差异对比句**: `The microorganism detected in the previous investigation exhibited [clustered circular-shaped / previous morphology] morphology, which differs from the [current morphology] observed in the current investigation.`
+   - **前案调查回顾与闭环评价句**: `The previous failure investigation was reviewed and no laboratory error or assignable laboratory cause was identified.`
+2. **语法与标点铁律**: 送检单号 `[ETX-ID]` 之后**必须使用逗号隔开**（`, tested on [DDMMMYY].`），杜绝介词堆叠（`under... for... on...`）。
+3. **零臆想铁律**: 绝不允许在未核查 EagleTrax 或未向用户确认的情况下，默认断言 "no prior failures"！若不确定，必须先查系统或主动询问用户。
 
 ## 🚨🚨 RULE 0H (TOP PRIORITY): Cleanroom Plural Conjunction Standard (同级多洁净室并列使用 "and" 连词铁律)
 **CRITICAL**: When describing weekly active air or surface monitoring across multiple cleanrooms of the same classification:
 1. **连词规范**: 必须使用英文连词 **`and`**，严禁使用 `or`（例如：必须写成 `in the ISO 7 cleanrooms (145 and 144)`，绝不可写成 `(145 or 144)`）。
 2. **质保依据**: 准确反映所有对应房间均实施了监测且均无微生物生长，杜绝逻辑歧义。
+
+## 🚨🚨 RULE 0I (TOP PRIORITY): ISO 8 Ambient Exposure Technical Defensibility (ISO 8 暴露技术防守用语规范)
+**CRITICAL**: Never make absolute statements regarding sample exposure to ISO 8 air (e.g. NEVER write "The test sample does not come into contact with ambient ISO 8 air").
+1. **质保依据 (Robin Seymour Review)**: 技术上更具防御性（More technically defensible statement）。
+2. **法定标准用语**:
+   `"There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites."`
+
+## 🚨🚨 RULE 0J (TOP PRIORITY): Multi-Suite Monthly Cleaning Historical Granularity (多套间月度清洁日期精确拆分法则)
+**CRITICAL**: When sample handling or changeover spans across multiple cleanroom suites (e.g. Processing in CR116, Changeover in L-Suite):
+1. **严禁混并为单一日期**: 必须精确列出对应套间各自真实的月度清洁消毒日期。
+2. **法定标准句式**:
+   `"Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on [DDMMMYY] for CR116 and [DDMMMYY] for L-Suite, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented that all chemical indicators passed, verifying that environmental sanitization remained validated and in control prior to testing."`
+
+## 🚨🚨 RULE 0K (TOP PRIORITY): Equipment Description Room Specificity (设备与洁净室编号精准度规范)
+**CRITICAL**: In Page 2 Equipment section (`Text Field32`/`33`) and Word template `smart_cr_id`:
+1. **具体房间编号优先**: 避免使用宽泛的 `Suite 116` 或 `L-Suite`，统一使用具体的洁净室代号：
+   - 第一行：`E001738 (CR116)`
+   - 第二行：`E001978 (CR144)`
+
+## 🚨🚨 RULE 0L (TOP PRIORITY): Cross-Contamination Opening & Concluding Standard Phrasing (交叉污染与结论质保法定用语)
+**CRITICAL**:
+1. **交叉污染段落标准起始句**:
+   统一使用：`"All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination."`
+   （严禁使用局限性开篇 `"The microbiological findings were also evaluated..."`，确保评估范围更广更清晰）。
+2. **结论总结段落法定标准句**:
+   统一使用：`"Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid."`
+   （替换刻板句 `"The initial Scan RDI OOS result therefore remains valid in accordance with the applicable laboratory OOS procedure."`）。
 
 ---
 
