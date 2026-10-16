@@ -121,7 +121,7 @@ pdf_map = {
         "Processing: Ayomide Odugbesi (AOD)\r"
         "Reading: Andrew Carrillo (ANC)"
     ),
-    "Text Field2": "Original test:\rETX-260902-0505\rRetest:\rETX-260914-0470",
+    "Text Field2": "Original: ETX-260902-0505\rRetest: ETX-260914-0470",
     "Text Field3": "Fail",
     "Text Field4": "Fail",
     "Text Field5": "MICRO-SOP-5",
@@ -184,7 +184,7 @@ pdf_map = {
     "Check Box52": "/Off",
     "Check Box53": "/Yes",  # Client Care notified
     "Check Box61": "/Yes",  # External Phenomena
-    "Text Field26": "Inherent Product Contamination (Lot 2608-216)",
+    "Text Field26": "",
     "Text Field27": "Client Care notified of confirmed OOS sterility failure. Lot 2608-216 rejected.",
     "Text Field28": "N/A - Failure is inherent to client product; all laboratory equipment, media, and aseptic controls conformed to approved procedures.",
     "Check Box63": "/Yes",  # CAPA required: No
@@ -218,7 +218,7 @@ font_sizes = {
     "Text Field0": 8.5,
     "Date Field0": 8.5,
     "Text Field1": 5.5,
-    "Text Field2": 6.2,
+    "Text Field2": 5.8,
     "Text Field3": 8.5,
     "Text Field4": 8.5,
     "Text Field5": 8.5,
@@ -226,12 +226,12 @@ font_sizes = {
     "Text Field7": 5.0,
     "Text Field8": 6.0,
     "Text Field9": 6.5,
-    "Text Field10": 4.5,
+    "Text Field10": 3.8,
     "Text Field11": 6.5,
     "Text Field12": 6.5,
     "Text Field13": 7.5,
     "Text Field14": 7.5,
-    "Text Field15": 4.5,
+    "Text Field15": 3.8,
     "Text Field16": 7.05,
     "Text Field17": 7.05,
     "Text Field18": 8.5,
@@ -250,7 +250,7 @@ font_sizes = {
     "Text Field24": 7.7,  # Calibrated for enriched non-uniform distribution justification
     
     # Page 5
-    "Text Field25": 7.5,
+    "Text Field25": 6.8,
     "Text Field26": 5.0,
     "Text Field27": 7.5,
     "Text Field28": 7.0,
@@ -343,12 +343,16 @@ except Exception:
 # Copy QYC PDF
 qyc_pdf = os.path.join(OUTPUT_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf")
 shutil.copy2(out_p2_pdf, qyc_pdf)
-try:
-    shutil.copy2(out_p2_pdf, os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
-except Exception:
-    pass
-try:
-    shutil.copy2(out_p2_pdf, os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"))
-except Exception:
-    pass
+for dest in [
+    os.path.join(DESKTOP_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"),
+    os.path.join(DESKTOP_DIR, "OOS-262098 - Solyn LLC (E75000) - ETX-260914-0470 - P2 - Signed by QYC.pdf"),
+    os.path.join(DOCUMENTS_DIR, "OOS-262098 Solyn LLC (E75000) - Phase II - QYC.pdf"),
+    os.path.join(DOCUMENTS_DIR, "OOS-262098 - Solyn LLC (E75000) - ETX-260914-0470 - P2 - Signed by QYC.pdf"),
+]:
+    try:
+        shutil.copy2(out_p2_pdf, dest)
+        print("Updated:", dest)
+    except Exception as e:
+        print("Notice copying to", dest, e)
+
 print("Synced to Desktop and Documents successfully!")
