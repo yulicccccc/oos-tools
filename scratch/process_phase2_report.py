@@ -95,7 +95,6 @@ p24 = (
     "contamination isolate (Microbacterium sp. PM5). The ISO 5 critical zones in BSC E001314 remained completely sterile (0 CFU) and in optimal control throughout testing, "
     "with positive pressure cascades preventing anteroom air ingress. (Refer to Table 1 for sample details, Table 2 for environmental monitoring from processing "
     "performed on 04Sep26, and Table 3 for environmental monitoring from processing performed on 15Sep26).\r \r"
-    "EVALUATION OF RETEST FINDINGS AND JUSTIFICATION OF PRIOR SCANRDI RESULT:\r"
     "The replication of microbial recovery in the independent retest - conducted by a different processing analyst (Ayomide Odugbesi) "
     "in a different cleanroom suite (Cleanroom Suite 115 vs. Suite 114) and a different prepping/reading analyst (Andrew Carrillo) - conclusively "
     "confirms that the microbial recovery was not an isolated laboratory anomaly, as the identical microorganism (Microbacterium sp. PM5) was recovered "
