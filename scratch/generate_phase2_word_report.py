@@ -139,6 +139,17 @@ doc_tpl = DocxTemplate(tpl_path)
 assert_no_hallucinations(data)
 doc_tpl.render(data)
 
+# Set Section F Prepared by in Table 0
+if len(doc_tpl.docx.tables) > 0:
+    t0 = doc_tpl.docx.tables[0]
+    if len(t0.rows) > 44:
+        t0.rows[42].cells[2].text = "Print Name:\nQiyue Chen"
+        t0.rows[42].cells[10].text = "Date:\n16-Oct-2026"
+        t0.rows[43].cells[2].text = "Print Name:"
+        t0.rows[43].cells[10].text = "Date:"
+        t0.rows[44].cells[2].text = "Print Name:"
+        t0.rows[44].cells[10].text = "Date:"
+
 # Embed Table 1, Table 2, and Table 3 with Headings from Phase II Table docx
 table_docx_path = os.path.join(OUTPUT_DIR, "Tables OOS-262098 Solyn LLC (E75000) - Phase II.docx")
 if os.path.exists(table_docx_path):

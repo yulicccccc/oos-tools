@@ -190,14 +190,30 @@ pdf_map = {
     "Check Box51": "/Yes",  # Root cause identified
     "Check Box52": "/Off",
     "Check Box53": "/Yes",  # Client Care notified
-    "Check Box61": "/Yes",  # External Phenomena
+    "Check Box54": "/Off",
+    
+    # Section E (cleared per user request)
     "Text Field26": "",
-    "Text Field27": "Client Care notified of confirmed OOS sterility failure. Lot 2608-216 rejected.",
-    "Text Field28": "N/A - Failure is inherent to client product; all laboratory equipment, media, and aseptic controls conformed to approved procedures.",
-    "Check Box63": "/Yes",  # CAPA required: No
-    "Check Box65": "/Yes",  # Follow-up required: No
-    "Date Field3": "08-Oct-2026",
-    "Date Field4": "08-Oct-2026",
+    "Text Field27": "",
+    "Text Field28": "",
+    "Text Field29": "",
+    "Date Field2": "",
+    "Check Box55": "/Off",
+    "Check Box56": "/Off",
+    "Check Box57": "/Off",
+    "Check Box58": "/Off",
+    "Check Box59": "/Off",
+    "Check Box60": "/Off",
+    "Check Box61": "/Off",
+    "Check Box62": "/Off",
+    "Check Box63": "/Off",
+    "Check Box64": "/Off",
+    "Check Box65": "/Off",
+    
+    # Section F
+    "Date Field3": "16-Oct-2026",
+    "Date Field4": "",
+    "Date Field5": "",
 }
 
 assert_no_hallucinations(pdf_map)
@@ -250,14 +266,32 @@ cb_states = {
     "Check Box51": "Yes", "Check Box52": "Off",
     "Check Box53": "Yes", "Check Box54": "Off",
     "Check Box55": "Off", "Check Box56": "Off", "Check Box57": "Off", "Check Box58": "Off", "Check Box59": "Off", "Check Box60": "Off",
-    "Check Box61": "Yes", "Check Box62": "Off",
-    "Check Box63": "Yes", "Check Box64": "Off",
-    "Check Box65": "Yes", "Check Box66": "Off"
+    "Check Box61": "Off", "Check Box62": "Off",
+    "Check Box63": "Off", "Check Box64": "Off",
+    "Check Box65": "Off", "Check Box66": "Off"
 }
 
 for page in doc_fitz:
     for w in page.widgets():
-        if w.field_type_string == 'CheckBox' and w.field_name in cb_states:
+        if w.field_name == 'Signature_0':
+            xref = w.xref
+            doc_fitz.xref_set_key(xref, 'FT', '/Tx')
+            doc_fitz.xref_set_key(xref, 'V', '(Qiyue Chen)')
+            doc_fitz.xref_set_key(xref, 'DV', '(Qiyue Chen)')
+            doc_fitz.xref_set_key(xref, 'DA', '(/Helv 8.5 Tf 0 0 0 rg)')
+            w.field_value = 'Qiyue Chen'
+            w.text_font = 'Helv'
+            w.text_fontsize = 8.5
+            w.update()
+        elif w.field_name == 'Date Field3':
+            w.field_value = '16-Oct-2026'
+            w.text_font = 'Helv'
+            w.text_fontsize = 8.5
+            w.update()
+        elif w.field_name in ['Date Field4', 'Date Field5', 'Text Field26', 'Text Field27', 'Text Field28', 'Text Field29', 'Date Field2']:
+            w.field_value = ''
+            w.update()
+        elif w.field_type_string == 'CheckBox' and w.field_name in cb_states:
             w.field_value = cb_states[w.field_name]
             w.update()
         elif w.field_type_string == 'Text':
