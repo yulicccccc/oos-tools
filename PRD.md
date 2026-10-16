@@ -605,6 +605,24 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - **Page 6 签字栏**: Section D 复选框选择 `Check Box88`（'No, the OOS result is valid.'），调查人 `Text Field53` 规范填写 `Qiyue Chen`（7.5pt）。
             - **Page 7 附表集成**: Standalone Table 1 & Table 2 完美整合为第 7 页，内嵌 Sample ID 与全部阳性 EM 培养皿的 live 原生可点击超链接，总页数严格锁定为 7 页。
 
+    52. **Native Auto Font Size (fs=0) for ALL PDF Form Transcriptions (全 OOS 模块 PDF 表单转录原生 Auto 字号永久铁律 - 🚨 终极锁定):**
+        *   **🚨 血的教训与根本病灶剖析 (Root Cause of "Locked Font Size" Bug):** 在 OOS-262098 Phase II 转录过程中发现：旧版转录脚本使用 PyMuPDF (`fitz`) 遍历所有文本控件并强制设置 `w.text_fontsize = <固定值>`（如 8.5, 9.2, 5.8, 3.8 pt），这会将 PDF 原生 `/DA` 字符串从 `Helv 0.000 Tf`（Auto 自适应）覆盖为 `Helv 8.5 Tf`（固定死字号）。一旦字号被锁死，用户在 Foxit/Acrobat 中编辑内容（如添加空行或修改文字）时，文本将无法动态缩放，丧失了人类手动在 PDF 中复制粘贴的原生体验。
+        *   **1. 绝对禁止硬编码固定字号 (Strict Ban on Hardcoded Font Sizes via fitz):**
+            - 在所有 OOS 模块（`ScanRDI`、`Celsis`、`USP <71>`、`EM`）的 PDF 表单转录脚本中，**严禁通过 `fitz` / PyMuPDF 的 `w.text_fontsize = <任何非零数值>` 来设置文本框字号！**
+            - 仅允许对 Checkbox 控件执行 `fitz` widget 操作（勾选/取消勾选），所有文本字段的值写入必须且仅能通过 `pypdf` 的 `update_page_form_field_values()` 完成。
+        *   **2. 强制启用 NeedAppearances (Mandatory NeedAppearances Flag):**
+            - 在 pypdf `PdfWriter` 中，必须调用 `writer.set_need_appearances_writer(True)`（或等效方法），指示 PDF 阅读器（Foxit/Acrobat）在打开文档时自动重新生成外观流（Appearance Stream），从而实现字体大小动态自适应。
+        *   **3. 如必须操作 fitz 文本控件则强制设为 0 (If fitz Text Widgets Must Be Touched, Force fs=0):**
+            - 在极端特殊场景下（如无法完全避免 fitz 文本控件操作），**必须显式设置 `w.text_fontsize = 0`（Auto）**，绝不允许设置为任何正数固定值。
+        *   **4. 官方空白模板验证基准 (Official Blank Template Baseline):**
+            - 经验证，ZenQMS 官方下载的空白表单（`CORP-FORM-21` 与 `CORP-FORM-22`）所有文本字段原生均为 `fs=0.0`（Auto）。转录脚本的目标是 100% 保留这一原生状态，使最终产出与人类在 Foxit 中手动复制粘贴的效果完全一致。
+        *   **5. 全模块全阶段覆盖 (Universal Scope — All Modules, All Phases):**
+            - 此规则适用于所有当前与未来的 OOS 调查报告转录流程，包括但不限于：
+              - Phase I 转录（`CORP-FORM-21 / 3.100.019.F01`）
+              - Phase II 转录（`CORP-FORM-22 / 3.100.019.F02`）
+              - EM 转录、独立表格 PDF 生成等
+            - **永久锁定，不可逆！**
+
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.

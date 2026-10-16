@@ -809,3 +809,19 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
    - 无论是在 Phase I 报告后附带的表格，还是 Phase II 报告后附带的表格，表格附件均为统一的 Master Tables 完整母表（Table 1 双样本 + Table 2 初始环境 + Table 3 复测环境）！
 3. **严禁混淆与机械类比：**
    - 绝不能看到“其他只有 Phase I 的案子表格只有 1 个样本”，就盲目将“有 Phase II 的案子”的 Phase I 附件表格强行裁剪成单样本！两类案子的业务场景截然不同！对于存在 Phase II 的 OOS 案卷，Table 1 必须全量统筹双样本呈现。
+
+### 38. Native Auto Font Size (fs=0) for ALL PDF Form Transcriptions (全 OOS 模块 PDF 表单转录原生 Auto 字号永久铁律 - 🚨 终极锁定)
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), when transcribing data into official PDF forms (such as `CORP-FORM-21 / 3.100.019.F01` and `CORP-FORM-22 / 3.100.019.F02`):
+1. **Root Cause of "Locked Font Size" Bug (病灶与血的教训)**:
+   - Scripts using PyMuPDF (`fitz`) that manually set `w.text_fontsize = <fixed_value>` overwrite the PDF's native `/DA` appearance string from `Helv 0.000 Tf` (Auto) to a fixed font size (e.g. `Helv 8.5 Tf`).
+   - This locks field sizes, preventing Foxit PhantomPDF / Adobe Acrobat from dynamically autoscaling text when line breaks or edits occur, destroying the authentic human copy-paste experience.
+2. **Strict Ban on Hardcoded Font Sizes via fitz (严禁在 fitz 中写死文本字号)**:
+   - NEVER set `w.text_fontsize = <positive_number>` on text fields.
+   - Text fields must be filled via `pypdf`'s `update_page_form_field_values()`.
+   - `fitz` widget updates are ONLY allowed for checkboxes (toggling `/Yes` / `Off`).
+   - If a text widget must be touched via fitz in extreme circumstances, explicitly force `w.text_fontsize = 0` (Auto).
+3. **Mandatory NeedAppearances Flag (强制开启外观动态重构)**:
+   - Always call `writer.set_need_appearances_writer(True)` on `pypdf.PdfWriter` to instruct PDF viewers to dynamically render appearance streams on open.
+4. **Official Blank Form Native Baseline (官方原生 Auto 基准)**:
+   - Blank ZenQMS official forms natively have `fs=0.0` (Auto) across all text fields. Transcriptions MUST preserve this native state 100%.
+
