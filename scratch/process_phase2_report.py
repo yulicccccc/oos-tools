@@ -125,11 +125,11 @@ pdf_map = {
     "Text Field0": "GLP3R/Cagrilinitide",
     "Date Field0": "15-Sep-2026",
     "Text Field1": (
-        "Prepping: Andrew Carrillo (ANC)\r"
-        "Processing: Ayomide Odugbesi (AOD)\r"
+        "Prepping: Andrew Carrillo (ANC)\r \r"
+        "Processing: Ayomide Odugbesi (AOD)\r \r"
         "Reading: Andrew Carrillo (ANC)"
     ),
-    "Text Field2": "Original: ETX-260902-0505\rRetest: ETX-260914-0470",
+    "Text Field2": "Original: ETX-260902-0505\r \rRetest: ETX-260914-0470",
     "Text Field3": "Fail",
     "Text Field4": "Fail",
     "Text Field5": "MICRO-SOP-5",

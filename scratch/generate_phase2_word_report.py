@@ -122,14 +122,11 @@ data = {
     "retest_date": "15-Sep-2026",
     "smart_original_result_str": "Fail",
     "smart_retest_personnel_block": (
-        "Prepping Analyst:\n"
-        "Andrew Carrillo (ANC)\n\n"
-        "Processing Analyst:\n"
-        "Ayomide Odugbesi (AOD)\n\n"
-        "Reading Analyst:\n"
-        "Andrew Carrillo (ANC)"
+        "Prepping: Andrew Carrillo (ANC)\n\n"
+        "Processing: Ayomide Odugbesi (AOD)\n\n"
+        "Reading: Andrew Carrillo (ANC)"
     ),
-    "smart_sample_id_block": "Original test:\nETX-260902-0505\n\nRetest:\nETX-260914-0470",
+    "smart_sample_id_block": "Original: ETX-260902-0505\n\nRetest: ETX-260914-0470",
     "smart_retest_result_str": "Fail",
     "smart_retest_scan_id": "ISO 5 BSC E001316, ISO 5 BSC E001314",
     "smart_retest_bsc_list": "CR 114 (E001736) and CR 115 (E001737)",
