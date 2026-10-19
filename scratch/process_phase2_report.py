@@ -265,17 +265,7 @@ cb_states = {
 
 for page in doc_fitz:
     for w in page.widgets():
-        if w.field_name == 'Signature_0':
-            xref = w.xref
-            doc_fitz.xref_set_key(xref, 'FT', '/Tx')
-            doc_fitz.xref_set_key(xref, 'V', '(Qiyue Chen)')
-            doc_fitz.xref_set_key(xref, 'DV', '(Qiyue Chen)')
-            doc_fitz.xref_set_key(xref, 'DA', '(/Helv 8.5 Tf 0 0 0 rg)')
-            w.field_value = 'Qiyue Chen'
-            w.text_font = 'Helv'
-            w.text_fontsize = 8.5
-            w.update()
-        elif w.field_name == 'Date Field3':
+        if w.field_name == 'Date Field3':
             w.field_value = '16-Oct-2026'
             w.text_font = 'Helv'
             w.text_fontsize = 8.5
