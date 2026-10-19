@@ -861,3 +861,12 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 1. **Role Demarcation**: In `CORP-FORM-22`, `Section E – Corrective Actions and Preventive Actions / Additional Evaluation` is reserved for QA management / supervisor disposition.
 2. **Default Leave Blank**: Analysts/investigators must leave Section E empty/unfilled by default, unless explicit CAPA instructions are provided in writing by QA/management.
 
+### 43. Proactive Official ZenQMS Form Transcription Reminder (主动提醒官方表单转录常态化铁律 - 🚨 终极锁定)
+**CRITICAL**: Every new OOS investigation requires filling out a freshly downloaded, same-day ZenQMS official PDF form (`CORP-FORM-21 / 3.100.019.F01` for Phase I, or `CORP-FORM-22 / 3.100.019.F02` for Phase II). Manual entry into 150+ fields is tedious and error-prone.
+1. **Mandatory Proactive Reminder (完成即提醒门禁)**:
+   - Whenever drafting, data reconciliation, or Word report generation is completed, the agent **MUST ALWAYS proactively remind the user to perform the official PDF transcription**.
+   - Standard Reminder:
+     `"💡【官方表单转录提醒】：检测叙述与台账数据已全部就绪！请问你今天从 ZenQMS 下载了最新空白官方 PDF 表单（CORP-FORM-21 或 CORP-FORM-22）吗？如果有，请直接将文件或路径告诉我，我将立即为你自动执行 100% 官方表单转录、自动字号匹配（Auto Font Size）与附件表格合成！"`
+2. **Auto-Detection**: If a freshly downloaded blank form already exists in Desktop, Downloads, or repository directories, the agent should proactively offer to execute the transcription script immediately.
+
+

@@ -648,6 +648,14 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **调查员权限边界**: 在 `CORP-FORM-22` 中，`Section E – Corrective Actions and Preventive Actions / Additional Evaluation` 通常属于质保（QA）或管理层在完成综合调查后的纠正预防措施制定权限范围。
         *   **默认留空防越权**: 除非质保主管或用户有极其明确的书面指令，调查员在起草报告时**绝不可擅自填写 Section E**。默认必须保持 Section E 完全留空，防止因擅自设定不当 CAPA 而触犯合规红线。
 
+    57. **Proactive Official ZenQMS Form Transcription Reminder & Workflow (主动提醒/一键触发官方表单转录常态化铁律 - 🚨 终极锁定):**
+        *   **业务痛点与用户诉求**: 每一起 OOS 调查案件立案时，质保（QA/ZenQMS）都会下发一份全新的当日有效空白官方 PDF 表单（Phase I 为 `CORP-FORM-21 / 3.100.019.F01`，Phase II 为 `CORP-FORM-22 / 3.100.019.F02`）。手动在 PDF 中逐格填入 150+ 个表单字段和勾选数十个复选框极其繁琐耗时，且极易遗漏。
+        *   **强制主动提醒门禁 (Mandatory Proactive Reminder Gate):**
+            - 在任何 OOS 调查案件的检测数据梳理、叙述初稿起草、或 Word 报告生成完毕后，**AI 必须在回复的最末尾主动提醒用户进行官方表单转录**！
+            - **标准主动提醒话术**:
+              `"💡【官方表单转录提醒】：检测叙述与台账数据已全部核验完成！请问你今天从 ZenQMS 下载了最新空白官方 PDF 表单（CORP-FORM-21 或 CORP-FORM-22）吗？如果有，请直接将文件或路径告诉我，我将立即为你自动执行 100% 官方表单转录、自动字号匹配（Auto Font Size）与附件表格合成，省去手动复制粘贴的繁琐操作！"`
+            - 若用户已将空白表单放置于桌面或工作目录，AI 应当主动检测并提议直接执行一键转录。
+
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.
