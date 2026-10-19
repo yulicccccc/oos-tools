@@ -179,13 +179,13 @@ def build_standalone_tables_doc():
 
     t2_widths = [
         Inches(1.05), # Sampling site
-        Inches(0.65), # Frequency
-        Inches(0.70), # Date (DDMMMYY)
-        Inches(0.55), # Analyst
-        Inches(1.15), # Day / Week(s)
-        Inches(1.15), # Observation
-        Inches(0.85), # EM Plate ETX Number
-        Inches(0.80), # Microbial ID
+        Inches(0.55), # Frequency
+        Inches(0.60), # Date (DDMMMYY)
+        Inches(0.50), # Analyst
+        Inches(0.95), # Day / Week(s)
+        Inches(0.95), # Observation
+        Inches(0.90), # EM Plate ETX Number
+        Inches(1.40), # Microbial ID
         Inches(0.60)  # Notes
     ]
 
@@ -285,13 +285,13 @@ def build_standalone_tables_doc():
     p_i1.paragraph_format.space_before = Pt(0)
     p_i1.paragraph_format.space_after = Pt(0)
     p_i1.paragraph_format.line_spacing = 1.0
-    r_i1_a = p_i1.add_run("S. epidermidis\n")
+    r_i1_a = p_i1.add_run("Staphylococcus epidermidis\n")
     r_i1_a.font.name = 'Times New Roman'
-    r_i1_a.font.size = Pt(6.2)
+    r_i1_a.font.size = Pt(6.0)
     r_i1_a.italic = True
     r_i1_b = p_i1.add_run("(Gram (+) cocci)")
     r_i1_b.font.name = 'Times New Roman'
-    r_i1_b.font.size = Pt(5.8)
+    r_i1_b.font.size = Pt(5.6)
 
     # Row 2 (142): 5 CFUs
     format_cell(r_air2.cells[5], "5 CFUs\n(ISO 8 142)", bold=False, font_size=Pt(6.5), align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -304,7 +304,27 @@ def build_standalone_tables_doc():
     p_e2.paragraph_format.space_after = Pt(0)
     add_hyperlink(p_e2, URL_142, ETX_142, font_size=Pt(6.5))
 
-    format_cell(r_air2.cells[7], "Gram (+) rods,\nGram (-) rods,\nGram (+) cocci", bold=False, font_size=Pt(6.0), align=WD_ALIGN_PARAGRAPH.CENTER)
+    c_id2 = r_air2.cells[7]
+    c_id2.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c_id2)
+    p_i2 = c_id2.paragraphs[0]
+    p_i2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_i2.paragraph_format.space_before = Pt(0)
+    p_i2.paragraph_format.space_after = Pt(0)
+    p_i2.paragraph_format.line_spacing = 1.0
+
+    species_list_142 = [
+        "Staphylococcus epidermidis",
+        "Pseudomonas parafulva",
+        "Bacillus safensis",
+        "Corynebacterium xerosis",
+        "Corynebacterium ureicelerivorans"
+    ]
+    for idx, sp in enumerate(species_list_142):
+        r_sp = p_i2.add_run(sp + ("\n" if idx < len(species_list_142) - 1 else ""))
+        r_sp.font.name = 'Times New Roman'
+        r_sp.font.size = Pt(5.8)
+        r_sp.italic = True
 
     # --- Section 4: Weekly Surface Sampling L-Suite (RULE 0B: streamlined to (L-Suite)) ---
     add_section_divider(t2, "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs")
