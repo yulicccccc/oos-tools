@@ -825,3 +825,39 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 4. **Official Blank Form Native Baseline (官方原生 Auto 基准)**:
    - Blank ZenQMS official forms natively have `fs=0.0` (Auto) across all text fields. Transcriptions MUST preserve this native state 100%.
 
+### 39. Phase II Retest Investigation & Exact Phase I Verbatim Transcription Standard (Phase II 调查报告与 Phase 1 叙述逐字逐句 100% 镜像转录铁律 - 🚨 终极锁定)
+**CRITICAL**: When preparing or transcribing Phase II investigations (`CORP-FORM-22 / 3.100.019.F02`):
+1. **Verbatim Phase I Transcription (Phase 1 叙述 100% 逐字原貌复制)**:
+   - Under the header `INITIAL TEST UNDER SUBMISSION [ETX-XXXXXX-XXXX]:`, the entire narrative text MUST be copied character-by-character from the finalized Phase I report (`CORP-FORM-21`).
+   - Retain all exact line breaks, empty paragraph lines, punctuation, and wording. NEVER summarize, condense, or alter Phase I text.
+2. **Strict Demarcation of Retest Narrative (复测部分严格以独立标题起首)**:
+   - The new investigation for the retest begins strictly under the header: `PHASE II RETEST UNDER SUBMISSION [ETX-XXXXXX-XXXX]:`.
+3. **Empty Line Visual Ergonomics (非连续段落空行美学)**:
+   - Between distinct components (headers, testing phase summaries, structured lists), always insert an empty line (`\r\n\r\n`) so that text renders cleanly and beautifully in auto-resizing PDF form boxes.
+
+### 40. Elimination of Robotic AI All-Caps Headers & Over-Explaining Conciseness Rule (严禁机械全大写 AI 标题与“写得越多越错”精简防御铁律 - 🚨 终极锁定)
+**CRITICAL**:
+1. **No Robotic All-Caps Headers (严禁机械全大写小标题)**:
+   - NEVER insert artificial all-caps titles like `EVALUATION OF RETEST FINDINGS AND JUSTIFICATION OF PRIOR SCANRDI RESULT:`. Use natural, organic transition sentences (e.g. `In evaluating the prior rapid ScanRDI testing for Lot ...`).
+2. **Conciseness Over Speculative Essays ("写得越多越错"原则)**:
+   - When evaluating why a prior rapid ScanRDI test passed while USP <71> compendial testing failed, DO NOT write speculative essays about sample volume, lack of method suitability, or statistical vial probability.
+   - Use the concise, defensible laboratory conclusion:
+     `"...attributed to non-uniform microbial distribution at low concentrations within the compounded batch."`
+   - More speculative text introduces audit liabilities. Keep it concise, focused, and defensible.
+
+### 41. Preservation of Native Digital Signature Fields in PDF Forms (CORP-FORM-21 / CORP-FORM-22 原生数字签名域绝对禁止转为普通文本铁律 - 🚨 终极锁定)
+**CRITICAL**:
+1. **AcroForm Architecture Reality**: In `CORP-FORM-22` (and `CORP-FORM-21`), Section F (`Section F – Acknowledgement and Closure`) fields under `Prepared by:`, `Reviewed by:`, and `Approved by (QA):` are native Digital Signature widgets (`/FT /Sig`), namely `Signature_0`, `Signature_1`, and `Signature_2`.
+2. **Strict Ban on Field Type Conversion (严禁将 Signature 篡改为 Text)**:
+   - NEVER convert `Signature_0`, `Signature_1`, or `Signature_2` to `/FT /Tx` (Text widgets).
+   - NEVER inject plain string values into signature fields. Overwriting them strips Foxit's native digital certificate signature interaction (purple box and red/orange "SIGN" flag).
+3. **Execution Protocol (标准执行范式)**:
+   - Keep `Signature_0` as a native, blank Signature widget (`/FT /Sig`). The analyst will digitally sign via Foxit with their personal digital certificate, automatically generating "Digitally signed by Qiyue Chen" and certificate metadata.
+   - Populate `Date Field3` with the investigation date (`16-Oct-2026`).
+   - `Reviewed by:` and `Approved by (QA):` (`Signature_1`, `Signature_2`, `Date Field4`, `Date Field5`) must remain completely blank.
+
+### 42. Phase II Section E Scope & Permission Protocol (Phase II Section E 调查范围与权限门禁规范 - 🚨 终极锁定)
+**CRITICAL**:
+1. **Role Demarcation**: In `CORP-FORM-22`, `Section E – Corrective Actions and Preventive Actions / Additional Evaluation` is reserved for QA management / supervisor disposition.
+2. **Default Leave Blank**: Analysts/investigators must leave Section E empty/unfilled by default, unless explicit CAPA instructions are provided in writing by QA/management.
+

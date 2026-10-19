@@ -621,7 +621,32 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
               - Phase I 转录（`CORP-FORM-21 / 3.100.019.F01`）
               - Phase II 转录（`CORP-FORM-22 / 3.100.019.F02`）
               - EM 转录、独立表格 PDF 生成等
-            - **永久锁定，不可逆！**
+    53. **Phase II Retest Investigation & Exact Phase I Verbatim Transcription Standard (Phase II 调查报告与 Phase 1 叙述逐字逐句 100% 镜像转录铁律 - 🚨 终极锁定):**
+        *   **🚨 业务认知与病灶剖析 (The Verbatim Transcription Mandate):** 在起草或转录 Phase II 调查报告（`CORP-FORM-22 / 3.100.019.F02`）时，第 2 页至第 4 页的叙述核心为两阶段对比调查。在 `INITIAL TEST UNDER SUBMISSION [ETX-XXXXXX-XXXX]:` 标题下的内容，**必须 100% 原汁原味完整复制转录已结案定稿的 Phase I 调查叙述**（包括其完整段落结构、换行符、标点符号、空行等），严禁自行二次总结、改写、缩减或遗漏任何一段！
+        *   **两阶段严格分界准则 (Strict Section Demarcation):**
+            - 初始检验部分：严格收录在 `INITIAL TEST UNDER SUBMISSION [ETX-XXXXXX-XXXX]:` 之后，完整呈现 Phase I 调查事实。
+            - 复测检验部分：必须严格以 `PHASE II RETEST UNDER SUBMISSION [ETX-XXXXXX-XXXX]:` 作为独立标题另起炉灶，仅在这一部分书写 Retest 的新流程、新人员、新设备、新环境与新结果。
+        *   **非纯连续正文空行美学规范 (Empty Line Visual Ergonomics):** 在标题与段落、不同检验阶段、或列表式结构块之间，必须空出一行（使用 `\r\n\r\n` 或两个换行符），在 PDF 自适应字号（Auto Font Size）下形成优美疏朗的视觉层级，绝不可密密麻麻挤作一团。
+
+    54. **Elimination of Robotic AI All-Caps Headers & Over-Explaining Conciseness Rule (严禁机械全大写 AI 标题与“写得越多越错”精简防御铁律 - 🚨 终极锁定):**
+        *   **严禁大写 AI 式标题 (Strict Ban on Robotic All-Caps Headers):** 调查报告是供 QA 和监管机构审计的法定技术文档，**严禁使用诸如 `EVALUATION OF RETEST FINDINGS AND JUSTIFICATION OF PRIOR SCANRDI RESULT:` 等生硬刻板的全大写 AI 风格小标题**。段落承接必须像经验丰富的资深分析员一样自然流动，使用自然的英文过渡句（如 `In evaluating the prior rapid ScanRDI testing for Lot ...`）。
+        *   **“写得越多越错”精简防御铁律 (Conciseness Over Speculative Essays):**
+            - 当解释为什么先前同批次快速法（如 ScanRDI）合格而后续药典法（USP <71>）复检不合格时，**严禁脑补写成大篇幅的学术辩解论文**（例如大谈特谈取样体积差异、没有方法学验证、单瓶与多瓶抽检的概率论二项分布、肉汤增菌动力学等）。在 cGMP 审计中，写得越多，给审查官暴露的抓柄和合规漏洞就越多！
+            - **法定精简防御用语**: 仅需给出科学严谨且无法被反驳的客观核心定论即可：
+              `"...attributed to non-uniform microbial distribution at low concentrations within the compounded batch."`（归因于低浓度微生物在复配批次中的非均匀分布）。一句话直击要害，绝不多写一句臆测之词！
+
+    55. **Preservation of Native Digital Signature Fields in PDF Forms (CORP-FORM-21 / CORP-FORM-22 原生数字签名域绝对禁止转为普通文本铁律 - 🚨 终极锁定):**
+        *   **🚨 严重失误与底层病灶 (The Digital Signature Stripping Bug):** 在 `CORP-FORM-22` 第 5 页 `Section F – Acknowledgement and Closure`（以及所有 ZenQMS 官方 PDF 表单）中，虽然表头打印文字为 `Print Name:`，但底层的 PDF AcroForm 字段实际上是 **`/FT /Sig` 原生电子数字签名域（如 `Signature_0`, `Signature_1`, `Signature_2`）**。
+        *   **破坏后果**: 若脚本为了强行在框中打印名字字符串（如 `Qiyue Chen`）而把底层控件类型修改为 `/FT /Tx`（Text 文本框），会导致 Foxit / Acrobat 的官方数字证书签名机制（紫框与红/橙色 "SIGN" 旗标）被彻底摧毁，用户将无法调用个人数字证书（Digital Certificate）进行具有法律效力的电子签章！
+        *   **铁律规定 (Ironclad Mandate):**
+            1. **严禁改写签名域类型**: 绝对严禁将任何 `/FT /Sig` 字段转换为 `/FT /Tx`，严禁向签名控件中强制填入纯文本字符串！
+            2. **保持空白留待验签**: `Signature_0`（Prepared by:）必须保留为纯粹的原生空白 Signature 控件，以便调查员在 Foxit 中点击时自动调出数字证书盖章（生成 "Digitally signed by Qiyue Chen" 及时间戳元数据）。
+            3. **仅填充对应日期**: 仅将调查当天日期填入对应的日期框（如 `Date Field3` 填入 `16-Oct-2026`）。
+            4. **评审人与质保栏纯净留空**: `Reviewed by:`（`Signature_1`, `Date Field4`）与 `Approved by (QA):`（`Signature_2`, `Date Field5`）必须保持 100% 完全空白，等待后续主管与质保人员签署。
+
+    56. **Phase II Section E Scope & Permission Protocol (Phase II Section E 调查范围与权限门禁规范 - 🚨 终极锁定):**
+        *   **调查员权限边界**: 在 `CORP-FORM-22` 中，`Section E – Corrective Actions and Preventive Actions / Additional Evaluation` 通常属于质保（QA）或管理层在完成综合调查后的纠正预防措施制定权限范围。
+        *   **默认留空防越权**: 除非质保主管或用户有极其明确的书面指令，调查员在起草报告时**绝不可擅自填写 Section E**。默认必须保持 Section E 完全留空，防止因擅自设定不当 CAPA 而触犯合规红线。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

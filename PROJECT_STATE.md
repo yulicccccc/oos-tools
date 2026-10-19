@@ -71,6 +71,11 @@
      - Page 1 Equipment and Calibration dates aligned 1:1 horizontally: BSCs (`Dec 2026, Jun 2027`), Cleanrooms (`Jan 2027, Dec 2026`), Incubators & Sensors.
      - Appended Phase II Master Tables (Table 1 two rows, Table 2, Table 3), locking total page count to exactly 7 pages.
      - Output: `OOS-262098 Solyn LLC (E75000) - Phase II.pdf` (7 pages) & `OOS-262098 Solyn LLC (E75000) - Phase II.docx`.
+  3. **Phase II Report Transcription & AcroForm Architecture Finalization (PRD Rules 52-56 & AGENTS.md 38-42):**
+     - **Exact Verbatim Phase I Mirroring**: Under `INITIAL TEST UNDER SUBMISSION ETX-260902-0505:`, the text is 100% copied verbatim from the finalized Phase I report, matching all line breaks, paragraph structures, and content without summarizing. Retest starts strictly under `PHASE II RETEST UNDER SUBMISSION ETX-260914-0470:`.
+     - **Native Auto Font Size (`fs=0.0`) & `NeedAppearances = True`**: Restored auto-resizing text fields across all AcroForm pages, eliminating the locked font-size bug (`w.text_fontsize = <fixed>`) and allowing dynamic text auto-scaling in Foxit/Acrobat.
+     - **Elimination of Robotic All-Caps Headers & Over-Explaining**: Removed robotic headers (`EVALUATION OF RETEST FINDINGS...`) and replaced lengthy speculative essays with the concise, defensible cGMP finding: `"...attributed to non-uniform microbial distribution at low concentrations within the compounded batch."`
+     - **Preservation of Native Digital Signature Fields**: Completely fixed `Section F – Acknowledgement and Closure`: `Signature_0` is maintained as a native `/FT /Sig` widget for Foxit certificate signing, `Date Field3` is filled with `16-Oct-2026`, and `Reviewed by`, `Approved by (QA)`, and Section E are left completely blank.
 
 ### Current File Structure
 The codebase is actively operating in the clean context boundary:
