@@ -167,15 +167,21 @@ p14 = (
 )
 
 p15 = (
-    f"Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte \"{SAMPLE_NAME}\" has had no prior Out-of-Specification (OOS) occurrences."
+    f"Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte \"{SAMPLE_NAME}\" has had no prior Out-of-Specification (OOS) occurrences under ScanRDI sterility testing."
 )
 
 p16 = (
-    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. The test sample "
-    f"{SAMPLE_ID} was the 39th sample processed by {PROCESSOR_NAME} on 01Oct26. All other samples processed by the same analyst, "
-    "as well as samples processed by other laboratory personnel on the date of testing, yielded negative results. Analyst "
+    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. "
+    f"The test sample {SAMPLE_ID} was the 39th sample processed by {PROCESSOR_NAME} during the 2nd Shift on 01Oct26 "
+    f"within BSC E00{BSC_PROC} (Cleanroom 144, L-Suite). All other samples processed by {PROCESSOR_NAME} during this shift "
+    "yielded negative results. Review of laboratory records identified one other sample that yielded a positive result "
+    "on 01Oct26, documented under OOS-262285 for CasaPharma Rx (E72585), sample ETX-260930-0635 "
+    "(Tirzepatide/B12 15mg/1mg/0.5mL - 2mL). However, that sample was prepared by Pagan Gary and processed by "
+    "America Alanis (11th sample processed) during the 1st Shift in an entirely separate suite and biosafety "
+    "cabinet (BSC E001312, Parallel Suite). The two testing events were completely segregated by shift, "
+    f"processing analyst, prepping personnel, physical suite, and primary containment equipment. Furthermore, analyst "
     f"{PROCESSOR_NAME} verified that gloves were disinfected between samples and standard aseptic techniques were strictly "
-    "maintained. The absence of additional positive samples or clustering patterns provides further evidence against cross-contamination."
+    "maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
 
 p17 = (
@@ -502,16 +508,19 @@ def generate_master_pdf_report():
     out_pdf_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
     out_pdf_docs = os.path.join(DOCUMENTS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
     
-    with open(out_pdf_docs, "wb") as f:
-        writer.write(f)
-    print("Master PDF saved to Documents:", out_pdf_docs)
-    
     try:
         with open(out_pdf_desktop, "wb") as f:
             writer.write(f)
         print("Master PDF saved to Desktop:", out_pdf_desktop)
     except Exception as e:
         print("Desktop PDF lock note:", e)
+        
+    try:
+        with open(out_pdf_docs, "wb") as f:
+            writer.write(f)
+        print("Master PDF saved to Documents:", out_pdf_docs)
+    except Exception as e:
+        print("Documents PDF lock note (currently open by user):", e)
 
 if __name__ == "__main__":
     print(f"=== Generating Master Word Report and Master PDF Report for OOS-{OOS_ID} ===")
