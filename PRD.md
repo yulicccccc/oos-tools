@@ -678,6 +678,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 必须明确包含产品排查陈述：`"Notably no samples processed within that week in [Room] failed ScanRDI test."`
         *   **8. Page 7 独立附表单页上下集成标准 (Single-Page Integrated Table 1 & 2):**
             - 案卷第 7 页必须单页整合 `Table 1: Read Dates & Incubation Observation`（8 列）与 `Table 2: Environmental Monitoring for Analyst & Cleanroom`（9 列），周期列严格使用 `Week (Of Testing Date)` 与 `Week (After Testing Date)`，杜绝无意义跨页。
+        *   **9. 独立立案与附表绝对解耦原则 (Strict Single-OOS Isolation & Table 1 Disaggregation Rule):**
+            - 凡在同一采样日、同一套间中出现多洁净室或多分区同时超标并分别获得独立 OOS 案卷编号时（如 OOS-262133 对应 CR143，OOS-262134 对应 CR142）：
+                - **各自建立独立案卷**：每个 OOS 案卷必须拥有其专有的 PDF 报告包与专有的单页 Word/PDF 附表（如 EM table OOS-262133 04SEP2026.docx 与 EM table OOS-262134 04SEP2026.docx）。
+                - **Table 1 样品绝对归属**：Table 1 (Read Dates & Incubation Observation) **严禁将其他 OOS 案卷的样品混合填入**！Table 1 只能且必须只列出本 OOS 案卷管辖范围内的 ETX ID 与 CFU 读数。
+                - **Table 2 环境回溯保留全局参考**：Table 2 (Environmental Monitoring for Analyst & Cleanroom) 仍应保留同套间其他房间的监测记录以提供完整的环境背景与趋势回溯，确保 bracketing 的完整性。
+                - **PDF 附表页严格对应**：每个 7 页 PDF 案卷的 Page 7 只能挂载属于自己案卷的独立附表，杜绝跨案卷串门。
 
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
