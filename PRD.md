@@ -656,6 +656,29 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
               `"💡【官方表单转录提醒】：检测叙述与台账数据已全部核验完成！请问你今天从 ZenQMS 下载了最新空白官方 PDF 表单（CORP-FORM-21 或 CORP-FORM-22）吗？如果有，请直接将文件或路径告诉我，我将立即为你自动执行 100% 官方表单转录、自动字号匹配（Auto Font Size）与附件表格合成，省去手动复制粘贴的繁琐操作！"`
             - 若用户已将空白表单放置于桌面或工作目录，AI 应当主动检测并提议直接执行一键转录。
 
+    58. **Official EM Active Air OOS Investigation Golden Benchmark (OOS-261553 Standards Harmonization - 🚨 终极锁定):**
+        *   **标杆基准与背景**: 以质保（QA）及实验室主管 Neha Hulyalkar 官方复核并签署归档的最新版本环境监测（EM Active Air）OOS 终极法定标杆案卷 `OOS-261553 EM SMO 142 Air 26JUN2026.pdf`（CORP-FORM-21 v11.1）为绝对标准，固化全流程 EM OOS 案卷规范：
+        *   **1. Page 1 Initiator 官方代笔命名规范 (Initiator Authorship Convention):**
+            - 当由调查员/撰写人为检测分析员代笔起草调查报告时，`Text Field0`（Initiator）必须严格采用官方批准的标准代笔格式：`"[Investigated Analyst] (Written by: [Author])"`（例如：`"Simin Mohammad (Written by: Maryam Naeem)"` 或 `"Simin Mohammad (Written by: Qiyue Chen)"`），杜绝责任人与起草人混淆。
+        *   **2. Page 1 事件极简客观陈述 (Standard Description of Incident):**
+            - `Text Field7`（Description of Incident）必须采用经质保审核的标准精简客观句：`"The CFU count for the environmental monitoring plate exceeded the action level."`，严禁加入未经调查的推测性言论。
+        *   **3. Page 1 SOP 编号与限度值规范 (SOP & Specification Standard):**
+            - SOP 引用严格填写最新生效版 `MICRO-SOP-2`（`Rev. 16`，Effective `23 Jul 2026`）。
+            - 限度栏目（`Text Field11`）严格区分 Alert 与 Action Level：
+              `Alert Level: ≥ 8 CFU/Plate\rAction Level: > 10 CFU/Plate`
+        *   **4. Page 2 环境监测符合性严格勾选 "No" 铁律 (EM Conformity Checkbox Mandatory "No"):**
+            - 针对 `Do the environmental monitoring results conform to required standards?`，必须严格勾选 **No**（即在表单 No 列的 `Check Box68` 勾选 `Yes`），并在对应的数据栏填入 `No` / `No`。因为本案调查对象本身即为环境监测超标事件，绝不可自相矛盾勾选“符合标准”。
+        *   **5. Page 2 培养箱校准到期日锁定 (Incubator Aug 2027 Invariance):**
+            - 培养箱 E001031 与 E001034 在 2026 年度的校准到期日严格为 **`Aug 2027`**，内置温湿度传感器 E001505 与 E001501 严格为 **`Feb 2027`**。在 `Text Field43` 与 `Text Field44` 中必须严格保持 1:1 水平空行基准线对齐。
+        *   **6. 全表单 AcroForm 原生 Auto 字号 (fs=0.0) 与人类排版体验 (PRD Rule 52 深度实践):**
+            - 全表单所有文本框必须保持 `fs=0.0`（Auto Font Size），正文段落之间使用原生 `\r \r` 分隔。
+            - Page 3（`Text Field49`，6 段）、Page 4（`Text Field50`，7 段）、Page 5（`Text Field51`，3 段）自然流动排布，消除多余机械留白与截断，体验与 Foxit PDF Editor 手工录入完全一致。
+        *   **7. Page 4 洁净室套间月度清洁精细化房间罗列规范 (Multi-Room Cleaning Specificity):**
+            - 月度清洁必须逐一明确列出各级房间编号与等级：如 `ISO 8 Anteroom (CR142), ISO 8 Anteroom (CR143), ISO 7 Buffer Room (CR144), ISO 7 Buffer Room (CR145), and associated ISO 5 Biosafety Cabinets`，明确清洁日期（如 `14 Jun 2026` 或 `30 Aug 2026`）、操作人及双氧水指示卡合格情况。
+            - 必须明确包含产品排查陈述：`"Notably no samples processed within that week in [Room] failed ScanRDI test."`
+        *   **8. Page 7 独立附表单页上下集成标准 (Single-Page Integrated Table 1 & 2):**
+            - 案卷第 7 页必须单页整合 `Table 1: Read Dates & Incubation Observation`（8 列）与 `Table 2: Environmental Monitoring for Analyst & Cleanroom`（9 列），周期列严格使用 `Week (Of Testing Date)` 与 `Week (After Testing Date)`，杜绝无意义跨页。
+
 ## Pending/Future Work
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
 *   **Template Updates:** The underlying `.docx` and `.pdf` templates need manual layout updates (by the user in Word/Acrobat) to accommodate the significantly longer narrative text before they can be perfectly auto-filled without cutoff/font-shrinking.
