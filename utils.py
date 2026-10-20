@@ -104,6 +104,7 @@ def get_full_name(initial, _from_resolve=False):
         "JM": "Jinal Mehta",
         "MN": "Maryam Naeem",
         "NT": "Nicholas Trinh",
+        "SAA": "Sasha Allen",
         "SA": "Sasha Allen",
         "NH": "Neha Hulyalkar",
     }
@@ -235,9 +236,12 @@ def resolve_analyst_identity(query):
         # Nicholas Trinh (NT)
         "ntrinh": ("Nicholas Trinh", "NT"),
         "nt": ("Nicholas Trinh", "NT"),
-        # Sasha Allen (SA)
-        "sallen": ("Sasha Allen", "SA"),
-        "sa": ("Sasha Allen", "SA"),
+        # Sasha Allen (SAA)
+        "sallen": ("Sasha Allen", "SAA"),
+        "saa": ("Sasha Allen", "SAA"),
+        "sa": ("Sasha Allen", "SAA"),
+        "sasha allen": ("Sasha Allen", "SAA"),
+        "sasha": ("Sasha Allen", "SAA"),
         # Neha Hulyalkar (NH)
         "nhulyalkar": ("Neha Hulyalkar", "NH"),
         "nh": ("Neha Hulyalkar", "NH"),
