@@ -105,7 +105,6 @@ def get_full_name(initial, _from_resolve=False):
         "MN": "Maryam Naeem",
         "NT": "Nicholas Trinh",
         "SAA": "Sasha Allen",
-        "SA": "Sasha Allen",
         "NH": "Neha Hulyalkar",
     }
     res = mapping.get(initial.strip().upper(), "")
@@ -358,7 +357,7 @@ def resolve_analyst_identity(query):
         "Olugbenga Ajayi": "OA",
         "Maryam Naeem": "MN",
         "Nicholas Trinh": "NT",
-        "Sasha Allen": "SA",
+        "Sasha Allen": "SAA",
         "Neha Hulyalkar": "NH",
     }
     if full:
@@ -383,6 +382,7 @@ FORBIDDEN_HALLUCINATED_NAMES = {
     "david li": "Guanchen Li (GL)",
     "karla silva machuca": "Karla Silva (KSM)",
     "soniyah reed": "[BLOCKED: Soniyah Reed never appeared in lab]",
+    "sasha allen (sa)": "Sasha Allen (SAA)",
 }
 
 def assert_no_hallucinations(text_or_obj):
