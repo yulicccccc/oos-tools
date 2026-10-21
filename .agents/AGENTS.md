@@ -277,6 +277,45 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 ---
 
 
+## 🚨🚨 RULE 0P (TOP PRIORITY): Master Table Golden Standards — Robin Seymour (QA) Mandates & User Core Requirements (OOS 附表双轨终极标准规范：Robin 质保法定规范与用户核心排版铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), all Standalone Tables (`Tables OOS-<ID> ... .docx`) and Master PDF Page 7/8 appended tables MUST strictly comply with BOTH Robin Seymour's QA mandates and the User's core requirements:
+
+### 一、Robin Seymour (QA) 质保法定规范 (Robin's QA Golden Standards)
+1. **4 大标准分段横幅用语铁律 (Canonical 4-Banner Dividers - 严格无日期后缀)**:
+   - Banner 1: `Personnel EM`（官方绝对标准：严禁任何日期后缀！仅在 QA 特殊要求的个别单日回溯案卷中允许带日期）。
+   - Banner 2: `Biological Safety Cabinet EM for E00XXXX and E00YYYY`（官方绝对标准：严禁带 `(BSC)` 前缀，严禁重复出现 `BSC`，严禁日期后缀！多台 BSC 之间必须使用 `and`，严禁 `&`）。
+   - Banner 3: `Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`（L-Suite 必须完整列出所有洁燀室编号 `145, 144, 143, 142`，或 `Suite 116 (E001738)`，严禁日期后缀；套间代号统一精简为 `(L-Suite)`）。
+   - Banner 4: `Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`（严格无日期后缀）。
+2. **连接词严禁使用 "&" (Strict Prohibition of "&")**:
+   - 在横幅标题、设备列表及表内文本中，一律使用标准英文单词 `and`（如 `BSC E001938 and E001937`），绝对严禁使用非正式符号 `&`。
+3. **标准观察结果与注释规范 (Observation & Notes Capitalization Standard)**:
+   - 阴性结果统一使用 Title Case：`No Growth`（严禁全小写 `no growth` 或首词大写 `No growth`）。
+   - 无菌或不适用列统一使用：`Not Applicable`（表格空间允许下严禁简写为 N/A）。
+   - 正常无异常注释统一使用：`None`。
+   - 异常情况说明首字母大写且末尾不加句号（如 `Plate was desiccated on 5 day read`）。
+4. **微生物双名法斜体铁律 (Binomial Nomenclature Italicization)**:
+   - 凡涉及属名与种名的微生物学名，必须严格使用斜体（*Italic*），如 *Staphylococcus epidermidis*, *Pseudomonas parafulva*, *Bacillus safensis* 等；属名首字母大写，种名全小写。
+5. **附表严格锁定 1 单页 (Strict 1-Page Layout Invariant)**:
+   - 独立 Word 附表（Table 1 + Table 2）经排版与 Word COM 导出为 PDF 时，总页数**必须严格锁定为 1 单页**，严禁溢出到第 2 页！合并入主案卷时作为 Page 7 挂载。
+
+### 二、用户核心排版与数据要求 (User's Core Mandates)
+1. **有 Microbial ID 则免除染色形态描述 (Microbial ID Precedence - 确证物种免染色形态)**:
+   - **“有Microbial ID就不用staining了”**：当送检 EM 平板已获得确证的微生物鉴定结果（Microbial ID 出具具体菌种名）时，Microbial ID 单元格内**直接填报确认的微生物学名，严禁再填充初步革兰氏染色形态**（如无需再写 `Gram (+) cocci` 或 `Gram (-) rods`），避免信息冗余与画蛇添足！
+2. **多菌种物种之间强制独立空行 (Mandatory Species Empty Line Separation)**:
+   - **“物种要空行”**：当单个 EM 样品检出多种微生物（如 ETX-261012-0433 检出 5 种菌）时，各菌种学名之间**必须强制插入独立空行 (`\n\n`) 进行视觉分隔**，保持层级呼吸感，绝对严禁压缩合并或紧密挨合在单行内！
+3. **全表数据单元格字号绝对均一 (Strict Uniform Font Size - 7.0pt / 14 Half-Points)**:
+   - **“不过最好字体是都一样大小”**：全表（Table 1 样品信息与 Table 2 环境监测）所有数据单元格——包括 Sampling Site, Frequency, Date, Analyst, Observation, EM Plate ETX Number, Microbial ID, Notes 及超链接文字——其字体大小必须**严格保持绝对均一的 7.0pt (14 half-points)**！
+   - 🚨 **底层 XML 超链接防坑铁律**：Word 中的超链接 `<w:hyperlink>` 拥有独立的 `<w:r>` 节点，常规遍历 `p.runs` 会漏改其字号（导致残留 6.5pt / `w:sz w:val="13"`）。必须在底层 XML 级别将所有 `<w:sz>` 与 `<w:szCs>` 统一锁死为 `14`（7.0pt），彻底消除局部字号差异！
+4. **原生可点击超链接嵌入 (Native Hyperlink Embedding)**:
+   - Table 1 中的主 Sample ID 与 Table 2 中所有检出菌落的 EM 平板 ETX 编号，必须嵌入原生 OpenXML `<w:hyperlink>`，直达 EagleTrax 电子送检详情页。
+5. **双文件交付法定归宿 (Rule 0M Compliance)**:
+   - 附表最终交付形式严格限定为 Word 版本：`Tables OOS-<ID> <Client> - <Test>.docx`。
+   - 严禁单独交付独立的 Table PDF，其导出的 PDF 仅用于作为 Page 7 合并进完整主 PDF 案卷中。
+
+---
+
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 
