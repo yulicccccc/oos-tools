@@ -1430,6 +1430,36 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - 客户与样品: Link Pharmacy (E19112), Sample `ETX-260929-0931`, `Tirzepatide/Levocarnitine 17mg/100mg/mL (1ml)`, Lot `20260928@54`, Dosage Form: Injectable.
         - 测试方法与设备: Scan RDI Sterility Test (`MICRO-SOP-12`, `ENG-SOP-4`), Instrument `E001040`, Cleanroom 144 (L-Suite), Processing BSC `E001938`, Changeover BSC `E001937`.
         - 结果: 15 total events, 4 confirmed microbial events exhibiting `Cocci shaped morphology`.
+        - 阳性对照与实验批次: `P. aeruginosa`, Lot `05162026-9027-PA`, Exp `15May28` (Session 100126-1040-2001, CONTROL + ELB).
+
+    *   **终极法定附表数据 (Finalized Ground Truth Tables):**
+
+        *   **Table 1: Information for ETX-260929-0931 under investigation**
+            | Processing Analyst | Reading Analyst | Sample ID | Events | Confirmed Microbial Events | Morphology Description |
+            | :--- | :--- | :--- | :--- | :--- | :--- |
+            | Ellen Bennett | Varsha Subramanian | [ETX-260929-0931](https://etrax.eagleanalytical.com/Submission/Details/sM81r08$r4X9k5LrerlJ7g__) | 15 | 4 | Cocci shaped morphology |
+
+        *   **Table 2: Environmental Monitoring from Testing Performed on 01Oct26 (全表数据单元格统一 7.0pt)**
+            | Environmental Monitoring (EM) Sampling Site | Frequency | Date (DDMMMYY) | Analyst | Day /Week(s) | Observation | EM Plate ETX Number | Microbial ID | Notes |
+            | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+            | **Personnel EM** | | | | | | | | |
+            | Personal (Left Touch and Right Touch) | Daily | 01Oct26 | ELB | Date of Testing (Scan) | No Growth | Not Applicable | Not Applicable | None |
+            | Personal (Left Touch and Right Touch) | Daily | 01Oct26 | KSM | Date of Testing (Scan C/O) | No Growth | Not Applicable | Not Applicable | None |
+            | **Biological Safety Cabinet EM for E001938 and E001937** | | | | | | | | |
+            | Surface Sampling of ISO 5 BSC E001938 (4 Locations) | Daily | 01Oct26 | ELB | Date of Testing (Scan) | No Growth | Not Applicable | Not Applicable | None |
+            | Surface Sampling of ISO 5 BSC E001937 (4 Locations) | Daily | 01Oct26 | KSM | Date of Testing (Scan C/O) | No Growth | Not Applicable | Not Applicable | None |
+            | Settling Sampling of ISO 5 BSC E001938 | Daily | 01Oct26 | ELB | Date of Testing (Scan) | No Growth | Not Applicable | Not Applicable | None |
+            | Settling Sampling of ISO 5 BSC E001937 | Daily | 01Oct26 | KSM | Date of Testing (Scan C/O) | No Growth | Not Applicable | Not Applicable | None |
+            | **Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs** | | | | | | | | |
+            | Active Air Sampling of Cleanrooms | Weekly | 01Oct26 | SMO | Week of Testing | 1 CFU<br>(ISO 7 144 Sec II) | [ETX-261012-0430](https://etrax.eagleanalytical.com/Submission/Details/xxCNoUxIy4doEwKyIX-rYg__) | *Staphylococcus epidermidis* | None |
+            | Active Air Sampling of Cleanrooms | Weekly | 01Oct26 | SMO | Week of Testing | 5 CFUs<br>(ISO 8 142) | [ETX-261012-0433](https://etrax.eagleanalytical.com/Submission/Details/Qr5FQ8nlCFY1Y9QOAyCjZQ__) | *Staphylococcus epidermidis*<br><br>*Pseudomonas parafulva*<br><br>*Bacillus safensis*<br><br>*Corynebacterium xerosis*<br><br>*Corynebacterium ureicelerivorans* | None |
+            | **Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs** | | | | | | | | |
+            | Surface Sampling of Cleanrooms | Weekly | 01Oct26 | SMO | Week of Testing | No Growth | Not Applicable | Not Applicable | None |
+
+        *   **同日其他阳性批次评估对照数据 (Concurrent Positive Sample Evaluation):**
+            | OOS ID | Client Name | Sample ID | Analyte Name | Lot # | Prepper | Processor | Suite & BSC | Morphology |
+            | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+            | OOS-262285 | CasaPharma Rx (E72585) | ETX-260930-0635 | Tirzepatide/B12 15mg/1mg/0.5mL - 2mL | 260929E | Pagan Gary (PG) | America Alanis (ALA, 11th) | Parallel Suite (BSC 1312, C/O 1937) | cocci (cluster/tetrad) shaped morphology |
 
     *   **核心质保与合规执行准则 (Compliance & Golden Execution):**
         1. **同日下载 ZenQMS 官方表单转录铁律 (Same-Day ZenQMS Form Invariant):**
@@ -1440,9 +1470,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
            - `Text Field0` (Initiator) 设为 `4.75pt`，确保 `"Varsha Subramanian (Written by: Qiyue Chen)"` 完整呈现且右侧边界无裁切。
         4. **附表排版与微生学物种空行规范 (Table 1 & Table 2 Integration):**
            - Table 1 与 Table 2 成功合并为 Master PDF 第 7 页（总页数严格锁定为 7 页）。
-           - Table 2 严格遵循 Robin Seymour 标准 4 段横幅，Weekly Active Air 菌种各行之间严格保留空行且字号完全统一 (*Staphylococcus epidermidis*, *Pseudomonas parafulva*, *Bacillus safensis*, *Corynebacterium xerosis*, *Corynebacterium ureicelerivorans*)。
+           - Table 2 严格遵循 Robin Seymour 标准 4 段横幅，Weekly Active Air 菌种各行之间严格保留空行且字号完全统一为 7.0pt (*Staphylococcus epidermidis*, *Pseudomonas parafulva*, *Bacillus safensis*, *Corynebacterium xerosis*, *Corynebacterium ureicelerivorans*)。
         5. **双文件法定交付铁律执行 (Strict 2-File Deliverable Protocol - Rule 0M):**
-           - 严格交付 2 个核心文件：Master 7-page PDF (`OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf`) 与 Standalone 1-page Word Table (`Tables OOS-262289 Link Pharmacy (E19112) - ScanRDI.docx`)，严禁提供任何冗余文件。
+           - 严格交付 2 个核心文件：转录官方透视命名 Master 7-page PDF (`CORP-FORM-21- 01 Oct 2026 OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf`) 与 Standalone 1-page Word Table (`Tables OOS-262289 Link Pharmacy (E19112) - ScanRDI.docx`)，严禁提供任何冗余文件。
+
 
 
 60. **Universal Font Size Uniformity & Zero Tampering on User-Pasted Content (复制粘贴零擅自改动字号与物种空行格式锁定 - 铁律闭环):**
