@@ -236,8 +236,14 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 1. **用户法定指令 (User Golden Mandate)**:
    用户明确指示，每次交付**严格只向用户输出并提供以下 2 个核心文件**，严禁输出任何多余冗余文件：
-   - **文件 1 (带 Table 的完整 PDF 版主案卷)**: `OOS-<ID> <Client> - <Test>.pdf`
-     （包含 6 页 AcroForm 官方调查表单及末尾附加 Page 7/8 Table 1 & Table 2 附表的完整合并版 PDF，严格排版无溢出）。
+   - **文件 1 (带 Table 的完整 PDF 版主案卷 — 官方转录透视命名规范)**:
+     - **转录官方表单正式命名**: 凡转录至 ZenQMS 官方空白母表之正式案卷，文件名**必须统一冠以表单编号与同日下载日期前缀**：
+       - Phase I: CORP-FORM-21- <DD MMM YYYY> OOS-<ID> <Client> - <Test>.pdf
+         （例如：CORP-FORM-21- 01 Oct 2026 OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf）
+       - Phase II: CORP-FORM-22- <DD MMM YYYY> OOS-<ID> <Client> - <Test>.pdf
+         （例如：CORP-FORM-22- 10 Sep 2026 OOS-262098 Solyn LLC (E75000) - Phase II.pdf）
+     - **核心目的 (一眼核验)**: 使审查人与用户能够**一眼直观核验该案卷是否已原生完成官方表单转录**，以及其采用的母表下载日期是否与阳性发现日期 100% 吻合！
+     - 内容包含 6 页 AcroForm 官方调查表单及末尾附加 Page 7/8 Table 1 & Table 2 附表的完整合并版 PDF，严格排版无溢出）。
    - **文件 2 (Word 版独立附表)**: `Tables OOS-<ID> <Client> - <Test>.docx`
      （包含 Table 1 样品信息与 Table 2 环境监测数据的独立 Word 附表文档）。
 

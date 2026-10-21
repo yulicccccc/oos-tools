@@ -367,15 +367,21 @@ if os.path.exists(tables_pdf_desktop):
 
 out_pdf_desktop = os.path.join(desktop_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
 out_pdf_docs = os.path.join(docs_dir, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+out_transcribed_desktop = os.path.join(desktop_dir, f"CORP-FORM-21- 01 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+out_transcribed_docs = os.path.join(docs_dir, f"CORP-FORM-21- 01 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
 
 with open(out_pdf_desktop, "wb") as f:
     writer.write(f)
-print("Saved Master PDF to Desktop:", out_pdf_desktop)
+with open(out_transcribed_desktop, "wb") as f:
+    writer.write(f)
+print("Saved Master PDF to Desktop:", out_transcribed_desktop)
 
 try:
     with open(out_pdf_docs, "wb") as f:
         writer.write(f)
-    print("Saved Master PDF to Documents:", out_pdf_docs)
+    with open(out_transcribed_docs, "wb") as f:
+        writer.write(f)
+    print("Saved Master PDF to Documents:", out_transcribed_docs)
 except Exception as e:
     print("Documents lock status:", e)
 
