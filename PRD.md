@@ -132,7 +132,11 @@
 
         1. **主动透明披露**: 详述该阳性样本案卷号（如 `OOS-XXXXXX`）、送检单号（`ETX-XXXXXX-XXXX`）、客户、药品规格及运行序位。
 
-        2. **物理与时间全维度隔离证明**: 明确陈述两个检验事件在**班次**（1st Shift vs 2nd Shift）、**分析员**（不同 Prepper 与 Processor）、**物理套间**（如 Parallel Suite vs L-Suite）、以及**主操作设备**（不同 BSC）上的完全物理隔离。
+        2. **极简高效隔离证明法则 (Streamlined Segregation Phrasing - 聚焦不同人员与不同时间)**:
+          - 🚨 **用户定稿极简原则**: 无需堆砌过多冗余琐碎信息（如无需专门交代 Prepper 姓名或强调外围套间层级名称）。
+          - 核心证明聚焦三大要素：**班次（Shift）、检验处理分析员（Processing Analyst / 样本处理序号）、主操作设备（Primary Containment Equipment / BSC）**。
+          - **法定标准精炼句式**:
+            `"However, that sample was processed by [Analyst] ([N]th sample processed) during the [Shift]. The two testing events were segregated by shift, processing analyst and primary containment equipment."`
 
         3. **手套消毒与无菌操作合规重申**: 说明操作人员按 SOP 在样本间严格实施手套消毒与无菌规程。
 

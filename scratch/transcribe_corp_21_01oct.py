@@ -157,10 +157,9 @@ p16 = (
     f"within BSC E00{BSC_PROC} (Cleanroom 144, L-Suite). All other samples processed by {PROCESSOR_NAME} during this shift "
     "yielded negative results. Review of laboratory records identified one other sample that yielded a positive result "
     "on 01Oct26, documented under OOS-262285 for CasaPharma Rx (E72585), sample ETX-260930-0635 "
-    "(Tirzepatide/B12 15mg/1mg/0.5mL - 2mL). However, that sample was prepared by Pagan Gary and processed by "
-    "America Alanis (11th sample processed) during the 1st Shift in an entirely separate suite and biosafety "
-    "cabinet (BSC E001312, Parallel Suite). The two testing events were completely segregated by shift, "
-    f"processing analyst, prepping personnel, physical suite, and primary containment equipment. Furthermore, analyst "
+    "(Tirzepatide/B12 15mg/1mg/0.5mL - 2mL). However, that sample was processed by "
+    "America Alanis (11th sample processed) during the 1st Shift. The two testing events were segregated by shift, "
+    f"processing analyst and primary containment equipment. Furthermore, analyst "
     f"{PROCESSOR_NAME} verified that gloves were disinfected between samples and standard aseptic techniques were strictly "
     "maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
