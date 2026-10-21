@@ -178,7 +178,7 @@ p11_sub1 = f"ISO 5 BSC and Personnel Evaluation:\r{p10}"
 p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}"
 
 text_field_50 = "\r \r".join([p11_header, p11_sub1, p12_sub2, p12, p13, p14, p15, p16, p17])
-text_field_51 = "N/A QYC 21Oct2026"
+text_field_51 = "N/A QYC 21Oct26"
 
 tf43_equipment = (
     "Incubator E001034\r \r"
@@ -268,7 +268,7 @@ pdf_field_values = {
     'Text Field45': "See Phase I Summary",
     'Text Field46': "Not Applicable",
     'Text Field47': "Not Applicable",
-    'Text Field48': "N/A QYC 21Oct2026",
+    'Text Field48': "N/A QYC 21Oct26",
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,

@@ -313,6 +313,31 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
    - 附表最终交付形式严格限定为 Word 版本：`Tables OOS-<ID> <Client> - <Test>.docx`。
    - 严禁单独交付独立的 Table PDF，其导出的 PDF 仅用于作为 Page 7 合并进完整主 PDF 案卷中。
 
+
+
+## 🚨🚨 RULE 0Q (TOP PRIORITY): Good Documentation Practices (GDP) N/A Sign-Off Standard (N/A + 分析员官方缩写 + 2位年份日期 DDMMMYY 规范)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`) and official AcroForm investigation forms (`CORP-FORM-21`, `CORP-FORM-22`):
+
+1. **适用场景 (Applicability)**:
+   - 凡任一文本字段、表格栏目、划线区或溢出续页（如 Page 3 Section C "Other: ________" `Text Field48`、Page 5 "Phase I Summary (continued):" `Text Field51` 等）属于不适用（Not Applicable）并需人工签注划消时，必须严格遵守本条标准。
+
+2. **法定格式 (Canonical GDP Format)**:
+   - 必须统一写作：`N/A <Analyst Initials> <DDMMMYY>`
+   - 标准范例（以 Qiyue Chen 为例）：`N/A QYC 21Oct26`
+
+3. **2 位年份绝对铁律 (Strict 2-Digit Year Mandate - 严禁 4 位年份)**:
+   - 日期中的年份**必须严格使用 2 位数字**（如 `21Oct26`、`01Oct26`、`16Sep26`）。
+   - 🚨 **严禁使用 4 位年份**：绝对严禁写成 `21Oct2026`！质保与良好实验室规范（GDP）要求日期格式高度精简统一。
+
+4. **花名册缩写严格对应 (Analyst Roster Invariant)**:
+   - 分析员缩写必须 100% 遵守 RULE 0A 官方法定花名册（如 `QYC` 代表 Qiyue Chen，严禁写成 `QC`；`ELB` 代表 Ellen Bennett；`SAA` 代表 Sasha Allen 等）。
+
+5. **格式间距与标点标准 (Spacing & Punctuation)**:
+   - 各元素之间使用单一标准英文空格分隔：`N/A` + 空格 + `Initials` + 空格 + `DDMMMYY`。
+   - 日期内部无空格无斜杠，末尾绝不添加多余句号或特殊符号。
+
+
 ---
 
 

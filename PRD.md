@@ -1519,6 +1519,14 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
            - 严禁单独交付独立的 Table PDF，其导出的 PDF 仅用于作为 Page 7 合并进完整主 PDF 案卷中。
 
 
+62. **Good Documentation Practices (GDP) N/A Blank Field Sign-Off Standard (N/A + 分析员官方缩写 + 2位年份日期 DDMMMYY 规范):**
+    *   **适用范围**: 全局适用于所有 OOS 调查模块（ScanRDI, Celsis, USP <71>, Environmental Monitoring）及官方表单（Phase I CORP-FORM-21, Phase II CORP-FORM-22 等）。凡任一文本框、栏目、表格单元格或溢出续页（如 Page 3 Section C "Other: ________" Text Field48、Page 5 "Phase I Summary (continued):" Text Field51 等）无需填写、不适用或划消签注时，必须严格执行该规范。
+    *   **法定格式**: `N/A <Analyst Initials> <DDMMMYY>`（例如：`N/A QYC 21Oct26`）。
+    *   **2 位年份绝对铁律（Strict 2-Digit Year Mandate）**: 日期部分必须且只能采用 2 位年份（如 `21Oct26`、`01Oct26`、`15Sep26`），**🚨 绝对严禁使用 4 位年份（严禁写成 `21Oct2026`）**！
+    *   **分析员官方花名册对应（Analyst Initials Compliance）**: 缩写必须严格对应官方权威花名册（如 Qiyue Chen 必须为 `QYC`，严禁写成 `QC` 或 `KC`，遵守 RULE 0A）。
+    *   **空格与标点铁律**: 各字段间以单个空格分隔，日期中不得包含斜杠或连字符，句尾严禁加句号。
+
+
 ## Pending/Future Work
 
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
