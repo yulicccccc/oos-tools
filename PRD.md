@@ -1410,6 +1410,27 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 
 
+59. **Scan RDI OOS-262289 Master Production Package & Same-Day ZenQMS Form Transcription (Link Pharmacy E19112 - 铁律闭环):**
+
+    *   **案件背景 (Background):**
+        - 客户与样品: Link Pharmacy (E19112), Sample `ETX-260929-0931`, `Tirzepatide/Levocarnitine 17mg/100mg/mL (1ml)`, Lot `20260928@54`, Dosage Form: Injectable.
+        - 测试方法与设备: Scan RDI Sterility Test (`MICRO-SOP-12`, `ENG-SOP-4`), Instrument `E001040`, Cleanroom 144 (L-Suite), Processing BSC `E001938`, Changeover BSC `E001937`.
+        - 结果: 15 total events, 4 confirmed microbial events exhibiting `Cocci shaped morphology`.
+
+    *   **核心质保与合规执行准则 (Compliance & Golden Execution):**
+        1. **同日下载 ZenQMS 官方表单转录铁律 (Same-Day ZenQMS Form Invariant):**
+           - 严格转录至阳性发现当日下载之官方空白表单 `CORP-FORM-21- 01 Oct 2026.pdf`，确保文件头部 ZenQMS 加密审计水印 (`Printed by rseymour@eagleanalytical.com ... on 01-Oct-2026 at 11:12:23 PM UTC`) 真实合规不可篡改。
+        2. **Section B 行位精准 1:1 对齐纠偏 (Section B 1:1 Alignment Fix):**
+           - 彻底修复表单由于 `Text Field17` 错位导致的第 5 至 9 行偏移问题：`Text Field17` 准确填充 `"Yes, See 100126-1040-2 for more information."`，使 rows 5-9 各项检查说明严格对齐。
+        3. **发起人字号精准微调 (Initiator Font Size Calibration):**
+           - `Text Field0` (Initiator) 设为 `4.75pt`，确保 `"Varsha Subramanian (Written by: Qiyue Chen)"` 完整呈现且右侧边界无裁切。
+        4. **附表排版与微生学物种空行规范 (Table 1 & Table 2 Integration):**
+           - Table 1 与 Table 2 成功合并为 Master PDF 第 7 页（总页数严格锁定为 7 页）。
+           - Table 2 严格遵循 Robin Seymour 标准 4 段横幅，Weekly Active Air 菌种各行之间严格保留空行且字号完全统一 (*Staphylococcus epidermidis*, *Pseudomonas parafulva*, *Bacillus safensis*, *Corynebacterium xerosis*, *Corynebacterium ureicelerivorans*)。
+        5. **双文件法定交付铁律执行 (Strict 2-File Deliverable Protocol - Rule 0M):**
+           - 严格交付 2 个核心文件：Master 7-page PDF (`OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf`) 与 Standalone 1-page Word Table (`Tables OOS-262289 Link Pharmacy (E19112) - ScanRDI.docx`)，严禁提供任何冗余文件。
+
+
 ## Pending/Future Work
 
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
