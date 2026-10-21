@@ -3,6 +3,7 @@
 ## Current Phase: Rollover to New Project Environment
 
 ### What Was Completed
+- **Official 2-File Deliverable Protocol (RULE 0M):** Enforced universal user rule across all OOS modules (ScanRDI, Celsis, USP <71>, EM): Deliver strictly TWO files ONLY: (1) Master AcroForm PDF with tables attached (`OOS-<ID> <Client> - <Test>.pdf`), and (2) Standalone Word Tables document (`Tables OOS-<ID> <Client> - <Test>.docx`). Redundant files (`Tables ... .pdf` and master `OOS-... .docx`) are strictly eliminated from user-facing deliverables. Both clickable markdown links and Windows raw paths are provided for these 2 files.
 - The Celsis reporting logic (`celsis_logic.py`, `pages/Celsis.py`) has been fully redesigned to match the narrative structure of the "RS Reviewed" model (OOS-261165), and has been subsequently updated based on the 2026-09-16 RS feedback for OOS-261878 (adding Reading Analyst tracking, "viable but not culturable" terminology for no-growth, and finalized conclusion).
 - A 4-Step Smart Justification Engine (Shielding Mechanism) has been developed and integrated into the Celsis module, successfully synthesizing defenses based on ID mismatch, physical isolation, transfer pathways, and macro-environment history.
 - The underlying decision trees (flowcharts) for all three test types (Celsis, Scan RDI, USP <71>) have been finalized and documented in `OOS_Justification_Flowcharts.md`.
