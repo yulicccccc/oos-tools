@@ -3,6 +3,7 @@
 ## Current Phase: Rollover to New Project Environment
 
 ### What Was Completed
+- **Zero Font Tampering & Format Preservation Rule (RULE 0N):** Formally codified and locked universal invariant across all OOS modules: strictly prohibited from arbitrarily altering font sizes, font families, or styles during copy-paste, table transcription, or content insertion. Preserves user-formatted line breaks (such as empty lines between microbial species in Table 2) and mandates strict font size uniformity across identical table cells.
 - **Official 2-File Deliverable Protocol (RULE 0M):** Enforced universal user rule across all OOS modules (ScanRDI, Celsis, USP <71>, EM): Deliver strictly TWO files ONLY: (1) Master AcroForm PDF with tables attached (`OOS-<ID> <Client> - <Test>.pdf`), and (2) Standalone Word Tables document (`Tables OOS-<ID> <Client> - <Test>.docx`). Redundant files (`Tables ... .pdf` and master `OOS-... .docx`) are strictly eliminated from user-facing deliverables. Both clickable markdown links and Windows raw paths are provided for these 2 files.
 - **Scan RDI OOS-262289 Complete Master Investigation Package (Link Pharmacy, E19112):**
   1. **Official Same-Day ZenQMS Form Transcription:** Transcribed complete investigation dataset into official `CORP-FORM-21- 01 Oct 2026.pdf` downloaded from ZenQMS on the exact positive date (`01-Oct-2026`), preserving the immutable ZenQMS sub-header cryptographic audit trail.

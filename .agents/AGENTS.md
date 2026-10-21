@@ -260,6 +260,23 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 ---
 
 
+## 🚨🚨 RULE 0N (TOP PRIORITY): Strict Prohibition of Arbitrary Font Size Alteration & Formatting Tampering during Copy-Paste (严禁在复制粘贴/文本与表格填充时擅自改动任何字号大小与排版格式铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), whenever transcribing, copying, pasting, or inserting user-provided content, table entries, or manual edits into documents/templates:
+
+1. **绝对零擅自改动字号与格式 (Absolute Zero Font & Formatting Tampering)**:
+   - 凡用户手动修改、确认或粘贴的内容，**严禁自行更改其字体大小（Font Size）、字体名称（Font Family）、字形（Regular/Italic/Bold）、行间距或对齐方式**！
+   - 表格内部各单元格（如 Table 1 样品信息、Table 2 环境监测、Microbial ID、Observation、Notes 等），同类行或同一数据块内的字体大小必须**严格保持完全统一**（例如统一 7.0pt 或 7.5pt），严禁个别行或个别单元格擅自变大变小导致视觉突兀！
+
+2. **物种空行与结构换行严格保留 (Strict Preservation of Empty Lines & Line Breaks)**:
+   - 当多菌种（Microbial ID）或多条目按用户要求在物种之间保留空行以增强可读性时，复制粘贴或代码拼接时**必须完整保留原样空行**，绝对严禁擅自压缩、删除空行或合并为单行！
+
+3. **杜绝自作主张的“顺手优化” (No Unsolicited "Formatting Improvements")**:
+   - 用户已定稿的排版属于神圣资产（Sacred Ground Truth）。严禁打着“让版面更好看”或“自动适应”的旗号修改字号。若遇特殊空间受限情况，必须**主动停步向用户明确汇报并征得同意**，绝不允许私自偷偷改动！
+
+---
+
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 

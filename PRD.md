@@ -160,6 +160,14 @@
 
 
 
+
+14. **RULE 0N — Strict Prohibition of Arbitrary Font Size Alteration & Formatting Tampering during Copy-Paste (严禁在复制粘贴/文本与表格填充时擅自改动任何字号大小与排版格式铁律)**:
+    - **绝对零擅自改动字号与格式**: 凡用户手动修改、确认或粘贴的内容，**严禁自行更改其字体大小（Font Size）、字体名称（Font Family）、字形（Regular/Italic/Bold）、行间距或对齐方式**！
+    - **同类数据字号严格统一**: 表格内部各单元格（如 Table 1 样品信息、Table 2 环境监测、Microbial ID、Observation、Notes 等），同类行或同一数据块内的字体大小必须**严格保持完全统一**（例如统一 7.0pt 或 7.5pt），严禁个别行或个别单元格擅自变大变小导致视觉突兀！
+    - **物种空行与结构换行严格保留**: 当多菌种（Microbial ID）或多条目按用户要求在物种之间保留空行以增强可读性时，复制粘贴或代码拼接时**必须完整保留原样空行**，绝对严禁擅自压缩、删除空行或合并为单行！
+    - **杜绝自作主张的“顺手优化”**: 用户已定稿的排版属于神圣资产。严禁打着“让版面更好看”或“自动适应”的旗号修改字号。
+
+
 ## Overview
 
 This project contains automated reporting tools for Eagle Analytical's Out-of-Specification (OOS) investigations, specifically focusing on Sterility Testing. The core functionality generates the "Phase I Summary" narratives and extracts data to populate PDF/Word OOS reports.
@@ -1437,6 +1445,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
            - 严格交付 2 个核心文件：Master 7-page PDF (`OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf`) 与 Standalone 1-page Word Table (`Tables OOS-262289 Link Pharmacy (E19112) - ScanRDI.docx`)，严禁提供任何冗余文件。
 
 
+60. **Universal Font Size Uniformity & Zero Tampering on User-Pasted Content (复制粘贴零擅自改动字号与物种空行格式锁定 - 铁律闭环):**
+
+    *   **核心准则 (Core Mandate):**
+        - 在所有 OOS 案卷（ScanRDI, Celsis, USP <71>, EM）中，不论是向 Word 附表、主表单还是 PDF 表单填充、转录或复制粘贴内容时，**绝对禁止擅自调整、缩放或篡改任何字体大小（Font Size）与排版样式**。
+        - 凡用户手动编辑确认的表格（如 Table 2 微生物鉴定 Microbial ID 各物种统一字号、物种间空行分隔），代码与转录流水线必须 100% 忠实保留原样格式，确保全表各行字体大小完全一致，空行层级分明。
+
 ## Pending/Future Work
 
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).
