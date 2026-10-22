@@ -1531,6 +1531,33 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
     *   **空格与标点铁律**: 各字段间以单个空格分隔，日期中不得包含斜杠或连字符，句尾严禁加句号。
 
 
+63. **Robin Seymour (QA Director) Official Review Golden Standards for USP <71> Phase I & Phase II (Solyn LLC OOS-262098 质保复核定稿标杆与六大黄金准则 - 终极锁定):**
+    *   **标杆案卷来源**: 基于 QA Director Robin Seymour (RS) 审阅并签署的官方标杆报告 `OOS-262098 Solyn LLC (E75000) - USP71 -RS Reviewed` 及 `... - Phase II - RS Reviewed`，提炼并固化以下六大质保法定准则：
+    *   **1. 设备栏引用与生物安全柜强制罗列 (Equipment Section "Phase I Summary" & Mandatory ISO 5 BSC):**
+        - 在 `CORP-FORM-21` 设备栏目中，若环境监控与控制引用正文叙述，必须规范写为 `"Phase I Summary"`（🚨 **严禁加 "See"，严禁写成 "See Phase I Summary"**）。
+        - 在设备列表中，除了培养箱与传感器外，必须明确列出主处理生物安全柜 `ISO 5 BSC E001316` 及其校准到期日 `Dec 2026`。
+    *   **2. 冻干粉/小容量注射剂复溶重构过程详述铁律 (Mandatory Reconstitution Process Narrative):**
+        - 在 Phase I 样品处理段落（Page 3 `Text Field49`）中，凡待测样品为冻干粉或小容量注射剂（如 GLP3R/Cagrilinitide 25mg/5mg），**必须详细写明复溶溶媒、体积、浓度及过滤分液比例**：
+          `"...reconstituted with 2mL Bacteriostatic Water per vial (each vial containing GLP3R/Cagrilinitide in 25mg/5mg concentration). Half the contents of each reconstituted vial was then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration."`
+          严禁仅笼统写 `"45 gm filtered per media across 3 vials"`。
+    *   **3. 洁净室套间 115 认证到期日统一标准 (CR115 Certification Due Date Standard):**
+        - 洁净室套间 115（`CR 115 / E001737`）的校准认证到期日统一为 **`Dec 2026`**（与 CR 114 一致），严禁写为 `June 2027`。
+    *   **4. 先前同批快速法合格与当前药典法不合格冲突时的质保官方两段式防守金标准 (RS Golden 2-Paragraph Defense for Prior Passing Rapid Test):**
+        - 当同一批号此前送检快速法（如 ScanRDI）合格，但 USP <71> 药典法定检验与复测均不合格时，必须严格执行 Robin Seymour 官方审阅定稿的两段式防守措辞：
+          - **第 1 段 (方法适用性缺失防守)**:
+            `"It was identified that the same sample lot (2608-216) had previously been submitted by the client for ScanRDI sterility testing under submission ETX-260807-0602 and yielded passing results. However, it is important to note that a review of the submission determined that no approved method suitability test was available to support the validity for microbial growth recovery using the ScanRDI method for this specific sample."`
+          - **第 2 段 (低浓度微生物非均一分布防守与不可比定论)**:
+            `"Furthermore, the discrepancy between the previous passing ScanRDI result and the current USP <71> sterility failure may be attributable to the non-homogeneous distribution of microbial contamination within the compounded batch. When microbial contamination is present at very low levels, microorganisms may not be uniformly distributed throughout the product, resulting in variability between samples collected from the same lot. Consequently, one aliquot may not contain contaminating microorganisms and yield an acceptable result, while another aliquot from the same batch may contain viable microorganisms and generate a positive sterility test result. Given the absence of a qualified method suitability study for the ScanRDI submission, the prior passing result cannot be considered directly comparable to the current USP <71> sterility test outcome."`
+    *   **5. Phase II 根因分析极简法定用语 (Phase II Root Cause Statement Simplification):**
+        - 在 `CORP-FORM-22` 第 5 页 Section D 根因陈述（`Text Field25`）中，**严禁堆砌长篇恢复动力学或 ScanRDI 讨论**，必须聚焦于复测确证同种微生物的核心事实，精简为两句话：
+          `"Inherent sample contamination within Lot 2608-216, supported by recovery of the same organism (Microbacterium sp. PM5) during retesting. The original USP <71> sterility failure was confirmed as valid."`
+    *   **6. 调查结论双检验有效性法定句式 (Investigation Conclusion Validating Both Tests):**
+        - 在 Phase II 调查结语中，必须明确陈述批次污染并判定**初始测试与复测均为有效失败**：
+          `"Therefore, inherent product contamination in Lot 2608-216 is confirmed, both the initial failing result for ETX-260902-0505 and the retest ETX-260914-0470 is considered valid."`
+    *   **7. Section E 主管与质保处置权定论 (Section E QA Exclusive Jurisdiction):**
+        - `CORP-FORM-22` Section E 属于质保主管专属签署权限，起草人必须完全留空。Robin Seymour 亲自在两个文本框中签注为：`"N/A RS 21 Oct 2026"`。
+
+
 ## Pending/Future Work
 
 *   **Roll out Smart Justification to USP <71>:** The engine is live for Celsis and Scan RDI, but `USP71.py` still needs its underlying logic updated to utilize the 4-Step Shielding Mechanism and the new "RS Reviewed" narrative format (adjusting for its specific workflow).

@@ -1873,7 +1873,34 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
      `"💡【官方表单转录提醒】：检测叙述与台账数据已全部就绪！请问你今天从 ZenQMS 下载了最新空白官方 PDF 表单（CORP-FORM-21 或 CORP-FORM-22）吗？如果有，请直接将文件或路径告诉我，我将立即为你自动执行 100% 官方表单转录、自动字号匹配（Auto Font Size）与附件表格合成！"`
 
-2. **Auto-Detection**: If a freshly downloaded blank form already exists in Desktop, Downloads, or repository directories, the agent should proactively offer to execute the transcription script immediately.
+2. **Auto-Detection**: If a freshly downloaded blank form already exists in Desktop, Downloads, or repository directories, the agent should proactively offer to execute the transcription script immediately.
+
+### 44. Robin Seymour (QA Director) Official Review Golden Standards for USP <71> Phase I & Phase II (Solyn LLC OOS-262098 质保复核定稿标杆与六大黄金准则 - 终极锁定)
+**CRITICAL**: In all USP <71> OOS investigations (such as `OOS-262098 Solyn LLC`), reports MUST strictly incorporate QA Director Robin Seymour's verified edits:
+1. **Equipment Section "Phase I Summary" & Mandatory ISO 5 BSC (设备栏引用与生物安全柜强制罗列)**:
+   - In `CORP-FORM-21` Equipment section, when referring to the investigation summary for environmental controls, use `"Phase I Summary"` (NEVER write `"See Phase I Summary"`).
+   - In Equipment table, always explicitly list the primary processing BSC (`ISO 5 BSC E001316`) with its calibration due date (`Dec 2026`).
+2. **Mandatory Reconstitution Process Narrative (冻干粉/小容量注射剂复溶重构过程详述铁律)**:
+   - In Phase I narrative paragraph 2/3 (`Text Field49`), when testing lyophilized vials or powders, **MUST explicitly detail the reconstitution process**:
+     `"...reconstituted with 2mL Bacteriostatic Water per vial (each vial containing GLP3R/Cagrilinitide in 25mg/5mg concentration). Half the contents of each reconstituted vial was then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration."`
+     (NEVER vaguely summarize as `"45 gm filtered per media across 3 vials"`).
+3. **Cleanroom Suite 115 Certification Due Date Standard (CR115 校准期统一标准)**:
+   - Cleanroom Suite 115 (`CR 115 / E001737`) certification due date is strictly **`Dec 2026`** (identical to Suite 114 / `Dec 2026`), NEVER June 2027.
+4. **RS Golden 2-Paragraph Defense for Prior Passing Rapid Test (先前快速法合格与当前药典法不合格冲突时的质保官方两段式防守金标准)**:
+   - When a client previously submitted the same lot for rapid testing (e.g. ScanRDI) with passing results, but USP <71> compendial initial and retest fail:
+     - **Paragraph 1 (Method Suitability Defense - 方法适用性缺失防守)**:
+       `"It was identified that the same sample lot (2608-216) had previously been submitted by the client for ScanRDI sterility testing under submission ETX-260807-0602 and yielded passing results. However, it is important to note that a review of the submission determined that no approved method suitability test was available to support the validity for microbial growth recovery using the ScanRDI method for this specific sample."`
+     - **Paragraph 2 (Non-Homogeneous Bioburden Distribution Defense - 低浓度微生物非均一分布防守与不可比定论)**:
+       `"Furthermore, the discrepancy between the previous passing ScanRDI result and the current USP <71> sterility failure may be attributable to the non-homogeneous distribution of microbial contamination within the compounded batch. When microbial contamination is present at very low levels, microorganisms may not be uniformly distributed throughout the product, resulting in variability between samples collected from the same lot. Consequently, one aliquot may not contain contaminating microorganisms and yield an acceptable result, while another aliquot from the same batch may contain viable microorganisms and generate a positive sterility test result. Given the absence of a qualified method suitability study for the ScanRDI submission, the prior passing result cannot be considered directly comparable to the current USP <71> sterility test outcome."`
+5. **Phase II Root Cause Statement Simplification (Phase II 根因分析极简法定用语)**:
+   - In `CORP-FORM-22` Section D (`Text Field25`), NEVER include lengthy recovery kinetics or ScanRDI discussions. Focus strictly on the confirmed recovery of the identical organism during retest:
+     `"Inherent sample contamination within Lot 2608-216, supported by recovery of the same organism (Microbacterium sp. PM5) during retesting. The original USP <71> sterility failure was confirmed as valid."`
+6. **Investigation Final Conclusion Wording (调查结语权威法定表述)**:
+   - Conclude by confirming inherent product contamination and explicitly stating that **both initial and retest failures are considered valid**:
+     `"Therefore, inherent product contamination in Lot 2608-216 is confirmed, both the initial failing result for ETX-260902-0505 and the retest ETX-260914-0470 is considered valid."`
+7. **Section E Supervisor Disposition (Section E 主管与质保处置权定论)**:
+   - `CORP-FORM-22` Section E is the sole jurisdiction of QA/Supervisor. Analysts must leave Section E empty during drafting. Robin Seymour directly stamped `"N/A RS 21 Oct 2026"`.
+
 
 
 
