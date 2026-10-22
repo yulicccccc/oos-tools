@@ -159,3 +159,29 @@ Key active files:
   2. Standalone Word Tables: `Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx`
   - Saved to Canonical Desktop: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`
   - Mirrored to Documents: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\`
+
+
+### OOS-262329 USP <71> Sterility Test Phase I Investigation (Completed 22Oct26):
+- **Case Summary**:
+  - Client: GoGoMeds Select (E10747)
+  - Sample ID: ETX-260624-0251 (BUD-T90) | Subculture: ETX-261012-0367 | OOS ID: 262329
+  - Analyte: Sermorelin 0.9mg/ml, Lot: 17009, Container size: 5 mL, Batch: 500, Liquid
+  - Test Method: USP <71> / EP 2.6.1 Sterility Test [T0001006726] (MICRO-SOP-5 / MICRO-SOP-53)
+  - Technique: Direct Inoculation per approved Method Suitability ETX-260401-0599 (15mL tween80 + 5mL sample into 200mL media)
+  - Result: TSB Positive (Day 18 original -46/54 and Day 5 subculture -46/54-A turbid/growth); FTM Negative throughout
+  - Organism: *Bacillus megaterium* (Sequencing confirmed under ETX-261012-0367; Gram-positive rods)
+  - Personnel: Prepper Elysse Nioupin (EN, 22Sep26), Processor Guanchen Li (GL, 23Sep26 in Suite 115 / BSC E001314, incubated 24Sep26 12:55 AM), Turbidity Aliquoter Ayomide Odugbesi (AOD, 07Oct26 6:59 PM), Reader Andrew Carrillo (ANC, 12Oct26)
+  - Disposition: Require Retest - Phase II (CORP-FORM-22 required for ongoing BUD stability study)
+- **Investigation Findings & Rules Applied**:
+  - Rule 0G Case A: Zero prior failures for Sermorelin 0.9mg/ml under USP <71> sterility testing in the past 6 months.
+  - Rule 0L: All samples processed on the same day evaluated; no other samples exhibited growth; cross-contamination excluded.
+  - Negative Controls: Direct inoculation negative controls for both TSB and FTM showed No Growth, verifying media sterility.
+  - Cleanroom & Equipment Due Dates Harmonized (Rule 0U): CR115 = Dec 2026, BSC E001314 = Jun 2027.
+  - Contemporaneous EM: GL Personnel and BSC E001314 surface/settling on 22/23/24Sep26 all No Growth. Suite 115 weekly surface No Growth. Suite 115 weekly air 6 CFUs in outermost ISO 8 115 (ETX-261001-0625, pending identification).
+  - Monthly Cleaning: Suite 115 performed on 13Sep26 by EN, SAA, ANC; H2O2 chemical indicator strips passed.
+  - Initiator: Guanchen Li (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
+- **Deliverables Generated (Rule 0M)**:
+  1. Master PDF (7 Pages: 6 pages AcroForm + 1 page Tables): `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`
+  2. Standalone Word Tables (Strictly 1 single page): `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`
+  - Saved to Canonical Desktop: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`
+  - Mirrored to Documents: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\`
