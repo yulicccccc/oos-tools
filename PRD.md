@@ -347,6 +347,38 @@
 
 
 
+15. **RULE 0P — Master Table Golden Standards: Robin Seymour Mandates & User Core Requirements (OOS 附表双轨终极标准规范：Robin 质保法定规范与用户核心排版铁律)**:
+    - **分段横幅标准 (Canonical 4-Banner Dividers)**: `Personnel EM` (无日期)、`Biological Safety Cabinet EM for ...` (无 BSC 前缀无日期用 and)、`Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs` (无日期)、`Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs` (无日期)。
+    - **严禁使用 "&" 连接符**: 一律使用英文单词 `and`。
+    - **标准观察结果与注释**: `No Growth`, `Not Applicable`, `None`，异常说明首字母大写无句号。
+    - **微生物双名法斜体**: 属名大写种名小写，全斜体 (*Italic*)。
+    - **确证物种免染色形态 (Microbial ID Precedence)**: 有具体菌种学名时直接填报菌种，严禁再写初步革兰氏形态。
+    - **多物种强制独立空行 (Mandatory Species Empty Line)**: 检出多菌种时，学名之间必须插入独立空行 (`\n\n`)。
+    - **全表单元格字号绝对均一 (Strict Uniform Font Size - 7.0pt)**: 全表所有文字包括底层 XML 超链接统一为 7.0pt (`<w:sz w:val="14">`)。
+    - **双文件交付法定归宿 (Rule 0M Compliance)**: 仅交付带表完整 PDF 与 Word 独立附表，严禁单独交付独立 Table PDF。
+
+16. **RULE 0Q — Good Documentation Practices (GDP) N/A Sign-Off Standard (N/A + 分析员官方缩写 + 2位年份日期 DDMMMYY 规范)**:
+    - 法定格式：`N/A <Analyst Initials> <DDMMMYY>`（如 `N/A QYC 21Oct26`）。
+    - 严格 2 位年份（严禁 4 位），严格遵守花名册缩写（Qiyue Chen 必须为 `QYC`）。
+
+17. **RULE 0R — Universal 3-Tier OOS Review Hierarchy & Supervisor (RS) vs QA Role Distinction (全 OOS 模块三级签名流转与主管 RS vs 质保 QA 角色法定铁律)**:
+    - **Prepared by**: Qiyue Chen (QYC / 调查起草人) 签署 `Signature_0`。
+    - **Reviewed by**: Robin Seymour (RS / 直接实验主管) 签署 `Signature_1`。
+    - **Approved by (QA)**: QA 质保部终审批准 签署 `Signature_2`。QA 在主管审核期间尚未介入！
+    - **流转顺序**: `QYC (Prepared by) ✍️` -> `RS (Reviewed by) ✍️` -> `QA (Approved by) ✍️`。
+
+18. **RULE 0S — Universal Sterility Investigation Standards from Robin Seymour (全 OOS 模块复溶详述、设备栏 "Phase I Summary"、CR115 校准期、冲突抗辩两段式、根因与结语极简法则)**:
+    - **复溶详述必写**: 冻干粉/多肽必须详细说明复溶溶媒、体积、浓度及过滤分液比例。
+    - **设备栏引用**: 环境控制引用规范为 `"Phase I Summary"`（无 `"See"`），显式列出主处理 BSC 及其校准到期日。
+    - **CR115 校准期**: 统一为 **`Dec 2026`**。
+    - **冲突抗辩两段式**: 快速法合格 vs 药典法失败时，必须先指出 ScanRDI 无方法适用性支撑，再阐述低浓度微生物非均匀分布，证明二者不可直接对比。
+    - **根因分析极简**: 聚焦复测确证同种菌判定原失败有效，严禁写冗长动力学。
+    - **调查结语**: 双重判定初始与复测均为有效失败。
+    - **Section E 处置**: 起草时留空，由主管 Robin 填写 `"N/A RS [Date]"`。
+
+
+---
+
 ## Overview
 
 

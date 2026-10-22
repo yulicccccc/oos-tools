@@ -668,6 +668,46 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
+## 🚨🚨 RULE 0R (TOP PRIORITY): Universal 3-Tier OOS Review Hierarchy & Supervisor (RS) vs QA Role Distinction (全 OOS 模块三级签名流转与主管 RS vs 质保 QA 角色法定铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), strictly maintain the official 3-tier organizational hierarchy and review roles:
+1. **Tier 1 — Prepared by: (Initiating Analyst / Report Author)**:
+   - **Person**: **Qiyue Chen (QYC)** (Microbiologist / 调查报告起草人).
+   - **Action**: Gathers raw data, writes report narrative, fills AcroForms, signs `Signature_0`.
+2. **Tier 2 — Reviewed by: (Microbiology Lab Supervisor)**:
+   - **Person**: **Robin Seymour (RS)** (Microbiology Supervisor / 直接实验主管).
+   - **Action**: Direct lab supervisor review. RS checks technical lab facts, edits narrative, disposes Section E (`N/A RS [Date]`), and signs `Signature_1` AFTER the author signs.
+3. **Tier 3 — Approved by (QA): (Independent Quality Assurance Department)**:
+   - **Department**: **Quality Assurance (QA)** (质保部独立终审).
+   - **Action**: QA conducts final compliance review and closure sign-off (`Signature_2`) AFTER lab internal signatures. **QA does not inspect the report while under Supervisor review!**
+4. **Mandatory Routing Order**:
+   `Qiyue Chen (Prepared by) ✍️` -> `Robin Seymour (Reviewed by) ✍️` -> `QA Department (Approved by) ✍️`.
+
+## 🚨🚨 RULE 0S (TOP PRIORITY): Universal Sterility Investigation Standards from Robin Seymour (全 OOS 模块复溶详述、设备栏 "Phase I Summary"、CR115 校准期、冲突抗辩两段式、根因与结语极简法则)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`):
+1. **Mandatory Reconstitution Process Narrative (冻干粉/多肽复溶全过程必写)**:
+   - Whenever testing lyophilized vials, powders, or peptide products across ANY test module, narrative MUST detail the reconstitution process (diluent name, volume added, analyte concentration, and aliquot portion filtered), NEVER vaguely write a filtration weight or bottle count alone!
+2. **Equipment Section Reference & Primary BSC List (设备栏 "Phase I Summary" 与主生物安全柜必录)**:
+   - In Page 2 equipment tables across all forms, environmental control references must be written as `"Phase I Summary"` (NEVER `"See Phase I Summary"`).
+   - Always explicitly list the primary processing BSC (e.g. `ISO 5 BSC E001316`) with its calibration due date (`Dec 2026`).
+3. **Cleanroom Suite 115 Certification Due Date (CR115 校准期统一)**:
+   - CR 115 (`E001737`) calibration due date is strictly **`Dec 2026`** (identical to CR 114 / `Dec 2026`), NEVER June 2027.
+4. **Robin's Golden 2-Paragraph Defense for Prior Passing Rapid Test vs Current Failure (先前快速法合格与当前检验不合格冲突时的两段式抗辩金标准)**:
+   - Paragraph 1: State that review determined *no approved method suitability test* was available to support the validity for microbial growth recovery using the rapid method for this specific sample.
+   - Paragraph 2: State that discrepancy is attributable to *non-homogeneous distribution of microbial contamination at very low levels* within the compounded batch, and conclude that *given the absence of a qualified method suitability study, the prior passing result cannot be considered directly comparable to the current test outcome*.
+5. **Phase II Section D Root Cause Simplification (根因分析极简核心)**:
+   - In Section D root cause statement, DO NOT write long speculative essays. Strictly focus on confirmed recovery of identical isolate during retest and state the original failure is confirmed valid:
+     `"Inherent sample contamination within Lot [Lot #], supported by recovery of the same organism ([Microbial ID]) during retesting. The original [Test Method] sterility failure was confirmed as valid."`
+6. **Investigation Conclusion (调查结语双有效性判定)**:
+   - Explicitly state inherent product contamination and that *both the initial failing result and the retest failing result are considered valid*:
+     `"Therefore, inherent product contamination in Lot [Lot #] is confirmed, both the initial failing result for [Initial ETX] and the retest [Retest ETX] is considered valid."`
+7. **Section E Handling (Section E 权限绝对留空)**:
+   - Investigators must leave Section E completely empty during drafting. Direct supervisor (Robin Seymour) personally stamps `"N/A RS [Date]"`.
+
+
+---
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 
