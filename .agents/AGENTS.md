@@ -668,6 +668,8 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
+   - **签署日期铁律 (Date of Drafting/Signing Ground Truth)**：N/A 后的签署日期必须严格为**撰写/签署当天的物理真实日期**（Date of Drafting/Signing，例如今天处理即为 22Oct26），**绝对严禁**误填为事故发生日（Date of Incident）或实验检验日（Test Date）！
+
 ## 🚨🚨 RULE 0R (TOP PRIORITY): Universal 3-Tier OOS Review Hierarchy & Supervisor (RS) vs QA Role Distinction (全 OOS 模块三级签名流转与主管 RS vs 质保 QA 角色法定铁律)
 
 **CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), strictly maintain the official 3-tier organizational hierarchy and review roles:

@@ -218,7 +218,7 @@ def build_pdf_package(oos_num, sample_id, room_name, p3_text, p4_text, p5_text, 
         # Page 3
         'Text Field46': 'Not Applicable',
         'Text Field47': 'Not Applicable',
-        'Text Field48': 'N/A QYC 14Sep26',
+        'Text Field48': 'N/A QYC 22Oct26',
         'Text Field49': p3_text,
         # Page 4
         'Text Field50': p4_text,
@@ -241,7 +241,7 @@ def build_pdf_package(oos_num, sample_id, room_name, p3_text, p4_text, p5_text, 
     final_doc = fitz.open(temp_p1_6)
     for p_idx, field_map in [
         (0, {"Text Field11": 7.0}),
-        (2, {"Text Field49": 8.5}),
+        (2, {"Text Field48": 8.5, "Text Field49": 8.5}),
         (3, {"Text Field50": 8.5}),
         (4, {"Text Field51": 9.0}),
     ]:

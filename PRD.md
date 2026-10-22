@@ -360,6 +360,7 @@
 16. **RULE 0Q — Good Documentation Practices (GDP) N/A Sign-Off Standard (N/A + 分析员官方缩写 + 2位年份日期 DDMMMYY 规范)**:
     - 法定格式：`N/A <Analyst Initials> <DDMMMYY>`（如 `N/A QYC 21Oct26`）。
     - 严格 2 位年份（严禁 4 位），严格遵守花名册缩写（Qiyue Chen 必须为 `QYC`）。
+    - **签署日期铁律 (Date of Drafting/Signing Ground Truth)**：N/A 后的签署日期必须严格为**撰写/签署当天的物理真实日期**（Date of Drafting/Signing，例如今天处理即为 22Oct26），**绝对严禁**误填为事故发生日（Date of Incident）或实验检验日（Test Date）！
 
 17. **RULE 0R — Universal 3-Tier OOS Review Hierarchy & Supervisor (RS) vs QA Role Distinction (全 OOS 模块三级签名流转与主管 RS vs 质保 QA 角色法定铁律)**:
     - **Prepared by**: Qiyue Chen (QYC / 调查起草人) 签署 `Signature_0`。
