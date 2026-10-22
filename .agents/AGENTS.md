@@ -708,6 +708,31 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 ---
 
+
+## 🚨🚨 RULE 0T (TOP PRIORITY): Sterile Suite & Biosafety Cabinet Analyst Assignment Ground Truth (无菌套间、洁净室与分析员常态化主工位权威映射)
+
+**CRITICAL**: In all sterility investigations (Celsis, ScanRDI, USP <71>), analyst lab locations and BSC assignments strictly follow this official operational ground truth:
+
+1. **Suite 114 Operational Invariant**:
+   - **Cleanroom 114B (ISO 7 核心室 / 主操作 BSC E001316)**:
+     - Primary Inoculation & Filtration Processing (Processing Analyst).
+     - Regular Operating Analysts: **ES (Alex Saravia)**, **GS (Gabrielle Surber)**.
+   - **Cleanroom 114A (ISO 7 缓冲室 / 分装换机 BSC E001798)**:
+     - 7-Day Incubation Aliquoting & Reading Preparation (Aliquoting Analyst near Celsis Advance 2 E002222).
+     - Regular Operating Analysts: **CCD (Cuong Du)**, **ALA (America Alanis)**.
+
+2. **Suite 115 Operational Invariant**:
+   - **Cleanroom 115B (ISO 7 核心室 / 主操作 BSC E001309 / E001312)**:
+     - High-Throughput Filtration & Sterility Processing.
+     - Regular Operating Analysts: **AOD (Ayomide Odugbesi)**, **GL (Guanchen Li)**.
+
+3. **L-Suite (Suite 144 / 145) Operational Invariant**:
+   - **Cleanroom 144 (ISO 7 核心室 / Scan RDI Processing BSC E001938 & Changeover BSC E001937)**:
+     - Regular Operating Analysts: **ELB (Ellen Bennett)**, **KSM (Karla Silva)**, **VV (Varsha Subramanian)**, **EN (Elysse Nioupin)**.
+
+---
+
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 

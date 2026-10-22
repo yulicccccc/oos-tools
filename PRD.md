@@ -3042,6 +3042,31 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         Qiyue Chen (Prepared by) ✍️ 签署 -> 流转至 Robin Seymour (Reviewed by) ✍️ 审核签署 -> 流转至 QA 质保部 (Approved by) ✍️ 终审批准。
 
 
+
+62. **Sterile Suite & Biosafety Cabinet Analyst Assignment Ground Truth (无菌套间、洁净室与分析员常态化主工位权威映射 - 🚨 终极锁定):**
+
+    *   **业务背景与权威实战花名册 (Laboratory Operational Ground Truth)**:
+        根据无菌检验（Celsis, Scan RDI, USP <71>）在 Eagle Analytical 实验室现场的真实日常排班与操作工位分布，各分析员在各洁净室及主/副生物安全柜之间的常态化分配规则严格守恒如下：
+        
+        1. **Suite 114 常态化排班与工位**:
+           - **Cleanroom 114B (ISO 7 核心室 / 主操作 BSC E001316)**:
+             - 专职样品初次接种与过滤处理（Processing Analyst）。
+             - 常态化操作分析员：**ES (Alex Saravia)**、**GS (Gabrielle Surber)**。
+           - **Cleanroom 114A (ISO 7 缓冲室 / 分装与换机 BSC E001798)**:
+             - 专职培养 7 天后取样分装（Aliquoting Analyst）及近机操作（Celsis Advance 2 E002222）。
+             - 常态化操作分析员：**CCD (Cuong Du)**、**ALA (America Alanis)**。
+        
+        2. **Suite 115 常态化排班与工位**:
+           - **Cleanroom 115B (ISO 7 核心室 / 主操作 BSC E001309 / E001312)**:
+             - 专职大批量无菌样品过滤与经典培养处理。
+             - 常态化操作分析员：**AOD (Ayomide Odugbesi)**、**GL (Guanchen Li)**。
+        
+        3. **L-Suite (Suite 144 / 145) 常态化排班与工位**:
+           - **Cleanroom 144 (ISO 7 核心室 / Scan RDI 处理 BSC E001938 & 换台 BSC E001937)**:
+             - 常态化操作分析员：**ELB (Ellen Bennett)**、**KSM (Karla Silva)**、**VV (Varsha Subramanian)**、**EN (Elysse Nioupin)**。
+
+
+
 ## Pending/Future Work
 
 
