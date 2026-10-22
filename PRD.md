@@ -286,7 +286,12 @@
 
 
 
-13. **RULE 0M — Official 2-File Deliverable Protocol (最终交付物双文件法定铁律 — 严格仅交付带表完整 PDF 与 Word 版 Table)**:
+13. **RULE 0M — Official 2-File Deliverable Protocol & Canonical Desktop Destination (最终交付物双文件法定铁律与企业 OneDrive 桌面唯一落盘路径铁律)**:
+
+    - **法定桌面落盘路径铁律 (Canonical Desktop Destination Rule)**:
+      - 凡是用户或流程要求将 OOS 交付物保存至“桌面（Desktop）”时，**必须严格唯一定位并保存至企业 OneDrive 桌面物理路径**：
+        `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`
+      - 🚨 **严禁仅保存至本地物理桌面** `C:\Users\qchen\Desktop`，彻底杜绝多路径引发的“找不到文件”或版本不同步问题！
 
     - **用户法定指令 (User Golden Mandate)**: 凡完成任何 OOS 调查报告生成或修订任务，**严格只向用户输出并提供以下 2 个核心文件**，严禁输出任何冗余多余文件：
 
