@@ -1,11 +1,10 @@
 import os, sys, shutil
 import fitz
 from pypdf import PdfReader, PdfWriter
-from pypdf.generic import NameObject, TextStringObject
 import docx
 import win32com.client as win32
 
-from build_docx_table_helper import build_docx_table
+from build_docx_table_helper import build_perfect_docx_table
 
 ref_pdf_path = r'references/OOS-261553 EM SMO 142 Air 26JUN2026.pdf'
 
@@ -15,9 +14,9 @@ docx_34 = r"scratch\EM table OOS-262134 04SEP2026.docx"
 pdf_table_33 = r"scratch\EM table OOS-262133 04SEP2026.pdf"
 pdf_table_34 = r"scratch\EM table OOS-262134 04SEP2026.pdf"
 
-print("1. Generating Word master tables...")
-build_docx_table("OOS-262133", "262133", docx_33)
-build_docx_table("OOS-262134", "262134", docx_34)
+print("1. Generating Word master tables (with 0-indent titles and 0.60in Notes column)...")
+build_perfect_docx_table("OOS-262133", "262133", docx_33)
+build_perfect_docx_table("OOS-262134", "262134", docx_34)
 
 print("2. Converting tables to PDF via Word COM...")
 word = win32.gencache.EnsureDispatch('Word.Application')
@@ -31,7 +30,7 @@ for d_path, p_path in [(docx_33, pdf_table_33), (docx_34, pdf_table_34)]:
     print(f"  {p_path} -> Pages: {len(doc_fitz)}")
     assert len(doc_fitz) == 1, f"Table PDF {p_path} must be 1 page!"
 
-# Build narratives for OOS-262133 (CR143)
+# Build narratives for OOS-262133 (CR143) - Exactly matching user's filled Page 3, filled Page 4, and N/A Page 5
 p3_narrative_262133 = (
     "The analyst involved in the weekly active air sampling plate setup, Simin Mohammad, and the analyst involved in reading the plate, "
     "Maraya Chukwumerije, were interviewed comprehensively. Their answers are recorded throughout this document.\r \r"
@@ -50,10 +49,7 @@ p3_narrative_262133 = (
     "Corynebacterium genitalium, Cordyceps memorabilis, Allophoma tropica, Corynebacterium jeikeium, Pseudomonas fulva, Lophiotremataceae, "
     "Acrodontium salmoneum, Quambalaria cyanescens, Sordariales, and Streptococcus sp. A12 (see Table 1).\r \r"
     "To observe if the organisms identified were transient in nature or recurring, weekly environmental monitoring plates for cleanroom "
-    "suite 143 were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached)."
-)
-
-p4_narrative_262133 = (
+    "suite 143 were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached).\r \r"
     "Environmental Monitoring Summary: During the preceding week of active air monitoring (28 Aug 2026), 5 CFUs were recovered from CR142, "
     "while zero growth (0 CFU) was recovered across CR143 Section I, CR143 Section II, and all ISO 7 cleanrooms (CR144 and CR145), conforming to applicable limits.\r \r"
     "During the week under investigation (04 Sep 2026), weekly active air monitoring in CR143 yielded 53 CFUs in Section I (ETX-260914-0493) "
@@ -63,7 +59,10 @@ p4_narrative_262133 = (
     "while CR142 dropped to 3 CFUs (below alert level), and CR144 Section II had 1 CFU. Recovered colonies were characterized and confirmed as "
     "Corynebacterium simulans, Staphylococcus epidermidis, Staphylococcus pasteuri, Micrococcus luteus, Staphylococcus hominis, Rothia dentocariosa, "
     "Corynebacterium imitans, Staphylococcus sp. M0911, Moraxella osloensis, Streptococcus thermophilus, Aeromicrobium erythreum, Roseomonas sp. FDAARGOS_362, "
-    "Agrococcus carbonis, Corynebacterium segmentosum, and Streptomyces xiamenensis (see Table 2).\r \r"
+    "Agrococcus carbonis, Corynebacterium segmentosum, and Streptomyces xiamenensis (see Table 2)."
+)
+
+p4_narrative_262133 = (
     "Weekly surface monitoring during the week before testing (28 Aug 2026) recovered 1 CFU from Table 2 in CR143 (Gram-positive rods). Crucially, "
     "weekly surface monitoring contact plates collected during the week under investigation (04 Sep 2026) and the subsequent week (09 Sep 2026) "
     "consistently yielded No Growth (0 CFU) across all cleanrooms and anterooms.\r \r"
@@ -75,10 +74,7 @@ p4_narrative_262133 = (
     "and associated ISO 5 Biosafety Cabinets were performed on 30 Aug 2026 in accordance with MICRO-SOP-9, by laboratory technician Andrew Carrillo. "
     "Documentation confirmed that all hydrogen peroxide (H2O2) indicators passed acceptance criteria, demonstrating successful completion of the "
     "monthly decontamination process. Routine cleaning and disinfection were performed both before and after testing.\r \r"
-    "Notably, a comprehensive review of laboratory testing records confirmed that no client samples processed within that week in CR 143 failed sterility testing (including ScanRDI, Celsis, and USP <71>)."
-)
-
-p5_narrative_262133 = (
+    "Notably, a comprehensive review of laboratory testing records confirmed that no client samples processed within that week in CR 143 failed sterility testing (including ScanRDI, Celsis, and USP <71>).\r \r"
     "Based on the available evidence, the recovery of 53 CFUs and 44 CFUs from the weekly active air sampling plates in CR143 collected on 04 Sep 2026 "
     "represents an isolated environmental monitoring excursion localized to the ISO 8 anteroom area. The primary ISO 7 cleanroom suites and critical ISO 5 "
     "processing zones demonstrated continuous absence of microbial recovery on the date of testing, and all surface monitoring plates yielded No Growth.\r \r"
@@ -92,6 +88,8 @@ p5_narrative_262133 = (
     "no additional corrective or preventive actions are warranted at this time beyond continued routine environmental monitoring, adherence to established "
     "cleaning and disinfection controls, and compliance with existing procedures."
 )
+
+p5_narrative_262133 = "N/A QYC 22Oct26"
 
 # Build narratives for OOS-262134 (CR142)
 p3_narrative_262134 = (
@@ -112,10 +110,7 @@ p3_narrative_262134 = (
     "Corynebacterium genitalium, Cordyceps memorabilis, Allophoma tropica, Corynebacterium jeikeium, Pseudomonas fulva, Lophiotremataceae, "
     "Acrodontium salmoneum, Quambalaria cyanescens, Sordariales, and Streptococcus sp. A12 (see Table 1).\r \r"
     "To observe if the organisms identified were transient in nature or recurring, weekly environmental monitoring plates for cleanroom "
-    "suite 142 were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached)."
-)
-
-p4_narrative_262134 = (
+    "suite 142 were bracketed to include date before testing and date after testing as detailed in Table 2 (please see attached).\r \r"
     "Environmental Monitoring Summary: During the preceding week of active air monitoring (28 Aug 2026), 5 CFUs were recovered from CR142, "
     "while zero growth (0 CFU) was recovered across CR143 Section I, CR143 Section II, and all ISO 7 cleanrooms (CR144 and CR145), conforming to applicable limits.\r \r"
     "During the week under investigation (04 Sep 2026), weekly active air monitoring in CR142 yielded 17 CFUs (ETX-260914-0498), "
@@ -126,7 +121,10 @@ p4_narrative_262134 = (
     "included 16 CFUs in CR143 Section I, 17 CFUs in Section II, and 1 CFU in CR144 Section II. Recovered colonies were characterized and confirmed as "
     "Corynebacterium simulans, Staphylococcus epidermidis, Staphylococcus pasteuri, Micrococcus luteus, Staphylococcus hominis, Rothia dentocariosa, "
     "Corynebacterium imitans, Staphylococcus sp. M0911, Moraxella osloensis, Streptococcus thermophilus, Aeromicrobium erythreum, Roseomonas sp. FDAARGOS_362, "
-    "Agrococcus carbonis, Corynebacterium segmentosum, and Streptomyces xiamenensis (see Table 2).\r \r"
+    "Agrococcus carbonis, Corynebacterium segmentosum, and Streptomyces xiamenensis (see Table 2)."
+)
+
+p4_narrative_262134 = (
     "Weekly surface monitoring during the week before testing (28 Aug 2026) recovered 1 CFU from Table 2 in CR143 (Gram-positive rods). "
     "Surface sampling contact plates collected during the week under investigation (04 Sep 2026) and the subsequent week (09 Sep 2026) "
     "consistently yielded No Growth (0 CFU) across all cleanrooms and anterooms.\r \r"
@@ -138,10 +136,7 @@ p4_narrative_262134 = (
     "and associated ISO 5 Biosafety Cabinets were performed on 30 Aug 2026 in accordance with MICRO-SOP-9, by laboratory technician Andrew Carrillo. "
     "Documentation confirmed that all hydrogen peroxide (H2O2) indicators passed acceptance criteria, demonstrating successful completion of the "
     "monthly decontamination process. Routine cleaning and disinfection were performed both before and after testing.\r \r"
-    "Notably, a comprehensive review of laboratory testing records confirmed that no client samples processed within that week in CR 142 failed sterility testing (including ScanRDI, Celsis, and USP <71>)."
-)
-
-p5_narrative_262134 = (
+    "Notably, a comprehensive review of laboratory testing records confirmed that no client samples processed within that week in CR 142 failed sterility testing (including ScanRDI, Celsis, and USP <71>).\r \r"
     "Based on the available evidence, the recovery of 17 CFUs from the weekly active air sampling plate in CR142 collected on 04 Sep 2026 represents "
     "an isolated environmental monitoring excursion within the ISO 8 anteroom. The subsequent weekly active air monitoring performed on 09 Sep 2026 "
     "demonstrated rapid return to normal levels with only 3 CFUs (well below the alert level of 8 CFU/plate), and all critical ISO 7 cleanrooms and surface "
@@ -155,6 +150,8 @@ p5_narrative_262134 = (
     "laboratory-related factors considered as a possible contributor. Therefore, no additional corrective or preventive actions are warranted at this time "
     "beyond continued routine environmental monitoring, adherence to established cleaning and disinfection controls, and compliance with existing procedures."
 )
+
+p5_narrative_262134 = "N/A QYC 22Oct26"
 
 def build_pdf_package(oos_num, sample_id, room_name, p3_text, p4_text, p5_text, specific_table_pdf, out_pdf_path):
     reader = PdfReader(ref_pdf_path)

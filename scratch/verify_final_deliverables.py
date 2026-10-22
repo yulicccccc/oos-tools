@@ -34,12 +34,13 @@ for pdf_p, oos_id in [(pdf_33, "262133"), (pdf_34, "262134")]:
     p4_txt = doc[3].get_text()
     assert "failed sterility testing" in p4_txt, "Page 4 sterility testing text missing!"
     assert "30 Aug 2026" in p4_txt, "Page 4 monthly cleaning missing!"
-    print("  Page 4 text: COMPLETE (contains 'failed sterility testing' and '30 Aug 2026')")
+    assert "existing procedures" in p4_txt, "Page 4 conclusion missing!"
+    print("  Page 4 text: COMPLETE (contains 'failed sterility testing', '30 Aug 2026', and conclusion)")
     
     # Page 5
     p5_txt = doc[4].get_text()
-    assert "compliance with existing procedures" in p5_txt, "Page 5 conclusion missing!"
-    print("  Page 5 text: COMPLETE (contains 'compliance with existing procedures')")
+    assert "N/A QYC 22Oct26" in p5_txt, "Page 5 N/A sign-off missing!"
+    print("  Page 5 text: COMPLETE (contains 'N/A QYC 22Oct26')")
     
     # Page 6
     p6_txt = doc[5].get_text()
@@ -49,11 +50,13 @@ for pdf_p, oos_id in [(pdf_33, "262133"), (pdf_34, "262134")]:
     
     # Page 7 (Table)
     p7_txt = doc[6].get_text()
-    assert "Read Dates and Incubation Observation" in p7_txt, "Table 1 missing!"
-    assert "Environmental Monitoring for Analyst and Cleanroom" in p7_txt, "Table 2 missing!"
+    assert "Table 1:" in p7_txt, "Table 1 title sliced off!"
+    assert "Table 2:" in p7_txt, "Table 2 title sliced off!"
+    assert "Notes \n" in p7_txt or "Notes" in p7_txt, "Notes column missing!"
+    assert "Note\ns" not in p7_txt, "Notes column header wrapped awkwardly!"
     assert "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs" in p7_txt, "Active air banner missing!"
     assert "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs" in p7_txt, "Surface banner missing!"
     assert "&" not in p7_txt, "Prohibited '&' found in Table text!"
-    print("  Page 7 text: COMPLETE (Robin QA standards, zero '&')")
+    print("  Page 7 text: COMPLETE (Table 1 & Table 2 intact, Notes single-line, zero '&')")
 
 print("\nALL VERIFICATIONS PASSED 100%!")
