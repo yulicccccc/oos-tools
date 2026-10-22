@@ -122,3 +122,20 @@ Key active files:
 ### Next Phase Goal
 1. Roll out the Smart Justification Engine to `ScanRDI.py` and `USP71.py` in the new Project environment.
 2. User manual layout polish on any specific template aesthetics if desired.
+
+
+### Recent QA Review & Harmonization Updates (Tahsin Kevenk QA Review on OOS-262098):
+- **Feedback Source**: Tahsin Kevenk (QA) reviewed OOS-262098 (Phase I & Phase II) and flagged two cross-document discrepancies:
+  1. Phase II Page 4 Sample Amount: Erroneously stated "60 gm filtered across 4 vials" instead of the exact 2 mL Bacteriostatic water reconstitution narrative.
+  2. Equipment Calibration / Certification Due Dates: Phase I had Dec 2026 for BSC E001316 and Jan 2027 for CR114, whereas Phase II had Jun 2027 and Dec 2026.
+- **Harmonized & Approved Ground Truth**:
+  - Sample Amount Narrative: Replaced with exact reconstitution narrative matching Phase I (`2mL Bacteriostatic water per vial each containing GLP3R/Cagrilinitide in 25mg/5mg concentration`).
+  - Equipment Dates Harmonized:
+    - `ISO 5 BSC E001316`: Calibration Due Date = **`Jun 2027`**
+    - `Cleanroom CR114 (E001736)`: Certification Due Date = **`Dec 2026`**
+    - `Cleanroom CR115 (E001737)`: Certification Due Date = **`Dec 2026`**
+    - `ISO 5 BSC E001314`: Calibration Due Date = **`Jun 2027`**
+  - Updated signed deliverables verified on Desktop:
+    - `OOS-262098 Solyn LLC (E75000) - USP71 -RS Reviewed - Signed by QYC-RS - Updated.pdf`
+    - `OOS-262098 Solyn LLC (E75000) -  USP 71 - RS Reviewed - Phase II - Signed by QYC-RS - Updated.pdf`
+- **Locked Rules**: Implemented `RULE 0U` in `.agents/AGENTS.md` and Section 65 in `PRD.md`.

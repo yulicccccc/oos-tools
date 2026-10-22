@@ -692,7 +692,7 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
    - Whenever testing lyophilized vials, powders, or peptide products across ANY test module, narrative MUST detail the reconstitution process (diluent name, volume added, analyte concentration, and aliquot portion filtered), NEVER vaguely write a filtration weight or bottle count alone!
 2. **Equipment Section Reference & Primary BSC List (设备栏 "Phase I Summary" 与主生物安全柜必录)**:
    - In Page 2 equipment tables across all forms, environmental control references must be written as `"Phase I Summary"` (NEVER `"See Phase I Summary"`).
-   - Always explicitly list the primary processing BSC (e.g. `ISO 5 BSC E001316`) with its calibration due date (`Dec 2026`).
+   - Always explicitly list the primary processing BSC (e.g. `ISO 5 BSC E001316`) with its calibration due date (`Jun 2027`).
 3. **Cleanroom Suite 115 Certification Due Date (CR115 校准期统一)**:
    - CR 115 (`E001737`) calibration due date is strictly **`Dec 2026`** (identical to CR 114 / `Dec 2026`), NEVER June 2027.
 4. **Robin's Golden 2-Paragraph Defense for Prior Passing Rapid Test vs Current Failure (先前快速法合格与当前检验不合格冲突时的两段式抗辩金标准)**:
@@ -710,6 +710,30 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 ---
 
+
+
+## 🚨🚨 RULE 0U (TOP PRIORITY): QA Auditor (Tahsin Kevenk) Cross-Document Harmonization & Powder/Peptide Reconstitution Accuracy Mandate (质保部 QA 审查跨报告数据一致性、设备日期绝对对齐与冻干多肽复溶量零臆造铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), investigations submitted for QA Department approval (Audited by Tahsin Kevenk et al.) MUST strictly satisfy these two non-negotiable QA audit checkpoints:
+
+1. **冻干粉与重构复溶肽类测试量/单位零脑补准确性 (Reconstituted Peptide Sample Amount & Unit Accuracy - QA Defect Zero Tolerance)**:
+   - 凡送检样品为冻干粉、小容量西林瓶注射剂或需要复溶的肽类药物（如 GLP3R/Cagrilinitide, Tirzepatide, Sermorelin, Retatrutide 等），**严禁在叙述中擅自写出虚假质量重量单位**（🚨 **绝对严禁写出 `"60 gm filtered across 4 vials"` 或 `"45 gm filtered"` 等凭空捏造的质量单位**！）
+   - 必须严格核对 EagleTrax 原始工单（Raw Data）与样品描述，统一按实际复溶规程叙述：
+     `"via membrane filtration (2mL Bacteriostatic water per vial each containing [Analyte] in [Concentration]). Half the contents of each reconstituted vial was then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration."`
+   - **跨报告吻合铁律**: Phase I 与 Phase II 在样品处理数量、浓度、复溶溶媒（Bacteriostatic Water）及分液过滤比例上**必须完全统一、严丝合缝**！
+
+2. **Phase I 与 Phase II 设备校准与洁净室认证到期日绝对对齐标准 (Equipment Calibration & Cleanroom Certification Due Date Harmonization)**:
+   - Phase I 与 Phase II 涉及的相同设备与洁净室，其 Calibration / Certification Due Date **必须 100% 绝对一致，严禁出现矛盾**：
+     - **`ISO 5 BSC E001316`**：Calibration Due Date 必须统一为 **`Jun 2027`**（🚨 严禁在 Phase I 写 Dec 2026 而在 Phase II 写 Jun 2027！两者必须完全统一为 `Jun 2027`）！
+     - **`Cleanroom CR114 (E001736)`**：Certification Due Date 必须统一为 **`Dec 2026`**（🚨 严禁在 Phase I 写 Jan 2027 而在 Phase II 写 Dec 2026！两者必须完全统一为 `Dec 2026`）！
+     - **`Cleanroom CR115 (E001737)`**：Certification Due Date 必须统一为 **`Dec 2026`**（严禁写 June 2027）！
+     - **`ISO 5 BSC E001314`**：Calibration Due Date 必须统一为 **`Jun 2027`**（与同套间设备对齐）！
+
+3. **QA 审核员花名册与三级审查认知 (QA Auditor Identity & Three-Tier Signoff Protocol)**:
+   - **Tahsin Kevenk** 为质保部（Quality Assurance / QA）核心审核人，重点审查跨报告数据一致性、单位准确性及设备校准到期日！
+   - 牢记三级流转：Prepared by: **Qiyue Chen (QYC)** ✍️ $	o$ Reviewed by: **Robin Seymour (RS)** (Micro Lab Supervisor) ✍️ $	o$ Approved by (QA): **Tahsin Kevenk / QA Department** ✍️。
+
+---
 
 ## 🚨🚨 RULE 0T (TOP PRIORITY): Sterile Suite & Biosafety Cabinet Analyst Assignment Ground Truth (无菌套间、洁净室与分析员常态化主工位权威映射)
 

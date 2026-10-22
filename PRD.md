@@ -3005,7 +3005,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
     *   **标杆案卷来源**: 基于 QA Director Robin Seymour (RS) 审阅并签署的官方标杆报告 `OOS-262098 Solyn LLC (E75000) - USP71 -RS Reviewed` 及 `... - Phase II - RS Reviewed`，提炼并固化以下六大质保法定准则：
     *   **1. 设备栏引用与生物安全柜强制罗列 (Equipment Section "Phase I Summary" & Mandatory ISO 5 BSC):**
         - 在 `CORP-FORM-21` 设备栏目中，若环境监控与控制引用正文叙述，必须规范写为 `"Phase I Summary"`（🚨 **严禁加 "See"，严禁写成 "See Phase I Summary"**）。
-        - 在设备列表中，除了培养箱与传感器外，必须明确列出主处理生物安全柜 `ISO 5 BSC E001316` 及其校准到期日 `Dec 2026`。
+        - 在设备列表中，除了培养箱与传感器外，必须明确列出主处理生物安全柜 `ISO 5 BSC E001316` 及其校准到期日 `Jun 2027`（与 Phase II 绝对对齐，经 QA Tahsin Kevenk 审核定稿）。
     *   **2. 冻干粉/小容量注射剂复溶重构过程详述铁律 (Mandatory Reconstitution Process Narrative):**
         - 在 Phase I 样品处理段落（Page 3 `Text Field49`）中，凡待测样品为冻干粉或小容量注射剂（如 GLP3R/Cagrilinitide 25mg/5mg），**必须详细写明复溶溶媒、体积、浓度及过滤分液比例**：
           `"...reconstituted with 2mL Bacteriostatic Water per vial (each vial containing GLP3R/Cagrilinitide in 25mg/5mg concentration). Half the contents of each reconstituted vial was then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration."`
@@ -3111,3 +3111,19 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 
 
+
+
+65. **QA Official Review & Cross-Document Harmonization Standards (Tahsin Kevenk QA Review 质保核准定稿标杆与两大黄金对齐铁律 - 🚨 终极锁定):**
+    *   **标杆案卷与审查来源**: 基于质保部（Quality Assurance / QA）审查员 **Tahsin Kevenk** 对 `OOS-262098 Solyn LLC (E75000) - Phase I & Phase II` 提出的法定审核意见，以及最终由 QYC 调查起草、RS 审阅、QA 核准的最新终极已签版本（`... - RS Reviewed - Signed by QYC-RS - Updated.pdf`），确立以下两大跨案卷数据对齐铁律：
+    *   **1. 冻干粉/多肽复溶量与单位零脑补真实性铁律 (Reconstituted Peptide Sample Amount & Unit Accuracy):**
+        - 在 Phase II Page 4 及正文叙述中，凡样品为冻干粉小西林瓶（如 GLP3R/Cagrilinitide 25mg/5mg），**严禁擅自使用虚假质量单位**（严禁写 `"60 gm filtered across 4 vials"` 或 `"45 gm filtered"`）！
+        - 必须与 Phase I 保持 100% 严密一致，如实按照复溶规程叙述：
+          `"...via membrane filtration (2mL Bacteriostatic water per vial each containing GLP3R/Cagrilinitide in 25mg/5mg concentration). Half the contents of each reconstituted vial was then dispensed directly from the container into sterile canisters placed on a vacuum manifold for membrane filtration."`
+    *   **2. Phase I 与 Phase II 设备校准与洁净室认证到期日绝对对齐 (Cross-Phase Equipment & Cleanroom Due Date Harmonization):**
+        - 两份报告中所列之同一设备与洁净室，其校准/认证到期日必须严密吻合，绝不允许出现冲突：
+          - **`ISO 5 BSC E001316`**: Calibration Due Date 统一为 **`Jun 2027`**（Phase I 曾误填为 Dec 2026，现终极更正并锁定为 `Jun 2027`）。
+          - **`Cleanroom CR114 (E001736)`**: Certification Due Date 统一为 **`Dec 2026`**（Phase I 曾误填为 Jan 2027，现终极更正并锁定为 `Dec 2026`）。
+          - **`Cleanroom CR115 (E001737)`**: Certification Due Date 统一为 **`Dec 2026`**。
+          - **`ISO 5 BSC E001314`**: Calibration Due Date 统一为 **`Jun 2027`**。
+    *   **3. QA 审核员架构认知 (QA Reviewer Role in 3-Tier Hierarchy):**
+        - 质保审查人（如 **Tahsin Kevenk**）独立于实验室主管（Robin Seymour），对流转至第三级的报告进行最终合规性审查。起草阶段必须自主完成上述双重交叉比对，做到零缺陷提交。
