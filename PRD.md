@@ -3150,3 +3150,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - **文件 1 (Master Transcribed PDF)**: `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，含 6 页 AcroForm 表单及 Page 7 Table 1 & 2）。
         - **文件 2 (Word 版独立附表)**: `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`（严格 1 单页版）。
         - 唯一定位落盘至企业 OneDrive 桌面：`C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`。
+
+
+67. **Weekly Environmental Monitoring (EM) "Week of Testing" Calendar Alignment Protocol (周度环境监测 "Week of Testing" 自然周严格对齐铁律 - 🚨 终极锁定):**
+    *   **核心法则**: 在所有无菌检验调查（Celsis、ScanRDI、USP <71>）附表 Table 2 & Table 3 中：
+        - `Week of Testing`（检验当周）必须严格与测试日期所在的同一个 Monday-to-Sunday 自然周对齐！
+        - **严禁整周错位**：若检验在周一进行，当周的周检取当周中（如周四）采样的记录，严禁将上一周（T-1 周）的周检记录错填为检验当周。
+        - **官方先例基准**:
+          - `OOS-262017`: 24Aug26 (Mon) Processing ➡️ Table 2 为 25Aug26 (Tue)；31Aug26 (Mon) Aliquoting ➡️ Table 3 为 04Sep26 (Fri)。
+          - `OOS-262333`: 05Oct26 (Mon) Processing ➡️ Table 2 为 08Oct26 (Thu)；12Oct26 (Mon) Aliquoting ➡️ Table 3 为 15Oct26 (Thu)。
