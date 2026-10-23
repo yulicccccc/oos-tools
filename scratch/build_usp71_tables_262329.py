@@ -38,6 +38,7 @@ READ_ANALYST_FULL = "Andrew Carrillo"
 READ_INITIAL = "ANC"
 
 AIR_ANALYST = "SMO"
+OTHER_BSC_ANALYST = "AOD"
 
 def set_cell_background(cell, fill_hex):
     tcPr = cell._tc.get_or_add_tcPr()
@@ -159,7 +160,7 @@ def build_tables_doc():
     add_hyperlink(p_sub, SUBCULTURE_URL, SUBCULTURE_ID, font_size=Pt(7))
 
     format_cell(t1.cell(1, 4), MEDIA, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    # Rule 0P: "有Microbial ID就不用staining了", binomial italicized
+    # Rule 0P: Binomial nomenclature italicized
     format_cell(t1.cell(1, 5), MICROBIAL_ID, bold=False, italic=True, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     for row in t1.rows:
@@ -251,25 +252,43 @@ def build_tables_doc():
         return row
 
     # --- Section 1: Personnel EM ---
+    # Rule 0B: "Personnel EM" (Canonical: strictly NO date suffix)
+    # Page 1 Row 4 (22Sep26): GL Right: 0, Left: 0
+    # Page 2 Row 2 (23Sep26): GL Right: 0, Left: 0
+    # Page 3 Row 3 (24Sep26): GL Right: 0, Left: 0
     add_section_divider(t2, "Personnel EM")
     add_data_row(t2, "Personnel (Left Touch and Right Touch)", "Daily", "22Sep26", PRO_INITIAL, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personnel (Left Touch and Right Touch)", "Daily", "23Sep26", PRO_INITIAL, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personnel (Left Touch and Right Touch)", "Daily", "24Sep26", PRO_INITIAL, "Date After Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 2: BSC EM ---
+    # Rule 0B: "Biological Safety Cabinet EM for E001314" (Canonical: strictly NO (BSC), NO repetitive BSC, NO date suffix)
+    # Raw bench logbook verification:
+    # 22Sep26 Surface: Page 4 Row 1 shows AOD at 18:00 (0 CFU)
+    # 23Sep26 Surface: Page 5 Row 6 shows GL at 23:59 (0 CFU)
+    # 24Sep26 Surface: Page 6 Row 3 shows AOD at 17:50 (0 CFU)
+    # 22Sep26 Settling: Page 7 Row 3 shows AOD at 18:00 (0 CFU)
+    # 23Sep26 Settling: Page 8 Row 1&2 shows GL at 23:59 (0 CFU)
+    # 24Sep26 Settling: Page 9 Row 1 shows AOD at 17:50 (0 CFU)
     add_section_divider(t2, "Biological Safety Cabinet EM for E001314")
-    add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "22Sep26", PRO_INITIAL, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "22Sep26", OTHER_BSC_ANALYST, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "23Sep26", PRO_INITIAL, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "24Sep26", PRO_INITIAL, "Date After Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of ISO 5 (2 locations)", "Daily", "22Sep26", PRO_INITIAL, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "24Sep26", OTHER_BSC_ANALYST, "Date After Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Settling Sampling of ISO 5 (2 locations)", "Daily", "22Sep26", OTHER_BSC_ANALYST, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Settling Sampling of ISO 5 (2 locations)", "Daily", "23Sep26", PRO_INITIAL, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
-    add_data_row(t2, "Settling Sampling of ISO 5 (2 locations)", "Daily", "24Sep26", PRO_INITIAL, "Date After Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t2, "Settling Sampling of ISO 5 (2 locations)", "Daily", "24Sep26", OTHER_BSC_ANALYST, "Date After Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Cleanroom Active Air ---
+    # Rule 0B: "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC" (strictly NO date suffix)
+    # Raw bench logbook verification: Page 10 shows SMO on 23Sep26 17:00, ISO 8 115 = 6 CFU, ISO 7 115A = 0 CFU, ISO 7 115B = 0 CFU.
+    # ETX-261001-0625 submitted for ID, Status: Pending
+    # PRD Section 65 / Rule 46: Microbial ID must strictly be "Pending" (NOT "None" or "Pending Identification")
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
-    add_data_row(t2, "Active Air Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "6 CFUs (ISO 8 115)", EM_PLATE_ID, "Pending Identification", "None", etx_url=EM_PLATE_URL)
+    add_data_row(t2, "Active Air Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "6 CFUs (ISO 8 115)", EM_PLATE_ID, "Pending", "None", etx_url=EM_PLATE_URL)
 
     # --- Section 4: Cleanroom Surface ---
+    # Rule 0B: "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC" (strictly NO date suffix)
+    # Raw bench logbook verification: Page 11 shows SMO on 23Sep26 17:00, all 6 sites = 0 CFU (No Growth)
     add_section_divider(t2, "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
     add_data_row(t2, "Surface Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 

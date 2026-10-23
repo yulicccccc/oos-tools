@@ -181,7 +181,11 @@ Key active files:
   - Rule 0L: All samples processed on the same day evaluated; no other samples exhibited growth; cross-contamination excluded.
   - Negative Controls: Direct inoculation negative controls for both TSB and FTM showed No Growth, verifying media sterility.
   - Cleanroom & Equipment Due Dates Harmonized (Rule 0U): CR115 = Dec 2026, BSC E001314 = Jun 2027.
-  - Contemporaneous EM: GL Personnel and BSC E001314 surface/settling on 22/23/24Sep26 all No Growth. Suite 115 weekly surface No Growth. Suite 115 weekly air 6 CFUs in outermost ISO 8 115 (ETX-261001-0625, pending identification).
+  - Contemporaneous EM (Ground Truth Decoded from 14-page Raw Scanned Package):
+    - GL Personnel touch plates on 22/23/24Sep26: all 0 CFU (No Growth).
+    - BSC E001314 surface & settling tracking per Rule 46: 22Sep26 (AOD, 0 CFU), 23Sep26 (GL, 0 CFU), 24Sep26 (AOD, 0 CFU) - all No Growth.
+    - Suite 115 weekly surface: 23Sep26 (SMO, all 6 locations 0 CFU / No Growth).
+    - Suite 115 weekly active air: 23Sep26 (SMO, ISO 7 115A/115B 0 CFU / No Growth; outermost ISO 8 115 recovered 6 CFUs under ETX-261001-0625, status: Pending; excluded by Rule 0I cascaded pressure & physical airlocks).
   - Monthly Cleaning: Suite 115 performed on 13Sep26 by EN, SAA, ANC; H2O2 chemical indicator strips passed.
   - Initiator: Guanchen Li (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
 - **Deliverables Generated (Rule 0M)**:

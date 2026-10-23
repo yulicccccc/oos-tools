@@ -3143,7 +3143,14 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - **接种与培养**: 由 `EN` 于 22Sep26 准备样品，`GL` 于 23Sep26 在 Suite 115 ISO 5 BSC E001314 完成直接接种并于 24Sep26 12:55 AM 入箱培养。
         - **混浊分装与动力学**: Day 14 (08Oct26) 因高浓度 Sermorelin 样品本身基质混浊判定为 Inconclusive，由 `AOD` 于 07Oct26 6:59 PM 转移分装至新鲜培养基 (`-46/54-A` 及 `-47/54-A`)。Day 18 (12Oct26) 原样瓶 (`-46/54`) 与分装瓶 (`-46/54-A`) 之 TSB 均呈阳性生长，FTM 原样瓶及分装瓶全程阴性澄清。
         - **微生物鉴定**: 送检单号 `ETX-261012-0367`，经差速染色（革兰氏阳性杆菌）及确证鉴定为 ***Bacillus megaterium***。
-        - **环境监测 (EM)**: 接种员 `GL` 连续 3 日人员手套与 BSC E001314 表面/沉降监测全为 No Growth；Suite 115 洁净室周表面监测为 No Growth；周浮游菌监测在最外层 ISO 8 Room 115 检出 6 CFUs (`ETX-261001-0625`，Pending Identification)，因层级压差与物理隔离排除污染。
+        - **环境监测 (EM - 14 页台账地毯式核查与 Rule 46 真实设备运行历史锁定)**:
+          - **人员手套 (Personnel EM)**: 接种员 GL 连续 3 日（22Sep26 BSC 1312, 23Sep26 BSC 1314, 24Sep26 BSC 1312）左右手接触平皿均为 0 CFU，全为 **No Growth**。
+          - **生物安全柜 (BSC E001314)**: 严格跟踪物理设备真实运行历史：
+            - 前序日 (22Sep26): 由 AOD 运行 71 Sterility，表面 (4 点) 与沉降 (2 点) 均为 0 CFU (**No Growth**)。
+            - 检验日 (23Sep26): 由 GL 运行直接接种，表面 (4 点) 与沉降 (2 点) 均为 0 CFU (**No Growth**)。
+            - 后续日 (24Sep26): 由 AOD 运行 71/Celsis，表面 (4 点) 与沉降 (2 点) 均为 0 CFU (**No Growth**)。
+          - **Suite 115 洁净室周表面监测**: 23Sep26 (检验当周周三) 由 SMO 监测 6 个位点，全为 0 CFU (**No Growth**)。
+          - **Suite 115 洁净室周浮游菌监测**: 23Sep26 由 SMO 监测，核心 ISO 7 115A 与 115B 均为 0 CFU (**No Growth**)；最外层 ISO 8 Anteroom 115 检出 **6 CFUs**，送检微生物鉴定单号为 ETX-261001-0625，状态严格依规填入 **Pending**。按 Rule 0I 级联正压差与消毒封闭转运排除污染。
         - **月度清洁**: Suite 115 月度清洁由 `EN`, `SAA`, `ANC` 于 `13Sep26` 执行，H2O2 指示卡（Lot `260620`, Exp `20Jun28`）全项合格。
         - **6 个月历史**: 官方追踪台账显示 GoGoMeds Select 之 Sermorelin 0.9mg/ml 在 USP <71> 下无前科（Zero Prior Failures）。
     *   **双文件交付物规范 (Rule 0M)**:
