@@ -3192,3 +3192,10 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - **文件 1 (Master Transcribed PDF)**: `CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf`（8 页完整合并版，含 6 页 AcroForm 官方表单及末尾 Page 7 Table 1 & 2，Page 8 Table 3）。
         - **文件 2 (Word 版独立附表)**: `Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx`（严格 2 页版）。
         - 唯一法定落盘物理路径：企业 OneDrive 桌面 `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`。
+
+69. **Global Dual-Track EM Inspection & Growth Focus Screenshot Collaboration Protocol (全局环境监测双轨排查与菌落生长聚焦截图法定协作规范 - 🚨 终极锁定):**
+    *   **核心法则**: 在所有 OOS 调查案卷（ScanRDI、Celsis、USP <71>、EM）中，全面推行“全景归档 + 焦点透视”双轨协作模式：
+        1. **全景后台拉网 (Agent 主导)**：用户将全量多页 PDF 归档至 EagleTrax；Agent 自动下载并拉网式提取常规阴性数据、设备到期日、物料批号效期、月度清洁消毒记录及人员初始对应。
+        2. **异常焦点聚焦 (用户截图主导)**：凡涉及平皿生长（Growth / CFUs > 0）、数字划改更正或手写子送检单号（Subculture ETX ID）的页面，用户直接在对话框提供单页高清截图或一句话摘要（如 *“P23 ISO 8 浮游菌有 6 CFU，单号 ETX-261021-0578”*）。
+        3. **精准锚定与防守撰写**：Agent 将截图作为法定理化证据锚点，提取真实 CFU 数、读板人与时间、子送检单号并设为 Pending；在 Page 5 自动整合 Rule 0I 级联压差与物理隔离防守论证。
+        4. **零脑补门禁**：若截图字迹仍有模糊，Agent 必须停步提问，绝不臆测。

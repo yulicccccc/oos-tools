@@ -778,6 +778,42 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 ---
 
+## 🚨🚨 RULE 0W (TOP PRIORITY): Global Dual-Track EM Inspection & Growth Focus Screenshot Collaboration Protocol (全局环境监测双轨排查与菌落生长聚焦截图法定协作规范)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Environmental Monitoring`), NEVER rely solely on automated OCR across raw multi-page scanned PDFs for handwritten corrections or positive plate recoveries.
+
+1. **病灶溯源与核心痛点 (Core Problem Solved)**:
+   - 现场纸质环境监测台账（如 `MICRO-FORM-7` / `3.600.002.F06` 浮游菌、`3.600.002.F10` 表面采样）经复印机批量扫描进 EagleTrax 后，常出现方向混杂（横版表格竖向扫描）、低对比度以及重叠手写修正等物理缺陷。
+   - 极其关键的微生物法定数据常以手写单线划改更正（如 `0 -> 5 -> 6`）、上标圈码脚注（`①②③④`）及页面边缘小字送检单号（如 `③ ETX-261021-0578, SMO 21Oct26`）呈现。全页压缩 OCR 极易将细小手写笔迹忽略或误判为底色噪点，从而错误推断为“0 CFU / No Growth”，导致严重的质量调查事故。
+
+2. **双轨法定协作机制 (Dual-Track Golden Collaboration Protocol)**:
+   - **轨道一：全景后台拉网式调取 (Track 1: Full-Spectrum Background Parsing - Agent 主导)**:
+     - 用户将全量原始扫描包上传至 EagleTrax，以确保 cGMP 官方归档与合规证据链完整。
+     - Agent 自动登录 EagleTrax 下载全套 PDF，在后台自动提取：
+       - 阴性常规数据（全流程人员 Personnel Touch、生物安全柜 BSC 表面与沉降板）；
+       - 洁净室月度熏蒸与消毒记录、消毒剂批号效期（HaloMist Lot/Exp）、过氧化氢指示卡批号效期及执行分析员；
+       - 洁净套间、生物安全柜、Advance 2 / ScanRDI 设备序列号及工程校准到期日（Dec 2026 / Jun 2027 等）；
+       - 培养基（FTM、TSB、Tween 80、TSA 等）批号与效期；
+       - 执行人员 Initials 并严格对照 `RULE 0A` 权威花名册 100% 映射官方全名。
+   - **轨道二：焦点透视与菌落生长精准截图 (Track 2: Precision Growth Focus & Targeted Screenshot - 用户极简主导)**:
+     - 凡在环境监测中遇到任何平皿有菌落生长（CFUs > 0）、复杂划改更正或边缘附注子送检单号（Subculture ETX ID）的页面：
+       - **优选方式**：用户随手将含有 Growth 的该单页截一张高清图发送至对话框；
+       - **极简方式**：或在对话框中简要发送一句话说明（例如：*“P23 ISO 8 浮游菌有 6 CFU，单号 ETX-261021-0578”*）。
+     - Agent 接收后，立即将该截图/说明作为最高法定真实锚点（Ground Truth Anchor），精确核实：
+       - 最终确证 CFU 数值（如初读 5 终读 6 CFU）；
+       - 48 小时与 5 天读板人签名与真实读板日期时间；
+       - 边缘登记的送检单号（如 `ETX-261021-0578`）；
+       - 复核人签核（Reviewer By/Date）。
+
+3. **强制闭环防护与质保防御论证 (QA Defense Integration)**:
+   - Agent 依据用户提供的 Growth 截图，自动在附表 Table 2 / Table 3 中精准填报（如 Observation `6 CFUs`，EM Plate ETX Number `ETX-261021-0578`，Microbial ID `Pending`，Notes `None`）。
+   - 在调查报告正文（Page 5）中，自动应用 `RULE 0I` 等质保防守金标准，详述该阳性平皿严格局限于最外层 ISO 8 更衣缓冲区，阐明套间级联外向正压差、物理气闸密闭门及消毒转运容器之有效隔离，强力论证核心 ISO 7 洁净室与 ISO 5 操作区绝对 100% 阴性受控，排除实验室污染。
+
+4. **强制停步提问门禁 (Mandatory Stop & Ask Gate)**:
+   - 即使有截图，若局部手写字迹模糊、缩写存疑（例如无法确定是 MC 还是 MN）或单号残缺，Agent 必须恪守 `RULE 0A` 与 `RULE 0D`，立即圈出疑问区域向用户提问求证，绝对严禁任何擅自推测或脑补！
+
+---
+
 ## SOP: Creating a New OOS Module (Template Handoff Workflow)
 
 
