@@ -138,7 +138,7 @@ Key active files:
   - Updated signed deliverables verified on Desktop:
     - `OOS-262098 Solyn LLC (E75000) - USP71 -RS Reviewed - Signed by QYC-RS - Updated.pdf`
     - `OOS-262098 Solyn LLC (E75000) -  USP 71 - RS Reviewed - Phase II - Signed by QYC-RS - Updated.pdf`
-- **Locked Rules**: Implemented `RULE 0U` in `.agents/AGENTS.md` and Section 65 in `PRD.md`.
+- **Locked Rules**: Implemented `RULE 0U` & `RULE 0V` in `.agents/AGENTS.md` and Section 65 & 67 in `PRD.md`.
 
 ### OOS-262333 Celsis Sterility Test Phase I Investigation (Completed 22Oct26):
 - **Case Summary**:
