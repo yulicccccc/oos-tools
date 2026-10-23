@@ -152,8 +152,8 @@ Key active files:
 - **Investigation Findings & Rules Applied**:
   - Rule 0V (Monday-to-Sunday Natural Calendar Week Alignment):
     - Processing Week (05Oct26 Mon): Week of Testing weekly EM is **08Oct26 (Thu)** by SMO (Surface 0 CFU, Active Air 0 CFU, both 100% No Growth).
-    - Aliquoting Week (12Oct26 Mon): Week of Testing weekly EM is **14Oct26 (Wed)** by SMO (Surface 0 CFU, Active Air 0 CFU, both 100% No Growth).
-    - Previous 29Sep26 (with 3 CFUs in Anteroom) was excluded as preceding week. Both testing weeks are 100% clean (No Growth).
+    - Aliquoting Week (12Oct26 Mon): Week of Testing weekly EM is **14Oct26 (Wed)** by SMO (Surface 0 CFU No Growth; Active Air: ISO 7 114A & 114B both 0 CFU No Growth; ISO 8 Anteroom 114 recovered **6 CFUs** under subculture sample **`ETX-261021-0578`**, status Pending).
+    - Previous 29Sep26 was excluded as preceding week. The 6 CFUs in ISO 8 Anteroom are defended per Rule 0I as outer transition vestibule with verified outward pressure cascading and zero recovery in critical ISO 7/ISO 5 areas.
   - Rule 0G Case A: Zero prior failures for TESAMORELIN under Celsis sterility testing in the past 6 months.
   - Rule 0L: Only one positive sample on the testing dates (all other samples processed on 05Oct26 and 12Oct26 tested negative; cross-contamination excluded).
   - Initiator: Cuong Du (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
