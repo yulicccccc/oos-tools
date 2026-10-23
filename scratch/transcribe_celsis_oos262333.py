@@ -90,20 +90,20 @@ p_p4 = [
 
 # Page 5 Narrative (Part 3: EM Evaluation, Physical Segregation, 6-Month History, Cross-Contamination, Conclusion)
 p_p5 = [
-    f"A review of environmental monitoring results during the sample processing phase showed no microbial growth across daily personnel touch plates (0 CFU), ISO 5 BSC E001316 work surface contact plates (0 CFU), or settling plates (0 CFU) on the processing date of 05Oct26, the preceding sampling date of 29Sep26, and the subsequent sampling date of 06Oct26. Weekly surface monitoring of Cleanroom Suite 114 conducted on 29Sep26 demonstrated no microbial recovery across all cleanroom work surfaces. Weekly active air sampling conducted on 29Sep26 demonstrated no microbial growth in the ISO 7 cleanrooms (114A and 114B); however, 3 CFUs under sample ETX-261006-0660 were recovered from the outermost ISO 8 anteroom 114 (Microbial ID: Pending).",
-    
-    f"A review of environmental monitoring results during the aliquoting phase showed complete absence of microbial growth across daily personnel monitoring plates (0 CFU for {ALIQUOT_NAME}), ISO 5 BSC E001798 surface plates (0 CFU), and settling plates (0 CFU) on the aliquoting date of 12Oct26, the preceding date of 09Oct26, and the subsequent date of 13Oct26. Weekly active air and surface monitoring of Cleanroom Suite 114 conducted on 08Oct26 demonstrated zero microbial recovery (No Growth) across all suite cleanrooms.",
-    
-    f"Regarding the evaluation of environmental monitoring recoveries, all direct product manipulations were conducted strictly within validated ISO 5 primary containment (BSC E001316 during processing and BSC E001798 during aliquoting). The 3 CFUs recovered during weekly active air sampling on 29Sep26 were strictly confined to the outermost ISO 8 anteroom 114, which functions as an outer personnel gowning and transition vestibule. There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites. Outward-cascading positive air pressure differentials and physical barrier doors prevent migration from ISO 8 into ISO 7 and ISO 5 spaces.",
-    
-    "Furthermore, complete absence of microbial recovery (No Growth) was confirmed across all critical processing surfaces, BSC settling plates, and analyst fingertip touch plates during both the processing and aliquoting sessions. This demonstrates that robust aseptic boundaries were maintained and confirms that no viable contamination transfer pathway existed between the exterior support areas and the critical ISO 5 processing environment.",
-    
+    f"A review of environmental monitoring results during the sample processing phase showed complete absence of microbial growth across daily personnel touch plates (0 CFU for {PROCESSOR_NAME}), ISO 5 BSC E001316 work surface contact plates (0 CFU), and settling plates (0 CFU) on the processing date of 05Oct26, the preceding sampling date of 01Oct26, and the subsequent sampling date of 06Oct26. Weekly active air and surface monitoring of Cleanroom Suite 114 conducted on 08Oct26 demonstrated zero microbial recovery (No Growth) across all suite cleanrooms.",
+
+    f"A review of environmental monitoring results during the aliquoting phase showed complete absence of microbial growth across daily personnel monitoring plates (0 CFU for {ALIQUOT_NAME}), ISO 5 BSC E001798 surface plates (0 CFU), and settling plates (0 CFU) on the aliquoting date of 12Oct26, the preceding date of 09Oct26, and the subsequent date of 13Oct26. Weekly active air and surface monitoring of Cleanroom Suite 114 conducted on 14Oct26 demonstrated zero microbial recovery (No Growth) across all suite cleanrooms.",
+
+    f"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones, cleanrooms, and personnel monitoring on the dates of processing and aliquoting. All direct product manipulations were conducted strictly within validated ISO 5 primary containment (BSC E001316 during processing and BSC E001798 during aliquoting). There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites. Outward-cascading positive air pressure differentials and physical barrier doors continuously ensure controlled unidirectional airflow from inner cleanroom spaces toward exterior support vestibules.",
+
+    "Furthermore, complete absence of microbial recovery (No Growth) was confirmed across all critical processing surfaces, BSC settling plates, cleanroom active air and surface sites, and analyst fingertip touch plates during both the processing and aliquoting sessions. This demonstrates that robust aseptic boundaries were maintained throughout the investigation period and confirms that no viable contamination transfer pathway existed between the facility environment and the critical ISO 5 processing areas.",
+
     f"All analysts demonstrated full adherence to aseptic protocols and cleaning procedures as outlined in MICRO-SOP-9 and MICRO-SOP-44. A comprehensive audit of equipment calibrations, incubator operational temperatures, and differential pressure logs confirmed that all facility and operational parameters remained within established validated specifications throughout the testing timeframe.",
-    
+
     "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. All other samples processed by the analysts on both the date of processing (05Oct26) and the date of aliquoting/readout (12Oct26) tested negative. These findings confirm that the testing environment was operating under optimal aseptic control and suggest that cross-contamination between samples is highly unlikely.",
-    
+
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{SAMPLE_NAME}" has had no prior Out-of-Specification (OOS) occurrences under Celsis sterility testing.',
-    
+
     "Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid."
 ]
 
