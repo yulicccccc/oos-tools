@@ -56,7 +56,7 @@ DRAFTING_DATE = "22Oct26"
 
 # Page 3 Narrative (Part 1: Detailed Interview, Setup, Disinfection, Direct Inoculation, Incubation)
 p_p3 = [
-    f"All analysts involved in the preparation, processing, and reading of the sample - {PREPPER_NAME}, {PROCESSOR_NAME}, and {READER_NAME} - were interviewed comprehensively. Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure.",
+    f"All analysts involved in the preparation, processing, subculture, and reading of the sample - {PREPPER_NAME}, {PROCESSOR_NAME}, {ALIQUOT_NAME}, and {READER_NAME} - were interviewed comprehensively. As of 13 Oct 2026, preliminary interviews identified no deviations or laboratory-related handling issues. Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure.",
     
     f"Upon arrival on 24Jun26, the sample was stored refrigerated in accordance with the client's instructions as part of a beyond-use date study (BUD-T90). Prepping analyst {PREPPER_NAME} and processing analyst {PROCESSOR_NAME} verified the physical integrity and packaging of the sample throughout the preparation and processing stages. No leaks, cracks, or visible turbidity were observed, verifying container closure integrity prior to testing.",
     
@@ -79,7 +79,7 @@ p_p4 = [
     
     "All culture media and consumables utilized were within their valid manufacturer expiration dates. Negative control media bottles for direct inoculation were manipulated and incubated alongside the test samples under identical conditions; both TSB and FTM negative controls demonstrated complete absence of microbial growth (No Growth), verifying media sterility and aseptic technique.",
     
-    f"Attached Table 2 details the environmental monitoring data associated with sample processing on 23Sep26. Environmental monitoring plates were incubated in accordance with MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Review of contemporaneous personnel monitoring (left- and right-hand touch plates for analyst {PROCESSOR_NAME}) and ISO 5 BSC E001314 monitoring (surface contact plates and settling plates) demonstrated No Growth across all sampling locations on the date of testing (23Sep26), the date before testing (22Sep26), and the date after testing (24Sep26). These data confirm that processing personnel and the ISO 5 BSC were maintained in an optimal state of microbiological control and were not a source of contamination.",
+    f"Attached Table 2 details the environmental monitoring data associated with sample processing on 23Sep26. Environmental monitoring plates were incubated in accordance with MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Review of contemporaneous personnel monitoring (left- and right-hand touch plates for analyst {PROCESSOR_NAME}) and ISO 5 BSC E001314 monitoring (surface contact plates and settling plates) demonstrated No Growth across all sampling locations on the date of testing (23Sep26), the date before testing (22Sep26), and the date after testing (24Sep26). In addition, personnel and ISO 5 monitoring associated with both the processing and subculture activities remained free of microbial growth as of 13 Oct 2026. These data confirm that processing personnel and the ISO 5 BSC were maintained in an optimal state of microbiological control and were not a source of contamination.",
     
     "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625, pending identification). Outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. Furthermore, absence of microbial recovery on personnel gloves and BSC surface plates confirms that room air contaminants did not enter the ISO 5 critical work area.",
     
@@ -87,7 +87,7 @@ p_p4 = [
     
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{ANALYTE}" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.',
     
-    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. No other samples processed during that testing session exhibited growth. These findings indicate that sample-to-sample cross-contamination is highly unlikely."
+    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. During the original test setup on 23Sep26, the processing analyst handled approximately 50 samples within the same testing batch, including another stability sample from the same client, ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008), which was processed under comparable conditions and yielded negative results for microbial growth. Additionally, the subculture analyst reported no deviations during subsequent activities on 07Oct26, and no other samples undergoing subculture at that time demonstrated microbial growth. These findings confirm that sample-to-sample cross-contamination is highly unlikely."
 ]
 
 # Page 5 Conclusion Narrative
@@ -110,6 +110,8 @@ personnel_block = (
     f"{PREPPER_NAME} ({PREPPER_INIT})\r \r"
     f"Processing Analyst:\r"
     f"{PROCESSOR_NAME} ({PROCESSOR_INIT})\r \r"
+    f"Subculture Analyst:\r"
+    f"{ALIQUOT_NAME} ({ALIQUOT_INIT})\r \r"
     f"Reading Analyst:\r"
     f"{READER_NAME} ({READER_INIT})"
 )
@@ -177,7 +179,7 @@ pdf_field_values = {
     'Text Field7': f"On {TEST_DATE_FULL}, sample {SAMPLE_ID} was found positive for viable microorganisms after USP <71> sterility testing.",
     'Text Field11': "Pass/Fail",
     'Text Field12': "Kathan Parikh",
-    'Text Field13': f"Yes, analysts {PREPPER_NAME}, {PROCESSOR_NAME}, and {READER_NAME} were comprehensively interviewed.",
+    'Text Field13': f"Yes, preliminary interviews conducted with preparation ({PREPPER_INIT}), processing ({PROCESSOR_INIT}), subculture ({ALIQUOT_INIT}), and reading ({READER_INIT}) analysts as of 13 Oct 2026 identified no deviations or laboratory-related issues.",
     'Text Field14': f"Yes, Sample ID: {SAMPLE_ID}",
     'Text Field17': f"Yes, information is available on EagleTrax under {SAMPLE_ID}",
     'Text Field18': "Yes, the analysts are trained and qualified by quality to perform the test.",
@@ -261,7 +263,7 @@ FONT_SIZE_MAP = {
     # Page 1
     'Text Field0': 5.8,
     'Date Field0': 8.5, 'Date Field1': 8.5, 'Date Field2': 8.5, 'Date Field3': 8.5,
-    'Text Field1': 6.8, 'Text Field2': 6.8, 'Text Field3': 6.2,
+    'Text Field1': 6.8, 'Text Field2': 6.8, 'Text Field3': 5.2,
     'Text Field4': 8.5, 'Text Field5': 8.5, 'Text Field6': 8.5, 'Text Field7': 8.0,
     'Text Field8': 6.5, 'Text Field9': 6.5, 'Text Field10': 6.5, 'Text Field11': 8.5,
     'Text Field12': 8.5, 'Text Field13': 5.2, 'Text Field14': 8.5, 'Text Field15': 8.5,
@@ -277,7 +279,7 @@ FONT_SIZE_MAP = {
     # Page 3
     'Text Field46': 8.5, 'Text Field47': 8.5, 'Text Field48': 8.5, 'Text Field49': 8.0,
     # Page 4
-    'Text Field50': 8.0,
+    'Text Field50': 7.8,
     # Page 5
     'Text Field51': 8.2,
     # Page 6

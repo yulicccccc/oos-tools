@@ -178,7 +178,7 @@ Key active files:
   - Disposition: Require Retest - Phase II (CORP-FORM-22 required for ongoing BUD stability study)
 - **Investigation Findings & Rules Applied**:
   - Rule 0G Case A: Zero prior failures for Sermorelin 0.9mg/ml under USP <71> sterility testing in the past 6 months.
-  - Rule 0L: All samples processed on the same day evaluated; no other samples exhibited growth; cross-contamination excluded.
+  - Rule 0L: All samples processed on the same day evaluated (~50 samples in batch on 23Sep26, including sibling stability sample ETX-260624-0206 [T90, Sermorelin 3 mg/mL, Lot 17008, negative]; subculture on 07Oct26 with zero growth in concurrent subcultures); cross-contamination excluded.
   - Negative Controls: Direct inoculation negative controls for both TSB and FTM showed No Growth, verifying media sterility.
   - Cleanroom & Equipment Due Dates Harmonized (Rule 0U): CR115 = Dec 2026, BSC E001314 = Jun 2027.
   - Contemporaneous EM (Ground Truth Decoded from 14-page Raw Scanned Package):
