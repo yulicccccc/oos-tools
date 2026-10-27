@@ -14,6 +14,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
 DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS"
+SCRATCH_DIR = r"scratch"
 
 OOS_ID = "262329"
 CLIENT_NAME = "GoGoMeds Select (E10747)"
@@ -45,7 +46,7 @@ def set_cell_background(cell, fill_hex):
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{fill_hex}"/>')
     tcPr.append(shd)
 
-def set_cell_margins(cell, top=30, bottom=30, left=45, right=45):
+def set_cell_margins(cell, top=25, bottom=25, left=40, right=40):
     tcPr = cell._tc.get_or_add_tcPr()
     tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="{top}" w:type="dxa"/><w:bottom w:w="{bottom}" w:type="dxa"/><w:left w:w="{left}" w:type="dxa"/><w:right w:w="{right}" w:type="dxa"/></w:tcMar>')
     tcPr.append(tcMar)
@@ -98,13 +99,31 @@ def format_cell(cell, text, bold=False, italic=False, font_size=Pt(7), align=WD_
     r.italic = italic
     return r
 
+def format_multi_micro_cell(cell, species_list, font_size=Pt(7), v_align=WD_ALIGN_VERTICAL.CENTER):
+    cell.vertical_alignment = v_align
+    set_cell_margins(cell)
+    p = cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(0)
+    p.paragraph_format.line_spacing = 1.0
+    for idx, (name, is_italic) in enumerate(species_list):
+        if idx > 0:
+            r_br = p.add_run("\n\n")
+            r_br.font.name = 'Times New Roman'
+            r_br.font.size = font_size
+        r = p.add_run(name)
+        r.font.name = 'Times New Roman'
+        r.font.size = font_size
+        r.italic = is_italic
+
 def build_tables_doc():
     doc = docx.Document()
     for section in doc.sections:
         section.page_width = Inches(8.5)
         section.page_height = Inches(11.0)
-        section.top_margin = Inches(0.4)
-        section.bottom_margin = Inches(0.4)
+        section.top_margin = Inches(0.35)
+        section.bottom_margin = Inches(0.35)
         section.left_margin = Inches(0.5)
         section.right_margin = Inches(0.5)
 
@@ -169,7 +188,7 @@ def build_tables_doc():
 
     # Spacing between tables
     p_space = doc.add_paragraph()
-    p_space.paragraph_format.space_before = Pt(6)
+    p_space.paragraph_format.space_before = Pt(4)
     p_space.paragraph_format.space_after = Pt(0)
 
     # =========================================================================
@@ -247,15 +266,16 @@ def build_tables_doc():
             r.font.name = 'Times New Roman'
             r.font.size = Pt(7)
             
-        format_cell(row.cells[7], micro_id, bold=False, italic=micro_italic, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+        if isinstance(micro_id, list):
+            format_multi_micro_cell(row.cells[7], micro_id, font_size=Pt(7))
+        else:
+            format_cell(row.cells[7], micro_id, bold=False, italic=micro_italic, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+            
         format_cell(row.cells[8], notes, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
         return row
 
     # --- Section 1: Personnel EM ---
     # Rule 0B: "Personnel EM" (Canonical: strictly NO date suffix)
-    # Page 1 Row 4 (22Sep26): GL Right: 0, Left: 0
-    # Page 2 Row 2 (23Sep26): GL Right: 0, Left: 0
-    # Page 3 Row 3 (24Sep26): GL Right: 0, Left: 0
     add_section_divider(t2, "Personnel EM")
     add_data_row(t2, "Personnel (Left Touch and Right Touch)", "Daily", "22Sep26", PRO_INITIAL, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personnel (Left Touch and Right Touch)", "Daily", "23Sep26", PRO_INITIAL, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
@@ -263,13 +283,6 @@ def build_tables_doc():
 
     # --- Section 2: BSC EM ---
     # Rule 0B: "Biological Safety Cabinet EM for E001314" (Canonical: strictly NO (BSC), NO repetitive BSC, NO date suffix)
-    # Raw bench logbook verification:
-    # 22Sep26 Surface: Page 4 Row 1 shows AOD at 18:00 (0 CFU)
-    # 23Sep26 Surface: Page 5 Row 6 shows GL at 23:59 (0 CFU)
-    # 24Sep26 Surface: Page 6 Row 3 shows AOD at 17:50 (0 CFU)
-    # 22Sep26 Settling: Page 7 Row 3 shows AOD at 18:00 (0 CFU)
-    # 23Sep26 Settling: Page 8 Row 1&2 shows GL at 23:59 (0 CFU)
-    # 24Sep26 Settling: Page 9 Row 1 shows AOD at 17:50 (0 CFU)
     add_section_divider(t2, "Biological Safety Cabinet EM for E001314")
     add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "22Sep26", OTHER_BSC_ANALYST, "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Surface Sampling of ISO 5 (4 locations)", "Daily", "23Sep26", PRO_INITIAL, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
@@ -280,21 +293,36 @@ def build_tables_doc():
 
     # --- Section 3: Cleanroom Active Air ---
     # Rule 0B: "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC" (strictly NO date suffix)
-    # Raw bench logbook verification: Page 10 shows SMO on 23Sep26 17:00, ISO 8 115 = 6 CFU, ISO 7 115A = 0 CFU, ISO 7 115B = 0 CFU.
-    # ETX-261001-0625 submitted for ID, Status: Pending
-    # PRD Section 65 / Rule 46: Microbial ID must strictly be "Pending" (NOT "None" or "Pending Identification")
+    # ETX-261001-0625: 6 CFUs (ISO 8 115) - Differential staining & ID completed on 27Oct26
+    # Rule 0P: Multi-species listed with empty line breaks, binomial italicized, Gram stain omitted
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
-    add_data_row(t2, "Active Air Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "6 CFUs (ISO 8 115)", EM_PLATE_ID, "Pending", "None", etx_url=EM_PLATE_URL)
+    multi_micro = [
+        ("Micrococcus luteus", True),
+        ("Kocuria indica", True),
+        ("Kocuria rhizophila", True),
+        ("Pending FunITS", False)
+    ]
+    add_data_row(t2, "Active Air Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "6 CFUs (ISO 8 115)", EM_PLATE_ID, multi_micro, "None", etx_url=EM_PLATE_URL)
 
     # --- Section 4: Cleanroom Surface ---
     # Rule 0B: "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC" (strictly NO date suffix)
-    # Raw bench logbook verification: Page 11 shows SMO on 23Sep26 17:00, all 6 sites = 0 CFU (No Growth)
     add_section_divider(t2, "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
     add_data_row(t2, "Surface Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     for row in t2.rows:
         for j, w in enumerate(t2_widths):
             row.cells[j].width = w
+
+    # Uniform XML 14 half-points for all hyperlinks and text runs
+    for p in doc.paragraphs:
+        for r in p.runs:
+            r.font.size = Pt(7) if r.font.size != Pt(8.5) else Pt(8.5)
+    for t in doc.tables:
+        for row in t.rows:
+            for c in row.cells:
+                for p in c.paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(7)
 
     # Save documents
     filename = f"Tables OOS-{OOS_ID} {CLIENT_NAME} - {TEST_NAME}.docx"
@@ -309,33 +337,25 @@ def build_tables_doc():
     # Convert to PDF via Word COM to check exact page count and verify visual appearance
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
+    pdf_temp_path = os.path.join(SCRATCH_DIR, "verify_tables_262329.pdf")
     try:
-        wb = word.Documents.Open(os.path.abspath(doc_path_local))
-        pdf_temp = os.path.abspath(f"scratch/verify_tables_{OOS_ID}.pdf")
-        wb.SaveAs(pdf_temp, FileFormat=17) # wdFormatPDF = 17
-        wb.Close()
-        
-        pdf_doc = fitz.open(pdf_temp)
-        page_count = len(pdf_doc)
-        print(f"PDF Page count: {page_count}")
-        
-        # Render image of page 1 to verify layout visually
-        page = pdf_doc[0]
-        pix = page.get_pixmap(dpi=150)
-        preview_img = f"scratch/preview_tables_{OOS_ID}_p1.png"
-        pix.save(preview_img)
-        print(f"Saved page 1 preview: {preview_img}")
-        
-        if page_count > 1:
-            print("WARNING: Table exceeded 1 page! Further compression needed.")
-            for p_idx in range(1, page_count):
-                pix_extra = pdf_doc[p_idx].get_pixmap(dpi=150)
-                pix_extra.save(f"scratch/preview_tables_{OOS_ID}_p{p_idx+1}.png")
-        else:
-            print("SUCCESS: Table fits perfectly on exactly 1 single page!")
-            
+        wdoc = word.Documents.Open(os.path.abspath(doc_path_local))
+        wdoc.SaveAs(os.path.abspath(pdf_temp_path), FileFormat=17) # wdFormatPDF
+        wdoc.Close()
     finally:
         word.Quit()
+
+    pdf_doc = fitz.open(pdf_temp_path)
+    page_count = len(pdf_doc)
+    print(f"Standalone Tables PDF generated: {page_count} page(s).")
+    assert page_count == 1, f"CRITICAL ERROR: Tables document spilled over to {page_count} pages! Must be strictly 1 page."
+    
+    # Save preview image
+    pix = pdf_doc[0].get_pixmap(dpi=150)
+    pix_path = os.path.join(SCRATCH_DIR, "preview_tables_262329_p1.png")
+    pix.save(pix_path)
+    print(f"Rendered Page 1 visual inspection image: {pix_path}")
+    pdf_doc.close()
 
 if __name__ == "__main__":
     build_tables_doc()

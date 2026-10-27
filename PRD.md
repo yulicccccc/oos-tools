@@ -3194,7 +3194,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             - 检验日 (23Sep26): 由 GL 运行直接接种，表面 (4 点) 与沉降 (2 点) 均为 0 CFU (**No Growth**)。
             - 后续日 (24Sep26): 由 AOD 运行 71/Celsis，表面 (4 点) 与沉降 (2 点) 均为 0 CFU (**No Growth**)。
           - **Suite 115 洁净室周表面监测**: 23Sep26 (检验当周周三) 由 SMO 监测 6 个位点，全为 0 CFU (**No Growth**)。
-          - **Suite 115 洁净室周浮游菌监测**: 23Sep26 由 SMO 监测，核心 ISO 7 115A 与 115B 均为 0 CFU (**No Growth**)；最外层 ISO 8 Anteroom 115 检出 **6 CFUs**，送检微生物鉴定单号为 ETX-261001-0625，状态严格依规填入 **Pending**。按 Rule 0I 级联正压差与消毒封闭转运排除污染。
+          - **Suite 115 洁净室周浮游菌监测**: 23Sep26 由 SMO 监测，核心 ISO 7 115A 与 115B 均为 0 CFU (**No Growth**)；最外层 ISO 8 Anteroom 115 检出 **6 CFUs**，送检微生物鉴定单号为 ETX-261001-0625。于 27Oct26 确证显微染色为 5 株 Gram (+) cocci 与 1 株 Hyphae；微生物鉴定确认为 ***Micrococcus luteus***, ***Kocuria indica***, ***Kocuria rhizophila*** 以及 1 株真菌外送鉴定 (**Pending FunITS**)。所有检出菌均为革兰氏阳性球菌或真菌菌丝体，与待测阳性样本检出之革兰氏阳性芽孢杆菌 (***Bacillus megaterium***) 截然不同，且洁净室全程未检出任何 *Bacillus* 芽孢杆菌，结合级联正压差与消毒封闭转运彻底排除环境污染源。
         - **月度清洁**: Suite 115 月度清洁由 `EN`, `SAA`, `ANC` 于 `13Sep26` 执行，H2O2 指示卡（Lot `260620`, Exp `20Jun28`）全项合格。
         - **6 个月历史**: 官方追踪台账显示 GoGoMeds Select 之 Sermorelin 0.9mg/ml 在 USP <71> 下无前科（Zero Prior Failures）。
     *   **双文件交付物规范 (Rule 0M)**:

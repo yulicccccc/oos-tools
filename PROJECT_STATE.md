@@ -186,7 +186,7 @@ Key active files:
     - GL Personnel touch plates on 22/23/24Sep26: all 0 CFU (No Growth).
     - BSC E001314 surface & settling tracking per Rule 46: 22Sep26 (AOD, 0 CFU), 23Sep26 (GL, 0 CFU), 24Sep26 (AOD, 0 CFU) - all No Growth.
     - Suite 115 weekly surface: 23Sep26 (SMO, all 6 locations 0 CFU / No Growth).
-    - Suite 115 weekly active air: 23Sep26 (SMO, ISO 7 115A/115B 0 CFU / No Growth; outermost ISO 8 115 recovered 6 CFUs under ETX-261001-0625, status: Pending; excluded by Rule 0I cascaded pressure & physical airlocks).
+    - Suite 115 weekly active air: 23Sep26 (SMO, ISO 7 115A/115B 0 CFU / No Growth; outermost ISO 8 115 recovered 6 CFUs under ETX-261001-0625; confirmed on 27Oct26 as *Micrococcus luteus*, *Kocuria indica*, *Kocuria rhizophila*, and 1 pending fungal isolate [Pending FunITS]; completely differing from sample *Bacillus megaterium* rods and zero *Bacillus* in environment; excluded by Rule 0I cascaded pressure & physical airlocks).
   - Monthly Cleaning: Suite 115 performed on 13Sep26 by EN, SAA, ANC; H2O2 chemical indicator strips passed.
   - Initiator: Guanchen Li (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
 - **Deliverables Generated (Rule 0M)**:
