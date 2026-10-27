@@ -213,3 +213,10 @@ Key active files:
   11. **Page 6 Reviewer Field (`Text Field54`)**: Filled with `Robin Seymour`.
 - **Legacy Contradictions Swept & Purged**:
   - Updated `RULE 0E`, `RULE 0K`, `RULE 0T` in `.agents/AGENTS.md`, `Mandate 5`, `Mandate 11`, `Rule 59`, `Rule 62` in `PRD.md`, and `scratch/transcribe_corp_21_01oct.py` so zero legacy rules contradict RS's verified ground truth.
+
+- **L-Suite Ground Truth Floor Plan Codified (Figure 6 - RULE 0Y & Rule 71)**:
+  - User uploaded official floor plan `Figure 6: Locations for H2O2 Strips in “L” Suite`.
+  - Fully codified the 4-room layout (CR145 ISO 7, CR144 ISO 7, Room 143 ISO 8, Room 142 ISO 8).
+  - Explicitly mapped all 5 BSCs: Room 145 Section I (`BSC E001938`, `BSC E001319`), Room 145 Section II (`BSC E001317`), Room 144 Section I (`BSC E001988`, `BSC E001937`).
+  - Explicitly mapped all 4 ScanRDI instruments in Room 143: `Scan E001040`, `Scan E001230`, `Scan E002017`, `Scan E001511`.
+  - Explicitly mapped all 13 monthly H2O2 chemical indicator strip positions.
