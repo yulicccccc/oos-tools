@@ -1,5 +1,19 @@
 # Product Requirements Document: OOS Tools
 
+## 📌 LATEST CRITICAL UPDATES (PINNED AT TOP — READ LINES 3000 TO END FOR FULL DETAILS)
+> **MANDATORY FOR ALL AGENTS**: `PRD.md` exceeds 3,200 lines (beyond a single 800-line `read_file` call). In addition to reading this top section, you **MUST call `read_file(Path="PRD.md", StartLine=3000)`** to read `Rule 61`, `Rule 62`, `Rule 70` (Robin Seymour Supervisor Review Standards), and `Rule 71` (Official L-Suite Figure 6 Layout).
+> - **Supervisor Authority (`Rule 70.0`)**: **Robin Seymour (RS)** is Qiyue Chen's direct supervisor. All RS review edits are mandatory law.
+> - **ScanRDI Event Count (`Rule 70.1`)**: Must match raw **Scan Data Packet** (`19 total events, 4 confirmed microbial events`), never analyst EagleTrax entries. Ask the user to verify if raw Scan Data Packet is hard to locate.
+> - **Official L-Suite Layout (`Rule 70.2` & `Rule 71` / Figure 6)**:
+>   - **CR145 (`E001979`, Cert Due `Nov 2026`, ISO 7)**: Section I has **`BSC E001938`** (Cal Due `Jul 2027`, Strip #6, Processing/Filtration) & **`BSC E001319`** (Strip #5); Section II has **`BSC E001317`** (Strip #7). Room Strips #1–#4.
+>   - **CR144 (`E001978`, Cert Due `Nov 2026`, ISO 7)**: Section I has **`BSC E001937`** (Cal Due `Jul 2027`, Strip #13, Changeover) & **`BSC E001988`** (Strip #12); Section II has **`Incubator E001034`**. Room Strips #8–#11.
+>   - **Room 143 (ISO 8)**: Gowning Area + Section I (`Scan E002017`, `Table`, `Incubator E001032`, `Scan E001511`) + Section II (`Scan E001230`, `Scan E001040` [Cal Due `Oct 2026`]).
+>   - **Room 142 (ISO 8)**: Outermost entrance room (`Sink`, `Cart`).
+> - **Active Air Morphology Comparison Ban (`Rule 70.4`)**: Never claim environmental cocci (e.g., *S. epidermidis*) have different morphology from cocci in the sample.
+> - **RS Streamlined Phrasing (`Rule 70.5–70.6`)**: Use RS's exact monthly cleaning sentence and streamlined concurrent positive sentence (omitting third-party client/product/analyst names).
+> - **GDP 2-Digit Year N/A Sign-Off (`Rule 62`)**: Strictly `N/A QYC DDMMMYY` (e.g., `N/A QYC 21Oct26`).
+
+
 
 
 
