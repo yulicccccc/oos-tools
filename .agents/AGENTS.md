@@ -825,6 +825,7 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 1. **原始数据包事件数唯一法定原则 (Event Count Source Truth)**:
    - 严禁仅采信分析员手写便签或口头流转数据（Analyst data entries）。**必须严格调取 Scan Data Packet 仪器原始打印报告核验总事件数（Total Events）与确证微生物事件数（Confirmed Microbial Events）**。
    - 例如 OOS-262289 中分析员记录为 15，实际原始数据包显示为 19 total events, 4 confirmed microbial events，以原始数据包 19 为唯一法定依据。Table 1 与正文叙述必须绝对严格一致。
+   - 🚨 **用户协作与主动提问门禁 (User Collaboration Gate)**: Scan Data Packet 原始打印件在系统或扫描附件中往往难以自动定位。Agent **绝不可自行盲目采信手写便签或胡乱推测，必须主动向用户求助提问**（如：*“Scan Data Packet 原始数据包较难定位，请帮我核验本次检验的真实 Total Events 与 Confirmed Microbial Events”*），由用户协助查找并提供，确保数据 100% 真实准确！
 
 2. **L-Suite 物理房间真实对应布局 (L-Suite Room Mapping)**:
    - **BSC E001938** 位于 **Cleanroom 145 (CR145)**（用于样品引入、预贴签与过滤处理）。

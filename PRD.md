@@ -3102,6 +3102,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
     *   **ScanRDI 事件总数必须核实原始数据包 (Event Count Source Truth):**
         - 严禁仅依赖分析员手写便签或口头流转数据（Analyst data entries）。**必须严格调取 Scan Data Packet 仪器原始打印报告核验总事件数（Total Events）与确证微生物事件数（Confirmed Microbial Events）**。
         - 例如 OOS-262289 中分析员记录为 15，实际原始数据包显示为 19 total events, 4 confirmed microbial events，以原始数据包 19 为唯一法定依据。
+        - 🚨 **用户协作与主动提问门禁 (User Collaboration Gate)**: Scan Data Packet 原始打印件在系统或扫描附件中往往难以自动定位。Agent **绝不可自行盲目采信手写便签或胡乱推测，必须主动向用户求助提问**（如：*“Scan Data Packet 原始数据包较难定位，请帮我核验本次检验的真实 Total Events 与 Confirmed Microbial Events”*），由用户协助查找并提供，确保数据 100% 真实准确！
     *   **L-Suite 洁净室与生物安全柜真实物理布局映射 (L-Suite Physical Layout Mapping):**
         - **BSC E001938** 真实物理位置位于 **Cleanroom 145 (CR145)**（用于样品引入、预贴签与过滤处理）。
         - **BSC E001937** 真实物理位置位于 **Cleanroom 144 (CR144)**（用于换批消毒清场 Changeover）。
