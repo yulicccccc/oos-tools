@@ -818,6 +818,10 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 **CRITICAL**: Across all ScanRDI and cleanroom OOS investigations, all generated forms and narratives MUST strictly incorporate Robin Seymour's verified Quality Standards:
 
+0. **Robin Seymour (RS) 主管地位与执行铁律 (Supervisor Authority Mandate)**:
+   - **组织关系**: **Robin Seymour (RS)** 是报告撰写人 **Qiyue Chen (QYC)** 的直接实验室主管（Microbiology Laboratory Supervisor）。
+   - **最高执行准则**: RS 在实验室日常管理、技术规范、套间物理布局、理化证据链审查及官方审核意见上具备最高权威与法定效力。在所有 OOS 调查案卷中，我们**必须 100% 严格遵从 RS 的要求与审核修改**，严禁擅自变动，严禁使用旧模板覆盖 RS 确立的新标准！
+
 1. **原始数据包事件数唯一法定原则 (Event Count Source Truth)**:
    - 严禁仅采信分析员手写便签或口头流转数据（Analyst data entries）。**必须严格调取 Scan Data Packet 仪器原始打印报告核验总事件数（Total Events）与确证微生物事件数（Confirmed Microbial Events）**。
    - 例如 OOS-262289 中分析员记录为 15，实际原始数据包显示为 19 total events, 4 confirmed microbial events，以原始数据包 19 为唯一法定依据。Table 1 与正文叙述必须绝对严格一致。

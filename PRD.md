@@ -3096,6 +3096,9 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 
 70. **Robin Seymour QA Review Standards & Facility Layout Ground Truth (RS Reviewed 终极审核规范与洁净室布局真理 - 🚨 终极锁定):**
+    *   **Robin Seymour (RS) 主管地位与执行铁律 (Supervisor Authority Mandate):**
+        - **组织关系**: **Robin Seymour (RS)** 是报告撰写人 **Qiyue Chen (QYC)** 的直接实验室主管（Microbiology Laboratory Supervisor）。
+        - **最高执行准则**: RS 在实验室管理、技术规范、套间真实布局映射、理化证据链审查及官方审核意见上具备最高权威。在所有 OOS 调查案卷中，我们**必须 100% 严格遵从 RS 的要求与审核修改**，绝不允许擅自变动或以旧模板覆盖！
     *   **ScanRDI 事件总数必须核实原始数据包 (Event Count Source Truth):**
         - 严禁仅依赖分析员手写便签或口头流转数据（Analyst data entries）。**必须严格调取 Scan Data Packet 仪器原始打印报告核验总事件数（Total Events）与确证微生物事件数（Confirmed Microbial Events）**。
         - 例如 OOS-262289 中分析员记录为 15，实际原始数据包显示为 19 total events, 4 confirmed microbial events，以原始数据包 19 为唯一法定依据。
