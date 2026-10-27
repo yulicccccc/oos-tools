@@ -399,6 +399,39 @@ def assert_no_hallucinations(text_or_obj):
             )
     return True
 
+def assert_no_facility_or_event_contradictions(text_or_obj, expected_events=None):
+    """
+    跨文档一致性与厂房布局断言门禁 (Figure 6 & RS Reviewed Ground Truth):
+    1. 严禁 BSC E001938 归属到 Cleanroom 144 (必须为 Cleanroom 145)。
+    2. 严禁 BSC E001937 归属到 Cleanroom 145 (必须为 Cleanroom 144)。
+    3. 全文总事件数必须与 Table 1 / 原始数据包 expected_events 100% 吻合。
+    4. 严禁对环境菌作与阳性样品球菌形态截然不同的错误对比 (RULE 0X.4)。
+    """
+    text_str = str(text_or_obj)
+    
+    # 1. 厂房布局与设备归属冲突检查 (防止将 BSC 1938 错写进 CR144 或 BSC 1937 错写进 CR145)
+    pat_1938 = re.compile(r'E001938\b[^\.\n\r;]{0,35}?\b(?:Cleanroom|CR)\s*144\b', re.IGNORECASE)
+    pat_1937 = re.compile(r'E001937\b[^\.\n\r;]{0,35}?\b(?:Cleanroom|CR)\s*145\b', re.IGNORECASE)
+    
+    if pat_1938.search(text_str):
+        raise ValueError("🚨 [FACILITY CONTRADICTION] BSC E001938 唯一物理归属于 Cleanroom 145 (CR145)，严禁写成 Cleanroom 144！")
+        
+    if pat_1937.search(text_str):
+        raise ValueError("🚨 [FACILITY CONTRADICTION] BSC E001937 唯一物理归属于 Cleanroom 144 (CR144)，严禁写成 Cleanroom 145！")
+        
+    # 2. 事件数跨段落与附表一致性检查
+    if expected_events is not None:
+        matches = re.findall(r'(\d+)\s+total\s+events', text_str, re.IGNORECASE)
+        for m in matches:
+            if str(m) != str(expected_events):
+                raise ValueError(f"🚨 [EVENT COUNT CONTRADICTION] 发现事件数冲突: 叙述中出现 '{m} total events'，但预期/Table 1 为 '{expected_events}'！")
+                
+    # 3. 葡萄球菌形态学辩护禁令
+    if "morphology distinctly different" in text_str.lower():
+        raise ValueError("🚨 [MORPHOLOGY BAN] 严禁宣称环境菌形态与球菌截然不同 (RULE 0X.4)！")
+        
+    return True
+
 
 # Eagle Cleanroom Monthly Cleaning Official Facility Schedule (MICRO-SOP-9)
 # Bi-weekly Sunday cleaning: Mid-Month Sunday and Last Sunday

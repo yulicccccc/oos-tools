@@ -2,6 +2,8 @@ import os
 import sys
 import fitz
 from pypdf import PdfWriter, PdfReader
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import assert_no_facility_or_event_contradictions
 
 src_pdf = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\CORP-FORM-21- 01 Oct 2026.pdf"
 desktop_dir = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
@@ -175,6 +177,10 @@ p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}"
 
 text_field_50 = "\r \r".join([p11_header, p11_sub1, p12_sub2, p12, p13, p14, p15, p16, p17])
 text_field_51 = "N/A QYC 21Oct26"
+
+# Mandatory Pre-Flight Assertion Gate
+assert_no_facility_or_event_contradictions(text_field_49, expected_events=EVENTS_COUNT)
+assert_no_facility_or_event_contradictions(text_field_50, expected_events=EVENTS_COUNT)
 
 tf43_equipment = (
     "Incubator E001034\r \r"
