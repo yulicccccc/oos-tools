@@ -3095,6 +3095,30 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
    - 严禁在未真正完成全量切片阅读前口头宣称“已阅读扫描件”。向用户提交交付物时，必须主动汇报关键页码的真实发现（如检出 CFU、送检单号、特殊操作者签字等），确保每一项数据 100% 经得起原始台账核验。
 
 
+70. **Robin Seymour QA Review Standards & Facility Layout Ground Truth (RS Reviewed 终极审核规范与洁净室布局真理 - 🚨 终极锁定):**
+    *   **ScanRDI 事件总数必须核实原始数据包 (Event Count Source Truth):**
+        - 严禁仅依赖分析员手写便签或口头流转数据（Analyst data entries）。**必须严格调取 Scan Data Packet 仪器原始打印报告核验总事件数（Total Events）与确证微生物事件数（Confirmed Microbial Events）**。
+        - 例如 OOS-262289 中分析员记录为 15，实际原始数据包显示为 19 total events, 4 confirmed microbial events，以原始数据包 19 为唯一法定依据。
+    *   **L-Suite 洁净室与生物安全柜真实物理布局映射 (L-Suite Physical Layout Mapping):**
+        - **BSC E001938** 真实物理位置位于 **Cleanroom 145 (CR145)**（用于样品引入、预贴签与过滤处理）。
+        - **BSC E001937** 真实物理位置位于 **Cleanroom 144 (CR144)**（用于换批消毒清场 Changeover）。
+        - 🚨 **严禁混为一谈**：绝不可将两台 BSC 笼统写在 CR144！
+    *   **洁净室与 BSC 认证设备及校准期精准填报 (Equipment Certification Ground Truth):**
+        - Cleanroom 认证设备栏（Page 2 `Text Field32`）涉及 L-Suite 时，必须完整罗列两个操作套间：第一行 `E001978 (CR144)`，第二行 `E001979 (CR145)`（字号 5.0pt）。
+        - 对应校准有效期（`Text Field33`）必须精准对应（如两者均为 `Nov 2026\rNov 2026`）。
+        - BSC 校准有效期（`Text Field44`）：BSC E001938 与 BSC E001937 校准期统一核定为 `Jul 2027`。
+        - ScanRDI 仪器校准期（`Text Field31` & `Text Field35`）：E001040 实际校准期为 `Oct 2026`（非 Nov 2026）。
+    *   **环境菌形态学对比的科学防御性原则 (Scientific Defensibility on Morphology Comparisons):**
+        - 🚨 **质保重大防线**：当环境监测检出菌（如 *Staphylococcus epidermidis*）在微生物学形态分类上同样属于球菌（Cocci）时，**绝对严禁草率断言“环境检出菌形态与阳性样本 Cocci 形态截然不同（distinctly different）”**，否则会被审计专家或质保直接判定为科学常识性逻辑漏洞！
+        - **Robin 质保法定处理标准**：直接完全删除形态学对比陈述，将防守重心完全聚焦在**物理空间隔离、闭门操作、向外逐级正压气流屏障，以及关键 ISO 5 操作区台面/沉降碟/手套完全无菌**的核心证据链上。
+    *   **月度清洁消毒法定精炼用语 (Monthly Cleaning Standard Statement):**
+        - 统一采纳 Robin 质保规范句式：
+          `"It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in L-Suite."`
+    *   **同日其他阳性样本极简披露标准 (Streamlined Concurrent Positive Disclosure):**
+        - 无需披露第三方客户名称与具体产品规格，保持精炼客观合规：
+          `"One other sample (ETX-XXXXXX-XXXX, OOS-XXXXXX) yielded a positive result on [DDMMMYY]. However, that sample was processed by a different processing analyst during a different shift. The two testing events were segregated by shift, processing analyst and primary containment equipment. Furthermore, analyst [Name] verified that gloves were disinfected between samples and standard aseptic techniques were strictly maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."`
+
+
 ## Pending/Future Work
 
 
