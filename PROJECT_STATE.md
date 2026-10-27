@@ -220,3 +220,8 @@ Key active files:
   - Explicitly mapped all 5 BSCs: Room 145 Section I (`BSC E001938`, `BSC E001319`), Room 145 Section II (`BSC E001317`), Room 144 Section I (`BSC E001988`, `BSC E001937`).
   - Explicitly mapped all 4 ScanRDI instruments in Room 143: `Scan E001040`, `Scan E001230`, `Scan E002017`, `Scan E001511`.
   - Explicitly mapped all 13 monthly H2O2 chemical indicator strip positions.
+
+- **OOS-262289 QA Discrepancy Review Resolution (Completed 27Oct26)**:
+  - Discrepancy 1 (Event Count): Page 3 stated 15 total events, while Table 1 and raw data pack listed 19. Corrected Page 3 `Text Field49` to 19 total events.
+  - Discrepancy 2 (BSC E001938 Cleanroom Mapping): Page 4 stated Cleanroom 144, while Page 3 and Figure 6 floor plan confirmed Cleanroom 145. Corrected Page 4 `Text Field50` to Cleanroom 145 (`BSC E001938 (Cleanroom 145, L-Suite)`).
+  - Synchronized across all master deliverables on Desktop and Documents.
