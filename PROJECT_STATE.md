@@ -194,3 +194,22 @@ Key active files:
   2. Standalone Word Tables (Strictly 1 single page): `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`
   - Saved to Canonical Desktop: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`
   - Mirrored to Documents: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\`
+
+
+### OOS-262289 ScanRDI Supervisor (Robin Seymour) Review & Global Rule Harmonization (Completed 27Oct26):
+- **Supervisor Authority Mandate**:
+  - **Robin Seymour (RS)** is Qiyue Chen's direct supervisor (Microbiology Laboratory Supervisor). All edits, technical corrections, and narrative styles from RS's review are codified as top-priority law (`RULE 0X` in `.agents/AGENTS.md` and `Rule 70` in `PRD.md`).
+- **All 11 Corrections from RS Review of OOS-262289 (`ETX-260929-0931`, Link Pharmacy E19112) Locked & Harmonized**:
+  1. **ScanRDI Event Count**: `19 total events, 4 confirmed microbial events` (cross-verified with raw Scan Data packet, never rely solely on analyst EagleTrax entries; added mandatory User Collaboration Ask-Gate when raw Scan Data packet event count cannot be located).
+  2. **L-Suite Facility Layout**: `BSC E001938` is located in **Cleanroom 145 (`CR145`)** (sample introduction, pre-labeling, filtration); `BSC E001937` is located in **Cleanroom 144 (`CR144`)** (changeover).
+  3. **Environmental Certification Equipment (`Page 2 Text Field32`)**: Must list BOTH processing rooms when spanning CR145 and CR144: `E001978 (CR144)\rE001979 (CR145)` (`5.0pt`).
+  4. **Cleanroom Certification Due Dates (`Page 2 Text Field33`)**: Both `E001978 (CR144)` and `E001979 (CR145)` are due **`Nov 2026`** (`Nov 2026\rNov 2026`, `5.0pt`).
+  5. **BSC Calibration Due Dates (`Page 2 Text Field44`)**: Both `BSC E001938` and `BSC E001937` are due **`Jul 2027`**.
+  6. **ScanRDI Instrument Calibration Due Date (`Page 2 Text Field31` & `Text Field35`)**: `E001040` due **`Oct 2026`**.
+  7. **Page 1 Sample Name Line Wrapping (`Text Field4`)**: Explicit multi-line `\r` wrapping (`Tirzepatide/\rLevocarnitine \r17mg/\r100mg/mL (1ml)`).
+  8. **Active Air Monitoring Scientific Defensibility (`Page 4 Text Field50`)**: Strictly prohibited comparing environmental isolate morphology against sample morphology (removed *"common environmental isolates with morphology distinctly different from the cocci shaped morphology..."* because *Staphylococcus epidermidis* is cocci-shaped). Focus 100% on physical/environmental segregation and zero ISO 5/glove recovery.
+  9. **Monthly Cleaning Statement (`Page 4 Text Field50`)**: Reworded to RS's approved phrasing: `"It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in L-suite."`
+  10. **Concurrent Positive Sample Streamlined Narrative (`Page 4 Text Field50`)**: Omit unnecessary third-party client/product/analyst names; use RS's streamlined phrasing: `"One other sample (ETX-260930-0635, OOS-262285) yielded a positive result on 01Oct26. However, that sample was processed by a different processing analyst during a different shift. The two testing events were segregated by shift, processing analyst and primary containment equipment."`
+  11. **Page 6 Reviewer Field (`Text Field54`)**: Filled with `Robin Seymour`.
+- **Legacy Contradictions Swept & Purged**:
+  - Updated `RULE 0E`, `RULE 0K`, `RULE 0T` in `.agents/AGENTS.md`, `Mandate 5`, `Mandate 11`, `Rule 59`, `Rule 62` in `PRD.md`, and `scratch/transcribe_corp_21_01oct.py` so zero legacy rules contradict RS's verified ground truth.

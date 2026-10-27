@@ -114,7 +114,7 @@
 
 
 
-   - **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (CR116)`，第二行 `E001978 (CR144)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
+   - **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：例如 L-Suite 双房间填报第一行 `E001978 (CR144)`、第二行 `E001979 (CR145)`，右侧对应校准期 `Nov 2026\rNov 2026`（字号 5.0pt）；若涉及 CR116 (`E001738`) 则对应 `Dec 2026`。
 
 
 
@@ -234,11 +234,9 @@
 
 
 
-      - 第一行：`E001738 (CR116)`
+      - L-Suite 双房间标准（Processing in CR145 + Changeover in CR144）：第一行 `E001978 (CR144)`，第二行 `E001979 (CR145)`，对应校准期均为 `Nov 2026\rNov 2026`（5.0pt）
 
-
-
-      - 第二行：`E001978 (CR144)`
+      - 跨套间标准（如 CR116 + CR144）：`E001738 (CR116)`（校准期 `Dec 2026`）与 `E001978 (CR144)`（校准期 `Nov 2026`）
 
 
 
@@ -2896,8 +2894,8 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
     *   **案件背景 (Background):**
         - 客户与样品: Link Pharmacy (E19112), Sample `ETX-260929-0931`, `Tirzepatide/Levocarnitine 17mg/100mg/mL (1ml)`, Lot `20260928@54`, Dosage Form: Injectable.
-        - 测试方法与设备: Scan RDI Sterility Test (`MICRO-SOP-12`, `ENG-SOP-4`), Instrument `E001040`, Cleanroom 144 (L-Suite), Processing BSC `E001938`, Changeover BSC `E001937`.
-        - 结果: 15 total events, 4 confirmed microbial events exhibiting `Cocci shaped morphology`.
+        - 测试方法与设备: Scan RDI Sterility Test (`MICRO-SOP-12`, `ENG-SOP-4`), Instrument `E001040` (Cal Due `Oct 2026`), L-Suite Cleanroom 145 (`E001979`, Cert Due `Nov 2026`, Processing BSC `E001938` Cal Due `Jul 2027`) & Cleanroom 144 (`E001978`, Cert Due `Nov 2026`, Changeover BSC `E001937` Cal Due `Jul 2027`).
+        - 结果 (RS Reviewed): **19 total events, 4 confirmed microbial events** exhibiting `Cocci shaped morphology` (verified per Scan Data packet).
         - 阳性对照与实验批次: `P. aeruginosa`, Lot `05162026-9027-PA`, Exp `15May28` (Session 100126-1040-2001, CONTROL + ELB).
 
     *   **终极法定附表数据 (Finalized Ground Truth Tables):**
@@ -2905,7 +2903,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         *   **Table 1: Information for ETX-260929-0931 under investigation**
             | Processing Analyst | Reading Analyst | Sample ID | Events | Confirmed Microbial Events | Morphology Description |
             | :--- | :--- | :--- | :--- | :--- | :--- |
-            | Ellen Bennett | Varsha Subramanian | [ETX-260929-0931](https://etrax.eagleanalytical.com/Submission/Details/sM81r08$r4X9k5LrerlJ7g__) | 15 | 4 | Cocci shaped morphology |
+            | Ellen Bennett | Varsha Subramanian | [ETX-260929-0931](https://etrax.eagleanalytical.com/Submission/Details/sM81r08$r4X9k5LrerlJ7g__) | 19 | 4 | Cocci shaped morphology |
 
         *   **Table 2: Environmental Monitoring from Testing Performed on 01Oct26 (全表数据单元格统一 7.0pt)**
             | Environmental Monitoring (EM) Sampling Site | Frequency | Date (DDMMMYY) | Analyst | Day /Week(s) | Observation | EM Plate ETX Number | Microbial ID | Notes |
@@ -3062,9 +3060,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
              - 专职大批量无菌样品过滤与经典培养处理。
              - 常态化操作分析员：**AOD (Ayomide Odugbesi)**、**GL (Guanchen Li)**。
         
-        3. **L-Suite (Suite 144 / 145) 常态化排班与工位**:
-           - **Cleanroom 144 (ISO 7 核心室 / Scan RDI 处理 BSC E001938 & 换台 BSC E001937)**:
-             - 常态化操作分析员：**ELB (Ellen Bennett)**、**KSM (Karla Silva)**、**VV (Varsha Subramanian)**、**EN (Elysse Nioupin)**。
+        3. **L-Suite (Suite 145 / 144) 常态化排班与工位 (RS Verified Ground Truth)**:
+           - **Cleanroom 145 (`CR145 / E001979`, Cert Due `Nov 2026` — ISO 7 核心室 / Scan RDI 处理 BSC `E001938`, Cal Due `Jul 2027`)**:
+             - 专职样品引入、预贴签与过滤处理（Processing Analyst）。
+           - **Cleanroom 144 (`CR144 / E001978`, Cert Due `Nov 2026` — ISO 7 缓冲室 / Scan RDI 换台清场 BSC `E001937`, Cal Due `Jul 2027`)**:
+             - 专职换批消毒清场（Changeover Analyst）。
+           - 常态化操作分析员：**ELB (Ellen Bennett)**、**KSM (Karla Silva)**、**VV (Varsha Subramanian)**、**EN (Elysse Nioupin)**。
 
 
 

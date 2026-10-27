@@ -210,7 +210,7 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-1. **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：第一行 `E001738 (CR116)`，第二行 `E001978 (CR144)`，右侧对应校准期 `Dec 2026\rDec 2026`（字号 4.4pt）。
+1. **多套间/多洁净室分行规范**: 在 Cleanroom 认证栏目（如 Page 2 `Text Field32`/`33` 及 Word 表格 `smart_cr_id`），多套间严禁使用 `&` 并列（严禁写成 `E001738 (Suite 116) & E001978 (L-Suite)`）。必须采用标准多行对齐：例如 L-Suite 双房间填报第一行 `E001978 (CR144)`、第二行 `E001979 (CR145)`，右侧对应校准期 `Nov 2026\rNov 2026`（字号 5.0pt）；若涉及 CR116 (`E001738`) 则对应 `Dec 2026`。
 
 
 
@@ -386,11 +386,9 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-   - 第一行：`E001738 (CR116)`
+   - L-Suite 双房间标准（Processing in CR145 + Changeover in CR144）：第一行 `E001978 (CR144)`，第二行 `E001979 (CR145)`，对应校准期均为 `Nov 2026\rNov 2026`（5.0pt）
 
-
-
-   - 第二行：`E001978 (CR144)`
+   - 跨套间标准（如 CR116 + CR144）：`E001738 (CR116)`（校准期 `Dec 2026`）与 `E001978 (CR144)`（校准期 `Nov 2026`）
 
 
 
@@ -752,9 +750,12 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
      - High-Throughput Filtration & Sterility Processing.
      - Regular Operating Analysts: **AOD (Ayomide Odugbesi)**, **GL (Guanchen Li)**.
 
-3. **L-Suite (Suite 144 / 145) Operational Invariant**:
-   - **Cleanroom 144 (ISO 7 核心室 / Scan RDI Processing BSC E001938 & Changeover BSC E001937)**:
-     - Regular Operating Analysts: **ELB (Ellen Bennett)**, **KSM (Karla Silva)**, **VV (Varsha Subramanian)**, **EN (Elysse Nioupin)**.
+3. **L-Suite (Suite 145 / 144) Operational Invariant (RS Verified Ground Truth)**:
+   - **Cleanroom 145 (`CR145 / E001979`, Cert Due `Nov 2026` — ISO 7 核心室 / Scan RDI Processing BSC `E001938`, Cal Due `Jul 2027`)**:
+     - Primary Sample Introduction, Pre-labeling & Filtration Processing.
+   - **Cleanroom 144 (`CR144 / E001978`, Cert Due `Nov 2026` — ISO 7 缓冲室 / Scan RDI Changeover BSC `E001937`, Cal Due `Jul 2027`)**:
+     - Changeover & Sanitization Procedures.
+   - Regular Operating Analysts: **ELB (Ellen Bennett)**, **KSM (Karla Silva)**, **VV (Varsha Subramanian)**, **EN (Elysse Nioupin)**.
 
 ---
 

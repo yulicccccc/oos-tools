@@ -31,7 +31,7 @@ BSC_PROC = "1938"
 BSC_CHG = "1937"
 SCAN_ID = "1040"
 MONTHLY_CLEANING_DATE = "27Sep26"
-EVENTS_COUNT = "15"
+EVENTS_COUNT = "19"
 CONFIRMED_COUNT = "4"
 MORPHOLOGY = "Cocci shaped morphology"
 
@@ -67,7 +67,7 @@ p4 = (
     f"{PROCESSOR_NAME} performed a second disinfection with acidified bleach, allowing a minimum contact "
     "time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step "
     "was completed immediately before introducing the sample into the ISO 5 Biological Safety Cabinet "
-    f"(BSC E00{BSC_PROC}) located in the ISO 7 cleanroom (144). All activities were performed in "
+    f"(BSC E00{BSC_PROC}) located in the ISO 7 cleanroom (145). All activities were performed in "
     "accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
 )
 
@@ -79,7 +79,7 @@ p5 = (
 )
 
 p6 = (
-    f"The ISO 5 BSC E00{BSC_PROC} and ISO 5 BSC E00{BSC_CHG} located in Cleanroom 144 (L-Suite) were thoroughly "
+    f"The ISO 5 BSC E00{BSC_PROC} located in Cleanroom 145 and ISO 5 BSC E00{BSC_CHG} located in Cleanroom 144 (L-Suite) were thoroughly "
     "cleaned and disinfected prior to their respective procedures in accordance with MICRO-SOP-9, Cleaning and "
     "Disinfecting Procedure for Microbiology. Both BSCs were certified and approved by the Engineering and "
     "Quality Assurance teams prior to testing."
@@ -87,7 +87,7 @@ p6 = (
 
 p7 = (
     f"Pre-labeling and filtration activities were performed by {PROCESSOR_NAME} on 01Oct26 within the ISO 5 "
-    f"biosafety cabinet (BSC E00{BSC_PROC}) located in the ISO 7 cleanroom (144). The changeover procedure "
+    f"biosafety cabinet (BSC E00{BSC_PROC}) located in the ISO 7 cleanroom (145). The changeover procedure "
     f"was subsequently performed by analyst {CHANGEOVER_NAME} on the same date within the ISO 5 biosafety cabinet "
     f"(BSC E00{BSC_CHG}) located in Cleanroom 144 of L-Suite. The reading analyst, {READER_NAME}, confirmed that the "
     f"ScanRDI instrument E00{SCAN_ID} was set up as per ENG-SOP-4 (Scan RDI® System – Operations (Standard C3 Quality "
@@ -126,13 +126,12 @@ p12 = (
     "cleanroom 145 and ISO 8 anteroom 143; however, 1 CFU under test sample ETX-261012-0430 was recovered from ISO 7 cleanroom "
     "144 Section II (identified as Staphylococcus epidermidis), and 5 CFUs under test sample ETX-261012-0433 were recovered from "
     "outermost ISO 8 room 142 (identified as Staphylococcus epidermidis, Pseudomonas parafulva, Bacillus safensis, Corynebacterium "
-    "xerosis, and Corynebacterium ureicelerivorans). The recovered organisms are common environmental isolates with morphology "
-    "distinctly different from the Cocci shaped morphology observed in the failing test sample, and no microbial match could be established."
+    "xerosis, and Corynebacterium ureicelerivorans)."
 )
 
 p13 = (
     f"It is important to emphasize that all sample processing activities were performed strictly within the validated ISO 5 "
-    f"BSC E00{BSC_PROC} and changeover activities within ISO 5 BSC E00{BSC_CHG}, both located in the ISO 7 cleanroom (144). "
+    f"BSC E00{BSC_PROC} (CR145) and changeover activities within ISO 5 BSC E00{BSC_CHG} (CR144) in L-suite. "
     "There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, "
     "closed containers on carts through the layered cleanroom suites. Furthermore, the recoveries occurred in the general cleanroom "
     "and lower-classified ISO 8 outer room environments, which are physically segregated from the ISO 5 processing zone by closed doors "
@@ -144,7 +143,7 @@ p13 = (
 p14 = (
     f"Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed "
     f"on {MONTHLY_CLEANING_DATE} for L-Suite, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented "
-    "that all chemical indicators passed, verifying that environmental sanitization remained validated and in control prior to testing."
+    "that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in L-suite."
 )
 
 p15 = (
@@ -154,12 +153,10 @@ p15 = (
 p16 = (
     "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. "
     f"The test sample {SAMPLE_ID} was the 39th sample processed by {PROCESSOR_NAME} during the 2nd Shift on 01Oct26 "
-    f"within BSC E00{BSC_PROC} (Cleanroom 144, L-Suite). All other samples processed by {PROCESSOR_NAME} during this shift "
-    "yielded negative results. Review of laboratory records identified one other sample that yielded a positive result "
-    "on 01Oct26, documented under OOS-262285 for CasaPharma Rx (E72585), sample ETX-260930-0635 "
-    "(Tirzepatide/B12 15mg/1mg/0.5mL - 2mL). However, that sample was processed by "
-    "America Alanis (11th sample processed) during the 1st Shift. The two testing events were segregated by shift, "
-    f"processing analyst and primary containment equipment. Furthermore, analyst "
+    f"within BSC E00{BSC_PROC} (Cleanroom 145, L-Suite). All other samples processed by {PROCESSOR_NAME} during this shift "
+    "yielded negative results. One other sample (ETX-260930-0635, OOS-262285) yielded a positive result on 01Oct26. "
+    "However, that sample was processed by a different processing analyst during a different shift. The two testing events "
+    "were segregated by shift, processing analyst and primary containment equipment. Furthermore, analyst "
     f"{PROCESSOR_NAME} verified that gloves were disinfected between samples and standard aseptic techniques were strictly "
     "maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
@@ -192,7 +189,7 @@ tf44_cal_due = (
     "Feb 2027\r \r"
     "Aug 2027\r \r"
     "Feb 2027\r \r"
-    "Jun 2027\r \r"
+    "Jul 2027\r \r"
     "Jul 2027"
 )
 
@@ -213,7 +210,7 @@ pdf_field_values = {
     'Date Field3': TEST_DATE_FULL,
     'Text Field2': SAMPLE_ID,
     'Text Field6': LOT_NUMBER,
-    'Text Field4': SAMPLE_NAME,
+    'Text Field4': "Tirzepatide/\rLevocarnitine \r17mg/\r100mg/mL (1ml)",
     'Text Field5': DOSAGE_FORM,
     'Text Field8': "MICRO-SOP-12 (16)\rENG-SOP-4 (05)",
     'Text Field9': "24Jul26\r24Jul26",
@@ -250,11 +247,11 @@ pdf_field_values = {
     'Text Field28': "Not Applicable",
     'Text Field29': "Not Applicable",
     'Text Field30': f"E00{SCAN_ID}",
-    'Text Field31': "Nov 2026",
-    'Text Field32': "E001978 (CR144)",
-    'Text Field33': "Dec 2026",
+    'Text Field31': "Oct 2026",
+    'Text Field32': "E001978 (CR144)\rE001979 (CR145)",
+    'Text Field33': "Nov 2026\rNov 2026",
     'Text Field34': f"E00{SCAN_ID}",
-    'Text Field35': "Nov 2026",
+    'Text Field35': "Oct 2026",
     'Text Field36': "Not Applicable",
     'Text Field37': "Not Applicable",
     'Text Field38': "Not Applicable",
@@ -272,7 +269,7 @@ pdf_field_values = {
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
     'Text Field53': "Qiyue Chen",
-    'Text Field54': "",
+    'Text Field54': "Robin Seymour",
     'Text Field55': "",
     'Text Field52': "",
 }
@@ -326,7 +323,7 @@ robin_fonts = {
     'Text Field20': 9.0, 'Text Field21': 4.825, 'Text Field22': 6.0, 'Text Field23': 6.0,
     'Text Field24': 10.5, 'Text Field25': 8.0, 'Text Field26': 9.0, 'Text Field27': 9.5,
     'Text Field28': 9.5, 'Text Field29': 9.5, 'Text Field30': 9.5, 'Text Field31': 9.5,
-    'Text Field32': 5.5, 'Text Field33': 5.5, 'Text Field34': 9.5, 'Text Field35': 9.5,
+    'Text Field32': 5.0, 'Text Field33': 5.0, 'Text Field34': 9.5, 'Text Field35': 9.5,
     'Text Field36': 9.5, 'Text Field37': 9.5, 'Text Field38': 9.5, 'Text Field39': 9.5,
     'Text Field40': 7.5, 'Text Field41': 7.5, 'Text Field42': 7.5, 'Text Field43': 8.5,
     'Text Field44': 8.5, 'Text Field45': 7.5, 'Text Field46': 9.0, 'Text Field47': 9.0,
