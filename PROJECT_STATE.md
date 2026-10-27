@@ -225,3 +225,7 @@ Key active files:
   - Discrepancy 1 (Event Count): Page 3 stated 15 total events, while Table 1 and raw data pack listed 19. Corrected Page 3 `Text Field49` to 19 total events.
   - Discrepancy 2 (BSC E001938 Cleanroom Mapping): Page 4 stated Cleanroom 144, while Page 3 and Figure 6 floor plan confirmed Cleanroom 145. Corrected Page 4 `Text Field50` to Cleanroom 145 (`BSC E001938 (Cleanroom 145, L-Suite)`).
   - Synchronized across all master deliverables on Desktop and Documents.
+
+- **Rule 72 & RULE 0Z Codified (Automated Anti-Contradiction Gate)**:
+  - Formally codified `Rule 72` in `PRD.md` and `RULE 0Z` in `.agents/AGENTS.md`.
+  - Enforced `assert_no_facility_or_event_contradictions()` from `utils.py` across all report generation pipelines to prevent any future room or event count mismatch.

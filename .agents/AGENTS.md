@@ -4046,3 +4046,18 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 4. **强制自检与证据先导门禁 (Pre-Response Forensic Evidence Gate)**:
    - 严禁在未真正完成全量切片阅读前口头宣称“已阅读扫描件”。向用户提交交付物时，必须主动汇报关键页码的真实发现（如检出 CFU、送检单号、特殊操作者签字等），确保每一项数据 100% 经得起原始台账核验。
+
+
+## 🚨🚨 RULE 0Z (TOP PRIORITY): Automated Pre-Flight Integrity & Anti-Contradiction Assertion Gate (`assert_no_facility_or_event_contradictions`)
+
+**CRITICAL**: Every OOS report generator and transcription script MUST enforce the automated assertion gate defined in `utils.py`:
+
+1. **Event Count Single-Truth Invariant**:
+   - `Text Field49` (Page 3 narrative) event count MUST match Table 1 (`expected_events`) exactly. Zero tolerance for narrative stating 15 while Table 1 states 19.
+
+2. **BSC & Cleanroom Spatial Invariant (Figure 6 Ground Truth)**:
+   - `BSC E001938` $	o$ **`Cleanroom 145 (CR145)`** ONLY. Pairing with `Cleanroom 144` is blocked by code.
+   - `BSC E001937` $	o$ **`Cleanroom 144 (CR144)`** ONLY. Pairing with `Cleanroom 145` is blocked by code.
+
+3. **Active Air Morphology Defense Invariant**:
+   - Prohibits morphology comparison claims when environmental isolates are cocci.
