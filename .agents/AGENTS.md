@@ -509,7 +509,10 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
    - **文件 1 (带 Table 的完整 PDF 版主案卷 — 官方转录透视命名规范)**:
 
-     - **转录官方表单正式命名**: 凡转录至 ZenQMS 官方空白母表之正式案卷，文件名**必须统一冠以表单编号与同日下载日期前缀**：
+     - **官方表单前缀严格准入门禁 (User-Provided Blank Form Gate - 🚨 终极锁定)**:
+       - 🚨 **严禁在用户未提供最新官方空白母表时擅自冠以 CORP-FORM-21- 前缀！**
+       - **未提供新表时之基准命名**: 若用户未在当前对话中提供从 ZenQMS 最新下载的空白母表，文件 1 **必须严格命名为 OOS-<ID> <Client> - <Test>.pdf**（严禁擅自加挂 CORP-FORM-21- 前缀，以防用户混淆！）。
+       - **转录官方表单正式命名 (仅限用户提供新表后)**: 只有在【用户明确提供了当天或本次调查从 ZenQMS 下载的最新空白母表并指令执行正式转录】时，文件名才必须统一冠以表单编号与下载日期前缀：
 
        - Phase I: CORP-FORM-21- <DD MMM YYYY> OOS-<ID> <Client> - <Test>.pdf
 

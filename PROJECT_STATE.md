@@ -192,7 +192,7 @@ Key active files:
   - Monthly Cleaning: Suite 115 performed on 13Sep26 by EN, SAA, ANC; H2O2 chemical indicator strips passed.
   - Initiator: Guanchen Li (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
 - **Deliverables Generated (Rule 0M)**:
-  1. Master PDF (7 Pages: 6 pages AcroForm + 1 page Tables): `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`
+  1. Master PDF (7 Pages: 6 pages AcroForm + 1 page Tables): `OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` (Strict Rule 74: un-prefixed without user-provided fresh ZenQMS template)
   2. Standalone Word Tables (Strictly 1 single page): `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`
   - Saved to Canonical Desktop: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`
   - Mirrored to Documents: `C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents\OOS\`
@@ -250,3 +250,9 @@ Key active files:
 - **Codification**:
   - Added `Rule 73` to `PRD.md`.
   - Updated `RULE 0G` in `.agents/AGENTS.md` to permanently mandate automated SharePoint tracking log querying across all future OOS conversations.
+
+### User-Provided Blank Form Gating for "CORP-FORM-21-" Official Naming (Codified Rule 74 - 28Oct26):
+- **Core Policy**:
+  - Prepending `CORP-FORM-21- <DD MMM YYYY>` is STRICTLY RESERVED for when the user explicitly provides a fresh ZenQMS blank form downloaded on that date and commands transcription.
+  - If the user has NOT provided a newly downloaded form, the master PDF deliverable must strictly remain `OOS-<ID> <Client> - <Test>.pdf` to prevent user/QA confusion regarding transcript status.
+  - Corrected `OOS-262329` deliverable from `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` to `OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` across Desktop and Documents.

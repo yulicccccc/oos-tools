@@ -345,7 +345,7 @@ reader_tables = PdfReader(TABLES_PDF)
 assert len(reader_tables.pages) == 1, f"Tables PDF must be exactly 1 page, got {len(reader_tables.pages)}"
 writer.add_page(reader_tables.pages[0])
 
-master_filename = f"CORP-FORM-21- 12 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf"
+master_filename = f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf"
 master_pdf_local = os.path.join(DOCS_DIR, master_filename)
 master_pdf_desktop = os.path.join(DESKTOP_DIR, master_filename)
 

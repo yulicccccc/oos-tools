@@ -3222,7 +3222,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             | **Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC** | | | | | | | | |
             | Surface Sampling of Cleanrooms | Weekly | 23Sep26 | SMO | Week of Testing | No Growth | Not Applicable | Not Applicable | None |
     *   **双文件交付物规范 (Rule 0M)**:
-        - **文件 1 (Master Transcribed PDF)**: `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，含 6 页 AcroForm 表单及 Page 7 Table 1 & 2）。
+        - **文件 1 (Master PDF)**: `OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，含 6 页 AcroForm 表单及 Page 7 Table 1 & 2；未加挂 `CORP-FORM-21-` 前缀，待用户提供 ZenQMS 官方新母表并要求转录后方可升级命名）。
         - **文件 2 (Word 版独立附表)**: `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`（严格 1 单页版）。
         - 唯一定位落盘至企业 OneDrive 桌面：`C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`。
 
@@ -3383,3 +3383,27 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
    - `OOS-262080` (Optimal Balance Pharmacy E19193, Celsis, MOTs-C 10 MG/ML, 08Sep26): Verified in `Celsis Sterility OOS` (Row 50).
    - `OOS-262017` (Revive Rx Pharmacy E00927, Celsis, Tesamorelin 12 mg, 26Aug26): Verified in `Celsis Sterility OOS` (Row 49).
    - `OOS-262329` (GoGoMeds Select E10747, USP <71>, Sermorelin 0.9mg/ml, 12/13Oct26): Verified in `<71> OOS` (Row 152).
+
+
+---
+
+### Rule 74: Mandatory User-Provided Blank Form Gating for "CORP-FORM-21-" Official Transcribed Naming (官方表单编号前缀严格准入与用户提供新表铁律 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `Phase II`), agents MUST strictly adhere to the following naming准入门禁，彻底杜绝案卷状态与版本混乱：
+
+1. **核心病灶与用户底线 (The Confusion Root Cause)**:
+   - 文件名冠以 `CORP-FORM-21- <DD MMM YYYY>` 或 `CORP-FORM-22-` 前缀具有特殊的质量与法定义务——它明确向审查人与用户宣告：**“该文件已原生转录进用户在调查发生当天或本次调查专门从 ZenQMS 最新下载的空白母表”**。
+   - 若用户尚未提供当天下载的最新母表，而 Agent 自行加挂该前缀，会导致用户严重混淆，误以为该稿件已经完成了最新官方表单的转录与版本替换，进而干扰最终合规归档。
+
+2. **严格的两阶段命名法则 (Two-Stage Naming Mandate)**:
+   - **阶段一（未提供最新母表 / 调查与起草阶段）**:
+     - 文件 1 主案卷 PDF **必须严格命名为**: `OOS-<ID> <Client> - <Test>.pdf`
+       （例如：`OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`）。
+     - 🚨 **严禁自行加挂** `CORP-FORM-21- <DD MMM YYYY>` 前缀！
+   - **阶段二（用户提供最新母表后 / 正式转录阶段）**:
+     - 只有且仅当【**用户在对话中明确上传或提供了从 ZenQMS 最新下载的官方空白母表（如 `CORP-FORM-21- <DD MMM YYYY>.pdf`）并下达转录指令**】后，文件 1 才能升级命名为：
+       `CORP-FORM-21- <DD MMM YYYY> OOS-<ID> <Client> - <Test>.pdf`
+       （例如：`CORP-FORM-21- 01 Oct 2026 OOS-262289 Link Pharmacy (E19112) - ScanRDI.pdf`）。
+
+3. **双路径清理同步义务 (Desktop & Documents Cleanup)**:
+   - 凡重命名或修正此类前缀时，必须同步清理企业 OneDrive 桌面（`Desktop\`）及本地仓库（`Documents\OOS\`）中的旧前缀文件，严禁新旧两份文件并存造成版本冲突。
