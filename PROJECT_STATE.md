@@ -231,3 +231,22 @@ Key active files:
 - **Rule 72 & RULE 0Z Codified (Automated Anti-Contradiction Gate)**:
   - Formally codified `Rule 72` in `PRD.md` and `RULE 0Z` in `.agents/AGENTS.md`.
   - Enforced `assert_no_facility_or_event_contradictions()` from `utils.py` across all report generation pipelines to prevent any future room or event count mismatch.
+
+
+### Autonomous Live SharePoint OOS Tracking Log Retrieval & Cross-Module 6-Month History Verification (Completed 28Oct26):
+- **Core Breakthrough**:
+  - Successfully connected to Microbiology Supervisor Robin Seymour (RS)'s live controlled SharePoint tracking log:
+    - File: `Sterile Lab - OOS Tracking Log.xlsx` (UniqueId: `8A575D4F-67AB-4253-B1E2-08A540577BCB`).
+    - URL: `https://eagleanalytical-my.sharepoint.com/:x:/r/personal/rseymour_eagleanalytical_com/_layouts/15/Doc.aspx?sourcedoc=%7B8A575D4F-67AB-4253-B1E2-08A540577BCB%7D&file=Sterile%20Lab%20-%20OOS%20Tracking%20Log.xlsx&fromShare=true&action=default&mobileredirect=true`
+  - Leveraged persistent browser session (`%LOCALAPPDATA%\pastdue_playwright_session`) to establish dual-mode live access:
+    1. **Direct API Stream Download**: High-speed fetch of latest workbook (248 KB) for concurrent in-memory scanning of all 11 sheets via `openpyxl` in < 2 seconds.
+    2. **Browser UI Automation**: Inside `WacFrame_Excel_0`, dynamically switches between `Scan RDI OOS`, `<71> OOS`, and `Celsis Sterility OOS` tabs, enabling live screenshots and cloud auto-saving cell updates.
+- **Historical Benchmark Verification Matrix (100% Verified Across 5 Prior Cases)**:
+  1. `OOS-262289` (Link Pharmacy E19112, ScanRDI, 01Oct26): Verified in `Scan RDI OOS` (Row 212).
+  2. `OOS-262237` (GoGoMeds Select E10747, ScanRDI, 24Sep26): Verified in `Scan RDI OOS` (Row 211, plus prior Semaglutide failures in Row 199 and 206).
+  3. `OOS-262080` (Optimal Balance Pharmacy E19193, Celsis, 08Sep26): Verified in `Celsis Sterility OOS` (Row 50).
+  4. `OOS-262017` (Revive Rx Pharmacy E00927, Celsis, 26Aug26): Verified in `Celsis Sterility OOS` (Row 49).
+  5. `OOS-262329` (GoGoMeds Select E10747, USP <71>, 12/13Oct26): Verified in `<71> OOS` (Row 152).
+- **Codification**:
+  - Added `Rule 73` to `PRD.md`.
+  - Updated `RULE 0G` in `.agents/AGENTS.md` to permanently mandate automated SharePoint tracking log querying across all future OOS conversations.

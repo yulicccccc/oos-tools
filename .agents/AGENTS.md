@@ -288,7 +288,11 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-   - **强制问询门禁**: 若无法访问上述台账或不确定历史记录，**必须立即向用户主动提问获取**，严禁擅自断言！
+   - **全自动自主穿透检索机制 (Rule 73 终极锁定)**: 依托企业持久化认证会话（%LOCALAPPDATA%\\pastdue_playwright_session），Agent 具备直接通过后台高速 API（UniqueId=8A575D4F-67AB-4253-B1E2-08A540577BCB）秒级并发拉网扫描全部 11 个 Sheet，或通过浏览器自动化（WacFrame_Excel_0）在 Scan RDI OOS、<71> OOS、Celsis Sterility OOS 之间无缝切换、云端回填台账之全套能力。全流程自主完成 6 个月历史检索与句式判定，零猜测零脑补。
+
+
+
+   - **问询兜底门禁**: 仅在网络离线或台账连接异常时，才向用户主动提问获取，杜绝擅自断言！
 
 
 

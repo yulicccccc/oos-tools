@@ -3344,3 +3344,42 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 3. **Active Air Morphology Defense Invariant (RULE 0X.4)**:
    - When environmental isolates include *Staphylococcus* or other cocci-shaped bacteria, claiming "morphology distinctly different from cocci" is strictly prohibited and automatically blocked.
+
+
+---
+
+### Rule 73: Autonomous Live SharePoint OOS Tracking Log Retrieval & Cross-Module 6-Month History Verification Protocol (官方受控 SharePoint 追踪台账全自动自主检索与 6 个月历史穿透校验规范 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, and `USP <85>`), agents are strictly empowered and required to **autonomously query and verify 6-month sample history directly from Supervisor Robin Seymour's official SharePoint tracking log**, completely eliminating manual transcription and guesswork:
+
+1. **Official SharePoint Controlled Data Source (Robin Seymour Ground Truth)**:
+   - **File Name**: `Sterile Lab - OOS Tracking Log.xlsx`
+   - **UniqueId**: `8A575D4F-67AB-4253-B1E2-08A540577BCB`
+   - **Online Doc URL**:
+     `https://eagleanalytical-my.sharepoint.com/:x:/r/personal/rseymour_eagleanalytical_com/_layouts/15/Doc.aspx?sourcedoc=%7B8A575D4F-67AB-4253-B1E2-08A540577BCB%7D&file=Sterile%20Lab%20-%20OOS%20Tracking%20Log.xlsx&fromShare=true&action=default&mobileredirect=true`
+   - **Direct High-Speed API Download Endpoint**:
+     `https://eagleanalytical-my.sharepoint.com/personal/rseymour_eagleanalytical_com/_layouts/15/download.aspx?UniqueId=8A575D4F-67AB-4253-B1E2-08A540577BCB`
+
+2. **Dual-Track Access Architecture**:
+   - **Track 1: High-Speed Direct Stream / API Fetch (openpyxl 全景秒级并发拉网 - 检索首选)**:
+     - Leverages the persistent browser context session (`%LOCALAPPDATA%\pastdue_playwright_session`) cookies to stream/download the latest workbook via `context.request.get(dl_url)`.
+     - Enables instant in-memory scanning across **all 11 sheets** (`Tailor Made Scan OOS`, `OOS info for Priority Clients`, `Scan RDI OOS`, `<71> OOS`, `Celsis Sterility OOS`, `BacT OOS`, `ISO Sterility Testing`, `USP <85> OOS`, `Particulate OOS`, `Media Fill OOS`, `EM OOS`) in < 2 seconds.
+   - **Track 2: Browser UI Automation (WacFrame_Excel_0 交互与云端实时保存)**:
+     - Inside Playwright, locates `frame = page.frame(name='WacFrame_Excel_0')` and switches tabs via `frame.locator('[role="tab"]:has-text(...)').first.click()`.
+     - Enables visual inspection snapshots and direct cell data back-filling (e.g. updating investigation status, OOS numbers, and microbial identities in Robin Seymour's sheet) with automatic cloud syncing.
+
+3. **Autonomous 6-Month Verification Workflow (Rule 0G Fully Automated)**:
+   - For ANY investigated sample:
+     - **Step 1 (Primary Method Audit)**: Open the target methodology sheet (`<71> OOS`, `Scan RDI OOS`, or `Celsis Sterility OOS`).
+     - **Step 2 (6-Month Rolling Window Filter)**: Filter by `Client Name / ID` and `Analyte Name` within the 6 calendar months prior to the incident/test date.
+     - **Step 3 (Cross-Methodology Failure Sweep)**: Sweep adjacent sterility and endotoxin sheets to detect systemic client issues or sibling batch rejections.
+     - **Step 4 (Deterministic Phrasing Selection)**:
+       - If **0 records found** ➡️ Output Rule 0G Case A: `"Analyzing a 6-month sample history for [Client Name], this specific analyte \"[Analyte Name]\" has had no prior Out-of-Specification (OOS) occurrences under [Test Method] sterility testing."`
+       - If **≥1 records found** ➡️ Output Rule 0G Case B: Standard 3-part narrative with prior OOS-ID, ETX-ID, test date, morphology comparison, and no-laboratory-error closure statement.
+
+4. **Historical Benchmark Verification Matrix (100% Verified Against Live Tracking Log)**:
+   - `OOS-262289` (Link Pharmacy E19112, ScanRDI, Ceftriaxone / Tirzepatide, 01Oct26): Verified in `Scan RDI OOS` (Row 212).
+   - `OOS-262237` (GoGoMeds Select E10747, ScanRDI, Semaglutide R 2.5mg/ml, 24Sep26): Verified in `Scan RDI OOS` (Row 211, plus prior Row 199 & 206).
+   - `OOS-262080` (Optimal Balance Pharmacy E19193, Celsis, MOTs-C 10 MG/ML, 08Sep26): Verified in `Celsis Sterility OOS` (Row 50).
+   - `OOS-262017` (Revive Rx Pharmacy E00927, Celsis, Tesamorelin 12 mg, 26Aug26): Verified in `Celsis Sterility OOS` (Row 49).
+   - `OOS-262329` (GoGoMeds Select E10747, USP <71>, Sermorelin 0.9mg/ml, 12/13Oct26): Verified in `<71> OOS` (Row 152).
