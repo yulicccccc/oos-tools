@@ -186,7 +186,9 @@ Key active files:
     - GL Personnel touch plates on 22/23/24Sep26: all 0 CFU (No Growth).
     - BSC E001314 surface & settling tracking per Rule 46: 22Sep26 (AOD, 0 CFU), 23Sep26 (GL, 0 CFU), 24Sep26 (AOD, 0 CFU) - all No Growth.
     - Suite 115 weekly surface: 23Sep26 (SMO, all 6 locations 0 CFU / No Growth).
-    - Suite 115 weekly active air: 23Sep26 (SMO, ISO 7 115A/115B 0 CFU / No Growth; outermost ISO 8 115 recovered 6 CFUs under ETX-261001-0625; confirmed on 27Oct26 as *Micrococcus luteus*, *Kocuria indica*, *Kocuria rhizophila*, and 1 pending fungal isolate [Pending FunITS]; completely differing from sample *Bacillus megaterium* rods and zero *Bacillus* in environment; excluded by Rule 0I cascaded pressure & physical airlocks).
+    - Suite 115 weekly active air: 23Sep26 (SMO, ISO 7 115A/115B 0 CFU / No Growth; outermost ISO 8 115 recovered 6 CFUs under ETX-261001-0625; confirmed on 27Oct26 with full morphology breakdown as 5 Gram (+) cocci [*Micrococcus luteus* (4 CFUs), *Kocuria indica* & *Kocuria rhizophila* (1 CFU)] and 1 Hyphae [Pending FunITS (1 CFU)]; completely differing from sample *Bacillus megaterium* rods and zero *Bacillus* in environment; excluded by Rule 0I cascaded pressure & physical airlocks).
+  - Rule 0X.5 / Rule 70.5: Monthly cleaning updated to Supervisor Robin Seymour's approved streamlined phrasing ("It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in Suite 115.").
+  - Table 1 & Table 2: 100% harmonized with Ground Truth (Table 1: 2 x 200mL TSB [Original and Subculture Bottles], Bacillus megaterium [Gram (+) rods]; Table 2: 4 canonical banners, 6 CFUs with full morphology pairing, uniform 7.0pt font, strictly 1-page layout).
   - Monthly Cleaning: Suite 115 performed on 13Sep26 by EN, SAA, ANC; H2O2 chemical indicator strips passed.
   - Initiator: Guanchen Li (Written by Qiyue Chen), Investigated by Qiyue Chen, reviewer signature empty for Robin Seymour.
 - **Deliverables Generated (Rule 0M)**:

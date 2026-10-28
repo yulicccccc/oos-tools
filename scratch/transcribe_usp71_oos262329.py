@@ -9,6 +9,9 @@ Purpose: Transcribe finalized USP <71> OOS-262329 for GoGoMeds Select (E10747)
 import os
 import sys
 import shutil
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils import assert_no_facility_or_event_contradictions
 import fitz  # PyMuPDF
 from pypdf import PdfWriter, PdfReader
 
@@ -75,15 +78,15 @@ p_p3 = [
 p_p4 = [
     f"On 08Oct26 (Day 14 read), initial test results were recorded as Inconclusive due to formulation-induced turbidity inherent to the concentrated Sermorelin sample matrix. In accordance with USP <71> and laboratory procedure for turbid samples, aliquots (-46/54-A for TSB and -47/54-A for FTM) were aseptically subcultured into fresh media bottles on 07Oct26 by analyst {ALIQUOT_NAME} and returned to incubation.",
     
-    f"On 12Oct26 (Day 18 of the original bottles and Day 5 of the subculture aliquots), microbial growth was observed and confirmed in both original TSB bottle (-46/54) and subcultured TSB bottle (-46/54-A) by reading analyst {READER_NAME} and verified by laboratory management. The FTM media bottles (-47/54 and -47/54-A) remained clear and negative (No Growth) throughout the entire incubation period. Positive TSB bottles were submitted for Differential Staining and Microbial Identification under submission {SUBCULTURE_ID}. Differential staining indicated Gram-positive rods. Definitive identification confirmed the isolate as Bacillus megaterium, as detailed in Table 1.",
+    f"On 12Oct26 (Day 18 of the original bottles and Day 5 of the subculture aliquots), microbial growth was observed and confirmed in both original TSB bottle (-46/54) and subcultured TSB bottle (-46/54-A) [2 x 200mL TSB (Original and Subculture Bottles)] by reading analyst {READER_NAME} and verified by laboratory management. The FTM media bottles (-47/54 and -47/54-A) remained clear and negative (No Growth) throughout the entire incubation period. Positive TSB bottles were submitted for Differential Staining and Microbial Identification under submission {SUBCULTURE_ID}. Differential staining indicated Gram-positive rods. Definitive identification confirmed the isolate as Bacillus megaterium, as detailed in Table 1.",
     
     "All culture media and consumables utilized were within their valid manufacturer expiration dates. Negative control media bottles for direct inoculation were manipulated and incubated alongside the test samples under identical conditions; both TSB and FTM negative controls demonstrated complete absence of microbial growth (No Growth), verifying media sterility and aseptic technique.",
     
     f"Attached Table 2 details the environmental monitoring data associated with sample processing on 23Sep26. Environmental monitoring plates were incubated in accordance with MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Review of contemporaneous personnel monitoring (left- and right-hand touch plates for analyst {PROCESSOR_NAME}) and ISO 5 BSC E001314 monitoring (surface contact plates and settling plates) demonstrated No Growth across all sampling locations on the date of testing (23Sep26), the date before testing (22Sep26), and the date after testing (24Sep26). In addition, personnel and ISO 5 monitoring associated with both the processing and subculture activities remained free of microbial growth as of 13 Oct 2026. These data confirm that processing personnel and the ISO 5 BSC were maintained in an optimal state of microbiological control and were not a source of contamination.",
     
-    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus, Kocuria indica, Kocuria rhizophila, and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, distinctly different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
+    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus (4 CFUs), Kocuria indica and Kocuria rhizophila (1 CFU), and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology, 1 CFU). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, distinctly different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
     
-    "Monthly cleaning and disinfection of Cleanroom Suite 115 (including ISO 8 anteroom 115, ISO 7 buffer room 115A, ISO 7 cleanroom 115B, and ISO 5 BSC E001314) were performed on 13Sep26 as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. Decontamination was performed with HaloMist (Lot 2606A, Exp 06Jun28), and all H2O2 chemical indicator strips (Lot 260620, Exp 20Jun28) passed, verifying that environmental sanitization remained validated and in control prior to testing.",
+    "It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in Suite 115.",
     
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{ANALYTE}" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.',
     
@@ -100,6 +103,10 @@ p_p5 = [
 t3 = "\n\n".join(p_p3)
 t4 = "\n\n".join(p_p4)
 t5 = "\n\n".join(p_p5)
+
+# Rule 72 Pre-flight Assertion
+assert_no_facility_or_event_contradictions(t4)
+print("Pre-flight facility and event contradiction assertion passed!")
 
 # Open Blank Form Template
 print("\n=== [STEP 2] FILLING OFFICIAL ACROFORM TEMPLATE ===")

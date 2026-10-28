@@ -3197,6 +3197,30 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
           - **Suite 115 洁净室周浮游菌监测**: 23Sep26 由 SMO 监测，核心 ISO 7 115A 与 115B 均为 0 CFU (**No Growth**)；最外层 ISO 8 Anteroom 115 检出 **6 CFUs**，送检微生物鉴定单号为 ETX-261001-0625。于 27Oct26 确证显微染色为 5 株 Gram (+) cocci 与 1 株 Hyphae；微生物鉴定确认为 ***Micrococcus luteus***, ***Kocuria indica***, ***Kocuria rhizophila*** 以及 1 株真菌外送鉴定 (**Pending FunITS**)。所有检出菌均为革兰氏阳性球菌或真菌菌丝体，与待测阳性样本检出之革兰氏阳性芽孢杆菌 (***Bacillus megaterium***) 截然不同，且洁净室全程未检出任何 *Bacillus* 芽孢杆菌，结合级联正压差与消毒封闭转运彻底排除环境污染源。
         - **月度清洁**: Suite 115 月度清洁由 `EN`, `SAA`, `ANC` 于 `13Sep26` 执行，H2O2 指示卡（Lot `260620`, Exp `20Jun28`）全项合格。
         - **6 个月历史**: 官方追踪台账显示 GoGoMeds Select 之 Sermorelin 0.9mg/ml 在 USP <71> 下无前科（Zero Prior Failures）。
+    *   **终极法定附表数据 (Finalized Ground Truth Tables - 严格 1 单页版 / 统一 7.0pt)**:
+        *   **Table 1: Information for ETX-260624-0251 (BUD-T90) under investigation**
+            | Processing Analyst | Reading Analyst | Sample ID | Related Microbial ID | Media with microbial growth | Microbial ID |
+            | :--- | :--- | :--- | :--- | :--- | :--- |
+            | Guanchen Li | Andrew Carrillo | [ETX-260624-0251 (BUD-T90)](https://etrax.eagleanalytical.com/Submission/Details/nIsCJb3y7xy7m1FK8luTrg__) | [ETX-261012-0367](https://etrax.eagleanalytical.com/Submission/Details/e6Jo3DyLpUEd3QnYm5Uttw__) | 2 x 200mL TSB (Original and Subculture Bottles) | *Bacillus megaterium*<br>(Gram (+) rods) |
+
+        *   **Table 2: Environmental Monitoring from Testing Performed on 23Sep26 (全表数据单元格统一 7.0pt)**
+            | Environmental Monitoring (EM) Sampling Site | Frequency | Date (DDMMMYY) | Analyst | Day /Week(s) | Observation | EM Plate ETX Number | Microbial ID | Notes |
+            | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+            | **Personnel EM** | | | | | | | | |
+            | Personnel (Left Touch and Right Touch) | Daily | 22Sep26 | GL | Date Before Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Personnel (Left Touch and Right Touch) | Daily | 23Sep26 | GL | Date of Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Personnel (Left Touch and Right Touch) | Daily | 24Sep26 | GL | Date After Testing | No Growth | Not Applicable | Not Applicable | None |
+            | **Biological Safety Cabinet EM for E001314** | | | | | | | | |
+            | Surface Sampling of ISO 5 (4 locations) | Daily | 22Sep26 | AOD | Date Before Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Surface Sampling of ISO 5 (4 locations) | Daily | 23Sep26 | GL | Date of Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Surface Sampling of ISO 5 (4 locations) | Daily | 24Sep26 | AOD | Date After Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Settling Sampling of ISO 5 (2 locations) | Daily | 22Sep26 | AOD | Date Before Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Settling Sampling of ISO 5 (2 locations) | Daily | 23Sep26 | GL | Date of Testing | No Growth | Not Applicable | Not Applicable | None |
+            | Settling Sampling of ISO 5 (2 locations) | Daily | 24Sep26 | AOD | Date After Testing | No Growth | Not Applicable | Not Applicable | None |
+            | **Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC** | | | | | | | | |
+            | Active Air Sampling of Cleanrooms | Weekly | 23Sep26 | SMO | Week of Testing | 6 CFUs (ISO 8 115) | [ETX-261001-0625](https://etrax.eagleanalytical.com/Submission/Details/yp3RLi-9BGnGhzxnYnqk4Q__) | *Micrococcus luteus* (4 CFUs)<br><br>*Kocuria indica* and *Kocuria rhizophila* (1 CFU)<br><br>Pending FunITS (1 CFU, Hyphae) | None |
+            | **Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC** | | | | | | | | |
+            | Surface Sampling of Cleanrooms | Weekly | 23Sep26 | SMO | Week of Testing | No Growth | Not Applicable | Not Applicable | None |
     *   **双文件交付物规范 (Rule 0M)**:
         - **文件 1 (Master Transcribed PDF)**: `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，含 6 页 AcroForm 表单及 Page 7 Table 1 & 2）。
         - **文件 2 (Word 版独立附表)**: `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`（严格 1 单页版）。
