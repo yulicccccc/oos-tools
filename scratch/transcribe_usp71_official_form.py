@@ -3,15 +3,12 @@ Script: transcribe_usp71_official_form.py
 Purpose: Transcribe finalized USP <71> OOS-262329 for GoGoMeds Select (E10747)
          into user-provided fresh official ZenQMS form:
          CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (6).pdf
-         Applies all user requested revisions:
-         1. N/A date: 28Oct26
-         2. Incubation: omit 24Sep26 date
-         3. Remove (-46/54) and (-46/54-A) bottle indexes
-         4. Delete subculture EM sentence
-         5. Supervisor wording: verified by laboratory supervisor
-         6. Remove 'distinctly' (different from)
-         7. Monthly cleaning: full MICRO-SOP-9 standard paragraph for Suite 115 on 13Sep26
-         8. Remove vague 'approximately 50 samples'
+         Applies latest user instructions:
+         1. Page 1 Text Field13: Use full analyst names:
+            "Yes, analysts Elysse Nioupin, Guanchen Li, Ayomide Odugbesi, and Andrew Carrillo were comprehensively interviewed."
+         2. Page 4: Remove subculture sentence from cross-contamination paragraph.
+         3. Page 5: Remove Phase II / retest sentence.
+         4. Page 6: Check Box88 = 'Yes' (No, the OOS result is valid), Check Box89 = 'Off' (No Phase II).
 """
 
 import os, sys, shutil
@@ -57,7 +54,7 @@ ALIQUOT_NAME = "Ayomide Odugbesi"
 ALIQUOT_INIT = "AOD"
 READER_NAME = "Andrew Carrillo"
 READER_INIT = "ANC"
-DRAFTING_DATE = "28Oct26"  # Today's date requested by user
+DRAFTING_DATE = "28Oct26"
 
 # Page 3 Narrative
 p_p3 = [
@@ -76,7 +73,7 @@ p_p3 = [
     f"Inside BSC E001314, containers were aseptically accessed with minimal exposure to the ISO 5 environment. Testing was executed by direct inoculation in strict accordance with approved method suitability ETX-260401-0599 and MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Specifically, 15 mL of sterile Tween 80 (Lot 0000743947, Exp 31 Jan 2030) and 5 mL of sample were directly inoculated into 200 mL media bottles of Tryptic Soy Broth (TSB, Lot 1012062790, Exp 07/21/2027) and Fluid Thioglycollate Medium (FTM, Lot 1012062800, Exp 07/21/2027). Matching direct inoculation negative control bottles were prepared concurrently and manipulated identically. The inoculated media bottles were transferred into calibrated incubators E001356 (20-25 °C) and E001357 (30-35 °C) to commence incubation."
 ]
 
-# Page 4 Narrative
+# Page 4 Narrative (Subculture sentence removed from cross-contamination paragraph)
 p_p4 = [
     f"On 08Oct26 (Day 14 read), initial test results were recorded as Inconclusive due to formulation-induced turbidity inherent to the concentrated Sermorelin sample matrix. In accordance with USP <71> and laboratory procedure for turbid samples, aliquots were aseptically subcultured into fresh media bottles on 07Oct26 by analyst {ALIQUOT_NAME} and returned to incubation.",
     
@@ -92,14 +89,12 @@ p_p4 = [
     
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{ANALYTE}" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.',
     
-    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. During the original test setup on 23Sep26, the processing analyst handled another stability sample from the same client, ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008), which was processed under comparable conditions and yielded negative results for microbial growth. Additionally, the subculture analyst reported no deviations during subsequent activities on 07Oct26, and no other samples undergoing subculture at that time demonstrated microbial growth. These findings confirm that sample-to-sample cross-contamination is highly unlikely."
+    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. During the original test setup on 23Sep26, the processing analyst handled another stability sample from the same client, ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008), which was processed under comparable conditions and yielded negative results for microbial growth. These findings confirm that sample-to-sample cross-contamination is highly unlikely."
 ]
 
-# Page 5 Narrative
+# Page 5 Narrative (Phase II / Retest sentence removed per user instruction)
 p_p5 = [
-    "Based on the laboratory investigation outlined above, no laboratory equipment malfunction, media contamination, environmental excursion, or analyst error was identified. Contemporaneous negative controls and ISO 5 critical zone monitoring remained clear and free of contamination. Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid.",
-    
-    "Because this sample is part of an ongoing beyond-use date (BUD-T90) stability study, a Phase II investigation is initiated (CORP-FORM-22) and sample retesting is required to evaluate lot integrity."
+    "Based on the laboratory investigation outlined above, no laboratory equipment malfunction, media contamination, environmental excursion, or analyst error was identified. Contemporaneous negative controls and ISO 5 critical zone monitoring remained clear and free of contamination. Therefore, the likelihood of laboratory error contributing to this failure is considered minimal, and the original result is deemed valid."
 ]
 
 t3 = "\n\n".join(p_p3)
@@ -157,6 +152,9 @@ tf44_calibrations = (
     "Jun 2027"
 )
 
+# Text Field13: Full analyst names per user instruction
+tf13_interview = f"Yes, analysts {PREPPER_NAME}, {PROCESSOR_NAME}, {ALIQUOT_NAME}, and {READER_NAME} were comprehensively interviewed."
+
 pdf_field_values = {
     'Text Field57': OOS_ID,
     'Date Field0': PRO_DATE,
@@ -178,7 +176,7 @@ pdf_field_values = {
     'Text Field7': f"On {TEST_DATE_FULL}, sample {SAMPLE_ID} was found positive for viable microorganisms after USP <71> sterility testing.",
     'Text Field11': "Pass/Fail",
     'Text Field12': "Robin Seymour",
-    'Text Field13': f"Yes, preliminary interviews conducted with preparation ({PREPPER_INIT}), processing ({PROCESSOR_INIT}), subculture ({ALIQUOT_INIT}), and reading ({READER_INIT}) analysts as of 13 Oct 2026 identified no deviations or laboratory-related issues.",
+    'Text Field13': tf13_interview,
     'Text Field14': f"Yes, Sample ID: {SAMPLE_ID}",
     'Text Field17': f"Yes, information is available on EagleTrax under {SAMPLE_ID}",
     'Text Field18': "Yes, the analysts are trained and qualified by quality to perform the test.",
@@ -221,7 +219,7 @@ pdf_field_values = {
     'Text Field55': "",
 }
 
-# Checkbox mapping
+# Checkbox mapping: Check Box88 = 'Yes' (No, the OOS result is valid), Check Box89 = 'Off' (No Phase II)
 cb_whitelists = {
     'Check Box0': 'Yes', 'Check Box1': 'Yes', 'Check Box2': 'Yes', 'Check Box3': 'Off',
     'Check Box4': 'Yes', 'Check Box5': 'Off', 'Check Box6': 'Off',
@@ -250,8 +248,8 @@ cb_whitelists = {
     'Check Box73': 'Yes', 'Check Box74': 'Off', 'Check Box75': 'Off',
     'Check Box78': 'Yes',
     'Check Box87': 'Off',
-    'Check Box88': 'Yes', # Require Retest - Phase II
-    'Check Box89': 'Yes', # Phase II Investigation Required
+    'Check Box88': 'Yes', # No, the OOS result is valid
+    'Check Box89': 'Off', # Phase II NOT initiated
     'Check Box90': 'Off',
     'Check Box91': 'Off',
     'Check Box92': 'Off',
@@ -264,7 +262,7 @@ FONT_SIZE_MAP = {
     'Text Field1': 6.8, 'Text Field2': 6.8, 'Text Field3': 5.2,
     'Text Field4': 8.5, 'Text Field5': 8.5, 'Text Field6': 8.5, 'Text Field7': 8.0,
     'Text Field8': 6.5, 'Text Field9': 6.5, 'Text Field10': 6.5, 'Text Field11': 8.5,
-    'Text Field12': 8.5, 'Text Field13': 5.2, 'Text Field14': 8.5, 'Text Field15': 8.5,
+    'Text Field12': 8.5, 'Text Field13': 5.5, 'Text Field14': 8.5, 'Text Field15': 8.5,
     'Text Field16': 8.5, 'Text Field17': 6.5, 'Text Field18': 5.2, 'Text Field19': 8.5,
     'Text Field20': 8.5, 'Text Field21': 5.5,
     # Page 2
@@ -279,7 +277,7 @@ FONT_SIZE_MAP = {
     # Page 4
     'Text Field50': 7.6,
     # Page 5
-    'Text Field51': 8.2,
+    'Text Field51': 8.5,
     # Page 6
     'Text Field52': 8.5, 'Text Field53': 8.5, 'Text Field54': 8.5, 'Text Field55': 8.5,
     'Text Field57': 8.5,
@@ -311,7 +309,7 @@ doc_ver = fitz.open(temp_filled_pdf)
 for pidx, fn, expected_last in [
     (2, 'Text Field49', 'incubation.'),
     (3, 'Text Field50', 'unlikely.'),
-    (4, 'Text Field51', 'integrity.')
+    (4, 'Text Field51', 'valid.')
 ]:
     p = doc_ver[pidx]
     w_obj = [w for w in p.widgets() if w.field_name == fn][0]
@@ -350,17 +348,6 @@ print(f"Saved Master PDF to Desktop: {master_pdf_desktop}")
 final_doc = fitz.open(master_pdf_local)
 print(f"Final Master PDF page count: {len(final_doc)} (Strictly expected: 7 pages)")
 assert len(final_doc) == 7
-
-# Clean up interim un-prefixed PDF from Desktop if present
-interim_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-if os.path.exists(interim_desktop):
-    os.remove(interim_desktop)
-    print(f"Cleaned up interim file: {interim_desktop}")
-
-interim_docs = os.path.join(DOCS_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf")
-if os.path.exists(interim_docs):
-    os.remove(interim_docs)
-    print(f"Cleaned up interim file: {interim_docs}")
 
 final_doc.close()
 print("=== SUCCESS: OFFICIAL TRANSCRIPTION COMPLETED AND VERIFIED ===")
