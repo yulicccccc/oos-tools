@@ -256,3 +256,21 @@ Key active files:
   - Prepending `CORP-FORM-21- <DD MMM YYYY>` is STRICTLY RESERVED for when the user explicitly provides a fresh ZenQMS blank form downloaded on that date and commands transcription.
   - If the user has NOT provided a newly downloaded form, the master PDF deliverable must strictly remain `OOS-<ID> <Client> - <Test>.pdf` to prevent user/QA confusion regarding transcript status.
   - Corrected `OOS-262329` deliverable from `CORP-FORM-21- 12 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` to `OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` across Desktop and Documents.
+
+
+### Official Transcription of OOS-262329 into User-Provided Fresh ZenQMS Template (Completed 28Oct26):
+- **Official Template Provided**:
+  - `CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (6).pdf` (Printed from ZenQMS on 13-Oct-2026 by Robin Seymour).
+  - Final Transcribed Deliverable: `CORP-FORM-21- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`.
+- **All 8 User Audit & Rationalization Points Codified (Rule 75)**:
+  1. N/A Hypothesis Testing sign-off dated to today: `N/A QYC 28Oct26`.
+  2. Incubation date omitted to avoid midnight confusion (`...transferred into calibrated incubators E001356 (20-25 °C) and E001357 (30-35 °C) to commence incubation.`).
+  3. Internal bottle indices `(-46/54)` and `(-46/54-A)` completely removed from all text.
+  4. Deleted unverified subculture EM plate sentence.
+  5. Reading verification updated to `verified by laboratory supervisor`.
+  6. Subjective word `distinctly` removed from morphology comparison (`different from`).
+  7. Restored full MICRO-SOP-9 standard monthly cleaning paragraph for Suite 115 on 13Sep26.
+  8. Completely removed vague uncounted sample totals (`approximately 50 samples`), strictly focusing on verifiable sibling sample `ETX-260624-0206`.
+- **Desktop Deliverables Verified**:
+  1. `CORP-FORM-21- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf` (Strictly 7 pages, zero overflow, fully verified).
+  2. `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx` (Strictly 1 single page).

@@ -3183,9 +3183,9 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - **Incident Date**: `12-Oct-2026` (Day 18 read by Andrew Carrillo; status changed to OOS-262329)
         - **Disposition**: Require Retest - Phase II (CORP-FORM-22 required for stability study)
     *   **核心实验数据与法定理化证据链**:
-        - **接种与培养**: 由 `EN` 于 22Sep26 准备样品，`GL` 于 23Sep26 在 Suite 115 ISO 5 BSC E001314 完成直接接种并于 24Sep26 12:55 AM 入箱培养。
-        - **混浊分装与动力学**: Day 14 (08Oct26) 因高浓度 Sermorelin 样品本身基质混浊判定为 Inconclusive，由 AOD 于 07Oct26 6:59 PM 转移分装至新鲜培养基 (-46/54-A 及 -47/54-A)。Day 18 (12Oct26) 原样瓶 (-46/54) 与分装瓶 (-46/54-A) 之 TSB 均呈阳性生长，FTM 原样瓶及分装瓶全程阴性澄清。
-        - **同批次与交叉污染排除 (Sibling Stability Sample Ground Truth)**: 接种员在 23Sep26 同批次处理约 50 个样品，包含同客户另一稳定性样品 ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008)，在同等条件下操作且结果均为阴性；且 AOD 于 07Oct26 分装时所有同步分装样品均无生长，彻底排除批次操作失误与样品间交叉污染。
+        - **接种与培养**: 由 `EN` 于 22Sep26 准备样品，`GL` 于 23Sep26 在 Suite 115 ISO 5 BSC E001314 完成直接接种并入箱培养。
+        - **混浊分装与动力学**: Day 14 (08Oct26) 因高浓度 Sermorelin 样品本身基质混浊判定为 Inconclusive，由 AOD 于 07Oct26 转移分装至新鲜培养基。Day 18 (12Oct26) 原样瓶与分装瓶之 TSB 均经 reading analyst ANC 观察并由主管 Robin Seymour 复核确证阳性生长，FTM 原样瓶及分装瓶全程阴性澄清。
+        - **同批次与交叉污染排除 (Sibling Stability Sample Ground Truth)**: 接种员在 23Sep26 包含同客户另一稳定性样品 ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008)，在同等条件下操作且结果均为阴性；且 AOD 于 07Oct26 分装时所有同步分装样品均无生长，彻底排除样品间交叉污染（严禁放置未经精确核实的模糊批次总数）。
         - **微生物鉴定**: 送检单号 `ETX-261012-0367`，经差速染色（革兰氏阳性杆菌）及确证鉴定为 ***Bacillus megaterium***。
         - **环境监测 (EM - 14 页台账地毯式核查与 Rule 46 真实设备运行历史锁定)**:
           - **人员手套 (Personnel EM)**: 接种员 GL 连续 3 日（22Sep26 BSC 1312, 23Sep26 BSC 1314, 24Sep26 BSC 1312）左右手接触平皿均为 0 CFU，全为 **No Growth**。
@@ -3222,7 +3222,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
             | **Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC** | | | | | | | | |
             | Surface Sampling of Cleanrooms | Weekly | 23Sep26 | SMO | Week of Testing | No Growth | Not Applicable | Not Applicable | None |
     *   **双文件交付物规范 (Rule 0M)**:
-        - **文件 1 (Master PDF)**: `OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，含 6 页 AcroForm 表单及 Page 7 Table 1 & 2；未加挂 `CORP-FORM-21-` 前缀，待用户提供 ZenQMS 官方新母表并要求转录后方可升级命名）。
+        - **文件 1 (Master Transcribed PDF)**: `CORP-FORM-21- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`（7 页完整合并版，已原生转录进用户 28Oct26 提供的 13-Oct-2026 官方最新 ZenQMS 空白母表，含末尾 Page 7 Table 1 & 2）。
         - **文件 2 (Word 版独立附表)**: `Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx`（严格 1 单页版）。
         - 唯一定位落盘至企业 OneDrive 桌面：`C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\`。
 
@@ -3407,3 +3407,20 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 3. **双路径清理同步义务 (Desktop & Documents Cleanup)**:
    - 凡重命名或修正此类前缀时，必须同步清理企业 OneDrive 桌面（`Desktop\`）及本地仓库（`Documents\OOS\`）中的旧前缀文件，严禁新旧两份文件并存造成版本冲突。
+
+
+---
+
+### Rule 75: Prohibition of Unverified Batch Counts & Objective Scientific Narrative Standards (严禁在 OOS 案卷中放置未经核实的估算批次总数与客观理性叙述铁律 - 🚨 终极锁定)
+
+**CRITICAL**: In all OOS reports, narratives, and investigations across all modules:
+
+1. **绝对严禁模糊估算批次总数 (No Vague Sample Counts)**:
+   - 严禁在交叉污染或批次评估中编写类似 `"the processing analyst handled approximately 50 samples within the same testing batch"` 等模棱两可、未经逐条清点的数字！
+   - OOS 是受 FDA 与 cGMP 严格审查的法定调查文件，只允许放置 100% 验证过的理化事实（例如直接列出同批次明确核实过的对照样品 `ETX-260624-0206`）。没有精确数据严禁随意估算！
+
+2. **客观科学叙述原则 (Objective Phrasing vs. Subjective Bias)**:
+   - 形态学对比中，严禁添加主观修饰词（如严禁使用 `distinctly different from`），统一使用客观严谨的 `different from`。
+   - 实验室审核人统一规范为职务级别职称：`verified by laboratory supervisor`（而非宽泛的 `management`）。
+   - 报告中严禁堆砌客户看不懂的内部工作流后缀或非必要试管流水编号（如 `(-46/54)` 或 `(-46/54-A)`），保持叙述清晰聚焦成品瓶与分装瓶。
+   - 严禁提及未收集对应数据的辅助推测（如未收集 subculture 对应 EM 时，绝不可画蛇添足声称 subculture activities EM remained free of growth）。
