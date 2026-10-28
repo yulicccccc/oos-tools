@@ -77,7 +77,7 @@ p_p3 = [
 p_p4 = [
     f"On 08Oct26 (Day 14 read), initial test results were recorded as Inconclusive due to formulation-induced turbidity inherent to the concentrated Sermorelin sample matrix. In accordance with USP <71> and laboratory procedure for turbid samples, aliquots were aseptically subcultured into fresh media bottles on 07Oct26 by analyst {ALIQUOT_NAME} and returned to incubation.",
     
-    f"On 12Oct26 (Day 18 of the original bottles and Day 5 of the subculture aliquots), microbial growth was observed and confirmed in both original TSB bottle and subcultured TSB bottle [2 x 200mL TSB (Original and Subculture Bottles)] by reading analyst {READER_NAME} and verified by laboratory supervisor. The FTM media bottles (original and subculture) remained clear and negative (No Growth) throughout the entire incubation period. Positive TSB bottles were submitted for Differential Staining and Microbial Identification under submission {SUBCULTURE_ID}. Differential staining indicated Gram-positive rods. Definitive identification confirmed the isolate as Bacillus megaterium, as detailed in Table 1.",
+    f"On 12Oct26 (Day 18 of the original bottles and Day 5 of the subculture aliquots), microbial growth was observed and confirmed in both original TSB bottle and subcultured TSB bottle (2 x 200mL TSB, Original and Subculture Bottles) by reading analyst {READER_NAME} and verified by laboratory supervisor. The FTM media bottles (original and subculture) remained clear and negative (No Growth) throughout the entire incubation period. Positive TSB bottles were submitted for Differential Staining and Microbial Identification under submission {SUBCULTURE_ID}. Differential staining indicated Gram-positive rods. Definitive identification confirmed the isolate as Bacillus megaterium, as detailed in Table 1.",
     
     "All culture media and consumables utilized were within their valid manufacturer expiration dates. Negative control media bottles for direct inoculation were manipulated and incubated alongside the test samples under identical conditions; both TSB and FTM negative controls demonstrated complete absence of microbial growth (No Growth), verifying media sterility and aseptic technique.",
     
@@ -89,7 +89,7 @@ p_p4 = [
     
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{ANALYTE}" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.',
     
-    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. During the original test setup on 23Sep26, the processing analyst handled another stability sample from the same client, ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008), which was processed under comparable conditions and yielded negative results for microbial growth. These findings confirm that sample-to-sample cross-contamination is highly unlikely."
+    "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 ]
 
 # Page 5 Narrative (Phase II / Retest sentence removed per user instruction)

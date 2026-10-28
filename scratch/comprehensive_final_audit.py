@@ -83,19 +83,20 @@ p4_text = " ".join(p4.get_text().split())
 # Prohibited items check
 assert "(-46/54)" not in p4_text, "Internal bottle index (-46/54) found!"
 assert "(-46/54-A)" not in p4_text, "Internal bottle index (-46/54-A) found!"
+assert "[" not in p4_text and "]" not in p4_text, "Square brackets [] found in Page 4!"
 assert "associated with both the processing and subculture activities" not in p4_text, "Unverified subculture EM plate sentence found!"
 assert "Additionally, the subculture analyst reported no deviations" not in p4_text, "Subculture analyst deviation report sentence found!"
 assert "distinctly" not in p4_text, "Subjective word 'distinctly' found!"
 assert "approximately 50 samples" not in p4_text, "Vague 50 samples found!"
 
 # Required items check
+assert "(2 x 200mL TSB, Original and Subculture Bottles)" in p4_text, "Parenthetical bottle details missing!"
 assert "verified by laboratory supervisor" in p4_text, "'verified by laboratory supervisor' missing!"
 assert "different from the Gram-positive spore-forming rod" in p4_text, "'different from' morphology phrasing missing!"
 assert "Bacillus megaterium" in p4_text, "Microbial identity missing!"
 assert "Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on 13Sep26 for Suite 115" in p4_text, "Monthly cleaning standard phrasing missing!"
 assert 'Analyzing a 6-month sample history for GoGoMeds Select (E10747), this specific analyte "Sermorelin 0.9mg/ml" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.' in p4_text, "6-month history standard sentence missing!"
-assert "ETX-260624-0206" in p4_text, "Sibling sample ETX-260624-0206 missing!"
-assert "sample-to-sample cross-contamination is highly unlikely." in p4_text, "Cross-contamination conclusion missing!"
+assert "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely." in p4_text, "Standard cross-contamination paragraph missing!"
 print("[PASS 6] Page 4 narrative fully verified against all 8 user instructions.")
 
 # Check 6: Page 5 Narrative Audit

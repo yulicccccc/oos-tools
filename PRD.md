@@ -3185,7 +3185,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
     *   **核心实验数据与法定理化证据链**:
         - **接种与培养**: 由 `EN` 于 22Sep26 准备样品，`GL` 于 23Sep26 在 Suite 115 ISO 5 BSC E001314 完成直接接种并入箱培养。
         - **混浊分装与动力学**: Day 14 (08Oct26) 因高浓度 Sermorelin 样品本身基质混浊判定为 Inconclusive，由 AOD 于 07Oct26 转移分装至新鲜培养基。Day 18 (12Oct26) 原样瓶与分装瓶之 TSB 均经 reading analyst ANC 观察并由主管 Robin Seymour 复核确证阳性生长，FTM 原样瓶及分装瓶全程阴性澄清。
-        - **同批次与交叉污染排除 (Sibling Stability Sample Ground Truth)**: 接种员在 23Sep26 包含同客户另一稳定性样品 ETX-260624-0206 (T90, Sermorelin 3 mg/mL, Lot 17008)，在同等条件下操作且结果均为阴性；且 AOD 于 07Oct26 分装时所有同步分装样品均无生长，彻底排除样品间交叉污染（严禁放置未经精确核实的模糊批次总数）。
+        - **同批次与交叉污染排除 (Cross-Contamination Standard Phrasing)**: 经全面核查，检验分析员当天处理的所有其他样品结果均为阴性，彻底排除交叉污染。标准法定用语：`"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`（严禁在正文叙述中使用中括号 `[]`，统一使用圆括号 `()`）。
         - **微生物鉴定**: 送检单号 `ETX-261012-0367`，经差速染色（革兰氏阳性杆菌）及确证鉴定为 ***Bacillus megaterium***。
         - **环境监测 (EM - 14 页台账地毯式核查与 Rule 46 真实设备运行历史锁定)**:
           - **人员手套 (Personnel EM)**: 接种员 GL 连续 3 日（22Sep26 BSC 1312, 23Sep26 BSC 1314, 24Sep26 BSC 1312）左右手接触平皿均为 0 CFU，全为 **No Growth**。
