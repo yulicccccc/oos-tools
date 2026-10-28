@@ -322,23 +322,21 @@ for pidx, fn, expected_last in [
     print(f"  [PASS] Page {pidx+1} verified perfectly without overflow.")
 doc_ver.close()
 
-# Append Page 7 Tables
-writer = PdfWriter()
-reader_form = PdfReader(temp_filled_pdf)
-for i in range(len(reader_form.pages)):
-    writer.add_page(reader_form.pages[i])
-
-reader_tables = PdfReader(TABLES_PDF)
-assert len(reader_tables.pages) == 1
-writer.add_page(reader_tables.pages[0])
+# Append Page 7 Tables using PyMuPDF (preserves all AcroForm field names and duplicate Text Field57 OOS Numbers)
+doc_final = fitz.open(temp_filled_pdf)
+doc_tables = fitz.open(TABLES_PDF)
+assert len(doc_tables) == 1, f"Expected 1 page for Tables, got {len(doc_tables)}"
+doc_final.insert_pdf(doc_tables)
+assert len(doc_final) == 7, f"Expected 7 pages, got {len(doc_final)}"
 
 # Official Transcribed Filename per Rule 0M and Rule 74 (Mother form downloaded on 13 Oct 2026)
 master_filename = f"CORP-FORM-21- 13 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - USP71.pdf"
 master_pdf_local = os.path.join(DOCS_DIR, master_filename)
 master_pdf_desktop = os.path.join(DESKTOP_DIR, master_filename)
 
-with open(master_pdf_local, "wb") as f_out:
-    writer.write(f_out)
+doc_final.save(master_pdf_local)
+doc_final.close()
+doc_tables.close()
 print(f"Saved Master PDF locally: {master_pdf_local}")
 
 shutil.copy2(master_pdf_local, master_pdf_desktop)
