@@ -140,16 +140,14 @@ tf43_incubators = (
     "Incubator E001356\r"
     "(Sensor E001450)\r \r"
     "Incubator E001357\r"
-    "(Sensor E001449)\r \r"
-    "ISO 5 BSC E001314"
+    "(Sensor E001449)"
 )
 
 tf44_calibrations = (
     "Jan 2027\r"
     "Feb 2027\r \r"
     "Jan 2027\r"
-    "Feb 2027\r \r"
-    "Jun 2027"
+    "Feb 2027"
 )
 
 # Text Field13: Full analyst names per user instruction

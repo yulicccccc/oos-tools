@@ -57,7 +57,9 @@ assert w_p2['Text Field32'].field_value == 'E001737 (CR115)', "Suite 115 cleanro
 assert w_p2['Text Field33'].field_value == 'Dec 2026', "Cleanroom certification date mismatch!"
 assert "Incubator E001356" in w_p2['Text Field43'].field_value, "Incubator E001356 missing!"
 assert "Incubator E001357" in w_p2['Text Field43'].field_value, "Incubator E001357 missing!"
+assert "BSC" not in w_p2['Text Field43'].field_value, "BSC should NOT be duplicated in general equipment Text Field43!"
 assert "Jan 2027" in w_p2['Text Field44'].field_value, "Incubator calibration mismatch!"
+assert "Jun 2027" not in w_p2['Text Field44'].field_value, "BSC calibration Jun 2027 should NOT be in Text Field44!"
 print("[PASS 4] Page 2 equipment, calibrations, and cleanroom IDs verified.")
 
 # Check 4: Page 3 Narrative & GDP Sign-off

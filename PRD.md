@@ -3424,3 +3424,19 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
    - 实验室审核人统一规范为职务级别职称：`verified by laboratory supervisor`（而非宽泛的 `management`）。
    - 报告中严禁堆砌客户看不懂的内部工作流后缀或非必要试管流水编号（如 `(-46/54)` 或 `(-46/54-A)`），保持叙述清晰聚焦成品瓶与分装瓶。
    - 严禁提及未收集对应数据的辅助推测（如未收集 subculture 对应 EM 时，绝不可画蛇添足声称 subculture activities EM remained free of growth）。
+
+
+---
+
+### Rule 76: Page 2 Equipment Categorization & Prohibition of BSC Redundancy in Text Field43 (Page 2 仪器设备分区归属与严禁在 Text Field43 重复堆砌 BSC 铁律 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, and `USP <71>`), equipment on Page 2 must be strictly segregated by category:
+
+1. **设备分区专属性 (Strict Equipment Partitioning)**:
+   - **Text Field30 / 31**: 专属填报生物安全柜 / 超净工作台（"Is biological safety cabinet / laminar flow hood / isolator certified and operational?"），例如 `ISO 5 BSC E001314`（Cal Due `Jun 2027`）。
+   - **Text Field32 / 33**: 专属填报洁净室认证（"Is cleanroom certified and operational?"），例如 `E001737 (CR115)`（Cal Due `Dec 2026`）。
+   - **Text Field43 / 44**: 专属填报检验通用仪器 / 培养箱（"Is equipment/instrument functional and calibrated/qualified/certified/PM?"），例如无菌检验中的两台恒温培养箱 `Incubator E001356 (Sensor E001450)` 与 `Incubator E001357 (Sensor E001449)` 及对应校验期。
+
+2. **严禁二次重复堆砌 BSC (Zero Redundancy Invariant)**:
+   - 生物安全柜在上方第一栏已有专属质保评估与法定位置（`Text Field30`）。**绝对严禁在下方通用设备栏（`Text Field43`）中再次重复填入 BSC 及其校准期**！
+   - 彻底杜绝前后矛盾、冗余排版及 QA 审核质疑。

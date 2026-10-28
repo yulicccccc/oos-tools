@@ -280,3 +280,9 @@ Key active files:
   2. **Page 4 Subculture Sentence Removal**: Deleted `Additionally, the subculture analyst reported no deviations during subsequent activities on 07Oct26, and no other samples undergoing subculture at that time demonstrated microbial growth.` to maintain absolute fidelity to documented data (subculture EM was not collected).
   3. **Page 5 Narrative Simplification**: Completely removed the speculative Phase II / retest sentence (`Because this sample is part of an ongoing beyond-use date...`).
   4. **Page 6 Checkbox Finalization**: Set `Check Box88 = 'Yes'` ("No, the OOS result is valid") and `Check Box89 = 'Off'` (Phase II NOT initiated per laboratory review).
+
+- **Rule 76 Codified & Page 2 BSC Redundancy Eliminated (28Oct26)**:
+  - User audit identified duplicate BSC entry in Page 2 `Text Field43` ("Is equipment/instrument functional and calibrated/qualified/certified/PM?").
+  - Formally codified `Rule 76` in `PRD.md`: `Text Field30` is the exclusive field for BSCs; `Text Field43` is strictly reserved for incubators/general test instruments.
+  - Removed `ISO 5 BSC E001314` and `Jun 2027` from `Text Field43` and `Text Field44`, leaving strictly `Incubator E001356` and `Incubator E001357`.
+  - Regenerated and verified master deliverables on Desktop and Documents.
