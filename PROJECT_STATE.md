@@ -291,3 +291,9 @@ Key active files:
   1. **Brackets to Parentheses Elimination**: Completely removed unnatural square brackets `[]` from narrative text; updated Page 4 to `(2 x 200mL TSB, Original and Subculture Bottles)`.
   2. **Cross-Contamination Narrative Alignment**: Updated to verified standard phrasing: `"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`
   3. Re-generated and verified master deliverables on Desktop and Documents with 10/10 automated tests passing.
+
+- **Rule 77 Codified: Autonomous Same-Day Positive Verification via SharePoint Tracking Log (28Oct26)**:
+  - Codified `Rule 77` in `PRD.md` and updated `RULE 0L` in `.agents/AGENTS.md`.
+  - For all future OOS Phase I investigations, Agent will autonomously query Supervisor Robin Seymour's official SharePoint tracking log (`Sterile Lab - OOS Tracking Log.xlsx`) on the date of testing to check whether the processing analyst had any other positive samples that day.
+  - If 0 other positives found: apply Case A standard phrasing (`"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`).
+  - If other positives found: apply Case B concurrent positive disclosure with shift/analyst/BSC segregation.

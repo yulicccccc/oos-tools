@@ -430,15 +430,15 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-1. **交叉污染段落标准起始句**:
+1. **交叉污染段落标准起始句与自主穿透核查法则 (依托台账检索)**:
 
+   - **Case A: 当天该分析员无其他阳性 (All Other Samples Tested Negative - 黄金标准句式)**:
+     Agent 依托持久化会话自主查询官方 SharePoint 追踪台账，若证实该分析员当天无其他任何阳性记录，统一规范使用标准法定用语：
+     `"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`
+     （🚨 严禁在正文中使用中括号 `[]`，严禁随意脑补估算当天处理的样品总数！）。
 
-
-   统一使用：`"All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination."`
-
-
-
-   （严禁使用局限性开篇 `"The microbiological findings were also evaluated..."`，确保评估范围更广更清晰）。
+   - **Case B: 当天存在其他阳性样本 (Concurrent Positives Present)**:
+     若台账显示同日存在其他阳性记录，必须主动透明披露并执行多班次/多分析员隔离证明（详见下文）。
 
 
 

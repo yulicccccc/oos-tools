@@ -3440,3 +3440,21 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 2. **严禁二次重复堆砌 BSC (Zero Redundancy Invariant)**:
    - 生物安全柜在上方第一栏已有专属质保评估与法定位置（`Text Field30`）。**绝对严禁在下方通用设备栏（`Text Field43`）中再次重复填入 BSC 及其校准期**！
    - 彻底杜绝前后矛盾、冗余排版及 QA 审核质疑。
+
+
+---
+
+### Rule 77: Autonomous Same-Day Concurrent Positive & Cross-Contamination Verification via SharePoint OOS Tracking Log (依托官方追踪台账自主穿透核查同日阳性与交叉污染判定铁律 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS investigations (`ScanRDI`, `Celsis`, and `USP <71>`), when investigating sample-to-sample cross-contamination in Page 4 narrative:
+
+1. **官方台账自主穿透检索 (Autonomous SharePoint OOS Log Verification)**:
+   - 依托企业持久化认证会话（`%LOCALAPPDATA%\pastdue_playwright_session`），Agent 必须直接在主管 Robin Seymour 的受控追踪台账（`Sterile Lab - OOS Tracking Log.xlsx`，UniqueId `8A575D4F-67AB-4253-B1E2-08A540577BCB`）中检索测试当日（Date of Testing）的全部记录。
+   - 重点筛选：核查测试当天该处理分析员（Processing Analyst）是否有其他任何阳性记录（Positive / OOS）。
+
+2. **Case A: 当天该分析员无其他阳性 (All Other Samples Processed by Analyst Tested Negative - 黄金标准句)**:
+   - 若台账核查证实该分析员当天处理的所有其他样品均为阴性，严禁脑补推测或枚举部分样品，统一规范使用标准客观句式：
+     `"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`
+
+3. **Case B: 当天存在其他阳性记录 (Concurrent Positives on Same Day)**:
+   - 若台账核查发现同日存在其他阳性样本（即使是其他分析员、其他班次），严格遵循 `RULE 0L` 进行透明披露与隔离证明（Shift、Analyst、Primary Containment Equipment / BSC 物理隔离），严禁隐瞒或断言“全天无其他阳性”！
