@@ -297,3 +297,10 @@ Key active files:
   - For all future OOS Phase I investigations, Agent will autonomously query Supervisor Robin Seymour's official SharePoint tracking log (`Sterile Lab - OOS Tracking Log.xlsx`) on the date of testing to check whether the processing analyst had any other positive samples that day.
   - If 0 other positives found: apply Case A standard phrasing (`"To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."`).
   - If other positives found: apply Case B concurrent positive disclosure with shift/analyst/BSC segregation.
+
+- **Rule 78 Codified: Supervisor Robin Seymour Mandate on Client-Wide 6-Month History (29Oct26)**:
+  - User provided official review from Robin Seymour (RS) on `OOS-262277` (Dhvanir Kansara).
+  - Explicit RS mandate: *"Please ensure to include 6-month history of OOSs from the client, this is to trend what type of organisms are being identified from the client sources and is not analyte specific."*
+  - Formally codified `Rule 78` in `PRD.md` and updated `RULE 0G` in `.agents/AGENTS.md`.
+  - Updated `OOS-262329` Page 4 narrative from analyte-specific text to RS golden standard phrasing: `"A review of the 6-month sample history for GoGoMeds Select (E10747) found no prior sterility failures for USP <71> / EP 2.6.1 sterility testing during this period."`
+  - Re-generated and verified master deliverables on Desktop and Documents with 10/10 automated tests passing.

@@ -296,31 +296,22 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-2. **Case A: 无前科句式 (Zero Prior Failures)**:
+2. **Supervisor Robin Seymour 核心质保铁律: 覆盖客户全品种 · 严禁限定单一分析物 (Client-Wide Trending, Not Analyte-Specific)**:
 
+   - **法规目的 (The cGMP Root Purpose)**: 2026年10月主管 Robin Seymour (RS) 审核明确指令：`"* Please ensure to include 6-month history of OOSs from the client, this is to trend what type of organisms are being identified from the client sources and is not analyte specific."`
+   - 6 个月历史回顾的核心在于**追踪客户源头环境在 Eagle 检验中反复检出的菌相类型（Trend organism types from client sources）**。因此**严禁限定于待测的单一分析物**（严禁写 `for the analyte [X]` 或 `this specific analyte has had no prior...`）！
 
+3. **Case A: 客户 6 个月内无任何前科 (Zero Prior Failures for Client)**:
 
-   - 必须明确包含无菌检验测试方法后缀（如 `under ScanRDI sterility testing.` / `under Celsis sterility testing.` / `under USP <71> sterility testing.`）：
+   - 统一规范使用 RS 审核金标准句式：
+     `"A review of the 6-month sample history for [Client Name] found no prior sterility failures for [Test Method] sterility testing during this period."`
 
+4. **Case B: 客户 6 个月内存在前科 (Prior Failures for Client - 无论是否同种药品)**:
 
-
-     `"Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had no prior Out-of-Specification (OOS) occurrences under [Test Method] sterility testing."`
-
-
-
-3. **Case B: 存在前科三步曲句式 (Prior Failures - Robin Seymour 审核金标准)**:
-
-
-
-   - **基础陈述句**: `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
-
-
-
-   - **形态学差异对比句**: `The microorganism detected in the previous investigation exhibited [clustered circular-shaped / previous morphology] morphology, which differs from the [current morphology] observed in the current investigation.`
-
-
-
-   - **前案调查回顾与闭环评价句**: `The previous failure investigation was reviewed and no laboratory error or assignable laboratory cause was identified.`
+   - **基础陈述句**: `"A review of the 6-month sample history for [Client Name] found [one prior sterility failure / N prior sterility failures] for [Test Method] sterility testing."`
+   - **前案菌种确证句**: `"The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]."`
+   - **形态学对比句 (若菌种不同)**: `"The microorganism detected in the previous investigation exhibited [previous morphology] morphology, which differs from the [current morphology] observed in the current investigation."`
+   - **前案调查回顾与闭环评价句**: `"No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`
 
 
 

@@ -3458,3 +3458,26 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 3. **Case B: 当天存在其他阳性记录 (Concurrent Positives on Same Day)**:
    - 若台账核查发现同日存在其他阳性样本（即使是其他分析员、其他班次），严格遵循 `RULE 0L` 进行透明披露与隔离证明（Shift、Analyst、Primary Containment Equipment / BSC 物理隔离），严禁隐瞒或断言“全天无其他阳性”！
+
+
+---
+
+### Rule 78: Supervisor Robin Seymour Mandate on Client-Wide 6-Month OOS History & Non-Analyte-Specific Trending (主管 Robin Seymour 6 个月历史客户全品种覆盖与严禁限定单一分析物铁律 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, and `USP <71>`), when assessing 6-month historical failure data in Page 4 narrative:
+
+1. **核心质保依据与法规目的 (The cGMP Root Purpose)**:
+   - 实验室主管 Robin Seymour (RS) 于 2026 年 10 月 29 日审核 OOS-262277 时正式下达法定指令：
+     `"* Please ensure to include 6-month history of OOSs from the client, this is to trend what type of organisms are being identified from the client sources and is not analyte specific."`
+   - 无菌检验 6 个月历史回顾的真正法规目的，是**追踪该客户来源（工厂环境/工艺/原料）在实验室检验中反复检出的微生物菌属类型（Trend organism types identified from client sources）**。
+   - **严禁限定于待测的单一分析物（Not analyte specific）**！哪怕本次是 Semaglutide，前次是 Tirzepatide，只要同属该客户且在 6 个月内，必须完整纳入统计与对比！
+
+2. **两大法定标准句式 (RS Golden Standard Phrasing)**:
+   - **Case A: 客户 6 个月内无任何前科 (Zero Prior Failures for Client)**:
+     `"A review of the 6-month sample history for [Client Name] found no prior sterility failures for [Test Method] sterility testing during this period."`
+     （🚨 严禁出现 `for the analyte [X]` 或 `this specific analyte has had no prior...`！）。
+   - **Case B: 客户 6 个月内存在前科 (Prior Failures for Client - 不论是否同种药品)**:
+     `"A review of the 6-month sample history for [Client Name] found [one prior sterility failure / N prior sterility failures] for [Test Method] sterility testing. The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]. No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`
+
+3. **Page 1 Description of Incident "respectively." 规范**:
+   - 当 `Text Field7` 中并列出现多个测试/报告日期与多个送检样品编号时，句尾必须加挂 `respectively.` 以保证语法逻辑上的严格一一映射（例如：`"On 30 Sep 2026 and 05 Oct 2026 samples ETX-260917-0497 and ETX-260917-0470 were found positive for viable microorganisms after USP <71> sterility testing respectively."`）。
