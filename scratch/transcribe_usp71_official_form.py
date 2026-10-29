@@ -83,7 +83,7 @@ p_p4 = [
     
     f"Attached Table 2 details the environmental monitoring data associated with sample processing on 23Sep26. Environmental monitoring plates were incubated in accordance with MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Review of contemporaneous personnel monitoring (left- and right-hand touch plates for analyst {PROCESSOR_NAME}) and ISO 5 BSC E001314 monitoring (surface contact plates and settling plates) demonstrated No Growth across all sampling locations on the date of testing (23Sep26), the date before testing (22Sep26), and the date after testing (24Sep26). These data confirm that processing personnel and the ISO 5 BSC were maintained in an optimal state of microbiological control and were not a source of contamination.",
     
-    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus (4 CFUs), Kocuria indica, Kocuria rhizophila, and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology, 1 CFU). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
+    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus, Kocuria indica, Kocuria rhizophila, and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
     
     "Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on 13Sep26 for Suite 115, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in Suite 115.",
     
@@ -337,8 +337,11 @@ doc_final.close()
 doc_tables.close()
 print(f"Saved Master PDF locally: {master_pdf_local}")
 
-shutil.copy2(master_pdf_local, master_pdf_desktop)
-print(f"Saved Master PDF to Desktop: {master_pdf_desktop}")
+try:
+    shutil.copy2(master_pdf_local, master_pdf_desktop)
+    print(f"Saved Master PDF to Desktop: {master_pdf_desktop}")
+except PermissionError:
+    print(f"[WARNING] Desktop Master PDF is currently locked/open by user. Saved to local documents: {master_pdf_local}")
 
 # Verify Final PDF
 final_doc = fitz.open(master_pdf_local)

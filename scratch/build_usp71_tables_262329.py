@@ -306,11 +306,9 @@ def build_tables_doc():
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
     
     def fill_active_air_micro(p):
-        # 1. Micrococcus luteus (4 CFUs)
-        r1 = p.add_run("Micrococcus luteus")
+        # 1. Micrococcus luteus
+        r1 = p.add_run("Micrococcus luteus\n\n")
         r1.font.name = 'Times New Roman'; r1.font.size = Pt(7); r1.italic = True
-        r1_c = p.add_run(" (4 CFUs)\n\n")
-        r1_c.font.name = 'Times New Roman'; r1_c.font.size = Pt(7); r1_c.italic = False
         
         # 2. Kocuria indica
         r2a = p.add_run("Kocuria indica\n\n")
@@ -320,8 +318,8 @@ def build_tables_doc():
         r2b = p.add_run("Kocuria rhizophila\n\n")
         r2b.font.name = 'Times New Roman'; r2b.font.size = Pt(7); r2b.italic = True
         
-        # 4. Pending FunITS (1 CFU, Hyphae)
-        r3 = p.add_run("Pending FunITS (1 CFU, Hyphae)")
+        # 4. Pending FunITS (Hyphae)
+        r3 = p.add_run("Pending FunITS (Hyphae)")
         r3.font.name = 'Times New Roman'; r3.font.size = Pt(7); r3.italic = False
 
     add_data_row(t2, "Active Air Sampling of Cleanrooms", "Weekly", "23Sep26", AIR_ANALYST, "Week of Testing", "6 CFUs (ISO 8 115)", EM_PLATE_ID, fill_active_air_micro, "None", etx_url=EM_PLATE_URL)
