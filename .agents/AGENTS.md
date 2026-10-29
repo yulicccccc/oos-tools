@@ -312,6 +312,7 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
    - **前案菌种确证句**: `"The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]."`
    - **形态学对比句 (若菌种不同)**: `"The microorganism detected in the previous investigation exhibited [previous morphology] morphology, which differs from the [current morphology] observed in the current investigation."`
    - **前案调查回顾与闭环评价句**: `"No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`
+   - 🚨 **先写稿再问铁律 (Draft-Then-Ask)**: 前案是否为实验室错误（是否走过 Phase II）Agent 无法 100% 确定。前科 ≥ 1 时，先起草完整段落（含默认闭环句），并在回复中显式标为“待确认草稿”，**主动请用户亲自确认前案实验室错误判定**后才可定稿；若前案属实验室错误，必须改写闭环句。
 
 
 

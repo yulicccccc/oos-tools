@@ -3479,5 +3479,12 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
    - **Case B: 客户 6 个月内存在前科 (Prior Failures for Client - 不论是否同种药品)**:
      `"A review of the 6-month sample history for [Client Name] found [one prior sterility failure / N prior sterility failures] for [Test Method] sterility testing. The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]. No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`
 
+   - **前案实验室错误判定 · 先写稿再问用户铁律 (Draft-Then-Ask Gate for Prior Lab Error Status)**:
+     - 前案是否属于实验室错误（Laboratory Error），Agent 无法 100% 自行确定（若属实验室错误，前案通常会走 Phase II / 结果无效）。
+     - 因此凡 6 个月内前科数 ≥ 1 时：Agent 先按上述句式**起草完整段落**（包含前案 ETX-ID、OOS-ID、菌种、以及默认的 `"No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`），可参考台账 Status / Phase II 信息作为线索；
+     - 然后**必须在回复中显式标出该段为待确认草稿，并主动请用户亲自确认**：前案是否判定为实验室错误、是否走过 Phase II。用户确认前，严禁视为定稿交付。
+     - 若用户确认前案属于实验室错误，则删除/改写闭环句，严禁沿用 "No laboratory errors..." 默认句。
+     - 前科数为 0 时（Case A）不涉及此门禁。
+
 3. **Page 1 Description of Incident "respectively." 规范**:
    - 当 `Text Field7` 中并列出现多个测试/报告日期与多个送检样品编号时，句尾必须加挂 `respectively.` 以保证语法逻辑上的严格一一映射（例如：`"On 30 Sep 2026 and 05 Oct 2026 samples ETX-260917-0497 and ETX-260917-0470 were found positive for viable microorganisms after USP <71> sterility testing respectively."`）。
