@@ -3515,3 +3515,16 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 2. **多余初步访谈断言句彻底剔除 (Complete Removal of Redundant Preliminary Interview Sentence)**:
    - 严禁在第一段插入 `"As of [Date], preliminary interviews identified no deviations or laboratory-related handling issues."`。
    - 首句已明确交代全员被全面访谈（`All analysts involved in the preparation, processing, subculture, and reading of the sample - [Names] - were interviewed comprehensively.`），紧接着直接衔接 `"Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure."`，彻底消除冗余与语病。
+
+
+---
+
+### Rule 81: Client-Facing Media & Reagent Narrative Simplification (Zero Lot # & Expiration in Narrative) (客户无菌报告叙述培养基与试剂批号效期精简铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, and `USP <71>`), in Section D Phase I Summary narrative (`Text Field49`):
+1. **叙述无需展示耗材批号效期 (No Lot # or Expiration in Narrative Body)**:
+   - 接种与实验操作正文叙述中，严禁堆砌 Tween 80、TSB、FTM 等常规培养基与试剂的 Lot 批号与 Exp 效期（例如：严禁在正文写 `(Lot 0000743947, Exp 31 Jan 2030)` 或 `(TSB, Lot 1012062790, Exp 07/21/2027)`）。
+   - **质保与业务依据**：调查报告面向客户（Client-Facing），客户无需获知内部常规耗材批次流水号；且所有耗材批号效期已在表单材料栏（Section B Materials / EagleTrax Sample Consumables）完整受控记录，正文叙述中重复堆叠严重影响阅读流畅度。
+2. **法定精简句式 (Standard Simplified Phrasing)**:
+   - 统一规范写作：
+     `"Specifically, 15 mL of sterile Tween 80 and 5 mL of sample were directly inoculated into 200 mL media bottles of Tryptic Soy Broth and Fluid Thioglycollate Medium."`

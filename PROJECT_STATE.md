@@ -320,3 +320,8 @@ Key active files:
   - Removed redundant sentence `" As of 13 Oct 2026, preliminary interviews identified no deviations or laboratory-related handling issues."` from Page 3 narrative (`p_p3[0]`).
   - Ensured all narrative dates in Section D strictly adhere to uniform `DDMMMYY` format (`24Jun26`, `22Sep26`, `23Sep26`, `08Oct26`, `12Oct26`, `13Sep26`).
   - Re-generated and verified master deliverables on Desktop and Documents with 10/10 automated tests passing.
+
+- **Rule 81 Codified: Client-Facing Media & Reagent Narrative Simplification (29Oct26)**:
+  - User removed internal Lot numbers and Expiration dates for Tween 80, TSB, and FTM from Page 3 narrative (`Text Field49`).
+  - Standardized sentence to: `"Specifically, 15 mL of sterile Tween 80 and 5 mL of sample were directly inoculated into 200 mL media bottles of Tryptic Soy Broth and Fluid Thioglycollate Medium."`
+  - Codified Rule 81 in `PRD.md`.

@@ -91,6 +91,9 @@ assert "ETX-260401-0599" in p3_text, "Method suitability ETX number missing!"
 assert "Elysse Nioupin" in p3_text and "Guanchen Li" in p3_text, "Prep and process analysts missing in Page 3!"
 assert "preliminary interviews" not in p3_text, "Redundant preliminary interviews sentence still present in Page 3!"
 assert "13 Oct 2026" not in p3_text, "Inconsistent 13 Oct 2026 date format found in Page 3!"
+assert "Lot 0000743947" not in p3_text, "Consumable Lot numbers should not be in client-facing narrative!"
+assert "Exp 07/21/2027" not in p3_text, "Consumable Exp dates should not be in client-facing narrative!"
+assert "Tryptic Soy Broth and Fluid Thioglycollate Medium" in p3_text, "Clean media names missing!"
 print("[PASS 5] Page 3 narrative and GDP sign-off verified.")
 
 # Check 5: Page 4 Narrative Audit
