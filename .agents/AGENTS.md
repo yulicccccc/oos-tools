@@ -296,23 +296,25 @@ In all OOS reports (ScanRDI, Celsis, USP <71>, and EM), environmental monitoring
 
 
 
-2. **Supervisor Robin Seymour 核心质保铁律: 覆盖客户全品种 · 严禁限定单一分析物 (Client-Wide Trending, Not Analyte-Specific)**:
+2. **6 个月历史双重范围与句式铁律 (Scope = 同一客户 + 同一 Analyte - 用户 2026-10-29 确认)**:
 
-   - **法规目的 (The cGMP Root Purpose)**: 2026年10月主管 Robin Seymour (RS) 审核明确指令：`"* Please ensure to include 6-month history of OOSs from the client, this is to trend what type of organisms are being identified from the client sources and is not analyte specific."`
-   - 6 个月历史回顾的核心在于**追踪客户源头环境在 Eagle 检验中反复检出的菌相类型（Trend organism types from client sources）**。因此**严禁限定于待测的单一分析物**（严禁写 `for the analyte [X]` 或 `this specific analyte has had no prior...`）！
+   - **范围界定**: 必须严格同时按**同一客户 (Client)** 且**同一分析物 (Specific Analyte)** 检索检测日前 6 个月内的无菌失败记录。
+   - **句式原则**: 必须沿用原有的 `this specific analyte` 句式，**绝不改动句子结构**！
+   - **唯一新增要求**: 若同客户同分析物存在前科（Prior Failure ≥ 1），必须在叙述中补充**检测出的具体菌种（Microbial ID / isolate）**。
+   - 🚨 **范围升级门禁 (Scope Change Gate)**: 在实验主管 Robin Seymour (RS) **明确告知用户**“不能这样，要客户的所有 analyte 都要算”之前，**严禁自行扩大到客户全品种**！一旦 RS 明确向用户提出该要求，再调整范围。
 
-3. **Case A: 客户 6 个月内无任何前科 (Zero Prior Failures for Client)**:
+3. **Case A: 6 个月内无前科 (Zero Prior Failures - 沿用经典法定句式)**:
 
-   - 统一规范使用 RS 审核金标准句式：
-     `"A review of the 6-month sample history for [Client Name] found no prior sterility failures for [Test Method] sterility testing during this period."`
+   - 统一规范使用标准原句式：
+     `"Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had no prior Out-of-Specification (OOS) occurrences under [Test Method] sterility testing."`
 
-4. **Case B: 客户 6 个月内存在前科 (Prior Failures for Client - 无论是否同种药品)**:
+4. **Case B: 6 个月内存在前科 (Prior Failures - 补充前案菌种与先写稿再问)**:
 
-   - **基础陈述句**: `"A review of the 6-month sample history for [Client Name] found [one prior sterility failure / N prior sterility failures] for [Test Method] sterility testing."`
-   - **前案菌种确证句**: `"The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]."`
+   - **基础陈述句 (原句式)**: `Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had [one prior failure / N prior failures], documented under [OOS-ID] for submission [ETX-ID], tested on [DDMMMYY].`
+   - **前案菌种确证句 (新增)**: `"The microbial growth from the previous failing sample ([ETX-ID], [OOS-ID]) was identified to be [Previous Organism]."`
    - **形态学对比句 (若菌种不同)**: `"The microorganism detected in the previous investigation exhibited [previous morphology] morphology, which differs from the [current morphology] observed in the current investigation."`
    - **前案调查回顾与闭环评价句**: `"No laboratory errors were determined to be contributing to the failing result of [ETX-ID]."`
-   - 🚨 **先写稿再问铁律 (Draft-Then-Ask)**: 前案是否为实验室错误（是否走过 Phase II）Agent 无法 100% 确定。前科 ≥ 1 时，先起草完整段落（含默认闭环句），并在回复中显式标为“待确认草稿”，**主动请用户亲自确认前案实验室错误判定**后才可定稿；若前案属实验室错误，必须改写闭环句。
+   - 🚨 **先写稿再问铁律 (Draft-Then-Ask Gate)**: 前案是否为实验室错误（是否走过 Phase II）Agent 无法 100% 确定。前科 ≥ 1 时，先起草完整段落（含默认闭环句），并在回复中显式标为“待确认草稿”，**主动请用户亲自确认前案实验室错误判定**后才可定稿；若前案属实验室错误，必须改写闭环句。
 
 
 

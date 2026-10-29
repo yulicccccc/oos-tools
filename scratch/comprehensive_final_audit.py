@@ -95,7 +95,7 @@ assert "verified by laboratory supervisor" in p4_text, "'verified by laboratory 
 assert "different from the Gram-positive spore-forming rod" in p4_text, "'different from' morphology phrasing missing!"
 assert "Bacillus megaterium" in p4_text, "Microbial identity missing!"
 assert "Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on 13Sep26 for Suite 115" in p4_text, "Monthly cleaning standard phrasing missing!"
-assert "A review of the 6-month sample history for GoGoMeds Select (E10747) found no prior sterility failures for USP <71> / EP 2.6.1 sterility testing during this period." in p4_text, "6-month history standard sentence missing!"
+assert 'Analyzing a 6-month sample history for GoGoMeds Select (E10747), this specific analyte "Sermorelin 0.9mg/ml" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.' in p4_text, "6-month history standard sentence missing!"
 assert "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely." in p4_text, "Standard cross-contamination paragraph missing!"
 print("[PASS 6] Page 4 narrative fully verified against all 8 user instructions.")
 

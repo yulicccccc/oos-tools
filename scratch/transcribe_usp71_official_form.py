@@ -87,7 +87,7 @@ p_p4 = [
     
     "Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on 13Sep26 for Suite 115, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in Suite 115.",
     
-    f"A review of the 6-month sample history for {CLIENT_NAME} found no prior sterility failures for USP <71> / EP 2.6.1 sterility testing during this period.",
+    f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{ANALYTE}" has had no prior Out-of-Specification (OOS) occurrences under USP <71> sterility testing.',
     
     "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely."
 ]

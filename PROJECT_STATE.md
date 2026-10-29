@@ -304,3 +304,9 @@ Key active files:
   - Formally codified `Rule 78` in `PRD.md` and updated `RULE 0G` in `.agents/AGENTS.md`.
   - Updated `OOS-262329` Page 4 narrative from analyte-specific text to RS golden standard phrasing: `"A review of the 6-month sample history for GoGoMeds Select (E10747) found no prior sterility failures for USP <71> / EP 2.6.1 sterility testing during this period."`
   - Re-generated and verified master deliverables on Desktop and Documents with 10/10 automated tests passing.
+
+- **Rule 78 Final Scope & Phrasing Clarification (29Oct26)**:
+  - User confirmed: 6-month history must strictly search **Same Client + Same Analyte** (unless Supervisor RS explicitly instructs user otherwise to search all analytes).
+  - Sentence structure: Preserved original classic phrasing (`Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had no prior Out-of-Specification (OOS) occurrences under [Test Method] sterility testing.`).
+  - Only new addition: When prior failures exist, include the specific microbial isolate identified, and apply the draft-then-ask gate for prior laboratory error status.
+  - Re-transcribed and verified `OOS-262329` Master PDF with 10/10 automated tests passing.
