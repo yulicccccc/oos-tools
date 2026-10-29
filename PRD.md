@@ -3488,3 +3488,30 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 3. **Page 1 Description of Incident "respectively." 规范**:
    - 当 `Text Field7` 中并列出现多个测试/报告日期与多个送检样品编号时，句尾必须加挂 `respectively.` 以保证语法逻辑上的严格一一映射（例如：`"On 30 Sep 2026 and 05 Oct 2026 samples ETX-260917-0497 and ETX-260917-0470 were found positive for viable microorganisms after USP <71> sterility testing respectively."`）。
+
+
+---
+
+### Rule 79: Canonical Form Roles: Manager Notified (Kathan Parikh) vs. Supervisor Approval (Robin Seymour) (法定表单角色铁律：通知实验室经理 vs 主管审批)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, and `USP <71>`), when populating `CORP-FORM-21`:
+1. **Page 1 Manager Notified (`Text Field12`)**:
+   - `Manager/designee name:` MUST strictly be **`Kathan Parikh`** (Laboratory Director / Lab Manager).
+   - 严禁混淆填入 Robin Seymour！
+   - `Date:` (`Date Field3`) corresponds to the notification date (e.g., `13-Oct-2026`).
+2. **Page 6 Supervisor / Designee Approval (`Text Field54`)**:
+   - `Lab Manager/Designee (Print):` MUST strictly be **`Robin Seymour`** (Microbiology Lab Supervisor).
+3. **Page 6 Prepared by (`Text Field53`)**:
+   - MUST strictly be **`Qiyue Chen`** (Investigator).
+
+---
+
+### Rule 80: Section D Narrative Date Uniformity & Redundant Interview Sentence Ban (Section D 叙述全日期格式统一与多余访谈句彻底剔除铁律)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, and `USP <71>`), in Section D Phase I Summary narrative (`Text Field49`, `Text Field50`, `Text Field51`):
+1. **统一日期格式标准 (Strict Uniform DDMMMYY Format)**:
+   - 正文叙述中所有日期必须 100% 统一使用标准 **`DDMMMYY`** 格式（例如 `24Jun26`, `22Sep26`, `23Sep26`, `08Oct26`, `12Oct26`, `13Sep26`）。
+   - 严禁在正文叙述中出现孤立的 `13 Oct 2026` 或带横杠格式，避免格式混乱不专业。
+2. **多余初步访谈断言句彻底剔除 (Complete Removal of Redundant Preliminary Interview Sentence)**:
+   - 严禁在第一段插入 `"As of [Date], preliminary interviews identified no deviations or laboratory-related handling issues."`。
+   - 首句已明确交代全员被全面访谈（`All analysts involved in the preparation, processing, subculture, and reading of the sample - [Names] - were interviewed comprehensively.`），紧接着直接衔接 `"Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure."`，彻底消除冗余与语病。

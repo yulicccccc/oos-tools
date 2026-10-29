@@ -312,17 +312,15 @@ def build_tables_doc():
         r1_c = p.add_run(" (4 CFUs)\n\n")
         r1_c.font.name = 'Times New Roman'; r1_c.font.size = Pt(7); r1_c.italic = False
         
-        # 2. Kocuria indica and Kocuria rhizophila (1 CFU)
-        r2a = p.add_run("Kocuria indica")
+        # 2. Kocuria indica
+        r2a = p.add_run("Kocuria indica\n\n")
         r2a.font.name = 'Times New Roman'; r2a.font.size = Pt(7); r2a.italic = True
-        r2_and = p.add_run(" and ")
-        r2_and.font.name = 'Times New Roman'; r2_and.font.size = Pt(7); r2_and.italic = False
-        r2b = p.add_run("Kocuria rhizophila")
-        r2b.font.name = 'Times New Roman'; r2b.font.size = Pt(7); r2b.italic = True
-        r2_c = p.add_run(" (1 CFU)\n\n")
-        r2_c.font.name = 'Times New Roman'; r2_c.font.size = Pt(7); r2_c.italic = False
         
-        # 3. Pending FunITS (1 CFU, Hyphae)
+        # 3. Kocuria rhizophila
+        r2b = p.add_run("Kocuria rhizophila\n\n")
+        r2b.font.name = 'Times New Roman'; r2b.font.size = Pt(7); r2b.italic = True
+        
+        # 4. Pending FunITS (1 CFU, Hyphae)
         r3 = p.add_run("Pending FunITS (1 CFU, Hyphae)")
         r3.font.name = 'Times New Roman'; r3.font.size = Pt(7); r3.italic = False
 
@@ -353,8 +351,11 @@ def build_tables_doc():
     doc_path_desktop = os.path.join(DESKTOP_DIR, filename)
 
     doc.save(doc_path_local)
-    shutil.copy2(doc_path_local, doc_path_desktop)
-    print("Saved Word table to Documents and Desktop.")
+    try:
+        shutil.copy2(doc_path_local, doc_path_desktop)
+        print("Saved Word table to Documents and Desktop.")
+    except PermissionError:
+        print("[WARNING] Desktop file is currently locked/open in Microsoft Word. Saved to Documents only.")
 
     # Convert to PDF via Word COM to check exact page count and verify visual appearance
     word = win32com.client.Dispatch("Word.Application")

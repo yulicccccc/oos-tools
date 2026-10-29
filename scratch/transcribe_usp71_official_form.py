@@ -58,7 +58,7 @@ DRAFTING_DATE = "28Oct26"
 
 # Page 3 Narrative
 p_p3 = [
-    f"All analysts involved in the preparation, processing, subculture, and reading of the sample - {PREPPER_NAME}, {PROCESSOR_NAME}, {ALIQUOT_NAME}, and {READER_NAME} - were interviewed comprehensively. As of 13 Oct 2026, preliminary interviews identified no deviations or laboratory-related handling issues. Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure.",
+    f"All analysts involved in the preparation, processing, subculture, and reading of the sample - {PREPPER_NAME}, {PROCESSOR_NAME}, {ALIQUOT_NAME}, and {READER_NAME} - were interviewed comprehensively. Their responses are documented throughout this report. This investigation was conducted in accordance with MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure.",
     
     f"Upon arrival on 24Jun26, the sample was stored refrigerated in accordance with the client's instructions as part of a beyond-use date study (BUD-T90). Prepping analyst {PREPPER_NAME} and processing analyst {PROCESSOR_NAME} verified the physical integrity and packaging of the sample throughout the preparation and processing stages. No leaks, cracks, or visible turbidity were observed, verifying container closure integrity prior to testing.",
     
@@ -83,7 +83,7 @@ p_p4 = [
     
     f"Attached Table 2 details the environmental monitoring data associated with sample processing on 23Sep26. Environmental monitoring plates were incubated in accordance with MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Review of contemporaneous personnel monitoring (left- and right-hand touch plates for analyst {PROCESSOR_NAME}) and ISO 5 BSC E001314 monitoring (surface contact plates and settling plates) demonstrated No Growth across all sampling locations on the date of testing (23Sep26), the date before testing (22Sep26), and the date after testing (24Sep26). These data confirm that processing personnel and the ISO 5 BSC were maintained in an optimal state of microbiological control and were not a source of contamination.",
     
-    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus (4 CFUs), Kocuria indica and Kocuria rhizophila (1 CFU), and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology, 1 CFU). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
+    "Routine weekly surface sampling of Cleanroom Suite 115 performed on 23Sep26 demonstrated No Growth. Weekly active-air sampling of the outermost ISO 8 Room 115 recovered 6 CFUs (ETX-261001-0625). Microbial identification confirmed these isolates as Micrococcus luteus (4 CFUs), Kocuria indica, Kocuria rhizophila, and one pending fungal isolate (Pending FunITS, exhibiting hyphae morphology, 1 CFU). Crucially, all recovered environmental isolates were Gram-positive cocci or fungal hyphae, different from the Gram-positive spore-forming rod (Bacillus megaterium) detected in the positive test sample, with zero Bacillus species recovered in the cleanroom environment. Furthermore, outermost Room 115 functions as an ISO 8 anteroom that is physically separated from innermost cleanroom 115B and the ISO 5 processing zone by cascaded airlocks and positive pressure differentials. The complete absence of microbial recovery across all critical ISO 7 rooms (115A and 115B), personnel gloves, and ISO 5 BSC surfaces confirms that room air contaminants did not enter the ISO 5 critical work area.",
     
     "Monthly cleaning and disinfection of the cleanrooms (ISO 7) and their containing biosafety cabinets (ISO 5) were performed on 13Sep26 for Suite 115, as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. It was documented that all chemical indicators passed, which confirmed the efficient monthly cleaning of all cleanrooms in Suite 115.",
     
@@ -173,7 +173,7 @@ pdf_field_values = {
     'Text Field3': personnel_block,
     'Text Field7': f"On {TEST_DATE_FULL}, sample {SAMPLE_ID} was found positive for viable microorganisms after USP <71> sterility testing.",
     'Text Field11': "Pass/Fail",
-    'Text Field12': "Robin Seymour",
+    'Text Field12': "Kathan Parikh",
     'Text Field13': tf13_interview,
     'Text Field14': f"Yes, Sample ID: {SAMPLE_ID}",
     'Text Field17': f"Yes, information is available on EagleTrax under {SAMPLE_ID}",

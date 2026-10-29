@@ -40,7 +40,7 @@ assert w_p1['Text Field8'].field_value == 'MICRO-SOP-5', "SOP mismatch!"
 assert w_p1['Text Field9'].field_value == '24Jul2026', "SOP effective date mismatch!"
 assert w_p1['Text Field10'].field_value == '19', "SOP revision mismatch!"
 assert w_p1['Text Field11'].field_value == 'Pass/Fail', "Specification mismatch!"
-assert w_p1['Text Field12'].field_value == 'Robin Seymour', "Supervisor mismatch!"
+assert w_p1['Text Field12'].field_value == 'Kathan Parikh', "Manager notified mismatch (expected Kathan Parikh)!"
 
 # Text Field13 Analyst Names
 tf13 = w_p1['Text Field13'].field_value
@@ -74,6 +74,8 @@ assert "on 24Sep26 to commence incubation" not in p3_text, "Old 24Sep26 incubati
 assert "midnight" not in p3_text, "Unwanted midnight text present!"
 assert "ETX-260401-0599" in p3_text, "Method suitability ETX number missing!"
 assert "Elysse Nioupin" in p3_text and "Guanchen Li" in p3_text, "Prep and process analysts missing in Page 3!"
+assert "preliminary interviews" not in p3_text, "Redundant preliminary interviews sentence still present in Page 3!"
+assert "13 Oct 2026" not in p3_text, "Inconsistent 13 Oct 2026 date format found in Page 3!"
 print("[PASS 5] Page 3 narrative and GDP sign-off verified.")
 
 # Check 5: Page 4 Narrative Audit
@@ -131,7 +133,8 @@ assert "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Process
 assert "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC" in p7_text, "Weekly Surface banner missing!"
 assert "6 CFUs (ISO 8 115)" in p7_text, "6 CFUs missing in Table 2!"
 assert "Micrococcus luteus (4 CFUs)" in p7_text, "Micrococcus luteus missing in Table 2!"
-assert "Kocuria indica and Kocuria rhizophila (1 CFU)" in p7_text, "Kocuria missing in Table 2!"
+assert "Kocuria indica" in p7_text and "Kocuria rhizophila" in p7_text, "Kocuria missing in Table 2!"
+assert "and Kocuria rhizophila" not in p7_text, "Kocuria species should be separated, not joined with 'and'!"
 assert "Pending FunITS (1 CFU, Hyphae)" in p7_text, "Pending FunITS missing in Table 2!"
 print("[PASS 9] Page 7 Table 1 & Table 2 fully verified in Master PDF.")
 

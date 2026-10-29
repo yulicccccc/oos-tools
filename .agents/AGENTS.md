@@ -20,6 +20,13 @@
 >    - Concurrent Positive: `"One other sample (ETX-XXXXXX-XXXX, OOS-XXXXXX) yielded a positive result on [DDMMMYY]. However, that sample was processed by a different processing analyst during a different shift. The two testing events were segregated by shift, processing analyst and primary containment equipment."` (Do NOT include third-party client/product/analyst names; always ask the user if there were any other positives on that day!).
 > 6. **GDP 2-Digit Year N/A Sign-Off (`RULE 0Q`)**: Always use 2-digit year `DDMMMYY` (`N/A QYC 21Oct26`), NEVER 4-digit year (`21Oct2026`).
 > 7. **Master Table Golden Standards (`RULE 0P`)**: 4 canonical banners without dates, `and` instead of `&`, `No Growth` / `Not Applicable` / `None`, omit Gram staining when Microbial ID exists, empty line between multiple species, uniform `7.0pt` font across all cells & hyperlinks, strict 1-page layout, and 2-file deliverable (`CORP-FORM-21-...pdf` + `Tables OOS-...docx`).
+> 8. **Form Roles: Manager Notified vs Supervisor Approval (`RULE 0N`)**:
+>    - Page 1 `Manager notified` -> `Manager/designee name:` (`Text Field12`) MUST strictly be **`Kathan Parikh`** (Laboratory Director / Lab Manager), NEVER Robin Seymour. Notification date (`Date Field3`) is testing date (e.g., `13-Oct-2026`).
+>    - Page 6 `Supervisor / Designee Approval` (`Text Field54`) MUST strictly be **`Robin Seymour`** (Microbiology Lab Supervisor).
+>    - Page 6 `Prepared by` (`Text Field53`) MUST strictly be **`Qiyue Chen`** (Investigator).
+> 9. **Section D Narrative Date Uniformity & Redundant Interview Ban (`RULE 0O`)**:
+>    - All narrative dates in Section D Phase I Summary MUST strictly adhere to uniform **`DDMMMYY`** format (e.g., `24Jun26`, `22Sep26`, `23Sep26`, `08Oct26`, `12Oct26`, `13Sep26`). Never use fragmented dates like `13 Oct 2026`.
+>    - **NEVER** include the redundant sentence `"As of [Date], preliminary interviews identified no deviations or laboratory-related handling issues."` because opening text already certifies all involved analysts were interviewed comprehensively.
 
 
 

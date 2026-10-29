@@ -310,3 +310,13 @@ Key active files:
   - Sentence structure: Preserved original classic phrasing (`Analyzing a 6-month sample history for [Client Name], this specific analyte "[Analyte Name]" has had no prior Out-of-Specification (OOS) occurrences under [Test Method] sterility testing.`).
   - Only new addition: When prior failures exist, include the specific microbial isolate identified, and apply the draft-then-ask gate for prior laboratory error status.
   - Re-transcribed and verified `OOS-262329` Master PDF with 10/10 automated tests passing.
+
+- **Rule 79 Codified: Manager Notified (Kathan Parikh) vs. Supervisor Approval (Robin Seymour) (29Oct26)**:
+  - Fixed Page 1 `Text Field12` (Manager notified) from `Robin Seymour` to `Kathan Parikh` (Lab Manager/Director).
+  - Confirmed Page 6 `Text Field54` remains `Robin Seymour` (Microbiology Lab Supervisor).
+  - Codified Rule 79 in `PRD.md`.
+
+- **Rule 80 Codified: Section D Narrative Date Uniformity & Redundant Interview Sentence Ban (29Oct26)**:
+  - Removed redundant sentence `" As of 13 Oct 2026, preliminary interviews identified no deviations or laboratory-related handling issues."` from Page 3 narrative (`p_p3[0]`).
+  - Ensured all narrative dates in Section D strictly adhere to uniform `DDMMMYY` format (`24Jun26`, `22Sep26`, `23Sep26`, `08Oct26`, `12Oct26`, `13Sep26`).
+  - Re-generated and verified master deliverables on Desktop and Documents with 10/10 automated tests passing.
