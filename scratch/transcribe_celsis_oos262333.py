@@ -11,7 +11,6 @@ import sys
 import shutil
 import fitz  # PyMuPDF
 from pypdf import PdfWriter, PdfReader
-import win32com.client
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -59,6 +58,7 @@ REVIEWER_INIT = "DK"
 DRAFTING_DATE = "22Oct26"
 
 # Page 3 Narrative (Part 1: Background, Disinfection, Setup, Inoculation, Aliquoting)
+# Rule 80: Uniform DDMMMYY dates, no redundant interview sentence
 p_p3 = [
     f"All analysts involved in the preparation, processing, aliquoting, and reading of the samples, specifically {PREPPER_NAME}, {PROCESSOR_NAME}, and {ALIQUOT_NAME}, were interviewed comprehensively. Their responses are documented throughout this report. This investigation was performed as per MICRO-SOP-53, Sterility Test Out-of-Specification Investigation Procedure.",
     
@@ -76,31 +76,37 @@ p_p3 = [
 ]
 
 # Page 4 Narrative (Part 2: Readout Data, Controls, Reagents, Monthly Cleaning, Reference to Tables)
+# Rule 75.2: Remove (Bottle 3/5) and (Bottle 4/5)
+# Rule 81: Client-facing media simplification - NO lot # or expiration in narrative body
 p_p4 = [
-    f"Following instrument analysis on 12Oct26, sample {SAMPLE_ID} was found to yield positive luminescence readings in the 1 x 300 mL FTM media jar (Bottle 3/5). The FTM sample yielded an average luminescence of 3,647,568 RLU (duplicate tube readings of 3,608,783 RLU and 3,686,352 RLU, CV% 1.5%), significantly exceeding the positive cut-off threshold of 2,596.5 RLU. In contrast, the 1 x 300 mL TSB media jar (Bottle 4/5) yielded negative readings well below its positive cut-off threshold of 2,326.5 RLU. All instrument system controls and background checks met defined acceptance criteria, including the instrument blank (14 RLU, cut-off 100.0 RLU), reagent blank (64 RLU, cut-off 1,000.0 RLU), and Celsis ATP Positive Control (83,684 RLU, cut-off 50,000.0 RLU, passing specification).",
+    f"Following instrument analysis on 12Oct26, sample {SAMPLE_ID} was found to yield positive luminescence readings in the 1 x 300 mL FTM media jar. The FTM sample yielded an average luminescence of 3,647,568 RLU (duplicate tube readings of 3,608,783 RLU and 3,686,352 RLU, CV% 1.5%), significantly exceeding the positive cut-off threshold of 2,596.5 RLU. In contrast, the 1 x 300 mL TSB media jar yielded negative readings well below its positive cut-off threshold of 2,326.5 RLU. All instrument system controls and background checks met defined acceptance criteria, including the instrument blank (14 RLU, cut-off 100.0 RLU), reagent blank (64 RLU, cut-off 1,000.0 RLU), and Celsis ATP Positive Control (83,684 RLU, cut-off 50,000.0 RLU, passing specification).",
     
     f"Following the OOS result, the positive FTM media jar for {SAMPLE_ID} was submitted for Differential Staining and Microbial Identification under subculture submission {SUBCULTURE_ID}. Third-generation Oxford Nanopore sequencing confirmed the isolate as Bacillus paralicheniformis (Gram-positive rods, spore-forming, 85.73% match), as detailed in Table 1.",
     
-    "All culture media utilized were within their approved manufacturer expiration dates (FTM Lot 08182026-6, Exp 16Nov26; TSB Lot 08132026-1, Exp 11Nov26). Negative control media jars were prepared, manipulated, and incubated alongside the test sample under identical conditions, and all negative controls exhibited no microbial recovery (FTM negative control 866 RLU, TSB negative control 776 RLU).",
+    "All culture media utilized were within their approved manufacturer expiration dates. Negative control media jars were prepared, manipulated, and incubated alongside the test sample under identical conditions, and all negative controls exhibited no microbial recovery (FTM negative control 866 RLU, TSB negative control 776 RLU).",
     
     "Monthly cleaning and disinfection of Cleanroom Suite 114 (including ISO 8 anteroom 114, ISO 7 buffer room 114A, ISO 7 cleanroom 114B, and the processing BSCs E001316 and E001798) were performed on 27Sep26 by Sasha Allen (SAA), as per MICRO-SOP-9, Cleaning and Disinfecting Procedure for Microbiology. Decontamination was performed using HaloMist (Lot 2606A, Exp 06Jun28), and all chemical indicator strips (Lot 260620, Exp 20Jun28) passed, verifying that environmental sanitization remained validated and in control prior to testing.",
     
-    f"Attached Tables 2 and 3 present the environmental monitoring results spanning the testing period. Environmental monitoring (EM) plates were incubated for no less than 48 hours at 30 to 35 °C and no less than an additional five days at 20 to 25 °C, as per MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Table 2 summarizes environmental monitoring during Celsis sample processing, and Table 3 summarizes monitoring during Celsis aliquoting."
+    "Attached Tables 2 and 3 present the environmental monitoring results spanning the testing period. Environmental monitoring (EM) plates were incubated for no less than 48 hours at 30 to 35 °C and no less than an additional five days at 20 to 25 °C, as per MICRO-SOP-2, Environmental Monitoring of the Clean-room Facility. Table 2 summarizes environmental monitoring during Celsis sample processing, and Table 3 summarizes monitoring during Celsis aliquoting."
 ]
 
 # Page 5 Narrative (Part 3: EM Evaluation, Physical Segregation, 6-Month History, Cross-Contamination, Conclusion)
+# Rule 75.2 / Rule 0X.4: Use objective 'different from'
+# Updated with confirmed differential staining results: 3 Gram-positive cocci, 2 Gram-variable coccobacilli, 1 budding yeast (ETX-261021-0578)
+# Rule 77: Autonomous cross-contamination standard phrasing
+# Rule 78: 6-month history (Optimal Balance Pharmacy, Tesamorelin 8 mg/ml) - Case A zero prior failures
 p_p5 = [
     f"A review of environmental monitoring results during the sample processing phase showed complete absence of microbial growth across daily personnel touch plates (0 CFU for {PROCESSOR_NAME}), ISO 5 BSC E001316 work surface contact plates (0 CFU), and settling plates (0 CFU) on the processing date of 05Oct26, the preceding sampling date of 01Oct26, and the subsequent sampling date of 06Oct26. Weekly active air and surface monitoring of Cleanroom Suite 114 conducted on 08Oct26 demonstrated zero microbial recovery (No Growth) across all suite cleanrooms.",
 
-    f"A review of environmental monitoring results during the aliquoting phase showed complete absence of microbial growth across daily personnel monitoring plates (0 CFU for {ALIQUOT_NAME}), ISO 5 BSC E001798 surface plates (0 CFU), and settling plates (0 CFU) on the aliquoting date of 12Oct26, the preceding date of 09Oct26, and the subsequent date of 13Oct26. Weekly surface monitoring of Cleanroom Suite 114 conducted on 14Oct26 demonstrated zero microbial recovery (No Growth) across all cleanroom work surfaces. Weekly active air sampling conducted on 14Oct26 demonstrated no microbial growth in the ISO 7 cleanrooms (114A and 114B); however, 6 CFUs under sample ETX-261021-0578 were recovered from the outermost ISO 8 anteroom 114 (Microbial ID: Pending).",
+    f"A review of environmental monitoring results during the aliquoting phase showed complete absence of microbial growth across daily personnel monitoring plates (0 CFU for {ALIQUOT_NAME}), ISO 5 BSC E001798 surface plates (0 CFU), and settling plates (0 CFU) on the aliquoting date of 12Oct26, the preceding date of 09Oct26, and the subsequent date of 13Oct26. Weekly surface monitoring of Cleanroom Suite 114 conducted on 14Oct26 demonstrated zero microbial recovery (No Growth) across all cleanroom work surfaces. Weekly active air sampling conducted on 14Oct26 demonstrated no microbial growth in the ISO 7 cleanrooms (114A and 114B); however, 6 CFUs under sample ETX-261021-0578 were recovered from the outermost ISO 8 anteroom 114. Differential staining confirmed the 6 CFUs as 3 Gram-positive cocci, 2 Gram-variable coccobacilli, and 1 budding yeast (Microbial ID: Pending).",
 
-    f"Regarding the evaluation of environmental monitoring recoveries, all direct product manipulations were conducted strictly within validated ISO 5 primary containment (BSC E001316 during processing and BSC E001798 during aliquoting). The 6 CFUs recovered during weekly active air sampling on 14Oct26 were strictly confined to the outermost ISO 8 anteroom 114, which functions as an outer personnel gowning and transition vestibule. There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites. Outward-cascading positive air pressure differentials and physical barrier doors continuously prevent migration from ISO 8 into ISO 7 and ISO 5 spaces.",
+    "Regarding the evaluation of environmental monitoring recoveries, all direct product manipulations were conducted strictly within validated ISO 5 primary containment (BSC E001316 during processing and BSC E001798 during aliquoting). The 6 CFUs recovered during weekly active air sampling on 14Oct26 were strictly confined to the outermost ISO 8 anteroom 114, which functions as an outer personnel gowning and transition vestibule. There is minimal exposure of the test sample to ambient ISO 8 air, as samples and supplies are transferred in disinfected, closed containers on carts through the layered cleanroom suites. Outward-cascading positive air pressure differentials and physical barrier doors continuously prevent migration from ISO 8 into ISO 7 and ISO 5 spaces.",
 
-    "Furthermore, complete absence of microbial recovery (No Growth) was confirmed across all critical ISO 7 cleanrooms (114A and 114B), processing surfaces, BSC settling plates, and analyst fingertip touch plates during both the processing and aliquoting sessions. This demonstrates that robust aseptic boundaries were maintained throughout the testing timeframe and confirms that no viable contamination transfer pathway existed between the exterior support areas and the critical ISO 5 processing environment.",
+    "Furthermore, all 6 CFUs recovered from the ISO 8 anteroom (ETX-261021-0578) were confirmed by differential staining as Gram-positive cocci (3 CFUs), Gram-variable coccobacilli (2 CFUs), and budding yeast (1 CFU), all of which exhibit cellular morphologies different from the Gram-positive spore-forming rods (Bacillus paralicheniformis) recovered from the positive product sample. Additionally, complete absence of microbial recovery (No Growth) was confirmed across all critical ISO 7 cleanrooms (114A and 114B), processing surfaces, BSC settling plates, and analyst fingertip touch plates during both the processing and aliquoting sessions. This demonstrates that robust aseptic boundaries were maintained throughout the testing timeframe and confirms that no viable contamination transfer pathway existed between the exterior support areas and the critical ISO 5 processing environment.",
 
-    f"All analysts demonstrated full adherence to aseptic protocols and cleaning procedures as outlined in MICRO-SOP-9 and MICRO-SOP-44. A comprehensive audit of equipment calibrations, incubator operational temperatures, and differential pressure logs confirmed that all facility and operational parameters remained within established validated specifications throughout the testing timeframe.",
+    "All analysts demonstrated full adherence to aseptic protocols and cleaning procedures as outlined in MICRO-SOP-9 and MICRO-SOP-44. A comprehensive audit of equipment calibrations, incubator operational temperatures, and differential pressure logs confirmed that all facility and operational parameters remained within established validated specifications throughout the testing timeframe.",
 
-    "All samples processed on the same day were also evaluated for evidence of sample-to-sample cross-contamination. All other samples processed by the analysts on both the date of processing (05Oct26) and the date of aliquoting/readout (12Oct26) tested negative. These findings confirm that the testing environment was operating under optimal aseptic control and suggest that cross-contamination between samples is highly unlikely.",
+    "To assess the potential for sample-to-sample contamination contributing to the positive results, a comprehensive review was conducted of all samples processed on the same day. All other samples processed by the analyst that day tested negative. These findings suggest that cross-contamination between samples is highly unlikely.",
 
     f'Analyzing a 6-month sample history for {CLIENT_NAME}, this specific analyte "{SAMPLE_NAME}" has had no prior Out-of-Specification (OOS) occurrences under Celsis sterility testing.',
 
@@ -173,7 +179,7 @@ pdf_field_values = {
     'Text Field3': personnel_block,
     'Text Field7': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for microbial growth after Celsis sterility testing.",
     'Text Field11': "Pass/Fail",
-    'Text Field12': "Kathan Parikh",
+    'Text Field12': "Kathan Parikh",  # Rule 79: Manager Notified
     'Text Field13': f"Yes, analysts {PREPPER_NAME}, {PROCESSOR_NAME}, and {ALIQUOT_NAME} were interviewed comprehensively.",
     'Text Field14': f"Yes, Sample ID {SAMPLE_ID}",
     'Text Field17': f"Yes, Information is available in EagleTrax under {SAMPLE_ID}",
@@ -212,8 +218,8 @@ pdf_field_values = {
     'Text Field50': t4,
     'Text Field51': t5,
     'Text Field52': "Not Applicable",
-    'Text Field53': "Qiyue Chen",
-    'Text Field54': "",  # Left empty for Robin Seymour
+    'Text Field53': "Qiyue Chen",       # Rule 79: Prepared by
+    'Text Field54': "Robin Seymour",    # Rule 79: Supervisor Approval Print
     'Text Field55': "",
 }
 
@@ -244,19 +250,17 @@ cb_whitelists = {
     'Check Box67': 'Yes', 'Check Box68': 'Off', 'Check Box69': 'Off',
     'Check Box70': 'Yes', 'Check Box71': 'Off', 'Check Box72': 'Off',
     'Check Box73': 'Yes', 'Check Box74': 'Off', 'Check Box75': 'Off',
-    'Check Box78': 'Yes',
-    'Check Box87': 'Off',
-    'Check Box88': 'Yes',
-    'Check Box89': 'Off',
-    'Check Box90': 'Off',
-    'Check Box91': 'Off',
-    'Check Box92': 'Off',
+    'Check Box76': 'Off', 'Check Box77': 'Off', 'Check Box78': 'Yes',
+    'Check Box79': 'Yes', 'Check Box80': 'Off', 'Check Box81': 'Off',
+    'Check Box82': 'Off', 'Check Box83': 'Off', 'Check Box84': 'Yes',
+    'Check Box85': 'Off', 'Check Box86': 'Off', 'Check Box87': 'Off',
+    'Check Box88': 'Yes', 'Check Box89': 'Off',
 }
 
-# Typography font sizes strictly calibrated to prevent Acrobat '+' overflow
+# Typography font sizes
 FONT_SIZE_MAP = {
     # Page 1
-    'Text Field0': 8.5,
+    'Text Field57': 8.5, 'Text Field0': 7.5,
     'Date Field0': 8.5, 'Date Field1': 8.5, 'Date Field2': 8.5, 'Date Field3': 8.5,
     'Text Field1': 8.5, 'Text Field2': 8.5, 'Text Field3': 6.2,
     'Text Field4': 8.5, 'Text Field5': 8.5, 'Text Field6': 8.5, 'Text Field7': 8.0,
@@ -276,7 +280,7 @@ FONT_SIZE_MAP = {
     # Page 4
     'Text Field50': 8.3,
     # Page 5
-    'Text Field51': 8.1,
+    'Text Field51': 7.8,
     # Page 6
     'Text Field52': 8.5, 'Text Field53': 8.5, 'Text Field54': 8.5, 'Text Field55': 8.5,
     'Text Field57': 8.5,
@@ -336,7 +340,6 @@ print(f"Master PDF compiled with {total_pages} total pages (Expected: 8 pages)."
 assert total_pages == 8, f"Expected 8 pages, got {total_pages}"
 
 # 6. Deliver to Canonical Desktop and Documents Directories
-# Formal Transcribed Name per Rule 0M
 CANONICAL_FILENAME = f"CORP-FORM-21- 12 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - Celsis.pdf"
 desktop_dest = os.path.join(DESKTOP_DIR, CANONICAL_FILENAME)
 docs_dest = os.path.join(DOCS_DIR, CANONICAL_FILENAME)

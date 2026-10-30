@@ -3257,7 +3257,7 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
         - **微生物确证鉴定**: 差速染色为革兰氏阳性芽孢杆菌（Gram-positive rods, spore-forming），三代 Oxford Nanopore 测序比对鉴定为 ***Bacillus paralicheniformis*** (85.73% match)。
         - **环境监测数据链 (Rule 0V 自然周严格对齐)**:
           - Processing 周 (05Oct26 Mon): 当周周检为 **08Oct26 (Thu)** by SMO（P20 表面采样 0 CFU, P22 浮游菌采样 0 CFU，各点位全为 **No Growth**）。
-          - Aliquoting 周 (12Oct26 Mon): 当周周检为 **14Oct26 (Wed)** by SMO（P21 表面采样 0 CFU 全为 **No Growth**；P23 浮游菌采样：ISO 7 114A 与 ISO 7 114B 均为 **0 CFU (No Growth)**，最外层 ISO 8 Anteroom 114 检出 **6 CFUs**，送检微生物鉴定单号为 **`ETX-261021-0578`**，鉴定状态为 `Pending`）。
+          - Aliquoting 周 (12Oct26 Mon): 当周周检为 **14Oct26 (Wed)** by SMO（P21 表面采样 0 CFU 全为 **No Growth**；P23 浮游菌采样：ISO 7 114A 与 ISO 7 114B 均为 **0 CFU (No Growth)**，最外层 ISO 8 Anteroom 114 检出 **6 CFUs**，送检差速染色及微生物鉴定单号为 **`ETX-261021-0578`**。于 30Oct26 经 QA 审核确证差速染色为 3 株 Gram (+) cocci、2 株 Gram-variable coccobacilli 与 1 株 Budding yeast，微生物三代测序鉴定状态为 `Pending`）。
           - 原 29Sep26（含 ISO 8 3 CFU）属于前序周已依法移出。14Oct26 ISO 8 Anteroom 之 6 CFUs 依据 Rule 0I 确认为外围更衣缓冲区域，且样本均经封闭消毒转运，层级压差与物理密闭门彻底杜绝逆向扩散，所有 ISO 7 洁净室与 ISO 5 操作区 100% 无菌受控（No Growth）。
           - 每日人员 (ES 05Oct, CCD 12Oct) 与 BSC (E001316, E001798) 表面/沉降全为 0 CFU (No Growth)。
         - **月度清洁**: Suite 114 月度清洁由 `SAA` 于 `27Sep26` 执行，HaloMist (Lot 2606A, Exp 06Jun28)，过氧化氢指示卡 (Lot 260620, Exp 20Jun28) 全检合格。
