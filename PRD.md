@@ -12,6 +12,7 @@
 > - **Active Air Morphology Comparison Ban (`Rule 70.4`)**: Never claim environmental cocci (e.g., *S. epidermidis*) have different morphology from cocci in the sample.
 > - **RS Streamlined Phrasing (`Rule 70.5–70.6`)**: Use RS's exact monthly cleaning sentence and streamlined concurrent positive sentence (omitting third-party client/product/analyst names).
 > - **GDP 2-Digit Year N/A Sign-Off (`Rule 62`)**: Strictly `N/A QYC DDMMMYY` (e.g., `N/A QYC 21Oct26`).
+> - **Microbial ID Table Purity (`Rule 61.3` / `RULE 0P`)**: In Table 2/3 `Microbial ID`, list ONLY pure species/morphology names with empty line separation. Strictly NEVER write CFU counts (e.g. no `(3 CFUs)`) and NEVER write `(Pending Microbial ID)` or pending tags in the table.
 
 
 
@@ -366,6 +367,7 @@
     - **微生物双名法斜体**: 属名大写种名小写，全斜体 (*Italic*)。
     - **确证物种免染色形态 (Microbial ID Precedence)**: 有具体菌种学名时直接填报菌种，严禁再写初步革兰氏形态。
     - **多物种强制独立空行 (Mandatory Species Empty Line)**: 检出多菌种时，学名之间必须插入独立空行 (`\n\n`)。
+    - **Microbial ID 单元格纯净列出铁律 (免 CFU 数量、免 Pending 标签)**: 无论是具体菌种还是阶段性染色形态，在 Microbial ID 单元格中只纯粹列出名称，🚨 **严禁附带 CFU 数量**（总数在 Observation 列已列明，表格内严禁重复写 `(3 CFUs)`），🚨 **严禁添加 `(Pending ...)` 待定状态标签**，保持表格干净清爽。
     - **全表单元格字号绝对均一 (Strict Uniform Font Size - 7.0pt)**: 全表所有文字包括底层 XML 超链接统一为 7.0pt (`<w:sz w:val="14">`)。
     - **双文件交付法定归宿 (Rule 0M Compliance)**: 仅交付带表完整 PDF 与 Word 独立附表，严禁单独交付独立 Table PDF。
 
@@ -2995,12 +2997,17 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
            - **“物种要空行”**：当单个 EM 样品检出多种微生物（如 ETX-261012-0433 检出 5 种菌）时，各菌种学名之间**必须强制插入独立空行 (`
 
 `) 进行视觉分隔**，保持层级呼吸感，绝对严禁压缩合并或紧密挨合在单行内！
-        3. **全表数据单元格字号绝对均一 (Strict Uniform Font Size - 7.0pt / 14 Half-Points):**
+        3. **Microbial ID 单元格纯净化与免数量/免待定标签铁律 (Pure Microbial ID - Ban on CFU Counts & '(Pending ...)' in Table):**
+           - **“不用写几个CFU也不用写什么(Pending Microbial ID)” (用户 2026-10-30 终极裁定)**：在 Table 2 / Table 3 的 `Microbial ID` 单元格中：
+             - **纯净列出学名或形态大类**：无论是确证的属种名（如 *Micrococcus luteus*, *Kocuria rhizophila*），还是阶段性差速染色形态（如 `Gram (+) cocci`, `Gram-variable coccobacilli`, `Budding yeast`），**仅纯粹列出物种名或形态大类名称**。
+             - **🚨 绝对严禁标注具体 CFU 数量**：严禁在各菌种/形态后添加任何菌落数量后缀（严禁写成 `Gram (+) cocci (3 CFUs)` 或 `Micrococcus luteus (4 CFUs)` 等）。具体总 CFU 数已在同行的 `Observation` 列（如 `6 CFUs (ISO 8 114)`）明确呈现，在此列重复罗列会导致单格文字过度折行、行高暴增破坏排版！
+             - **🚨 绝对严禁在表格中填写 Pending 标签**：严禁在表格单元格内添加 `(Pending Microbial ID)` 或 `(Pending FunITS)` 等待定状态标记。差速染色形态本身已代表当前阶段确证的数据，测序进行中等过渡状态仅在报告正文（Page 5 叙述）中客观交代，表格内一律保持干净利落！
+        4. **全表数据单元格字号绝对均一 (Strict Uniform Font Size - 7.0pt / 14 Half-Points):**
            - **“不过最好字体是都一样大小”**：全表（Table 1 样品信息与 Table 2 环境监测）所有数据单元格——包括 Sampling Site, Frequency, Date, Analyst, Observation, EM Plate ETX Number, Microbial ID, Notes 及超链接文字——其字体大小必须**严格保持绝对均一的 7.0pt (14 half-points)**！
            - 🚨 **底层 XML 超链接防坑铁律**：Word 中的超链接 `<w:hyperlink>` 拥有独立的 `<w:r>` 节点，常规遍历 `p.runs` 会漏改其字号（导致残留 6.5pt / `w:sz w:val="13"`）。必须在底层 XML 级别将所有 `<w:sz>` 与 `<w:szCs>` 统一锁死为 `14`（7.0pt），彻底消除局部字号差异！
-        4. **原生可点击超链接嵌入 (Native Hyperlink Embedding):**
+        5. **原生可点击超链接嵌入 (Native Hyperlink Embedding):**
            - Table 1 中的主 Sample ID 与 Table 2 中所有检出菌落的 EM 平板 ETX 编号，必须嵌入原生 OpenXML `<w:hyperlink>`，直达 EagleTrax 电子送检详情页。
-        5. **双文件交付法定归宿 (Rule 0M Compliance):**
+        6. **双文件交付法定归宿 (Rule 0M Compliance):**
            - 附表最终交付形式严格限定为 Word 版本：`Tables OOS-<ID> <Client> - <Test>.docx`。
            - 严禁单独交付独立的 Table PDF，其导出的 PDF 仅用于作为 Page 7 合并进完整主 PDF 案卷中。
 

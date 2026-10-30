@@ -344,6 +344,7 @@ Key active files:
        Budding yeast
        ```
      - Preserved uniform 7.0pt Times New Roman, zero ampersands (`&`), and strictly 2 pages layout.
+     - **Permanent Cross-Conversation Codification (Rule 61.3 & RULE 0P)**: Fully codified across `PRD.md` (top pinned list, item 15, and Rule 61.3) and `.agents/AGENTS.md` (top pinned list and RULE 0P). Across ALL OOS modules (`ScanRDI`, `Celsis`, `USP <71>`, `EM`), `Microbial ID` table cells must ONLY contain pure species/morphology names separated by empty lines; strictly NO CFU counts (which belong in `Observation`), and strictly NO `(Pending ...)` tags in the tables.
   3. **Master Transcribed PDF (`CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf`)**:
      - Page 4: Removed internal jar suffixes `(Bottle 3/5)` and `(Bottle 4/5)` per Rule 75.2; removed media lot # and expiration from narrative per Rule 81.
      - Page 5: Incorporated verified 6 CFU differential staining morphology breakdown and defensible scientific comparison (`different from` product *Bacillus paralicheniformis* spore-forming rods). Coupled with outward positive pressure cascade and zero growth in all critical ISO 7/ISO 5 areas.
