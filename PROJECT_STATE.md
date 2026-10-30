@@ -335,7 +335,14 @@ Key active files:
        - **1 CFU**: `Budding yeast`
      - Microbial Identification (sequencing) remains in progress (`Pending`, due Dec 2026).
   2. **Standalone Word Tables (`Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx`)**:
-     - Updated Table 3 Row 13: Observation set to `6 CFUs (ISO 8 114)`; Microbial ID formatted with Rule 0P empty line separation: `Gram (+) cocci (3 CFUs)\n\nGram-variable coccobacilli (2 CFUs)\n\nBudding yeast (1 CFU)\n\n(Pending Microbial ID)`.
+     - Updated Table 3 Row 13 per user instruction: Observation set to `6 CFUs (ISO 8 114)`; Microbial ID streamlined to pure categories without CFU counts and without `(Pending Microbial ID)`:
+       ```
+       Gram (+) cocci
+
+       Gram-variable coccobacilli
+
+       Budding yeast
+       ```
      - Preserved uniform 7.0pt Times New Roman, zero ampersands (`&`), and strictly 2 pages layout.
   3. **Master Transcribed PDF (`CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf`)**:
      - Page 4: Removed internal jar suffixes `(Bottle 3/5)` and `(Bottle 4/5)` per Rule 75.2; removed media lot # and expiration from narrative per Rule 81.

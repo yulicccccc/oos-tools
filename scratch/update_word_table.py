@@ -91,12 +91,11 @@ p_obs = (
 tc_obs.append(parse_xml(p_obs))
 cell_obs.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
-# Update Microbial ID
+# Update Microbial ID (Rule 0P & User Instruction: pure categories without CFU counts, no pending tag)
 micro_lines = [
-    "Gram (+) cocci (3 CFUs)",
-    "Gram-variable coccobacilli (2 CFUs)",
-    "Budding yeast (1 CFU)",
-    "(Pending Microbial ID)"
+    "Gram (+) cocci",
+    "Gram-variable coccobacilli",
+    "Budding yeast"
 ]
 set_cell_multiline(row13.cells[7], micro_lines, font_size_pt=7.0)
 
