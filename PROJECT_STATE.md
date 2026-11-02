@@ -1,8 +1,24 @@
 # Project State: OOS Tools
 
+## Version: v12.1.0
+
 ## Current Phase: Rollover to New Project Environment
 
 ### What Was Completed
+- **Scan RDI OOS-262394 (Optio RX E18631) Master Tables & Investigation Datasets (PRD Rule 83 / RULE 0AB):**
+  1. **Table 1 Ground Truth Finalization:** Verified directly from raw run CSV `102026-2606-1.csv` (line 71): Processing Analyst **Halaina Smith** (12th sample, `hs12`), Reading Analyst **Maryam Naeem**, Sample ID **ETX-261017-0071** (with active EagleTrax hyperlink), **11 total events**, **1 confirmed microbial event**, and **Rod shaped morphology** (bold italic, 7.0pt).
+  2. **Table 2 Autonomous Environmental Monitoring Ground Truth Recovery:**
+     - Interrogated live SharePoint OOS Tracking Log and recovered all bracketing records for testing performed on 20Oct26.
+     - Autonomous EagleTrax deep retrieval identified all 3 weekly active air positive plates sampled on 20Oct26 by Simin Mohammad (SMO):
+       - `ETX-261027-0487`: 21 CFUs (ISO 8 143 Sec I), Pending Microbial ID.
+       - `ETX-261027-0492`: 17 CFUs (ISO 8 143 Sec II), Pending Microbial ID.
+       - `ETX-261027-0494`: 16 CFUs (ISO 8 142), Pending Microbial ID.
+     - Confirmed ISO 7 cleanrooms (Room 145 & 144), ISO 5 BSCs (Processing BSC `E001938` in Room 145 and Changeover BSC `E001937` in Room 144), and surface plates exhibited 100% absence of microbial growth (No Growth).
+  3. **Master Table Golden Standards Adherence (RULE 0P):**
+     - 4 canonical divider banners without dates (`Personnel EM`, `Biological Safety Cabinet EM for E001938 and E001937`, `Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`, `Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`).
+     - Strict uniform 7.0pt font across all cells and OpenXML hyperlink nodes (`w:sz w:val="14"`).
+     - Strict 1-page layout verified via PyMuPDF (1 single page, zero overflow).
+     - Synchronized deliverables to Desktop and Documents\OOS.
 - **Robin Seymour QA Review Standards Codified (RULE 0R & PRD Rule 63):** Fully ingested and codified Robin Seymour (RS) Quality Review on OOS-262289: (1) ScanRDI event counts must be verified directly against Scan Data packet (Table 1 corrected to 19 total events, 4 confirmed microbial events); (2) L-Suite BSC layout corrected: BSC E001938 in CR145 and BSC E001937 in CR144; (3) Cleanroom certification updated to list both E001978 (CR144) and E001979 (CR145) due Nov 2026; (4) BSC calibration due dates updated to Jul 2027; (5) Removed scientifically flawed morphology comparison for active air recoveries (S. epidermidis is also cocci); (6) Streamlined monthly cleaning and concurrent positive sample disclosures; (7) Synchronized Table 1 in Standalone Word Tables.
 - **EM OOS-262133 (CR143) & OOS-262134 (CR142) Forensic Audit & 100% Ground Truth Finalization:**
   1. **Forensic Audit & Anti-Hallucination Protocol:** Audited every single statement, number, and narrative phrase across both investigations. Replaced unverified boilerplate regarding sterility sample outcomes with ground-truth facts verified against the official positive tracking log: confirmed zero client samples failed sterility testing (ScanRDI, Celsis, USP <71>) during the week of testing (04-Sep-2026). Confirmed analyst Simin Mohammad reported no abnormalities during sampling.
@@ -351,3 +367,18 @@ Key active files:
      - Page 1 & 6 Roles: Manager Notified = `Kathan Parikh`, Prepared by = `Qiyue Chen`, Supervisor Approval Print = `Robin Seymour` (Rule 79).
      - Verified zero AcroForm overflow across all pages (Page 3 clearance: 37.0pt, Page 4: 277.7pt, Page 5: 154.5pt).
      - Assembled complete 8-page deliverable package (Form + Tables) and deployed to Desktop and Documents.
+
+- **OOS-262333 Alignment with QA-Approved Benchmark (Rev_OOS-262316) & Rule 82 Codified (02Nov26)**:
+  1. **Forensic Audit Against QA/Supervisor Feedback**:
+     - Audited supervisor Robin Seymour (RS) edits and QA audit feedback on OA's report `OOS-262316` (`Rev_OOS-262316 - ETX-260929-0261 - Mills Pharmacy & Apothecary (E15716) - Signed by OA-RS.pdf`).
+     - Reconciled OOS-262333 across all 6 inspection points:
+       - **Table 3 Bracketing Labels**: Replaced all `Testing` labels with `Date Before Aliquoting`, `Date of Aliquoting`, and `Date After Aliquoting`.
+       - **Page 2 Equipment Calibrations**: Added primary engineering controls (`ISO 5 BSC E001316` and `ISO 5 BSC E001798`, Cal Due `Jun 2027`) to `Text Field43`/`Text Field44` alongside incubators. Reconciled Advance 2 `E002222` Cal Due Date to `Dec 2026`.
+       - **Page 2 Reagents & Expiry**: Reconciled AMPiScreen Lot `022601-1400` (Exp Jan 2027), Daily Wash & Rinse Lot `012503-1142N` (Exp Jan 2027), and ATP Positive Control Lot `022601-1483` (Exp Jan 2027) against raw 12Oct26 workload packet.
+       - **Page 4 Daily System Controls**: Updated Instrument Blank (29 RLU), Reagent Blank (103 RLU), and ATP Positive Control (99,973 RLU) from raw workload `101226-2011-Daily Control.wkl`.
+       - **Page 5 EM Assessment**: Defensible ISO 5 absence and positive pressure cascade phrasing; verified single-selection `Yes` (`Check Box67`) without ambiguous `N/A`.
+  2. **Deliverables Updated & Verified**:
+     - Master AcroForm PDF (8 pages): Updated in `Documents/OOS/CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf` and staged on Desktop as `CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis (Rev OA-RS).pdf` (due to active Foxit PID 36972 lock on original Desktop file).
+     - Standalone Word Tables (2 pages): Updated on Desktop (`Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx`) and verified strictly 2 pages via Word COM export.
+  3. **Permanent Rule Codification (Rule 82 / RULE 0AA)**:
+     - Codified in `PRD.md` and `.agents/AGENTS.md` for all future Celsis sterility investigations.

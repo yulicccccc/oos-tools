@@ -3535,3 +3535,74 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 2. **法定精简句式 (Standard Simplified Phrasing)**:
    - 统一规范写作：
      `"Specifically, 15 mL of sterile Tween 80 and 5 mL of sample were directly inoculated into 200 mL media bottles of Tryptic Soy Broth and Fluid Thioglycollate Medium."`
+
+
+---
+
+### Rule 82 / RULE 0AA: QA-Approved Celsis Sterility Investigation Golden Standards (Celsis 无菌 OOS 质保与主管审阅黄金标准 - 终审通过版基准)
+
+**CRITICAL**: Based on QA and Microbiology Supervisor Robin Seymour (RS) audit of `OOS-262316` (signed final benchmark: `Rev_OOS-262316 - ETX-260929-0261 - Mills Pharmacy & Apothecary (E15716) - Signed by OA-RS.pdf`), all future Celsis Sterility OOS investigations MUST strictly adhere to the following six golden rules:
+
+1. **Table 3 Aliquoting Bracketing Labels (分装环境监测分级标签铁律)**:
+   - In Celsis Sterility investigations, Table 3 specifically brackets the **Aliquoting** event (conducted inside BSC E001798 after 48h incubation), NOT the initial testing.
+   - All bracketing rows in Table 3 (Personnel EM, Surface EM, Settling EM) MUST specifically use **`Date Before Aliquoting`**, **`Date of Aliquoting`**, and **`Date After Aliquoting`**.
+   - NEVER label Table 3 rows as `Date Before Testing`, `Date of Testing`, or `Date After Testing`! (QA explicitly flagged and required correcting this in OOS-262316).
+
+2. **Page 2 Reagent Lots & Expiry Verification Against Raw Workload (试剂批号与效期 100% 严密对齐原始台账)**:
+   - In `Text Field22` (Reagents Used) and `Text Field23` (Exp Date):
+     - AMPiScreen Reagents
+     - Daily Wash & Rinse Kit
+     - ATP Positive Control
+   - All lot numbers and expiration dates MUST match the raw reading run records (`.wkl` workload report) exactly.
+   - Any apparent expiration before the reading date (such as Advance 2 calibration date) must be reconciled against the physical certificate (Advance 2 `E002222` calibration due date is `Dec 2026`).
+
+3. **Equipment Calibrations: Primary Engineering Controls Inclusion (初级工程控制设备 BSC 必须入列)**:
+   - In Page 2 `Text Field43` and `Text Field44`, in addition to incubators (`Incubator E001034`, `Incubator E001031`), you MUST explicitly list both the processing BSC and aliquoting BSC (`ISO 5 BSC E001316` and `ISO 5 BSC E001798`, Cal Due `Jun 2027`). Listing only incubators without primary containment equipment was formally rejected by QA.
+
+4. **Table 2 Processing BSC Surface Sampling Date (测试当日 BSC 表面取样定性铁律)**:
+   - In Table 2 (Processing EM), BSC surface sampling conducted on the date of inoculation/testing must be designated **`Date of Testing`**, NEVER `Date After Testing`.
+
+5. **Page 5 EM Assessment Phrasing & Scientific Defensibility (环境监测评估技术防守表述)**:
+   - Revise broad claims like "absence of detectable environmental contamination" to specifically state:
+     `"absence of microbial recovery across all critical ISO 5 zones and personnel monitoring on the date of testing"`
+   - If ISO 8 active air has recoveries (e.g., fungal hyphae), never make ungrounded claims that environmental isolates are conclusively different from product contaminants based on general morphology (e.g., hyphae vs mold).
+
+6. **Checkbox Ambiguity Ban (多选框消除歧义铁律)**:
+   - In Page 5 `Do the environmental monitoring results conform to required standards?`:
+   - Select ONLY `Yes` (`Check Box67` = Yes), ensure `N/A` (`Check Box69` = Off) is NOT selected. (QA flagged selecting both Yes and N/A as ambiguous).
+
+---
+
+### Rule 83 / RULE 0AB: Scan RDI OOS-262394 (Optio RX E18631) Master Tables & Investigation Datasets (Scan RDI OOS-262394 独立附表与完整环境监测数据集规范)
+
+**CRITICAL**: In accordance with Master Table Golden Standards (`RULE 0P` / `Rule 61`), the investigation dataset and standalone tables for `OOS-262394` (`Optio RX (E18631)`, Sample `ETX-261017-0071`, Niacinamide/Tirzepatide 2mg/17.65mg/mL Inj., Lot 3001002, tested on 20Oct26) are locked to the following ground-truth specifications:
+
+1. **Table 1 Golden Standard Verification (样品核心信息与事件数唯一法定源)**:
+   - **Processing Analyst**: `Halaina Smith` (`HS`) (12th sample processed in batch, `hs12`).
+   - **Reading Analyst**: `Maryam Naeem` (`MN`) (`Mnaeem` in run data).
+   - **Sample ID**: `ETX-261017-0071`, embedded with native OpenXML hyperlink to `https://etrax.eagleanalytical.com/Submission/Details/$KZtzfnT6EuUu2aOcige4w__`.
+   - **Events (Total Events)**: **`11`** (strictly verified from line 71 of raw instrument CSV `102026-2606-1.csv`: `11` total events).
+   - **Confirmed Microbial Events**: **`1`** (Result = `1` in raw CSV).
+   - **Morphology Description**: **`Rod shaped morphology`** (bold italic, 7.0pt).
+
+2. **Table 2 Section Dividers & Structure (4 大法定横幅与 1 页排版锁死)**:
+   - **Banner 1**: `Personnel EM` (gray `#E8E8E8`, no date suffix).
+     - Row 1: `Personal (Left Touch and Right Touch)`, Daily, `20Oct26`, `HS`, `Date of Testing (Scan)`, `No Growth`, `Not Applicable`, `Not Applicable`, `None`.
+     - Row 2: `Personal (Left Touch and Right Touch)`, Daily, `20Oct26`, `KSM`, `Date of Testing (Scan C/O)`, `No Growth`, `Not Applicable`, `Not Applicable`, `None`.
+   - **Banner 2**: `Biological Safety Cabinet EM for E001938 and E001937` (no date suffix, strictly `and`).
+     - Processing BSC `E001938` (Room 145 Section I) Surface (4 Locations) & Settling plates: `20Oct26`, `HS`, `No Growth`.
+     - Changeover BSC `E001937` (Room 144 Section I) Surface (4 Locations) & Settling plates: `20Oct26`, `KSM`, `No Growth`.
+   - **Banner 3**: `Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`.
+     - Sampled on `20Oct26` by `SMO` (Simin Mohammad). Week of testing.
+     - Row 1 (Room 143 Sec I): `21 CFUs (ISO 8 143 Sec I)`, ETX: `ETX-261027-0487` (hyperlinked to `https://etrax.eagleanalytical.com/Submission/Details/1TPNAOXaUnQQS1HXTmsD3g__`), Microbial ID: `Pending`.
+     - Row 2 (Room 143 Sec II): `17 CFUs (ISO 8 143 Sec II)`, ETX: `ETX-261027-0492` (hyperlinked to `https://etrax.eagleanalytical.com/Submission/Details/1OozeUz052cWrzQzKizrkA__`), Microbial ID: `Pending`.
+     - Row 3 (Room 142): `16 CFUs (ISO 8 142)`, ETX: `ETX-261027-0494` (hyperlinked to `https://etrax.eagleanalytical.com/Submission/Details/rzTYr-khaPJ-zRIvpPTtVA__`), Microbial ID: `Pending`.
+     - Cleanrooms 145 and 144 (ISO 7): No Growth.
+   - **Banner 4**: `Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs`.
+     - Surface Sampling of Cleanrooms, Weekly, `20Oct26`, `SMO`, Week of Testing, `No Growth`, `Not Applicable`, `Not Applicable`, `None`.
+
+3. **Strict Deliverable Alignment (交付归宿与排版铁律)**:
+   - Standalone Word table: `Tables OOS-262394 Optio RX (E18631) - ScanRDI.docx`.
+   - Standalone PDF: `Tables OOS-262394 Optio RX (E18631) - ScanRDI.pdf` (Strictly 1 single page).
+   - All cell text and hyperlink runs locked to uniform 7.0pt (`w:sz w:val="14"`).
+
