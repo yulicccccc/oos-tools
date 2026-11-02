@@ -13,6 +13,7 @@
 > - **RS Streamlined Phrasing (`Rule 70.5–70.6`)**: Use RS's exact monthly cleaning sentence and streamlined concurrent positive sentence (omitting third-party client/product/analyst names).
 > - **GDP 2-Digit Year N/A Sign-Off (`Rule 62`)**: Strictly `N/A QYC DDMMMYY` (e.g., `N/A QYC 21Oct26`).
 > - **Microbial ID Table Purity (`Rule 61.3` / `RULE 0P`)**: In Table 2/3 `Microbial ID`, list ONLY pure species/morphology names with empty line separation. Strictly NEVER write CFU counts (e.g. no `(3 CFUs)`) and NEVER write `(Pending Microbial ID)` or pending tags in the table.
+> - **QA Celsis Investigation Golden Standards (`Rule 82` / `RULE 0AA`)**: In Table 3 (Aliquoting), bracketing labels must strictly be "Date Before Aliquoting", "Date of Aliquoting", "Date After Aliquoting". In Page 2 equipment fields, primary engineering controls (ISO 5 BSCs) must be listed alongside incubators. Reagents must 100% match raw workload packets. Select only "Yes" on Page 5 EM standard compliance without ambiguous "N/A".
 
 
 

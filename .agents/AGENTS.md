@@ -27,6 +27,11 @@
 > 9. **Section D Narrative Date Uniformity & Redundant Interview Ban (`RULE 0O`)**:
 >    - All narrative dates in Section D Phase I Summary MUST strictly adhere to uniform **`DDMMMYY`** format (e.g., `24Jun26`, `22Sep26`, `23Sep26`, `08Oct26`, `12Oct26`, `13Sep26`). Never use fragmented dates like `13 Oct 2026`.
 >    - **NEVER** include the redundant sentence `"As of [Date], preliminary interviews identified no deviations or laboratory-related handling issues."` because opening text already certifies all involved analysts were interviewed comprehensively.
+> 10. **QA Celsis Investigation Golden Standards (`RULE 0AA` / `Rule 82`)**:
+>     - In Celsis Table 3 (Aliquoting), bracketing labels MUST specifically be `Date Before Aliquoting`, `Date of Aliquoting`, and `Date After Aliquoting` (never "Testing").
+>     - Page 2 equipment calibrations MUST include primary engineering controls (`ISO 5 BSC E001316` and `ISO 5 BSC E001798`, Cal Due `Jun 2027`) alongside incubators.
+>     - Page 2 reagent lots and expiries must 100% match raw workload packets.
+>     - Page 5 EM compliance question must select ONLY "Yes" without ambiguous "N/A".
 
 
 
@@ -4076,3 +4081,38 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 
 3. **Active Air Morphology Defense Invariant**:
    - Prohibits morphology comparison claims when environmental isolates are cocci.
+
+
+---
+
+### Rule 82 / RULE 0AA: QA-Approved Celsis Sterility Investigation Golden Standards (Celsis 无菌 OOS 质保与主管审阅黄金标准 - 终审通过版基准)
+
+**CRITICAL**: Based on QA and Microbiology Supervisor Robin Seymour (RS) audit of `OOS-262316` (signed final benchmark: `Rev_OOS-262316 - ETX-260929-0261 - Mills Pharmacy & Apothecary (E15716) - Signed by OA-RS.pdf`), all future Celsis Sterility OOS investigations MUST strictly adhere to the following six golden rules:
+
+1. **Table 3 Aliquoting Bracketing Labels (分装环境监测分级标签铁律)**:
+   - In Celsis Sterility investigations, Table 3 specifically brackets the **Aliquoting** event (conducted inside BSC E001798 after 48h incubation), NOT the initial testing.
+   - All bracketing rows in Table 3 (Personnel EM, Surface EM, Settling EM) MUST specifically use **`Date Before Aliquoting`**, **`Date of Aliquoting`**, and **`Date After Aliquoting`**.
+   - NEVER label Table 3 rows as `Date Before Testing`, `Date of Testing`, or `Date After Testing`! (QA explicitly flagged and required correcting this in OOS-262316).
+
+2. **Page 2 Reagent Lots & Expiry Verification Against Raw Workload (试剂批号与效期 100% 严密对齐原始台账)**:
+   - In `Text Field22` (Reagents Used) and `Text Field23` (Exp Date):
+     - AMPiScreen Reagents
+     - Daily Wash & Rinse Kit
+     - ATP Positive Control
+   - All lot numbers and expiration dates MUST match the raw reading run records (`.wkl` workload report) exactly.
+   - Any apparent expiration before the reading date (such as Advance 2 calibration date) must be reconciled against the physical certificate (Advance 2 `E002222` calibration due date is `Dec 2026`).
+
+3. **Equipment Calibrations: Primary Engineering Controls Inclusion (初级工程控制设备 BSC 必须入列)**:
+   - In Page 2 `Text Field43` and `Text Field44`, in addition to incubators (`Incubator E001034`, `Incubator E001031`), you MUST explicitly list both the processing BSC and aliquoting BSC (`ISO 5 BSC E001316` and `ISO 5 BSC E001798`, Cal Due `Jun 2027`). Listing only incubators without primary containment equipment was formally rejected by QA.
+
+4. **Table 2 Processing BSC Surface Sampling Date (测试当日 BSC 表面取样定性铁律)**:
+   - In Table 2 (Processing EM), BSC surface sampling conducted on the date of inoculation/testing must be designated **`Date of Testing`**, NEVER `Date After Testing`.
+
+5. **Page 5 EM Assessment Phrasing & Scientific Defensibility (环境监测评估技术防守表述)**:
+   - Revise broad claims like "absence of detectable environmental contamination" to specifically state:
+     `"absence of microbial recovery across all critical ISO 5 zones and personnel monitoring on the date of testing"`
+   - If ISO 8 active air has recoveries (e.g., fungal hyphae), never make ungrounded claims that environmental isolates are conclusively different from product contaminants based on general morphology (e.g., hyphae vs mold).
+
+6. **Checkbox Ambiguity Ban (多选框消除歧义铁律)**:
+   - In Page 5 `Do the environmental monitoring results conform to required standards?`:
+   - Select ONLY `Yes` (`Check Box67` = Yes), ensure `N/A` (`Check Box69` = Off) is NOT selected. (QA flagged selecting both Yes and N/A as ambiguous).

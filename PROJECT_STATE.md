@@ -1,6 +1,6 @@
 # Project State: OOS Tools
 
-## Version: v12.1.0
+## Version: v12.3.0 (Previous: v12.2.0)
 
 ## Current Phase: Rollover to New Project Environment
 

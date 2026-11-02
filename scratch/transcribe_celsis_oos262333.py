@@ -78,8 +78,9 @@ p_p3 = [
 # Page 4 Narrative (Part 2: Readout Data, Controls, Reagents, Monthly Cleaning, Reference to Tables)
 # Rule 75.2: Remove (Bottle 3/5) and (Bottle 4/5)
 # Rule 81: Client-facing media simplification - NO lot # or expiration in narrative body
+# Raw Workload 101226-2011-Daily Control: Instrument blank 29 RLU, Reagent blank 103 RLU, ATP Positive Control 99,973 RLU
 p_p4 = [
-    f"Following instrument analysis on 12Oct26, sample {SAMPLE_ID} was found to yield positive luminescence readings in the 1 x 300 mL FTM media jar. The FTM sample yielded an average luminescence of 3,647,568 RLU (duplicate tube readings of 3,608,783 RLU and 3,686,352 RLU, CV% 1.5%), significantly exceeding the positive cut-off threshold of 2,596.5 RLU. In contrast, the 1 x 300 mL TSB media jar yielded negative readings well below its positive cut-off threshold of 2,326.5 RLU. All instrument system controls and background checks met defined acceptance criteria, including the instrument blank (14 RLU, cut-off 100.0 RLU), reagent blank (64 RLU, cut-off 1,000.0 RLU), and Celsis ATP Positive Control (83,684 RLU, cut-off 50,000.0 RLU, passing specification).",
+    f"Following instrument analysis on 12Oct26, sample {SAMPLE_ID} was found to yield positive luminescence readings in the 1 x 300 mL FTM media jar. The FTM sample yielded an average luminescence of 3,647,568 RLU (duplicate tube readings of 3,608,783 RLU and 3,686,352 RLU, CV% 1.5%), significantly exceeding the positive cut-off threshold of 2,596.5 RLU. In contrast, the 1 x 300 mL TSB media jar yielded negative readings well below its positive cut-off threshold of 2,326.5 RLU. All instrument system controls and background checks met defined acceptance criteria, including the instrument blank (29 RLU, cut-off 100.0 RLU), reagent blank (103 RLU, cut-off 1,000.0 RLU), and Celsis ATP Positive Control (99,973 RLU, cut-off 50,000.0 RLU, passing specification).",
     
     f"Following the OOS result, the positive FTM media jar for {SAMPLE_ID} was submitted for Differential Staining and Microbial Identification under subculture submission {SUBCULTURE_ID}. Third-generation Oxford Nanopore sequencing confirmed the isolate as Bacillus paralicheniformis (Gram-positive rods, spore-forming, 85.73% match), as detailed in Table 1.",
     
@@ -119,33 +120,36 @@ t5 = "\r \r".join(p_p5)
 
 print(f"Narrative lengths: P3={len(t3)} chars, P4={len(t4)} chars, P5={len(t5)} chars.")
 
-# Equipment and Reagent Strings
+# Equipment and Reagent Strings (reconciled against raw 12oct26 data packet and signed Rev_OOS-262316 standard)
 tf22_materials = (
     "Materials and Reagents\r"
-    "TSB Lot 08132026-1\r"
-    "FTM Lot 08182026-6\r"
-    "Tween 80 Lot 0000743947\r \r"
-    "Celsis Reagents and Kits\r"
-    "AMPiScreen Lot 012701-1400\r"
-    "Daily Wash Lot 012503-1401\r \r"
-    "TSA and Surface Plates: See EM logs\r \r"
-    "Monthly Cleaning\r"
-    "HaloMist Lot 2606A\r"
-    "H2O2 Strips Lot 260620"
+    "TSB (300mL): Lot: 08132026-1\r"
+    "FTM (300mL): Lot: 08182026-6\r"
+    "Tween (Polysorbate) 80: Lot: 0000743947\r \r"
+    "Celsis AmpiScreen Reagents: 022601-1400\r"
+    "Celsis Daily Wash & Rinse Kit: 012503-1142N\r"
+    "Celsis ATP Positive Control: 022601-1483\r \r"
+    "TSA and Surface Plates: Please refer to the Environmental Logs uploaded under the submission on EagleTrax\r \r"
+    "Monthly Cleaning:\r"
+    "HaloMist: Lot: 2606A\r"
+    "H2O2 strips: Lot: 260620"
 )
 
 tf23_expirations = (
     "Materials and Reagents\r"
-    "TSB Exp 11Nov26\r"
-    "FTM Exp 16Nov26\r"
-    "Tween 80 Exp 31Jan30\r \r"
-    "Celsis Reagents and Kits\r"
-    "AMPiScreen Exp Jan 2027\r"
-    "Daily Wash Exp Jan 2027\r \r"
-    "TSA and Surface Plates: See EM logs\r \r"
-    "Monthly Cleaning\r"
-    "HaloMist Exp 06Jun28\r"
-    "H2O2 Strips Exp 20Jun28"
+    "TSB: Exp: 11Nov2026\r"
+    "FTM: Exp: 16Nov2026\r"
+    "Tween 80: 31Jan2030\r \r"
+    "Celsis AmpiScreen Reagents:\r"
+    "Jan 2027\r"
+    "Celsis Daily Wash & Rinse Kit:\r"
+    "Jan 2027\r"
+    "Celsis ATP Positive Control:\r"
+    "Jan 2027\r \r"
+    "TSA and Surface Plates: Please refer to the Environmental Logs uploaded under the submission on EagleTrax\r \r"
+    "Monthly Cleaning:\r"
+    "HaloMist: Exp: 06Jun28\r"
+    "H2O2 strips: Exp: 20Jun28"
 )
 
 personnel_block = (
@@ -189,18 +193,18 @@ pdf_field_values = {
     'Text Field21': f"Yes, the sample was stored refrigerated as per client's instructions",
     'Text Field22': tf22_materials,
     'Text Field23': tf23_expirations,
-    'Text Field24': "Celsis ATP Positive Control",
+    'Text Field24': "Celsis ATP Positive Control\r",
     'Text Field25': "022601-1483",
     'Text Field26': "Jan 2027",
     'Text Field27': "Not Applicable",
     'Text Field28': "Not Applicable",
     'Text Field29': "Not Applicable",
     'Text Field30': "E002222",
-    'Text Field31': "Sep 2026",
-    'Text Field32': "E001736 (CR114) BSC E001316\r \rE001736 (CR114) BSC E001798",
-    'Text Field33': "Dec 2026 / Jun 2027\r \rDec 2026 / Jun 2027",
+    'Text Field31': "Dec 2026",
+    'Text Field32': "E001736 (CR114), BSC E001316\r \rE001736 (CR114), BSC E001798",
+    'Text Field33': "Dec 2026, Jun 2027\r \rDec 2026, Jun 2027",
     'Text Field34': "E002222",
-    'Text Field35': "Sep 2026",
+    'Text Field35': "Dec 2026",
     'Text Field36': "Not Applicable",
     'Text Field37': "Not Applicable",
     'Text Field38': "Not Applicable",
@@ -208,8 +212,8 @@ pdf_field_values = {
     'Text Field40': "See Phase I Summary",
     'Text Field41': "See Phase I Summary",
     'Text Field42': "See Phase I Summary",
-    'Text Field43': "Incubator E001034 (Sensor E001501)\r \rIncubator E001031 (Sensor E001505)",
-    'Text Field44': "Aug 2027 / Feb 2027\r \rAug 2027 / Feb 2027",
+    'Text Field43': "Incubator E001034\r(Monitored by Sensor E001501)\r \rIncubator E001031\r(Monitored by Sensor E001505)\r \rISO 5 BSC E001316\r \rISO 5 BSC E001798",
+    'Text Field44': "Aug 2027\rFeb 2027\r \rAug 2027\rFeb 2027\r \rJun 2027\r \rJun 2027",
     'Text Field45': "See Phase I Summary",
     'Text Field46': "Not Applicable",
     'Text Field47': "Not Applicable",
@@ -344,10 +348,6 @@ CANONICAL_FILENAME = f"CORP-FORM-21- 12 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - Ce
 desktop_dest = os.path.join(DESKTOP_DIR, CANONICAL_FILENAME)
 docs_dest = os.path.join(DOCS_DIR, CANONICAL_FILENAME)
 
-with open(desktop_dest, "wb") as f:
-    writer.write(f)
-print("Saved Master PDF to Desktop:\n ", desktop_dest)
-
 try:
     with open(docs_dest, "wb") as f:
         writer.write(f)
@@ -355,9 +355,22 @@ try:
 except Exception as e:
     print("Documents lock status:", e)
 
+saved_pdf_path = docs_dest
+try:
+    with open(desktop_dest, "wb") as f:
+        writer.write(f)
+    print("Saved Master PDF to Desktop:\n ", desktop_dest)
+    saved_pdf_path = desktop_dest
+except PermissionError:
+    alt_desktop = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 12 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - Celsis (Rev OA-RS).pdf")
+    with open(alt_desktop, "wb") as f:
+        writer.write(f)
+    print(f"[NOTE] Desktop target locked by user viewer; saved as '{alt_desktop}'")
+    saved_pdf_path = alt_desktop
+
 # 7. Render Preview PNGs for Verification
 print("\n=== [STEP 5] RENDERING PREVIEW IMAGES FOR VERIFICATION ===")
-doc_final = fitz.open(desktop_dest)
+doc_final = fitz.open(saved_pdf_path)
 preview_dir = os.path.join(SCRATCH_DIR, "celsis_corp21_previews")
 os.makedirs(preview_dir, exist_ok=True)
 for i, page in enumerate(doc_final):

@@ -99,6 +99,47 @@ micro_lines = [
 ]
 set_cell_multiline(row13.cells[7], micro_lines, font_size_pt=7.0)
 
+# QA & RS Rule (from Rev_OOS-262316): Update Table 3 Aliquoting Bracketing Labels to specifically refer to Aliquoting
+aliquot_day_map = {
+    2: "Date Before Aliquoting",
+    3: "Date of Aliquoting",
+    4: "Date After Aliquoting",
+    6: "Date Before Aliquoting",
+    7: "Date of Aliquoting",
+    8: "Date After Aliquoting",
+    9: "Date Before Aliquoting",
+    10: "Date of Aliquoting",
+    11: "Date After Aliquoting"
+}
+for r_idx, label in aliquot_day_map.items():
+    cell_day = t3.rows[r_idx].cells[4]
+    tc_day = cell_day._tc
+    for p in tc_day.xpath('w:p'):
+        tc_day.remove(p)
+    p_day = (
+        f'<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        f'<w:pPr>'
+        f'<w:jc w:val="center"/>'
+        f'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'</w:pPr>'
+        f'<w:r>'
+        f'<w:rPr>'
+        f'<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+        f'<w:sz w:val="14"/>'
+        f'<w:szCs w:val="14"/>'
+        f'</w:rPr>'
+        f'<w:t>{label}</w:t>'
+        f'</w:r>'
+        f'</w:p>'
+    )
+    tc_day.append(parse_xml(p_day))
+    cell_day.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
 doc.save(DOCX_PATH)
 print("Updated Desktop DOCX successfully.", flush=True)
 
