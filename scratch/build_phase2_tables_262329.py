@@ -12,7 +12,7 @@ SCRATCH_DIR = os.path.join(DOCUMENTS_DIR, "scratch")
 
 OOS_ID = "262329"
 CLIENT_NAME = "GoGoMeds Select (E10747)"
-TEST_NAME = "Phase II"
+TEST_NAME = "USP71"
 
 ORIGINAL_ID = "ETX-260624-0251 (BUD-T90)"
 RETEST_ID = "ETX-261021-0445"
@@ -263,11 +263,12 @@ def build_phase2_tables_doc():
     import win32com.client
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
-    pdf_temp_path = os.path.join(SCRATCH_DIR, f"verify_tables_phase2_{OOS_ID}.pdf")
+    pdf_temp_path = os.path.join(SCRATCH_DIR, f"verify_tables_{OOS_ID}.pdf")
     try:
         wdoc = word.Documents.Open(os.path.abspath(doc_path_local))
         wdoc.SaveAs(os.path.abspath(pdf_temp_path), FileFormat=17)
         wdoc.Close()
+        shutil.copy2(pdf_temp_path, os.path.join(SCRATCH_DIR, f"verify_tables_phase2_{OOS_ID}.pdf"))
     finally:
         word.Quit()
 

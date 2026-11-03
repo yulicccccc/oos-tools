@@ -1,6 +1,6 @@
 # Project State: OOS Tools
 
-## Version: v12.3.3 (Previous: v12.3.2)
+## Version: v12.3.4 (Previous: v12.3.3)
 
 ## Current Phase: USP <71> OOS-262329 Phase I & Phase II Completion
 
@@ -28,6 +28,10 @@
      - Page 1 Manager notified strictly set to Kathan Parikh (13-Oct-2026).
      - Section D narrative updated per user corrections: removed redundant interview sentence and omitted consumable Lot/Exp numbers.
      - Page 6 updated: Check Box88 = 'Yes' (No, the OOS result is valid), Check Box89 = 'Yes' (Phase II Form 3.100.019.F02 initiated per client request), and Text Field52 updated with client retest justification.
+  7. **Universal Standalone Table Unification Rule (RULE 0M & 03Nov26 Directive):**
+     - Formally locked the rule: Phase I and Phase II share the EXACT same standalone table document, strictly eliminating duplicate or separate Phase-specific table naming.
+     - Standalone table document is unified under: 'Tables OOS-262329 GoGoMeds Select (E10747) - USP71.docx'.
+     - Removed redundant 'Tables OOS-262329 GoGoMeds Select (E10747) - Phase II.docx' from Desktop and Documents.
   6. **Retest Negative EM Elimination & Whitespace Layout Refinement (User 03Nov26 Directive):**
      - Eliminated Table 3 (Retest EM) in accordance with laboratory operating SOP: for passing (negative / No Growth) retests, environmental monitoring is not collected.
      - Removed Table 3 reference and EM narrative from Page 4 of Phase II Master PDF, ensuring clean, concise investigation narrative.
