@@ -85,17 +85,17 @@ def format_cell(cell, text="", bold=False, italic=False, font_size=Pt(7), align=
 def build_phase2_tables_doc():
     doc = docx.Document()
     
-    # 0.5 inch margins
+    # 0.75 inch top margin for whitespace ("留点白"), 0.5 inch for sides
     for sec in doc.sections:
-        sec.top_margin = Inches(0.4)
-        sec.bottom_margin = Inches(0.4)
+        sec.top_margin = Inches(0.8)
+        sec.bottom_margin = Inches(0.5)
         sec.left_margin = Inches(0.5)
         sec.right_margin = Inches(0.5)
 
     # Title 1
     p_t1 = doc.add_paragraph()
-    p_t1.paragraph_format.space_before = Pt(0)
-    p_t1.paragraph_format.space_after = Pt(3)
+    p_t1.paragraph_format.space_before = Pt(12)
+    p_t1.paragraph_format.space_after = Pt(4)
     r = p_t1.add_run(f"Table 1: Information for {ORIGINAL_ID} and {RETEST_ID} under investigation")
     r.font.name = 'Times New Roman'; r.font.size = Pt(8); r.bold = False
 
@@ -146,9 +146,9 @@ def build_phase2_tables_doc():
 
     # Space between tables
     p_space = doc.add_paragraph()
-    p_space.paragraph_format.space_before = Pt(4)
-    p_space.paragraph_format.space_after = Pt(2)
-    r_t2 = p_space.add_run("Table 2: Environmental Monitoring from Testing Performed on 23Sep26 (Initial Testing)")
+    p_space.paragraph_format.space_before = Pt(16)
+    p_space.paragraph_format.space_after = Pt(4)
+    r_t2 = p_space.add_run("Table 2: Environmental Monitoring from Testing Performed on 23Sep26")
     r_t2.font.name = 'Times New Roman'; r_t2.font.size = Pt(8); r_t2.bold = False
 
     # Table 2: Environmental Monitoring (Original Testing on 23Sep26)
@@ -235,49 +235,11 @@ def build_phase2_tables_doc():
         for j, w in enumerate(t2_widths):
             row.cells[j].width = w
 
-    # Space between tables
-    p_space2 = doc.add_paragraph()
-    p_space2.paragraph_format.space_before = Pt(4)
-    p_space2.paragraph_format.space_after = Pt(2)
-    r_t3 = p_space2.add_run("Table 3: Environmental Monitoring from Retest Performed on 21Oct26 (Phase II Retest)")
-    r_t3.font.name = 'Times New Roman'; r_t3.font.size = Pt(8); r_t3.bold = False
-
-    # Table 3: Retest EM (21Oct26)
-    t3 = doc.add_table(rows=0, cols=9)
-    t3.alignment = WD_TABLE_ALIGNMENT.CENTER
-    
-    r_hdr3 = t3.add_row()
-    for j, h in enumerate(headers_t2):
-        format_cell(r_hdr3.cells[j], h, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-
-    add_sec_divider(t3, "Personnel EM")
-    add_em_row(t3, "Personnel (Left Touch and Right Touch)", "Daily", "20Oct26", "AOD", "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Personnel (Left Touch and Right Touch)", "Daily", "21Oct26", "AOD", "Date of Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Personnel (Left Touch and Right Touch)", "Daily", "22Oct26", "AOD", "Date After Testing", "No Growth", "Not Applicable", "Not Applicable")
-
-    add_sec_divider(t3, "Biological Safety Cabinet EM for E001314")
-    add_em_row(t3, "Surface Sampling of ISO 5 (4 locations)", "Daily", "20Oct26", "AOD", "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Surface Sampling of ISO 5 (4 locations)", "Daily", "21Oct26", "AOD", "Date of Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Surface Sampling of ISO 5 (4 locations)", "Daily", "22Oct26", "AOD", "Date After Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Settling Sampling of ISO 5 (2 locations)", "Daily", "20Oct26", "AOD", "Date Before Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Settling Sampling of ISO 5 (2 locations)", "Daily", "21Oct26", "AOD", "Date of Testing", "No Growth", "Not Applicable", "Not Applicable")
-    add_em_row(t3, "Settling Sampling of ISO 5 (2 locations)", "Daily", "22Oct26", "AOD", "Date After Testing", "No Growth", "Not Applicable", "Not Applicable")
-
-    add_sec_divider(t3, "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
-    add_em_row(t3, "Active Air Sampling of Cleanrooms", "Weekly", "21Oct26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable")
-
-    add_sec_divider(t3, "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
-    add_em_row(t3, "Surface Sampling of Cleanrooms", "Weekly", "21Oct26", "SMO", "Week of Testing", "No Growth", "Not Applicable", "Not Applicable")
-
-    for row in t3.rows:
-        for j, w in enumerate(t2_widths):
-            row.cells[j].width = w
-
     # Uniform XML 14 half-points font size
     for p in doc.paragraphs:
         for r in p.runs:
             r.font.name = 'Times New Roman'
-    for tbl in [t1, t2, t3]:
+    for tbl in [t1, t2]:
         for row in tbl.rows:
             for c in row.cells:
                 for p in c.paragraphs:
