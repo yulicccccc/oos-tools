@@ -1,12 +1,17 @@
 # Project State: OOS Tools
 
-## Version: v12.3.5 (Previous: v12.3.4)
+## Version: v12.3.6 (Previous: v12.3.5)
 
 ## Current Phase: USP <71> OOS-262329 Phase I & Phase II Completion
 
 ### What Was Completed
 - **Phase II Investigation Package for OOS-262329 (GoGoMeds Select E10747, Sermorelin 0.9mg/ml, Lot 17009):**
-  1. **User Request & Client Retest Context:** In response to client-requested stability study retest for BUD-T90 (under submission ETX-261021-0445, expected completion 04Nov26), proactively drafted the complete Phase II investigation package assuming passing (negative / No Growth) retest outcome per user directive.
+  1. **Official Approved Benchmark Integration (Hann's Pharmacy OOS-261728 / User Directive):**
+     - Accessed user Outlook mailbox and extracted approved, signed USP <71> Phase II benchmark: P2 - OOS-261728 Hann's Pharmacy (E71710) -USP 71 - Signed by OA-RS.pdf (signed by Olugbenga Ajayi and Robin Seymour).
+     - Page 5 Root Cause (Text Field25) 100% aligned with the exact approved phrasing: 'The discrepancy between the original and retest results may be attributed to non-uniform microbial distribution, particularly when microorganisms are present at low concentrations within the batch.'
+     - Page 4 Narrative (Text Field24) harmonized with official legal structure and tailored to BUD-T90 stability study context: concludes with explicit confirmation of both results as valid and final BUD determination, stability protocol evaluation, and lot disposition at client discretion.
+     - Section E sign-offs and checkboxes aligned with approved benchmark: Text Field26/29 = 'N/A QYC 04Nov26', Text Field27/28 = 'N/A', Check Box61 = 'Yes' (Other: N/A).
+  2. **User Request & Client Retest Context:** In response to client-requested stability study retest for BUD-T90 (under submission ETX-261021-0445, expected completion 04Nov26), proactively drafted the complete Phase II investigation package assuming passing (negative / No Growth) retest outcome per user directive.
   2. **CORP-FORM-22 Official ZenQMS AcroForm Transcription:**
      - Verified exact widget coordinate mapping on Page 1: correctly assigned Text Field4 (Row 1, y=242.9) = 'Fail' (Original Result) and Text Field3 (Row 2, y=269.1) = 'Pass' (Re-Test Result).
      - Calibrated typography across all rows: 3-line analyst block in Text Field1 (Prepping: Elysse Nioupin, Processing: Ayomide Odugbesi, Reading: Andrew Carrillo) set to 5.2pt; 3-line sample block in Text Field2 (Original ETX-260624-0251 BUD-T90 / Retest ETX-261021-0445) set to 5.5pt.

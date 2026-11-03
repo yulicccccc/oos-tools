@@ -55,20 +55,21 @@ p_page3 = [
 
 # Narrative Part 3 (Page 4)
 p_page4 = [
-    f"PHASE II RETEST UNDER SUBMISSION {RETEST_ID}:\n"
-    f"In accordance with Phase II investigation procedures under CORP-FORM-22 and follow-up communications regarding the BUD-T90 stability study, the client requested a retest of additional vials from Lot {LOT_NUM}. An associated Phase II retest was initiated under submission {RETEST_ID} to assess the sterility status of the remaining stability sample vials.",
+    f"RETEST UNDER SUBMISSION {RETEST_ID} (BUD-T90 STABILITY STUDY):\n"
+    f"In accordance with Phase II investigation procedures under CORP-FORM-22 and follow-up communications regarding the BUD-T90 stability study for Lot {LOT_NUM}, the client requested an associated Phase II retest of additional vials from the same lot. Retest testing was initiated under submission {RETEST_ID} to evaluate the sterility status of the remaining stability sample vials. The analysts involved in prepping, processing, and reading the retest sample—Elysse Nioupin, Ayomide Odugbesi, and Andrew Carrillo—confirmed no deviations from standard testing procedures.",
     
-    f"The retest sample was prepared on 20Oct26 by prepping analyst Elysse Nioupin and processed on 21Oct26 by processing analyst Ayomide Odugbesi in accordance with MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test). Testing was performed by direct inoculation inside certified ISO 5 BSC E001314 within Cleanroom Suite 115 following standard multi-barrier sanitization and strict aseptic technique. Inoculation volumes strictly matched method suitability ETX-260401-0599 (15 mL sterile Tween 80 and 5 mL sample directly inoculated into 200 mL TSB and FTM media bottles). Negative control bottles were prepared concurrently under identical conditions.",
+    f"Like the original testing under {SAMPLE_ID}, the retest sample was processed following comparable disinfection procedures, certified cleanroom environmental controls, and strict aseptic techniques. All reagents and supplies used for {RETEST_ID} were stored according to manufacturers' recommendations, with visual integrity and valid expiration dates verified prior to use. For the retest, culture media bottles of Tryptic Soy Broth (TSB) and Fluid Thioglycollate Medium (FTM) were within their validated expiry periods. During testing by direct inoculation in ISO 5 BSC E001314 within Cleanroom Suite 115, negative control media bottles were inoculated, handled, and incubated under identical conditions. Complete absence of microbial growth was observed in all negative controls, confirming procedural and media integrity.",
     
-    "The inoculated media bottles and concurrent negative controls were incubated in qualified incubators E001356 (20-25 \u00b0C) and E001357 (30-35 \u00b0C). Throughout the required 14-day incubation period ending on 04Nov26, regular turbidity readings and microscopic inspections were performed by reading analyst Andrew Carrillo and verified by laboratory supervisor Robin Seymour. Both TSB and FTM media bottles remained completely clear with No Growth observed. Matching negative control media bottles demonstrated complete absence of microbial growth, confirming media sterility and aseptic integrity throughout the testing process. The retest result for submission " + RETEST_ID + " was confirmed as Pass (No Growth).",
+    f"Additionally, the retest sample was cleaned, transferred into Cleanroom Suite 115, processed, and inoculated as per MICRO-SOP-5 (USP <71> / EP 2.6.1 Sterility Test) on 21 Oct 2026. Inoculated media bottles were transferred into designated incubators E001356 (20-25 \u00b0C) and E001357 (30-35 \u00b0C) under identical incubation parameters as initial testing. Submission {RETEST_ID} passed the sterility test after 14 days of incubation with No Growth observed across all media.",
     
-    f"In accordance with USP <71> and cGMP investigation principles, because the comprehensive Phase I laboratory investigation demonstrated that equipment, cleanroom environment, media, supplies, and analyst handling were fully in control with no assignable laboratory error, the initial positive sterility finding under {SAMPLE_ID} cannot be invalidated. The passing retest result under {RETEST_ID} demonstrates that the microbial contamination detected in the initial test was not uniformly present across all vials in Lot {LOT_NUM}. Rather, the data indicate a low-level, non-uniform distribution of microbial contamination (Bacillus megaterium) within the stability lot. Consequently, while the retest vials passed sterility requirements, the initial OOS result under {SAMPLE_ID} remains confirmed and valid for the BUD-T90 study."
+    f"No laboratory-related errors were identified during the investigation of the passing results reported under {RETEST_ID} or the initial failing result reported under {SAMPLE_ID}. Therefore, both the initial failing result associated with {SAMPLE_ID} and the passing retest result associated with {RETEST_ID} are considered valid. The discrepancy between the initial and retest findings reflects a low-level, non-uniform distribution of microbial contamination (Bacillus megaterium) within stability Lot {LOT_NUM}. Final beyond-use dating (BUD) determination, stability protocol evaluation, and lot disposition remain at the discretion of the client."
 ]
 
-# Root Cause Summary (Page 5 Text Field25)
+# Root Cause Summary (Page 5 Text Field25) - Copied directly from Hann's Pharmacy approved benchmark
 root_cause_p5 = (
-    f"Non-uniformly distributed microbial contamination within Lot {LOT_NUM}. "
-    f"The initial failing result under {SAMPLE_ID} remains confirmed and valid."
+    "The discrepancy between the original and retest results may be attributed to "
+    "non-uniform microbial distribution, particularly when microorganisms are present "
+    "at low concentrations within the batch."
 )
 
 def run_transcription():
@@ -125,8 +126,10 @@ def run_transcription():
         
         # Page 5
         'Text Field25': root_cause_p5,
-        'Text Field27': "Not Applicable",
-        'Text Field28': "Not Applicable",
+        'Text Field26': "N/A QYC 04Nov26",
+        'Text Field27': "N/A",
+        'Text Field28': "N/A",
+        'Text Field29': "N/A QYC 04Nov26",
         'Date Field3': "04-Nov-2026",
     }
     
@@ -159,7 +162,7 @@ def run_transcription():
         "Check Box51": "Yes", "Check Box52": "Off",
         "Check Box53": "Yes", "Check Box54": "Off",
         "Check Box55": "Off", "Check Box56": "Off", "Check Box57": "Off", "Check Box58": "Off", "Check Box59": "Off", "Check Box60": "Off",
-        "Check Box61": "Off", "Check Box62": "Off",
+        "Check Box61": "Yes", "Check Box62": "Off",
         "Check Box63": "Yes", "Check Box64": "Off",
         "Check Box65": "Yes", "Check Box66": "Off"
     }
@@ -174,7 +177,7 @@ def run_transcription():
         'Date Field0': 8.5, 'Date Field1': 8.5, 'Date Field3': 8.5,
         'Text Field21': 7.5,
         'Text Field22': 6.8, 'Text Field23': 7.0, 'Text Field24': 7.0,
-        'Text Field25': 8.0, 'Text Field27': 8.0, 'Text Field28': 8.0,
+        'Text Field25': 8.0, 'Text Field26': 8.0, 'Text Field27': 8.0, 'Text Field28': 8.0, 'Text Field29': 8.0,
         'Text Field30': 8.5
     }
 
@@ -205,7 +208,7 @@ def run_transcription():
     for pidx, fn, expected_last in [
         (1, 'Text Field22', 'incubation.'),
         (2, 'Text Field23', 'valid.'),
-        (3, 'Text Field24', 'study.')
+        (3, 'Text Field24', 'client.')
     ]:
         p = doc_ver[pidx]
         w_obj = [w for w in p.widgets() if w.field_name == fn][0]
