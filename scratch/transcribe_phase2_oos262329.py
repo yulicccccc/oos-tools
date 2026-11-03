@@ -67,10 +67,8 @@ p_page4 = [
 
 # Root Cause Summary (Page 5 Text Field25)
 root_cause_p5 = (
-    f"Low-level, non-uniform microbial contamination within Lot {LOT_NUM} during the BUD-T90 study. "
-    f"Phase I investigation identified no laboratory-related handling errors or environmental excursions, confirming the initial "
-    f"failing result (Bacillus megaterium) under {SAMPLE_ID} as valid. The passing retest result (No Growth) under client-requested "
-    f"submission {RETEST_ID} confirms that microbial presence was isolated and non-uniformly distributed across lot vials."
+    f"Non-uniformly distributed microbial contamination within Lot {LOT_NUM}. "
+    f"The initial failing result under {SAMPLE_ID} remains confirmed and valid."
 )
 
 def run_transcription():
@@ -176,7 +174,7 @@ def run_transcription():
         'Date Field0': 8.5, 'Date Field1': 8.5, 'Date Field3': 8.5,
         'Text Field21': 7.5,
         'Text Field22': 6.8, 'Text Field23': 7.0, 'Text Field24': 7.0,
-        'Text Field25': 6.8, 'Text Field27': 8.0, 'Text Field28': 8.0,
+        'Text Field25': 8.0, 'Text Field27': 8.0, 'Text Field28': 8.0,
         'Text Field30': 8.5
     }
 
