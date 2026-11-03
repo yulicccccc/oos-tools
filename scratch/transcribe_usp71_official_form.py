@@ -211,7 +211,7 @@ pdf_field_values = {
     'Text Field49': t3,
     'Text Field50': t4,
     'Text Field51': t5,
-    'Text Field52': "Not Applicable",
+    'Text Field52': "Client requested an associated Phase II retest of additional vials from Lot 17009 under submission ETX-261021-0445 for the BUD-T90 stability study. Phase II investigation Form 3.100.019.F02 initiated accordingly.",
     'Text Field53': "Qiyue Chen",
     'Text Field54': "Robin Seymour",
     'Text Field55': "",
@@ -247,7 +247,7 @@ cb_whitelists = {
     'Check Box78': 'Yes',
     'Check Box87': 'Off',
     'Check Box88': 'Yes', # No, the OOS result is valid
-    'Check Box89': 'Off', # Phase II NOT initiated
+    'Check Box89': 'Yes', # Phase II initiated per client request
     'Check Box90': 'Off',
     'Check Box91': 'Off',
     'Check Box92': 'Off',
