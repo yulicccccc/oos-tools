@@ -8,7 +8,7 @@ OOS_ID = "262329"
 CLIENT_NAME = "GoGoMeds Select (E10747)"
 TEST_NAME = "Phase II"
 
-BLANK_TEMPLATE = os.path.join(DOCUMENTS_DIR, ".history", "CORP-FORM-22 - OOS- P2 - 10 Sep 2026_BLANK_BACKUP.pdf")
+BLANK_TEMPLATE = os.path.join(DOCUMENTS_DIR, ".history", "CORP-FORM-22 - OOS- P2 - 13 Oct 2026_BLANK_BACKUP.pdf")
 TABLES_PDF = os.path.join(SCRATCH_DIR, f"verify_tables_phase2_{OOS_ID}.pdf")
 
 SAMPLE_ID = "ETX-260624-0251 (BUD-T90)"
@@ -228,8 +228,8 @@ def run_transcription():
     assert len(doc_final) == 6, f"Expected 6 pages for Phase II Master, got {len(doc_final)}"
 
     # Filename per Rule 0M and Rule 74
-    # Template was downloaded on 10 Sep 2026
-    master_filename = f"CORP-FORM-22- 10 Sep 2026 OOS-{OOS_ID} {CLIENT_NAME} - Phase II.pdf"
+    # Template was downloaded on 13 Oct 2026
+    master_filename = f"CORP-FORM-22- 13 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - Phase II.pdf"
     master_pdf_local = os.path.join(DOCUMENTS_DIR, master_filename)
     master_pdf_desktop = os.path.join(DESKTOP_DIR, master_filename)
 
