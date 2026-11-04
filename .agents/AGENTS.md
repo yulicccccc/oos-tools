@@ -32,6 +32,9 @@
 >     - Page 2 equipment calibrations MUST include primary engineering controls (`ISO 5 BSC E001316` and `ISO 5 BSC E001798`, Cal Due `Jun 2027`) alongside incubators.
 >     - Page 2 reagent lots and expiries must 100% match raw workload packets.
 >     - Page 5 EM compliance question must select ONLY "Yes" without ambiguous "N/A".
+> 11. **BUD Stability Retest Interpretation & Client Disposition (`RULE 0AB` / `Rule 84`)**: When Phase II retest passes on a BUD stability lot (e.g., BUD-T90), both initial fail and passing retest are valid due to low-level non-uniform microbial contamination; final BUD determination, stability protocol evaluation, and lot disposition remain at the sole discretion of the client.
+> 12. **Phase II Blank Template ZenQMS Timestamp Single-Truth (`RULE 0AC` / `Rule 85`)**: NEVER reuse old blank CORP-FORM-22 templates from historical cases. Each case must use its freshly downloaded ZenQMS template, and the deliverable filename date prefix must strictly match the ZenQMS footer download date (e.g. 13 Oct 2026).
+
 
 
 
@@ -4116,3 +4119,49 @@ At the start of drafting any OOS report, the AI must strictly execute this 2-ste
 6. **Checkbox Ambiguity Ban (多选框消除歧义铁律)**:
    - In Page 5 `Do the environmental monitoring results conform to required standards?`:
    - Select ONLY `Yes` (`Check Box67` = Yes), ensure `N/A` (`Check Box69` = Off) is NOT selected. (QA flagged selecting both Yes and N/A as ambiguous).
+
+
+---
+
+### Rule 84 / RULE 0AB: USP <71> Phase II BUD Stability Retest Interpretation, Root Cause & Narrative Standard (BUD 稳定性考察 Phase II 复检、非均匀污染与客户批次处置标准 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`), when investigating sterility failures associated with Beyond-Use Dating (BUD) stability studies (e.g., BUD-T90, BUD-T60, BUD-T30) where Phase II retest of additional vials from the same stability lot yields passing results (No Growth):
+
+1. **Page 5 根本原因法定精炼句式 (Root Cause Wording - 严禁冗长赘述)**:
+   - 牢记用户最高指示：根本原因无需长篇大论或过度推测，明确归结为非均匀分布（non-uniformly distributed）即可。
+   - **法定标准陈述 (`The most probable cause is:`)**:
+     `"Low-level, non-uniform microbial contamination within Lot [Lot #] during the BUD-[Txx] study. Phase I investigation identified no laboratory-related handling errors or environmental excursions, confirming the initial failing result ([Microbial ID]) under [Initial Submission ID] (BUD-[Txx]) as valid. The passing retest result (No Growth) under client-requested submission [Retest Submission ID] confirms that microbial presence was isolated and non-uniformly distributed across lot vials."`
+   - **Root Cause Checkbox**: 勾选 `Yes` (`Check Box29` = Yes)。
+   - **Client Care Notified Checkbox**: 勾选 `Yes` (`Check Box31` = Yes)。
+
+2. **Page 4 调查叙述与裁定原则 (Phase II Page 4 Narrative & Disposition)**:
+   - **双重有效性判定 (Both Initial and Retest Results Considered Valid)**:
+     若调查确认初检与复检阶段均无实验室人为操作失误、无环境微生物失控、无培养基假阳性污染，则初始失败结果与复检合格结果**均被确认为真实有效**。二者的差异科学客观地反映了同批次不同小瓶之间存在低水平、孤立且非均匀分布的微生物污染。
+   - **客户最终处置权防守句 (Client Sole Discretion Invariant)**:
+     针对 BUD 稳定性研究，实验室仅提供客观检测事实，不越俎代庖判定药品的临床使用。段落结尾必须以如下严密防守句闭环：
+     `"Final beyond-use dating (BUD) determination, stability protocol evaluation, and lot disposition remain at the discretion of the client."`
+
+3. **Day 14 培养期满肉眼复核门禁 (Day 14 Physical Verification Gate)**:
+   - 在出具 Phase II 正式合格结论前，必须于满 14 天培养周期当日，由分析员亲自在指定培养箱（20-25 °C 与 30-35 °C）中肉眼复核全部培养瓶（TSB 与 FTM），核实澄清度与阴性对照，杜绝任何未检先审或凭空断言！
+
+---
+
+### Rule 85 / RULE 0AC: Phase II Official Blank Template & ZenQMS Timestamp Single-Source Ground Truth (Phase II 官方母表与 ZenQMS 打印时间戳唯一对应铁律 - 🚨 终极锁定)
+
+**CRITICAL**: Across all OOS modules (`ScanRDI`, `Celsis`, `USP <71>`), when initiating and transcribing Phase II investigations under `CORP-FORM-22` (Form 3.100.019.F02):
+
+1. **严禁跨案卷复用旧 Phase II 空白母表 (Strict Ban on Reusing Legacy Phase II Blank Templates)**:
+   - 每次处理新案卷的 Phase II 时，**绝对严禁直接沿用或从旧历史案卷（如 `Solyn LLC` 等）拷贝旧的 `CORP-FORM-22` 空白底表**！
+   - **根本病灶剖析**: ZenQMS 导出的官方受控表单在每一页页脚都会被打上唯一的系统动态时间戳（例如：`Printed by rseymour@eagleanalytical.com from https://app.zenqms.com on [DD-MMM-YYYY] at [HH:MM:SS] UTC`）。
+   - 若错误沿用旧底表，会导致页脚时间戳（如 `10-Sep-2026`）与当前案卷真实的调查立案日（如 `13-Oct-2026`）产生严重的时间差与跨月矛盾，属于 QA 审计与主管审查必被抓获的低级重大疏漏！
+
+2. **随案派发空白母表为唯一真理 (Case-Specific Blank Template as Single Source of Truth)**:
+   - 必须严格从主管 Robin Seymour 随案派发的原始邮件附件中提取对应的空白表单（通常命名为 `CORP-FORM-22 Out-of-Specification (OOS) Re-Test Form (v9.1) (N).pdf`），或由用户从 ZenQMS 当期下载提供。
+   - 转录前必须先使用代码读取 Page 1-5 页脚，精确提取其真实的打印日期（如 `13-Oct-2026`）。
+
+3. **交付文件名前缀日期与页脚时间戳 100% 呼应 (Deliverable Naming Date Invariant)**:
+   - 最终交付的 Phase II 主报告文件名：`CORP-FORM-22- <DD MMM YYYY> OOS-<ID> <Client> - Phase II.pdf`。
+   - 其中 `<DD MMM YYYY>` 必须与底表页脚中的 ZenQMS 打印日期 **100% 绝对一致**（如 `CORP-FORM-22- 13 Oct 2026 ...` 对应页脚 `on 13-Oct-2026`），并与 Phase I（`CORP-FORM-21- 13 Oct 2026 ...`）母表下载日期形成严密完美的历史闭环！
+
+4. **单页附表跨阶段共用 (Unified Standalone 1-Page Word Table)**:
+   - Standalone Word 附表（`Tables OOS-<ID> ... - USP71.docx`）严格保持 1 页排版，Table 1 完整呈现 Initial Test 与 Retest 双送检号（超链接）、状态与培养结果，完美供 Phase I 与 Phase II 共用，杜绝生成冗余的碎片化表格。
