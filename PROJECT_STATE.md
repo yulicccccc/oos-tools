@@ -452,3 +452,15 @@ Key active files:
   5. **Permanent Codification**:
      - Codified **Rule 84 / RULE 0AB** (BUD Stability Retest Interpretation & Client Disposition) in `PRD.md` and `.agents/AGENTS.md`.
      - Codified **Rule 85 / RULE 0AC** (Phase II Official Blank Template & ZenQMS Timestamp Single-Truth) in `PRD.md` and `.agents/AGENTS.md`.
+
+- **v12.3.8 Release: Automated Outlook Email OOS Ingestion Engine & Historical Benchmark Mining (04Nov26)**:
+  1. **Direct Outlook COM Auto-Ingestion (`tools/fetch_oos_from_outlook.py`)**:
+     - Built and verified automated tool to query Outlook inbox directly for any OOS assignment thread.
+     - Automatically extracts authentic case-specific `CORP-FORM-21` and `CORP-FORM-22` blank templates attached by supervisor Robin Seymour, parses ZenQMS footer timestamps, and downloads all raw lab data packets.
+     - Eliminates user manual template downloads and guarantees 100% template-to-case synchronization.
+  2. **Historical Benchmark Knowledge Mining (`references/historical_oos_benchmarks/`)**:
+     - Auto-mined and indexed 32 signed/approved historical benchmarks across USP <71>, ScanRDI, and Celsis.
+     - Extracted golden standard phrasing patterns:
+       - Page 1 Initiator format: `[Processing Analyst Full Name] (Written by: Qiyue Chen)`.
+       - BUD Stability companion sample defense (negative results from same-session companion samples scientifically prove non-uniform bioburden).
+       - Enclosed ISO 7 cleanroom & physical barrier defense for cleanroom environmental recoveries.
