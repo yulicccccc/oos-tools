@@ -464,3 +464,12 @@ Key active files:
        - Page 1 Initiator format: `[Processing Analyst Full Name] (Written by: Qiyue Chen)`.
        - BUD Stability companion sample defense (negative results from same-session companion samples scientifically prove non-uniform bioburden).
        - Enclosed ISO 7 cleanroom & physical barrier defense for cleanroom environmental recoveries.
+
+- **v12.3.9 Release: Subculture Day Count Precision Correction across Phase I & Phase II (04Nov26)**:
+  1. **Subculture Day Count Harmonization**:
+     - User identified arithmetic discrepancy: Inconclusive read occurred on Day 14 (08Oct26) and positive read occurred on Day 18 (12Oct26). Subculture incubation duration is strictly 4 days (18 - 14 = 4), not Day 5.
+     - Corrected narrative across Phase I (`CORP-FORM-21` Page 4 `Text Field50`) and Phase II (`CORP-FORM-22` Page 3 `Text Field23`) to:
+       `"On 12Oct26 (Day 18 of the original bottles and Day 4 of the subculture aliquots)..."`
+  2. **Deliverables Re-Transcribed & Verified**:
+     - `CORP-FORM-21- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`: Updated in Documents and Desktop.
+     - `CORP-FORM-22- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - Phase II.pdf`: Updated in Documents and staged on Desktop.
