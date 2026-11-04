@@ -473,3 +473,11 @@ Key active files:
   2. **Deliverables Re-Transcribed & Verified**:
      - `CORP-FORM-21- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - USP71.pdf`: Updated in Documents and Desktop.
      - `CORP-FORM-22- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - Phase II.pdf`: Updated in Documents and staged on Desktop.
+
+- **v12.3.10 Release: Full Section E GDP Sign-off Harmonization on Phase II (04Nov26)**:
+  1. **Section E GDP Compliance**:
+     - User identified that in Section E (Corrective and Preventive Action), all N/A fields must be accompanied by investigator initials and date (`N/A QYC <DDMMMYY>`).
+     - Harmonized `Corrective Action(s)` (`Text Field27`) and `Preventive Action(s)` (`Text Field28`) from plain `N/A` to `N/A QYC 04Nov26`.
+     - Verified that all 4 fields in Section E (`Text Field26`, `Text Field27`, `Text Field28`, `Text Field29`) strictly carry `N/A QYC 04Nov26`.
+  2. **Deliverables Synchronized**:
+     - `CORP-FORM-22- 13 Oct 2026 OOS-262329 GoGoMeds Select (E10747) - Phase II.pdf` updated in Documents and Desktop.

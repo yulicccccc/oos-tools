@@ -127,8 +127,8 @@ def run_transcription():
         # Page 5
         'Text Field25': root_cause_p5,
         'Text Field26': "N/A QYC 04Nov26",
-        'Text Field27': "N/A",
-        'Text Field28': "N/A",
+        'Text Field27': "N/A QYC 04Nov26",
+        'Text Field28': "N/A QYC 04Nov26",
         'Text Field29': "N/A QYC 04Nov26",
         'Date Field3': "04-Nov-2026",
     }
