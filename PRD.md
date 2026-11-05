@@ -3723,3 +3723,34 @@ Whenever a sterility sample involves Day 14 formulation turbidity, inconclusive 
 11. **主管审核闭环流转流程 (Supervisor Review & Signature Route)**:
     - 主管 Robin Seymour 审阅并在原件上批注修改后，文件命名为 `OOS-... - Phase I - Reviewed - QYC.pdf`。
     - 调查员（Qiyue Chen）复核无误后，只需在 `Signature_0` (Prepared by) 处完成证书数字签名，即可直接回复邮件流转给 Robin 与 QA 签署终审！
+
+---
+
+### Rule 87 / RULE 0AE: Standalone Investigation Tables Active Air Multi-Recovery Single-Row Layout Invariant (环境监测附表多点位检出单行无分层金标准)
+
+**CRITICAL**: In all standalone investigation tables (Table 2 and Table 3 across ScanRDI, Celsis, USP <71>, and EM):
+1. **单行无分层金标准 (Single-Row Layout Invariant - 严禁行内画线切分)**:
+   - 当周洁净室浮游菌（Weekly Active Air Sampling）出现多点位/多房间检出（例如：CR143 Sec I 检出 21 CFUs、CR143 Sec II 检出 17 CFUs、CR142 检出 16 CFUs）时，**必须且只能占据表格的单独一行（ONE SINGLE ROW）**！
+   - 🚨 **严禁分层（No Horizontal Sub-Dividing Lines）**：严禁将该行拆分成多行并在前几列跨行合并（Merge Cells），这会在检出列产生横向子边框（如红圈所示的内部水平分割线），破坏表格黄金排版。
+2. **单元格内多段落垂直对齐规范 (Multi-Paragraph Rhythm within Cell)**:
+   - 在 Col 5 (Observation)、Col 6 (EM Plate ETX Number)、Col 7 (Microbial ID) 中，各项数据必须通过单元格内的空段落（Paragraph Break with 0pt spacing before/after）进行自然隔开与垂直呼应：
+     - **Col 5 (Observation)**:
+       - 段落 1: 21 CFUs\n(ISO 8 143 Sec I)
+       - 段落 2: 空段落
+       - 段落 3: 17 CFUs\n(ISO 8 143 Sec II)
+       - 段落 4: 空段落
+       - 段落 5: 16 CFUs\n(ISO 8 142)
+     - **Col 6 (EM Plate ETX Number)**:
+       - 段落 1: 超链接 ETX-261027-0487
+       - 段落 2: 空段落
+       - 段落 3: 超链接 ETX-261027-0492
+       - 段落 4: 空段落
+       - 段落 5: 超链接 ETX-261027-0494
+     - **Col 7 (Microbial ID)**:
+       - 段落 1: Pending（或具体纯菌名）
+       - 段落 2: 空段落
+       - 段落 3: Pending（或具体纯菌名）
+       - 段落 4: 空段落
+       - 段落 5: Pending（或具体纯菌名）
+3. **字号与超链接一致性**:
+   - 表格所有单元格及超链接文本严格统一为 7.0pt Times New Roman，行距 1.0，严格保证 1 页排版空间。

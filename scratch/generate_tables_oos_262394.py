@@ -139,7 +139,7 @@ def build_standalone_tables_doc():
         "Confirmed Microbial\nEvents",
         "Morphology Description"
     ]
-    t1_widths = [Inches(1.25), Inches(1.25), Inches(1.1), Inches(0.7), Inches(1.2), Inches(2.0)]
+    t1_widths = [Inches(1.25), Inches(1.25), Inches(1.10), Inches(0.70), Inches(1.20), Inches(2.00)]
 
     for j, h in enumerate(t1_headers):
         format_cell(t1.cell(0, j), h, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -184,13 +184,13 @@ def build_standalone_tables_doc():
 
     t2_widths = [
         Inches(1.05), # Sampling site
-        Inches(0.55), # Frequency
-        Inches(0.60), # Date (DDMMMYY)
-        Inches(0.50), # Analyst
-        Inches(0.95), # Day / Week(s)
-        Inches(0.95), # Observation
-        Inches(0.90), # EM Plate ETX Number
-        Inches(1.40), # Microbial ID
+        Inches(0.65), # Frequency
+        Inches(0.70), # Date (DDMMMYY)
+        Inches(0.55), # Analyst
+        Inches(1.15), # Day / Week(s)
+        Inches(1.15), # Observation
+        Inches(0.85), # EM Plate ETX Number
+        Inches(0.80), # Microbial ID
         Inches(0.60)  # Notes
     ]
 
@@ -255,59 +255,135 @@ def build_standalone_tables_doc():
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air L-Suite ---
+    # STRICT GOLDEN STANDARD: SINGLE ROW (无分层 / no horizontal sub-row dividing borders)
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs")
 
-    # 3 active air recovery rows
-    r_air1 = t2.add_row()
-    r_air2 = t2.add_row()
-    r_air3 = t2.add_row()
+    r_air = t2.add_row()
+    format_cell(r_air.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
+    format_cell(r_air.cells[1], "Weekly", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(r_air.cells[2], AIR_DATE, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(r_air.cells[3], AIR_ANALYST, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    format_cell(r_air.cells[4], "Week of Testing", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
-    for col_idx in [0, 1, 2, 3, 4, 8]:
-        r_air1.cells[col_idx].merge(r_air2.cells[col_idx])
-        r_air1.cells[col_idx].merge(r_air3.cells[col_idx])
+    # Col 5: Observations (3 recoveries separated by blank paragraphs)
+    c5 = r_air.cells[5]
+    c5.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c5)
+    p_o1 = c5.paragraphs[0]
+    p_o1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o1.paragraph_format.space_before = Pt(0)
+    p_o1.paragraph_format.space_after = Pt(0)
+    p_o1.paragraph_format.line_spacing = 1.0
+    r_o1 = p_o1.add_run("21 CFUs\n(ISO 8 143 Sec I)")
+    r_o1.font.name = "Times New Roman"
+    r_o1.font.size = Pt(7)
 
-    format_cell(r_air1.cells[0], "Active Air Sampling\nof Cleanrooms", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.LEFT)
-    format_cell(r_air1.cells[1], "Weekly", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(r_air1.cells[2], AIR_DATE, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(r_air1.cells[3], AIR_ANALYST, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(r_air1.cells[4], "Week of Testing", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    format_cell(r_air1.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    p_osep1 = c5.add_paragraph()
+    p_osep1.paragraph_format.space_before = Pt(0)
+    p_osep1.paragraph_format.space_after = Pt(0)
+    p_osep1.paragraph_format.line_spacing = 1.0
 
-    # Row 1: 143 Sec I (21 CFUs)
-    format_cell(r_air1.cells[5], "21 CFUs\n(ISO 8 143 Sec I)", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    c_e1 = r_air1.cells[6]
-    c_e1.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-    set_cell_margins(c_e1)
-    p_e1 = c_e1.paragraphs[0]
-    p_e1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_e1.paragraph_format.space_before = Pt(0)
-    p_e1.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e1, URL_143_I, ETX_143_I, font_size=Pt(7))
-    format_cell(r_air1.cells[7], "Pending", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    p_o2 = c5.add_paragraph()
+    p_o2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o2.paragraph_format.space_before = Pt(0)
+    p_o2.paragraph_format.space_after = Pt(0)
+    p_o2.paragraph_format.line_spacing = 1.0
+    r_o2 = p_o2.add_run("17 CFUs\n(ISO 8 143 Sec II)")
+    r_o2.font.name = "Times New Roman"
+    r_o2.font.size = Pt(7)
 
-    # Row 2: 143 Sec II (17 CFUs)
-    format_cell(r_air2.cells[5], "17 CFUs\n(ISO 8 143 Sec II)", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    c_e2 = r_air2.cells[6]
-    c_e2.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-    set_cell_margins(c_e2)
-    p_e2 = c_e2.paragraphs[0]
-    p_e2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_e2.paragraph_format.space_before = Pt(0)
-    p_e2.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e2, URL_143_II, ETX_143_II, font_size=Pt(7))
-    format_cell(r_air2.cells[7], "Pending", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    p_osep2 = c5.add_paragraph()
+    p_osep2.paragraph_format.space_before = Pt(0)
+    p_osep2.paragraph_format.space_after = Pt(0)
+    p_osep2.paragraph_format.line_spacing = 1.0
 
-    # Row 3: 142 (16 CFUs)
-    format_cell(r_air3.cells[5], "16 CFUs\n(ISO 8 142)", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
-    c_e3 = r_air3.cells[6]
-    c_e3.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-    set_cell_margins(c_e3)
-    p_e3 = c_e3.paragraphs[0]
-    p_e3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_e3.paragraph_format.space_before = Pt(0)
-    p_e3.paragraph_format.space_after = Pt(0)
-    add_hyperlink(p_e3, URL_142, ETX_142, font_size=Pt(7))
-    format_cell(r_air3.cells[7], "Pending", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+    p_o3 = c5.add_paragraph()
+    p_o3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_o3.paragraph_format.space_before = Pt(0)
+    p_o3.paragraph_format.space_after = Pt(0)
+    p_o3.paragraph_format.line_spacing = 1.0
+    r_o3 = p_o3.add_run("16 CFUs\n(ISO 8 142)")
+    r_o3.font.name = "Times New Roman"
+    r_o3.font.size = Pt(7)
+
+    # Col 6: EM Plate ETX Number with Hyperlinks (3 hyperlinks separated by blank paragraphs)
+    c6 = r_air.cells[6]
+    c6.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c6)
+    p_h1 = c6.paragraphs[0]
+    p_h1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_h1.paragraph_format.space_before = Pt(0)
+    p_h1.paragraph_format.space_after = Pt(0)
+    p_h1.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_h1, URL_143_I, ETX_143_I, font_size=Pt(7))
+
+    p_hsep1 = c6.add_paragraph()
+    p_hsep1.paragraph_format.space_before = Pt(0)
+    p_hsep1.paragraph_format.space_after = Pt(0)
+    p_hsep1.paragraph_format.line_spacing = 1.0
+
+    p_h2 = c6.add_paragraph()
+    p_h2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_h2.paragraph_format.space_before = Pt(0)
+    p_h2.paragraph_format.space_after = Pt(0)
+    p_h2.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_h2, URL_143_II, ETX_143_II, font_size=Pt(7))
+
+    p_hsep2 = c6.add_paragraph()
+    p_hsep2.paragraph_format.space_before = Pt(0)
+    p_hsep2.paragraph_format.space_after = Pt(0)
+    p_hsep2.paragraph_format.line_spacing = 1.0
+
+    p_h3 = c6.add_paragraph()
+    p_h3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_h3.paragraph_format.space_before = Pt(0)
+    p_h3.paragraph_format.space_after = Pt(0)
+    p_h3.paragraph_format.line_spacing = 1.0
+    add_hyperlink(p_h3, URL_142, ETX_142, font_size=Pt(7))
+
+    # Col 7: Microbial ID (3 "Pending" separated by blank paragraphs)
+    c7 = r_air.cells[7]
+    c7.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    set_cell_margins(c7)
+    p_m1 = c7.paragraphs[0]
+    p_m1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_m1.paragraph_format.space_before = Pt(0)
+    p_m1.paragraph_format.space_after = Pt(0)
+    p_m1.paragraph_format.line_spacing = 1.0
+    r_m1 = p_m1.add_run("Pending")
+    r_m1.font.name = "Times New Roman"
+    r_m1.font.size = Pt(7)
+
+    p_msep1 = c7.add_paragraph()
+    p_msep1.paragraph_format.space_before = Pt(0)
+    p_msep1.paragraph_format.space_after = Pt(0)
+    p_msep1.paragraph_format.line_spacing = 1.0
+
+    p_m2 = c7.add_paragraph()
+    p_m2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_m2.paragraph_format.space_before = Pt(0)
+    p_m2.paragraph_format.space_after = Pt(0)
+    p_m2.paragraph_format.line_spacing = 1.0
+    r_m2 = p_m2.add_run("Pending")
+    r_m2.font.name = "Times New Roman"
+    r_m2.font.size = Pt(7)
+
+    p_msep2 = c7.add_paragraph()
+    p_msep2.paragraph_format.space_before = Pt(0)
+    p_msep2.paragraph_format.space_after = Pt(0)
+    p_msep2.paragraph_format.line_spacing = 1.0
+
+    p_m3 = c7.add_paragraph()
+    p_m3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_m3.paragraph_format.space_before = Pt(0)
+    p_m3.paragraph_format.space_after = Pt(0)
+    p_m3.paragraph_format.line_spacing = 1.0
+    r_m3 = p_m3.add_run("Pending")
+    r_m3.font.name = "Times New Roman"
+    r_m3.font.size = Pt(7)
+
+    # Col 8: Notes
+    format_cell(r_air.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
     # --- Section 4: Weekly Surface Sampling L-Suite ---
     add_section_divider(t2, "Weekly Surface Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs")

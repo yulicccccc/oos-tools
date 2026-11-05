@@ -1,8 +1,31 @@
 # Project State: OOS Tools
 
-## Version: v12.4.0 (Previous: v12.3.12)
+## Version: v12.4.1 (Previous: v12.4.0)
 
-## Current Phase: OOS-262333 Finalized with Approved Nanopore Microbial ID Results (ETX-261021-0578) Complete
+## Current Phase: OOS-262394 Standalone Investigation Tables Completed (Single-Row Active Air Layout)
+
+### What Was Completed
+- **Scan RDI OOS-262394 Standalone Tables Generation & Single-Row Layout Invariant (Rule 87 / RULE 0AE)**:
+  1. **User Requirement & Golden Layout Enforcement**:
+     - User provided incident notification email for Optio RX (E18631), Sample ETX-261017-0071 (Niacinamide/Tirzepatide 2mg/17.65mg/mL Inj., Lot 3001002, tested on 20Oct26 by Halaina Smith / HS).
+     - User feedback on initial table draft: '不过table里面不用分层，你是不是没看最新的github/PRD' (media_1793915199638_71fbae5d.png).
+     - Strictly enforced the golden layout from Tables OOS-262237 GoGoMeds Select (E10747) - ScanRDI.docx (Row 12): in Table 2 Active Air sampling, all multiple recoveries (143 Sec I, 143 Sec II, 142) are housed within **ONE SINGLE TABLE ROW (无分层 / no horizontal sub-row dividing borders)**.
+     - Recoveries, hyperlinks (ETX-261027-0487, ETX-261027-0492, ETX-261027-0494), and 'Pending' statuses are vertically separated by standard blank paragraph breaks within columns 5, 6, and 7.
+  2. **Table 1 & Table 2 Verified Data**:
+     - Table 1: HS (Processing), MN (Reading), ETX-261017-0071 (hyperlink), Events: 11, Confirmed Microbial Events: 1, Morphology: *Rod shaped morphology* (bold italic, 7.0pt).
+     - Table 2:
+       - Personnel EM: HS (Scan) & KSM (Scan C/O) both No Growth.
+       - BSC EM: BSC E001938 & BSC E001937 both No Growth.
+       - Weekly Active Air (L-Suite, 20Oct26, SMO): 21 CFUs (143 Sec I), 17 CFUs (143 Sec II), 16 CFUs (142), each linked to EagleTrax and marked 'Pending'. Single row, no sub-layering.
+       - Weekly Surface Sampling (L-Suite, 20Oct26, SMO): No Growth.
+  3. **Strict 1-Page Deliverables Generated & Synchronized**:
+     - Tables OOS-262394 Optio RX (E18631) - ScanRDI.docx
+     - Tables OOS-262394 Optio RX (E18631) - ScanRDI.pdf (Strictly 1 page verified via PyMuPDF).
+     - Synced to Desktop (C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop\) and repository root (Documents\OOS\).
+  4. **Codified Rule 87 / RULE 0AE**:
+     - Formally established the Single-Row Layout Invariant for multiple active air recoveries in PRD.md and .agents/AGENTS.md.
+
+## Previous Phase: OOS-262333 Finalized with Approved Nanopore Microbial ID Results (ETX-261021-0578) Complete
 
 ### What Was Completed
 - **Supervisor Robin Seymour (RS) OOS-262329 Comprehensive Forensic Comparison & Error Elimination**:
