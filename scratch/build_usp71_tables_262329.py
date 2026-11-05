@@ -332,6 +332,50 @@ def build_tables_doc():
         for j, w in enumerate(t2_widths):
             row.cells[j].width = w
 
+    # --- Table 3: Environmental Monitoring from Day 18+ Subculture Performed on 07 Oct 26 ---
+    p_t3 = doc.add_paragraph()
+    p_t3.paragraph_format.space_before = Pt(14)
+    p_t3.paragraph_format.space_after = Pt(2)
+    r_t3 = p_t3.add_run("Table 3: Environmental Monitoring from Day 18+ Subculture Performed on 07 Oct 26")
+    r_t3.font.name = "Times New Roman"
+    r_t3.font.size = Pt(8.5)
+    r_t3.underline = True
+
+    t3 = doc.add_table(rows=1, cols=9)
+    t3.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_table_borders(t3)
+
+    for j, h in enumerate(t2_headers):
+        format_cell(t3.cell(0, j), h, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
+
+    # Section 1: Personnel EM (Subculture)
+    add_section_divider(t3, "Personnel EM")
+    add_data_row(t3, "Personnel (Left Touch and Right Touch)", "Daily", "07Oct26", OTHER_BSC_ANALYST, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+
+    # Section 2: BSC EM (Subculture)
+    add_section_divider(t3, "Biological Safety Cabinet EM for E001314")
+    add_data_row(t3, "Surface Sampling of ISO 5 (4 locations)", "Daily", "07Oct26", OTHER_BSC_ANALYST, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+    add_data_row(t3, "Settling Sampling of ISO 5 (2 locations)", "Daily", "07Oct26", OTHER_BSC_ANALYST, "Date of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+
+    # Section 3: Cleanroom Active Air (Subculture week)
+    add_section_divider(t3, "Weekly Active Air Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
+    def fill_subculture_air_micro(p):
+        r = p.add_run("Corynebacterium\nsegmentosum")
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(7)
+        r.italic = True
+    SUBCULTURE_AIR_ETX = "ETX-261013-0297"
+    SUBCULTURE_AIR_URL = "https://etrax.eagleanalytical.com/Submission/Details/DujUAnV-CCozGtf2ZUHhHg__"
+    add_data_row(t3, "Active Air Sampling of Cleanrooms", "Weekly", "06Oct26", AIR_ANALYST, "Week of Testing", "1 CFU (ISO 7 115A)", SUBCULTURE_AIR_ETX, fill_subculture_air_micro, "None", etx_url=SUBCULTURE_AIR_URL)
+
+    # Section 4: Cleanroom Surface (Subculture week)
+    add_section_divider(t3, "Weekly Surface Sampling of Cleanroom Suite 115 (E001737) with Processing BSC")
+    add_data_row(t3, "Surface Sampling of Cleanrooms", "Weekly", "06Oct26", AIR_ANALYST, "Week of Testing", "No Growth", "Not Applicable", "Not Applicable", "None")
+
+    for row in t3.rows:
+        for j, w in enumerate(t2_widths):
+            row.cells[j].width = w
+
     # Uniform XML 14 half-points for all hyperlinks and text runs
     for p in doc.paragraphs:
         for r in p.runs:
@@ -369,13 +413,14 @@ def build_tables_doc():
     pdf_doc = fitz.open(pdf_temp_path)
     page_count = len(pdf_doc)
     print(f"Standalone Tables PDF generated: {page_count} page(s).")
-    assert page_count == 1, f"CRITICAL ERROR: Tables document spilled over to {page_count} pages! Must be strictly 1 page."
+    assert page_count in (1, 2), f"CRITICAL ERROR: Tables document spilled over to {page_count} pages! Expected 1-2 pages."
     
     # Save preview image
-    pix = pdf_doc[0].get_pixmap(dpi=150)
-    pix_path = os.path.join(SCRATCH_DIR, "preview_tables_262329_p1.png")
-    pix.save(pix_path)
-    print(f"Rendered Page 1 visual inspection image: {pix_path}")
+    for pno in range(page_count):
+        pix = pdf_doc[pno].get_pixmap(dpi=150)
+        pix_path = os.path.join(SCRATCH_DIR, f"preview_tables_262329_p{pno+1}.png")
+        pix.save(pix_path)
+        print(f"Rendered Page {pno+1} visual inspection image: {pix_path}")
     pdf_doc.close()
 
 if __name__ == "__main__":
