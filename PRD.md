@@ -14,6 +14,7 @@
 > - **GDP 2-Digit Year N/A Sign-Off (`Rule 62`)**: Strictly `N/A QYC DDMMMYY` (e.g., `N/A QYC 21Oct26`).
 > - **Microbial ID Table Purity (`Rule 61.3` / `RULE 0P`)**: In Table 2/3 `Microbial ID`, list ONLY pure species/morphology names with empty line separation. Strictly NEVER write CFU counts (e.g. no `(3 CFUs)`) and NEVER write `(Pending Microbial ID)` or pending tags in the table.
 > - **QA Celsis Investigation Golden Standards (`Rule 82` / `RULE 0AA`)**: In Table 3 (Aliquoting), bracketing labels must strictly be "Date Before Aliquoting", "Date of Aliquoting", "Date After Aliquoting". In Page 2 equipment fields, primary engineering controls (ISO 5 BSCs) must be listed alongside incubators. Reagents must 100% match raw workload packets. Select only "Yes" on Page 5 EM standard compliance without ambiguous "N/A".
+> - **Celsis 9-Page Master PDF & 3-Page Standalone Tables Architecture (`Rule 88` / `RULE 0AF`)**: Master PDF MUST strictly be 9 pages (P1-6 Form, P7 Table 1, P8 Table 2, P9 Table 3). Standalone Word tables MUST strictly be 3 pages (P1 Table 1, P2 Table 2, P3 Table 3). Table 1 columns: Reading Analyst, Day of Incubation, Sample ID, Related Microbial ID, Media with growth, Microbial ID. Page 1 Date Field0 is Tested/Inoculation date (05-Oct-2026), NEVER read date. SOP fields: MICRO-SOP-44, 03-Jan-2025, 01. Equipment must include primary Celsis incubators E001356 and E001357. Table 3 bracketing labels strictly Date Before Aliquoting, Date of Aliquoting, Date After Aliquoting. In Table 3 Row 14, confirmed species names take precedence, separated by empty lines, without CFU counts and without (Pending Microbial ID) tags, italicized. Checkbox 84 strictly Off.
 
 
 
@@ -3754,3 +3755,72 @@ Whenever a sterility sample involves Day 14 formulation turbidity, inconclusive 
        - 段落 5: Pending（或具体纯菌名）
 3. **字号与超链接一致性**:
    - 表格所有单元格及超链接文本严格统一为 7.0pt Times New Roman，行距 1.0，严格保证 1 页排版空间。
+
+---
+
+### Rule 88 / RULE 0AF: Celsis Investigation QA Ground-Truth Architecture & Master Form Standardization (Celsis 无菌 OOS 质保法定基准架构、9页主表与3页独立表格绝对法则 - 基于 OOS-262316 与 OOS-262403 终极锁定)
+
+**CRITICAL**: Based on thorough forensic comparison against recent QA-approved Celsis sterility investigations (`OOS-262316` Mills Pharmacy, `OOS-262403` PGRrx LLC, and `OOS-262080` Optimal Balance Pharmacy) reviewed and signed by Quality Assurance (Tahsin Kevenk) and Microbiology Supervisor Robin Seymour (RS):
+All future Celsis Sterility OOS investigation deliverables MUST strictly adhere to the following 10 golden rules to achieve 100% QA pass rate without revisions:
+
+1. **Master PDF Strictly 9 Pages & Standalone Word Tables Strictly 3 Pages (9页主表与3页独立表格绝对法则)**:
+   - **Master PDF**: Strictly **9 pages** in total!
+     - Pages 1–6: AcroForm investigation form (`CORP-FORM-21 v11.1`).
+     - Page 7: **Table 1** (standalone page, centered, generous vertical spacing).
+     - Page 8: **Table 2** (Processing EM, standalone page).
+     - Page 9: **Table 3** (Aliquoting EM, standalone page).
+   - **Standalone Word Table Document (`Tables OOS-... .docx`)**: Strictly **3 pages**!
+     - Page 1: Table 1 (with page break).
+     - Page 2: Table 2 (with page break).
+     - Page 3: Table 3.
+   - 🚨 **严禁将 Table 1 与 Table 2 挤压至同一页，严禁生成 8 页的 Celsis PDF！**
+
+2. **Table 1 Header & Column Invariants (Table 1 法定列名与表头规范)**:
+   - **Title**: `Table 1: Reading analyst, Days of incubation, and Microbial ID for Sample under Investigation`
+   - **Columns (6)**: `Reading Analyst` | `Day of Incubation` | `Sample ID` | `Related Microbial ID` | `Media with growth` | `Microbial ID`.
+   - 🚨 **严禁使用 Processing Analyst 或 Aliquoting Analyst 作为 Table 1 前两列！**
+
+3. **Page 1 Dates Standardization (Page 1 四大日期精确区分铁律)**:
+   - **`Date Field0` (Tested Date)**: MUST strictly be the **Date Tested / Inoculated** (e.g. `05-Oct-2026`), NEVER the reading date!
+   - **`Date Field1` (Read Date)**: Date positive result was discovered (e.g. `12-Oct-2026`).
+   - **`Date Field2` (OOS Initiated Date)**: Date OOS was formally initiated (e.g. `12-Oct-2026`).
+   - **`Date Field3` (Manager Notified Date)**: Date laboratory manager was notified (e.g. `12-Oct-2026`).
+
+4. **Page 1 SOP Fields Standardization (Page 1 SOP 唯一引用规范)**:
+   - `Text Field8`: strictly **`MICRO-SOP-44`** (never append multiple SOP numbers or revisions).
+   - `Text Field9`: strictly **`03-Jan-2025`**.
+   - `Text Field10`: strictly **`01`**.
+
+5. **Page 2 Equipment Fields Mandatory Primary Incubators (培养箱与安全柜双重台账铁律)**:
+   - `Text Field43` MUST list the primary Celsis incubators:
+     - `Incubator E001356 (Monitored by Sensor E001450)`
+     - `Incubator E001357 (Monitored by Sensor E001449)`
+     alongside backup incubators `Incubator E001034 (Monitored by Sensor E001501)`, `Incubator E001031 (Monitored by Sensor E001505)`, and primary ISO 5 BSCs (`ISO 5 BSC E001316`, `ISO 5 BSC E001798`).
+   - `Text Field44` (Cal Due Dates) must include `Jan 2027
+Feb 2027` for both primary Celsis incubators.
+
+6. **Page 2 Reagents & Materials Formatting (试剂耗材分段换行清晰排版)**:
+   - `Text Field22` and `Text Field23` must use explicit `
+` newlines and clean section headers (`Materials and Reagents`, `Celsis Reagents and Kits`, `Monthly Cleaning`).
+   - `Text Field24`: `Celsis ATP Positive Control
+`.
+   - `Text Field25`: Lot number (e.g. `1220511483`).
+   - `Text Field26`: Exp date (e.g. `Jan 2027`).
+
+7. **Page 3 Checkbox 84 Prohibition (严禁勾选非无菌重稀释检查框)**:
+   - `Check Box84` (Other standard re-dilution / re-vialing) MUST be **`Off`**!
+   - Page 3 active checkboxes are strictly `Check Box78: Yes` and `Check Box79: Yes`.
+
+8. **Table 3 Aliquoting Bracketing Labels (分装环境监测分级标签铁律)**:
+   - All bracketing rows in Table 3 (Personnel EM, Surface EM, Settling EM) MUST specifically use **`Date Before Aliquoting`**, **`Date of Aliquoting`**, and **`Date After Aliquoting`**.
+   - 🚨 **严禁在 Table 3 中使用 Date Before Testing / Date of Testing / Date After Testing！** (质保在 OOS-262316 中对 Robin Seymour 提出明确整改要求)。
+
+9. **Active Air Environmental Recoveries & Microbial ID Precedence (确证物种优先与纯净排版铁律)**:
+   - 在 Table 3 Row 14 中，当微生物确证（Microbial Identification）测序出具结果后，确证的菌种学名优先于初步革兰氏形态。
+   - 物种学名必须采用全斜体（*Italics*），多物种之间必须以独立空行隔开。
+   - 单元格内只纯粹列出菌名，🚨 **严禁附带 CFU 数量**，🚨 **严禁附带 `(Pending Microbial ID)`** 标签！
+
+10. **Page 5 EM Assessment Phrasing & Physical Barrier Segregation (Page 5 质保合规叙述规范)**:
+    - 严禁使用 "absence of detectable environmental contamination" 等宽泛措辞；必须精准表述为：
+      `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
+    - 针对 ISO 8 外部更衣间（Anteroom 114）的浮游菌检出，必须明确说明样品操作全程处于 ISO 5 BSC 内部，外向递减正压梯度级联与物理隔离门有效阻止了微生物向内迁移，样品在密闭消毒周转盒中流转，且检出菌株与产品污染菌在属级、形态上完全不同，不存在向关键区域转移的污染路径。
