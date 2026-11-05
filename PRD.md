@@ -3653,3 +3653,40 @@ This project contains automated reporting tools for Eagle Analytical's Out-of-Sp
 
 4. **单页附表跨阶段共用 (Unified Standalone 1-Page Word Table)**:
    - Standalone Word 附表（`Tables OOS-<ID> ... - USP71.docx`）严格保持 1 页排版，Table 1 完整呈现 Initial Test 与 Retest 双送检号（超链接）、状态与培养结果，完美供 Phase I 与 Phase II 共用，杜绝生成冗余的碎片化表格。
+
+
+---
+
+### Rule 86 / RULE 0AD: Day 18+ Subculture Environmental Monitoring (Table 3) & Complete Traceability Standard (次培养 Day 18+ 专属环境监测附表与双重无菌测试全流程防守铁律 - 🚨 主管 Robin Seymour 权威审阅版)
+
+**CRITICAL**: Based on Microbiology Lab Supervisor Robin Seymour (RS) formal review of `OOS-262329` (GoGoMeds Select, Sermorelin 0.9mg/ml, Lot 17009) on 05-Nov-2026 across all sterility investigators (@Dhvanir Kansara, @Olugbenga Ajayi, @Qiyue Chen):
+Whenever a sterility sample involves Day 14 formulation turbidity, inconclusive reading, and subsequent aseptic subculture into fresh media (Day 18+ subculture), all future OOS reports MUST strictly adhere to the following 7 golden rules:
+
+1. **次培养必须附带 Table 3 专属环境监测表 (Mandatory Table 3 for Subculture Event)**:
+   - 尽管初测培养瓶与次培养瓶中检出的是同一种微生物（如 *Bacillus megaterium*），但在处理稳定性（BUD）样品时，次培养是由次培养分析员（如 Ayomide Odugbesi / AOD）在另一天（如 07Oct26）开展的独立无菌操作。
+   - 必须在报告中新增 **Table 3**（`Table 3: Environmental Monitoring from Day 18+ Subculture Performed on [DDMMMYY]`），涵盖：
+     - **Personnel EM**: 次培养分析员当天的左右手指触监测（Date of Testing，No Growth）。
+     - **BSC EM**: 次培养所用 BSC（如 ISO 5 BSC E001314）当日表面与沉降碟监测（Date of Testing，No Growth）。
+     - **Weekly Active Air & Surface Sampling**: 次培养当周该洁净套间（CR115）的浮游菌与表面监测。
+
+2. **洁净室浮游菌检出透明披露与物理隔离技术防守 (Subculture EM Recovery & Physical Segregation Rationale)**:
+   - 若次培养当周洁净室浮游菌有检出（例如：06Oct26 Buffer Room 115A 检出 1 CFU *Corynebacterium segmentosum* under ETX-261013-0297）：
+     - 必须在 Table 3 中如实透明列出。
+     - 正文中必须严密防守：明确说明该分离菌（*Corynebacterium segmentosum*）与产品污染菌（*Bacillus megaterium*）属于完全不同的微生物，且 115A 仅为 Buffer Room，与最内侧的 115B 洁净室及 ISO 5 BSC 之间存在物理隔门与单向阶梯正压隔离，关键区台面与手套无任何生长，排除环境带入可能。
+
+3. **初检与复检阶段 Table 1 样品范围严格区隔 (Phase I vs Phase II Table 1 Scope Separation)**:
+   - **Phase I Table 1**: 仅收录初检受调查样品（`ETX-260624-0251 (BUD-T90)`），**严禁在 Phase I 提前混入 Phase II 复检样品**！
+   - **Phase II Table 1**: 完整统筹呈现初检与复检双样品（`ETX-260624-0251` Fail vs `ETX-261021-0445` Pass）。
+
+4. **设备溯源全量覆盖 (Comprehensive Primary & Secondary Equipment Traceability)**:
+   - Page 1 / Page 2 设备栏目不仅要列出初检培养箱（E001356, E001357 与传感器 E001450, E001449），还必须完整列出备份与关联培养箱（`Incubator E001034 (Sensor E001501)` 与 `Incubator E001031 (Sensor E001505)`），并显式在设备栏中注明初级工程控制设备 `ISO 5 BSC E001314`。
+
+5. **Day 14 初读日期严密对齐 (Timeline Synchronization)**:
+   - Sermorelin 等样品的 Day 14 混浊初读与次培养执行必须严格记录为同一日（`On 07Oct26 (Day 14 read)...`），杜绝 08Oct26 与 07Oct26 的前后矛盾。
+
+6. **调查结论强化与 BUD 客户诉求关联 (Expanded Investigation Conclusion)**:
+   - 强化结论段落，明确确认初测与次培养流程中均无实验室人为失误，并将 Phase II 复检合理性紧密锚定在客户针对 BUD-T90 稳定性研究的专项申请上。
+
+7. **主管审核闭环流转流程 (Supervisor Review & Signature Route)**:
+   - 主管 Robin Seymour 审阅并在原件上批注修改后，文件命名为 `OOS-... - Phase I - Reviewed - QYC.pdf`。
+   - 调查员（Qiyue Chen）复核无误后，只需在 `Signature_0` (Prepared by) 处完成证书数字签名，即可直接回复邮件流转给 Robin 与 QA 签署终审！
