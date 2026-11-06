@@ -1,7 +1,18 @@
 # Project-Scoped Rules for Eagle Analytical OOS Tools
 
+## 🚨🚨 RULE 00 (ZERO-PROMPT AUTO-PILOT GOLDEN TEMPLATE REGISTRY — PINNED AT VERY TOP)
+> **ZERO-PROMPT INTELLIGENCE MANDATE**: The user should NEVER have to paste long instructions or manually supply template paths! Whenever the user drops new OOS materials/links or simply says *"帮我写这个OOS"* / *"按PRD写"*, you MUST **automatically**:
+> 1. Read the tail of `PRD.md` (`StartLine=3800` to `4050`) to load **`Rule 90`, `Rule 91`, and `Rule 92` (Universal 6-Step Golden Template 1:1 Cloning SOP)**.
+> 2. Identify the OOS module (`Celsis`, `ScanRDI`, `USP <71> Phase I`, `USP <71> Phase II`, or `EM`) and **automatically clone the corresponding Golden Template Pair in `templates/golden/`**:
+>    - **Celsis**: `templates/golden/Celsis_Golden_OOS-262080.pdf` + `templates/golden/Celsis_Golden_Tables_OOS-262080.docx` (Reference script: `scratch/rebuild_oos262333_perfect.py`)
+>    - **ScanRDI**: `templates/golden/ScanRDI_Golden_OOS-262289.pdf` + `templates/golden/ScanRDI_Golden_Tables_OOS-262289.docx`
+>    - **USP <71> Phase I**: `templates/golden/USP71_PhaseI_Golden_OOS-262329.pdf` + `templates/golden/USP71_PhaseI_Golden_Tables_OOS-262329.docx`
+>    - **USP <71> Phase II**: `templates/golden/USP71_PhaseII_Golden_OOS-262329.pdf` + `templates/golden/USP71_PhaseI_Golden_Tables_OOS-262329.docx`
+>    - **EM**: `templates/golden/EM_Golden_OOS-262133.pdf` + `templates/golden/EM_Golden_Tables_OOS-262133.docx`
+> 3. **Execute Strict 1:1 Substitution**: Clone the Golden `.docx` in-place (preserving 100% of native `Table Grid` / `w:tcBorders` solid borders, column widths, and `<w:br/><w:br/>` multi-species formatting—NEVER call `add_table()` from scratch!), match AcroForm checkboxes by `(page, rect)` coordinates, lock exact widget font sizes (`5.5pt`, `4.35pt`, `4.825pt`, `7.05pt`, `9.2pt`), and substitute ONLY case-specific slot variables into the Golden PDF's exact paragraphs with **ZERO self-invented sentences or repetitions**. Render all pages to PNG and visually verify before delivering!
+
 ## 📌 LATEST CRITICAL UPDATES (PINNED AT TOP — NEVER TRUNCATED)
-> **MANDATORY FOR ALL AGENTS**: Before generating or editing ANY OOS report or table, you MUST also read the full rules at the bottom of `.agents/AGENTS.md` (`StartLine=800` to `960`) and `PRD.md` (`StartLine=3000` to end). Key highlights locked from **Supervisor Robin Seymour (RS)** & Official Facility Layout (**Figure 6**):
+> **MANDATORY FOR ALL AGENTS**: Before generating or editing ANY OOS report or table, you MUST also read the full rules at the bottom of `.agents/AGENTS.md` (`StartLine=4300` to `4550`) and `PRD.md` (`StartLine=3800` to `4050`). Key highlights locked from **Supervisor Robin Seymour (RS)** & Official Facility Layout (**Figure 6**):
 > 1. **Supervisor Authority (`RULE 0X.0`)**: **Robin Seymour (RS)** is Qiyue Chen's direct supervisor (Microbiology Lab Supervisor). All RS review corrections and phrasing standards are absolute law.
 > 2. **ScanRDI Event Count (`RULE 0X.1`)**: Must come from the raw **Scan Data Packet** (e.g., `19 total events, 4 confirmed microbial events`), NEVER from analyst EagleTrax data entries. **If you cannot locate the raw Scan Data Packet, STOP and ask the user to verify it!**
 > 3. **Official L-Suite Floor Plan & Equipment Mapping (`RULE 0X.2` & `RULE 0Y` / Figure 6)**:
