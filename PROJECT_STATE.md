@@ -1,10 +1,15 @@
 # Project State: OOS Tools
 
-## Version: v12.4.3 (Previous: v12.4.2)
+## Version: v12.4.4 (Previous: v12.4.3)
 
 ## Current Phase: OOS-262333 Celsis Investigation QA Ground-Truth Architecture & Deliverables Finalized (Rule 88 / RULE 0AF)
 
 ### What Was Completed
+- **Standard TSB Culture Media Nomenclature Rule (v12.4.4 / Rule 89 / RULE 0AG)**:
+  - Standardized all references to TSB culture media strictly to **Tryptic Soy Broth (TSB)** (or TSB).
+  - Banned compendial aliases Soybean-Casein Digest Medium (TSB) and SCDM across all investigation forms, narratives, and tables to align 100% with Eagle Analytical SOPs (MICRO-SOP-44, MICRO-SOP-2) and QA-approved practice.
+  - Re-verified Page 3 narrative in CORP-FORM-21 for OOS-262333, regenerated Master PDF, verified strictly 9 pages and zero overflow '+' signs, and synchronized both Desktop and Documents deliverables.
+
 - **Deep Forensic Table Grid Calibration & Zero Text Duplication (v12.4.3)**:
   - Discovered that previous programmatic table generation caused duplicate cell text (e.g. `None\nNone`, `Date Before Testing\nDate Before Testing`) due to merging cells after population.
   - Cloned the exact XML table grid from QA-approved benchmark `262403_PGRrx EM TABLE.docx`, cleaned body spacing with explicit page breaks, mapped exact unique cell column indices, and regenerated both DOCX and PDF deliverables.

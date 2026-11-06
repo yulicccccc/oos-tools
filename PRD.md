@@ -15,6 +15,7 @@
 > - **Microbial ID Table Purity (`Rule 61.3` / `RULE 0P`)**: In Table 2/3 `Microbial ID`, list ONLY pure species/morphology names with empty line separation. Strictly NEVER write CFU counts (e.g. no `(3 CFUs)`) and NEVER write `(Pending Microbial ID)` or pending tags in the table.
 > - **QA Celsis Investigation Golden Standards (`Rule 82` / `RULE 0AA`)**: In Table 3 (Aliquoting), bracketing labels must strictly be "Date Before Aliquoting", "Date of Aliquoting", "Date After Aliquoting". In Page 2 equipment fields, primary engineering controls (ISO 5 BSCs) must be listed alongside incubators. Reagents must 100% match raw workload packets. Select only "Yes" on Page 5 EM standard compliance without ambiguous "N/A".
 > - **Celsis 9-Page Master PDF & 3-Page Standalone Tables Architecture (`Rule 88` / `RULE 0AF`)**: Master PDF MUST strictly be 9 pages (P1-6 Form, P7 Table 1, P8 Table 2, P9 Table 3). Standalone Word tables MUST strictly be 3 pages (P1 Table 1, P2 Table 2, P3 Table 3). Table 1 columns: Reading Analyst, Day of Incubation, Sample ID, Related Microbial ID, Media with growth, Microbial ID. Page 1 Date Field0 is Tested/Inoculation date (05-Oct-2026), NEVER read date. SOP fields: MICRO-SOP-44, 03-Jan-2025, 01. Equipment must include primary Celsis incubators E001356 and E001357. Table 3 bracketing labels strictly Date Before Aliquoting, Date of Aliquoting, Date After Aliquoting. In Table 3 Row 14, confirmed species names take precedence, separated by empty lines, without CFU counts and without (Pending Microbial ID) tags, italicized. Checkbox 84 strictly Off.
+> - **TSB Culture Media Standard Designation Rule (Rule 89 / RULE 0AG)**: Across all OOS modules (Celsis, USP <71>, ScanRDI, and EM), TSB culture media MUST strictly be designated as **Tryptic Soy Broth (TSB)** (or TSB), NEVER compendial Soybean-Casein Digest Medium (TSB) or SCDM. Laboratory standard operating procedures, test packets, and OOS documentation universally standardize on Tryptic Soy Broth.
 
 
 
@@ -3824,3 +3825,11 @@ Feb 2027` for both primary Celsis incubators.
     - 严禁使用 "absence of detectable environmental contamination" 等宽泛措辞；必须精准表述为：
       `"Upon review of the environmental monitoring data, absence of microbial recovery (No Growth) was demonstrated across all critical ISO 5 zones and personnel monitoring on the date of testing."`
     - 针对 ISO 8 外部更衣间（Anteroom 114）的浮游菌检出，必须明确说明样品操作全程处于 ISO 5 BSC 内部，外向递减正压梯度级联与物理隔离门有效阻止了微生物向内迁移，样品在密闭消毒周转盒中流转，且检出菌株与产品污染菌在属级、形态上完全不同，不存在向关键区域转移的污染路径。
+
+
+## Rule 89 / RULE 0AG: Standard TSB Culture Media Nomenclature Rule (TSB 培养基标准法定命名法则 - 统一使用 Tryptic Soy Broth)
+
+**CRITICAL**: Across all OOS modules (Celsis, USP <71>, ScanRDI, and Environmental Monitoring):
+1. **Compendial Alias Ban (严禁使用药典别名)**: Never use Soybean-Casein Digest Medium (TSB), Soybean-Casein Digest Broth, or SCDM in investigation narratives, form text fields, or report tables.
+2. **Laboratory Golden Standard (实验室法定标准名称)**: Always designate the culture medium strictly as **Tryptic Soy Broth (TSB)** (or simply **TSB**).
+3. **Rationale & Evidence**: Eagle Analytical standard operating procedures (e.g., MICRO-SOP-44, MICRO-SOP-2), raw workload packets, and QA-approved OOS investigations universally standardize on Tryptic Soy Broth (TSB).
