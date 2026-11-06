@@ -1,10 +1,15 @@
 # Project State: OOS Tools
 
-## Version: v12.4.2 (Previous: v12.4.1)
+## Version: v12.4.3 (Previous: v12.4.2)
 
 ## Current Phase: OOS-262333 Celsis Investigation QA Ground-Truth Architecture & Deliverables Finalized (Rule 88 / RULE 0AF)
 
 ### What Was Completed
+- **Deep Forensic Table Grid Calibration & Zero Text Duplication (v12.4.3)**:
+  - Discovered that previous programmatic table generation caused duplicate cell text (e.g. `None\nNone`, `Date Before Testing\nDate Before Testing`) due to merging cells after population.
+  - Cloned the exact XML table grid from QA-approved benchmark `262403_PGRrx EM TABLE.docx`, cleaned body spacing with explicit page breaks, mapped exact unique cell column indices, and regenerated both DOCX and PDF deliverables.
+  - Verified 100% elimination of duplicate text, flawless layout across all 3 table pages, active hyperlinks on P7 and P9, and zero overflow `+` signs across P1-6.
+
 - **Email Deep Penetration & Forensic Ground-Truth Comparison against QA-Approved Deliverables**:
   1. Connected to Outlook MAPI and systematically retrieved all QA-approved Celsis investigation packages signed by Quality Assurance (Tahsin Kevenk) and Microbiology Supervisor Robin Seymour (RS), including `OOS-262316` (Mills Pharmacy, Rev version post-QA review), `OOS-262403` (PGRrx LLC), and `OOS-262080` (Optimal Balance Pharmacy).
   2. Uncovered and eliminated all 10 systemic defects in the Celsis OOS package:
@@ -12,7 +17,8 @@
      - **Defect 2 (Table 1 Columns & Headers)**: Previous Table 1 mistakenly had Processing and Aliquoting Analysts as columns. Corrected strictly to QA standard: `Reading Analyst` (`CCD`), `Day of Incubation` (`Day 7`), `Sample ID` (`ETX-261002-0288` with hyperlink), `Related Microbial ID` (`ETX-261012-0654`), `Media with growth` (`1 x 300mL FTM`), and `Microbial ID` (*Bacillus paralicheniformis* / Gram-positive rod).
      - **Defect 3 (Page 1 Tested Date vs Read Date)**: `Date Field0` was previously set to `12-Oct-2026`, which contradicted the 7-day incubation period. Corrected strictly to Inoculation/Testing date **`05-Oct-2026`**! `Date Field1` (Read Date), `Date Field2` (OOS Initiated Date), and `Date Field3` (Manager Notified Date) set to **`12-Oct-2026`**.
      - **Defect 4 (Page 1 SOP Reference Fields)**: Corrected `Text Field8` strictly to **`MICRO-SOP-44`**, `Text Field9` strictly to **`03-Jan-2025`**, and `Text Field10` strictly to **`01`**.
-     - **Defect 5 (Page 2 Primary Incubators Missing)**: Added primary Celsis incubators `Incubator E001356 (Monitored by Sensor E001450)` and `Incubator E001357 (Monitored by Sensor E001449)` (Cal Due: `Jan 2027Feb 2027`) alongside backup incubators (`E001034`, `E001031`) and primary ISO 5 BSCs (`E001316`, `E001798`).
+     - **Defect 5 (Page 2 Primary Incubators Missing)**: Added primary Celsis incubators `Incubator E001356 (Monitored by Sensor E001450)` and `Incubator E001357 (Monitored by Sensor E001449)` (Cal Due: `Jan 2027
+Feb 2027`) alongside backup incubators (`E001034`, `E001031`) and primary ISO 5 BSCs (`E001316`, `E001798`).
      - **Defect 6 (Page 2 Reagents Formatting)**: Formatted `Text Field22` and `Text Field23` with explicit `\r` newlines and clean sections (`Materials and Reagents`, `Celsis Reagents and Kits`, `Monthly Cleaning`).
      - **Defect 7 (Page 3 Check Box 84)**: Turned `Check Box84` **Off** (previously mistakenly checked Yes for chromatography re-dilution).
      - **Defect 8 (Table 3 Aliquoting Bracketing Labels)**: Set Table 3 bracketing labels strictly to **`Date Before Aliquoting`**, **`Date of Aliquoting`**, and **`Date After Aliquoting`** (addressing QA's explicit critique in OOS-262316).

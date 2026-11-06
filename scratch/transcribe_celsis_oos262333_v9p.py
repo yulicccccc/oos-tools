@@ -29,7 +29,7 @@ if not os.path.exists(BLANK_TEMPLATE):
     BLANK_TEMPLATE = os.path.join(DESKTOP_DIR, "CORP-FORM-21- 01 Oct 2026.pdf")
 
 # 2. Standalone Tables PDF (exported from 3-page Desktop DOCX)
-TABLES_PDF = os.path.join(SCRATCH_DIR, "temp_tables_oos262333_3p.pdf")
+TABLES_PDF = os.path.join(SCRATCH_DIR, "temp_tables_oos262333_3p_clean.pdf")
 
 print("=== [STEP 1] CHECKING STANDALONE TABLES PDF ===")
 t_doc = fitz.open(TABLES_PDF)
