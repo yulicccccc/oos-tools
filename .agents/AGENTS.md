@@ -4348,3 +4348,34 @@ Feb 2027` for both primary Celsis incubators.
 1. **Compendial Alias Ban (严禁使用药典别名)**: Never use Soybean-Casein Digest Medium (TSB), Soybean-Casein Digest Broth, or SCDM in investigation narratives, form text fields, or report tables.
 2. **Laboratory Golden Standard (实验室法定标准名称)**: Always designate the culture medium strictly as **Tryptic Soy Broth (TSB)** (or simply **TSB**).
 3. **Rationale & Evidence**: Eagle Analytical standard operating procedures (e.g., MICRO-SOP-44, MICRO-SOP-2), raw workload packets, and QA-approved OOS investigations universally standardize on Tryptic Soy Broth (TSB).
+
+
+## Rule 90 / RULE 0AH: Celsis Investigation Form & 2-Page Standalone Table Golden Standard (Aligned with RS-Reviewed & QYC-Signed OOS-262080)
+
+**CRITICAL**: Across all Celsis Sterility OOS investigations (such as OOS-262080, OOS-262333):
+1. **Form Page 1 Field Mapping Integrity (Page 1 字段法定映射铁律)**:
+   - `Text Field2`: Sample ID (e.g. `ETX-261002-0288`).
+   - `Text Field4`: Product Description (e.g. `TESAMORELIN 8 MG/ML (3 ML) Injection`).
+   - `Text Field5`: Dosage Form (e.g. `Injection`).
+   - `Text Field6`: Lot Number (e.g. `LG342011076`).
+   - `Text Field57`: Header OOS ID (e.g. `262333`) MUST be retained and visible across Page 1 and all subsequent pages.
+   - Storage Checkbox: `Check Box34` (Refrigerated) MUST be `Yes`, and `Check Box36` (N/A) MUST be `Off`. Never mark both Yes and N/A!
+2. **Page 2 Equipment & Reagent Reconciled Ground Truth (Page 2 设备与试剂法定溯源)**:
+   - Cleanroom Suite Equipment ID: `E001736 (CR 114)` (Suite 114).
+   - Primary Engineering Controls: MUST explicitly document ISO 5 primary controls (`ISO 5 BSC E001316 and ISO 5 BSC E001798`, Cal Due Jun 2027) alongside incubators (`E001356` and `E001357`).
+   - Reagent Batch Traceability: Reconcile ATP Positive Control lot strictly to raw workload packets (`022601-1483`) across both `Text Field22` and `Text Field25`.
+   - Environmental Conformity: `Check Box67` strictly `Yes`, `Check Box69` strictly `Off`.
+3. **Page 3 GDP Sign-off & Clean Phase I Checks**:
+   - `Text Field48`: GDP sign-off strictly formatted as `N/A QYC DDMMMYY` (e.g. `N/A QYC 22Oct26`).
+   - `Check Box84`: Strictly `Off`.
+4. **Master PDF (8 Pages) & Standalone Word Table (2 Pages) Architecture (法定 8 页 Master PDF 与 2 页独立 Word 表格架构)**:
+   - **Standalone Word Table**: Strictly **2 pages**. Page 1 houses Table 1 and Table 2. Page 2 houses Table 3 with explicit page break. Zero margin clipping, zero inverted floating titles.
+   - **Master PDF**: Strictly **8 pages** (P1-6 Form, P7 Table 1 & Table 2, P8 Table 3).
+5. **Table 1 Column 2 & Species Purity**:
+   - Column 2 is strictly `Aliquoting Analyst` (e.g. `Cuong Du`), NOT Reading Analyst.
+   - Column 6 `Microbial ID` contains pure species name (e.g. *Bacillus paralicheniformis*) without Gram stain descriptions.
+6. **Table 2 & Table 3 Section Banner Merging**:
+   - All 4 section banner rows (`Personnel EM`, `Biological Safety Cabinet EM...`, `Weekly Active Air...`, `Weekly Surface...`) MUST be merged across all 9 columns.
+7. **Table 3 Aliquoting Bracketing & Pure Species Invariant**:
+   - Bracketing labels strictly: `Date Before Aliquoting`, `Date of Aliquoting`, `Date After Aliquoting`.
+   - Table 3 Active Air recoveries: Confirmed species take precedence, formatted in italics separated by blank lines, without CFU counts and without `(Pending Microbial ID)` tags.

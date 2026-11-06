@@ -16,6 +16,7 @@
 > - **QA Celsis Investigation Golden Standards (`Rule 82` / `RULE 0AA`)**: In Table 3 (Aliquoting), bracketing labels must strictly be "Date Before Aliquoting", "Date of Aliquoting", "Date After Aliquoting". In Page 2 equipment fields, primary engineering controls (ISO 5 BSCs) must be listed alongside incubators. Reagents must 100% match raw workload packets. Select only "Yes" on Page 5 EM standard compliance without ambiguous "N/A".
 > - **Celsis 9-Page Master PDF & 3-Page Standalone Tables Architecture (`Rule 88` / `RULE 0AF`)**: Master PDF MUST strictly be 9 pages (P1-6 Form, P7 Table 1, P8 Table 2, P9 Table 3). Standalone Word tables MUST strictly be 3 pages (P1 Table 1, P2 Table 2, P3 Table 3). Table 1 columns: Reading Analyst, Day of Incubation, Sample ID, Related Microbial ID, Media with growth, Microbial ID. Page 1 Date Field0 is Tested/Inoculation date (05-Oct-2026), NEVER read date. SOP fields: MICRO-SOP-44, 03-Jan-2025, 01. Equipment must include primary Celsis incubators E001356 and E001357. Table 3 bracketing labels strictly Date Before Aliquoting, Date of Aliquoting, Date After Aliquoting. In Table 3 Row 14, confirmed species names take precedence, separated by empty lines, without CFU counts and without (Pending Microbial ID) tags, italicized. Checkbox 84 strictly Off.
 > - **TSB Culture Media Standard Designation Rule (Rule 89 / RULE 0AG)**: Across all OOS modules (Celsis, USP <71>, ScanRDI, and EM), TSB culture media MUST strictly be designated as **Tryptic Soy Broth (TSB)** (or TSB), NEVER compendial Soybean-Casein Digest Medium (TSB) or SCDM. Laboratory standard operating procedures, test packets, and OOS documentation universally standardize on Tryptic Soy Broth.
+> - **Celsis 8-Page Master PDF & 2-Page Standalone Tables Architecture (Rule 90 / RULE 0AH)**: Aligned with RS-Reviewed & QYC-Signed golden benchmark OOS-262080: Standalone Word tables strictly 2 pages (P1 Table 1 & Table 2, P2 Table 3). Master PDF strictly 8 pages. Page 1 form: Text Field2=Sample ID, Text Field4=Description, Text Field5=Dosage Form, Text Field6=Lot, Text Field57=Header OOS ID. Storage: Check Box34=Yes, Check Box36=Off. Cleanroom ID E001736 (CR 114). Reagent lot 022601-1483. Table 1 Column 2 strictly Aliquoting Analyst. Table 2 & 3 section banners merged across 9 columns. Table 3 bracketing Date Before/Date of/Date After Aliquoting. Table 3 Active Air: pure Oxford Nanopore species in italics separated by blank lines, NO CFU counts, NO pending tags.
 
 
 
@@ -3833,3 +3834,34 @@ Feb 2027` for both primary Celsis incubators.
 1. **Compendial Alias Ban (严禁使用药典别名)**: Never use Soybean-Casein Digest Medium (TSB), Soybean-Casein Digest Broth, or SCDM in investigation narratives, form text fields, or report tables.
 2. **Laboratory Golden Standard (实验室法定标准名称)**: Always designate the culture medium strictly as **Tryptic Soy Broth (TSB)** (or simply **TSB**).
 3. **Rationale & Evidence**: Eagle Analytical standard operating procedures (e.g., MICRO-SOP-44, MICRO-SOP-2), raw workload packets, and QA-approved OOS investigations universally standardize on Tryptic Soy Broth (TSB).
+
+
+## Rule 90 / RULE 0AH: Celsis Investigation Form & 2-Page Standalone Table Golden Standard (Aligned with RS-Reviewed & QYC-Signed OOS-262080)
+
+**CRITICAL**: Across all Celsis Sterility OOS investigations (such as OOS-262080, OOS-262333):
+1. **Form Page 1 Field Mapping Integrity (Page 1 字段法定映射铁律)**:
+   - `Text Field2`: Sample ID (e.g. `ETX-261002-0288`).
+   - `Text Field4`: Product Description (e.g. `TESAMORELIN 8 MG/ML (3 ML) Injection`).
+   - `Text Field5`: Dosage Form (e.g. `Injection`).
+   - `Text Field6`: Lot Number (e.g. `LG342011076`).
+   - `Text Field57`: Header OOS ID (e.g. `262333`) MUST be retained and visible across Page 1 and all subsequent pages.
+   - Storage Checkbox: `Check Box34` (Refrigerated) MUST be `Yes`, and `Check Box36` (N/A) MUST be `Off`. Never mark both Yes and N/A!
+2. **Page 2 Equipment & Reagent Reconciled Ground Truth (Page 2 设备与试剂法定溯源)**:
+   - Cleanroom Suite Equipment ID: `E001736 (CR 114)` (Suite 114).
+   - Primary Engineering Controls: MUST explicitly document ISO 5 primary controls (`ISO 5 BSC E001316 and ISO 5 BSC E001798`, Cal Due Jun 2027) alongside incubators (`E001356` and `E001357`).
+   - Reagent Batch Traceability: Reconcile ATP Positive Control lot strictly to raw workload packets (`022601-1483`) across both `Text Field22` and `Text Field25`.
+   - Environmental Conformity: `Check Box67` strictly `Yes`, `Check Box69` strictly `Off`.
+3. **Page 3 GDP Sign-off & Clean Phase I Checks**:
+   - `Text Field48`: GDP sign-off strictly formatted as `N/A QYC DDMMMYY` (e.g. `N/A QYC 22Oct26`).
+   - `Check Box84`: Strictly `Off`.
+4. **Master PDF (8 Pages) & Standalone Word Table (2 Pages) Architecture (法定 8 页 Master PDF 与 2 页独立 Word 表格架构)**:
+   - **Standalone Word Table**: Strictly **2 pages**. Page 1 houses Table 1 and Table 2. Page 2 houses Table 3 with explicit page break. Zero margin clipping, zero inverted floating titles.
+   - **Master PDF**: Strictly **8 pages** (P1-6 Form, P7 Table 1 & Table 2, P8 Table 3).
+5. **Table 1 Column 2 & Species Purity**:
+   - Column 2 is strictly `Aliquoting Analyst` (e.g. `Cuong Du`), NOT Reading Analyst.
+   - Column 6 `Microbial ID` contains pure species name (e.g. *Bacillus paralicheniformis*) without Gram stain descriptions.
+6. **Table 2 & Table 3 Section Banner Merging**:
+   - All 4 section banner rows (`Personnel EM`, `Biological Safety Cabinet EM...`, `Weekly Active Air...`, `Weekly Surface...`) MUST be merged across all 9 columns.
+7. **Table 3 Aliquoting Bracketing & Pure Species Invariant**:
+   - Bracketing labels strictly: `Date Before Aliquoting`, `Date of Aliquoting`, `Date After Aliquoting`.
+   - Table 3 Active Air recoveries: Confirmed species take precedence, formatted in italics separated by blank lines, without CFU counts and without `(Pending Microbial ID)` tags.
