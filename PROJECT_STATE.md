@@ -1,10 +1,28 @@
 # Project State: OOS Tools
 
-## Version: v12.4.6 (Previous: v12.4.5)
+## Version: v12.4.7 (Previous: v12.4.6)
 
-## Current Phase: OOS-262333 Celsis Investigation QA Ground-Truth Architecture & Deliverables Finalized (Rule 88 / RULE 0AF)
+## Current Phase: OOS-262333 Celsis Investigation Table Geometry & Caption Positioning Perfection (v12.4.7)
 
 ### What Was Completed
+- **Elimination of Table 1 Border Clipping & Precise Margin Restoration (v12.4.7)**:
+  - Identified the exact root cause of Table 1's left border clipping (Reading Analyst cut off): section margin was shrunk to 0.5" while Table 1 had -635 dxa negative indent, pushing table edge to X = 4.25pt.
+  - Restored standard 1.0" (72pt) margins from QA benchmark 262316_MILLS EM TABLE.docx, placing Reading Analyst at X = 63.4pt with wide, pristine borders.
+
+- **Elimination of Word Floating Table (w:tblpPr) Caption Inversion (v12.4.7)**:
+  - Stripped all w:tblpPr floating attributes from Table 2 and Table 3, converting them to strict inline tables.
+  - Replaced fragile manual paragraph spacers with explicit w:pageBreakBefore on Table 2 and Table 3 titles.
+  - Set Table 2 and Table 3 left indent to -551 dxa (-27.55pt), perfectly positioning them from X = 50.0pt to X = 594.2pt inside the 612.0pt page.
+  - Verified Table 2 caption at top of Page 8 (Y = 72.5pt) and Table 3 caption at top of Page 9 (Y = 72.5pt).
+
+- **AcroForm Page 1 Text Field3 Typography & Complete Elimination of [+] Badge (v12.4.7)**:
+  - Calibrated Text Field3 to 5.5pt in standard Helvetica, ensuring 0 line wrapping on (Celsis Sterility Processing Analyst) and 0 overflow.
+
+- **Recompiled & Synchronized Deliverables (v12.4.7)**:
+  - Standalone DOCX: Strictly 3 Pages (P1 Table 1, P2 Table 2, P3 Table 3).
+  - Master PDF: Strictly 9 Pages (P1-6 Form, P7 Table 1, P8 Table 2, P9 Table 3).
+  - Fully synchronized across Desktop and Documents workspaces.
+
 - **Text Field3 Analyst Block Auto-Fit & Total Elimination of Overflow Plus Sign (v12.4.6)**:
   - Identified the exact root cause of the black [+] overflow indicator in Text Field3 (Name of Analyst who Performed the Test): setting 6.225pt was slightly too wide for the 100.48pt box width, causing (Celsis Sterility Processing Analyst) to wrap into two lines, which pushed the bottom reading analyst Cuong Du (CCD) out of the box.
   - Calibrated font size to 5.8pt in standard Helvetica (Helv), matching the non-wrapping single-line behavior of benchmark OOS-262316.
