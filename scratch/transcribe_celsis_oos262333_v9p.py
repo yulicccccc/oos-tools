@@ -254,18 +254,70 @@ cb_whitelists = {
     'Check Box91': 'Off', 'Check Box92': 'Off',
 }
 
-# Typography font sizes per field
-font_sizes = {
-    'Text Field49': 7.5,
-    'Text Field50': 7.5,
-    'Text Field51': 7.2,
-    'Text Field3': 6.5,
-    'Text Field22': 5.5,
-    'Text Field23': 5.5,
-    'Text Field32': 5.5,
-    'Text Field33': 5.5,
-    'Text Field43': 5.5,
-    'Text Field44': 5.5,
+STANDARD_READ_DATE = "12 Oct 2026"
+
+# Standard laboratory typography font map (derived from QYC & RS signed baseline OOS-262080)
+# All form fields strictly use standard Helvetica (Helv), NEVER Times-Roman!
+standard_font_sizes = {
+    'Date Field0': 10.0,
+    'Date Field1': 10.0,
+    'Date Field2': 10.0,
+    'Date Field3': 10.0,
+    'Text Field0': 5.5,
+    'Text Field1': 8.0,
+    'Text Field2': 10.0,
+    'Text Field3': 6.225,
+    'Text Field4': 8.0,
+    'Text Field5': 9.5,
+    'Text Field6': 10.0,
+    'Text Field7': 8.0,
+    'Text Field8': 9.5,
+    'Text Field9': 9.5,
+    'Text Field10': 9.5,
+    'Text Field11': 9.5,
+    'Text Field12': 10.0,
+    'Text Field13': 5.0,
+    'Text Field14': 9.0,
+    'Text Field15': 9.0,
+    'Text Field16': 9.0,
+    'Text Field17': 6.725,
+    'Text Field18': 5.0,
+    'Text Field19': 9.0,
+    'Text Field20': 9.0,
+    'Text Field21': 5.85,
+    'Text Field22': 4.8,
+    'Text Field23': 4.8,
+    'Text Field24': 9.5,
+    'Text Field25': 9.5,
+    'Text Field26': 9.5,
+    'Text Field27': 9.5,
+    'Text Field28': 9.5,
+    'Text Field29': 9.5,
+    'Text Field30': 9.5,
+    'Text Field31': 9.5,
+    'Text Field32': 4.825,
+    'Text Field33': 4.825,
+    'Text Field34': 9.5,
+    'Text Field35': 9.5,
+    'Text Field36': 9.5,
+    'Text Field37': 9.5,
+    'Text Field38': 9.5,
+    'Text Field39': 9.5,
+    'Text Field40': 8.0,
+    'Text Field41': 8.0,
+    'Text Field42': 8.0,
+    'Text Field43': 6.8,
+    'Text Field44': 6.8,
+    'Text Field45': 8.0,
+    'Text Field46': 9.5,
+    'Text Field47': 9.5,
+    'Text Field48': 8.5,
+    'Text Field49': 8.6,
+    'Text Field50': 9.0,
+    'Text Field51': 8.5,
+    'Text Field53': 10.0,
+    'Text Field54': 10.0,
+    'Text Field57': 6.5,
 }
 
 for page_idx in range(6):
@@ -274,9 +326,11 @@ for page_idx in range(6):
         name = widget.field_name
         if name in pdf_field_values:
             widget.field_value = pdf_field_values[name]
-            fs = font_sizes.get(name, 7.5)
-            widget.text_fontsize = fs
-            widget.text_font = "Times-Roman"
+            widget.text_font = "Helv"
+            if name in standard_font_sizes:
+                widget.text_fontsize = standard_font_sizes[name]
+            else:
+                widget.text_fontsize = 9.5
             widget.update()
         elif name in cb_whitelists:
             widget.field_value = cb_whitelists[name]
@@ -305,9 +359,9 @@ assert len(reader_tables.pages) == 3, f"Expected 3 pages tables, got {len(reader
 for p in reader_tables.pages:
     writer.add_page(p)
 
-# Output Paths
-MASTER_DELIVERABLE_DESKTOP = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- {READ_DATE_FULL} OOS-{OOS_ID} {CLIENT_NAME} - Celsis.pdf")
-MASTER_DELIVERABLE_DOCS = os.path.join(DOCS_DIR, f"CORP-FORM-21- {READ_DATE_FULL} OOS-{OOS_ID} {CLIENT_NAME} - Celsis.pdf")
+# Output Paths (Strictly standard non-hyphenated format: CORP-FORM-21- 12 Oct 2026 ...)
+MASTER_DELIVERABLE_DESKTOP = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- {STANDARD_READ_DATE} OOS-{OOS_ID} {CLIENT_NAME} - Celsis.pdf")
+MASTER_DELIVERABLE_DOCS = os.path.join(DOCS_DIR, f"CORP-FORM-21- {STANDARD_READ_DATE} OOS-{OOS_ID} {CLIENT_NAME} - Celsis.pdf")
 
 TEMP_9P_PDF = os.path.join(SCRATCH_DIR, "temp_master_9p_pre_link.pdf")
 with open(TEMP_9P_PDF, "wb") as f_out:

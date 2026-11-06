@@ -1,10 +1,16 @@
 # Project State: OOS Tools
 
-## Version: v12.4.4 (Previous: v12.4.3)
+## Version: v12.4.5 (Previous: v12.4.4)
 
 ## Current Phase: OOS-262333 Celsis Investigation QA Ground-Truth Architecture & Deliverables Finalized (Rule 88 / RULE 0AF)
 
 ### What Was Completed
+- **Standard Laboratory Typography & Single Canonical Deliverable (v12.4.5)**:
+  - Fully restored form font to standard corporate Helvetica (Helv) matching Qiyue Chen and Robin Seymour's signed baseline OOS-262080, completely eliminating experimental Times-Roman overrides.
+  - Re-calibrated standard font sizes across all fields (10pt for dates/names, 9.5pt for SOP/method headers, 8.5-9.0pt for narratives, 6.8pt for equipment, 4.8pt for reagents), ensuring zero + overflow symbols across P1-6.
+  - Eliminated redundant hyphenated filename variant, standardizing strictly on the single canonical desktop file:
+    CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf.
+
 - **Standard TSB Culture Media Nomenclature Rule (v12.4.4 / Rule 89 / RULE 0AG)**:
   - Standardized all references to TSB culture media strictly to **Tryptic Soy Broth (TSB)** (or TSB).
   - Banned compendial aliases Soybean-Casein Digest Medium (TSB) and SCDM across all investigation forms, narratives, and tables to align 100% with Eagle Analytical SOPs (MICRO-SOP-44, MICRO-SOP-2) and QA-approved practice.
