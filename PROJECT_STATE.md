@@ -1,10 +1,15 @@
 # Project State: OOS Tools
 
-## Version: v12.4.10 (Previous: v12.4.9)
+## Version: v12.4.11 (Previous: v12.4.10)
 
-## Current Phase: Table Gridline Borders Restoration for Master PDF & Word (v12.4.10)
+## Current Phase: 1-to-1 Template Substitution from OOS-262080 & Elimination of Repetitions/Self-Invented Additions (v12.4.11)
 
 ### What Was Completed
+- **Strict 1-to-1 Template Substitution from OOS-262080 (v12.4.11)**:
+  - Directly cloned scratch/Celsis table OOS-262080.docx (backed up to .history/) to generate Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx, preserving 100% of its native Table Grid and w:tcBorders, exact column widths, cell margins, shading, underlined 9pt titles, and single-paragraph <w:br/><w:br/> multi-species formatting.
+  - Eliminated 100% of self-invented extra sentences, repetitions, and visual cutoffs across Pages 1-6 by matching OOS-262080 paragraph-for-paragraph, field-for-field, and font-size-for-font-size.
+
+### Previous Releases
 - **Table Gridline Borders Restoration (v12.4.10)**:
   - Identified the root cause of borderless tables flagged by the user: python-docx `add_table()` defaults to normal table style without borders unless `<w:tblBorders>` is explicitly declared on `tblPr`.
   - Implemented `set_table_borders(table)` in `scratch/rebuild_oos262333_perfect.py` adding standard thin black borders (`single`, `sz="4"`, `000000`) across `top`, `bottom`, `left`, `right`, `insideH`, and `insideV`.
