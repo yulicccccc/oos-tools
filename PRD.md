@@ -3903,3 +3903,41 @@ Feb 2027` for both primary Celsis incubators.
 
 4. **Living Standard Pending RS & QA Review (动态演进声明)**:
    - While this `OOS-262080` 1:1 template standard is locked as the default baseline for all new Celsis OOS drafts, `OOS-262333` has not yet undergone final review by Supervisor Robin Seymour (RS) and Quality Assurance (QA). Any new feedback or edits from RS or QA upon review will be immediately integrated into this rule.
+
+
+## Rule 92 / RULE 0AJ: Universal 6-Step Golden Template 1:1 Cloning SOP Across All OOS Modules (全模块通用「黄金母板 1:1 克隆生成」6 步标准全流程 — 彻底杜绝乱写铁律)
+
+**CRITICAL**: To ensure that EVERY OOS investigation across ALL modules (`Celsis`, `ScanRDI`, `USP <71>`, `Phase II`, and `EM`) achieves the same 100% precision without ever free-writing ("乱写"), inventing extra text, losing table borders, or shifting checkboxes, agents MUST strictly execute the following 6-step mechanical pipeline every time the user provides new case materials:
+
+### Step 1: Lock the Canonical "Golden Template Pair" (锁定唯一「黄金母板对」：1 Signed PDF + 1 Source DOCX)
+- **Never build from scratch**: Never call `docx.Document()` + `add_table()` to build tables from zero, and never free-write narrative paragraphs from memory.
+- Always anchor on the latest RS/QA-approved **Golden Template Pair** for that specific test method:
+  - **Celsis**: `OOS-262080 Optimal Balance Pharmacy (E19193) - Celsis - RS Reviewed - Signed by - QYC.pdf` + `scratch/Celsis table OOS-262080.docx`.
+  - **ScanRDI / USP <71> / Phase II**: The latest RS/QA-reviewed signed PDF and its corresponding `Tables OOS-... .docx` in the workspace.
+- **Mandatory Backup First**: Copy the source template `.docx` and any existing target deliverables to `.history/` with a timestamp before running any script.
+
+### Step 2: Slot-Only Fact Extraction from Raw Materials (按「填空槽位」精准提取原始数据，严禁抓取模板外杂讯)
+- When the user provides new OOS materials (ZenQMS blank form, EagleTrax links, Celsis/ScanRDI raw packets, EM scans/screenshots, SharePoint tracking log), extract **ONLY the variables required by the Golden Template's slots**:
+  1. **Header & Identity Slots**: `OOS Number`, `Sample ID (ETX)` + EagleTrax URL, `Client Name (ID)`, `Product Name`, `Dosage Form`, `Lot #`, `Test Date` (`Date Field0`), `Incident/Read Date` (`Date Field1`), `Initiated Date` (`Date Field2`), `Manager Notified Date` (`Date Field3`), and the 4 analyst roles (`Prepping`, `Processing`, `Aliquoting/Changeover`, `Reading`) verified against `RULE 0A` roster (STOP and ask if any initial/login is unknown).
+  2. **Assay & Subculture Slots**: Method Suitability ETX ID and modifier volume (e.g., `3 mL of sterile Tween 80`), inoculation volume and media jar counts, positive jar average RLU vs cutoff RLU vs negative control RLU (or ScanRDI raw packet total events & confirmed microbial events), subculture ETX ID, and confirmed italicized species name (or no-growth statement).
+  3. **Reagents, Cleanroom & Equipment Slots**: Lot numbers and expiration dates for media (`TSB`, `FTM`), modifiers, assay kits (`AmpiScreen`, `Daily Wash`), positive control (`Celsis ATP Positive Control`), and monthly cleaning indicators (`H2O2 strips`, `HaloMist`/`IPA`) reconciled 100% against raw packets; cleanroom ID, primary ISO 5 BSC IDs, incubator/sensor IDs and calibration due dates; monthly cleaning date.
+  4. **EM Bracketing & 6-Month History Slots**: Before / Date of / After dates, analyst initials, and observations for personnel, surface, and settling plates; weekly active air and surface dates, initials, CFU counts, room/section, plate ETX ID + URL, and confirmed italicized species list; SharePoint 6-month history for the same client + same analyte.
+
+### Step 3: Coordinate-Verified & Font-Size-Locked AcroForm Population (Pages 1–6 坐标级、字号级、逐段填空替换)
+- **Use the Case's Fresh ZenQMS Blank Form**: Always open the user's freshly downloaded ZenQMS blank form PDF for the current OOS case so the bottom ZenQMS print timestamp is authentic.
+- **Coordinate-Based Checkbox Mapping**: Because widget numbering (`Check Box0` vs `Check Box1`) can shift across form exports, always verify checkbox positions by geometric coordinates `(page_index, rect.x0, rect.y0)` against the Golden Template PDF so every single `Yes` / `No` / `N/A` box matches the template 100%.
+- **Exact Font-Size Replication**: Apply the exact widget font sizes extracted from the Golden Template (`Text Field0`=5.5pt, `Text Field3`=5.8pt, `Text Field13/18`=4.825pt, `Text Field22/23`=4.35pt, `Text Field32/33`=4.825pt, `Text Field43/44`=7.05pt, `Text Field49/50/51`=9.2pt) to prevent any text truncation or box overflow.
+- **Paragraph-by-Paragraph Slot Substitution (No Free-Writing)**: Use the Golden Template's exact paragraphs on Pages 3, 4, and 5 as string templates, substituting ONLY the case-specific slots from Step 2. **Strictly forbid** adding self-invented sentences, extra parenthetical RLU/CV details, workload filenames, or duplicate statements.
+
+### Step 4: In-Place DOM Cloning of the Golden Word Table & Word COM Export (Pages 7–8 原地替换与原生边框保留)
+- Open the Golden Template `.docx` (`scratch/Celsis table OOS-262080.docx`) directly with `python-docx`.
+- Update the 3 underlined `9.0pt` table title paragraphs, the cell `<w:t>` texts (iterating over `row._tr.tc_lst`), and the hyperlink relationship targets (`doc.part.rels["rId..."]._target`) **in-place**, leaving `<w:tcPr>` (`<w:tcBorders w:sz="8">`, column widths, shading `E8E8E8`, vertical alignment) 100% untouched.
+- For multi-species active air recoveries, insert all italicized species inside **one single `<w:p>`** separated by `<w:br/><w:br/>` (never multiple `<w:p>` paragraphs with normal spacing, and never sub-divided table rows).
+- Export the `.docx` to PDF via local Word COM (`FileFormat=17`) and append to the 6-page AcroForm to produce the final **8-page Master PDF** alongside the **2-page Standalone Word Table (`.docx`)**.
+
+### Step 5: Full-Page PNG Visual Inspection + Automated Assertion Gate (全页 PNG 渲染视觉自检 + 自动化测试门禁)
+- Render every page of the final Master PDF to PNG (`dpi=150`) and visually inspect every page with `read_file` to verify zero cutoffs, zero checkbox shifts, and crisp table gridlines (`len(page.get_drawings()) > 400`).
+- Run the automated verification script (`scratch/verify_celsis_tests.py`, 49+ assertions covering page counts, field values, font sizes, absence of self-invented phrases, active hyperlinks, and XML borders) and require **100% PASS** before delivery.
+
+### Step 6: Continuous Evolution via RS & QA Review Diffing (RS/QA 审阅差异闭环迭代)
+- Whenever Supervisor Robin Seymour (RS) or QA returns a reviewed/edited PDF, run a widget-by-widget and text-diff comparison against our draft, and immediately codify any new phrasing or formatting preference into the Golden Template and automated test suite.
