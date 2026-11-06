@@ -1,2 +1,2 @@
 # Version configuration
-__version__ = "12.4.7"
+__version__ = "12.4.8"

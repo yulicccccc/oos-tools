@@ -1,8 +1,19 @@
 # Project State: OOS Tools
 
-## Version: v12.4.7 (Previous: v12.4.6)
+## Version: v12.4.8 (Previous: v12.4.7)
 
-## Current Phase: OOS-262333 Celsis Investigation Table Geometry & Caption Positioning Perfection (v12.4.7)
+## Current Phase: OOS-262333 Celsis Investigation Canonical Master Table Architecture Re-Platforming (v12.4.8)
+
+### What Was Completed
+- **Full Migration to User's Canonical Master Table Grid Architecture (v12.4.8)**:
+  - Replaced legacy/Mills table structure with the user's verified golden standard grid (derived from `build_usp71_tables_262329.py`):
+    - **Table 1 (6 columns)**: `Processing Analyst` (`Alex Saravia`) | `Reading Analyst` (`Cuong Du`) | `Sample ID` (`ETX-261002-0288` with hyperlink) | `Related Microbial ID` (`ETX-261012-0654`) | `Media with microbial growth` (`1 x 300mL FTM`) | `Microbial ID` (*Bacillus paralicheniformis* / Gram-positive rod).
+    - **Table 2 & Table 3 (9 columns)**: `Environmental Monitoring (EM) Sampling Site` (1.50 in) | `Frequency` (0.55 in) | `Date (DDMMMYY)` (0.60 in) | `Analyst` (0.50 in) | `Day /Week(s)` (0.85 in) | `Observation` (0.85 in) | `EM Plate ETX Number` (0.85 in) | `Microbial ID` (1.35 in) | `Notes` (0.45 in).
+    - **4 Gray Section Dividers (`#D9D9D9`)**: `Personnel EM`, `Biological Safety Cabinet EM for E00XXXX`, `Weekly Active Air Sampling of Cleanroom Suite 114 (E001737) with Processing BSC`, `Weekly Surface Sampling of Cleanroom Suite 114 (E001737) with Processing BSC`.
+    - **Table 3 Active Air Row 14**: Single-row invariant, `ETX-261021-0578` blue hyperlink, 7 Oxford Nanopore sequenced species in italic font separated by blank lines, without CFU counts.
+    - **Seamless 2-Page Flow**: Table 1 and Table 2 flow naturally together on Page 1; Table 3 occupies Page 2 with explicit page break, completely eliminating margin clipping and floating title artifacts.
+  - Recompiled Master PDF (`CORP-FORM-21- 12 Oct 2026 OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.pdf`) and Standalone DOCX (`Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx`).
+  - Synchronized across Desktop and Documents workspaces.
 
 ### What Was Completed
 - **Elimination of Table 1 Border Clipping & Precise Margin Restoration (v12.4.7)**:
