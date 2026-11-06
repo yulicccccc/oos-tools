@@ -3867,3 +3867,39 @@ Feb 2027` for both primary Celsis incubators.
    - Table 3 Active Air recoveries: Confirmed species take precedence, formatted in italics separated by blank lines, without CFU counts and without `(Pending Microbial ID)` tags.
 8. **Table Borders Mandatory Gridlines (表格黑色边框强制法则)**:
    - All tables (Table 1, Table 2, Table 3) in standalone Word and Master PDF MUST have explicit thin black borders (`single`, `sz="4"`, `w:space="0"`, `w:color="000000"`) applied via `<w:tblBorders>` on `top`, `bottom`, `left`, `right`, `insideH`, and `insideV`. Never allow borderless tables or text floating in blank space without gridlines.
+
+
+## Rule 91 / RULE 0AI: Strict 1-to-1 OOS-262080 Template Substitution & Native Word Table Cloning Standard (Celsis 1:1 黄金模板克隆、零自创扩写与原生边框铁律 — 待 RS/QA 终审动态微调)
+
+**CRITICAL**: Based on the user's explicit confirmation on `OOS-262333` (`v12.4.11` / `v12.4.12`), all Celsis Sterility OOS investigations written for Qiyue Chen MUST strictly execute a **1-to-1 template substitution** from **`OOS-262080 Optimal Balance Pharmacy (E19193) - Celsis - RS Reviewed - Signed by - QYC.pdf`** and its native Word table **`scratch/Celsis table OOS-262080.docx`**:
+
+1. **Zero Self-Invented Additions & Zero Repetitions (严禁自行扩写或添加模板外内容)**:
+   - **Pages 3–5 (`Text Field49`, `Text Field50`, `Text Field51` at `9.2pt`)**: Must follow `OOS-262080`'s exact paragraph structure (6 paragraphs on Page 3, 7 paragraphs on Page 4, 8 paragraphs on Page 5) word-for-word, substituting ONLY the case-specific facts (dates, sample ID, analysts, method suitability ETX ID and modifier volume, positive jar count and average RLU / cutoff / negative control RLU, subculture ETX ID and organism, monthly cleaning date, and EM dates/CFUs/organisms).
+   - **Strictly Forbidden**: Never invent extra sentences (e.g., genus *Bacillus* morphology comparisons not in `OOS-262080`), never add internal workload filenames or instrument IDs into the narrative, never repeat `%CV` values or list individual tube/blank RLU numbers, and never duplicate sentences across paragraphs.
+
+2. **Exact AcroForm Field Partitioning & Font Sizes on Pages 1, 2, 3, and 6 (精确字号与栏位分工，零截断零重复)**:
+   - **Page 1**:
+     - `Text Field0` (`Initiator`): `'Cuong Du (Written by Qiyue Chen)'` at **`5.5pt`** (never `7.5pt`, which truncates the right end).
+     - `Text Field3` (`Name of Analyst`): 4 roles (`Prepping Analyst`, `Processing Analyst`, `Aliquoting Analyst`, `Reading Analyst`) separated by `\r \r` at **`5.8pt`**.
+     - `Text Field4`: Sample / Active Name (`8.0pt`); `Text Field5`: Dosage Form (`9.5pt`); `Text Field6`: Lot # (`10.0pt`).
+     - `Text Field13` & `Text Field18`: **`4.825pt`**; `Text Field17`: **`6.725pt`**; `Text Field21`: **`5.85pt`**.
+   - **Page 2**:
+     - `Text Field22` & `Text Field23` (`Materials and Reagents`, **`4.35pt`**): Use concise format (`TSB: <Lot>`, `FTM: <Lot>`, `Tween 80: <Lot>`, `Celsis Reagents and Kits:`, `AmpiScreen: <Lot>`, `Daily Wash: <Lot>`, `TSA / Surface Plates: See EM logs`, `Monthly Cleaning:`, `H2O2 strips: <Lot>`, `HaloMist: <Lot>`). **NEVER** repeat `Lot:` or `Exp:` on every line, and **NEVER** duplicate `Celsis ATP Positive Control` here (it belongs exclusively in `Standard Used` `Text Field24/25/26` at `9.0pt`).
+     - `Text Field32` & `Text Field33` (`Clean room facility certified`, **`4.825pt`**): List both CR 114 and the two ISO 5 BSCs here:
+       - `Text Field32`: `'E001736 (CR 114), BSC E001316\rE001736 (CR 114), BSC E001798'`
+       - `Text Field33`: `'Dec 2026, Jun 2027\rDec 2026, Jun 2027'`
+     - `Text Field43` & `Text Field44` (`Equipment functional and calibrated`, **`7.05pt`**): List **ONLY the 4 incubators** (`Incubator E001356 (Sensor E001450)`, `Incubator E001357 (Sensor E001449)`, `Incubator E001034 (Sensor E001501)`, `Incubator E001031 (Sensor E001505)`) and their calibration due dates (`Jan 2027\rFeb 2027` and `Aug 2027 \rFeb 2027`). Do NOT duplicate BSCs in `Text Field43`.
+   - **Page 3**:
+     - `Text Field48`: `'N/A QYC <DDMMMYY>'` (`8.0pt`, matching the OOS initiation date, e.g., `N/A QYC 12Oct26`).
+   - **Page 6**:
+     - `Text Field53` (`Prepared by`): `'Qiyue Chen'` (`10.0pt`).
+     - `Text Field52` (`Reviewer comment(s)`) and `Text Field54` (`Lab Manager/Designee`): Leave **blank (`''`)** prior to supervisor/QA review, exactly like `OOS-262080`.
+   - **0-Indexed Checkboxes**: Always verify checkbox coordinates against the blank form; the 30 active checkboxes matching `OOS-262080` are:
+     `Check Box0, 1, 2, 4, 7, 10, 13, 16, 19, 24, 27, 28, 32, 34, 38, 42, 43, 48, 51, 52, 55, 58, 63, 66, 67, 70, 73, 78, 79, 88`.
+
+3. **Native Word Table Cloning (`scratch/Celsis table OOS-262080.docx`)**:
+   - Always generate `Tables OOS-<ID> ... .docx` by cloning `scratch/Celsis table OOS-262080.docx` (after backing up to `.history/`) and updating paragraph texts, cell texts, and hyperlink targets (`rId7`, `rId8`) in-place.
+   - This guarantees **8 pages** in the Master PDF (P1–6 Form, P7 Table 1 & Table 2, P8 Table 3) and **2 pages** in the Standalone Word file, with native `Table Grid` and `<w:tcBorders w:sz="8">` (`1pt`) solid black borders, `9.0pt` underlined non-bold table titles, `No growth` / `N/A` / `None` negative cell conventions, `Date Before Aliquoting` / `Date of Aliquoting` / `Date After Aliquoting` in Table 3, and single-paragraph `<w:br/><w:br/>` multi-species formatting (`6.5pt`–`7.0pt` italics).
+
+4. **Living Standard Pending RS & QA Review (动态演进声明)**:
+   - While this `OOS-262080` 1:1 template standard is locked as the default baseline for all new Celsis OOS drafts, `OOS-262333` has not yet undergone final review by Supervisor Robin Seymour (RS) and Quality Assurance (QA). Any new feedback or edits from RS or QA upon review will be immediately integrated into this rule.

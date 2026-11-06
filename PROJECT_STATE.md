@@ -1,6 +1,6 @@
 # Project State: OOS Tools
 
-## Version: v12.4.11 (Previous: v12.4.10)
+## Version: v12.4.12 (Previous: v12.4.11)
 
 ## Current Phase: 1-to-1 Template Substitution from OOS-262080 & Elimination of Repetitions/Self-Invented Additions (v12.4.11)
 
