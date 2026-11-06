@@ -79,6 +79,20 @@ def add_hyperlink(paragraph, text, url, font_size=Pt(7.0)):
     hyperlink = parse_xml(f'<w:hyperlink {nsdecls("w", "r")} r:id="{r_id}"><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="{int(font_size.pt * 2)}"/><w:color w:val="0000FF"/><w:u w:val="single"/></w:rPr><w:t>{text}</w:t></w:r></w:hyperlink>')
     paragraph._p.append(hyperlink)
 
+def set_table_borders(table):
+    tblPr = table._tbl.tblPr
+    borders = parse_xml(f'''
+        <w:tblBorders {nsdecls("w")}>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+            <w:insideH w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+            <w:insideV w:val="single" w:sz="4" w:space="0" w:color="000000"/>
+        </w:tblBorders>
+    ''')
+    tblPr.append(borders)
+
 # --- Table 1: Sample Information ---
 p_title1 = doc_word.add_paragraph()
 p_title1.paragraph_format.space_before = Pt(0)
@@ -90,6 +104,7 @@ r_t1.font.size = Pt(9.5)
 
 t1 = doc_word.add_table(rows=2, cols=6)
 t1.alignment = WD_TABLE_ALIGNMENT.CENTER
+set_table_borders(t1)
 t1_headers = ['Processing Analyst', 'Aliquoting Analyst', 'Sample ID', 'Related Microbial ID', 'Media with microbial growth', 'Microbial ID']
 t1_widths = [Inches(1.2), Inches(1.2), Inches(1.2), Inches(1.2), Inches(1.2), Inches(1.5)]
 
@@ -165,6 +180,7 @@ def build_em_table(doc, table_title, rows_data, weekly_air_data, is_table3=False
     # 1 header + 1 banner + 3 rows + 1 banner + 6 rows + 1 banner + 1 row + 1 banner + 1 row = 16 rows
     tbl = doc.add_table(rows=16, cols=9)
     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_table_borders(tbl)
 
     # Row 0: Headers
     for j, h in enumerate(headers):

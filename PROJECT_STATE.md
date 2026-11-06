@@ -1,10 +1,19 @@
 # Project State: OOS Tools
 
-## Version: v12.4.9 (Previous: v12.4.8)
+## Version: v12.4.10 (Previous: v12.4.9)
 
-## Current Phase: 100% Forensic Alignment of OOS-262333 with Golden Benchmark OOS-262080 (v12.4.9)
+## Current Phase: Table Gridline Borders Restoration for Master PDF & Word (v12.4.10)
 
 ### What Was Completed
+- **Table Gridline Borders Restoration (v12.4.10)**:
+  - Identified the root cause of borderless tables flagged by the user: python-docx `add_table()` defaults to normal table style without borders unless `<w:tblBorders>` is explicitly declared on `tblPr`.
+  - Implemented `set_table_borders(table)` in `scratch/rebuild_oos262333_perfect.py` adding standard thin black borders (`single`, `sz="4"`, `000000`) across `top`, `bottom`, `left`, `right`, `insideH`, and `insideV`.
+  - Applied `set_table_borders()` to Table 1 (`t1`), Table 2 (`tbl`), and Table 3 (`tbl`), completely eliminating the borderless floating text artifact.
+  - Verified drawings stroke count in Master PDF increased from 117 to 706 on Page 7 and 92 to 619 on Page 8, matching benchmark `OOS-262080`.
+  - Expanded automated test suite (`scratch/verify_celsis_tests.py`) to 50 assertions, strictly verifying `tblBorders` on all Word tables and drawing counts on PDF pages. All 50/50 PASSED (100%).
+  - Recompiled and synchronized Master PDF (8 pages) and Standalone DOCX (2 pages) to Desktop and Documents.
+
+### Previous Releases
 - **100% Forensic Alignment with Golden Benchmark OOS-262080 (v12.4.9)**:
   - Conducted line-by-line forensic comparison against `OOS-262080 Optimal Balance Pharmacy (E19193) - Celsis - RS Reviewed - Signed by - QYC.pdf`.
   - **Page 1 Form Field Rectification**:

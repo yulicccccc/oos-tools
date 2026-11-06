@@ -76,6 +76,8 @@ links_p7 = doc_pdf[6].get_links()
 links_p8 = doc_pdf[7].get_links()
 check(len(links_p7) >= 1 and any('ETX-261002-0288' in str(l) or 'Q57eK3N9WcR0Qh' in str(l) for l in links_p7), "Page 7 has active Sample ID hyperlink")
 check(len(links_p8) >= 1 and any('SPTrZYPqECZmMHXaxXbl9Q' in str(l) or 'ETX-261021-0578' in str(l) for l in links_p8), "Page 8 has active Active Air plate hyperlink")
+check(len(doc_pdf[6].get_drawings()) > 500, f"Page 7 has table grid borders (drawings count: {len(doc_pdf[6].get_drawings())})")
+check(len(doc_pdf[7].get_drawings()) > 500, f"Page 8 has table grid borders (drawings count: {len(doc_pdf[7].get_drawings())})")
 doc_pdf.close()
 
 # 2. Desktop Word Table checks
@@ -83,6 +85,9 @@ desktop_pcca = r'C:\Users\qchen\OneDrive - Professional Compounding Centers of A
 docx_path = os.path.join(desktop_pcca, 'Tables OOS-262333 Optimal Balance Pharmacy (E19193) - Celsis.docx')
 doc_word = docx.Document(docx_path)
 check(len(doc_word.tables) == 3, f"Word document has strictly 3 tables (got {len(doc_word.tables)})")
+
+for idx, t in enumerate(doc_word.tables):
+    check(t._tbl.tblPr.find(docx.oxml.ns.qn('w:tblBorders')) is not None, f"Word Table {idx+1} has tblBorders defined")
 
 t1 = doc_word.tables[0]
 check(t1.rows[0].cells[1].text.strip() == 'Aliquoting Analyst', "Word Table 1 Column 2 is Aliquoting Analyst")

@@ -3865,3 +3865,5 @@ Feb 2027` for both primary Celsis incubators.
 7. **Table 3 Aliquoting Bracketing & Pure Species Invariant**:
    - Bracketing labels strictly: `Date Before Aliquoting`, `Date of Aliquoting`, `Date After Aliquoting`.
    - Table 3 Active Air recoveries: Confirmed species take precedence, formatted in italics separated by blank lines, without CFU counts and without `(Pending Microbial ID)` tags.
+8. **Table Borders Mandatory Gridlines (表格黑色边框强制法则)**:
+   - All tables (Table 1, Table 2, Table 3) in standalone Word and Master PDF MUST have explicit thin black borders (`single`, `sz="4"`, `w:space="0"`, `w:color="000000"`) applied via `<w:tblBorders>` on `top`, `bottom`, `left`, `right`, `insideH`, and `insideV`. Never allow borderless tables or text floating in blank space without gridlines.
