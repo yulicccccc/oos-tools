@@ -266,7 +266,7 @@ standard_font_sizes = {
     'Text Field0': 5.5,
     'Text Field1': 8.0,
     'Text Field2': 10.0,
-    'Text Field3': 6.225,
+    'Text Field3': 5.8,  # Calibrated to 5.8pt to ensure 4 analysts & long titles (e.g. Processing Analyst) do not wrap and overflow ([+] elimination)
     'Text Field4': 8.0,
     'Text Field5': 9.5,
     'Text Field6': 10.0,

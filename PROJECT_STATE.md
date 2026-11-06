@@ -1,10 +1,16 @@
 # Project State: OOS Tools
 
-## Version: v12.4.5 (Previous: v12.4.4)
+## Version: v12.4.6 (Previous: v12.4.5)
 
 ## Current Phase: OOS-262333 Celsis Investigation QA Ground-Truth Architecture & Deliverables Finalized (Rule 88 / RULE 0AF)
 
 ### What Was Completed
+- **Text Field3 Analyst Block Auto-Fit & Total Elimination of Overflow Plus Sign (v12.4.6)**:
+  - Identified the exact root cause of the black [+] overflow indicator in Text Field3 (Name of Analyst who Performed the Test): setting 6.225pt was slightly too wide for the 100.48pt box width, causing (Celsis Sterility Processing Analyst) to wrap into two lines, which pushed the bottom reading analyst Cuong Du (CCD) out of the box.
+  - Calibrated font size to 5.8pt in standard Helvetica (Helv), matching the non-wrapping single-line behavior of benchmark OOS-262316.
+  - Verified 100% elimination of the [+] sign, with all 4 analysts and their role titles displaying completely on 8 clean lines.
+  - Recompiled Master PDF and synchronized to desktop and documents workspace.
+
 - **Standard Laboratory Typography & Single Canonical Deliverable (v12.4.5)**:
   - Fully restored form font to standard corporate Helvetica (Helv) matching Qiyue Chen and Robin Seymour's signed baseline OOS-262080, completely eliminating experimental Times-Roman overrides.
   - Re-calibrated standard font sizes across all fields (10pt for dates/names, 9.5pt for SOP/method headers, 8.5-9.0pt for narratives, 6.8pt for equipment, 4.8pt for reagents), ensuring zero + overflow symbols across P1-6.
