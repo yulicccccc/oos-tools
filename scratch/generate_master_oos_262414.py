@@ -171,12 +171,19 @@ p15 = (
 )
 
 p16 = (
-    "All samples processed within the same batch were also evaluated for evidence of sample-to-sample cross-contamination. "
-    f"The test sample {SAMPLE_ID} was processed as the 12th sample (ksm12) by {PROCESSOR_NAME} on 22Oct26 within BSC E00{BSC_PROC} "
-    "(Cleanroom 145, L-Suite). The sample was released for testing with \"No Method Suitability Test on File.\" "
-    "All other samples within the testing batch tested negative for microbial growth. Furthermore, analyst "
-    f"{PROCESSOR_NAME} verified that gloves were sanitized between samples and standard aseptic techniques were strictly maintained. "
-    "Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
+    "All samples processed within the same batch and across the facility on the date of testing were also evaluated "
+    "for evidence of sample-to-sample cross-contamination or shared laboratory vectors. The test sample "
+    f"{SAMPLE_ID} was processed as the 12th sample (ksm12) by {PROCESSOR_NAME} on 22Oct26 within BSC E00{BSC_PROC} "
+    "(Cleanroom 145, Parallel Suite). The sample was released for testing with \"No Method Suitability Test on File.\" "
+    f"All other samples processed within the same testing batch by {PROCESSOR_NAME} yielded negative results for microbial growth. "
+    "One other sterility failure occurred on the same testing date (ETX-261019-0832, documented under OOS-262410 for "
+    "BelieveRX Pharmacy (E74120), Lot 101626-7B). However, that sample was processed by a completely different analyst "
+    "(Halaina Smith, 5th sample processed) within a physically separate cleanroom (ISO 7 Cleanroom 144 of L-Suite) and "
+    "BSC E001937, with changeover and reading performed by Maryam Naeem. Furthermore, the two samples exhibited different "
+    "cellular morphologies: cocci and diplococci shaped morphology in ETX-261019-0832 under OOS-262410 versus rod-shaped "
+    f"morphology in {SAMPLE_ID} under OOS-262414. Analyst {PROCESSOR_NAME} verified that gloves were sanitized between samples "
+    "and standard aseptic techniques were strictly maintained throughout testing. Consequently, there is no evidence of "
+    "sample-to-sample cross-contamination or a shared laboratory vector."
 )
 
 p17 = (
