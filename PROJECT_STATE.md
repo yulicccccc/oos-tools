@@ -1,10 +1,18 @@
 # Project State: OOS Tools
 
-## Version: v12.4.16 (Previous: v12.4.15)
+## Version: v12.4.17 (Previous: v12.4.16)
 
-## Current Phase: Strict 2-File Deliverable Protocol Enforcement (Rule 0M / v12.4.16)
+## Current Phase: Narrative Alignment with Rule 75.1 & 75.2 & Deep Forensics Review (v12.4.17)
 
 ### What Was Completed
+- **Full Narrative Alignment with Rule 75.1 & Rule 75.2**:
+  - Eliminated the unverified estimate "approximately 60 samples" in Page 4 cross-contamination evaluation, strictly replaced by verified sequence tracking: sample ETX-261017-0071 (hs12) and sibling positive ETX-261019-0668 (hs53) separated by 41 negative samples.
+  - Replaced subjective modifier "distinctly different cellular morphologies" with compliant regulatory phrasing "different cellular morphologies".
+  - Recompiled Master PDF (CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf, strictly 7 pages) and synchronized to Desktop.
+- **Deep Forensics Check & Open Questions Formulation**:
+  - Identified 4 specific decisions/data points requiring user input (28-Sep SOP revision/effective date, ZenQMS blank naming gate, Scan Data Packet printed event count verification, and concurrent positive sample OOS ID).
+
+### Previous Releases
 - **Strict 2-File Deliverable Protocol Enforcement (Rule 0M)**:
   - Eliminated prohibited redundant deliverables (Tables OOS-262394 Optio RX (E18631) - ScanRDI.pdf and OOS-262394 Optio RX (E18631) - ScanRDI.docx) from Desktop and Git tracking.
   - Locked exactly the 2 canonical deliverables on OneDrive Desktop and Root:

@@ -3,5 +3,5 @@ Version definition for Eagle Analytical OOS Tools.
 Adheres to strict monotonic version increment rule.
 """
 
-__version__ = "12.4.16"
-__previous_version__ = "12.4.15"
+__version__ = "12.4.17"
+__previous_version__ = "12.4.16"

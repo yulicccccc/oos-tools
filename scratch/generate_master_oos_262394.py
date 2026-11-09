@@ -173,11 +173,10 @@ p15 = (
 p16 = (
     "All samples processed within the same batch were also evaluated for evidence of sample-to-sample cross-contamination. "
     f"The test sample {SAMPLE_ID} was processed as the 12th sample (hs12) by {PROCESSOR_NAME} on 20Oct26 within BSC E00{BSC_PROC} "
-    f"(Cleanroom 145, L-Suite). On the day of testing, the processing analyst handled approximately 60 samples within the same testing batch. "
-    f"One other sample within the batch of samples tested positive for microbial growth of cocci-shaped morphology but was processed "
-    f"as the 53rd sample (ETX-261019-0668, hs53). The two positive testing events were separated by 41 intermediate negative samples and "
-    f"exhibited distinctly different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
-    f"ETX-261019-0668). Furthermore, analyst {PROCESSOR_NAME} verified that gloves were disinfected between samples and standard aseptic "
+    f"(Cleanroom 145, L-Suite). One other sample within the same testing batch (ETX-261019-0668, hs53) yielded a positive result for "
+    f"cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence by 41 intermediate "
+    f"negative samples and exhibited different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
+    f"ETX-261019-0668). Furthermore, analyst {PROCESSOR_NAME} verified that gloves were sanitized between samples and standard aseptic "
     "techniques were strictly maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
 
