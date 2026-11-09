@@ -1,48 +1,25 @@
 # Project State: OOS Tools
 
-## Version: v12.4.22 (Previous: v12.4.21)
+## Version: v12.4.23 (Previous: v12.4.22)
 
-## Current Phase: 4-Analyst Roster Correction (Prepping: NT, Changeover: ALA) & Golden SOP Alignment in OOS-262394 (v12.4.22)
+## Current Phase: Section B Material Discrepancy Checkbox Correction (Check Box37=Yes for Concurrent Run OOS) (v12.4.23)
 
 ### What Was Completed
-- **Accurate 4-Analyst Roster Identification & Correction for OOS-262394**:
-  - **Changeover Analyst Ground-Truth Resolution**:
-    - Identified and corrected the erroneous Changeover Analyst (`Karla Silva / KSM`) to **America Alanis (`ALA`)**, operating BSC E001937 in Cleanroom 144 / Parallel Suite.
-    - Verified against authentic EagleTrax EM document (`svc-scan@eagleanalytical.com_20261109_084334.pdf`):
-      - Personnel Sampling: BSC 1937 performed by `ALA` at 11:38 (0 CFU Right / 0 CFU Left).
-      - BSC Disinfection Logbook: BSC 1937 disinfection performed by `ALA 20 Oct 26` (Before: 07:35–07:45, After: 11:01–11:11).
-  - **Prepping Analyst Identification**:
-    - Identified **Nicholas Trinh (`NT`)** from EagleTrax Sample Prep Event History (`ntrinh@eagleanalytical.com` on 19-Oct-2026 at 20:25:48 CST).
-  - **Full 4-Analyst Roster Finalized**:
-    1. Prepping Analyst: Nicholas Trinh (`NT`)
-    2. Processing Analyst: Halaina Smith (`HS`) — 12th sample (`hs12`), BSC E001938 (Cleanroom 144 / Parallel Suite).
-    3. Changeover Analyst: America Alanis (`ALA`) — BSC E001937 (Cleanroom 144 / Parallel Suite).
-    4. Reading Analyst: Maryam Naeem (`MN`) — Scan RDI E002606 setup & reading (11 total events / 1 confirmed microbial event).
-- **Golden SOP Alignment & Total Elimination of Acrobat '+' Overflow Icons**:
-  - Aligned SOP row layout (`Text Field8`, `Text Field9`, `Text Field10`) strictly with user reference and signed benchmark `OOS-262313`:
-    - `SOP / Test Method #`: `MICRO-SOP-12 (17)\rENG-SOP-4 (05)` at `5.175pt`
-    - `Effective Date:`: `28Sep26\r24Jul26` at `5.175pt`
-    - `SOP / Test Method Rev:`: `Rev: 17\rRev: 05` at `5.175pt`
-  - Calibrated all 59 widget font sizes to ensure zero bounding box overflow in Adobe Acrobat:
-    - `Text Field3` (4 Analysts): `6.0pt`
-    - `Text Field4` (Sample Name): `5.8pt`
-    - `Text Field7` (Description): `7.0pt`
-    - `Text Field13` (Section B Comment): `4.5pt`
-    - `Text Field40–42`, `Text Field45`: `7.5pt`
-    - `Text Field46–48`: `7.0pt`
-    - `Text Field49`: `7.5pt`
-    - `Text Field50`: `8.0pt`
-  - Automated regex stream verification: **0 overflowing fields detected** (`overflow_count == 0`).
-  - RapidOCR crop analysis verified 100% clean rendering with zero plus signs.
-- **Synchronized Deliverables (Strict Rule 0M Adherence)**:
-  - Overwritten and verified on Desktop:
-    1. `CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf` (strictly 7 pages).
-    2. `Tables OOS-262394 Optio RX (E18631) - ScanRDI.docx` (strictly 1 page).
-    3. `CORP-FORM-21- 22 Oct 2026 OOS-262414 Reshape Rx Houston (E74105) - ScanRDI.pdf` (strictly 7 pages).
-    4. `Tables OOS-262414 Reshape Rx Houston (E74105) - ScanRDI.docx` (strictly 1 page).
-  - No intermediate or extra files retained on Desktop.
+- **Corrected Concurrent Run OOS Checkbox (`Check Box37`)**:
+  - Addressed user feedback regarding Page 1 Section B: *"Are the other test results from this run under investigation?"*
+  - Previously, `Check Box38` was checked ('No').
+  - Corrected to **`Check Box37 = 'Yes'`** and **`Check Box38 = 'Off'`**:
+    - Ground-truth rationale: On the date of testing (20-Oct-2026), sample `ETX-261019-0668` (`OOS-262395`, CasaPharma Rx) was processed in the **exact same testing batch and session** (`102026-2606-1`) by processing analyst Halaina Smith (`hs53`, following `hs12`).
+    - Since other test results from this run were positive and under active investigation (`OOS-262395`), this item MUST strictly be marked **Yes**.
+- **Deliverables Regeneration & Verification**:
+  - Re-executed `rebuild_oos_262394_with_form9.py` and `generate_master_oos_262394.py`.
+  - Zero-Overflow Verification: **0 overflowing fields detected** across all form pages.
+  - Page count: Strictly 7 pages (6 pages AcroForm + 1 page Table 1/2).
+  - Synchronized directly to Desktop: `CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf`.
 
 ### Previous Releases
+- **4-Analyst Roster Correction (Prepping: NT, Changeover: ALA) & Golden SOP Alignment in OOS-262394 (v12.4.22)**
+
 - **Total Elimination of Acrobat '+' Overflow Icons on Form (9) Transcriptions (v12.4.21)**
 
 - **Integration of Concurrent OOS-262410 Defense into OOS-262414 & Single-Row Table Verification (v12.4.20)**
