@@ -311,6 +311,16 @@ cb_whitelists = {
     'Check Box90': 'Off', 'Check Box91': 'Off', 'Check Box92': 'Off',
 }
 
+# Extract all widget font sizes from Golden Template OOS-262289 to strictly eliminate '+' overflow icons
+golden_pdf = os.path.join(ROOT_DIR, "templates", "golden", "ScanRDI_Golden_OOS-262289.pdf")
+doc_gold = fitz.open(golden_pdf)
+golden_font_sizes = {}
+for pno in range(6):
+    for w in doc_gold[pno].widgets():
+        if w.field_type_string == 'Text' and w.text_fontsize > 0:
+            golden_font_sizes[w.field_name] = w.text_fontsize
+doc_gold.close()
+
 calibrated_font_sizes = {
     'Text Field32': 4.4,
     'Text Field33': 4.4,
@@ -336,6 +346,8 @@ for pno in range(6):
             w.field_value = pdf_field_values[fn]
             if fn in calibrated_font_sizes:
                 w.text_fontsize = calibrated_font_sizes[fn]
+            elif fn in golden_font_sizes:
+                w.text_fontsize = golden_font_sizes[fn]
             w.update()
         elif fn in cb_whitelists:
             w.field_value = cb_whitelists[fn]
@@ -362,15 +374,49 @@ with open(final_master_pdf, "wb") as f:
 
 print(f"Master 7-Page PDF generated with authentic ZenQMS template: {final_master_pdf}")
 
-# 4. Verify Page Count
+# 4. Verify Page Count & Zero-Overflow
 chk_doc = fitz.open(final_master_pdf)
 print(f"Verified Final Master PDF Page Count: {len(chk_doc)} (Strict requirement: 7)")
 assert len(chk_doc) == 7, f"ERROR: Master PDF must be 7 pages, got {len(chk_doc)}"
 
+import re
+overflow_count = 0
+for p_no in range(6):
+    p = chk_doc[p_no]
+    for w in p.widgets():
+        if w.field_type_string == 'Text' and w.field_value:
+            xref = w.xref
+            ap_xref = chk_doc.xref_get_key(xref, 'AP/N')
+            if ap_xref[0] == 'xref':
+                sx = int(ap_xref[1].split()[0])
+                stream = chk_doc.xref_stream(sx).decode('latin1', errors='ignore')
+                re_match = re.search(r'([0-9\.\-]+)\s+([0-9\.\-]+)\s+([0-9\.\-]+)\s+([0-9\.\-]+)\s+re\s+W', stream)
+                if re_match:
+                    rw = float(re_match.group(3))
+                    rh = float(re_match.group(4))
+                    td_matches = re.findall(r'([0-9\.\-]+)\s+([0-9\.\-]+)\s+Td', stream)
+                    cur_y = 0.0
+                    min_y = 999.0
+                    for td in td_matches:
+                        cur_y += float(td[1])
+                        if cur_y < min_y:
+                            min_y = cur_y
+                    if min_y < 0:
+                        print(f"  [ERROR] OVERFLOW on Page {p_no+1} {w.field_name}: min_y={min_y:.2f}, rh={rh:.2f}, text={repr(w.field_value[:35])}")
+                        overflow_count += 1
+
+print(f"Zero-Overflow Verification: {overflow_count} overflowing fields detected.")
+assert overflow_count == 0, f"Detected {overflow_count} overflowing fields!"
+
 # 5. Sync to Desktop per Rule 0M
 dst_desktop = os.path.join(DESKTOP_DIR, os.path.basename(final_master_pdf))
-shutil.copy2(final_master_pdf, dst_desktop)
-print("Master PDF synced to Desktop:", dst_desktop)
+try:
+    shutil.copy2(final_master_pdf, dst_desktop)
+    print("Master PDF synced to Desktop:", dst_desktop)
+except PermissionError:
+    dst_fixed = os.path.join(DESKTOP_DIR, "CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI (Fixed).pdf")
+    shutil.copy2(final_master_pdf, dst_fixed)
+    print(f"[LOCKED] Original desktop file is currently open in Acrobat. Synced clean version to: {dst_fixed}")
 
 # 6. Render preview images
 preview_dir = os.path.join(SCRIPT_DIR, f"preview_oos_{OOS_ID}")

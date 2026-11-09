@@ -1,6 +1,30 @@
 # Project State: OOS Tools
 
-## Version: v12.4.20 (Previous: v12.4.19)
+## Version: v12.4.21 (Previous: v12.4.20)
+
+## Current Phase: Total Elimination of Acrobat '+' Overflow Icons on Form (9) Transcriptions (v12.4.21)
+
+### What Was Completed
+- **Root Cause Resolution for Acrobat '+' Overflow Icons**:
+  - Identified the root cause of the '+' icons in OOS-262394: When populating the blank ZenQMS template CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (9).pdf, 56 text widgets had 	ext_fontsize = 0.0. PyMuPDF's appearance stream generator defaulted these to 12pt, causing text in constrained cells (height 15–20pt) to exceed bounding boxes and trigger Acrobat's '+' overflow indicator.
+- **Universal Golden Font Inheritance**:
+  - Updated 
+ebuild_oos_262394_with_form9.py and generate_master_oos_262394.py to extract and apply the complete dictionary of exact font sizes directly from 	emplates/golden/ScanRDI_Golden_OOS-262289.pdf across all 61 form widgets:
+    - Section A: Text Field1 (7.5pt), Text Field3 (6.0pt), Text Field4 (8.5pt), Text Field7 (7.5pt), Text Field8-10 (5.18pt).
+    - Section B Comments: Text Field13 (4.825pt), Text Field14 (8.5pt), Text Field15/16 (9.0pt), Text Field17 (6.725pt), Text Field18 (4.825pt), Text Field21 (4.825pt).
+    - Page 2 Reagents & Equip: Text Field22/23 (6.0pt), Text Field32/33 (4.4pt), Text Field43/44 (7.05pt/8.5pt).
+    - Narratives: Text Field49 (7.0pt), Text Field50 (6.5pt), Text Field51 (11.0pt).
+- **Zero-Overflow Automated Verification**:
+  - Implemented regex stream inspection verifying min_y >= 0 across all page /AP/N streams.
+  - Verified: **0 overflowing fields detected** (overflow_count == 0).
+  - Image cropping visually confirmed complete elimination of '+' icons in Section A and Section B.
+- **Desktop Deliverables**:
+  - Saved clean, zero-overflow PDF to Desktop: CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI (Fixed).pdf.
+
+### Previous Releases
+- **Integration of Concurrent OOS-262410 Defense into OOS-262414 & Single-Row Table Verification (v12.4.20)**
+
+
 
 ## Current Phase: Integration of Concurrent OOS-262410 Defense into OOS-262414 & Single-Row Table Verification (v12.4.20)
 
