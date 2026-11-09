@@ -1,8 +1,19 @@
 # Project State: OOS Tools
 
-## Version: v12.4.15 (Previous: v12.4.14)
+## Version: v12.4.16 (Previous: v12.4.15)
 
-## Current Phase: Delivery of Scan RDI OOS-262394 Master Package & Tracking Log Extension (v12.4.15)
+## Current Phase: Strict 2-File Deliverable Protocol Enforcement (Rule 0M / v12.4.16)
+
+### What Was Completed
+- **Strict 2-File Deliverable Protocol Enforcement (Rule 0M)**:
+  - Eliminated prohibited redundant deliverables (Tables OOS-262394 Optio RX (E18631) - ScanRDI.pdf and OOS-262394 Optio RX (E18631) - ScanRDI.docx) from Desktop and Git tracking.
+  - Locked exactly the 2 canonical deliverables on OneDrive Desktop and Root:
+    1. File 1: Master 7-Page PDF CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf
+    2. File 2: Standalone Tables Word Doc Tables OOS-262394 Optio RX (E18631) - ScanRDI.docx
+  - Updated scratch/generate_master_oos_262394.py and scratch/generate_tables_oos_262394.py to prevent redundant copies from ever syncing to Desktop or Root.
+
+### Previous Releases
+- **Delivery of Scan RDI OOS-262394 Master Package & Tracking Log Extension (v12.4.15)**:
 
 ### What Was Completed
 - **Full Deliverable Package for Scan RDI OOS-262394 (Optio RX (E18631))**:

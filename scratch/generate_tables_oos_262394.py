@@ -385,14 +385,12 @@ if __name__ == "__main__":
     print(f"Saved preview image to: {preview_img}")
     doc_fitz.close()
 
-    # Sync to Desktop and Documents\OOS
+    # Sync to Desktop and Documents\OOS (RULE 0M: Deliverable 2 is STRICTLY DOCX only, never standalone table PDF)
     for dest_dir in [DESKTOP_DIR, ROOT_DIR]:
         dst_docx = os.path.join(dest_dir, docx_filename)
-        dst_pdf = os.path.join(dest_dir, pdf_filename)
         try:
             shutil.copy2(scratch_docx, dst_docx)
-            shutil.copy2(scratch_pdf, dst_pdf)
-            print(f"Synced deliverables to: {dest_dir}")
+            print(f"Synced Tables DOCX to: {dest_dir}")
         except Exception as e:
             print(f"Sync error for {dest_dir}: {e}")
 

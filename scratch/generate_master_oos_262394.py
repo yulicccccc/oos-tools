@@ -299,17 +299,9 @@ def generate_master_word_doc():
                 t3_elem.getparent().remove(t3_elem)
                 
     out_docx_scratch = os.path.join(SCRIPT_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
-    out_docx_desktop = os.path.join(DESKTOP_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
-    out_docx_root = os.path.join(ROOT_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
-    
     tpl.save(out_docx_scratch)
-    shutil.copy2(out_docx_scratch, out_docx_root)
-    try:
-        shutil.copy2(out_docx_scratch, out_docx_desktop)
-        print("Master Word Docx saved to Desktop:", out_docx_desktop)
-    except Exception as e:
-        print("Desktop Docx lock note:", e)
-
+    # RULE 0M: Master DOCX is strictly internal scratch; DO NOT copy to Desktop or Root
+    print("Master Word Docx saved to scratch:", out_docx_scratch)
     return out_docx_scratch
 
 # -------------------------------------------------------------
