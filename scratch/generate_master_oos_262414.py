@@ -324,9 +324,9 @@ def generate_master_pdf_report():
         'Text Field6': LOT_NUMBER,
         'Text Field4': "Tesamorelin\r20mg/2ml",
         'Text Field5': DOSAGE_FORM,
-        'Text Field8': "MICRO-SOP-12 (16)\rENG-SOP-4 (05)",
-        'Text Field9': "24Jul26\r24Jul26",
-        'Text Field10': "Rev: 16\rRev: 05",
+        'Text Field8': "MICRO-SOP-12 (17)\rENG-SOP-4 (05)",
+        'Text Field9': "28Sep26\r24Jul26",
+        'Text Field10': "Rev: 17\rRev: 05",
         'Text Field15': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
         'Text Field16': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
         'Text Field0': f"{READER_NAME} (Written by: Qiyue Chen)",  # Initiator = Reader

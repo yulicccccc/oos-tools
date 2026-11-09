@@ -1,27 +1,18 @@
-"""
-Script: generate_master_oos_262394.py
-Purpose: Complete generation of Master Word Document and 7-Page AcroForm PDF
-         for Scan RDI OOS-262394 (Optio RX (E18631), Niacinamide/Tirzepatide 2mg/17.65mg/mL (4mL) Inj.).
-         Adheres strictly to RULE 00 and Rule 92 (Universal 6-Step Golden Template 1:1 Cloning SOP).
-"""
-
 import os
 import sys
 import copy
 import shutil
-import fitz  # PyMuPDF
+import fitz
+from pypdf import PdfReader, PdfWriter
 import docx
-from docx.shared import Pt, Inches
-from docxtpl import DocxTemplate
-from pypdf import PdfWriter, PdfReader
-import win32com.client
 
 sys.stdout.reconfigure(encoding='utf-8')
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
-DOCUMENTS_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Documents"
 DESKTOP_DIR = r"C:\Users\qchen\OneDrive - Professional Compounding Centers of America, Inc\Desktop"
+
+FORM9_PATH = os.path.join(DESKTOP_DIR, "CORP-FORM-21 Laboratory OOS Investigation Form (v11.1) (9).pdf")
 
 OOS_ID = "262394"
 CLIENT_NAME = "Optio RX (E18631)"
@@ -51,14 +42,11 @@ EVENTS_COUNT = "11"
 CONFIRMED_COUNT = "1"
 MORPHOLOGY = "rod shaped morphology"
 
-# Positive Control from run 102026-2606-1 (Control + HS, Analysis ID 102026-2606-1005)
 CONTROL_POSITIVE = "A. brasiliensis"
 CONTROL_LOT = "05222026-16404-AB"
 CONTROL_EXP = "22May28"
 
-# -------------------------------------------------------------
-# 1. Narrative Text Blocks (Aligned 1:1 with Golden Template OOS-262289)
-# -------------------------------------------------------------
+# Narrative text
 p1 = (
     f"All analysts involved in the preparation, processing, changeover, and reading of the sample – "
     f"{PROCESSOR_NAME}, {CHANGEOVER_NAME}, and {READER_NAME} – were interviewed comprehensively. "
@@ -85,7 +73,7 @@ p4 = (
     "and placed them into a pre-disinfected storage bin. On 20Oct26, prior to sample processing, "
     f"{PROCESSOR_NAME} performed a second disinfection with acidified bleach, allowing a minimum contact "
     "time of 10 minutes before transferring the samples into the cleanroom suites. A final disinfection step "
-    f"was completed immediately before introducing the sample into the ISO 5 Biological Safety Cabinet "
+    "was completed immediately before introducing the sample into the ISO 5 Biological Safety Cabinet "
     f"(BSC E00{BSC_PROC}) located in the ISO 7 cleanroom (145). All activities were performed in "
     "accordance with MICRO-SOP-12, Rapid Scan RDI® Test using FIFU Method."
 )
@@ -146,7 +134,7 @@ p12 = (
     "21 CFUs under test sample ETX-261027-0487 were recovered from ISO 8 room 143 Section I, 17 CFUs under test sample "
     "ETX-261027-0492 were recovered from ISO 8 room 143 Section II, and 16 CFUs under test sample ETX-261027-0494 were "
     "recovered from outermost ISO 8 room 142. Microbial identification testing for all recovered environmental isolates "
-    "remains pending as of 04Nov2026 and continues to be monitored under extended review."
+    "remains pending as of 09Nov2026 and continues to be monitored under extended review."
 )
 
 p13 = (
@@ -173,11 +161,13 @@ p15 = (
 p16 = (
     "All samples processed within the same batch were also evaluated for evidence of sample-to-sample cross-contamination. "
     f"The test sample {SAMPLE_ID} was processed as the 12th sample (hs12) by {PROCESSOR_NAME} on 20Oct26 within BSC E00{BSC_PROC} "
-    f"(Cleanroom 145, L-Suite). One other sample within the same testing batch (ETX-261019-0668, hs53) yielded a positive result for "
-    f"cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence by 41 intermediate "
-    f"negative samples and exhibited different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
-    f"ETX-261019-0668). Furthermore, analyst {PROCESSOR_NAME} verified that gloves were sanitized between samples and standard aseptic "
-    "techniques were strictly maintained. Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
+    f"(Cleanroom 145, L-Suite). One other sample within the same testing batch (ETX-261019-0668, hs53, documented under OOS-262395 for CasaPharma Rx) "
+    f"yielded a positive result for cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence "
+    f"by 41 intermediate negative samples and exhibited different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
+    f"ETX-261019-0668 under OOS-262395). A third positive sample tested on the same date (ETX-261017-0024, documented under OOS-262396 for Link Pharmacy) "
+    f"was processed by a different analyst (Perris Gary, 36th sample) in a separate biological safety cabinet (BSC E001317, Room 145) with changeover by Alexis Alvarez (BSC E001937, Room 144). "
+    f"Furthermore, analyst {PROCESSOR_NAME} verified that gloves were sanitized between samples and standard aseptic techniques were strictly maintained. "
+    "Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
 
 p17 = (
@@ -219,275 +209,173 @@ tf22_materials = (
     "Monthly Cleaning:\rH2O2 strips and IPA: See attached monthly cleaning logs"
 )
 
-# -------------------------------------------------------------
-# 2. Render Master Word Document
-# -------------------------------------------------------------
-def generate_master_word_doc():
-    template_path = os.path.join(ROOT_DIR, "ScanRDI OOS P1 template.docx")
-    if not os.path.exists(template_path):
-        template_path = os.path.join(ROOT_DIR, "ScanRDI OOS template.docx")
-    
-    tpl = DocxTemplate(template_path)
-    
-    personnel_block = (
-        f"Processing Analyst:\n{PROCESSOR_NAME} ({PROCESSOR_INIT})\n\n"
-        f"Changeover Analyst:\n{CHANGEOVER_NAME} ({CHANGEOVER_INIT})\n\n"
-        f"Reading Analyst:\n{READER_NAME} ({READER_INIT})"
-    )
-    
-    context = {
-        "oos_id": OOS_ID,
-        "client_name": CLIENT_NAME,
-        "sample_id": SAMPLE_ID,
-        "sample_url": SAMPLE_URL,
-        "sample_name": SAMPLE_NAME,
-        "dosage_form": DOSAGE_FORM,
-        "lot_number": LOT_NUMBER,
-        "test_date": TEST_DATE,
-        "test_date_full": TEST_DATE_FULL,
-        "test_record": TEST_RECORD,
-        "processor_name": PROCESSOR_NAME,
-        "changeover_name": CHANGEOVER_NAME,
-        "reader_name": READER_NAME,
-        "bsc_processing": BSC_PROC,
-        "bsc_changeover": BSC_CHG,
-        "smart_cr_id": "E001978 (CR144)\rE001979 (CR145)",
-        "smart_bsc_bracketing_header": f"Biological Safety Cabinet EM for E00{BSC_PROC} and E00{BSC_CHG}",
-        "control_positive": CONTROL_POSITIVE,
-        "control_lot": CONTROL_LOT,
-        "control_data": CONTROL_EXP,
-        "event_number": EVENTS_COUNT,
-        "confirm_number": CONFIRMED_COUNT,
-        "organism_morphology": MORPHOLOGY,
-        "smart_personnel_block": personnel_block,
-        "smart_incident_opening": f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after Scan RDI sterility testing.",
-        "smart_comment_interview": f"Yes, analysts {PROCESSOR_NAME}, {CHANGEOVER_NAME}, and {READER_NAME} were interviewed comprehensively.",
-        "smart_comment_samples": f"Yes, {SAMPLE_ID}",
-        "smart_comment_records": f"Yes, See {TEST_RECORD} for more information.",
-        "smart_comment_storage": f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
-        "smart_phase1_summary": "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17]),
-        "smart_phase1_continued": "\n\n".join([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17]),
-    }
-    
-    tpl.render(context)
-    
-    # Replace Table 1 & Table 2 with verified standalone tables from scratch
-    tables_source_docx = os.path.join(SCRIPT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
-    if os.path.exists(tables_source_docx):
-        src_doc = docx.Document(tables_source_docx)
-        if len(tpl.docx.tables) >= 3 and len(src_doc.tables) >= 2:
-            # Replace Table 1
-            t1_elem = tpl.docx.tables[1]._element
-            t1_parent = t1_elem.getparent()
-            idx1 = t1_parent.index(t1_elem)
-            t1_parent.remove(t1_elem)
-            t1_new = copy.deepcopy(src_doc.tables[0]._element)
-            t1_parent.insert(idx1, t1_new)
-            
-            # Replace Table 2
-            t2_elem = tpl.docx.tables[2]._element
-            t2_parent = t2_elem.getparent()
-            idx2 = t2_parent.index(t2_elem)
-            t2_parent.remove(t2_elem)
-            t2_new = copy.deepcopy(src_doc.tables[1]._element)
-            t2_parent.insert(idx2, t2_new)
-            
-            # Remove trailing table 3 if present
-            if len(tpl.docx.tables) >= 4:
-                t3_elem = tpl.docx.tables[3]._element
-                t3_elem.getparent().remove(t3_elem)
-                
-    out_docx_scratch = os.path.join(SCRIPT_DIR, f"OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.docx")
-    tpl.save(out_docx_scratch)
-    # RULE 0M: Master DOCX is strictly internal scratch; DO NOT copy to Desktop or Root
-    print("Master Word Docx saved to scratch:", out_docx_scratch)
-    return out_docx_scratch
+personnel_block = (
+    f"Processing Analyst:\n{PROCESSOR_NAME} ({PROCESSOR_INIT})\n\n"
+    f"Changeover Analyst:\n{CHANGEOVER_NAME} ({CHANGEOVER_INIT})\n\n"
+    f"Reading Analyst:\n{READER_NAME} ({READER_INIT})"
+)
 
-# -------------------------------------------------------------
-# 3. Generate Complete 7-Page PDF Report (1:1 Golden Template Clone)
-# -------------------------------------------------------------
-def generate_master_pdf_report():
-    # Golden Template: templates/golden/ScanRDI_Golden_OOS-262289.pdf
-    golden_pdf = os.path.join(ROOT_DIR, "templates", "golden", "ScanRDI_Golden_OOS-262289.pdf")
-    doc = fitz.open(golden_pdf)
-    
-    personnel_block = (
-        f"Processing Analyst:\n{PROCESSOR_NAME} ({PROCESSOR_INIT})\n\n"
-        f"Changeover Analyst:\n{CHANGEOVER_NAME} ({CHANGEOVER_INIT})\n\n"
-        f"Reading Analyst:\n{READER_NAME} ({READER_INIT})"
-    )
-    
-    pdf_field_values = {
-        'Text Field57': OOS_ID,
-        'Date Field0': TEST_DATE_FULL,
-        'Date Field1': TEST_DATE_FULL,
-        'Date Field2': TEST_DATE_FULL,
-        'Date Field3': TEST_DATE_FULL,
-        'Text Field2': SAMPLE_ID,
-        'Text Field6': LOT_NUMBER,
-        'Text Field4': "Niacinamide/Tirzepatide\r2mg/17.65mg/mL\r(4mL) Inj.",
-        'Text Field5': DOSAGE_FORM,
-        'Text Field8': "MICRO-SOP-12 (16)\rENG-SOP-4 (05)",
-        'Text Field9': "24Jul26\r24Jul26",
-        'Text Field10': "Rev: 16\rRev: 05",
-        'Text Field15': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
-        'Text Field16': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
-        'Text Field0': f"{READER_NAME} (Written by: Qiyue Chen)",  # Initiator = Reader
-        'Text Field1': "Scan RDI Sterility Test",
-        'Text Field3': personnel_block,
-        'Text Field7': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after Scan RDI sterility testing.",
-        'Text Field11': "<1 event",
-        'Text Field12': "Kathan Parikh",
-        'Text Field13': f"Yes, analysts {PROCESSOR_NAME}, {CHANGEOVER_NAME}, and {READER_NAME} were interviewed comprehensively.",
-        'Text Field14': f"Yes, {SAMPLE_ID}",
-        'Text Field17': f"Yes, See {TEST_RECORD} for more information.",
-        'Text Field18': "Yes, all analysts are trained and qualified by quality to perform the test.",
-        'Text Field19': "Not Applicable",
-        'Text Field20': "Not Applicable",
-        'Text Field21': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
-        'Text Field22': tf22_materials,
-        'Text Field23': tf22_materials,
-        'Text Field24': CONTROL_POSITIVE,
-        'Text Field25': CONTROL_LOT,
-        'Text Field26': CONTROL_EXP,
-        'Text Field27': "Not Applicable",
-        'Text Field28': "Not Applicable",
-        'Text Field29': "Not Applicable",
-        'Text Field30': f"E00{SCAN_ID}",
-        'Text Field31': "Nov 2026",
-        'Text Field32': "E001978 (CR144)\rE001979 (CR145)",
-        'Text Field33': "Nov 2026\rNov 2026",
-        'Text Field34': f"E00{SCAN_ID}",
-        'Text Field35': "Nov 2026",
-        'Text Field36': "Not Applicable",
-        'Text Field37': "Not Applicable",
-        'Text Field38': "Not Applicable",
-        'Text Field39': "Not Applicable",
-        'Text Field40': "See Phase I Summary",
-        'Text Field41': "See Phase I Summary",
-        'Text Field42': "See Phase I Summary",
-        'Text Field43': tf43_equipment,
-        'Text Field44': tf44_cal_due,
-        'Text Field45': "See Phase I Summary",
-        'Text Field46': "Not Applicable",
-        'Text Field47': "Not Applicable",
-        'Text Field48': "N/A QYC 20Oct26",
-        'Text Field49': text_field_49,
-        'Text Field50': text_field_50,
-        'Text Field51': text_field_51,
-        'Text Field53': "Qiyue Chen",
-        'Text Field54': "Robin Seymour",
-        'Text Field55': "",
-        'Text Field52': "",
-    }
-    
-    cb_whitelists = {
-        # Page 1 Header
-        'Check Box0': 'Yes',
-        'Check Box1': 'Yes',
-        'Check Box2': 'Yes',
-        'Check Box3': 'Off',
-        # Page 1 Section B (Personnel Discrepancy)
-        'Check Box4': 'Yes', 'Check Box5': 'Off', 'Check Box6': 'Off',
-        'Check Box7': 'Yes', 'Check Box8': 'Off', 'Check Box9': 'Off',
-        'Check Box10': 'Yes', 'Check Box11': 'Off', 'Check Box12': 'Off',
-        'Check Box13': 'Yes', 'Check Box14': 'Off', 'Check Box15': 'Off',
-        'Check Box16': 'Yes', 'Check Box17': 'Off', 'Check Box18': 'Off',
-        'Check Box19': 'Yes', 'Check Box20': 'Off', 'Check Box21': 'Off',
-        'Check Box22': 'Off', 'Check Box23': 'Off', 'Check Box24': 'Yes',
-        'Check Box25': 'Off', 'Check Box26': 'Off', 'Check Box27': 'Yes',
-        'Check Box28': 'Yes', 'Check Box29': 'Off', 'Check Box30': 'Off',
-        # Page 1 Section B (Material Discrepancy)
-        'Check Box31': 'Off', 'Check Box32': 'Yes', 'Check Box33': 'Off',
-        'Check Box34': 'Yes', 'Check Box35': 'Off', 'Check Box36': 'Off',
-        'Check Box37': 'Off', 'Check Box38': 'Yes', 'Check Box39': 'Off',
-        # Page 2 Checkboxes
-        'Check Box40': 'Off', 'Check Box41': 'Off', 'Check Box42': 'Yes',
-        'Check Box43': 'Yes', 'Check Box44': 'Off', 'Check Box45': 'Off',
-        'Check Box46': 'Off', 'Check Box47': 'Off', 'Check Box48': 'Yes',
-        'Check Box49': 'Off', 'Check Box50': 'Off', 'Check Box51': 'Yes',
-        'Check Box52': 'Yes', 'Check Box53': 'Off', 'Check Box54': 'Off',
-        'Check Box55': 'Yes', 'Check Box56': 'Off', 'Check Box57': 'Off',
-        'Check Box58': 'Yes', 'Check Box59': 'Off', 'Check Box60': 'Off',
-        'Check Box61': 'Off', 'Check Box62': 'Off', 'Check Box63': 'Yes',
-        'Check Box64': 'Off', 'Check Box65': 'Off', 'Check Box66': 'Yes',
-        'Check Box67': 'Yes', 'Check Box68': 'Off', 'Check Box69': 'Off',
-        'Check Box70': 'Yes', 'Check Box71': 'Off', 'Check Box72': 'Off',
-        'Check Box73': 'Yes', 'Check Box74': 'Off', 'Check Box75': 'Off',
-        # Page 3 Checkboxes
-        'Check Box78': 'Yes',
-        'Check Box79': 'Yes',
-        # Page 6 Section D & E
-        'Check Box87': 'Off',
-        'Check Box88': 'Yes',
-        'Check Box89': 'Off',
-        'Check Box90': 'Off',
-        'Check Box91': 'Off',
-        'Check Box92': 'Off',
-    }
+pdf_field_values = {
+    'Text Field57': OOS_ID,
+    'Date Field0': TEST_DATE_FULL,
+    'Date Field1': TEST_DATE_FULL,
+    'Date Field2': TEST_DATE_FULL,
+    'Date Field3': TEST_DATE_FULL,
+    'Text Field2': SAMPLE_ID,
+    'Text Field6': LOT_NUMBER,
+    'Text Field4': "Niacinamide/Tirzepatide\r2mg/17.65mg/mL\r(4mL) Inj.",
+    'Text Field5': DOSAGE_FORM,
+    # UPDATED SOP INFO FROM USER'S IMAGE:
+    'Text Field8': "MICRO-SOP-12 (17)\rENG-SOP-4 (05)",
+    'Text Field9': "28Sep26\r24Jul26",
+    'Text Field10': "Rev: 17\rRev: 05",
+    'Text Field15': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
+    'Text Field16': "Yes, as per MICRO-SOP-12, ENG-SOP-4",
+    'Text Field0': f"{READER_NAME} (Written by: Qiyue Chen)",
+    'Text Field1': "Scan RDI Sterility Test",
+    'Text Field3': personnel_block,
+    'Text Field7': f"On {TEST_DATE}, sample {SAMPLE_ID} was found positive for viable microorganisms after Scan RDI sterility testing.",
+    'Text Field11': "<1 event",
+    'Text Field12': "Kathan Parikh",
+    'Text Field13': f"Yes, analysts {PROCESSOR_NAME}, {CHANGEOVER_NAME}, and {READER_NAME} were interviewed comprehensively.",
+    'Text Field14': f"Yes, {SAMPLE_ID}",
+    'Text Field17': f"Yes, See {TEST_RECORD} for more information.",
+    'Text Field18': "Yes, all analysts are trained and qualified by quality to perform the test.",
+    'Text Field19': "Not Applicable",
+    'Text Field20': "Not Applicable",
+    'Text Field21': f"Yes, Information is available in Eagle Trax Sample Location History under {SAMPLE_ID}",
+    'Text Field22': tf22_materials,
+    'Text Field23': tf22_materials,
+    'Text Field24': CONTROL_POSITIVE,
+    'Text Field25': CONTROL_LOT,
+    'Text Field26': CONTROL_EXP,
+    'Text Field27': "Not Applicable",
+    'Text Field28': "Not Applicable",
+    'Text Field29': "Not Applicable",
+    'Text Field30': f"E00{SCAN_ID}",
+    'Text Field31': "Nov 2026",
+    'Text Field32': "E001978 (CR144)\rE001979 (CR145)",
+    'Text Field33': "Nov 2026\rNov 2026",
+    'Text Field34': f"E00{SCAN_ID}",
+    'Text Field35': "Nov 2026",
+    'Text Field36': "Not Applicable",
+    'Text Field37': "Not Applicable",
+    'Text Field38': "Not Applicable",
+    'Text Field39': "Not Applicable",
+    'Text Field40': "See Phase I Summary",
+    'Text Field41': "See Phase I Summary",
+    'Text Field42': "See Phase I Summary",
+    'Text Field43': tf43_equipment,
+    'Text Field44': tf44_cal_due,
+    'Text Field45': "See Phase I Summary",
+    'Text Field46': "Not Applicable",
+    'Text Field47': "Not Applicable",
+    'Text Field48': "N/A QYC 20Oct26",
+    'Text Field49': text_field_49,
+    'Text Field50': text_field_50,
+    'Text Field51': text_field_51,
+    'Text Field53': "Qiyue Chen",
+    'Text Field54': "Robin Seymour",
+    'Text Field55': "",
+    'Text Field52': "",
+}
 
-    # Populate first 6 pages of AcroForm
-    for pno in range(6):
-        page = doc[pno]
-        for w in page.widgets():
-            fn = w.field_name
-            if fn in pdf_field_values:
-                w.field_value = pdf_field_values[fn]
-                w.update()
-            elif fn in cb_whitelists:
-                w.field_value = cb_whitelists[fn]
-                w.update()
+cb_whitelists = {
+    'Check Box0': 'Yes', 'Check Box1': 'Yes', 'Check Box2': 'Yes', 'Check Box3': 'Off',
+    'Check Box4': 'Yes', 'Check Box5': 'Off', 'Check Box6': 'Off',
+    'Check Box7': 'Yes', 'Check Box8': 'Off', 'Check Box9': 'Off',
+    'Check Box10': 'Yes', 'Check Box11': 'Off', 'Check Box12': 'Off',
+    'Check Box13': 'Yes', 'Check Box14': 'Off', 'Check Box15': 'Off',
+    'Check Box16': 'Yes', 'Check Box17': 'Off', 'Check Box18': 'Off',
+    'Check Box19': 'Yes', 'Check Box20': 'Off', 'Check Box21': 'Off',
+    'Check Box22': 'Off', 'Check Box23': 'Off', 'Check Box24': 'Yes',
+    'Check Box25': 'Off', 'Check Box26': 'Off', 'Check Box27': 'Yes',
+    'Check Box28': 'Yes', 'Check Box29': 'Off', 'Check Box30': 'Off',
+    'Check Box31': 'Off', 'Check Box32': 'Yes', 'Check Box33': 'Off',
+    'Check Box34': 'Yes', 'Check Box35': 'Off', 'Check Box36': 'Off',
+    'Check Box37': 'Off', 'Check Box38': 'Yes', 'Check Box39': 'Off',
+    'Check Box40': 'Off', 'Check Box41': 'Off', 'Check Box42': 'Yes',
+    'Check Box43': 'Yes', 'Check Box44': 'Off', 'Check Box45': 'Off',
+    'Check Box46': 'Off', 'Check Box47': 'Off', 'Check Box48': 'Yes',
+    'Check Box49': 'Off', 'Check Box50': 'Off', 'Check Box51': 'Yes',
+    'Check Box52': 'Yes', 'Check Box53': 'Off', 'Check Box54': 'Off',
+    'Check Box55': 'Yes', 'Check Box56': 'Off', 'Check Box57': 'Off',
+    'Check Box58': 'Yes', 'Check Box59': 'Off', 'Check Box60': 'Off',
+    'Check Box61': 'Off', 'Check Box62': 'Off', 'Check Box63': 'Yes',
+    'Check Box64': 'Off', 'Check Box65': 'Off', 'Check Box66': 'Yes',
+    'Check Box67': 'Yes', 'Check Box68': 'Off', 'Check Box69': 'Off',
+    'Check Box70': 'Yes', 'Check Box71': 'Off', 'Check Box72': 'Off',
+    'Check Box73': 'Yes', 'Check Box74': 'Off', 'Check Box75': 'Off',
+    'Check Box78': 'Yes', 'Check Box79': 'Yes',
+    'Check Box87': 'Off', 'Check Box88': 'Yes', 'Check Box89': 'Off',
+    'Check Box90': 'Off', 'Check Box91': 'Off', 'Check Box92': 'Off',
+}
 
-    # Save 6-page filled form to temp file
-    temp_6page_pdf = os.path.join(SCRIPT_DIR, f"temp_6page_{OOS_ID}.pdf")
-    doc.save(temp_6page_pdf)
-    doc.close()
+calibrated_font_sizes = {
+    'Text Field32': 4.4,
+    'Text Field33': 4.4,
+    'Text Field49': 7.0,
+    'Text Field50': 6.5,
+}
 
-    # Append Standalone Table 1 & Table 2 as Page 7
-    tables_source_pdf = os.path.join(SCRIPT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
-    final_master_pdf = os.path.join(SCRIPT_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
-    
-    writer = PdfWriter()
-    r6 = PdfReader(temp_6page_pdf)
-    for p in r6.pages[:6]:
-        writer.add_page(p)
-        
-    rt = PdfReader(tables_source_pdf)
-    writer.add_page(rt.pages[0])
-        
-    with open(final_master_pdf, "wb") as f:
-        writer.write(f)
-        
-    print(f"Master 7-Page PDF generated: {final_master_pdf}")
-    
-    # Verify Page Count
-    chk_doc = fitz.open(final_master_pdf)
-    print(f"Verified Final Master PDF Page Count: {len(chk_doc)} (Strict requirement: 7)")
-    assert len(chk_doc) == 7, f"ERROR: Master PDF must be 7 pages, got {len(chk_doc)}"
-    
-    # Render preview images for verification
-    preview_dir = os.path.join(SCRIPT_DIR, f"preview_oos_{OOS_ID}")
-    os.makedirs(preview_dir, exist_ok=True)
-    for i, p in enumerate(chk_doc):
-        pix = p.get_pixmap(dpi=150)
-        pix.save(os.path.join(preview_dir, f"page_{i+1}.png"))
-    print(f"Rendered all 7 pages to: {preview_dir}")
-    chk_doc.close()
+# 1. First populate the blank form 9 using pypdf to ensure all fields are linked
+reader = PdfReader(FORM9_PATH)
+writer = PdfWriter()
+writer.append(reader)
+temp_init_pdf = os.path.join(SCRIPT_DIR, "temp_form9_init.pdf")
+with open(temp_init_pdf, "wb") as f:
+    writer.write(f)
 
-    # Sync to Desktop and Documents\OOS
-    dst_desktop = os.path.join(DESKTOP_DIR, os.path.basename(final_master_pdf))
-    dst_root = os.path.join(ROOT_DIR, os.path.basename(final_master_pdf))
-    shutil.copy2(final_master_pdf, dst_root)
-    try:
-        shutil.copy2(final_master_pdf, dst_desktop)
-        print("Master PDF synced to Desktop:", dst_desktop)
-    except Exception as e:
-        print("Desktop PDF lock note:", e)
+# 2. Now open with PyMuPDF for fine-grained slot and font-size control
+doc = fitz.open(temp_init_pdf)
+for pno in range(6):
+    page = doc[pno]
+    for w in page.widgets():
+        fn = w.field_name
+        if fn in pdf_field_values:
+            w.field_value = pdf_field_values[fn]
+            if fn in calibrated_font_sizes:
+                w.text_fontsize = calibrated_font_sizes[fn]
+            w.update()
+        elif fn in cb_whitelists:
+            w.field_value = cb_whitelists[fn]
+            w.update()
 
-    return final_master_pdf
+temp_filled_pdf = os.path.join(SCRIPT_DIR, f"temp_6page_{OOS_ID}_v17.pdf")
+doc.save(temp_filled_pdf)
+doc.close()
 
-if __name__ == "__main__":
-    print(f"=== Generating Master OOS Package for OOS-{OOS_ID} ({CLIENT_NAME}) ===")
-    docx_path = generate_master_word_doc()
-    pdf_path = generate_master_pdf_report()
-    print("\n=== Generation and Synchronization Complete! ===")
+# 3. Append Table 1 & Table 2 as Page 7
+tables_source_pdf = os.path.join(SCRIPT_DIR, f"Tables OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+final_master_pdf = os.path.join(SCRIPT_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} {CLIENT_NAME} - ScanRDI.pdf")
+
+w_final = PdfWriter()
+r6 = PdfReader(temp_filled_pdf)
+for p in r6.pages[:6]:
+    w_final.add_page(p)
+
+rt = PdfReader(tables_source_pdf)
+w_final.add_page(rt.pages[0])
+
+with open(final_master_pdf, "wb") as f:
+    w_final.write(f)
+
+print(f"Master 7-Page PDF generated with authentic ZenQMS template: {final_master_pdf}")
+
+# 4. Verify Page Count
+chk_doc = fitz.open(final_master_pdf)
+print(f"Verified Final Master PDF Page Count: {len(chk_doc)} (Strict requirement: 7)")
+assert len(chk_doc) == 7, f"ERROR: Master PDF must be 7 pages, got {len(chk_doc)}"
+
+# 5. Sync to Desktop per Rule 0M
+dst_desktop = os.path.join(DESKTOP_DIR, os.path.basename(final_master_pdf))
+shutil.copy2(final_master_pdf, dst_desktop)
+print("Master PDF synced to Desktop:", dst_desktop)
+
+# 6. Render preview images
+preview_dir = os.path.join(SCRIPT_DIR, f"preview_oos_{OOS_ID}")
+for i, p in enumerate(chk_doc):
+    pix = p.get_pixmap(dpi=150)
+    pix.save(os.path.join(preview_dir, f"page_{i+1}.png"))
+print("Preview images updated in:", preview_dir)
+chk_doc.close()
