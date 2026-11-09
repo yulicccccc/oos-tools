@@ -165,11 +165,11 @@ p15 = (
 p16 = (
     "All samples processed within the same batch were also evaluated for evidence of sample-to-sample cross-contamination. "
     f"The test sample {SAMPLE_ID} was processed as the 12th sample by {PROCESSOR_NAME} on 20Oct26 within BSC E00{BSC_PROC} "
-    f"(Cleanroom 144, Parallel Suite). One other sample within the same testing batch (ETX-261019-0668, hs53, documented under OOS-262395 for CasaPharma Rx) "
-    f"yielded a positive result for cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence "
+    "(Cleanroom 144, Parallel Suite). One other sample within the same testing batch (ETX-261019-0668 under OOS-262395) "
+    "yielded a positive result for cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence "
     f"by 41 intermediate negative samples and exhibited different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
-    f"ETX-261019-0668 under OOS-262395). A third positive sample tested on the same date (ETX-261017-0024, documented under OOS-262396 for Link Pharmacy) "
-    f"was processed by a different analyst (Perris Gary, 36th sample) in a separate biological safety cabinet (BSC E001317, Room 145) with changeover by America Alanis (BSC E001937, Room 144). "
+    "ETX-261019-0668 under OOS-262395). A third positive sample tested on the same date (ETX-261017-0024 under OOS-262396) "
+    "was processed by a different analyst (Pagan Gray, 36th sample) in a separate biological safety cabinet (BSC E001317, Room 145). "
     f"Furthermore, analyst {PROCESSOR_NAME} verified that gloves were sanitized between samples and standard aseptic techniques were strictly maintained. "
     "Consequently, there is no evidence of sample-to-sample cross-contamination or a shared laboratory vector."
 )
@@ -433,7 +433,7 @@ try:
     print("Master PDF synced to Desktop:", dst_desktop)
 except Exception as e:
     print(f"Direct overwrite of {dst_desktop} failed (locked by PDF reader): {e}")
-    dst_desktop_v = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} Optio RX (E18631) - ScanRDI (v12.4.25).pdf")
+    dst_desktop_v = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} Optio RX (E18631) - ScanRDI (v12.4.26).pdf")
     shutil.copy2(final_master_pdf, dst_desktop_v)
     print("Master PDF synced to versioned Desktop copy:", dst_desktop_v)
 
