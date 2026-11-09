@@ -108,7 +108,7 @@ p7 = (
 
 p8 = (
     f"On 20Oct26, a rapid sterility test was performed on the sample using the ScanRDI method under test record {TEST_RECORD} "
-    f"(Analysis ID {ANALYSIS_ID}). The sample was prepped by {PREPPER_NAME}, processed by {PROCESSOR_NAME} (12th sample processed, hs12), "
+    f"(Analysis ID {ANALYSIS_ID}). The sample was prepped by {PREPPER_NAME}, processed by {PROCESSOR_NAME}, "
     f"changeover performed by {CHANGEOVER_NAME}, and subsequently read by {READER_NAME}. The test revealed "
     f"{EVENTS_COUNT} total events and {CONFIRMED_COUNT} confirmed microbial event exhibiting {MORPHOLOGY}, see Table 1."
 )
@@ -188,22 +188,30 @@ p11_sub1 = f"ISO 5 BSC and Personnel Evaluation:\r{p10}"
 p12_sub2 = f"Cleanroom EM Evaluation:\r{p11}"
 
 text_field_50 = "\r \r".join([p11_header, p11_sub1, p12_sub2, p12, p13, p14, p15, p16, p17])
-text_field_51 = "N/A QYC 20Oct26"
+text_field_51 = "N/A QYC 09Nov26"
 
 tf43_equipment = (
     "Incubator E001034\r \r"
     "(Sensor E001501)\r \r"
-    "Incubator E001031\r \r"
+    "Incubator E001031 \r \r"
     "(Sensor E001505)\r \r"
-    f"BSC E00{BSC_PROC}\r \r"
-    f"BSC E00{BSC_CHG}"
+    "Incubator E001933\r \r"
+    "Incubator E001932\r \r"
+    "Incubator E001033 \r \r"
+    "(Sensor E001491)\r \r"
+    "BSC E001312\r \r"
+    "BSC E001937"
 )
 tf44_cal_due = (
     "Aug 2027\r \r"
-    "Feb 2027\r \r"
+    "Feb 2027 \r \r"
     "Aug 2027\r \r"
     "Feb 2027\r \r"
-    "Jul 2027\r \r"
+    "Mar 2027\r \r"
+    "Mar 2027 \r \r"
+    "Jul 2027 \r \r"
+    "Feb 2027\r \r"
+    "Jun 2027\r \r"
     "Jul 2027"
 )
 
@@ -275,12 +283,12 @@ pdf_field_values = {
     'Text Field45': "See Phase I Summary",
     'Text Field46': "No assignable cause",
     'Text Field47': "No assignable cause",
-    'Text Field48': "No assignable cause",
+    'Text Field48': "N/A QYC 09Nov26",
     'Text Field49': text_field_49,
     'Text Field50': text_field_50,
     'Text Field51': text_field_51,
-    'Text Field53': "N/A",
-    'Text Field54': "N/A",
+    'Text Field53': "Qiyue Chen",
+    'Text Field54': "",
 }
 
 cb_whitelists = {
@@ -295,7 +303,7 @@ cb_whitelists = {
     'Check Box51': 'Yes', 'Check Box52': 'Yes', 'Check Box55': 'Yes',
     'Check Box58': 'Yes', 'Check Box63': 'Yes', 'Check Box66': 'Yes',
     'Check Box67': 'Yes', 'Check Box70': 'Yes', 'Check Box73': 'Yes',
-    'Check Box78': 'Yes', 'Check Box80': 'Yes', 'Check Box84': 'Yes',
+    'Check Box78': 'Yes', 'Check Box79': 'Yes', 'Check Box80': 'Off', 'Check Box84': 'Off',
     'Check Box90': 'Off', 'Check Box91': 'Off', 'Check Box92': 'Off',
 }
 
@@ -420,8 +428,14 @@ assert overflow_count == 0, f"Detected {overflow_count} overflowing fields!"
 
 # 4. Sync to Desktop per Rule 0M
 dst_desktop = os.path.join(DESKTOP_DIR, os.path.basename(final_master_pdf))
-shutil.copy2(final_master_pdf, dst_desktop)
-print("Master PDF synced to Desktop:", dst_desktop)
+try:
+    shutil.copy2(final_master_pdf, dst_desktop)
+    print("Master PDF synced to Desktop:", dst_desktop)
+except Exception as e:
+    print(f"Direct overwrite of {dst_desktop} failed (locked by PDF reader): {e}")
+    dst_desktop_v = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} Optio RX (E18631) - ScanRDI (v12.4.24).pdf")
+    shutil.copy2(final_master_pdf, dst_desktop_v)
+    print("Master PDF synced to versioned Desktop copy:", dst_desktop_v)
 
 # 5. Render preview images of Page 1 and Page 2
 preview_dir = os.path.join(SCRIPT_DIR, f"preview_oos_{OOS_ID}")

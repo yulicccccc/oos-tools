@@ -1,23 +1,32 @@
 # Project State: OOS Tools
 
-## Version: v12.4.23 (Previous: v12.4.22)
+## Version: v12.4.24 (Previous: v12.4.23)
 
-## Current Phase: Section B Material Discrepancy Checkbox Correction (Check Box37=Yes for Concurrent Run OOS) (v12.4.23)
+## Current Phase: Page 2 Section B Equipment & Calibration Table Alignment (10-Item Roster) (v12.4.24)
 
 ### What Was Completed
-- **Corrected Concurrent Run OOS Checkbox (`Check Box37`)**:
-  - Addressed user feedback regarding Page 1 Section B: *"Are the other test results from this run under investigation?"*
-  - Previously, `Check Box38` was checked ('No').
-  - Corrected to **`Check Box37 = 'Yes'`** and **`Check Box38 = 'Off'`**:
-    - Ground-truth rationale: On the date of testing (20-Oct-2026), sample `ETX-261019-0668` (`OOS-262395`, CasaPharma Rx) was processed in the **exact same testing batch and session** (`102026-2606-1`) by processing analyst Halaina Smith (`hs53`, following `hs12`).
-    - Since other test results from this run were positive and under active investigation (`OOS-262395`), this item MUST strictly be marked **Yes**.
-- **Deliverables Regeneration & Verification**:
-  - Re-executed `rebuild_oos_262394_with_form9.py` and `generate_master_oos_262394.py`.
-  - Zero-Overflow Verification: **0 overflowing fields detected** across all form pages.
-  - Page count: Strictly 7 pages (6 pages AcroForm + 1 page Table 1/2).
-  - Synchronized directly to Desktop: `CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf`.
+- **Synchronized Equipment Roster (Text Field43) & Calibration Dates (Text Field44)**:
+  - Aligned strictly with user's manual modification and signed reference benchmark OOS-262285:
+    - Incubator E001034 (Sensor E001501): Aug 2027 / Feb 2027
+    - Incubator E001031 (Sensor E001505): Aug 2027 / Feb 2027
+    - Incubator E001933: Mar 2027
+    - Incubator E001932: Mar 2027
+    - Incubator E001033 (Sensor E001491): Jul 2027 / Feb 2027
+    - BSC E001312: Jun 2027
+    - BSC E001937: Jul 2027
+  - Verified 100% zero bounding-box overflow in Adobe Acrobat (min_y = 14.80 pt margin, overflow_count == 0).
+- **Synchronized Additional User Quality Review Details**:
+  - Page 3 Text Field48: Updated to 'N/A QYC 09Nov26'.
+  - Page 3 Check Box79: Set to 'Yes' (Initial Lab Investigation Summary).
+  - Page 5 Text Field51: Updated to 'N/A QYC 09Nov26'.
+  - Page 6 Text Field53: Set to 'Qiyue Chen' (Investigator).
+- **Master Deliverables Synchronization**:
+  - Regenerated 7-page Master PDF in workspace repo: CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI.pdf.
+  - Synchronized versioned file to Desktop: CORP-FORM-21- 20 Oct 2026 OOS-262394 Optio RX (E18631) - ScanRDI (v12.4.24).pdf.
 
 ### Previous Releases
+- **Section B Material Discrepancy Checkbox Correction (Check Box37=Yes for Concurrent Run OOS) (v12.4.23)**
+
 - **4-Analyst Roster Correction (Prepping: NT, Changeover: ALA) & Golden SOP Alignment in OOS-262394 (v12.4.22)**
 
 - **Total Elimination of Acrobat '+' Overflow Icons on Form (9) Transcriptions (v12.4.21)**
@@ -124,7 +133,10 @@
     - ECD Date: 9-Nov-26
     - Assigned: QYC (ECD has been extended)
     - Status: Pending
-    - Comments: 'Pending Micro ID ETX-261027-0487\nETX-261027-0492\nETX-261027-0494\nETX-261027-0484 as of 04Nov2026'
+    - Comments: 'Pending Micro ID ETX-261027-0487
+ETX-261027-0492
+ETX-261027-0494
+ETX-261027-0484 as of 04Nov2026'
     - Full sample metadata: ETX-261017-0071, OOS-262394, 20-Oct-26, Optio RX (E18631), Niacinamide/Tirzepatide 2mg/17.65mg/mL (4mL) Inj., 3001002, HS, MN, Parallel Suite, 144, 
 od shaped morphology, HS 12th.
 
@@ -223,7 +235,9 @@ od shaped morphology, HS 12th.
   - Re-verified Page 3 narrative in CORP-FORM-21 for OOS-262333, regenerated Master PDF, verified strictly 9 pages and zero overflow '+' signs, and synchronized both Desktop and Documents deliverables.
 
 - **Deep Forensic Table Grid Calibration & Zero Text Duplication (v12.4.3)**:
-  - Discovered that previous programmatic table generation caused duplicate cell text (e.g. `None\nNone`, `Date Before Testing\nDate Before Testing`) due to merging cells after population.
+  - Discovered that previous programmatic table generation caused duplicate cell text (e.g. `None
+None`, `Date Before Testing
+Date Before Testing`) due to merging cells after population.
   - Cloned the exact XML table grid from QA-approved benchmark `262403_PGRrx EM TABLE.docx`, cleaned body spacing with explicit page breaks, mapped exact unique cell column indices, and regenerated both DOCX and PDF deliverables.
   - Verified 100% elimination of duplicate text, flawless layout across all 3 table pages, active hyperlinks on P7 and P9, and zero overflow `+` signs across P1-6.
 
