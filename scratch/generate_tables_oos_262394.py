@@ -41,6 +41,9 @@ AIR_ANALYST = "SMO"
 AIR_DATE = "20Oct26"
 
 # Active air positive recoveries (Week of testing, sampled 20Oct26 by SMO)
+ETX_144_I = "ETX-261027-0484"
+URL_144_I = "https://etrax.eagleanalytical.com/Submission/Details/q70kiYNv2nnYmmNwSZcdKQ__"
+
 ETX_143_I = "ETX-261027-0487"
 URL_143_I = "https://etrax.eagleanalytical.com/Submission/Details/1TPNAOXaUnQQS1HXTmsD3g__"
 
@@ -247,7 +250,7 @@ def build_standalone_tables_doc():
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, "Personal (Left Touch\nand Right Touch)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
-    # --- Section 2: BSC EM ---
+    # --- Section 2: Biological Safety Cabinet EM ---
     add_section_divider(t2, f"Biological Safety Cabinet EM for E00{PROCESSING_BSC} and E00{CHANGEOVER_BSC}")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{PROCESSING_BSC}\n(4 Locations)", "Daily", TEST_DATE, PROCESSING_INITIAL, "Date of Testing\n(Scan)", "No Growth", "Not Applicable", "Not Applicable", "None")
     add_data_row(t2, f"Surface Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}\n(4 Locations)", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
@@ -255,7 +258,7 @@ def build_standalone_tables_doc():
     add_data_row(t2, f"Settling Sampling of\nISO 5 BSC E00{CHANGEOVER_BSC}", "Daily", TEST_DATE, CHANGEOVER_INITIAL, "Date of Testing\n(Scan C/O)", "No Growth", "Not Applicable", "Not Applicable", "None")
 
     # --- Section 3: Weekly Active Air L-Suite ---
-    # STRICT GOLDEN STANDARD: SINGLE ROW (无分层 / no horizontal sub-row dividing borders)
+    # STRICT GOLDEN STANDARD: SINGLE ROW (Rule 87 / RULE 0AE - 无分层 / no horizontal sub-row dividing borders)
     add_section_divider(t2, "Weekly Active Air Sampling of Cleanroom 145, 144, 143, 142 (L-Suite) with Processing BSCs")
 
     r_air = t2.add_row()
@@ -265,122 +268,74 @@ def build_standalone_tables_doc():
     format_cell(r_air.cells[3], AIR_ANALYST, bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
     format_cell(r_air.cells[4], "Week of Testing", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
 
-    # Col 5: Observations (3 recoveries separated by blank paragraphs)
+    # 4 recoveries: 144 Sec I, 143 Sec I, 143 Sec II, 142
+    recoveries = [
+        ("2 CFUs\n(ISO 7 144 Sec I)", ETX_144_I, URL_144_I),
+        ("21 CFUs\n(ISO 8 143 Sec I)", ETX_143_I, URL_143_I),
+        ("17 CFUs\n(ISO 8 143 Sec II)", ETX_143_II, URL_143_II),
+        ("16 CFUs\n(ISO 8 142)", ETX_142, URL_142)
+    ]
+
+    # Col 5: Observations
     c5 = r_air.cells[5]
     c5.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     set_cell_margins(c5)
-    p_o1 = c5.paragraphs[0]
-    p_o1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_o1.paragraph_format.space_before = Pt(0)
-    p_o1.paragraph_format.space_after = Pt(0)
-    p_o1.paragraph_format.line_spacing = 1.0
-    r_o1 = p_o1.add_run("21 CFUs\n(ISO 8 143 Sec I)")
-    r_o1.font.name = "Times New Roman"
-    r_o1.font.size = Pt(7)
+    for idx, (obs_text, _, _) in enumerate(recoveries):
+        if idx == 0:
+            p = c5.paragraphs[0]
+        else:
+            p_sep = c5.add_paragraph()
+            p_sep.paragraph_format.space_before = Pt(0)
+            p_sep.paragraph_format.space_after = Pt(0)
+            p_sep.paragraph_format.line_spacing = 1.0
+            p = c5.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.line_spacing = 1.0
+        r = p.add_run(obs_text)
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(7)
 
-    p_osep1 = c5.add_paragraph()
-    p_osep1.paragraph_format.space_before = Pt(0)
-    p_osep1.paragraph_format.space_after = Pt(0)
-    p_osep1.paragraph_format.line_spacing = 1.0
-
-    p_o2 = c5.add_paragraph()
-    p_o2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_o2.paragraph_format.space_before = Pt(0)
-    p_o2.paragraph_format.space_after = Pt(0)
-    p_o2.paragraph_format.line_spacing = 1.0
-    r_o2 = p_o2.add_run("17 CFUs\n(ISO 8 143 Sec II)")
-    r_o2.font.name = "Times New Roman"
-    r_o2.font.size = Pt(7)
-
-    p_osep2 = c5.add_paragraph()
-    p_osep2.paragraph_format.space_before = Pt(0)
-    p_osep2.paragraph_format.space_after = Pt(0)
-    p_osep2.paragraph_format.line_spacing = 1.0
-
-    p_o3 = c5.add_paragraph()
-    p_o3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_o3.paragraph_format.space_before = Pt(0)
-    p_o3.paragraph_format.space_after = Pt(0)
-    p_o3.paragraph_format.line_spacing = 1.0
-    r_o3 = p_o3.add_run("16 CFUs\n(ISO 8 142)")
-    r_o3.font.name = "Times New Roman"
-    r_o3.font.size = Pt(7)
-
-    # Col 6: EM Plate ETX Number with Hyperlinks (3 hyperlinks separated by blank paragraphs)
+    # Col 6: EM Plate ETX Number with Hyperlinks
     c6 = r_air.cells[6]
     c6.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     set_cell_margins(c6)
-    p_h1 = c6.paragraphs[0]
-    p_h1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_h1.paragraph_format.space_before = Pt(0)
-    p_h1.paragraph_format.space_after = Pt(0)
-    p_h1.paragraph_format.line_spacing = 1.0
-    add_hyperlink(p_h1, URL_143_I, ETX_143_I, font_size=Pt(7))
+    for idx, (_, etx_num, etx_url) in enumerate(recoveries):
+        if idx == 0:
+            p = c6.paragraphs[0]
+        else:
+            p_sep = c6.add_paragraph()
+            p_sep.paragraph_format.space_before = Pt(0)
+            p_sep.paragraph_format.space_after = Pt(0)
+            p_sep.paragraph_format.line_spacing = 1.0
+            p = c6.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.line_spacing = 1.0
+        add_hyperlink(p, etx_url, etx_num, font_size=Pt(7))
 
-    p_hsep1 = c6.add_paragraph()
-    p_hsep1.paragraph_format.space_before = Pt(0)
-    p_hsep1.paragraph_format.space_after = Pt(0)
-    p_hsep1.paragraph_format.line_spacing = 1.0
-
-    p_h2 = c6.add_paragraph()
-    p_h2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_h2.paragraph_format.space_before = Pt(0)
-    p_h2.paragraph_format.space_after = Pt(0)
-    p_h2.paragraph_format.line_spacing = 1.0
-    add_hyperlink(p_h2, URL_143_II, ETX_143_II, font_size=Pt(7))
-
-    p_hsep2 = c6.add_paragraph()
-    p_hsep2.paragraph_format.space_before = Pt(0)
-    p_hsep2.paragraph_format.space_after = Pt(0)
-    p_hsep2.paragraph_format.line_spacing = 1.0
-
-    p_h3 = c6.add_paragraph()
-    p_h3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_h3.paragraph_format.space_before = Pt(0)
-    p_h3.paragraph_format.space_after = Pt(0)
-    p_h3.paragraph_format.line_spacing = 1.0
-    add_hyperlink(p_h3, URL_142, ETX_142, font_size=Pt(7))
-
-    # Col 7: Microbial ID (3 "Pending" separated by blank paragraphs)
+    # Col 7: Microbial ID (Pending)
     c7 = r_air.cells[7]
     c7.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     set_cell_margins(c7)
-    p_m1 = c7.paragraphs[0]
-    p_m1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_m1.paragraph_format.space_before = Pt(0)
-    p_m1.paragraph_format.space_after = Pt(0)
-    p_m1.paragraph_format.line_spacing = 1.0
-    r_m1 = p_m1.add_run("Pending")
-    r_m1.font.name = "Times New Roman"
-    r_m1.font.size = Pt(7)
-
-    p_msep1 = c7.add_paragraph()
-    p_msep1.paragraph_format.space_before = Pt(0)
-    p_msep1.paragraph_format.space_after = Pt(0)
-    p_msep1.paragraph_format.line_spacing = 1.0
-
-    p_m2 = c7.add_paragraph()
-    p_m2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_m2.paragraph_format.space_before = Pt(0)
-    p_m2.paragraph_format.space_after = Pt(0)
-    p_m2.paragraph_format.line_spacing = 1.0
-    r_m2 = p_m2.add_run("Pending")
-    r_m2.font.name = "Times New Roman"
-    r_m2.font.size = Pt(7)
-
-    p_msep2 = c7.add_paragraph()
-    p_msep2.paragraph_format.space_before = Pt(0)
-    p_msep2.paragraph_format.space_after = Pt(0)
-    p_msep2.paragraph_format.line_spacing = 1.0
-
-    p_m3 = c7.add_paragraph()
-    p_m3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_m3.paragraph_format.space_before = Pt(0)
-    p_m3.paragraph_format.space_after = Pt(0)
-    p_m3.paragraph_format.line_spacing = 1.0
-    r_m3 = p_m3.add_run("Pending")
-    r_m3.font.name = "Times New Roman"
-    r_m3.font.size = Pt(7)
+    for idx in range(len(recoveries)):
+        if idx == 0:
+            p = c7.paragraphs[0]
+        else:
+            p_sep = c7.add_paragraph()
+            p_sep.paragraph_format.space_before = Pt(0)
+            p_sep.paragraph_format.space_after = Pt(0)
+            p_sep.paragraph_format.line_spacing = 1.0
+            p = c7.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.line_spacing = 1.0
+        r = p.add_run("Pending")
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(7)
 
     # Col 8: Notes
     format_cell(r_air.cells[8], "None", bold=False, font_size=Pt(7), align=WD_ALIGN_PARAGRAPH.CENTER)
