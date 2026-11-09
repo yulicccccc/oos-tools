@@ -164,7 +164,7 @@ p15 = (
 
 p16 = (
     "All samples processed within the same batch were also evaluated for evidence of sample-to-sample cross-contamination. "
-    f"The test sample {SAMPLE_ID} was processed as the 12th sample (hs12) by {PROCESSOR_NAME} on 20Oct26 within BSC E00{BSC_PROC} "
+    f"The test sample {SAMPLE_ID} was processed as the 12th sample by {PROCESSOR_NAME} on 20Oct26 within BSC E00{BSC_PROC} "
     f"(Cleanroom 144, Parallel Suite). One other sample within the same testing batch (ETX-261019-0668, hs53, documented under OOS-262395 for CasaPharma Rx) "
     f"yielded a positive result for cocci-shaped morphology but was processed as the 53rd sample. The two testing events were separated in sequence "
     f"by 41 intermediate negative samples and exhibited different cellular morphologies (rod-shaped morphology in {SAMPLE_ID} versus cocci-shaped morphology in "
