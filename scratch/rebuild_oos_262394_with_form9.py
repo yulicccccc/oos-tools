@@ -433,7 +433,7 @@ try:
     print("Master PDF synced to Desktop:", dst_desktop)
 except Exception as e:
     print(f"Direct overwrite of {dst_desktop} failed (locked by PDF reader): {e}")
-    dst_desktop_v = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} Optio RX (E18631) - ScanRDI (v12.4.26).pdf")
+    dst_desktop_v = os.path.join(DESKTOP_DIR, f"CORP-FORM-21- 20 Oct 2026 OOS-{OOS_ID} Optio RX (E18631) - ScanRDI (v12.4.27).pdf")
     shutil.copy2(final_master_pdf, dst_desktop_v)
     print("Master PDF synced to versioned Desktop copy:", dst_desktop_v)
 
