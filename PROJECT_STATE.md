@@ -1,8 +1,25 @@
 # Project State: OOS Tools
 
-## Version: v12.4.17 (Previous: v12.4.16)
+## Version: v12.4.18 (Previous: v12.4.17)
 
-## Current Phase: Narrative Alignment with Rule 75.1 & 75.2 & Deep Forensics Review (v12.4.17)
+## Current Phase: Full Delivery of Scan RDI OOS-262414 & Single-Row Table Enforcement (v12.4.18)
+
+### What Was Completed
+- **Full Deliverable Package for Scan RDI OOS-262414 (Reshape Rx Houston (E74105))**:
+  - Sample `ETX-261021-0286` (Tesamorelin 20mg/2ml, Lot QC264093, Tested 22-Oct-2026).
+  - Executed 1:1 clone of Golden Benchmark `templates/golden/ScanRDI_Golden_OOS-262289.pdf` Pages 1–6 with exact AcroForm slot substitutions.
+  - Page 1: Sample ID `ETX-261021-0286`, Lot `QC264093`, Analyte `Tesamorelin 20mg/2ml`, Dosage Form `Injectable`, Tested Date `22-Oct-2026`, Read Date `22-Oct-2026`, Manager Notified Date `23-Oct-2026`, Target Technical Review Completion Date `09-Nov-2026`.
+  - Pages 3–5: Comprehensive narrative integrating "No Method Suitability Test on File", processing order `KSM 12th` (`ksm12`), zero concurrent batch positives, negative controls, and positive control `A. brasiliensis` (Lot 05222026-16404-AB). Fully compliant with Rule 75.1 (no vague estimates) and Rule 75.2 (objective terminology).
+  - Page 7: Standalone Table 1 (Information for ETX-261021-0286: 145 events, 84 confirmed events, bold italic *Rod-shaped morphology*) and Table 2 (Environmental Monitoring from Testing Performed on 22Oct26).
+  - **Rule 87 / RULE 0AE (Single-Row Invariant)**: In Table 2, Weekly Active Air Sampling strictly housed within **ONE SINGLE ROW (无分层 / no horizontal sub-row dividing borders)**, separating all 4 recoveries, EagleTrax hyperlinks, and pending statuses vertically via cell paragraph breaks.
+  - Generated Master 7-Page PDF: `CORP-FORM-21- 22 Oct 2026 OOS-262414 Reshape Rx Houston (E74105) - ScanRDI.pdf` (strictly 7 pages).
+  - Generated Standalone Word Table: `Tables OOS-262414 Reshape Rx Houston (E74105) - ScanRDI.docx` (strictly 1 page).
+  - Synchronized exactly the 2 canonical deliverables to Desktop per Rule 0M.
+- **Internal OOS Tracking Log Update**:
+  - Updated sheet `'Scan RDI OOS'` row 221 in `scratch/Sterile Lab - OOS Tracking Log.xlsx` and `scratch/Sterile_Lab_OOS_Tracking_Log_downloaded.xlsx`.
+
+### Previous Releases
+- **Narrative Alignment with Rule 75.1 & 75.2 & Deep Forensics Review (v12.4.17)**
 
 ### What Was Completed
 - **Full Narrative Alignment with Rule 75.1 & Rule 75.2**:
